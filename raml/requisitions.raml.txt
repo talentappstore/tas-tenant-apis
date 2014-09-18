@@ -1,0 +1,16 @@
+#%RAML 0.8
+---
+title: TAS requisitions
+baseUri: http://talentappstore.com/{version}
+version: v1
+
+/requisitions:
+  get:
+    description: Get a list of requisitions
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/requisitions.json
+            example: !include ../examples/requisitions.json
+

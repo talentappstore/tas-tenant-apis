@@ -1,0 +1,16 @@
+ {  
+            "type":"object",
+            "$schema":"http://json-schema.org/draft-04/schema",
+            "properties":{  
+              "id": {"type": "integer"},
+              "kind": {"type": "string", "description": "always set to requisition"},
+              "title": {"type": "string", "description": "Title for the req"},
+              "location": {"type": "integer", "description": "id of the location for this req", "minimum": 1 },
+              "skills": {"type": "array", "items": "number" },
+              "description": {"tyype": "string", "description": "Description for this req"}
+            },
+            "required":[  
+              "title"
+            ],
+	"additionalProperties": false
+}

@@ -1,0 +1,16 @@
+#%RAML 0.8
+---
+title: TAS positionOpenings
+baseUri: http://talentappstore.com/{version}
+version: v1
+
+/requisitions:
+  get:
+    description: Get a list of open positions (i.e. requisitions)
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/positionOpenings.json
+            example: !include ../examples/positionOpenings.json
+

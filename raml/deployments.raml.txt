@@ -1,0 +1,16 @@
+#%RAML 0.8
+---
+title: TAS deployments
+baseUri: http://talentappstore.com/{version}
+version: v1
+
+/deployments:
+  get:
+    description: Get a list of deployments, i.e. candidates who have or are expected to enter into a deployment with this employer (i.e. list of hires)
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/deployments.json
+            example: !include ../examples/deployments.json
+

@@ -4,7 +4,7 @@ title: TAS positionOpenings
 baseUri: http://talentappstore.com/{version}
 version: v1
 
-/requisitions:
+/positionOpenings:
   get:
     description: Get a list of open positions (i.e. requisitions)
     responses:

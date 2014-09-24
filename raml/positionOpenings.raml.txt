@@ -4,7 +4,96 @@ title: TAS positionOpenings
 baseUri: http://talentappstore.com/{version}
 version: v1
 
+resourceTypes:
+
+  - tasCollection:
+      get:
+        queryParameters:
+          order:
+            description: |
+              <p>The order parameter specifies the fields that are used to sort the result set. The actual fields that can used
+              for sorting varies by resource - for <<resourcePathName>>, it is <b><<sortableFields>></b>.</p>
+              
+              <p>Use commas to combine multiple sort fields. Use the minus sign (-) to make sorting descending rather than ascending (the default).</p>
+              
+              <p>Order is commonly combined with the filter and limit parameters to achieve paging.</p>
+              
+              <p>Ordering is undefined if you don't specify the order parameter.</p>
+            example: |
+              return the first 20 widgets, ordered by id (ascending), with
+              id > 128
+              GET /widgets?order=id&filter=id%3E128&limit=20
+              
+              return the first set of widgets, ordered by quantity on hand
+              (ascending), then name (descending), that are active
+              GET /widgets?order=quantityOnHand,-name&filter=active%3D%3Dtrue
+            type: string
+            
+          filter:
+            description: |
+              <p>The filter parameter applies an EMCAScript-like expression as per http://www.ecma-international.org/ecma-262/5.1/#sec-11
+              to filter the result set. The actual fields that can used
+              for filtering, and the complexity of the expression that is supported varies by resource - for <<resourcePathName>>, it is:</p>
+              <p><b><<filterCapabilities>></b></p>.
+              <p>The filter expression must be URL encoded before being used in a URI.</p>
+            example: |
+              return the first set of widgets, ordered by id (ascending), that
+              pass the filter:   active==true||(id>20&&status=='online') 
+              GET /widgets?order=id&filter=active%3D%3Dtrue%7C%7C(id%3E20%26%26status%3D%3D%27online%27)
+            type: string
+            
+          limit:
+            description: |
+              <p>Limit specifies the maximum number of items that will be returned in this result set.
+              Less items may be returned (for example, on the last page).</p>
+              <p>For <<resourcePathName>>, limit must be less than or equal to <b><<maxLimit>></b>. This is also the default.</p>
+            type: integer
+            
+          fields:
+            description: |
+              <p>Use the optional fields operator to specify a comma separated list of
+              the exact set of fields you want the endpoint to return. Use the forward slash character to specify
+              nested fields. For example:</p>
+
+              <pre>
+              GET /widgets?fields=kind,items/id,items/name
+
+              Response:
+
+              {
+                "kind": "widgets",
+                "items": [
+                  {
+                    "id": 10223,
+                    "name": "Red widget"
+                  },
+                  {
+                    "id": "10224",
+                    "name": "Blue widget"
+                  }
+                ]
+              }
+              </pre>
+              
+              <p>If you don't specify fields for <<resourcePathName>>, the default set of fields is:<br />
+              <b><<defaultFieldsList>></b>
+            required: false
+            type: string
+
 /positionOpenings:
+  type:
+    tasCollection:
+      defaultFieldsList: id,kind,items/blah
+      maxLimit: 30
+      sortableFields: id,name,and all user fields
+      filterCapabilities: |
+        simple comparisons on the id field must be supported, e.g.:
+        <ul>
+        <li>id = 20
+        <li>id > 10
+        <li>id < 10
+        </ul>
+              
   get:
     description: Get a list of open positions (i.e. requisitions)
     responses:

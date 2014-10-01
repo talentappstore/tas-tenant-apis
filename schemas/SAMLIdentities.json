@@ -4,12 +4,12 @@
 	"additionalProperties":false,
 	"properties":{
 		"kind":{
-			"type":"string"
+			"type": { "enum": ["SAMLIdentities"] }
 		},
 		"items":{
 			"type":"array",
 			"items":{
-				"$ref":"positionOpening.json"
+				"$ref":"SAMLIdentity.json"
 			}
 		}
 	},

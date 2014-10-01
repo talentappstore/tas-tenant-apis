@@ -7,7 +7,7 @@ var args = process.argv.slice(2);
 
 var dir = args[0];
 
-//load individual schemas. tv4 does not (obviously) report errors for missing schemas, so its important to load them! 
+//load individual schemas. tv4 does not (in any obvious way) report errors for missing schemas, so its important to load them! 
 {
 	console.log('looping to load all schemas');
 	var schemafiles = [];

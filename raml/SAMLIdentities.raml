@@ -1,0 +1,23 @@
+#%RAML 0.8
+---
+title: TAS SAMLIdentities
+baseUri: http://talentappstore.com/{version}
+version: v1
+
+resourceTypes: !include core.include.raml
+
+/SAMLIdentities:
+  /{principalType}:
+    get:
+      description: get a list of SAML identities of the specified type (e.g. candidates")
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/SAMLIdentities.json
+              example: !include ../examples/SAMLIdentities.json
+    /{id}:
+    /byNameId:
+      /{nameId}:
+
+      

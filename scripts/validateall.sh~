@@ -37,7 +37,7 @@ echo "<h2>APIs</h2><table class='table table-bordered table-condensed'><thead><t
 for f in $DIR/raml/*.raml
 do
   b=$(basename $f)
-  echo "generating $b.html from $b"
+  echo "generating $b.html from $b (extension is ${b#*.})"
   if [ ${b#*.} = "include.raml" ]; then
     echo "skipping generation for include file"
   else

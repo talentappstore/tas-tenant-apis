@@ -4,7 +4,22 @@ title: TAS positionOpenings
 baseUri: http://talentappstore.com/{version}
 version: v1
 
+resourceTypes: !include core.include.raml
+
 /positionOpenings:
+  type:
+    tasCollection:
+      defaultFieldsList: id,kind,items/blah
+      maxLimit: 30
+      sortableFields: id,name,and all user fields
+      filterCapabilities: |
+        simple comparisons on the id field must be supported, e.g.:
+        <ul>
+        <li>id = 20
+        <li>id > 10
+        <li>id < 10
+        </ul>
+              
   get:
     description: Get a list of open positions (i.e. requisitions)
     responses:

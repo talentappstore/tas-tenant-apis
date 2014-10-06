@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src='../js/jquery-2.1.1.min.js'></script>
+<script type="text/javascript" src='../js/raphael-min.js'></script>
+<script type="text/javascript" src='../js/underscore-min.js'></script>
+<script type="text/javascript" src='../js/sequence-diagram-min.js'></script>
+
+
+<title>Replicator</title>
+</head>
+<body>
+
+<h1>Message sequence diagram for installing a new app that is a replication secondary for candidates (i.e., a CV search type app).</h1>
+<form id='theForm'>
+</form>
+
+<div id="diagram1Source" style="display:none;">
+participant ATS
+participant zoom
+participant replicator
+participant corehub
+participant TAS
+note left of TAS: tenant acme installs\nthe zoom app
+note left of TAS: zoom has delegated\ncorehub to handle its\nincoming TAS core API messages
+TAS->corehub: POST /apps/{zoom}/t/{acme}
+note left of TAS: TAS passes 71222 as the\nbringup id that zoom\nshould use when its ready
+note right of corehub: corehub knows it needs\nto pass core API messages\non to both zoom itself\nand replicator
+corehub->zoom: POST /apps/{zoom}/t/{acme}
+corehub->replicator: POST /apps/{zoom}/t/{acme}
+note right of zoom: zoom has finished already
+zoom->corehub: POST /bringups/{71222}
+note right of replicator: replicator will take way longer
+note right of replicator: replicator knows that zoom\nis a secondary for /candidateShips.\nAsks who is SoT.
+replicator->TAS: GET /produces/tas/candidateShips
+note left of TAS: TAS says "ATS"
+note right of replicator: replicator asks for highwater id
+replicator->ATS: GET /candidateShips?fields=id,order=id,limit=1
+note right of ATS: ATS says 10234
+note right of replicator: replicator fetches first stripe
+replicator->ATS: GET /candidateShips?fields=id,order=id,limit=30,filter=id>0
+note right of ATS: ATS passes back first 30 ids\n{10,12,14,15,...45}
+note right of replicator: replicator tricks zoom into\nfetching first candidateShip (id==10)
+replicator->zoom: POST /candidateShips/{10}/deltaPings
+note right of zoom: zoom doesn't need to\nknow that it was replicator\nthat sent the delta ping,\nnot ATS
+zoom->ATS: GET /candidateShips/{10}
+note right of replicator: and so on (id==12)
+replicator->zoom: POST /candidateShips/{12}/deltaPings
+zoom->ATS: GET /candidateShips/{12}
+note right of replicator: until last id (id==45)
+replicator->zoom: POST /candidateShips/{45}/deltaPings
+zoom->ATS: GET /candidateShips/{45}
+note right of replicator: replicator fetches next stripe
+replicator->ATS: GET /candidateShips?fields=id,order=id,limit=30,filter=id>45
+note right of ATS: ATS passes back next 30 ids\n{46,48,50,...123}
+note right of replicator: replicator eventually reaches\nthe high water mark
+replicator->zoom: POST /candidateShips/{10234}/deltaPings
+zoom->ATS: GET /candidateShips/{10234}
+note right of replicator: replicator is now fully up to date,\ntells corehub
+replicator->corehub: POST /bringups/{71222}
+note right of corehub: corehub now has a full\nset of bringups, can\ngo back to TAS
+corehub->TAS: POST /bringups/{71222}
+note left of TAS: replication bulk load\nphase is now complete
+</div>
+<div id="diagram1" style='border: dotted 5px red'></div>
+blinky
+
+<script type="text/javascript">
+	var participants = [];
+
+	function dumpParticipantRoutings(participantRoutings) {
+		var dump = '';
+		for (var i = 0; i < participants.length; i++) {
+			dump += participants[i] + ": " + participantRoutings[i] + '\n';
+		}
+		alert(dump);
+	}
+	
+	function buildParticipantRoutings() {
+		var participantRoutings = [];
+		for (var i = 0; i < participants.length; i++) {
+			participantRoutings[i] = $("#" + participants[i]).val();
+		}
+		return participantRoutings;
+	}
+	
+	function filterInput(input, participantRoutings) {
+		var output = '';
+		var lines = $('#diagram1Source').html().split('\n');
+
+		for (var i = 0; i < lines.length; i++) {
+			// TDO: check the line against all routings....			
+			var partsArray = lines[i].split(' ');
+			if (partsArray.length == 2 && partsArray[0] == 'participant')
+				participants.push(partsArray[1]);
+		}
+	}
+	
+	$(document).ready(function() {
+
+		  // we first need to encode away the &gt; and &lt; chars we get back
+		  var e = document.createElement('div');
+		  e.innerHTML = $('#diagram1Source').html();
+		  // then create diagram
+		  var diagram = Diagram.parse(e.childNodes[0].nodeValue);
+		  diagram.drawSVG('diagram1', {theme: 'simple'});
+		
+		// split the diagram source up into its lines
+		var lines = $('#diagram1Source').html().split('\n');
+		// find all lines like "participant X" and add X to the array of participants
+		for (var i = 0; i < lines.length; i++) {
+			var partsArray = lines[i].split(' ');
+			if (partsArray.length == 2 && partsArray[0] == 'participant')
+				participants.push(partsArray[1]);
+		}
+		
+		// now create a series of selects, one per participant
+		for (var i = 0; i < participants.length; i++) {
+			var part = $('<div>');
+			// add label
+			$(part).append(document.createTextNode(participants[i]));
+			// select list with choices
+			var dropDown = $("<select id='" + participants[i] + "'>");
+			dropDown.append($("<option>").attr('value','(hide)').text('(hide)'));
+			$(participants).each(function() {
+				 dropDown.append($("<option>").attr('value',this).text(this));
+				});
+			dropDown.prop("selectedIndex", i + 1);
+			$(part).append(dropDown);
+			dropDown.change(function () {
+				dumpParticipantRoutings(buildParticipantRoutings());
+		    });	
+			$('#theForm').append(part);
+		}
+	});
+
+</script>
+
+
+
+</body>
+</html>

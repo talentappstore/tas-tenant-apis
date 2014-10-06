@@ -4,14 +4,23 @@
 	"additionalProperties":false,
 	"properties":{
 		"kind":{
-			"type": { "enum": ["SAMLIdentities"] }
+			"enum":[
+				"SAMLIdentities"
+			]
+			
 		},
 		"items":{
 			"type":"array",
 			"items":{
-				"$ref":"SAMLIdentity.json"
+				"oneOf":[
+					{
+						"$ref":"SAMLIdentity.json"
+					}
+				]
 			}
+			
 		}
+		
 	},
 	"required":[
 		"kind",

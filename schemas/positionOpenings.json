@@ -9,9 +9,17 @@
 		"items":{
 			"type":"array",
 			"items":{
-				"$ref":"positionOpening.json"
+				"oneOf":[
+					{
+						"$ref":"positionOpening.json"
+					}
+					
+				]
+				
 			}
+			
 		}
+		
 	},
 	"required":[
 		"kind",

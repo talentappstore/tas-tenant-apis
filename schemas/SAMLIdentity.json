@@ -22,7 +22,6 @@
 					]
 					
 				},
-				"id":"integer",
 				"isActive":"boolean"
 			},
 			"required":[
@@ -33,8 +32,14 @@
 		},
 		"personDetail":{
 			"type":"object",
+			"additionalProperties":"false",
 			"properties":{
-				"kind": { "enum": ["personDetail"]},
+				"kind":{
+					"enum":[
+						"personDetail"
+					]
+					
+				},
 				"email":"string",
 				"title":"string",
 				"firstName":"string",
@@ -51,6 +56,7 @@
 		},
 		"employeeDetail":{
 			"type":"object",
+			"additionalProperties":"false",
 			"properties":{
 				"kind":{
 					"enum":[
@@ -61,19 +67,16 @@
 				"companyName":"string",
 				"profileId":"integer",
 				"roleId":"integer"
-			}
+			},
+			"required":[
+				"kind"
+			]
 			
-		},
-		"required":[
-			"kind"
-		]
+		}
 		
 	},
 	"required":[
 		"identity",
-		"personDetail",
-		"employeeDetail"
+		"personDetail"
 	]
-
 }
-

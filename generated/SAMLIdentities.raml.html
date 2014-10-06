@@ -110,20 +110,57 @@
         .list-group-item:hover {
             background-color: #f5f5f5;
         }
-    </style></head><body data-spy=scroll data-target=#sidebar><div class=container><div class=row><div class=col-md-9 role=main><div class=page-header><h1>TAS SAMLIdentities API documentation <small>version v1</small></h1><p>http://talentappstore.com/v1</p></div><div class="panel panel-default"><div class=panel-heading><h3 id=_SAMLIdentities class=panel-title>/SAMLIdentities</h3></div><div class=panel-body><div class=panel-group><div class="panel panel-white"><div class=panel-heading><h4 class=panel-title><a class=collapsed data-toggle=collapse href=#panel__SAMLIdentities__principalType_><span class=parent>/SAMLIdentities</span>/{principalType}</a> <span class=methods><a href=# data-toggle=modal data-target=#_SAMLIdentities__principalType__get><span class="badge badge_get">get</span></a></span></h4></div><div id=panel__SAMLIdentities__principalType_ class="panel-collapse collapse"><div class=panel-body><div class=list-group><div data-toggle=modal data-target=#_SAMLIdentities__principalType__get class=list-group-item><span class="badge badge_get">get</span><div class=method_description><p>get a list of SAML identities of the specified type (e.g. candidates")</p></div><div class=clearfix></div></div></div></div></div><div class="modal fade" tabindex=0 id=_SAMLIdentities__principalType__get><div class=modal-dialog><div class=modal-content><div class=modal-header><button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button><h4 class=modal-title id=myModalLabel><span class="badge badge_get">get</span> <span class=parent>/SAMLIdentities</span>/{principalType}</h4></div><div class=modal-body><div class="alert alert-info"><p>get a list of SAML identities of the specified type (e.g. candidates")</p></div><ul class="nav nav-tabs"><li class=active><a href=#_SAMLIdentities__principalType__get_request data-toggle=tab>Request</a></li><li><a href=#_SAMLIdentities__principalType__get_response data-toggle=tab>Response</a></li></ul><div class=tab-content><div class="tab-pane active" id=_SAMLIdentities__principalType__get_request><h3>URI Parameters</h3><ul><li><strong>principalType</strong>: <em>required (string)</em></li></ul></div><div class=tab-pane id=_SAMLIdentities__principalType__get_response><h2>HTTP status code <a href=http://httpstatus.es/200 target=_blank>200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    </style></head><body data-spy=scroll data-target=#sidebar><div class=container><div class=row><div class=col-md-9 role=main><div class=page-header><h1>TAS SAMLIdentities API documentation <small>version v1</small></h1><p>http://talentappstore.com/v1</p></div><div class="panel panel-default"><div class=panel-heading><h3 id=_SAMLIdentities class=panel-title>/SAMLIdentities</h3></div><div class=panel-body><div class=panel-group><div class="panel panel-white"><div class=panel-heading><h4 class=panel-title><a class=collapsed data-toggle=collapse href=#panel__SAMLIdentities__principalType_><span class=parent>/SAMLIdentities</span>/{principalType}</a> <span class=methods><a href=# data-toggle=modal data-target=#_SAMLIdentities__principalType__get><span class="badge badge_get">get</span></a></span></h4></div><div id=panel__SAMLIdentities__principalType_ class="panel-collapse collapse"><div class=panel-body><div class=list-group><div data-toggle=modal data-target=#_SAMLIdentities__principalType__get class=list-group-item><span class="badge badge_get">get</span><div class=method_description><p>get a list of SAML identities of the specified type (e.g. candidates")</p></div><div class=clearfix></div></div></div></div></div><div class="modal fade" tabindex=0 id=_SAMLIdentities__principalType__get><div class=modal-dialog><div class=modal-content><div class=modal-header><button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button><h4 class=modal-title id=myModalLabel><span class="badge badge_get">get</span> <span class=parent>/SAMLIdentities</span>/{principalType}</h4></div><div class=modal-body><div class="alert alert-info"><p>get a list of SAML identities of the specified type (e.g. candidates")</p></div><ul class="nav nav-tabs"><li class=active><a href=#_SAMLIdentities__principalType__get_request data-toggle=tab>Request</a></li><li><a href=#_SAMLIdentities__principalType__get_response data-toggle=tab>Response</a></li></ul><div class=tab-content><div class="tab-pane active" id=_SAMLIdentities__principalType__get_request><h3>URI Parameters</h3><ul><li><strong>principalType</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>order</strong>: <em>(string)</em><p>The order parameter specifies the fields that are used to sort the result set. The actual fields that can used for sorting varies by resource - for SAMLIdentities, it is <b>id</b>.</p><p>Use commas to combine multiple sort fields. Use the minus sign (-) to make sorting descending rather than ascending (the default).</p><p>Order is commonly combined with the filter and limit parameters to achieve paging.</p><p>Ordering is undefined if you don&#39;t specify the order parameter.</p><p><strong>Example</strong>:</p><pre><code>return the first 20 widgets, ordered by id (ascending), with
+id &gt; 128
+GET /widgets?order=id&amp;filter=id%3E128&amp;limit=20
+
+return the first set of widgets, ordered by quantity on hand
+(ascending), then name (descending), that are active
+GET /widgets?order=quantityOnHand,-name&amp;filter=active%3D%3Dtrue
+</code></pre></li><li><strong>filter</strong>: <em>(string)</em><p>The filter parameter applies an EMCAScript-like expression as per <a href=http://www.ecma-international.org/ecma-262/5.1/#sec-11>http://www.ecma-international.org/ecma-262/5.1/#sec-11</a> to filter the result set. The actual fields that can used for filtering, and the complexity of the expression that is supported varies by resource - for SAMLIdentities, it is:</p><p><b>simple comparisons on the id field must be supported, e.g.:<ul><li>id = 20</li><li>id &gt; 10</li><li>id &lt; 10</li></ul></b></p>.<p>The filter expression must be URL encoded before being used in a URI.</p><p><strong>Example</strong>:</p><pre><code>return the first set of widgets, ordered by id (ascending), that
+pass the filter:   active==true||(id&gt;20&amp;&amp;status==&#x27;online&#x27;) 
+GET /widgets?order=id&amp;filter=active%3D%3Dtrue%7C%7C(id%3E20%26%26status%3D%3D%27online%27)
+</code></pre></li><li><strong>limit</strong>: <em>(integer)</em><p>Limit specifies the maximum number of items that will be returned in this result set. Less items may be returned (for example, on the last page).</p><p>For SAMLIdentities, limit must be less than or equal to <b>30</b>. This is also the default.</p></li><li><strong>fields</strong>: <em>(string)</em><p>Use the optional fields operator to specify a comma separated list of the exact set of fields you want the endpoint to return. Use the forward slash character to specify nested fields. For example:</p><pre>
+GET /widgets?fields=kind,items/id,items/name
+
+Response:
+
+{
+  "kind": "widgets",
+  "items": [
+    {
+      "id": 10223,
+      "name": "Red widget"
+    },
+    {
+      "id": "10224",
+      "name": "Blue widget"
+    }
+  ]
+}
+</pre><p></p><p>If you don&#39;t specify fields for SAMLIdentities, the default set of fields is:<br><b>id, items/personDetail/email, items/personDetail/title, items/personDetail/firstName, items/personDetail/lastName</b></p></li></ul></div><div class=tab-pane id=_SAMLIdentities__principalType__get_response><h2>HTTP status code <a href=http://httpstatus.es/200 target=_blank>200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"object",
 	"additionalProperties":false,
 	"properties":{
 		"kind":{
-			"type": { "enum": ["SAMLIdentities"] }
+			"enum":[
+				"SAMLIdentities"
+			]
+			
 		},
 		"items":{
 			"type":"array",
 			"items":{
-				"$ref":"SAMLIdentity.json"
+				"oneOf":[
+					{
+						"$ref":"SAMLIdentity.json"
+					}
+				]
 			}
+			
 		}
+		
 	},
 	"required":[
 		"kind",
@@ -159,4 +196,218 @@
 			
 		}]
 		
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class=panel-heading><h4 class=panel-title><a class=collapsed data-toggle=collapse href=#panel__SAMLIdentities__principalType___id_><span class=parent>/SAMLIdentities/{principalType}</span>/{id}</a> <span class=methods><a href=# data-toggle=modal data-target=#_SAMLIdentities__principalType___id__get><span class="badge badge_get">get</span></a></span></h4></div><div id=panel__SAMLIdentities__principalType___id_ class="panel-collapse collapse"><div class=panel-body><div class=list-group><div data-toggle=modal data-target=#_SAMLIdentities__principalType___id__get class=list-group-item><span class="badge badge_get">get</span><div class=method_description><p>get a specific SAML identity by its principleType (e.g. candidates") and id within that</p></div><div class=clearfix></div></div></div></div></div><div class="modal fade" tabindex=0 id=_SAMLIdentities__principalType___id__get><div class=modal-dialog><div class=modal-content><div class=modal-header><button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button><h4 class=modal-title id=myModalLabel><span class="badge badge_get">get</span> <span class=parent>/SAMLIdentities/{principalType}</span>/{id}</h4></div><div class=modal-body><div class="alert alert-info"><p>get a specific SAML identity by its principleType (e.g. candidates") and id within that</p></div><ul class="nav nav-tabs"><li class=active><a href=#_SAMLIdentities__principalType___id__get_request data-toggle=tab>Request</a></li><li><a href=#_SAMLIdentities__principalType___id__get_response data-toggle=tab>Response</a></li></ul><div class=tab-content><div class="tab-pane active" id=_SAMLIdentities__principalType___id__get_request><h3>URI Parameters</h3><ul><li><strong>principalType</strong>: <em>required (string)</em></li><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class=tab-pane id=_SAMLIdentities__principalType___id__get_response><h2>HTTP status code <a href=http://httpstatus.es/200 target=_blank>200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"object",
+	"additionalProperties":false,
+	"properties":{
+		"id":"integer",
+		"identity":{
+			"type":"object",
+			"additionalProperties":"false",
+			"properties":{
+				"principalType":{
+					"enum":[
+						"candidate",
+						"employee"
+					]
+					
+				},
+				"principleSubType":{
+					"enum":[
+						"candiate.internal",
+						"candidate.external"
+					]
+					
+				},
+				"isActive":"boolean"
+			},
+			"required":[
+				"principalType",
+				"isActive"
+			]
+			
+		},
+		"personDetail":{
+			"type":"object",
+			"additionalProperties":"false",
+			"properties":{
+				"kind":{
+					"enum":[
+						"personDetail"
+					]
+					
+				},
+				"email":"string",
+				"title":"string",
+				"firstName":"string",
+				"lastName":"string",
+				"phone":"string",
+				"locale":"string",
+				"language":"string",
+				"timeZone":"string"
+			},
+			"required":[
+				"kind"
+			]
+			
+		},
+		"employeeDetail":{
+			"type":"object",
+			"additionalProperties":"false",
+			"properties":{
+				"kind":{
+					"enum":[
+						"employeeDetail"
+					]
+					
+				},
+				"companyName":"string",
+				"profileId":"integer",
+				"roleId":"integer"
+			},
+			"required":[
+				"kind"
+			]
+			
+		}
+		
+	},
+	"required":[
+		"identity",
+		"personDetail"
+	]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+	"id":10267,
+	"identity":{
+		"principalType":"employee",
+		"nameId":"102ghfirhr784",
+		"entityId":"acmeidp",
+		"isActive":true
+	},
+	"personDetail":{
+		"kind":"personDetail",
+		"email":"fred@hotmail.com",
+		"title":"Mr.",
+		"firstName":"Fred",
+		"lastName":"Bloggs",
+		"phone":"415-123-1234",
+		"locale":"en_NZ",
+		"language":"en_US",
+		"timeZone":"America/Los_Angeles"
+	},
+	"employeeDetail": {
+		"kind":"employeeDetail",
+		"companyName":"Acme",
+		"profileId":1001,
+		"roleId":1002
+	}
+	
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class=panel-heading><h4 class=panel-title><a class=collapsed data-toggle=collapse href=#panel__SAMLIdentities__principalType__bySAML__entityId___nameId_><span class=parent>/SAMLIdentities/{principalType}/bySAML/{entityId}</span>/{nameId}</a> <span class=methods><a href=# data-toggle=modal data-target=#_SAMLIdentities__principalType__bySAML__entityId___nameId__get><span class="badge badge_get">get</span></a></span></h4></div><div id=panel__SAMLIdentities__principalType__bySAML__entityId___nameId_ class="panel-collapse collapse"><div class=panel-body><div class=list-group><div data-toggle=modal data-target=#_SAMLIdentities__principalType__bySAML__entityId___nameId__get class=list-group-item><span class="badge badge_get">get</span><div class=method_description><p>get a specific SAML identity of the specified type (e.g. candidates") by its principleType (e.g. "candidate") and its SAML identifiers, i.e. entityId and nameId</p></div><div class=clearfix></div></div></div></div></div><div class="modal fade" tabindex=0 id=_SAMLIdentities__principalType__bySAML__entityId___nameId__get><div class=modal-dialog><div class=modal-content><div class=modal-header><button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button><h4 class=modal-title id=myModalLabel><span class="badge badge_get">get</span> <span class=parent>/SAMLIdentities/{principalType}/bySAML/{entityId}</span>/{nameId}</h4></div><div class=modal-body><div class="alert alert-info"><p>get a specific SAML identity of the specified type (e.g. candidates") by its principleType (e.g. "candidate") and its SAML identifiers, i.e. entityId and nameId</p></div><ul class="nav nav-tabs"><li class=active><a href=#_SAMLIdentities__principalType__bySAML__entityId___nameId__get_request data-toggle=tab>Request</a></li><li><a href=#_SAMLIdentities__principalType__bySAML__entityId___nameId__get_response data-toggle=tab>Response</a></li></ul><div class=tab-content><div class="tab-pane active" id=_SAMLIdentities__principalType__bySAML__entityId___nameId__get_request><h3>URI Parameters</h3><ul><li><strong>principalType</strong>: <em>required (string)</em></li><li><strong>entityId</strong>: <em>required (string)</em></li><li><strong>nameId</strong>: <em>required (string)</em></li></ul></div><div class=tab-pane id=_SAMLIdentities__principalType__bySAML__entityId___nameId__get_response><h2>HTTP status code <a href=http://httpstatus.es/200 target=_blank>200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"object",
+	"additionalProperties":false,
+	"properties":{
+		"id":"integer",
+		"identity":{
+			"type":"object",
+			"additionalProperties":"false",
+			"properties":{
+				"principalType":{
+					"enum":[
+						"candidate",
+						"employee"
+					]
+					
+				},
+				"principleSubType":{
+					"enum":[
+						"candiate.internal",
+						"candidate.external"
+					]
+					
+				},
+				"isActive":"boolean"
+			},
+			"required":[
+				"principalType",
+				"isActive"
+			]
+			
+		},
+		"personDetail":{
+			"type":"object",
+			"additionalProperties":"false",
+			"properties":{
+				"kind":{
+					"enum":[
+						"personDetail"
+					]
+					
+				},
+				"email":"string",
+				"title":"string",
+				"firstName":"string",
+				"lastName":"string",
+				"phone":"string",
+				"locale":"string",
+				"language":"string",
+				"timeZone":"string"
+			},
+			"required":[
+				"kind"
+			]
+			
+		},
+		"employeeDetail":{
+			"type":"object",
+			"additionalProperties":"false",
+			"properties":{
+				"kind":{
+					"enum":[
+						"employeeDetail"
+					]
+					
+				},
+				"companyName":"string",
+				"profileId":"integer",
+				"roleId":"integer"
+			},
+			"required":[
+				"kind"
+			]
+			
+		}
+		
+	},
+	"required":[
+		"identity",
+		"personDetail"
+	]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+	"id":10267,
+	"identity":{
+		"principalType":"employee",
+		"nameId":"102ghfirhr784",
+		"entityId":"acmeidp",
+		"isActive":true
+	},
+	"personDetail":{
+		"kind":"personDetail",
+		"email":"fred@hotmail.com",
+		"title":"Mr.",
+		"firstName":"Fred",
+		"lastName":"Bloggs",
+		"phone":"415-123-1234",
+		"locale":"en_NZ",
+		"language":"en_US",
+		"timeZone":"America/Los_Angeles"
+	},
+	"employeeDetail": {
+		"kind":"employeeDetail",
+		"companyName":"Acme",
+		"profileId":1001,
+		"roleId":1002
+	}
+	
 }</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class=col-md-3><div id=sidebar class="hidden-print affix" role=complementary><ul class="nav nav-pills nav-stacked"><li><a href=#_SAMLIdentities>/SAMLIdentities</a></li></ul></div></div></div></div></body></html>

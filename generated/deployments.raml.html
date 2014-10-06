@@ -124,8 +124,13 @@
 		"items":{
 			"type":"array",
 			"items":{
-				"$ref":"deployment.json"
+				"oneOf":[
+					{
+						"$ref":"deployment.json"
+					}
+				]
 			}
+			
 		}
 		
 	},

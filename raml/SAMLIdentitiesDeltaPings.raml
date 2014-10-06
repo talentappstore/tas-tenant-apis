@@ -1,0 +1,29 @@
+#%RAML 0.8
+---
+title: TAS SAMLIdentitiesDeltaPings
+baseUri: http://talentappstore.com/{version}
+version: v1
+
+documentation:
+  - title: TAS SAMLIdentitiesDeltaPings
+    content: |
+      Accept notifications about inserts, updates and deletes to SAMLIdentities.
+
+resourceTypes: !include core.include.raml
+
+/SAMLIdentities:
+  /{principalType}:
+    /{id}:
+      post:
+        description: |
+          Absorb a notification of the insert, delete, or possible update to a single SAML identity. Unusually for TAS, ids are only unique within the
+          principalType - e.g. a candidate might exist with the same id as an employee. This reflects the reality of bringing together
+          unrelated IdPs for each principalType.
+        body:
+          application/json:
+            schema: !include ../schemas/deltaPing.json
+            example: !include ../examples/deltaPing.json
+        responses:
+          200:
+            description: indicates the delta ping was processed successfully
+

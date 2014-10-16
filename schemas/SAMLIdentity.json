@@ -45,7 +45,7 @@
 				"firstName":"string",
 				"lastName":"string",
 				"phone":"string",
-				"locale":"string",
+				"lodcale":"string",
 				"language":"string",
 				"timeZone":"string"
 			},
@@ -64,9 +64,9 @@
 					]
 					
 				},
-				"companyName":"string",
+				"companyRef":"string",
 				"profileId":"integer",
-				"roleId":"integer"
+				"roleI":"integer"
 			},
 			"required":[
 				"kind"

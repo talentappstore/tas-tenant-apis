@@ -8,14 +8,99 @@
 <script type="text/javascript" src='../js/underscore-min.js'></script>
 <script type="text/javascript" src='../js/sequence-diagram-min.js'></script>
 
+<style>
+
+</style>
 
 <title>Replicator</title>
 </head>
 <body>
 
+
+<h1>Display the UberApply button on a job details page in the ATS</h1>
+<ul>
+<li>Candidate sees a posting for a specific job on some media (e.g. Facebook)
+<li>Candidate clicks on a link within the posting and is lead to the job details page in the ATS.
+<li>The job details page contains the UberApply button
+<li>The candidate can click on the UberApply button to complete a job application
+<li>UberApply pushes the completed job application out via REST API call (perhaps to the ATS)
+<li>..additional complication..
+<li>The original URI the user clicked on contained additional sourcing information in the form of query parameters (e.g., "&source=facebook").
+<li>Those additional parameters need to also be passed through within the REST call for the completed job application
+<li>Therefore they need to somehow be passed "through" the UberApply tunnel
+<li>The mechanism that supports this is the Tracker
+</ul>
+
+<p>Note: it could be instead that the ATS ()or whatever system creates the links within the postings already uses Tracker.
+In that case, the URI in the posting would have been like this:
+<code>https://acme.jobboard.com/jobs/7622?tas_tracker=87602231</code>
+In this case the ATS would not have needed to do anything with Tracker, since that work has already been done.
+</p>
+
+<div id="diagram2Source" style="display:none;">
+Candidate browser->ATS: GET /jobDetails?job=100234?source=facebook
+
+ATS->Tracker: GET /destinationTrackers?type=jobs\n&id=7622\n&uri=/jobDetails/job=100234?source=facebook\n&meta=source:facebook
+
+note right of Tracker: Response: 200\nLocation: 763020034
+
+ATS->Tracker: GET /visitorTrackers?parentTracker=763020034\n&landingURI=https://acme.jobboard.com/jobs/7622?candidateSource=facebook\n&referer=https://www.facebook.com\n&userAgent=Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36\n(KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36\n&ipAddress=20.12.34.102\n&acceptLanguage=en-us,en;q=0.5
+
+note right of Tracker: Response: 200\nLocation: 763019932
+
+note right of ATS: ATS asks for the html containing\nUberApply button so it\ncan insert it into the job details page.\nIf the candidate is logged in\nthen the ATS hints to UberApply that it should\nimmediately ask the candidate to log in also.   
+
+ATS->Button aggregator: GET /positionOpenings/{7622}/candidateActionBar?tas_tracker=763019932\n&force_login=true
+
+note left of Button aggregator: Response:\nblah html blah iframe src=uberapply force_login=true
+
+</div>
+
+
+<h1>Click and apply using UberApply</h1>
+<div id="diagram1Source" style="display:none;">
+
+</div>
+
+ 
+
+<h1>helloworld app makes an OAuth protected call to another app, which then extracts the SAMLIdentity</h1>
+
+<div id="diagram2Source" style="display:none;">
+
+
+
+
+
+helloworld->TAS: GET /apps/{helloworld}/tenants/{acme}/accessors/{GET}/{tas}/{URI template}
+</div>
+
+
+Additional APIs from Jeff's email
+       addApi("Requisitions", "/requisitions", "GET", true);
+        addApi("Requisition", "/requisitions/{id}", "GET", true);
+        addApi("Apply", "/apply/requisitions/{id}", "GET", true);
+        addApi("Apply Experiences", "/candidateEventPoints/requisitions/{id}/applyExperiences", "GET", true);
+        addApi("Candidate Event Points", "/candidateEventPoints/requisitions/{id}/events", "POST", true);
+        addApi("Candidate Action Bar", "/requisitions/{id}/candidateActionBar", "GET", true);
+        addApi("Candidate Action Item", "/requisitions/{id}/candidateActionItem", "GET", false);
+        addApi("Application", "/requisitions/{requisitionId}/candidates/{candidateId}/application", "GET", true);
+
+
+
+
+
+
+
+<div id="diagram2Source" style="display:none;">
+note right of samler: User fred logs in at the ATS.\nsamler is listening to\nlogins, and adds Fred\nto its users table on the fly\nbefore passing the assertion through
+samler->hub: POST /SAMLIdentities/{users}/100245 (blocking)
+hub->ATS:  POST /SAMLIdentities/{users}/100245
+note right of ATS: ATS provisions user Fred,\ni.e creates a row in is own\n users table
+</div>
+
 <h1>Message sequence diagram for installing a new app that is a replication secondary for candidates (i.e., a CV search type app).</h1>
-<form id='theForm'>
-</form>
+
 
 <div id="diagram1Source" style="display:none;">
 participant ATS

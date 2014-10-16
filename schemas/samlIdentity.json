@@ -8,25 +8,37 @@
 			"type":"object",
 			"additionalProperties":"false",
 			"properties":{
-				"principalType":{
-					"enum":[
-						"candidate",
-						"employee"
-					]
-					
+				"principalDeveloper":{
+					"type":"string",
+					"description":"the developer who defines this principal type"
 				},
-				"principleSubType":{
-					"enum":[
-						"candiate.internal",
-						"candidate.external"
-					]
-					
+				"principalType":{
+					"type":"string",
+					"description":"the type of principal, e.g. the developer TAS defines 'candidate' and 'employee'"
+				},
+				"principleSubTypes":{
+					"type":"array",
+					"items":{
+						"type":"string",
+						"minimum":1
+					},
+					"description":"further refinements of the principal type, e.g. the developer TAS defines subtypes of 'internal' and 'external' for the principal type of 'candidate'"
+				},
+				"entityId":{
+					"type":"string",
+					"description":"globally unique identifier of the identity provider (IdP) this principal authenticated via"
+				},
+				"nameId":{
+					"type":"string",
+					"description":"identifier (unique within IdP) of this principal"
 				},
 				"isActive":"boolean"
 			},
 			"required":[
+				"principalDeveloper",
 				"principalType",
-				"isActive"
+				"entityId",
+				"nameId"
 			]
 			
 		},

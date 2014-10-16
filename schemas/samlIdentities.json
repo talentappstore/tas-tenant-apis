@@ -5,7 +5,7 @@
 	"properties":{
 		"kind":{
 			"enum":[
-				"SAMLIdentities"
+				"samlIdentities"
 			]
 			
 		},
@@ -14,7 +14,7 @@
 			"items":{
 				"oneOf":[
 					{
-						"$ref":"SAMLIdentity.json"
+						"$ref":"samlIdentity.json"
 					}
 				]
 			}

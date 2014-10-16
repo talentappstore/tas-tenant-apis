@@ -1,8 +1,9 @@
 {
-	"kind":"SAMLIdentities",
+	"kind":"samlIdentities",
 	"items":[{
 			"id":10276,
 			"identity":{
+				"principalDeveloper":"tas",
 				"principalType":"employee",
 				"nameId":"102ghfirhr784",
 				"entityId":"acmeidp",

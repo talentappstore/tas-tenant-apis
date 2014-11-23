@@ -1,46 +1,110 @@
-{  
-            "type":"object",
-            "$schema":"http://json-schema.org/draft-04/schema",
-            "properties":{  
-              "id": {"type": "integer"},
-              "kind": {"enum": ["positionOpening"]},
-              "status": {"enum": ["active", "complete"], "description": "from HR-XML"},
-              "availableInternally": {"type": "boolean", "description": "position is currently open to internals (given status is active)"},
-              "availableExternally": {"type": "boolean", "description": "position is currently open to externals (given status is active)"},
-              "positionOpeningURI": {"type": "string", "description": "URI of the opening - see HR-XML"},
-              "applyURI": {"type": "string", "description": "URI of the page where a candidate applies - see HR-XML"},
-              "applicationCloseDates": {
-              	"type": "object",
-              	"properties": {
-              		"closeDate": {
-              			"type": "date-time",
-              			"description": "the date on which applications are scheduled to close"
-              		},
-              		"internalCloseDate": {
-              			"type": "date-time",
-              			"description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
-              		},
-              		"externalCloseDate": {
-              			"type": "date-time",
-              			"description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
-              		}
-              	}
-              },
-              "code": {"type": "string", "description": "A code, often used in advertisements and when referring to the positionOpening with candidates. Codes are expected to be unique within currently active positionOpenings."},
-              "etag": {"type": "string",
-                "description": "ETag (a hash) of this resource for caching purposes. The ETag is a hash of the combined state of all of the field on the resource (as may be altered by the fields operator). etag is unusual in that its value depends on the fields surrounding it, so it can never be cached at the field level, but only along with all of the other values making up the resource."
-                },
-              "title": {"type": "string", "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"},
-              "location": {"type": "integer", "description": "id of the location for this position", "minimum": 1 },
-              "qualifications": {"type": "array", "items": "integer", "description": "equivalent to skills, see HR-XML" },
-              "formattedDescription": {"type": "string", "description": "Description for this req"},
-	            "positionId": {"type": "integer", "description": "from HR-XML - this may be eithr roleId or profileId?"},
-	            "companyRef": {"type": "string", "description": "from Salesforce, more explicit than org"},
-	            "jobCategory": {"type": "string", "description": "from HR-XL, example LANDSCAPE ARCHITECT"}
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "definitions": {
+        "position": {
+          
+"required": ["title"],
+          "properties": {
+
+            "id": {
+                "type": "integer"
             },
-            
-            "required":[  
-              "title"
+            "title": {
+                "type": "string",
+                "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
+            },
+            "location": {
+                "type": "integer",
+                "description": "id of the location for this position",
+                "minimum": 1
+            },
+            "qualifications": {
+                "type": "array",
+                "items": "integer",
+                "description": "equivalent to skills, see HR-XML"
+            },
+            "formattedDescription": {
+                "type": "string",
+                "description": "Description for this req"
+            },
+            "positionId": {
+                "type": "integer",
+                "description": "from HR-XML - this may be either roleId or profileId?"
+            },
+            "companyRef": {
+                "type": "string",
+                "description": "as per Salesforce, more explicit than org"
+            },
+            "jobCategory": {
+                "type": "string",
+                "description": "from HR-XL, example LANDSCAPE ARCHITECT"
+            },
+            "userArea": {
+                "type": "object",
+                "description": "User-defined data about this position"
+            }
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "status": {
+            "enum": [
+                "active",
+                "complete"
             ],
-	"additionalProperties": false
+            "description": "from HR-XML"
+        },
+        "availableInternally": {
+            "type": "boolean",
+            "description": "position is currently open to internals (given status is active)"
+        },
+        "availableExternally": {
+            "type": "boolean",
+            "description": "position is currently open to externals (given status is active)"
+        },
+        "positionOpeningURI": {
+            "type": "string",
+            "description": "URI of the opening - see HR-XML"
+        },
+        "applyURI": {
+            "type": "string",
+            "description": "URI of the page where a candidate applies - see HR-XML"
+        },
+        "applicationCloseDates": {
+            "type": "object",
+            "properties": {
+                "closeDate": {
+                    "type": "date-time",
+                    "description": "the date on which applications are scheduled to close"
+                },
+                "internalCloseDate": {
+                    "type": "date-time",
+                    "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
+                },
+                "externalCloseDate": {
+                    "type": "date-time",
+                    "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
+                }
+            }
+        },
+        "code": {
+            "type": "string",
+            "description": "A code, often used in advertisements and when referring to the positionOpening with candidates. Codes are expected to be unique within currently active positionOpenings. Not in HR/XML"
+        },
+        "userArea": {
+            "type": "object",
+            "description": "User-defined data about this positionOpening"
+        },
+        "position": {
+            "$ref": "#/definitions/position"
+        }
+    },
+    "required": [
+        "position"
+    ],
+    "additionalProperties": false
 }

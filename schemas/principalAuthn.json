@@ -2,11 +2,21 @@
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"object",
 	"additionalProperties":false,
+	"required":[
+		"identity",
+		"personDetail"
+	],
 	"properties":{
 		"id":"integer",
 		"identity":{
 			"type":"object",
 			"additionalProperties":"false",
+			"required":[
+				"principalDeveloper",
+				"principalType",
+				"entityId",
+				"nameId"
+			],
 			"properties":{
 				"principalDeveloper":{
 					"type":"string",
@@ -31,26 +41,21 @@
 				"nameId":{
 					"type":"string",
 					"description":"identifier (unique within IdP) of this principal"
-				},
-				"isActive":"boolean"
-			},
-			"required":[
-				"principalDeveloper",
-				"principalType",
-				"entityId",
-				"nameId"
-			]
+				}
+			}
 			
 		},
 		"personDetail":{
 			"type":"object",
 			"additionalProperties":"false",
+			"required":[
+				"kind"
+			],
 			"properties":{
 				"kind":{
 					"enum":[
 						"personDetail"
 					]
-					
 				},
 				"email":"string",
 				"title":"string",
@@ -60,15 +65,14 @@
 				"locale":"string",
 				"language":"string",
 				"timeZone":"string"
-			},
-			"required":[
-				"kind"
-			]
-			
+			}
 		},
 		"employeeDetail":{
 			"type":"object",
 			"additionalProperties":"false",
+			"required":[
+				"kind"
+			],
 			"properties":{
 				"kind":{
 					"enum":[
@@ -79,16 +83,8 @@
 				"companyRef":"string",
 				"profileId":"integer",
 				"roleI":"integer"
-			},
-			"required":[
-				"kind"
-			]
-			
+			}
 		}
 		
-	},
-	"required":[
-		"identity",
-		"personDetail"
-	]
+	}
 }

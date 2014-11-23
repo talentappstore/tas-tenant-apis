@@ -3,14 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script type="text/javascript" src='../js/jquery-2.1.1.min.js'></script>
-<script type="text/javascript" src='../js/raphael-min.js'></script>
-<script type="text/javascript" src='../js/underscore-min.js'></script>
-<script type="text/javascript" src='../js/sequence-diagram-min.js'></script>
-
-<style>
-
-</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='http://tas-static-libs.talentappstore.com/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://tas-static-libs.talentappstore.com/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://tas-static-libs.talentappstore.com/js/sequence-diagram-min.js'></script>
 
 <title>Replicator</title>
 </head>
@@ -37,7 +33,7 @@ In that case, the URI in the posting would have been like this:
 In this case the ATS would not have needed to do anything with Tracker, since that work has already been done.
 </p>
 
-<div id="diagram2Source" style="display:none;">
+<div id="diagram1Source" style="display:none;">
 Candidate browser->ATS: GET /jobDetails?job=100234?source=facebook
 
 ATS->Tracker: GET /destinationTrackers?type=jobs\n&id=7622\n&uri=/jobDetails/job=100234?source=facebook\n&meta=source:facebook
@@ -58,18 +54,11 @@ note left of Button aggregator: Response:\nblah html blah iframe src=uberapply f
 
 
 <h1>Click and apply using UberApply</h1>
-<div id="diagram1Source" style="display:none;">
-
-</div>
-
  
 
 <h1>helloworld app makes an OAuth protected call to another app, which then extracts the SAMLIdentity</h1>
 
 <div id="diagram2Source" style="display:none;">
-
-
-
 
 
 helloworld->TAS: GET /apps/{helloworld}/tenants/{acme}/accessors/{GET}/{tas}/{URI template}
@@ -85,11 +74,6 @@ Additional APIs from Jeff's email
         addApi("Candidate Action Bar", "/requisitions/{id}/candidateActionBar", "GET", true);
         addApi("Candidate Action Item", "/requisitions/{id}/candidateActionItem", "GET", false);
         addApi("Application", "/requisitions/{requisitionId}/candidates/{candidateId}/application", "GET", true);
-
-
-
-
-
 
 
 <div id="diagram2Source" style="display:none;">
@@ -149,80 +133,21 @@ note right of corehub: corehub now has a full\nset of bringups, can\ngo back to 
 corehub->TAS: POST /bringups/{71222}
 note left of TAS: replication bulk load\nphase is now complete
 </div>
-<div id="diagram1" style='border: dotted 5px red'></div>
-blinky
+<div id="diagram1" style='border: dotted 3px red'></div>
 
-<script type="text/javascript">
-	var participants = [];
 
-	function dumpParticipantRoutings(participantRoutings) {
-		var dump = '';
-		for (var i = 0; i < participants.length; i++) {
-			dump += participants[i] + ": " + participantRoutings[i] + '\n';
-		}
-		alert(dump);
-	}
-	
-	function buildParticipantRoutings() {
-		var participantRoutings = [];
-		for (var i = 0; i < participants.length; i++) {
-			participantRoutings[i] = $("#" + participants[i]).val();
-		}
-		return participantRoutings;
-	}
-	
-	function filterInput(input, participantRoutings) {
-		var output = '';
-		var lines = $('#diagram1Source').html().split('\n');
+<script>
+$(document).ready(function() {
 
-		for (var i = 0; i < lines.length; i++) {
-			// TDO: check the line against all routings....			
-			var partsArray = lines[i].split(' ');
-			if (partsArray.length == 2 && partsArray[0] == 'participant')
-				participants.push(partsArray[1]);
-		}
-	}
-	
-	$(document).ready(function() {
-
-		  // we first need to encode away the &gt; and &lt; chars we get back
-		  var e = document.createElement('div');
-		  e.innerHTML = $('#diagram1Source').html();
-		  // then create diagram
-		  var diagram = Diagram.parse(e.childNodes[0].nodeValue);
-		  diagram.drawSVG('diagram1', {theme: 'simple'});
-		
-		// split the diagram source up into its lines
-		var lines = $('#diagram1Source').html().split('\n');
-		// find all lines like "participant X" and add X to the array of participants
-		for (var i = 0; i < lines.length; i++) {
-			var partsArray = lines[i].split(' ');
-			if (partsArray.length == 2 && partsArray[0] == 'participant')
-				participants.push(partsArray[1]);
-		}
-		
-		// now create a series of selects, one per participant
-		for (var i = 0; i < participants.length; i++) {
-			var part = $('<div>');
-			// add label
-			$(part).append(document.createTextNode(participants[i]));
-			// select list with choices
-			var dropDown = $("<select id='" + participants[i] + "'>");
-			dropDown.append($("<option>").attr('value','(hide)').text('(hide)'));
-			$(participants).each(function() {
-				 dropDown.append($("<option>").attr('value',this).text(this));
-				});
-			dropDown.prop("selectedIndex", i + 1);
-			$(part).append(dropDown);
-			dropDown.change(function () {
-				dumpParticipantRoutings(buildParticipantRoutings());
-		    });	
-			$('#theForm').append(part);
-		}
-	});
-
+	// we first need to encode away the &gt; and &lt; chars we get back
+	var e = document.createElement('div');
+	e.innerHTML = $('#diagram1Source').html();
+	// then create diagram
+	var diagram = Diagram.parse(e.childNodes[0].nodeValue);
+	diagram.drawSVG('diagram1', {theme: 'simple'});
+});	
 </script>
-
+		
 
 
 </body>

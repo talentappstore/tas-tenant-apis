@@ -29,7 +29,7 @@ resourceTypes: !include core.include.raml
           body:
             application/json:
               schema: !include ../schemas/samlIdentities.json
-              example: !include ../examples/samlIdentities.json
+              example: !include ../examples/samlIdentities-simple.json
     /{id}:
       get:
         description: get a specific SAML identity by its principleType (e.g. candidates") and id within that
@@ -38,7 +38,7 @@ resourceTypes: !include core.include.raml
             body:
               application/json:
                 schema: !include ../schemas/samlIdentity.json
-                example: !include ../examples/samlIdentity.json
+                example: !include ../examples/samlIdentity-simple.json
     /bySAML:
       /{entityId}:
         /{nameId}:
@@ -51,6 +51,6 @@ resourceTypes: !include core.include.raml
                 body:
                   application/json:
                     schema: !include ../schemas/samlIdentity.json
-                    example: !include ../examples/samlIdentity.json
+                    example: !include ../examples/samlIdentity-simple.json
 
       

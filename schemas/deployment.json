@@ -1,40 +1,64 @@
 {
-	"type":"object",
-	"$schema":"http://json-schema.org/draft-04/schema",
-	"properties":{
-		"kind":{
-			"enum":[
-				"deployment"
-			],
-			"description":"always set to: deployment"
-		},
-		"id":{
-			"type":"integer",
-			"description":"the id of this Deployment"
-		},
-		"status":{
-			"enum":[
-				"PROVISIONAL",
-				"CONFIRMED"
-			],
-			"description":"always set to: deployment"
-		},
-		"recruitmentActivity":{
-			"type":"integer",
-			"description":"id of the RecruitmentActivity, if any, that resulted in this deployment",
-			"minimum":1
-		},
-		"employment":{
-			"type":"integer",
-			"description":"id of the Employment that this Deployment relates to",
-			"minimum":1
-		},
-		"dutyEntryDate":{
-			"type":"string",
-			"format":"date-time",
-			"description":"The date the employee or human resource actually begins work or \"enters on duty\""
-		}
-		
-	},
-	"additionalProperties":false
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "definitions": {
+        "remuneration": {
+            "type": "object",
+            "description": "See HR/XML OnBoardingDeploymentType",
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "description": "The monetary value of the object in which the amount is associated"
+                },
+                "rateIntervalCode": {
+                    "type": "string",
+                    "description": "See HR/XML PayRateIntervalCodeType"
+                },
+                "typeCode": {
+                    "type": "string",
+                    "description": "A code classifying the type of remuneration (HR/XML)"
+                }
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "kind": {
+            "enum": [
+                "deployment"
+            ],
+            "description": "always set to: deployment"
+        },
+        "id": {
+            "type": "integer",
+            "description": "the id of this Deployment"
+        },
+        "status": {
+            "enum": [
+                "PROVISIONAL",
+                "CONFIRMED"
+            ]
+        },
+        "recruitmentActivity": {
+            "type": "integer",
+            "description": "id of the RecruitmentActivity, if any, that resulted in this deployment",
+            "minimum": 1
+        },
+        "employment": {
+            "type": "integer",
+            "description": "id of the Employment that this Deployment relates to",
+            "minimum": 1
+        },
+        "dutyEntryDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date the employee or human resource actually begins work or \"enters on duty\""
+        },
+        "remuneration": {
+            "$ref": "#/definitions/remuneration"
+        },
+        "userArea": {
+            "$ref": "./userArea.json"
+        }
+    },
+    "additionalProperties": false
 }

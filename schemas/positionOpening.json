@@ -2,47 +2,46 @@
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
         "position": {
-          
-"required": ["title"],
-          "properties": {
-
-            "id": {
-                "type": "integer"
-            },
-            "title": {
-                "type": "string",
-                "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
-            },
-            "location": {
-                "type": "integer",
-                "description": "id of the location for this position",
-                "minimum": 1
-            },
-            "qualifications": {
-                "type": "array",
-                "items": "integer",
-                "description": "equivalent to skills, see HR-XML"
-            },
-            "formattedDescription": {
-                "type": "string",
-                "description": "Description for this req"
-            },
-            "positionId": {
-                "type": "integer",
-                "description": "from HR-XML - this may be either roleId or profileId?"
-            },
-            "companyRef": {
-                "type": "string",
-                "description": "as per Salesforce, more explicit than org"
-            },
-            "jobCategory": {
-                "type": "string",
-                "description": "from HR-XL, example LANDSCAPE ARCHITECT"
-            },
-            "userArea": {
-                "type": "object",
-                "description": "User-defined data about this position"
-            }
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
+                },
+                "location": {
+                    "type": "integer",
+                    "description": "id of the location for this position",
+                    "minimum": 1
+                },
+                "qualifications": {
+                    "type": "array",
+                    "items": "integer",
+                    "description": "equivalent to skills, see HR-XML"
+                },
+                "formattedDescription": {
+                    "type": "string",
+                    "description": "Description for this req"
+                },
+                "positionId": {
+                    "type": "integer",
+                    "description": "from HR-XML - this may be either roleId or profileId?"
+                },
+                "companyRef": {
+                    "type": "string",
+                    "description": "as per Salesforce, more explicit than org"
+                },
+                "jobCategory": {
+                    "type": "string",
+                    "description": "from HR-XL, example LANDSCAPE ARCHITECT"
+                },
+                "userArea": {
+                    "$ref": "./userArea.json"
+                }
             }
         }
     },
@@ -60,11 +59,11 @@
         },
         "availableInternally": {
             "type": "boolean",
-            "description": "position is currently open to internals (given status is active)"
+            "description": "Position is currently open to internals (implies status is active and relevant closeDates are in the future)"
         },
         "availableExternally": {
             "type": "boolean",
-            "description": "position is currently open to externals (given status is active)"
+            "description": "Position is currently open to externals (implies status is active and relevant closeDates are in the future)"
         },
         "positionOpeningURI": {
             "type": "string",
@@ -96,15 +95,12 @@
             "description": "A code, often used in advertisements and when referring to the positionOpening with candidates. Codes are expected to be unique within currently active positionOpenings. Not in HR/XML"
         },
         "userArea": {
-            "type": "object",
-            "description": "User-defined data about this positionOpening"
+            "$ref": "./userArea.json"
         },
         "position": {
             "$ref": "#/definitions/position"
         }
     },
-    "required": [
-        "position"
-    ],
+    "required": [],
     "additionalProperties": false
 }

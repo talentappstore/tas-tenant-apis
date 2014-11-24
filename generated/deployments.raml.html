@@ -110,7 +110,41 @@
         .list-group-item:hover {
             background-color: #f5f5f5;
         }
-    </style></head><body data-spy=scroll data-target=#sidebar><div class=container><div class=row><div class=col-md-9 role=main><div class=page-header><h1>TAS deployments API documentation <small>version v1</small></h1><p>http://talentappstore.com/v1</p></div><div class="panel panel-default"><div class=panel-heading><h3 id=_deployments class=panel-title>/deployments</h3></div><div class=panel-body><div class=panel-group><div class="panel panel-white"><div class=panel-heading><h4 class=panel-title><a class=collapsed data-toggle=collapse href=#panel__deployments><span class=parent></span>/deployments</a> <span class=methods><a href=# data-toggle=modal data-target=#_deployments_get><span class="badge badge_get">get</span></a></span></h4></div><div id=panel__deployments class="panel-collapse collapse"><div class=panel-body><div class=list-group><div data-toggle=modal data-target=#_deployments_get class=list-group-item><span class="badge badge_get">get</span><div class=method_description><p>Get a list of deployments, i.e. candidates who have or are expected to enter into a deployment with this employer (i.e. list of hires)</p></div><div class=clearfix></div></div></div></div></div><div class="modal fade" tabindex=0 id=_deployments_get><div class=modal-dialog><div class=modal-content><div class=modal-header><button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button><h4 class=modal-title id=myModalLabel><span class="badge badge_get">get</span> <span class=parent></span>/deployments</h4></div><div class=modal-body><div class="alert alert-info"><p>Get a list of deployments, i.e. candidates who have or are expected to enter into a deployment with this employer (i.e. list of hires)</p></div><ul class="nav nav-tabs"><li class=active><a href=#_deployments_get_request data-toggle=tab>Request</a></li><li><a href=#_deployments_get_response data-toggle=tab>Response</a></li></ul><div class=tab-content><div class="tab-pane active" id=_deployments_get_request></div><div class=tab-pane id=_deployments_get_response><h2>HTTP status code <a href=http://httpstatus.es/200 target=_blank>200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    </style></head><body data-spy=scroll data-target=#sidebar><div class=container><div class=row><div class=col-md-9 role=main><div class=page-header><h1>TAS deployments API documentation <small>version v1</small></h1><p>http://talentappstore.com/v1</p></div><div class="panel panel-default"><div class=panel-heading><h3 id=_hires class=panel-title>/hires</h3></div><div class=panel-body><div class=top-resource-description><p></p><p>Hires are a combination of:</p><p><ul></ul></p><p><li>a Deployment (HR-XML terminology; the filling of a specific Position by a specific Employment)</li></p><p><li>an Employment (HR-XML terminology; the holding of an employment relationship with the tenant by a specific Person)</li></p><p><li>a Person</li></p><p><li>a Position (HR-XML terminology)</li></p><p></p><p></p><p>Developers may find these more convenient to deal with than dealing with the component objects directly.</p></div><div class=panel-group><div class="panel panel-white"><div class=panel-heading><h4 class=panel-title><a class=collapsed data-toggle=collapse href=#panel__hires><span class=parent></span>/hires</a> <span class=methods><a href=# data-toggle=modal data-target=#_hires_get><span class="badge badge_get">get</span></a></span></h4></div><div id=panel__hires class="panel-collapse collapse"><div class=panel-body><div class=list-group><div data-toggle=modal data-target=#_hires_get class=list-group-item><span class="badge badge_get">get</span><div class=method_description><p>Get a list of hires, i.e. candidates who have or are expected to enter into a deployment with this employer (i.e. list of hires)</p></div><div class=clearfix></div></div></div></div></div><div class="modal fade" tabindex=0 id=_hires_get><div class=modal-dialog><div class=modal-content><div class=modal-header><button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button><h4 class=modal-title id=myModalLabel><span class="badge badge_get">get</span> <span class=parent></span>/hires</h4></div><div class=modal-body><div class="alert alert-info"><p>Get a list of hires, i.e. candidates who have or are expected to enter into a deployment with this employer (i.e. list of hires)</p></div><ul class="nav nav-tabs"><li class=active><a href=#_hires_get_request data-toggle=tab>Request</a></li><li><a href=#_hires_get_response data-toggle=tab>Response</a></li></ul><div class=tab-content><div class="tab-pane active" id=_hires_get_request><h3>Query Parameters</h3><ul><li><strong>$orderby</strong>: <em>(string)</em><p>The $orderby query option is used to order the entries, where the resource is a collection. It behaves as per its namesake in the OData 2.0 Query String Options (<a href="http://www.odata.org/documentation/odata-version-2-0/uri-conventions/">http://www.odata.org/documentation/odata-version-2-0/uri-conventions/</a>). The actual properties that can used varies by resource - for <b>hires</b>, it is <b>id,name,and all user fields</b>.</p><p><strong>Example</strong>:</p><pre><code>return widgets ordered by id (ascending)
+
+GET /widgets?$orderby=id
+
+return the first set of widgets, ordered by quantity on hand
+(ascending), then name (descending)
+GET /widgets?$orderby=quantityOnHand,name desc
+</code></pre></li><li><strong>$filter</strong>: <em>(string)</em><p></p><p>The $filter query option is used to identity a subset of the entries, where the resource is a collection. It behaves as per its namesake in the OData 2.0 Query String Options (<a href="http://www.odata.org/documentation/odata-version-2-0/uri-conventions/">http://www.odata.org/documentation/odata-version-2-0/uri-conventions/</a>).</p><p></p><p>The actual properties that can used for filtering, and the complexity of the expression that is supported varies by resource - for <b>hires</b>, it is:</p><p></p><p></p><p><b>simple comparisons on the id field must be supported, e.g.:</b></p><p><ul></ul></p><p><li>id eq 20</li></p><p><li>id gt 10</li></p><p><li>id lt 10</li></p></li></ul><p></p>.<p></p><p><strong>Example</strong>:</p><pre><code>return the widgets that are active, and that have status of &#x27;online&#x27; or that are in Auckland:
+
+GET /widgets?$filter=active eq true and (status eq &#x27;online&#x27; or location/city eq &#x27;Auckland&#x27;)
+</code></pre><li><strong>$top</strong>: <em>(integer)</em><p>The $top query option is used to limit the number of entries, where the resource is a collection. It behaves as per its namesake in the OData 2.0 Query String Options (<a href="http://www.odata.org/documentation/odata-version-2-0/uri-conventions/">http://www.odata.org/documentation/odata-version-2-0/uri-conventions/</a>).</p><p>For <b>hires</b>, $top must be less than or equal to <b>30</b>. This is also the default.</p><p><strong>Example</strong>:</p><pre><code>return the first 5 widgets:
+
+GET /widgets?$top=5
+</code></pre></li><li><strong>$skip</strong>: <em>(integer)</em><p></p><p>The $skip query option is used to specify the start index of the entries, where the resource is a collection. It behaves as per its namesake in the OData 2.0 Query String Options (<a href="http://www.odata.org/documentation/odata-version-2-0/uri-conventions/">http://www.odata.org/documentation/odata-version-2-0/uri-conventions/</a>).</p><p><strong>Example</strong>:</p><pre><code>return the widgets, starting with the third widget:
+
+GET /widgets?$skip=2
+</code></pre></li><li><strong>$select</strong>: <em>(string)</em><p>The $select query option is used to specify which properties should be returned in the resource. It behaves as per its namesake in the OData 2.0 Query String Options (<a href="http://www.odata.org/documentation/odata-version-2-0/uri-conventions/">http://www.odata.org/documentation/odata-version-2-0/uri-conventions/</a>). For example:</p><pre>
+GET /widgets?$select=kind,items/id,items/name
+
+Response:
+
+{
+  "kind": "widgets",
+  "items": [
+    {
+      "id": 10223,
+      "name": "Red widget"
+    },
+    {
+      "id": "10224",
+      "name": "Blue widget"
+    }
+  ]
+}
+</pre><p></p><p>If you don&#39;t specify $select for <b>hires</b>, the default set of fields is:<br><b>id,items/blah</b></p></li></div><div class=tab-pane id=_hires_get_response><h2>HTTP status code <a href=http://httpstatus.es/200 target=_blank>200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"object",
 	"additionalProperties":false,
@@ -149,4 +183,4 @@
 			"dutyEntryDate":"2002-10-02T10:00:00-05:00"
 		}
 	]
-}</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class=col-md-3><div id=sidebar class="hidden-print affix" role=complementary><ul class="nav nav-pills nav-stacked"><li><a href=#_deployments>/deployments</a></li></ul></div></div></div></div></body></html>
+}</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class=col-md-3><div id=sidebar class="hidden-print affix" role=complementary><ul class="nav nav-pills nav-stacked"><li><a href=#_hires>/hires</a></li></ul></div></div></div></div></body></html>

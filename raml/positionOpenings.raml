@@ -6,19 +6,22 @@ version: v1
 
 resourceTypes: !include core.include.raml
 
-/positionOpenings:
-  description: PositionOpenings (HR-XML terminology) are openings of a specific position for recruitment.
+/openings:
+  description: |
+    Openings are a combination of a PositionOpening (HR-XML terminology; i.e. the opening of a specific Position for recruitment) and its
+    related Position.
+    Developers may find these more convenient to deal with than dealing with the component objects directly. 
   type:
     tasCollection:
-      defaultFieldsList: id,kind,items/blah
-      maxLimit: 30
-      sortableFields: id,name,and all user fields
+      defaultSelectList: id,items/blah
+      maxTop: 30
+      orderingProperties: id,name,and all user fields
       filterCapabilities: |
         simple comparisons on the id field must be supported, e.g.:
         <ul>
-        <li>id = 20
-        <li>id > 10
-        <li>id < 10
+        <li>id eq 20
+        <li>id gt 10
+        <li>id lt 10
         </ul>
   get:
     description: Get a list of positionOpenings

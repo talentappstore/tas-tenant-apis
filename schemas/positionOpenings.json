@@ -3,26 +3,12 @@
 	"type":"object",
 	"additionalProperties":false,
 	"properties":{
-		"kind":{
-			"type":"string"
-		},
 		"items":{
 			"type":"array",
-			"items":{
-				"oneOf":[
-					{
-						"$ref":"positionOpening.json"
-					}
-					
-				]
-				
-			}
-			
+			"items":{ "$ref":"./positionOpening.json" }
 		}
-		
 	},
 	"required":[
-		"kind",
 		"items"
 	]
 }

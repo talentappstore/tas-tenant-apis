@@ -4,6 +4,8 @@
  	"title": "Creative Director",
  	"formattedDescription": "One of the most exciting positions ever offered",
  	"location": 1002323,
- 	"qualifications": [12033, 12024]
- 	}
+ 	"qualifications": [12033, 12024],
+ 	"userArea": {"carpark": true }
+ 	},
+ 	"userArea": {"referralReward": true }
  }  

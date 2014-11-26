@@ -33,7 +33,7 @@
 
 <h1>Overview</h1>
 
-<p>As an example, in a <a href='./replication.html'>replication</a> scenario, the replication primary app (an ATS, say) needs to call POST <tas>/jobs/{jobID}/deltaPings
+<p>As an example, in a <a href='./conventions.html'>replication</a> scenario, the replication primary app (an ATS, say) needs to call POST <tas>/jobs/{jobID}/deltaPings
 on all of the replication secondaries to alert them when a new job is created.</p>
 
 <p>With Cronkite, the ATS does not make these calls itself, but instead hands the work off to Cronkite via REST call (this is not a TAS API call):</p>
@@ -66,6 +66,9 @@ Request:
 }
 </div>
 
+<p>Cronkite does not always broadcast blindly, but also obeys the <a href='./conventions.html'>{consumer} and {producer} conventions</a>, returning an http error to the consumer in the case of {consumer} errors and
+only broadcasting to the correct producer in the case of {producer}.
+ 
 <h1>Housekeeping</h1>
 
 

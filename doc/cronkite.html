@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/tocify.js'></script>
+
+<link rel='stylesheet' href='http://tas-des-static.talentappstore.com/css/des.css' type='text/css' media='all' />
+
+
+<title>Broadcast service</title>
+</head>
+<body>
+
+<div id="toc"></div>
+
+
+<h1>Purpose</h1>
+
+<p>This document describes Cronkite - a TAS-hosted service that can be used by apps to handle the heavy lifting of consuming a specific non-SoT API on all of the tenant's currently installed apps that produce that API.</p>
+
+<p>If you are interested in using Cronkite in your app, please contact TAS and provide the following:
+<ul>
+<li>your app's name
+<li>your app's secret key
+</ul>
+
+</p>
+
+<h1>Overview</h1>
+
+<p>As an example, in a <a href='./replication.html'>replication</a> scenario, the replication primary app (an ATS, say) needs to call POST <tas>/jobs/{jobID}/deltaPings
+on all of the replication secondaries to alert them when a new job is created.</p>
+
+<p>With Cronkite, the ATS does not make these calls itself, but instead hands the work off to Cronkite via REST call (this is not a TAS API call):</p>
+
+<div class='codeBlock'>
+POST https://cronkite.talentappstore.com/api/v1/apps/{app}/tenants/acme/broadcasts
+Auth: hmac (using your app's secret key)
+Request:
+{
+  "method": "POST",
+  "apiDeveloper": "tas",
+  "apiUriTemplate": "/m/candidates/{candidateID}/deltaPings", 
+  "uri": "/m/candidates/10234/deltaPings", 
+  "async": true,
+  "requestBody": {
+    "operation": "insert"
+  }
+}
+</div>
+
+<p>Assuming that tenant acme had installed two apps that produced the API /m/candidates/{candidateID}/deltaPings, this would result in each receiving
+an incoming tenant API call like this (in this case the app jobboard):</p>
+
+<div class='codeBlock'>
+POST acme.jobboard.com/api/v1//m/candidates/10234/deltaPings
+Auth: hmac
+Request:
+{
+    "operation": "insert"
+}
+</div>
+
+<h1>Housekeeping</h1>
+
+
+<h1>Security</h1>
+
+<p>Once Cronkite is set up to know about your app, it holds your app's secret key. This is used to authenticate your calls in to the Cronkite APIs, and
+also to make TAS core API calls on your app's behalf.</p>
+
+<p>If your app's secret key changes, you need to contact TAS to have Cronkite updated.</p>
+
+<h1>Async mode</h1>
+
+<p>The <b>async</b> flag indicates that the broadcast service should return immediately, rather than blocking until all of the calls to the individual API producers
+are complete. When async is true, the consumer (ATS in this case) is never informed of errors.</p>
+
+<h1>Core API calls</h1>
+
+<p>Your app needs to propagate incoming core API calls from TAS to Cronkite, so that Cronkite can maintain its internal route queues. Specifically:</p>
+
+<ul>
+<li>when your app is started (for a tenant), Cronkite drops any of its route queues that lead to a producer that is no longer installed
+<li>when your app is uninstalled (for a tenant), Cronkite drops all route queues for your app (i.e., the consumer)
+</ul>
+
+<p>Your app should propagate the 4 TAS core outgoing (i.e., incoming to your app) API calls to the corresponding Cronkite APIs, e.g.:</p>
+
+<div class='codeBlock'>
+.. when your app receives POST /tenants/acme
+
+POST https://cronkite.talentappstore.com/api/v1/apps/{app}/tenants/acme
+Auth: hmac (using your app's secret key)
+</div>
+
+<br />
+ 
+<div class='codeBlock'>
+.. when your app receives DELETE /tenants/acme
+
+DELETE https://cronkite.talentappstore.com/api/v1/apps/{app}/tenants/acme
+Auth: hmac (using your app's secret key)
+</div>
+
+<br />
+ 
+<div class='codeBlock'>
+.. when your app receives POST /tenants/acme/starts
+
+POST https://cronkite.talentappstore.com/api/v1/apps/{app}/tenants/acme/starts
+Auth: hmac (using your app's secret key)
+</div>
+
+<br />
+
+<div class='codeBlock'>
+.. when your app receives POST /tenants/acme/halts
+
+POST https://cronkite.talentappstore.com/api/v1/apps/{app}/tenants/acme/halts
+Auth: hmac (using your app's secret key)
+</div>
+
+<br />
+
+
+<h1>Error handling and retry strategy</h1>
+
+<p>TBD</p>
+
+<h1>Example API flow</h1>
+
+<p>A sample flow is shown below:</p>  
+
+<div class='seqdiag' id="disruptionexample" style="display:none;">
+
+participant ats
+participant Cronkite
+participant ferret
+participant TAS
+note left of ferret: tenant acme installs the ferret app,\ninitiating the "disruption dance"
+TAS->ats: POST /tenants/acme/halts
+note right of ats: ats tells Cronkite to\nclear its caches since the\nworld is about to go upside down
+ats->Cronkite: POST https://cronkite.talentappstore.com\n/api/v1/apps/{app}/tenants/acme/halts
+TAS->ferret: POST /tenants/acme
+TAS->ferret: POST /tenants/acme/starts
+TAS->ats: POST /tenants/acme/starts
+ats->Cronkite: POST https://cronkite.talentappstore.com\n/api/v1/apps/{app}/tenants/acme/starts
+note left of ferret: ferret install is complete,\ndisruption is over
+note right of ats: a database trigger fires in the ats,\nreflecting that a new candidate has been created
+note right of ats: the ats composes a request body, and instructs Cronkite\nto broadcast it to all producers of a specific API. This\nhappens via a (non-TAS) API call, which returns\nimmediately since async == true
+ats->Cronkite: POST https://cronkite.talentappstore.com\n/api/v1/apps/{app}/tenants/acme/broadcasts
+note right of ats: Auth: hmac (using your app's secret key)\nRequest:\n{\n  "method": "POST",\n  "apiDeveloper": "tas",\n  "apiUriTemplate": "/m/candidates/{candidateID}/deltaPings",\n  "uri": "/m/candidates/10234/deltaPings",\n  "async": true,\n  "requestBody": {\n    "operation": "insert"\n  }\n}
+note right of Cronkite: Cronkite can make\ncore API\ncalls on ats's behalf, but this is\nthe first time that ats has tried to broadcast\nto this API for tenant acme,\nso asks TAS who produces that API
+Cronkite->TAS: GET /tenants/acme/routes/ats/tas/%2Fm%2Fcandidates%2F%7BcandidateID%7D%2FdeltaPings
+note left of TAS: TAS says:\n"items": [{"producer": "ferret",\n"location": "https://acme.ferret.com/api/v3.2"},..]
+note right of Cronkite: finally Cronkite can broadcast\nthe API call on ats's behalf
+Cronkite->ferret: POST /m/candidates/29046/deltaPings\n{"operation": "insert"}
+</div>
+
+
+
+<script>
+function render(obj) {
+	// we first need to encode away the &gt; and &lt; chars we get back
+	var e = document.createElement('div');
+	e.innerHTML = $(obj).html();
+	
+	// create a div to hold the diagram
+	$(obj).after("<div id='" + $(obj).attr('id') + "-diag'></div>");
+
+	// then create diagram
+	var diagram = Diagram.parse(e.childNodes[0].nodeValue);
+	diagram.drawSVG($(obj).attr('id') + '-diag', {theme: 'simple'});
+}	
+
+$(document).ready(function() {
+
+    //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
+    //Calls the tocify method on your HTML div.
+//$("#toc").tocify();
+	
+	$('.seqdiag').each(function(i, obj) {
+	    render(obj);
+	});
+
+	tocify('toc');
+	
+});
+</script>
+
+
+</body>
+</html>

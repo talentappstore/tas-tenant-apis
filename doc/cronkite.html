@@ -3,14 +3,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!-- always required -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/raphael-min.js'></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/underscore-min.js'></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/sequence-diagram-min.js'></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/tocify.js'></script>
 
-<link rel='stylesheet' href='http://tas-des-static.talentappstore.com/css/des.css' type='text/css' media='all' />
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
 
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 <title>Broadcast service</title>
 </head>
@@ -140,7 +149,7 @@ Auth: hmac (using your app's secret key)
 
 <p>A sample flow is shown below:</p>  
 
-<div class='seqdiag' id="disruptionexample" style="display:none;">
+<div class='seqDiag' id="disruptionexample">
 
 participant ats
 participant Cronkite
@@ -169,31 +178,11 @@ Cronkite->ferret: POST /m/candidates/29046/deltaPings\n{"operation": "insert"}
 
 
 <script>
-function render(obj) {
-	// we first need to encode away the &gt; and &lt; chars we get back
-	var e = document.createElement('div');
-	e.innerHTML = $(obj).html();
-	
-	// create a div to hold the diagram
-	$(obj).after("<div id='" + $(obj).attr('id') + "-diag'></div>");
-
-	// then create diagram
-	var diagram = Diagram.parse(e.childNodes[0].nodeValue);
-	diagram.drawSVG($(obj).attr('id') + '-diag', {theme: 'simple'});
-}	
-
 $(document).ready(function() {
 
-    //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-    //Calls the tocify method on your HTML div.
-//$("#toc").tocify();
-	
-	$('.seqdiag').each(function(i, obj) {
-	    render(obj);
-	});
-
-	tocify('toc');
-	
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
 });
 </script>
 

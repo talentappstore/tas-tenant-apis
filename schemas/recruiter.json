@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "locationFactor": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "organizationFactor": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "categoryFactor": {
+            "type": "object",
+            "properties": {
+                "categoryID": {
+                    "type": "integer"
+                },
+                "categoryValues": {
+                    "type": "array",
+                    "items": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "categoryID",
+                "categoryValues"
+            ]
+        },
+        "categoryFactors": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/categoryFactor"
+            }
+        },
+        "recruiter": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "list all openings related to the recruiter, who must be the logged in user."
+                },
+                "relationship": {
+                    "enum": [
+                        "owner",
+                        "accessor"
+                    ],
+                    "description": "is the recruiter the owner, or can they act as if they were the owner (maybe the opening's owner is a coRecruiter)"
+                }
+            }
+        },
+        "filter": {
+            "type": "object",
+            "properties": {
+                "recruiter": {
+                    "$ref": "#/definitions/recruiter"
+                },
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "./positionOpening.json#/definitions/status"
+                    }
+                },
+                "locationFactor": {
+                    "$ref": "#/definitions/locationFactor"
+                },
+                "organizationFactor": {
+                    "$ref": "#/definitions/organizationFactor"
+                },
+                "categoryFactors": {
+                    "$ref": "#/definitions/categoryFactors"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "recruiter"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "filter": {
+            "$ref": "#/definitions/filter"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "filter"
+    ]
+}

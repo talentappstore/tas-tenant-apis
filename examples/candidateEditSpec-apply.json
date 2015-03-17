@@ -1,0 +1,68 @@
+{
+    "tracker": 763019932,
+    "anonymous": false,
+    "amendedIntent": {
+        "openings": [
+            356347
+        ],
+        "categories": [
+            {
+                "key": "location",
+                "values": [
+                    1001
+                ]
+            },
+            {
+                "id": 10034,
+                "values": [
+                    1008
+                ]
+            }
+        ]
+    },
+    "editMessage": {
+        "message": "To apply, just complete this simple form. Best of luck!",
+        "level": "info"
+    },
+    "inputModel": {
+        "resumeRule": {
+            "visible": true,
+            "mandatory": false,
+            "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
+        },
+        "attachmentRules": [
+            {
+                "seq": 0,
+                "type": "C1 nursing certificate",
+                "instructions": "Please download, sign, scan and attach your C1.",
+                "mandatory": true,
+                "allowMultiple": true,
+                "default": {
+                    "directUri": "https://acme.simpleats.com/secure/candidates/702342/attachmentDefaults/C1%20nursing%20certificate/samplecert.pdf",
+                    "fileName": "samplecert.pdf",
+                    "size": 102224
+                }
+            }
+        ],
+        "openingRules": [
+            {
+                "opening": 356347,
+                "itemsRule": {
+                    "$schema": "http: //json-schema.org/draft-04/schema#",
+                    "properties": {
+                        "favoriteColor": {
+                            "type": "string",
+                            "title": "Favoritecolor",
+                            "description": "Tellusyourfavouritecolor.Ouradvancedhiringalgorithmusesit.",
+                            "default": "blue"
+                        },
+                        "required": [
+                            "favoriteColor"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
+            }
+        ]
+    }
+}

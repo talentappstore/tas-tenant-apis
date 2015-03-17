@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "category": {
+            "type": "object",
+            "definition": "a selection of values for a single category, identified by id or name",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "key": {
+                    "enum": [ "location" ],
+                    "description": "used to identify well-known categories"
+                },
+                "values": {
+                    "type": "array",
+                    "items": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "values"
+            ]
+        }
+    },
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/category"
+    }
+}

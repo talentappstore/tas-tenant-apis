@@ -1,0 +1,167 @@
+#%RAML 0.8
+
+- candidateFace:
+    description: |
+      Get the candidate face. 
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/candidateFace.json
+            example: !include ../examples/candidateFace-simple.json
+
+- candidateFace_resume_asStream:
+    description: get the candidate's resume as a stream, i.e. binary document, using the appropriate mime type
+    responses:
+      200:
+        body:
+          application/pdf:
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+          application/msword:
+          application/rtf:
+          text/plain:
+
+- tasItem:
+    queryParameters:
+     $select:
+       description: |
+         <p>The $select query option is used to specify which properties should be returned in the resource. It behaves as per its namesake in
+         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         For example:</p>
+
+         <pre>
+         GET /widgets?$select=kind,items/id,items/name
+
+         Response:
+
+         {
+           "kind": "widgets",
+           "items": [
+             {
+               "id": 10223,
+               "name": "Red widget"
+             },
+             {
+               "id": "10224",
+               "name": "Blue widget"
+             }
+           ]
+         }
+         </pre>
+         
+         <p>If you don't specify $select for <b><<resourcePathName>></b>, the default set of fields is:<br />
+         <b><<defaultSelectList>></b>
+       required: false
+       type: string
+
+
+- tasCollection:
+    queryParameters:
+     $orderby:
+       description: |
+         <p>The $orderby query option is used to order the entries, where the resource is a collection. It behaves as per its namesake in
+         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         The actual properties that can used varies by resource - for <b><<resourcePathName>></b>, it is <b><<orderingProperties>></b>.</p>
+       example: |
+         return widgets ordered by id (ascending)
+
+         GET /widgets?$orderby=id
+         
+         return the first set of widgets, ordered by quantity on hand
+         (ascending), then name (descending)
+         GET /widgets?$orderby=quantityOnHand,name desc
+       type: string
+       
+     $filter:
+       description: |
+         <p>The $filter query option is used to identity a subset of the entries, where the resource is a collection. It behaves as per its namesake in
+         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         <p>The actual properties that can used for filtering, and the complexity of the expression that is supported varies by resource -
+         for <b><<resourcePathName>></b>, it is:</p>
+         <p><b><<filterCapabilities>></b></p>.
+         
+       example: |
+         return the widgets that are active, and that have status of 'online' or that are in Auckland:
+
+         GET /widgets?$filter=active eq true and (status eq 'online' or location/city eq 'Auckland')
+       type: string
+       
+     $top:
+       description: |
+         <p>The $top query option is used to limit the number of entries, where the resource is a collection. It behaves as per its namesake in
+         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         <p>For <b><<resourcePathName>></b>, $top must be less than or equal to <b><<maxTop>></b>. This is also the default.</p>
+       example: |
+         return the first 5 widgets:
+
+         GET /widgets?$top=5
+       type: integer
+       
+     $skip:
+       description: |
+         <p><span style='color:red'>Deprecated - don't implement.</span><br />The $skip query option is used to specify the start index of the entries, where the resource is a collection. It behaves as per its namesake in
+         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+       example: |
+         return the widgets, starting with the third widget:
+
+         GET /widgets?$skip=2
+       type: integer
+       
+
+- deviceBound:
+    description: applied to resources that are located via the device type (tablet, etc.) of the end user
+    queryParameters:
+      device:
+        type: string
+        description: |
+          A device type, e.g. tablet
+        example: tablet
+        required: false
+
+- profileBased:
+    description: |
+      Applied to resources that are located via a candidate profile (a combo of country of residence, reqs being applied for, and profile
+      factors (job, location and offering type)).
+    queryParameters:
+      job:
+        type: number
+        repeat: true
+        required: false
+        description: |
+          The id of a job. Multiple jobs can be passed.
+        example: 1006
+      location:
+        type: number
+        repeat: true
+        required: false
+        description: |
+          The id of a location. Multiple locations can be passed.
+        example: 12
+      offeringType:
+        type: number
+        repeat: true
+        required: false
+        description: |
+          The id of an offering type. Multiple offering types can be passed.
+        example: 1054
+      req:
+        type: number
+        repeat: true
+        required: false
+        description: |
+          The id of a req being applied for. Multiple reqs can be passed.
+        example: 10677844
+      countryOfResidence:
+        type: string
+        repeat: true
+        required: false
+        description: |
+          Two letter identifier of the candidate's country of residence, from the values defined by http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2.
+        example: US
+      allowEmails:
+        type: boolean
+        required: true
+        description: |
+          Whether the candidate has allowed the tenant to communicate via email
+        example: true
+      

@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "resume": {
+            "type": "object",
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer"
+                },
+                "data" : {
+                  "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "fileName",
+                "size"
+            ]
+        },
+        "attachment": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "fileName": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer"
+                },                "data" : {
+                  "type": "string"
+                }
+                
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "fileName",
+                "size"
+            ]
+        },
+        "attachments": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/attachment"
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "resume": {
+            "$ref": "#/definitions/resume"
+        },
+        "attachments": {
+            "$ref": "#/definitions/attachments"
+        }
+    },
+    "additionalProperties": false,
+    "required": []
+}

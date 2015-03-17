@@ -1,0 +1,25 @@
+{
+    "filter": {
+        "categories": [
+            {
+                "key": "location",
+                "values": [
+                    1001
+                ]
+            },
+            {
+                "id": 10034,
+                "values": [
+                    1001
+                ]
+            }
+        ],
+        "recruiter": {
+            "id": 1,
+            "relationship": "owner"
+        },
+        "statuses": [
+            "active"
+        ]
+    }
+}

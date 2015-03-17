@@ -1,0 +1,38 @@
+#%RAML 0.8
+
+
+- hmac:
+    description: |
+      HMAC is used to authenticate tenant API calls that *are not* made on behalf of a specific principal (e.g. user)
+    type: x-HMAC
+    describedBy:
+      headers:
+        Authorization:
+          description: |
+            Used to send a MAC with the message, i.e. not on behalf of any specific principal
+          type: string
+- oauth_2_0:
+        description: |
+            OAuth is used to authenticate tenant API calls that *are* made on behalf of a specific principal (e.g. user)
+        type: OAuth 2.0
+        describedBy:
+            headers:
+                Authorization:
+                    description: |
+                       Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.
+                    type: string
+            responses:
+                401:
+                    description: |
+                        Bad or expired token. To fix, you should re-authenticate the user.
+                403:
+                    description: |
+                        Bad OAuth request (wrong consumer key, bad nonce, expired
+                        timestamp...). Unfortunately, re-authenticating the user won't help here.
+        settings:
+          authorizationUri: https://www.dropbox.com/1/oauth2/authorize
+          accessTokenUri: https://api.dropbox.com/1/oauth2/token
+          authorizationGrants: [ code, token ]
+
+
+

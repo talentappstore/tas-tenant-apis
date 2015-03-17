@@ -1,0 +1,92 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "fileDetail": {
+            "properties": {
+                "fileName": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fileName",
+                "value"
+            ],
+            "additionalProperties": false
+        },
+        "documentOp": {
+            "enum": [
+                "add",
+                "remove",
+                "replace"
+            ]
+        },
+        "attachmentPatch": {
+            "properties": {
+                "op": {
+                    "$ref": "#/definitions/documentOp"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "the attachment name, e.g. 'Drivers license'"
+                },
+                "fileDetail": {
+                    "$ref": "#/definitions/fileDetail"
+                }
+            }
+        },
+        "attachmentPatches": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/attachmentPatch"
+            }
+        },
+        "application": {
+            "type": "object",
+            "properties": {
+                "applicationAttachmentPatches": {
+                    "$ref": "#/definitions/attachmentPatches"
+                },
+                "items": {
+                    "$ref": "./items.json"
+                }
+            },
+            "additionalProperties": false,
+            "required": []
+        }
+    },
+    "type": "object",
+    "properties": {
+        "vcard": {
+            "$ref": "./jcard.json"
+        },
+        "resume": {
+            "$ref": "#/definitions/fileDetail"
+        },
+        "video": {
+            "$ref": "#/definitions/fileDetail"
+        },
+        "voiceMessage": {
+            "$ref": "#/definitions/fileDetail"
+        },
+        "categories": {
+            "$ref": "./categories.json"
+        },
+        "candidateAttachmentPatches": {
+            "$ref": "#/definitions/attachmentPatches"
+        },
+        "items": {
+            "$ref": "./items.json"
+        },
+        "applications": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/applications"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": []
+}

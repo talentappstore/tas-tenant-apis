@@ -3,13 +3,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!-- always required -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/raphael-min.js'></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/underscore-min.js'></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/sequence-diagram-min.js'></script>
-<script type="text/javascript" src='http://tas-des-static.talentappstore.com/js/tocify.js'></script>
 
-<link rel='stylesheet' href='http://tas-des-static.talentappstore.com/css/des.css' type='text/css' media='all' />
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 
 <title>Conventions</title>
@@ -48,14 +58,14 @@ app obeys the convention) the job board will only ever access its own postings, 
 
 <div class='codeBlock'>
 - can consume		GET /positionOpenings/zambo
-- can produce		POST /m/positionOpenings/zambo/DeltaPings
+- can produce		POST /m/positionOpenings/zambo/deltaPings
 </div>
 
 <p>.. and that zambo:</p>
 
 <div class='codeBlock'>
 - can not consume	GET /positionOpenings/fruitbat
-- will never produce	POST /m/positionOpenings/fruitbat/DeltaPings
+- will never produce	POST /m/positionOpenings/fruitbat/deltaPings
 </div>
 
 <p>In another example, the repstate app provides a centralised store where apps that act as replication secondaries
@@ -145,7 +155,7 @@ candidate search app called "ferret".</p>
 
 <p>This example also shows the use of the repstate app, which acts as a persistent store for the secondary's state during the bulk load phase.</p>
 
-<div class='seqdiag' id="repexample" style="display:none;">
+<div class='seqDiag' id="repexample">
 
 participant ats
 participant ferret
@@ -223,34 +233,179 @@ The primary key used by the primary must:
 
 Our error returns follow the draft standard <a href='https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00'>Problem Details for HTTP APIs</a>
 
+<h1>Constant resource representation in tenant APIs</h1>
+
+<p>By convention in TAS's tenant APIs, resource representations are consistent (for a given media type).</p>
+
+<p>That is, an API call like GET /positionOpenings (for example) returns the same data to all callers, regardless of the consuming app (or of the principal in the case of OAuth APIs).</p>
+
+<p>This does not imply that all callers can always access the resource - in OAuth in particular, some principals might receive 403 errors depending on business rules.
+However if a caller can access the resource, they will see the same data as any other caller.</p>
+
+<p>This convention helps with scaling by allowing caching *behind* the authorisation layers in a layered architecture, for example:</p>
+
+<div class='codeBlock'>
+API consumer calls GET /positionOpenings/10334
+   -> (internet)
+      -> SSL offload
+         -> auth
+            -> business rules checking (e.g. can this principal access this resource?)
+               -> cache/ reverse proxy (resource representations are constant, hence can often be cached)
+                  -> origin API server (if not in cache)
+</div>
+
+<h2>Exception</h2>
+
+<p>The exception that proves the rule is when an API ends in "/me". The responses of such API calls should not be cached. 
+
+<h1>Faces</h1>
+
+<p>When business objects present different information, depending who is fetching them, use "Faces", e.g.:</p>
+
+<ul>
+<li>Return information about a job application that the recruiter is allowed to see:
+<div class='codeBlock'>GET /applications/recruiterFaces/{id}</div></li>
+
+<li>Return information about a job application that the candidate is allowed to see:
+<div class='codeBlock'>GET /applications/candidateFaces/{id}</div></li>
+
+<li>A position opening search function that returns info intended for candidates:
+<div class='codeBlock'>POST /openings/candidateFaces/searches</div></li>  
+</ul>
+
+<h1>Correlation ID in tenant APIs</h1>
+
+<p>To quote from <a href='http://taidevcouk.wordpress.com/2014/05/26/implementing-correlation-ids-in-spring-boot/'></a>:</p>
+
+<p>Correlation ids are essentially an id that is generated and associated with a single (typically user-driven) request into the application
+that is passed down through the stack and onto dependent services. In SOA or microservice platforms this type of id is very useful, as requests
+into the application typically are ‘fanned out’ or handled by multiple downstream services, and a correlation id allows all of the downstream
+requests (from the initial point of request) to be correlated or grouped based on the id. So called ‘distributed tracing’ can then be performed
+using the correlation ids by combining all the downstream service logs and matching the required id to see the trace of the request throughout
+your entire application stack (which is very easy if you are using a centralised logging framework such as logstash).</p>
+
+<p>Use the same "X-Request-ID" request header used by Heroku, RoR and others.</p>
+
+<h1>Login and identity leap</h1>
+
+<p>This section describes a standard recipe that SSO-protected apps should follow when users log in, in order
+to support identity leap.</p>
+
+<p>Identity leap allows users to switch their authenticating idp at login time, e.g. to switch from logging in using LinkedIn to instead
+use Google, or to switch from Persona-style authenticatication to the new corporate SAML idp.</p>
+
+<p>Identity leap works by relying on email as a trusted super identifier.</p>
+
+<p>For example:
+- a candidate who's record is currently protected by LinkedIn logs into app A using their Google account
+- app A notifies all apps of the login details and email
+- by virtue of their email as vouched for by Google matching their existing email,
+the candidate is allowed to identity leap from LinkedIn to Google.
+</p>
+
+<ol>
+
+<li>Your app has a candidates table with auth details (i.e. not just a foreign key to some other app's candidate record) and email address.
+
+<li>Your app acts as a *login listener*, i.e., it produces the core out API
+<div class='codeBlock'>POST /tenants/{tenant}/logins/{principalDeveloper}/{principalType}/{E}/{N}</div></li>
+
+<li>When a candidate logs in, your app should:
+<ol>
+<li>Test if it has a row in its candidates table for /E/N
+
+<li>If yes:
+
+<ol>
+<li>Test whether the email held on that row matches the email in the common section in the TAS session. Note,
+even though the TAS session is theoretically incomplete until all of the apps' login listeners have completed their work,
+the email address is always present even for the first login listener, since it comes from the idp, not session decoration.
+
+<li>If the emails do not match, then your app is now aware that the candidate has recently changed the email associated
+with their Facebook (or whatever) account, and your app now needs to replicate that change - i.e., it updates the email
+address in its candidates table. 
+
+<li>Finally your app must also signal to TAS that any other existing sessions (i.e., SSO sessions created when the
+user arrived at other apps) for the same /E/N are now potentially invalid (i.e. likely have an outdated email address),
+and should be destroyed - that will force the candidate to log in again to those apps, which in turn will
+cause the sessions to be correctly set up.  *http status ???? to signal this??????*.
+
+<li>Login is complete. Proceed to roles check.
+</ol>
+
+<li>Otherwise (your app has no row for /E/N):
+
+Your app should check whther it has a row for the same email address, but with a different /E/N.
+
+If found
+  *That* probably indicates that the candidate is, for the first time, trying to
+   authenticate with a different idpsome other idP, so we want to identity leap towards that one.
+
+   We notify all apps that the user with email X now has a new /E/N (i.e. prompt them all to do their own identity leap).
+   Each app updates their /E/N. (That includes your app btw.)  
+
+   We then tell TAS to tear down all existing sessions with the previous /E/N. *http what* ???
+   
+   Finally your login listener needs to force the login to fail. We need this so that the whole login is restarted, this time
+   with the correct /E/N. That way all of the session decoration happens correctly and from the beginning.
+   
+   The convention for achieving this is to add "reLogIn": true to the TAS session. Your app should check this
+   whenever anyone logs in, and should respond by (a) logging the person out; (b) showing them a page
+   saying "fred@acme.com now logging in via LinkedIn (was Google)"; (c) somehow showing a shortened discovery page that shows only the
+   new /E, perhapos with a link to unlock more choices (e.g they want to go back to the previous idp)   
+
+We then fail the login, and ask the user to do it again. This forces all session decoration to happen correctly with the new /E/N.
+
+else
+
+
+<ol>
+<li>
+</ol>
+
+
+</ol> 
+
+
+has a candidates table with auth details (i.e. not just a foreign key to some other app's candidate record).
+
+<li>The user has clicked to your app, has successfully authenticated (at the SAML level anyway) and is now back at your app
+with a SAML assertion for principal type == candidate.
+<li>If your app has its own candidates table (including auth details) then it now checks whether there is a row with your E/N.
+
+<li>If there is, then your app:
+
+<ol>
+<li>Broadcasts the login details to all apps that produce some API like:
+<div class='codeBlock'>POST /openings/candidateFaces/searches</div></li>  
+<li>Proceeds with login (e.g. moves on to do a roles check)
+</ol>
+
+
+
+ There are three possiblities now:
+
+- the user may have changed their email
+- auto-provisioning  
+
+- we want to fail login (e.g. cannot identity leap away from the corporate SSO)
+
+<ul>
+
+ Your app offers all other "principal holder" apps the chance to
+  
+</ol>
+
+
+
 
 
 <script>
-function render(obj) {
-	// we first need to encode away the &gt; and &lt; chars we get back
-	var e = document.createElement('div');
-	e.innerHTML = $(obj).html();
-	
-	// create a div to hold the diagram
-	$(obj).after("<div id='" + $(obj).attr('id') + "-diag'></div>");
-
-	// then create diagram
-	var diagram = Diagram.parse(e.childNodes[0].nodeValue);
-	diagram.drawSVG($(obj).attr('id') + '-diag', {theme: 'simple'});
-}	
-
 $(document).ready(function() {
 
-    //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
-    //Calls the tocify method on your HTML div.
-//$("#toc").tocify();
-	
-	$('.seqdiag').each(function(i, obj) {
-	    render(obj);
-	});
-
-	tocify('toc');
-	
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
 });
 </script>
 

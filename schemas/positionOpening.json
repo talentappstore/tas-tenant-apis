@@ -1,6 +1,13 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
+        "status": {
+            "enum": [
+                "active",
+                "complete"
+            ],
+            "description": "from HR-XML"
+        },
         "position": {
             "required": [
                 "title"
@@ -51,11 +58,7 @@
             "type": "integer"
         },
         "status": {
-            "enum": [
-                "active",
-                "complete"
-            ],
-            "description": "from HR-XML"
+                    "$ref": "#/definitions/status"
         },
         "availableInternally": {
             "type": "boolean",

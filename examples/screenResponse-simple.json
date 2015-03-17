@@ -1,0 +1,31 @@
+{
+  "meta": {
+     "dateCreated": "...",
+     "lastUpdated": "...",
+     "dateCompleted": "..."
+  },
+  "candidateFace": {
+    "links": [
+     {
+       "name": "...",
+       "url": "..."
+     }
+  ]
+  }
+  "links":  [
+     {
+       "name": "...",
+       "url": "..."
+     }
+  ],
+  "completionStatus": {
+     "trafficLight": ["red","orange","green"],
+     "score": 23
+  },
+  "history": {
+    "date": "...",
+    "detail": "..."
+  },
+  "htmlResponse": "..",
+  "jsonResponse": {}
+}

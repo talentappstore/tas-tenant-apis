@@ -1,0 +1,646 @@
+#%RAML 0.8
+---
+title: TAS recruitment
+baseUri: http://talentappstore.com/{version}
+version: v1
+
+
+securitySchemes:  !include securitySchemes.yml
+traits: !include traits.yml
+
+
+/campaignTrackers:
+  description: |
+    Campaign trackers encapsulate a url and some meta information (e.g. that the link represents an employee referral) in an object
+    held in an analytics store that can be passed as a url param around various TAS APIs.
+  post:
+    description: |
+      Create a campaign
+/trackers:
+  /{id}:
+    get:
+      description: |
+        Get details from a campaign or visit tracker, identified by its ID. if the tracker is a
+        visit tracker, details of the (perhaps indirectly) attached campaign tracker are included.
+    /visitTrackers:
+      description: |
+        Visit trackers represent a click through by a candidate to a destination tracker's URL 
+      post:
+        description: |
+          Create a visit tracker as a child of the specified campaign or visit tracker
+
+/categories:
+
+  description: |
+    Tenant-defined hierarchical structures used in talent management to categorize openings, candidates
+    and others.
+    
+  /userFaces:
+    description: |
+      Details about categories visible to users in the organization; for example includes details
+      of inactivated nodes. Auth most likely only via anonymous OAuth.
+    get:
+      description: |
+        fetch list of categories: id, name, key (if well known), single or multi-select for opening    
+    post:
+      description: Create a single category
+    /{id}:
+      get:
+        description: Fetch details for a single category
+      post:
+        description: Update a single category
+      delete:
+        description: Delete a category, along with all of its values
+      /values:
+        get:
+          description: Get the root values for the category, including name, parentValue, category, children
+        patch:
+          description: Merge in an array of root values
+        /{id}:
+          get:
+            description: Get the child values for the given value
+          delete:
+            description: delete this node and its child nodes
+          post:
+            description: edit details of this node, including its parent
+          /values:
+            get:
+              description: Get the array of sub-trees attached to this value
+            patch:
+              description: Merge in an array of child values
+          /acquires:
+            /{acquiree}:
+              post:
+                description: acquire all of the child nodes of the acquiree, then delete the acquiree node
+    /byKey:
+      /{key}:
+        description: |
+          Identical behaviour as under /{id}, but with the
+          category identified by its well-known key (e.g., location)    
+
+/recruiters:
+  description: |
+    Recruiters are HR professionals or recruitment specialists who bring talent into the organization.
+    To perform their role, recruiters are trusted with a high degree of access to sensitive information such as salaries,
+    performance management records, etc.
+
+  /byEN:    
+    /{E}:
+      /{N}:
+        get:
+          description: |
+            Get the ID of the recruiter role holding for ourselves (the currently logged in principal, who must be of principal type 'user',
+            session decorated as being a recruiter, with a row in the SoT system for recruiters).
+            Calls by apps, typically immediately after a user authenticates in, to get the id of the recruiter role holding.
+             
+            since that is the time to perform identity leap. 
+          queryParameters:
+            email:
+              type: string
+              description: |
+                The verified email address of the logged in recruiter. The endpoint SHOULD use this to identify opportunities for
+                "identity leap", e.g. when someone with an existing user record authenticated by LinkedIn clicks to log in with Google
+                instead, identity leap allows them to switch their {E} and {N} so that henceforth they log in via Google.
+              
+                The endpoint's logic will be something like:
+                - does a user row exist with {E}/{N}?
+                - if so, then return the ID of the user's recruiter role holding if they have one, otherwise http 404
+                - if not, does any user row exist with {E} and {N} being not null, and having the matching email address?
+                - if so, does the existing {E} allow "identity leap away from"? (i.e., is it a non-attribute supplying idp)?
+              
+                
+                There are two classes of idp:
+                - attribute suppliers:
+                   - corporate SSO
+                   - bootstrap idp
+                - non-attribute suppliers:
+                   - backdoor idp (these may have attributes but can inject them via login listening on email match)
+                   - social logins (e.g. Google, LinkedIn)
+                   - email idp
+                   - common SAML (e.g. RealMe)
+                
+                Identity leap is by default not allowed *away* from attribute suppling idps, since leaping away means losing access
+                to the idp-supplied attributes, which may hold vital authorization information. Also, corporate SSO has
+                been put in place for strong security reasons - most corporates would not want it supplanted by other login mechanisms,
+                e.g. login with Google.
+                
+                The only case for turning on "allow identity leap away from" on a corporate idp is probably when that idp is being retired in favour of
+                a new one - a fringe case we aren't going to handle.
+                
+                Leaping *to* attribute supplying idps is powerful - e.g., when the tenant has an existing database of password or Google (or whatever) protected
+                users, and they install a corporate SAML idp, they can disable the existing login methods (which implies TAS needs a disabled flag) and then
+                each user will be forced to switch authentication to the SAML when they next attempt log in.
+                
+                
+                
+                Session decorators should normally decorate based on email address rather than {E}/{N}.
+                
+                This allows the user to swap login mechanisms (e.g. from email to Google) and keep their entitlements.
+                
+                HOW? WHY NECESSARY? Step by step!
+                
+                
+                 
+                
+                Idp-specific rules can not be applied to non-attribute suppliers. (e.g. can't make *@acme.com an internal when logging
+                in through LinkedIn, but not Google). Instead, rules must be applied either to all non-attribute supplying idps, or to specific attribute supplying idps.
+                
+                
+              
+                TODO: expand on this, considering:
+                - how to broadcast the leap to all apps that have a user database so they can fix their own records for the person
+
+                /m/candidates/byEmail/{email}/identityLeaps:
+              
+                - how/whether to cleanup the email IdP if that is the IdP we are leaping from (similar problem to
+                allowing candidates to delete their own records)
+                - likewise when we leap away from the backdoor idp, we probably can't delete the record, but we need to cleanse it
+                of password information
+              example: fred@acme.com
+              required: false
+            
+      post:
+        description: |
+          Self-provision a recruiter row for the logged in user (who must have been session decorated as a recruiter) 
+  post:
+    description: |
+      Create a recruiter, along with a user, or designate an existing user as being a recruiter. When creating the user,
+      the identity fields need to be set, typically by:
+      - setting {E} to the email IdP, {N} to their email; OR
+      - setting {E} to corporate IdP, {N} to incoming {N}
+  /{id}:
+    post:
+      description: update an existing recruiter and/or their user ('s vcard)
+    /userFace:
+      get:
+        description: get the user-facing details for a recruiter (active flag, user ID, org details, etc.)
+    /user:
+      /vcard:
+        get:
+          description: |
+            Get contact details of the recruiter's user record user in the form described by rfc7095.
+            Users are people who are more or less inside the organization. Users may be or take on the role
+            of other types such as recruiter.
+            When called as OAuth, the target must be the logged in user, or one of their coRecruiters.
+  /userFaces:            
+    /searches:
+      post:
+        description: |
+          Search recruiters, returning user-facing details.
+          When called as OAuth, the logged in recruiter must be passed as a parameter, and the results
+          will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+
+/openings:
+  description: |
+    Position openings aka vacancies, job openings, etc. 
+  /recruiterFaces:
+  
+    description: |
+      APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth,
+      the logged in principal would be a user, session decorated as a recruiter.          
+    post:
+      description: Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status
+    /{id}:
+      get:
+        description: Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.
+      post:
+        description: Update an existing opening as a recruiter
+    /byRef:
+      /{ref}:
+        get:
+        description: |
+          Get recruiter-facing details for a specific opening by ref (with active status).
+          When called as OAuth, the opening must be visible to the recruiter.
+    /searches:
+      post:
+        description: |
+          Search openings, returning recruiter-facing details. When called as an OAuth API, the recruiter parameter must be present, and
+          must be set to the logged in recruiter. 
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+        body:
+          application/json:
+            schema: !include ../schemas/openingSearches.json
+            example: !include ../examples/openingSearches-simple.json
+
+  /candidateFaces:
+    /categories:
+      get:
+        description: Fetch the opening's category values. If any values are inactivated, then the tree will still be normalised.
+    /searches:
+      post:
+        description: Search a list of position openings
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/positionOpenings.json
+                example: !include ../examples/positionOpenings-simple.json
+    /{id}:
+      get:
+        description: |
+          Get the candidate-facing details of this opening. Does not observe any restrictions on the "open to internal" ruiles on
+          the opening vs. the viewing candidate's own state. That sort of hyperdetail gets in the way of sending special candidate direct
+          links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal opening).
+
+
+/applications:
+  /{id}:
+    /tracker:
+      get:
+        description: |
+          Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
+          Always a visit tracker?
+    /status:
+      get:
+        description: |
+          Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
+          as "interview", "offer", "pre-screen", etc.
+    /candidate:
+      get:
+        description: Get the candidate for this application
+    /opening:
+      get:
+        description: Get the opening for this application
+  /bySourcingApp:
+    /{consumer}:
+      /{id}:
+        /sourcerDetails:
+          get:
+            description: |
+              Get a sanitised and basic set of information for a job application, which the consumer is entitled to
+              by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
+
+                      
+/m:
+  /recruiters:
+    /{id}:
+      /deltaPings:
+        post:
+          description: |
+            Alert interested apps that recruiter CRUD has happened. e.g. one might send welcome messages
+            to new recruiters.
+  /candidates:
+    /{id}:
+      /deltaPings:
+        description: |
+          The main ping for any changes to a candidate, other than the html resume, which has its own delta ping
+        post:
+      /resumeAsHtml:
+        /deltaPings:
+          description: a separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app
+          post:        
+    /byEmail:
+      /{email}:
+        /identityLeaps:
+          /{E}:
+            /{N}:
+              post:
+                description: |
+                  Called to tell your app that the candidate with the given email address has performed an identity leap
+                  on login (i.e. their E/N has changed *to* the new values), and that your app should update
+                  its own auth details for the candidate.
+            
+                  Your app should produce this if it has its own candidates table (as opposed
+                  to just keying via candidate id), *and* it holds the email address.
+
+                  Because this API allows apps to gain control of the auth for any candidate, tenants must have complete
+                  trust in the integrity of any app consuming this API.
+                  
+                  TODO: how do apps signal to TAS core need for cleanup of any existing sessions
+                  keyed by the old E/N?
+  /applications:
+    /{id}:
+      /deltaPings:
+        description: |
+          the main ping for any changes to a job application
+    /bySourcingApp:
+      /{producer}:
+        /{id}:
+          /deltaPings:
+        description: |
+          a ping for any changes to a job application, but which is only sent to the application that sourced the
+          application (i.e., that owns the campaign tracker attached to the application).
+
+
+  /openings:
+    /{id}:
+      /widgetHtml:
+        description: |
+          Resource served up by apps that want to insert an html widget into a web page displaying this opening, for example:
+          - an apply now button displayed to a candidate
+          - a menu panel displayed to a recruiter
+        /candidates:
+          /me:
+            get:
+              description:
+                Get a button type widget for display on the candidate facing page for an opening.
+                If called anonymously, the producer will pass back some default which is applicable to
+                public job seekers. If called with a candidate identified, the producer will likely consult
+                the TAS session and perhaps some business data such as whether the candidate has applied for
+                the opening already to make its decision.
+              queryParameters:
+                tasTracker:
+                  type: integer
+                  description: |
+                    A tracker that the widget can make use of (candidates only).
+                  example: 16548354764
+                  required: false
+        /recruiters:
+          /me:
+            get:
+              description:
+                Get a card type widget for display to the logged in recruiter for an opening.
+                The producer will likely consult the TAS session and perhaps some business data
+                such as the recruiter's area to make its decision.                
+      /candidateFaces:
+        /{id}:
+          /deltaPings:
+            post:
+              description: |
+                Send notification of a change to the candidate-facing details of an opening.
+            /toActive:
+              post:
+                description: |
+                  Send notification of a change to the candidate-facing details of an opening, specifically
+                  that the opening has become newly active. Useful to feed something like a mobile job notification system,
+                  which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
+                  a system would need to do its own tests as to whether the opening was visible to any given candidate.
+                
+      /preScreens:
+        /{producer}:
+          /{id}:
+            /deltaPings:
+              post:
+                description: Alert a pre-screening app that a new screening has been requested
+
+
+/candidates:
+  description:
+    Candidates are people who are in the tenant's talent world, maybe because they applied for an
+    opening, registered in the database, were imported from some other system, etc.
+    Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned,
+    in which case they have no {E}/{N} values. Owned candidates may use an identity leap IdP.
+     
+  /{E}:
+    /{N}:
+    
+      get:
+        description: |
+          Get the ID of ourselves (the currently logged in principal, who must be of principal type 'candidate').
+          The ID is often required as a parameter for other APIs.
+          Can only be called for the current logged in user, using their own entity ID and name ID.
+        queryParameters:
+          email:
+            type: string
+            description: |
+              email address for identity leap checking. See recruiters for more details.
+            example: fred@acme.com
+            required: false
+          
+      /candidateFace:
+      
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Self-provision a candidate and their job applications, or update existing details, via an edit operation.
+
+            A tracker can be passed in.
+            
+            candidate and application **attachmentPatches** notes:
+          
+            If the candidateAttachmentRule for the given type has allowMultiple == false, then performing
+            an "add" of one attachment (like frodo.pdf) will implicitly perform a "remove" of all other existing attachments
+            for the attachment type (though there should be only one or zero, unless allowMultiple was changed from true to false).
+          
+            If allowMultiple == true, then multiple attachments with different fileNames can be added.
+          
+            In either case, if an "add" is performed, and there is already an attachment with the same name, then the "add"
+            acts as a "replace", i.e. there can only ever be a single attachment per type with any given fileName.
+
+            All uploaded files are run through standard security tests:
+            - extension matches actual file type
+            - virus check
+            - etc.
+
+            **resume** notes:
+
+            If a resume element is passed then any existing resume will be replaced by the contents of the resume element. If null, the existing
+            resume will be removed.
+
+            All files are run through standard security tests (see attachments).
+            
+            **applications** notes:
+            
+            All openings are checked that they are active, but no check is done of the "open to internal" ruiles on the opening vs. the candidate's own
+            state. That sort of hyperdetail gets in the way of sending special candidate direct links for them to apply (e.g. after an opening
+            has closed, or to allow a special external applicant through to an internal opening).
+               
+            Producer notes:
+            The producer will likely verify the edit by:
+            - calling POST /candidates/{E}/{N}/editSpecs/fetches using the passed in profile, to fetch the amended profile and the input model 
+            - compare the passed in profile to the amended profile and fail if not identical (i.e. the consumer failed to use the amended profile)
+            - test that the provided candidate face data, merged into any existing candidate data, completely satisfies the input model
+          
+          body:
+            application/json:
+              schema: !include ../schemas/candidateEdit.json
+#              example: !include ../examples/candidateEdit-simple.json
+
+      /editSpecs:
+        /fetches:
+          is: [ profileBased, deviceBound ]
+          post:
+            securedBy: [oauth_2_0]
+
+            queryParameters:
+              device:
+                type: string
+                description: the device type being used by the candidate (tablet, etc.)
+                example: tablet
+                required: false
+            
+            description: |
+              The method is a POST solely because the size and number of parameters might get too large for a GET.
+              
+              All changes to a candidate face happen via an edit.
+
+              This API is used to prepare for an edit, by fetching, typically from an ATS:
+              - the **amended profile** (none if the changes were denied)
+              - the **amended set of jobs** (none if the changes were denied)
+              - the **input model** derived from the amended profile 
+              - an info, warning or error **message** to be shown to the candidate
+
+              When called with a non-anonymous OAuth token, the candidate's identity is known, so the edit spec may have been tailored to the actual candidate.
+           
+              The **amended profile** is a (possibly) modified version of the profile passed in via URL params, with the changes needed to meet rules set by
+              the tenant. For example:
+              - candidate applying for pilot reqs must also register their interest in pilot jobs
+              - candidates applying to some specific customer service req must first apply to the pipeline req
+              - candidates apply to any req must agree to receive email
+          
+              Additional example since this API is on behalf:
+              - candidates cannot apply to call centre reqs unless they have already been starred as 3 or greater in the call centre talent pool
+                
+              The **input model** defines the candidate facet data (e.g. resume, personal details, attached documents)
+              that the candidate may or must provide in order to take on the amended profile, possibly also considering the device. For example:
+              - if the amended profile includes applying for a job based in Australia, candidate may be asked "what is your eligibility to work in Australia?"
+              - if the amended profile includes registering interest in financial advisor jobs in NZ, candidate might need to upload an industry certification.
+              - if the device is smartphone, then a reduced set of questions may be asked
+          
+              Additional example since this API is on behalf:
+              - if the profile includes applying for a job, and the candidate is internal, they may be asked "have you checked with your manager?"
+              - if the profile includes applying for a job, and the candidate has already been pre-vetted (perhaps in-store) then they may get a vastly truncated application form
+          
+              The **message** contains a text message (possibly including links), and a message type, intended for showing to the candidate.
+              The message may be used, for example, to explain to the candidate why their desired profile was amended, or denied. For example:
+              - "you cannot apply for this req from a mobile phone - please use a desktop" 
+              - "As a resident of Russia, you cannot apply for our jobs due to your country's data sovereignty laws"
+          
+              Additional example since this API is on behalf:
+              - "sorry, you have already applied for this req - you can only apply once"
+
+              OR
+         
+              This API returns the same input details as /candidates/E/N/profileEditSpecs, except that the response is not customized to a logged in
+              candidate. Instead, the API accepts some additional parameters (candidate type, country of residence) that would normally be obtained
+              directly from the candidate's TAS session or from their details in a database.
+   
+              This API is used, for example, to render a job application form to someone before they have authenticated, so they can understand
+              what their experience will be like. Once they have authenticated, more accurate input details should be fetched using
+              GET /candidates/E/N/profileEditSpecs.     
+        
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/candidateEditSpec.json
+#                    example: !include ../examples/candidateEditSpec-simple.json
+          
+  /{id}:
+
+    /preScreens:
+      /{consumer}:
+        /{id}:
+          /request:
+            get:
+              description: Get details of a screening request
+              body:
+                application/json:
+                  example: !include ../examples/screenRequest-simple.json
+          /responses:
+            /{seq}:
+            /latest:
+              post:
+                description: Update the response to a screening request
+                body:
+                  application/json:
+                    example: !include ../examples/screenResponse-simple.json
+              /candidateFace:
+                /links:
+                  get:
+                    description: get the candidate viewable links from the screening (if any)
+
+    get:
+      description: including notifications (subscribe y/n)
+    /stars:
+      /forOpenings:
+        /{id}:
+          get:
+            description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
+    /vcard:
+      get:
+        description: candidate contact details, in the form described by rfc7095
+    /resume:
+      get:
+        description: get metadata about the candidate's resume (size, filename, etc.) 
+      /asStream:
+        get:
+          is: [ candidateFace_resume_asStream ]
+          securedBy: [hmac]
+    /resumeAsHtml:
+      get:
+    /video:
+    /voiceMessage:
+    /items:
+      get:
+        is: [ profileBased, deviceBound ]
+    /attachments:
+    /latestSource:
+      get:
+        description: conveys medium, referer fqdn as per trackedRecordTypes.jsopn and candidateMediums.json 
+        
+    /categories:
+      /{id}:
+        /values:
+          /{id}:
+        
+    /applications:
+    
+      /{openingID}:
+        /items:
+        /attachments:
+          /{id}:
+        /source:
+
+
+    /openings:
+      /{id}:
+        /buttonState:
+          /{consumer}:
+            description: |
+              The name of the app that wants to know whether to render its button or not
+            get:
+              description: |
+                Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on openings, and want to
+                know for a specific opening and candidate, whether to display or not for.
+
+
+
+
+  /recruiterFaces:
+    /searches:
+      post:
+        securedBy: [hmac]
+        description: |
+          Search candidates, returning recruiter-facing details.
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+          TODO: is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 }, tasItem: { defaultSelectList: "id" } ]
+          withResume - if present, only return candidates with (if true) or without (if false) an attached resume
+        body:
+          application/json:
+            schema: !include ../schemas/candidates.json
+            example: !include ../examples/candidates-simple.json
+    /{id}:
+      get:
+        description: |
+          Return recruiter-facing details for a specific candidate. e.g do not contact flag
+
+/preScreens:
+  /{producer}:
+    /types:
+      get:
+        description: Get details of all of the screening types available to the tenant from this app
+        body:
+          application/json:
+            example: !include ../examples/screeningTypes-simple.json
+
+
+/TODO:
+  description: |
+    Stories required:
+    - apply for opening
+    - pre screening
+    - maintain openings and categories database
+    - from flat file
+    - including recruiter restrictions
+    
+    APIs remaining:
+    - agency structures, considering single common idp but per-tenant structures for opening linkages etc.
+    - agency-specific candidate and application items and attachments
+    - voice capture in apply
+    - active opening delta ping bridge to mobile notification
+    - adjust resume and resumeAsHtml so that callers can fetch metadata (size, date created, playing time, etc.) without also fetching the stream.
+    - zoom APIs (XlikeThis) - with support for "fields"
+    - candidate n point scoring against opening's master, including a note
+

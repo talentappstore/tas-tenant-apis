@@ -1,0 +1,192 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "editMessage": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "a text message to the candidate regarding their proposed edit, may include links"
+                },
+                "level": {
+                    "enum": [
+                        "info",
+                        "warning",
+                        "error"
+                    ]
+                }
+            },
+            "required": [
+                "message",
+                "level"
+            ],
+            "additionalProperties": false
+        },
+        "amendedIntent": {
+            "type": "object",
+            "properties": {
+                "openings": {
+                    "description": "the jobs that the candidate is interested in and the category values they want - as massaged by the ATS",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "categories": {
+                  "$ref": "./categories.json"
+                }
+            },
+            "required": [],
+            "additionalProperties": false
+        },
+        "resumeRule": {
+            "type": "object",
+            "properties": {
+                "visible": {
+                    "description": "can a resume be uploaded at all, and can existing resume be seen",
+                    "type": "boolean"
+                },
+                "mandatory": {
+                    "description": "is the resume mandatory - implies visisble == true",
+                    "type": "boolean"
+                },
+                "message": {
+                    "description": "a message to help the candidate understand about uploading a resume - e.g. 'resume optional when a video is provided'",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "visible",
+                "mandatory"
+            ]
+        },
+        "documentAtUri": {
+            "type": "object",
+            "properties": {
+                "directUri": {
+                    "type": "string",
+                    "description": "be sure this is secured"
+                },
+                "fileName": {
+                    "type": "string"
+                },
+                "size": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "directUri",
+                "fileName",
+                "size"
+            ]
+        },
+        "attachmentRule": {
+            "type": "object",
+            "properties": {
+                "seq": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "instructions": {
+                    "type": "string"
+                },
+                "mandatory": {
+                    "type": "boolean"
+                },
+                "allowMultiple": {
+                    "type": "boolean"
+                },
+                "default": {
+                    "$ref": "#/definitions/documentAtUri"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "seq",
+                "type",
+                "instructions",
+                "mandatory",
+                "allowMultiple"
+            ]
+        },
+        "attachmentRules": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/attachmentRule"
+            }
+        },
+        "itemsRule": {
+            "type": "object",
+            "description": "User-structured items to be attached to a candidate or a job application. Ideally should be schema-ed from json schema itself, but had trouble with that",
+            "additionalProperties": true
+        },
+        "openingRule": {
+            "type": "object",
+            "description": "rules that are specific to a single job application (i.e., not candidate-level)",
+            "properties": {
+                "opening": {
+                    "type": "integer",
+                    "description": "the job application these rules apply to (i.e the non-candidate level rules)"
+                },
+                "itemsRule": {
+                    "$ref": "#/definitions/itemsRule"
+                },
+                "attachmentRules": {
+                    "$ref": "#/definitions/attachmentRules"
+                }
+            },
+            "additionalProperties": false
+        },
+        "openingRules": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/openingRule"
+            }
+        },
+        "inputModel": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "resumeRule": {
+                    "$ref": "#/definitions/resumeRule"
+                },
+                "attachmentRules": {
+                    "$ref": "#/definitions/attachmentRules"
+                },
+                "openingRules": {
+                    "$ref": "#/definitions/openingRules"
+                },
+                "itemsRule": {
+                    "$ref": "#/definitions/itemsRule"
+                }
+            },
+            "required": []
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "tracker": {
+            "type": "integer",
+            "description": "just the same tracker that was passed in with the intent"
+        },
+        "anonymous": {
+            "type": "boolean",
+            "description": "whether this edit spec was generated for an anonymous candidate"
+        },
+        "amendedIntent": {
+            "$ref": "#/definitions/amendedIntent"
+        },
+        "inputModel": {
+            "$ref": "#/definitions/inputModel"
+        },
+        "editMessage": {
+            "$ref": "#/definitions/editMessage"
+        }
+    },
+    "required": []
+}

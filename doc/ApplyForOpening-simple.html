@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Apply for opening - simple</title>
+</head>
+<body>
+
+<div id="toc"></div>
+
+
+<h1>Discuss</h1>
+
+<ul>
+<li>overall UI design, considering all the other scenarios
+<li>storage of drafts (at the candidate level)
+<li>profile editing UI (separate page?)
+<li>use of the email IdP. When candidates apply using email, instead of social login, do we want to be able to leverage
+their email field without forcing them back to the email IdP for link verification? 
+</ul>
+
+<h1>Scenario</h1>
+
+<p>This scenario involves these apps:
+<ol>
+<li>jobly, a simple ATS that renders the opening details page with an "apply now" button embedded in it
+<li>simpleapply, an app that provides the "apply now" user interface, and pushes the job application into the ATS
+<li>tracker, an app that provides the TAS tracker functionality
+<li>   
+</ol>
+</p>
+
+<p>In this scenario, a candidate:
+<ol>
+<li>visits the tenant's corporate careers site hosted by jobly to look at a specific opening
+<li>clicks apply now
+<li>is sent to the simpleapply app
+<li>logs in using Google
+<li>completes a job application   
+</ol>
+</p>
+
+<p>Other scenarios that are also handled by simpleapply, but not covered in this doc:
+<ol>
+<li>Candidate "registers" interest (does not apply for any specific job), possibly for a given category (e.g. Marketing)
+<li>Candidate views their "existing data" (e.g. their resume, profile) using simpleapply, but within some larger container that lets also navigate to:
+<ul>
+<li>their in progress job applications
+<li>their draft job applications (held by simpleapply)
+</ul>
+<li>Candidate applies for a shopping cart of jobs in one operation
+<li>candidate clicks on a job they have already have a draft for
+<li>candidate clicks to apply for a job that has a gating job 
+</ol>
+</p> 
+
+
+<h1>Rendering the button - job details page</h1>
+
+<h2>Create a tracker</h2>
+
+<p>In this scenario, jobly, the ATS, has its own particular system for
+candidate source tracking which involves passing a candidateSource parameter.</p>
+
+<p>In this example, the candidate has reached the job by clicking on this link (within a Facebook post):</p>
+
+<div class='codeBlock'>
+https://acme.jobboard.com/jobs/7622?candidateSource=facebook
+</div>
+
+<p>The TAS tenant APIs use a different convention for source tracking, called tracker.
+
+<p>If jobly was tracker-aware, the URL would have looked more like this (and jobly would not have needed to
+create the campaign tracker:</p>
+
+<div class='codeBlock'>
+https://acme.jobboard.com/jobs/7622?tas_tracker=73947484
+</div>
+
+<p>Before it can render the simpleapply button, jobly needs to encapsulate
+the candidateSource data inside a tracker, that can be passed through the chain:</p>
+
+<div class='codeBlock'>
+(entry URL) -> job details page (jobly)  -> apply pages (simpleapply) -> REST API call for new job application -> (jobly)
+</div>
+
+
+<p>Trackers always start with a campaign tracker.</p>
+
+<p>In this example, jobly parses the candidate source out and adds it as a custom field inside the meta section,
+but equally it could have just left the meta section out altogether since the same information is available in the url field.</p>
+
+<div class='codeBlock'>
+(jobly)
+
+POST /campaignTrackers/jobly
+
+Request:
+{
+    "type": "jobs",
+    "id": 7622,
+    "url": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+    "meta": {
+        "candidateSource": "facebook"
+    }
+}
+
+Response: 200
+Location: 763020034
+</div>
+   
+<p>The next step is for jobly to create a visit tracker. The ATS passes in meta information from the
+http headers of the incoming request from the candidate clicking on the entry URL such as their IP address, user agent, etc.
+
+<div class='codeBlock'>
+POST /trackers/763020034/jobly/visitTrackers
+{
+   "landingURI": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+   "referer": "https://www.facebook.com",
+   "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
+   "ipAddress": "20.12.34.102"
+   "acceptLanguage": "en-us,en;q=0.5"
+}
+ 
+Response: 200
+Location: 763019932
+</div>
+
+<h2>Embed the apply now button</h2>
+
+<p>With the tracker set up, the ATS/job board (jobly) can now ask
+all interested apps whether they have a candidate-facing widget
+(e.g. an apply button, social sharing tool, view counter, etc.)
+that they would like to inject into the job details page.</p>
+
+<p>Since the candidate is not logged in, jobly makes the following API call using an anonymous OAuth token.</p>
+
+<div class='codeBlock'>
+(jobly)
+GET /m/openings/7622/widgetHtml/candidates/me?tracker=763019932
+
+... 
+</div>
+
+<p>In order to render its button, simpleapply looks at the <b>sub</b> field within the OAuth token. In this case
+the field is not present since the OAuth token is anonymous. This means that simpleapply can't, for example,
+see if the candidate has applied previously and iof so add a message "You've already applied".</p>
+
+<p>Instead, simpleapply displays whatever is appropriate for a completely unknown candidate.</p>
+
+<p>Note: even without a logged in candidate, these widget rendering apps could adapt their behaviour based on the data
+in the tracker, e.g. for candidates on a mobile device:
+<ul>
+<li>One apply mechanism (the desktop experience) stops rendering its button
+<li>Another (the mobile experience) starts rendering its button
+</ul>  
+</p>
+
+<div class='codeBlock'>
+(jobly)
+GET /m/openings/7622/widgetHtml/candidates/me?tracker=763019932
+
+Response (from simpleapply):
+&lt;button onClick="https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622"&gt;Apply now&lt;/button&gt;
+</div>
+
+<h1>Candidate clicks apply</h1>
+
+<p>The entire job details page, and the apply button within it, are now rendered, so the candidate sees the "apply now" button at
+the bottom of the job description, and by clicking on it, is sent to simpleapply at this URL:</p>
+
+<div class='codeBlock'>
+https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+
+<p>If the candidate was logged in at jobly (e.g. to save some jobs to a cart), then jobly will pass a hint to
+simpleapply that the candidate is already logged in:
+</p>
+
+<div class='codeBlock'>
+https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=true
+</div>
+ 
+<h1>Simpleapply renders its page</h1>
+
+<p>simpleapply now renders its page.</p>
+
+<h2>Check for logged in candidate</h2>
+
+<p>simpleapply is able to render its "apply form" to either a logged in candidate, or to an anonymous web visitor
+(though the anonymous visitor can't complete the form but can only view it).</p>
+
+<p>However due to the nature of SAML and typical web security frameworks, simpleapply is unable to detect whether
+the visitor is logged in or not. Therefore it looks to the loggedIn URL parameter for a hint. By convention, TAS apps
+that hyperlink to other TAS apps always attach the loggedIn URL parameter as a hint when the principal
+(i.e. the candidate) is already logged in.</p>
+
+<div class='codeBlock'>
+https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+
+<p>In this example, the URL does not have the loggedIn parameter, <b>and</b> the target page is one
+that can render itself whether or not there is a logged in candidate, so simpleapply begins to render
+the page for a non-logged in candidate.
+
+<h2>Render for non-logged in candidate</h2>
+
+<p>simpleapply's goal is to show as much as possible of the apply "form" to the
+candidate, so that they can assess how much work it will be, and hopefully be
+enticed by simpleapply's support for cloud storage (dropbox etc.) for resumes,
+mobile-friendly UI, etc.
+</p>
+
+<p>However since the candidate is not logged in, simpleapply can only show those
+questions that an external candidate would need to answer. If the job is internal
+only, simpleapply would show no details at all, and would only offer the candidate a way
+to log in (so they could prove they were internal).
+</p>
+
+<p>simpleapply does not offer ip-based internal detection. The nearest thing to that is jobly
+doing it to allow searching and rendering for internal jobs when on an internal network.
+</p>
+
+<p>Deciding what to display to the candidate may involve complex logic, which
+does not belong inside simpleapply, but is more likely in the ATS.</p>
+
+<h2>simpleapply fetches edit spec for non-logged in candidate</h2>
+
+<p>simpleapply asks for an <b>edit spec</b>, a document that describes what data
+is required of the candidate to apply for the job. Since there is no candidate logged in,
+simpleapply uses an anonymous OAuth token (i.e. one not associated with a principal), which
+jobly (the ATS) interprets as a request for a "safe" edit spec that anyone is allowed to see.  
+
+
+<div class='codeBlock'>
+POST /candidates/editSpecs/fetches
+
+Request:
+<div class='clientInclude' data-href='../examples/candidateIntent-anonymousApply.json'></div>
+
+Response:
+{
+    "anonymous": true,
+    ...
+}
+</div> 
+</p>
+
+<p>The "anonymous" flag at the top of the response shows that this intent was
+not generated for any particular candidate (i.e. the API call is being made to
+display the apply form to a candidate who is not logged in). We want them to see
+how easy the process was, but no-one can actually apply until they are logged in,
+so the form should be displayed with all fields disabled.  
+</p>
+
+<p>The candidate sees the apply form, and decides that they are prepared to invest their time in applying, so logs in using Facebook and returns to the simpleapply page.</p>
+
+<h2>The candidate logs in</h2>
+
+<p>Once the candidate has logged in, simpleapply has access to /E/N details via the SAML assertion.</p>
+
+<p>Simpleapply again fetches the edit spec, this time for the specific candidate fred@acme.com.</p>
+
+
+<div class='codeBlock'>
+POST /candidates/editSpecs/fetches
+
+Request:
+<div class='clientInclude' data-href='../examples/candidateIntent-apply.json'></div>
+
+Response:
+<div class='clientInclude' data-href='../examples/candidateEditSpec-apply.json'></div>
+</div> 
+</p>
+
+<p>simpleapply now knows what data it will need to capture.</p>
+
+<h2>Set up UI</h2>
+
+<p>Simpleapply creates the UI that it will display to the candidate.</p>
+
+<h3>Display message</h3>
+
+<p>At the top of the page, simpleapply displays the message (if any) in the style suggested. In a situation where the job is internal only,
+and the candidate is not internal, there might be nothing displayed but the message. In other situations there might be no message at all.</p> 
+
+<h3>Set up input fields and controls</h3>
+
+<p>simpleapply now uses the information from the <b>inputModel</b> section to set up the UI - i.e. when
+applying for a job, the inputModel is more or less the application form.</p>
+
+<p>For example, the resumeRule section tells simpleapply it should provide a way to upload a resume, but it is not mandatory.</p>
+
+<p>Most of the information form the inputModel relates to
+the candidate as a whole, but some is specific to individual
+job application(s) (under the <b>openingRules</b> section). Simpleapply
+arranges the opening-specific sections under appropriate headers ()with job title).
+
+<p>The inputModel also includes some default values, e.g. for individual fields in the items section(s). These should be loaded into the input controls.</p> 
+
+<p>Note that the amended intent may indicate that, even though the candidate wishes to apply for some given job, the ATS
+may have other plans for them and may amend their intent. For example:</p>
+
+<ul>
+<li>candidate applying for pilot jobs must also select a category value for pilot
+<li>candidates applying to some specific customer service job must first apply to the pilot talent pool job
+</ul>
+
+
+<h3>Pre-populate data</h3>
+
+<p>Once the UI has been laid out, simpleapply next needs to fetch any existing data (previously captured from the candidate).</p>
+
+<p>This data comes from two places - the amended intent (which provides category values) and the set of APIs that provide granular
+access to candidate data.</p>
+
+
+<h3>Pre-populate categories</h3>
+
+<p>The intent section contains a <a href='./categories.html'>normalised merge</a> of the candidate's existing data (if any - even though
+logged in, they may not yet have a record) and the categories required by the openings the candidate is applying to.</p>  
+
+<h3>Pre-populate other data</h3>
+
+<p>All other existing candidate data is now fetched by simpleapply through the granular candidate data APIs.</p>
+
+<p>For example, to fetch details of any existing resume, simpleapply does:
+
+<div class='codeBlock'>
+GET /candidates/{id}/resume
+</div>
+</p>
+
+<p>Some of these APIs require an intent and hence are implemented as POSTs. For example, the <b>items</b> API provides
+access to existing user-defined data held against candidates, but since this may be large, and outdated, the intent is needed
+to describe exactly which items simpleapply wants.
+</p>    
+
+<h2>Over to the candidate</h2>
+
+<p>simpleapply now renders the page to the candidate, who can start editing, selecting and generally completing the form.</p> 
+
+
+<h3>Save draft</h3>
+
+<p>simpleapply includes draft functionality. The user can save their work in some database (perhaps nosql) and return later.</p>
+
+<p>Those drafts are keyed by candidate /E/N alone (there may be no id yet if the candidate is new).
+
+<p>The ATS (jobly) is unaware of any draft functionality, simpleapply only pushes completed edits to it. 
+
+
+<h1>Send to ATS</h1>
+
+<p>Once the candidate has finally completed their work and pressed submit, the completed edit (i.e., job application) is
+sent to the ATS (jobly).
+</p>
+
+<div class='codeBlock'>
+INSERT example of POST edit here
+</div>
+
+<h2>ATS processes the event</h2>
+
+<p>The ATS processes the event. This may result in creating a new candidate or updating an existing one.
+</p>
+
+<h2>Processing the tracker</h2>
+
+<p>The ATS fetches details about the visit tracker...</p>
+
+<div class='codeBlock'>
+GET $tas$/visitorTrackers/763019932
+ 
+Response:
+{
+    "visitorTracker": {
+        "parentTracker": 763020034,
+        "destinationTracker": 763020034,
+        "landingURI": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+        "referer": "https://www.facebook.com",
+        "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
+        "ipAddress": "20.12.34.102",
+        "acceptLanguage": "en-us,en;q=0.5"
+    }
+}
+</div>
+
+<p>..and the destination tracker...</p>
+
+<div class='codeBlock'>
+GET $tas$/destinationTrackers/763020034
+ 
+Response:
+{
+    "destinationTracker": {
+        "type": "jobs",
+        "id": 7622,
+        "url": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+        "meta": {
+            "candidateSource": "facebook"
+        }
+    }
+}
+</div>
+
+<p>Now the ATS applies its custom logic to cope with its own source conventions.</p>
+
+<p>In the case of jobly, it wants two pieces of metadata about the application:
+<ol>
+<li>candidateSource
+<li>deviceClass
+</ol>
+
+<p>The ATS first looks to see if these were passed in, and if not it establishes them from the information in the trackers.</p>
+
+<div class='codeBlock'>
+// see if candidateSource was passed in
+candidateSource = destinationTracker.meta.candidateSource;
+if (candidateSource == null)
+   // source was not passed in, so derive it from the visit tracker's fields
+   candidateSource = extractCandidateSource(visitTracker.landingURI);
+ 
+// likewise for device class
+deviceClass = destinationTracker.meta.deviceClass;
+if (deviceClass == null)
+   // deviceClass was not passed in, so derive it from the user agent
+   // this ATS might use a user agent database to resolve down to mobile == true or false for example
+   deviceClass = extractDeviceClass(visitTracker.userAgent)
+</div>
+ 
+<h1>Back to simpleapply</h1>
+
+<p>Based on the http result from the event post, simpleapply then displays the "Successful" page.</p>
+
+<p>A button on that page links the user back to the relay page (i.e the
+original job details page in this example of applying for a job).</p>
+
+<p>User is now back at the job details page.</p>
+
+
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Notes on categories</title>
+</head>
+<body>
+
+<div id="toc"></div>
+
+<pre>
+Tree semantics - jobs, locations
+--------------------------------
+We support hierarchical structures (locations, jobs & job families (and departments?)). Selections from these can be used:
+
+- by candidates when searching jobs
+- by candidates to profile themselves with (i.e., "follow"), possibly immediately after searching
+- by the tenant when searching candidates
+- by the tenant to create a search agent for candidates, possibly immediately after searching
+
+For some categories, actual openings can only have a single leaf node.
+
+Continuous openings??
+
+Candidates, search agents can have multiple values.  
+
+
+Example tree
+------------
+The following tree is used in the examples below:
+
+/a
+  /b
+    /d
+    /e
+  /c
+    /f
+/g
+  /h
+  /i
+
+
+General principles
+------------------
+Each category is an ordered list of one or more trees.
+
+Within the trees, any node that has no children is a leaf. A node with children is a folder. A leaf becomes a folder as soon as a leaf is added to it.
+A folder becomes a leaf when the last leaf is removed from it - i.e. a folder can never be empty.
+
+There can be any number of trees, each starting from a single root node. The smallest possible category is a single leaf (i.e. a single tree with a root node having no child nodes).
+
+A selection is a combined set of explicit folder selections and leaf selections. If a selection contains an explicit folder selection, that implicitly
+selects all of that folder's leaves and sub-folders.
+
+
+Examples
+---------
+
+Job
+---
+Store jobs
+Support office jobs
+   IT
+   Marketing
+
+Location
+--------
+Store locations
+  Asia
+    ..
+  EMEA
+Support office locations
+  Australia
+    ..
+
+Work type
+---------
+Store work types
+   Part-time
+Support office work types
+
+Remuneration
+------------
+Store roles
+Support office roles
+   Hourly rate
+   Salary
+      20K - 30K
+      ..
+   
+
+Normalizing selections
+----------------------
+A selection should be "normalized", which means:
+- any folder or leaf must be selected only once - i.e., it is invalid to explicitly select both a node and one its ancestor nodes.
+- the minimum possible number of folder and leaf selections must be used - i.e., it is invalid to explicitly select all of the leaves
+beneath a folder without any differing details - the folder itself should be selected instead.
+
+The following are valid selections:
+
+/a
+/b,/c
+/b,/f
+/a,/h
+
+The following are invalid (assuming the nodes carry no data, but are only selected or not):
+
+/a,/b (since /a implies /b)
+/d,/e (since /b is more normalized) 
+/f (since /c is more normalized) 
+
+A selection that was valid can become invalid due to changes in the master data. For example:
+
+/d becomes invalid if the master data changes to:
+
+/a
+  /b
+    /d
+  /c
+    /f
+
+(Since /b is more normalized).
+
+
+
+Example repeated: (DELETE ME)
+/a
+  /b
+    /d
+    /e
+  /c
+    /f
+/g
+  /h
+  /i
+
+
+Unprofiled subjects and searching
+---------------------------------
+When searching, it is desirable, for any given category, to match subjects (i.e. candidates and jobs) that have no values for that category. 
+
+This allows the tenant to add new factors over time (e.g. work type), without instantly filtering out all existing candidates and jobs from searches (at least until they have profiled
+themselves against the new category), and it also allows candidates to have "no selection" for factors they don't care about (e.g. work type).
+
+To achieve this, searching follows a brute force rule that if a subject has no values for a category, then at the point of being filtered, they are given temporary selections of
+the root node of every tree in the category.
+
+For example, if Fred has no values for the example category, then instead Fred is treated as if he has:
+/a,/g
+
+There are shortcomings with this, e.g. a candidate who is profiled as Job == Gardening Center and Location == East Brunswick Support Office could be said
+to have no selection for location, since there are no gardening jobs at the support offices. But there are no simple solutions so this is the best we can do.
+
+
+Merging a profile onto an existing multi-valued subject (candidate, recruiter saved search)
+--------------------------------------------
+	Where the candidate has no profile:
+		The profile is applied, even though it effectively shrinks the candidate's search presence
+
+
+
+Aggregating specificity across a number of root nodes
+-----------------------------------------------------
+The individual specificities are all calculated, then the maximum is used.
+ 
+
+* and then across numerous factors * 
+
+
+General searching/matching
+--------------------------
+Factors are AND-ed.
+
+Selections within individual factors are OR-ed.
+
+
+Searching with an entire factor omitted
+---------------------------------------
+Generally, search subjects that have an empty selection are treated as if they have just the root node selected,
+which means that they will match any search.
+
+In more complex organizations, trees cannot be treated this simply, since things like location behave as a distinct set of subtrees. For example, only
+certain locations are relevant for the Position Type "Assistant
+Gardening Team Supervisor". In this case, the empty selection refers just to part of the tree being empty. 
+
+ISSUE - should an artificial "ALL LOCATIONS" node be injected into the distilled location tree in a search UI when searching for "Assistant Gardening Team Supervisor" candidates?
+If so, how is selection of that artificial node represented:
+- on the wire, in parms to the "search candidates" API?
+- on the wire, in parms to the "profile candidate" API?
+
+If the answer to the above is "as an empty location selection", then are we moving towards allowing multiple root nodes? Since there is no need/use in having a single root node just to act as a "select all" actor?
+
+Specificity
+-----------
+Specificity, a measure of how specific a selection is, where a lower number means the selection is more specific, is simply the count
+of explicitly or implicitly selected leaves.
+
+For example, a candidate who has selected a single job has a specificity of 1, whereas a candidate who has selected the root node, thus explicitly
+selecting all 213 leaf nodes, has a specificity of 213.
+
+Specificity is useful in ranking search results - for example a candidate who has selected only "butchery roles" is
+a more likely fit than, and should appear in search results before, someone who has "all megacorp roles".
+
+
+Hiding nodes
+------------
+Sometimes, a hiding selection can be applied to a tree. One example is hiding old, disused business groups that need to remain
+in the tree but should not be selected for new positions.
+
+A hiding selection must be normalized as per the same rules as a selection - e.g., hiding both a node and one of its ancestors is invalid.
+
+Applying a hiding selection to a tree gives the result set. By "applying", we mean:
+- for each hidden node
+   - remove all direct and indirect descendant nodes
+   - remove the hidden node itself
+   - moving up through the ancestors, remove any ancestor that no longer has any child nodes
+
+The last step above ensures that all nodes in the result tree are of the same type (leaf or folder) as they were before hiding. Without this step,
+hiding the only leaf in a folder would result in the folder transforming to a leaf.
+
+ISSUE: WHAT ABOUT stripping out ancestor folders that have only one child after hiding?
+
+</pre>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

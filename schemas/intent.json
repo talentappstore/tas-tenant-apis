@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "tracker": {
+            "type": "integer"
+        },
+        "openings": {
+            "description": "the jobs that the candidate is interested in and the category values they want",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "categories": {
+            "$ref": "./categories.json"
+        }
+    },
+    "required": [],
+    "additionalProperties": false
+}

@@ -1,12 +1,6 @@
 {
-    "tracker": 763019932,
-    "candidateViaSelf": {
-      "E": "acme-facebook-isp",
-      "N": 1204563747456
-    }
-    "intent": {
+       "tracker": 763019932,
         "openings": [
             356347
         ]
-    }
 }

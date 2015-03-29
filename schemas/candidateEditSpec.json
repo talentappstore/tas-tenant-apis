@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "editMessage": {
+        "candidateMessage": {
             "type": "object",
             "properties": {
                 "message": {
@@ -25,7 +25,11 @@
         "amendedIntent": {
             "type": "object",
             "properties": {
-                "openings": {
+        "tracker": {
+            "type": "integer",
+            "description": "just the same tracker that was passed in with the intent"
+        },
+                  "openings": {
                     "description": "the jobs that the candidate is interested in and the category values they want - as massaged by the ATS",
                     "type": "array",
                     "items": {
@@ -33,7 +37,7 @@
                     }
                 },
                 "categories": {
-                  "$ref": "./categories.json"
+                    "$ref": "./categories.json"
                 }
             },
             "required": [],
@@ -47,7 +51,7 @@
                     "type": "boolean"
                 },
                 "mandatory": {
-                    "description": "is the resume mandatory - implies visisble == true",
+                    "description": "is the resume mandatory - implies visible == true",
                     "type": "boolean"
                 },
                 "message": {
@@ -60,6 +64,16 @@
                 "visible",
                 "mandatory"
             ]
+        },
+        "vCardRule": {
+            "type": "object",
+            "properties": {
+                "someMandatory": {
+                    "description": "a simple way to hint that key vcard fields (first name, last name, email address) are mandatory - probably will get replaced by more fine-grained scheme in the future",
+                    "type": "boolean"
+                }
+            },
+            "required": "someMandatory"
         },
         "documentAtUri": {
             "type": "object",
@@ -154,6 +168,9 @@
                 "resumeRule": {
                     "$ref": "#/definitions/resumeRule"
                 },
+                "vCardRule": {
+                    "$ref": "#/definitions/vCardRule"
+                },
                 "attachmentRules": {
                     "$ref": "#/definitions/attachmentRules"
                 },
@@ -170,10 +187,6 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-        "tracker": {
-            "type": "integer",
-            "description": "just the same tracker that was passed in with the intent"
-        },
         "anonymous": {
             "type": "boolean",
             "description": "whether this edit spec was generated for an anonymous candidate"
@@ -184,8 +197,8 @@
         "inputModel": {
             "$ref": "#/definitions/inputModel"
         },
-        "editMessage": {
-            "$ref": "#/definitions/editMessage"
+        "candidateMessage": {
+            "$ref": "#/definitions/candidateMessage"
         }
     },
     "required": []

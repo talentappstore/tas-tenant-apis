@@ -1,21 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "fileDetail": {
-            "properties": {
-                "fileName": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "fileName",
-                "value"
-            ],
-            "additionalProperties": false
-        },
         "documentOp": {
             "enum": [
                 "add",
@@ -32,8 +17,18 @@
                     "type": "string",
                     "description": "the attachment name, e.g. 'Drivers license'"
                 },
-                "fileDetail": {
-                    "$ref": "#/definitions/fileDetail"
+                "fileUpload": {
+                    "$ref": "./fileUpload.json"
+                }
+            }
+        },
+        "resumePatch": {
+            "properties": {
+                "op": {
+                    "$ref": "#/definitions/documentOp"
+                },
+                "fileUpload": {
+                    "$ref": "./fileUpload.json"
                 }
             }
         },
@@ -43,10 +38,31 @@
                 "$ref": "#/definitions/attachmentPatch"
             }
         },
+        "categoriesPatchOp": {
+            "enum": [
+                "add",
+                "replace"
+            ]
+        },
+        "categoriesPatch": {
+            "type": "object",
+            "properties": {
+                "categories": {
+                    "$ref": "./categories.json"
+                },
+                "op": {
+                    "$ref": "#/definitions/categoriesPatchOp"
+                }
+            },
+            "additionalProperties": false
+        },
         "application": {
             "type": "object",
             "properties": {
-                "applicationAttachmentPatches": {
+                "opening": {
+                    "type": "integer"
+                },
+                "attachmentPatches": {
                     "$ref": "#/definitions/attachmentPatches"
                 },
                 "items": {
@@ -59,22 +75,28 @@
     },
     "type": "object",
     "properties": {
+        "tracker": {
+            "type": "integer"
+        },
         "vcard": {
             "$ref": "./jcard.json"
         },
-        "resume": {
-            "$ref": "#/definitions/fileDetail"
+        "resumePatch": {
+            "$ref": "#/definitions/resumePatch"
+        },
+        "jobNotifications": {
+            "type": "boolean"
         },
         "video": {
-            "$ref": "#/definitions/fileDetail"
+            "$ref": "./fileUpload.json"
         },
         "voiceMessage": {
-            "$ref": "#/definitions/fileDetail"
+            "$ref": "./fileUpload.json"
         },
-        "categories": {
-            "$ref": "./categories.json"
+        "categoriesPatch": {
+            "$ref": "#/definitions/categoriesPatch"
         },
-        "candidateAttachmentPatches": {
+        "attachmentPatches": {
             "$ref": "#/definitions/attachmentPatches"
         },
         "items": {
@@ -83,7 +105,7 @@
         "applications": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/applications"
+                "$ref": "#/definitions/application"
             }
         }
     },

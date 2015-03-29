@@ -1,26 +1,26 @@
 {
-    "tracker": 763019932,
-    "anonymous": false,
     "amendedIntent": {
+        "tracker": 763019932,
         "openings": [
             356347
         ],
         "categories": [
             {
-                "key": "location",
+                "id": 10032,
                 "values": [
-                    1001
+                    3344
                 ]
             },
             {
                 "id": 10034,
                 "values": [
-                    1008
+                    1001,
+                    1004
                 ]
             }
         ]
     },
-    "editMessage": {
+    "candidateMessage": {
         "message": "To apply, just complete this simple form. Best of luck!",
         "level": "info"
     },
@@ -53,7 +53,7 @@
                         "favoriteColor": {
                             "type": "string",
                             "title": "Favoritecolor",
-                            "description": "Tellusyourfavouritecolor.Ouradvancedhiringalgorithmusesit.",
+                            "description": "Tell us your favourite color. Our advanced hiring algorithm uses it.",
                             "default": "blue"
                         },
                         "required": [

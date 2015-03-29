@@ -5,16 +5,13 @@
                 "fileName": {
                     "type": "string"
                 },
-                "size": {
-                    "type": "integer"
-                },
-                "dateUploaded": {
-                  "type": "string", "format": "date-time", "description": "the date and time the file was uploaded"
+                "value": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "fileName",
-                "size"
+                "value"
             ]
 }

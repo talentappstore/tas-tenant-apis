@@ -1,0 +1,69 @@
+{
+    "vcard": {
+        "vcardStuff": "yet to be defined"
+    },
+    "resumePatch": {
+      "op": "replace",
+      "fileUpload": {
+        "fileName": "fredcv.docx",
+        "value": "utg765f876hilf76fg6g..."
+        }
+    },
+    "jobNotifications": true,
+    "video": {
+        "fileName": "fredcv.docx",
+        "value": "utg765f876hilf76fg6g..."
+    },
+    "voiceMessage": {
+        "fileName": "fredcv.docx",
+        "value": "utg765f876hilf76fg6g..."
+    },
+    "categoriesPatch": {
+        "op": "replace",
+        "categories": [
+            {
+                "key": "location",
+                "values": [
+                    1001
+                ]
+            },
+            {
+                "id": 10034,
+                "values": [
+                    1001
+                ]
+            }
+        ]
+    },
+    "attachmentPatches": [
+        {
+            "op": "add",
+            "name": "Drivers license",
+            "fileUpload": {
+                "fileName": "fredcv.docx",
+                "value": "utg765f876hilf76fg6g..."
+            }
+        }
+    ],
+    "items": {
+        "favouriteColor": "red"
+    },
+    "applications": [
+        {
+            "opening": 23,
+            "attachmentPatches": [
+                {
+                    "op": "add",
+                    "name": "Job-specific upload thingy",
+                    "fileUpload": {
+                        "fileName": "ananda.txt",
+                        "value": "utg7io86hy875filf76fg6g..."
+                    }
+                }
+            ],
+            "items": {
+                "confirmCommitment": true
+            }
+        }
+    ]
+}

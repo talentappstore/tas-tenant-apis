@@ -25,37 +25,6 @@
 <link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 
-<style>
-html {
-	    font-family: sans-serif; /* 1 */
-	    -ms-text-size-adjust: 100%; /* 2 */
-	    -webkit-text-size-adjust: 100%; /* 2 */
-	    background-color: #fcfff8;
-	}
-code,
-kbd,
-pre,
-samp {
-	    font-family: monospace, serif;
-	    font-size: 1em;
-}
-
-button,
-input,
-select,
-textarea {
-    font-family: inherit; /* 1 */
-    font-size: 100%; /* 2 */
-    margin: 0; /* 3 */
-}
-li  {
-   margin:0 0 5px 0;   
-}
-ul,ol  {
-   margin:5px 0 0 0;   
-}
-</style>
-
 <title>Apply for opening - simple</title>
 </head>
 <body>
@@ -119,7 +88,7 @@ candidate source tracking which involves passing a candidateSource parameter.</p
 <p>In this example, the candidate has reached the job by clicking on this link (within a Facebook post):</p>
 
 <div class='codeBlock'>
-https://acme.jobboard.com/jobs/7622?candidateSource=facebook
+https://acme.jobboard.com/openings/7622?candidateSource=facebook
 </div>
 
 <p>The TAS tenant APIs use a different convention for source tracking, called tracker.
@@ -128,7 +97,7 @@ https://acme.jobboard.com/jobs/7622?candidateSource=facebook
 create the campaign tracker:</p>
 
 <div class='codeBlock'>
-https://acme.jobboard.com/jobs/7622?tas_tracker=73947484
+https://acme.jobboard.com/openings/7622?tracker=73947484
 </div>
 
 <p>Before it can render the simpleapply button, jobly needs to encapsulate
@@ -153,7 +122,7 @@ Request:
 {
     "type": "jobs",
     "id": 7622,
-    "url": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+    "url": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
     "meta": {
         "candidateSource": "facebook"
     }
@@ -169,7 +138,7 @@ http headers of the incoming request from the candidate clicking on the entry UR
 <div class='codeBlock'>
 POST /trackers/763020034/jobly/visitTrackers
 {
-   "landingURI": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+   "landingURI": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
    "referer": "https://www.facebook.com",
    "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
    "ipAddress": "20.12.34.102"
@@ -215,7 +184,7 @@ in the tracker, e.g. for candidates on a mobile device:
 GET /openings/7622/widgetHtml/candidates/me?tracker=763019932
 
 Response (from simpleapply):
-&lt;button onClick="https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622"&gt;Apply now&lt;/button&gt;
+&lt;button onClick="https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622"&gt;Apply now&lt;/button&gt;
 </div>
 
 <h1>Candidate clicks apply</h1>
@@ -224,7 +193,7 @@ Response (from simpleapply):
 the bottom of the job description, and by clicking on it, is sent to simpleapply at this URL:</p>
 
 <div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622
 </div>
 
 <p>If the candidate was logged in at jobly (e.g. to save some jobs to a cart), then jobly will pass a hint to
@@ -232,7 +201,7 @@ simpleapply that the candidate is already logged in:
 </p>
 
 <div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=true
+https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622?loggedIn=true
 </div>
  
 <h1>Simpleapply renders its page (candidate not logged in)</h1>
@@ -251,7 +220,7 @@ always attach the loggedIn URL parameter as a hint when the principal (i.e. the
 candidate) is already logged in.</p>
 
 <div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tas_tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622
 </div>
 
 <p>In this example, the URL does not have the loggedIn parameter, <b>and</b> the target page is one
@@ -691,7 +660,7 @@ Response:
     "visitorTracker": {
         "parentTracker": 763020034,
         "destinationTracker": 763020034,
-        "landingURI": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+        "landingURI": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
         "referer": "https://www.facebook.com",
         "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
         "ipAddress": "20.12.34.102",
@@ -710,7 +679,7 @@ Response:
     "destinationTracker": {
         "type": "jobs",
         "id": 7622,
-        "url": "https://acme.jobboard.com/jobs/7622?candidateSource=facebook",
+        "url": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
         "meta": {
             "candidateSource": "facebook"
         }

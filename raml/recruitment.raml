@@ -509,6 +509,14 @@ traits: !include traits.yml
         description: a tracker, as passed in to the edit
     /categories:
       get:
+        description: get the categories for this candidate
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/categories.json
+                example: !include ../examples/categories-simple.json
+      
     /applications:
       /{openingID}:
         /items:

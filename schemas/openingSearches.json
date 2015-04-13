@@ -31,6 +31,10 @@
                 },
                 "categories": {
                     "$ref": "./categories.json"
+                },
+                "refCodeMatch": {
+                    "type": "string",
+                    "description": "a regexp or similar that is used to filter openings based on their ref code"
                 }
             },
             "additionalProperties": false,

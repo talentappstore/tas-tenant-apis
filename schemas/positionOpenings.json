@@ -1,14 +1,5 @@
 {
 	"$schema":"http://json-schema.org/draft-04/schema#",
-	"type":"object",
-	"additionalProperties":false,
-	"properties":{
-		"items":{
-			"type":"array",
-			"items":{ "$ref":"./positionOpening.json" }
-		}
-	},
-	"required":[
-		"items"
-	]
+	"type":"array",
+	"items":{ "$ref":"./positionOpening.json" }
 }

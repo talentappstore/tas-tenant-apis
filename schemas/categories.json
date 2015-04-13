@@ -9,7 +9,7 @@
                     "type": "integer"
                 },
                 "key": {
-                    "enum": [ "location" ],
+                    "enum": [ "LOCATION" ],
                     "description": "used to identify well-known categories"
                 },
                 "values": {

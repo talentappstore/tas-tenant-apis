@@ -1,11 +1,30 @@
- {
-   "id": 100,
-   "position": {
- 	"title": "Creative Director",
- 	"formattedDescription": "One of the most exciting positions ever offered",
- 	"location": 1002323,
- 	"qualifications": [12033, 12024],
- 	"userArea": {"carpark": true }
- 	},
- 	"userArea": {"referralReward": true }
- }  
+{
+    "id": 100,
+    "title": "Creative Director",
+    "formattedDescription": "One of the most exciting positions ever offered",
+    "categories": [
+        {
+            "key": "LOCATION",
+            "id": 1022,
+            "values": [
+                10024
+            ]
+        },
+        {
+            "id": 1026,
+            "values": [
+                10044,
+                10025,
+                10029
+            ]
+        }
+    ],
+    "userArea": [
+        {
+            "carPark": true
+        },
+        {
+            "referralReward": true
+        }
+    ]
+}

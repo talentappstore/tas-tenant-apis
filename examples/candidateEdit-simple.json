@@ -1,7 +1,7 @@
 {
-    "vcard": {
-        "vcardStuff": "yet to be defined"
-    },
+    "vcard": [
+       { "vcardStuff": "yet to be defined" }
+    ],
     "resumePatch": {
       "op": "replace",
       "fileUpload": {
@@ -22,7 +22,7 @@
         "op": "replace",
         "categories": [
             {
-                "key": "location",
+                "key": "LOCATION",
                 "values": [
                     1001
                 ]

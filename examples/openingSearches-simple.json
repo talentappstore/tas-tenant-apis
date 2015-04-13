@@ -2,7 +2,7 @@
     "filter": {
         "categories": [
             {
-                "key": "location",
+                "key": "LOCATION",
                 "values": [
                     1001
                 ]

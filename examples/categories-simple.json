@@ -1,14 +1,13 @@
 [
     {
         "id": 10032,
-        "values": [
-            3344
-        ]
+        "key": "LOCATION",
+        "name": "Location",
+        "canMultiSelectOnOpenings": false
     },
     {
         "id": 10034,
-        "values": [
-            1001
-        ]
+        "name": "Nursing specialization",
+        "canMultiSelectOnOpenings": true
     }
 ]

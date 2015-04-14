@@ -30,7 +30,7 @@
                     }
                 },
                 "categories": {
-                    "$ref": "./categories.json"
+                    "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
                 },
                 "refCodeMatch": {
                     "type": "string",

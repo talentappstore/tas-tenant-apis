@@ -20,18 +20,12 @@
     },
     "categoriesPatch": {
         "op": "replace",
-        "categories": [
-            {
-                "key": "LOCATION",
-                "values": [
-                    1001
-                ]
+        "patchItems": [
+            { "category": 10032,
+              "values": [  1009, 1010, 10344 ]
             },
-            {
-                "id": 10034,
-                "values": [
-                    1001
-                ]
+            { "category": 10055,
+              "values": [  1085 ]
             }
         ]
     },

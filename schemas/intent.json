@@ -13,7 +13,7 @@
             }
         },
         "categories": {
-            "$ref": "./categories.json"
+            "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
         }
     },
     "required": [],

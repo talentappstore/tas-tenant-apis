@@ -25,11 +25,11 @@
         "amendedIntent": {
             "type": "object",
             "properties": {
-        "tracker": {
-            "type": "integer",
-            "description": "just the same tracker that was passed in with the intent"
-        },
-                  "openings": {
+                "tracker": {
+                    "type": "integer",
+                    "description": "just the same tracker that was passed in with the intent"
+                },
+                "openings": {
                     "description": "the jobs that the candidate is interested in and the category values they want - as massaged by the ATS",
                     "type": "array",
                     "items": {
@@ -37,7 +37,7 @@
                     }
                 },
                 "categories": {
-                    "$ref": "./categories.json"
+                    "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
                 }
             },
             "required": [],

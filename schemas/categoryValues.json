@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "value": {
+            "type": "object",
+            "definition": "details of a single category value, identified by id",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "available": {
+                    "type": "boolean",
+                    "description": "whether this node can be selected (i.e. is not disabled)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "the user visible name for this category"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name"
+            ]
+        }
+    },
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/value"
+    }
+}

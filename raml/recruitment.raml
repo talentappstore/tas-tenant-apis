@@ -110,25 +110,25 @@ traits: !include traits.yml
               Get a card type widget for display to the logged in recruiter for an opening.
               The producer will likely consult the TAS session and perhaps some business data
               such as the recruiter's area to make its decision.                
-      /candidateFaces:
+    /candidateFaces:
+      /{id}:
+        /deltaPings:
+          post:
+            description: |
+              Send notification of a change to the candidate-facing details of an opening.
+          /toActive:
+            post:
+              description: |
+                Send notification of a change to the candidate-facing details of an opening, specifically
+                that the opening has become newly active. Useful to feed something like a mobile job notification system,
+                which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
+                a system would need to do its own tests as to whether the opening was visible to any given candidate.
+    /preScreens:
+      /{producer}:
         /{id}:
           /deltaPings:
             post:
-              description: |
-                Send notification of a change to the candidate-facing details of an opening.
-            /toActive:
-              post:
-                description: |
-                  Send notification of a change to the candidate-facing details of an opening, specifically
-                  that the opening has become newly active. Useful to feed something like a mobile job notification system,
-                  which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
-                  a system would need to do its own tests as to whether the opening was visible to any given candidate.
-      /preScreens:
-        /{producer}:
-          /{id}:
-            /deltaPings:
-              post:
-                description: Alert a pre-screening app that a new screening has been requested
+              description: Alert a pre-screening app that a new screening has been requested
 
 /campaignTrackers:
   description: |
@@ -155,13 +155,24 @@ traits: !include traits.yml
 /categories:
   description: |
     Tenant-defined hierarchical structures used in talent management to categorize openings, candidates
-    and others. Includes details of inactivated nodes. Auth most likely only via anonymous OAuth.
+    and others. Includes details of inactivated nodes.
   get:
     description: |
-      fetch list of categories: id, name, key (if well known), single or multi-select for opening    
+      Fetch list of categories
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/categories.json
+            example: !include ../examples/categories-simple.json
   post:
-    description: Create a single category
-  /{key}:
+    description: Create a single category (without any values)
+    body:
+      application/json:
+        schema: !include ../schemas/category.json
+        example: !include ../examples/category-simple.json
+    
+  /{id}:
     description: is either an integer (a unique tenant-assigned key) or a string (a reserved category type like 'location') 
     get:
       description: Fetch details for a single category

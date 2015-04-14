@@ -6,13 +6,13 @@
         ],
         "categories": [
             {
-                "id": 10032,
+                "category": 10032,
                 "values": [
                     3344
                 ]
             },
             {
-                "id": 10034,
+                "category": 10034,
                 "values": [
                     1001,
                     1004

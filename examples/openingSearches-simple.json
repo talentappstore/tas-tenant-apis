@@ -2,13 +2,13 @@
     "filter": {
         "categories": [
             {
-                "key": "LOCATION",
+                "category": 100466,
                 "values": [
                     1001
                 ]
             },
             {
-                "id": 10034,
+                "category": 10034,
                 "values": [
                     1001
                 ]

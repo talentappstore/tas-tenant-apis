@@ -1,30 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "category": {
-            "type": "object",
-            "definition": "a selection of values for a single category, identified by id or name",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "key": {
-                    "enum": [ "LOCATION" ],
-                    "description": "used to identify categories that are well-known, i.e. agreed on by all apps. User-defined categories don't have a key"
-                },
-                "values": {
-                    "type": "array",
-                    "items": "integer"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "values"
-            ]
-        }
-    },
     "type": "array",
     "items": {
-        "$ref": "#/definitions/category"
+        "$ref": "./category.json"
     }
 }

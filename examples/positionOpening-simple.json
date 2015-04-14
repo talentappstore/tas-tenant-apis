@@ -4,14 +4,13 @@
     "formattedDescription": "One of the most exciting positions ever offered",
     "categories": [
         {
-            "key": "LOCATION",
-            "id": 1022,
+            "category": 1022,
             "values": [
                 10024
             ]
         },
         {
-            "id": 1026,
+            "category": 1026,
             "values": [
                 10044,
                 10025,

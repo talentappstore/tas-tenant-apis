@@ -44,17 +44,46 @@
                 "replace"
             ]
         },
+        "categoryPatchItem": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "integer"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "category",
+                "values"
+            ]
+        },
+        "categoryPatchItems": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/categoryPatchItem"
+            }
+        },
         "categoriesPatch": {
             "type": "object",
             "properties": {
-                "categories": {
-                    "$ref": "./categories.json"
+                "patchItems": {
+                    "$ref": "#/definitions/categoryPatchItems"
                 },
                 "op": {
                     "$ref": "#/definitions/categoriesPatchOp"
                 }
             },
-            "additionalProperties": false
+            "additionalProperties": false,
+            "required": [
+                "op",
+                "patchItems"
+            ]
         },
         "application": {
             "type": "object",

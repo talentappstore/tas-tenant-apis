@@ -1,52 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "recruiter": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "list all openings related to the recruiter, who must be the logged in user."
-                },
-                "relationship": {
-                    "enum": [
-                        "owner",
-                        "accessor"
-                    ],
-                    "description": "is the recruiter the owner, or can they act as if they were the owner (maybe the opening's owner is a coRecruiter)"
-                }
-            }
-        },
-        "filter": {
-            "type": "object",
-            "properties": {
-                "recruiter": {
-                    "$ref": "#/definitions/recruiter"
-                },
-                "statuses": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "./positionOpening.json#/definitions/status"
-                    }
-                },
-                "categories": {
-                    "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
-                },
-                "refCodeMatch": {
-                    "type": "string",
-                    "description": "a regexp or similar that is used to filter openings based on their ref code"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "recruiter"
-            ]
-        }
-    },
     "type": "object",
     "properties": {
         "filter": {
-            "$ref": "#/definitions/filter"
+            "$ref": "./openingFilter.json"
         }
     },
     "additionalProperties": false,

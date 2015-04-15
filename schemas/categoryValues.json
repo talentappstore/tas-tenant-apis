@@ -15,6 +15,12 @@
                 "name": {
                     "type": "string",
                     "description": "the user visible name for this category"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/value"
+                    }
                 }
             },
             "additionalProperties": false,

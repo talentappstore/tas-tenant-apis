@@ -1,11 +1,23 @@
 [
     {
-        "id": 10032,
-        "name": "Auckland",
+        "id": 10034,
+        "name": "Wellington",
         "available": false
     },
     {
-        "id": 10034,
-        "name": "Wellington"
+        "id": 10032,
+        "name": "Auckland",
+        "values": [
+            {
+                "id": 10036,
+                "name": "North Shore",
+                "values": [
+                    {
+                        "id": 10037,
+                        "name": "Takapuna"
+                    }
+                ]
+            }
+        ]
     }
 ]

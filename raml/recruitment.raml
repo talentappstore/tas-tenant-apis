@@ -173,22 +173,46 @@ traits: !include traits.yml
         example: !include ../examples/category-simple.json
     
   /{id}:
-    description: is either an integer (a unique tenant-assigned key) or a string (a reserved category type like 'location') 
-    get:
-      description: Fetch details for a single category
+    description: category ID 
+
     post:
       description: Update a single category, not including its values
+      body:
+        application/json:
+          schema: !include ../schemas/category.json
+          example: !include ../examples/category-simple.json
+          
     delete:
       description: Delete a category, along with all of its values
+      
     /values:
       get:
-        description: Get the root values for the category, including name, parentValue, category, children
+        description: |
+           Get root values and the hierarchy of values beneath
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/categoryValues.json
+                example: !include ../examples/categoryValues-simple.json
+        
       patch:
-        description: Merge in an array of root values
+        description: |
+          Merge in an array of root values. TODO: what happens when:
+          - the merge specifies a different location for an existing node?
+        body:
+          application/json:
+            schema: !include ../schemas/categoryValues.json
+            example: !include ../examples/categoryValues-simple.json
+        
       post:
         description: |
-           Arbitrarily set or change the root values for this category. Values are removed from their previous
-           parent (node or category)
+           Arbitrarily set or change the root values for this category.
+        body:
+          application/json:
+            schema: !include ../schemas/categoryValues.json
+            example: !include ../examples/categoryValues-simple.json
+
       /{id}:
         get:
           description: Get the child values for the given value

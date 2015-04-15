@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "recruiter": {
+            "$ref": "./recruiterRelation.json"
+        },
+        "statuses": {
+            "type": "array",
+            "items": {
+                "$ref": "./positionOpening.json#/definitions/status"
+            }
+        },
+        "categories": {
+            "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
+        },
+        "refCodeMatch": {
+            "type": "string",
+            "description": "a regexp or similar that is used to filter openings based on their ref code"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "recruiter"
+    ]
+}

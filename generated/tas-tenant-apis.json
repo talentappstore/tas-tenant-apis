@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "javaType": "com.tas.api.tenant.Tenant",
+  "properties": {
+    "candidateEdit": { "$ref": "../schemas/candidateEdit.json" },
+    "candidateEditSpec": { "$ref": "../schemas/candidateEditSpec.json" },
+    "candidates": { "$ref": "../schemas/candidates.json" },
+    "categories": { "$ref": "../schemas/categories.json" },
+    "category": { "$ref": "../schemas/category.json" },
+    "categoryValues": { "$ref": "../schemas/categoryValues.json" },
+    "deltaPing": { "$ref": "../schemas/deltaPing.json" },
+    "fileMeta": { "$ref": "../schemas/fileMeta.json" },
+    "fileUpload": { "$ref": "../schemas/fileUpload.json" },
+    "intent": { "$ref": "../schemas/intent.json" },
+    "items": { "$ref": "../schemas/items.json" },
+    "jcard": { "$ref": "../schemas/jcard.json" },
+    "openingFilter": { "$ref": "../schemas/openingFilter.json" },
+    "openingSearches": { "$ref": "../schemas/openingSearches.json" },
+    "positionOpening": { "$ref": "../schemas/positionOpening.json" },
+    "positionOpenings": { "$ref": "../schemas/positionOpenings.json" },
+    "recruiterFilter": { "$ref": "../schemas/recruiterFilter.json" },
+    "recruiter": { "$ref": "../schemas/recruiter.json" },
+    "recruiterRelation": { "$ref": "../schemas/recruiterRelation.json" },
+    "recruiters": { "$ref": "../schemas/recruiters.json" },
+    "userArea": { "$ref": "../schemas/userArea.json" }
+
+  }
+}

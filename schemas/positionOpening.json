@@ -22,11 +22,11 @@
         },
         "availableInternally": {
             "type": "boolean",
-            "description": "Position is currently open to internals (implies status is active and relevant closeDates are in the future)"
+            "description": "Position is currently open to internals (implies status is active, but callers shuold check that relevant closeDates are in the future)"
         },
         "availableExternally": {
             "type": "boolean",
-            "description": "Position is currently open to externals (implies status is active and relevant closeDates are in the future)"
+            "description": "Position is currently open to externals (implies status is active, but callers shuold check that relevant closeDates are in the future)"
         },
         "positionOpeningURI": {
             "type": "string",

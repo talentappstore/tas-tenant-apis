@@ -129,7 +129,39 @@ traits: !include traits.yml
           /deltaPings:
             post:
               description: Alert a pre-screening app that a new screening has been requested
+  /isPublic:
+    /searches:
+      post:
+        description: |
+          Search openings, returning common details, but only for openings that are publicly available, i.e.
+          where availableExternally == true AND externalCloseDate is null or in the future.
+           
+          See description for POST /openings/searches.
+           
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+        body:
+          application/json:
+            schema: !include ../schemas/openingSearches.json
+            example: !include ../examples/openingSearches-simple.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/positionOpenings.json
+                example: !include ../examples/positionOpenings-simple.json
+    /{id}:
+      get:
+        description: |
+          Get common details of a specific opening, but only if it is publicly visible, i.e.
+          where availableExternally == true AND externalCloseDate is null or in the future.
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/positionOpening.json
+                example: !include ../examples/positionOpening-simple.json
 
+  
 /campaignTrackers:
   description: |
     Campaign trackers encapsulate a url and some meta information (e.g. that the link represents an employee referral) in an object

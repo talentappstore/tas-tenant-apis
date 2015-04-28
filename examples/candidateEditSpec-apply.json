@@ -1,7 +1,7 @@
 {
     "amendedIntent": {
         "tracker": 763019932,
-        "openings": [
+        "jobs": [
             356347
         ],
         "categories": [
@@ -44,9 +44,9 @@
                 }
             }
         ],
-        "openingRules": [
+        "jobRules": [
             {
-                "opening": 356347,
+                "job": 356347,
                 "itemsRule": {
                     "$schema": "http: //json-schema.org/draft-04/schema#",
                     "properties": {

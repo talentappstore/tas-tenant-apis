@@ -16,15 +16,15 @@
             "type": "string",
             "description": "the user visible name for this category"
         },
-        "canMultiSelectOnOpenings": {
+        "canMultiSelectOnJobs": {
             "type": "boolean",
-            "description": "whether an opening can have multiple values for this category"
+            "description": "whether a job opening can have multiple values for this category"
         }
     },
     "additionalProperties": false,
     "required": [
         "id",
         "name",
-        "canMultiSelectOnOpenings"
+        "canMultiSelectOnJobs"
     ]
 }

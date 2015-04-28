@@ -28,7 +28,7 @@
             "type": "boolean",
             "description": "Position is currently open to externals (implies status is active, but callers shuold check that relevant closeDates are in the future)"
         },
-        "positionOpeningURI": {
+        "uri": {
             "type": "string",
             "description": "URI of the opening - see HR-XML"
         },
@@ -55,7 +55,7 @@
         },
         "code": {
             "type": "string",
-            "description": "A code, often used in advertisements and when referring to the positionOpening with candidates. Codes are expected to be unique within currently active positionOpenings. Not in HR/XML"
+            "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
         },
         "title": {
             "type": "string",

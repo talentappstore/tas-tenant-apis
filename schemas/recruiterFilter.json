@@ -44,7 +44,7 @@
         "statuses": {
             "type": "array",
             "items": {
-                "$ref": "./positionOpening.json#/definitions/status"
+                "$ref": "./job.json#/definitions/status"
             }
         },
         "locationFactor": {

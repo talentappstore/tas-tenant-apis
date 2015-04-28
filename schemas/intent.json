@@ -5,7 +5,7 @@
         "tracker": {
             "type": "integer"
         },
-        "openings": {
+        "jobs": {
             "description": "the jobs that the candidate is interested in and the category values they want",
             "type": "array",
             "items": {

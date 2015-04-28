@@ -29,7 +29,7 @@
                     "type": "integer",
                     "description": "just the same tracker that was passed in with the intent"
                 },
-                "openings": {
+                "jobs": {
                     "description": "the jobs that the candidate is interested in and the category values they want - as massaged by the ATS",
                     "type": "array",
                     "items": {
@@ -138,11 +138,11 @@
             "description": "User-structured items to be attached to a candidate or a job application. Ideally should be schema-ed from json schema itself, but had trouble with that",
             "additionalProperties": true
         },
-        "openingRule": {
+        "jobRule": {
             "type": "object",
             "description": "rules that are specific to a single job application (i.e., not candidate-level)",
             "properties": {
-                "opening": {
+                "job": {
                     "type": "integer",
                     "description": "the job application these rules apply to (i.e the non-candidate level rules)"
                 },
@@ -155,10 +155,10 @@
             },
             "additionalProperties": false
         },
-        "openingRules": {
+        "jobRules": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/openingRule"
+                "$ref": "#/definitions/jobRule"
             }
         },
         "inputModel": {
@@ -174,8 +174,8 @@
                 "attachmentRules": {
                     "$ref": "#/definitions/attachmentRules"
                 },
-                "openingRules": {
-                    "$ref": "#/definitions/openingRules"
+                "jobRules": {
+                    "$ref": "#/definitions/jobRules"
                 },
                 "itemsRule": {
                     "$ref": "#/definitions/itemsRule"

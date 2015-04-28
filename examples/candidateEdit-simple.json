@@ -44,7 +44,7 @@
     },
     "applications": [
         {
-            "opening": 23,
+            "job": 23,
             "attachmentPatches": [
                 {
                     "op": "add",

@@ -3,11 +3,11 @@
         "id": 10032,
         "key": "LOCATION",
         "name": "Location",
-        "canMultiSelectOnOpenings": false
+        "canMultiSelectOnJobs": false
     },
     {
         "id": 10034,
         "name": "Nursing specialization",
-        "canMultiSelectOnOpenings": true
+        "canMultiSelectOnJobs": true
     }
 ]

@@ -8,7 +8,7 @@
         "statuses": {
             "type": "array",
             "items": {
-                "$ref": "./positionOpening.json#/definitions/status"
+                "$ref": "./job.json#/definitions/status"
             }
         },
         "categories": {
@@ -16,12 +16,11 @@
         },
         "codeMatch": {
             "type": "string",
-            "description": "a regexp or similar that is used to filter openings based on their code"
+            "description": "a regexp or similar that is used to filter job openings based on their code"
         }
     },
     "additionalProperties": false,
     "required": [
-        "recruiter"
     ]
 }
 

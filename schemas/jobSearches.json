@@ -3,7 +3,7 @@
     "type": "object",
     "properties": {
         "filter": {
-            "$ref": "./openingFilter.json"
+            "$ref": "./jobFilter.json"
         }
     },
     "additionalProperties": false,

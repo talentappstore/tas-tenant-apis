@@ -9,7 +9,7 @@ securitySchemes:  !include securitySchemes.yml
 traits: !include traits.yml
 
 
-/openings:
+/jobs:
   description: |
     Position openings aka vacancies, job openings, etc. 
   /recruiterFaces:
@@ -32,7 +32,7 @@ traits: !include traits.yml
   /searches:
     post:
       description: |
-        Search openings, returning id, title and code (if present) for each.
+        Search jobs, returning id, title and code (if present) for each.
 
         When called by a candidate, there is no special filtering based on "open to internal" rules on the opening vs. the viewing
         candidate's own state. That sort of hyperdetail gets in the way of sending special candidate direct
@@ -44,25 +44,25 @@ traits: !include traits.yml
         When called as an OAuth API, the recruiter parameter must be present, and must be set to the logged in recruiter. 
       body:
         application/json:
-          schema: !include ../schemas/openingSearches.json
-          example: !include ../examples/openingSearches-simple.json
+          schema: !include ../schemas/jobSearches.json
+          example: !include ../examples/jobSearches-simple.json
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/positionOpenings.json
-              example: !include ../examples/positionOpenings-simple.json
+              schema: !include ../schemas/jobs.json
+              example: !include ../examples/jobs-simple.json
       
   /{id}:
     get:
       description: |
-        Get common details of a specific opening
+        Get common details of a specific job opening
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/positionOpening.json
-              example: !include ../examples/positionOpening-simple.json
+              schema: !include ../schemas/job.json
+              example: !include ../examples/job-simple.json
 
     /widgetState:
       /me:
@@ -71,7 +71,7 @@ traits: !include traits.yml
             The name of the app that wants to know whether to render its widget or not
           get:
             description: |
-              Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on openings, and want to
+              Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to
               know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made
               by the ATS.
                 
@@ -86,14 +86,14 @@ traits: !include traits.yml
                       { "display": true }
     /widgetHtml:
       description: |
-        Resource served up by apps that want to insert an html widget into a web page displaying this opening, for example:
+        Resource served up by apps that want to insert an html widget into a web page displaying this job, for example:
         - an apply now button displayed to a candidate
         - a menu panel displayed to a recruiter
       /candidates:
         /me:
           get:
             description:
-              Get a button type widget for display on the candidate facing page for an opening.
+              Get a button type widget for display on the candidate facing page for a job opening.
               If called anonymously, the producer will pass back some default which is applicable to
               public job seekers. If called with a candidate identified, the producer will likely consult
               the TAS session and perhaps some business data such as whether the candidate has applied for
@@ -109,7 +109,7 @@ traits: !include traits.yml
         /me:
           get:
             description:
-              Get a card type widget for display to the logged in recruiter for an opening.
+              Get a card type widget for display to the logged in recruiter for a job opening.
               The producer will likely consult the TAS session and perhaps some business data
               such as the recruiter's area to make its decision.                
     /candidateFaces:
@@ -117,14 +117,15 @@ traits: !include traits.yml
         /deltaPings:
           post:
             description: |
-              Send notification of a change to the candidate-facing details of an opening.
+              Send notification of a change to the candidate-facing details of a job opening.
           /toActive:
             post:
               description: |
-                Send notification of a change to the candidate-facing details of an opening, specifically
-                that the opening has become newly active. Useful to feed something like a mobile job notification system,
+                Send notification of a change to the candidate-facing details of a job opening, specifically
+                that the job opening has become newly active. Useful to feed something like a mobile job notification system,
                 which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
-                a system would need to do its own tests as to whether the opening was visible to any given candidate.
+                a system would need to do its own tests as to whether the opening was visible to any given candidate (i.e.,
+                it might be only visisble to internal candidates)
     /preScreens:
       /{producer}:
         /{id}:
@@ -135,33 +136,33 @@ traits: !include traits.yml
     /searches:
       post:
         description: |
-          Search openings, returning common details, but only for openings that are publicly available, i.e.
+          Search job openings, returning common details, but only for job openings that are publicly available, i.e.
           where availableExternally == true AND externalCloseDate is null or in the future.
            
-          See description for POST /openings/searches.
+          See description for POST /jobs/searches.
            
           The method is a POST solely because the size and number of parameters might get too large for a GET.
         body:
           application/json:
-            schema: !include ../schemas/openingSearches.json
-            example: !include ../examples/openingSearches-simple.json
+            schema: !include ../schemas/jobSearches.json
+            example: !include ../examples/jobSearches-simple.json
         responses:
           200:
             body:
               application/json:
-                schema: !include ../schemas/positionOpenings.json
-                example: !include ../examples/positionOpenings-simple.json
+                schema: !include ../schemas/jobs.json
+                example: !include ../examples/jobs-simple.json
     /{id}:
       get:
         description: |
-          Get common details of a specific opening, but only if it is publicly visible, i.e.
+          Get common details of a specific job opening, but only if it is publicly visible, i.e.
           where availableExternally == true AND externalCloseDate is null or in the future.
         responses:
           200:
             body:
               application/json:
-                schema: !include ../schemas/positionOpening.json
-                example: !include ../examples/positionOpening-simple.json
+                schema: !include ../schemas/job.json
+                example: !include ../examples/job-simple.json
   
 /trackers:
   description: |
@@ -213,7 +214,7 @@ traits: !include traits.yml
 
 /categories:
   description: |
-    Tenant-defined hierarchical structures used in talent management to categorize openings, candidates
+    Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
     and others. Includes details of inactivated nodes.
   get:
     description: |
@@ -346,21 +347,14 @@ traits: !include traits.yml
                 users, and they install a corporate SAML idp, they can disable the existing login methods (which implies TAS needs a disabled flag) and then
                 each user will be forced to switch authentication to the SAML when they next attempt log in.
                 
-                
-                
                 Session decorators should normally decorate based on email address rather than {E}/{N}.
                 
                 This allows the user to swap login mechanisms (e.g. from email to Google) and keep their entitlements.
                 
                 HOW? WHY NECESSARY? Step by step!
                 
-                
-                 
-                
                 Idp-specific rules can not be applied to non-attribute suppliers. (e.g. can't make *@acme.com an internal when logging
                 in through LinkedIn, but not Google). Instead, rules must be applied either to all non-attribute supplying idps, or to specific attribute supplying idps.
-                
-                
               
                 TODO: expand on this, considering:
                 - how to broadcast the leap to all apps that have a user database so they can fix their own records for the person
@@ -431,7 +425,6 @@ traits: !include traits.yml
       get:
         description: |
           Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
-          Always a visit tracker?
     /status:
       get:
         description: |
@@ -440,9 +433,9 @@ traits: !include traits.yml
     /candidate:
       get:
         description: Get the candidate for this application
-    /opening:
+    /job:
       get:
-        description: Get the opening for this application
+        description: Get the job opening for this application
     /items:
       get:
     /attachments:
@@ -612,7 +605,7 @@ traits: !include traits.yml
                 example: !include ../examples/categories-simple.json
       
     /applications:
-      /{openingID}:
+      /{job}:
         /items:
           get:
         /attachments:

@@ -1,0 +1,39 @@
+[
+    {
+        "meta": {
+            "id": 10023,
+            "consumer": {
+                "ct": "acme",
+                "cad": "tas",
+                "ca": "jobboard"
+            }
+        },
+        "detail": {
+            "kind": "Session creation",
+            "landingURI": "https://acme.jobboard.com/jobs/1044",
+            "referer": "https://google.com",
+            "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
+            "ipAddress": "192.168.1.1",
+            "acceptLanguage": "en-us,en;q=0.5"
+        }
+    },
+    {
+        "meta": {
+            "id": 10024,
+            "consumer": {
+                "ct": "acme",
+                "cad": "supersoft",
+                "ca": "refly"
+            }
+        },
+        "detail": {
+            "kind": "Campaign",
+            "campaignKind": "User defined",
+            "objectType": "Job",
+            "id": 16670
+        },
+        "userArea": {
+            "referredVia": "fred@acme.com"
+        }
+    }
+]

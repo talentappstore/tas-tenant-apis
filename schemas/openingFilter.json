@@ -14,9 +14,9 @@
         "categories": {
             "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
         },
-        "refCodeMatch": {
+        "codeMatch": {
             "type": "string",
-            "description": "a regexp or similar that is used to filter openings based on their ref code"
+            "description": "a regexp or similar that is used to filter openings based on their code"
         }
     },
     "additionalProperties": false,
@@ -24,3 +24,4 @@
         "recruiter"
     ]
 }
+

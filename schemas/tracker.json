@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "definitions": {
+        "meta": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "consumer": {
+                    "$ref": "./consumer.json"
+                }
+            },
+            "required": [
+                "id",
+                "consumer"
+            ],
+            "additionalProperties": false
+        },
+        "sessionCreation": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "enum": [
+                        "Session creation"
+                    ],
+                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
+                },
+                "landingURI": {
+                    "type": "string"
+                },
+                "referer": {
+                    "type": "string"
+                },
+                "userAgent": {
+                    "type": "string"
+                },
+                "ipAddress": {
+                    "type": "string"
+                },
+                "acceptLanguage": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "kind",
+                "landingURI",
+                "userAgent",
+                "ipAddress",
+                "acceptLanguage"
+            ],
+            "additionalProperties": false
+        },
+        "campaign": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "enum": [
+                        "Campaign"
+                    ],
+                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
+                },
+                "campaignKind": {
+                    "enum": [
+                        "Employee referral",
+                        "Email alert",
+                        "User defined"
+                    ]
+                },
+                "objectType": {
+                    "enum": [
+                        "Job"
+                    ]
+                },
+                "id": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "kind",
+                "campaignKind",
+                "objectType",
+                "id"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "type": "object",
+    "properties": {
+        "meta": {
+            "$ref": "#/definitions/meta"
+        },
+        "detail": {
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/sessionCreation"
+                },
+                {
+                    "$ref": "#/definitions/campaign"
+                }
+            ]
+        },
+        "userArea": {
+            "type": "object",
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "detail"
+    ]
+}

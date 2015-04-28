@@ -32,10 +32,12 @@ traits: !include traits.yml
   /searches:
     post:
       description: |
-        Search openings, returning common details.
+        Search openings, returning id, title and code (if present) for each.
+
         When called by a candidate, there is no special filtering based on "open to internal" rules on the opening vs. the viewing
         candidate's own state. That sort of hyperdetail gets in the way of sending special candidate direct
         links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal opening).
+        
         The method is a POST solely because the size and number of parameters might get too large for a GET.
         
         Auth:
@@ -160,29 +162,54 @@ traits: !include traits.yml
               application/json:
                 schema: !include ../schemas/positionOpening.json
                 example: !include ../examples/positionOpening-simple.json
-
   
-/campaignTrackers:
-  description: |
-    Campaign trackers encapsulate a url and some meta information (e.g. that the link represents an employee referral) in an object
-    held in an analytics store that can be passed as a url param around various TAS APIs.
-  /{consumer}:    
-    post:
-      description: |
-        Create a campaign tracker, owned by the consuming app.
 /trackers:
+  description: |
+    A tracker represents a single sourcing event (social sharing, automated job alert, etc.). Trackers are organized into trees.
+    The path from a single leaf to the trunk of the tree represents the chain of sourcing events, for example that led a candidate
+    to apply. Each tracker can append meta information (e.g. the employee making an employee referral) to the chain. Trackers can
+    be passed by id into tracker-aware APIs such as POST /candidates.
   /{id}:
-    get:
-      description: |
-        Get details from a campaign or visit tracker, identified by its ID. if the tracker is a
-        visit tracker, details of the (perhaps indirectly) attached campaign tracker are included.
-    /visitTrackers:
-      description: |
-        Visit trackers represent a click through by a candidate to a destination tracker's URL 
-      /{consumer}:    
+    /chain:
+      get:
+        description: |
+          Get this tracker, its parent tracker, and so on to the root of the tree.
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/trackers.json
+                example: !include ../examples/trackers-simple.json
+    /trackers:          
+      /{CT}:
+        description: Consuming tenant
+        /{CAD}:
+          description: Consuming app developer
+          /{CA}:
+            description: Consuming app
+            post:
+              description: |
+                Create a tracker and attach to the specified parent. The implementation MUST check that the values passed in
+                for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
+              body:
+                application/json:
+                  schema: !include ../schemas/tracker.json
+                  example: !include ../examples/tracker-create.json
+  /{CT}:
+    description: Consuming tenant
+    /{CAD}:
+      description: Consuming app developer
+      /{CA}:
+        description: Consuming app
         post:
           description: |
-            Create a visit tracker as a child of the specified campaign or visit tracker, owned by the consuming app
+            Create a base tracker (one with no parent). The implementation MUST check that the values passed in
+            for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
+          body:
+            application/json:
+              schema: !include ../schemas/tracker.json
+              example: !include ../examples/tracker-create.json
+
 
 /categories:
   description: |

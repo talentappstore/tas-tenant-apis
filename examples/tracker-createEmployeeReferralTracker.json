@@ -1,0 +1,19 @@
+{
+    "meta": {
+        "id": 10024,
+        "consumer": {
+            "ct": "acme",
+            "cad": "supersoft",
+            "ca": "refly"
+        }
+    },
+    "detail": {
+        "kind": "Campaign",
+        "campaignKind": "Employee referral",
+        "objectType": "Job",
+        "id": 16670
+    },
+    "userArea": {
+      "referredVia": "fred@acme.com"
+    }
+}

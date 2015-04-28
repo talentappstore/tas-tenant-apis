@@ -194,7 +194,7 @@ traits: !include traits.yml
               body:
                 application/json:
                   schema: !include ../schemas/tracker.json
-                  example: !include ../examples/tracker-create.json
+                  example: !include ../examples/tracker-createMailoutTracker.json
   /{CT}:
     description: Consuming tenant
     /{CAD}:
@@ -208,7 +208,7 @@ traits: !include traits.yml
           body:
             application/json:
               schema: !include ../schemas/tracker.json
-              example: !include ../examples/tracker-create.json
+              example: !include ../examples/tracker-createSessionTracker.json
 
 
 /categories:

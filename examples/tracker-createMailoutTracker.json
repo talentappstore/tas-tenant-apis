@@ -1,0 +1,16 @@
+{
+    "meta": {
+        "id": 10024,
+        "consumer": {
+            "ct": "acme",
+            "cad": "supersoft",
+            "ca": "refly"
+        }
+    },
+    "detail": {
+        "kind": "Campaign",
+        "campaignKind": "Email alert",
+        "objectType": "Job",
+        "id": 16670
+    }
+}

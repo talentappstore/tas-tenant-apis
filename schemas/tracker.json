@@ -6,14 +6,10 @@
             "properties": {
                 "id": {
                     "type": "integer"
-                },
-                "consumer": {
-                    "$ref": "./consumer.json"
                 }
             },
             "required": [
-                "id",
-                "consumer"
+                "id"
             ],
             "additionalProperties": false
         },
@@ -72,7 +68,7 @@
                         "Job"
                     ]
                 },
-                "id": {
+                "objectID": {
                     "type": "integer"
                 }
             },
@@ -80,7 +76,7 @@
                 "kind",
                 "campaignKind",
                 "objectType",
-                "id"
+                "objectID"
             ],
             "additionalProperties": false
         }
@@ -89,6 +85,9 @@
     "properties": {
         "meta": {
             "$ref": "#/definitions/meta"
+        },
+        "consumer": {
+            "$ref": "./consumer.json"
         },
         "detail": {
             "oneOf": [
@@ -107,6 +106,6 @@
     },
     "additionalProperties": false,
     "required": [
-        "detail"
+        "detail", "consumer"
     ]
 }

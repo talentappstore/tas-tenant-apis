@@ -133,11 +133,6 @@
                 "$ref": "#/definitions/attachmentRule"
             }
         },
-        "itemsRule": {
-            "type": "object",
-            "description": "User-structured items to be attached to a candidate or a job application. Ideally should be schema-ed from json schema itself, but had trouble with that",
-            "additionalProperties": true
-        },
         "jobRule": {
             "type": "object",
             "description": "rules that are specific to a single job application (i.e., not candidate-level)",
@@ -147,7 +142,7 @@
                     "description": "the job application these rules apply to (i.e the non-candidate level rules)"
                 },
                 "itemsRule": {
-                    "$ref": "#/definitions/itemsRule"
+                      "$ref": "./schemaSchema.json"
                 },
                 "attachmentRules": {
                     "$ref": "#/definitions/attachmentRules"
@@ -178,7 +173,7 @@
                     "$ref": "#/definitions/jobRules"
                 },
                 "itemsRule": {
-                    "$ref": "#/definitions/itemsRule"
+                   "$ref": "./schemaSchema.json"
                 }
             },
             "required": []

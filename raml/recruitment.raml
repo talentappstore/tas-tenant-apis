@@ -32,7 +32,7 @@ traits: !include traits.yml
   /searches:
     post:
       description: |
-        Search jobs, returning id, title and code (if present) for each.
+        Search jobs, returning only id, title and code (if present) for each.
 
         When called by a candidate, there is no special filtering based on "open to internal" rules on the opening vs. the viewing
         candidate's own state. That sort of hyperdetail gets in the way of sending special candidate direct
@@ -135,9 +135,10 @@ traits: !include traits.yml
   /public:
     /searches:
       post:
+        is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 }, tasItem: { defaultSelectList: "id" } ]
         description: |
-          Search job openings, returning common details, but only for job openings that are publicly available, i.e.
-          where availableExternally == true AND externalCloseDate is null or in the future.
+          Search job openings, returning id, title and code (if present) for each, but only for job openings that are publicly
+          available, i.e. where availableExternally == true AND externalCloseDate is null or in the future.
            
           See description for POST /jobs/searches.
            
@@ -634,7 +635,6 @@ traits: !include traits.yml
         description: |
           Search candidates, returning recruiter-facing details.
           The method is a POST solely because the size and number of parameters might get too large for a GET.
-          TODO: is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 }, tasItem: { defaultSelectList: "id" } ]
           withResume - if present, only return candidates with (if true) or without (if false) an attached resume
         body:
           application/json:

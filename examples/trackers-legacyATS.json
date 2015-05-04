@@ -1,12 +1,12 @@
 [
     {
         "meta": {
-            "id": 10023,
-            "consumer": {
-                "ct": "acme",
-                "cad": "tas",
-                "ca": "jobboard"
-            }
+            "id": 10023
+        },
+        "consumer": {
+            "ct": "acme",
+            "cad": "tas",
+            "ca": "jobboard"
         },
         "detail": {
             "kind": "Session creation",
@@ -19,18 +19,18 @@
     },
     {
         "meta": {
-            "id": 10024,
-            "consumer": {
-                "ct": "acme",
-                "cad": "supersoft",
-                "ca": "legacyats"
-            }
+            "id": 10024
+        },
+        "consumer": {
+            "ct": "acme",
+            "cad": "supersoft",
+            "ca": "legacyats"
         },
         "detail": {
             "kind": "Campaign",
             "campaignKind": "User defined",
             "objectType": "Job",
-            "id": 16670
+            "objectID": 16670
         },
         "userArea": {
             "legacyats-source": "print-media-smh"

@@ -48,19 +48,20 @@
             {
                 "job": 356347,
                 "itemsRule": {
-                    "$schema": "http: //json-schema.org/draft-04/schema#",
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "type": "object",
                     "properties": {
                         "favoriteColor": {
                             "type": "string",
                             "title": "Favoritecolor",
                             "description": "Tell us your favourite color. Our advanced hiring algorithm uses it.",
                             "default": "blue"
-                        },
-                        "required": [
-                            "favoriteColor"
-                        ],
-                        "additionalProperties": false
-                    }
+                        }
+                    },
+                    "required": [
+                        "favoriteColor"
+                    ],
+                    "additionalProperties": false
                 }
             }
         ]

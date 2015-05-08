@@ -9,6 +9,14 @@ securitySchemes:  !include securitySchemes.yml
 traits: !include traits.yml
 
 
+/recordings:
+  /{id}:
+    get:
+      description: |
+        Get the recording with the given capture ID if any exists. e.g. an apply app makes up a capture id and passes it to the 
+        voice recording app; some time later (e.g. when candidate clicks submit) the apply app returns to check if there is a new recording.
+        Finally the apply app mashes the recording ID into the candidateEdit. 
+            
 /jobs:
   description: |
     Position openings aka vacancies, job openings, etc. 
@@ -132,6 +140,7 @@ traits: !include traits.yml
           /deltaPings:
             post:
               description: Alert a pre-screening app that a new screening has been requested
+                            
   /public:
     /searches:
       post:
@@ -439,8 +448,6 @@ traits: !include traits.yml
         description: Get the job opening for this application
     /items:
       get:
-    /attachments:
-      get:
         
   /bySourcingApp:
     /{consumer}:
@@ -458,30 +465,41 @@ traits: !include traits.yml
             description: get the id of the application (if any)
           
 /editSpecs:
-  /fetches:
-    post:
-      securedBy: [oauth_2_0]
-      description: |
-        Fetch the edit spec for:
-        - no candidate
-        - the candidate who is logged in, and who may or may not
-        have a row in the candidates table.
-          
-        All changes to a candidate face (edits) must obey an edit spec, aka an application form.
+  description: |
+    Major changes to a candidate's data, such as vcard, eeo items, candidate items, categories, etc., must obey an
+    edit spec. Classic case is a job application form.
+    See <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
+  /me:
+    description: Don't cache responses from APIs with /me/ in them
+    /applyOrRegister:
+      description: This API gets editSpecs for a candidate to apply for a job, register or edit their categories
+      /fetches:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            If an anonymous OAuth token is passed, fetch the edit spec that is safe to display to
+            the public (or 403 Forbidden if the intent contains an internal-only job)
 
-        See separate design note re structure of the edit spec.
+            If an "on behalf" OAuth token is passed, fetch the edit spec that is suitable for
+            the candidate who is logged in, and who may or may not have a row in the candidates table (e.g.
+            special questions for an internal candidate or one who found the job via employee referral)
 
-        The method is a POST solely because the size and number of parameters might get too large for a GET.
-      body:
-        application/json:
-          schema: !include ../schemas/intent.json
-          example: !include ../examples/intent-apply.json
-      responses:
-        200:
+            The editSpec returned by this API can only ever contain candidate and eeo items
+            in its itemsRule and any job itemsRules.  
+            
+            Always produced as SoT. 
+            
+            The method is a POST just because parameters may get too long for a GET.
           body:
             application/json:
-              schema: !include ../schemas/candidateEditSpec.json
-              example: !include ../examples/candidateEditSpec-apply.json
+              schema: !include ../schemas/intent.json
+              example: !include ../examples/intent-apply.json
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/candidateEditSpec.json
+                  example: !include ../examples/candidateEditSpec-apply.json
 
 /candidates:
   description:
@@ -489,7 +507,6 @@ traits: !include traits.yml
     opening, registered in the database, were imported from some other system, etc.
     Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned,
     in which case they have no {E}/{N} values. Owned candidates may use an identity leap IdP.
-     
   /{N}:
     description: |
       The name ID of the candidate.
@@ -498,26 +515,37 @@ traits: !include traits.yml
         Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
         The ID is often required as a parameter for other APIs.
         Can only be called for the current logged in user, using their own name ID.
-        
   post:
     securedBy: [oauth_2_0]
     description: |
       Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
-
+      
       See separate design document for detailed information on the request body.
-       
+
+      The producer must run all uploaded files through OWASP security tests:
+      - extension matches actual file type
+      - virus check
+      - etc.
+
+      Candidate type is not passed - instead the producer should identify candidate type (e.g. internal)
+      by looking for the relevant role in the incoming OAuth token.
+  
+      The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
+      and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
+      attacks where the consumer writes to any data item for example.
+      
     body:
       application/json:
         schema: !include ../schemas/candidateEdit.json
         example: !include ../examples/candidateEdit-simple.json
-
   /{id}:
     get:
-      description: including notifications (subscribe y/n)
+      description: |
+        Get general information about the candidate including notifications (subscribe y/n)
     /deltaPings:
       description: |
         The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
-        Probably only useful as non-SoT.
+        Only produced as non-SoT.
       post:
     /roles:
       get:
@@ -543,12 +571,6 @@ traits: !include traits.yml
                 /links:
                   get:
                     description: get the candidate viewable links from the screening (if any)
-
-    /stars:
-      /forOpenings:
-        /{id}:
-          get:
-            description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
     /vcard:
       get:
         description: candidate contact details, in the form described by rfc7095
@@ -562,10 +584,9 @@ traits: !include traits.yml
                 application/json:
                   schema: !include ../schemas/fileMeta.json
                   example: !include ../examples/fileMeta-simple.json
-      /asStream:
+      /asBinary:
         get:
           is: [ document_asStream ]
-          securedBy: [hmac]
       /asHtml:
         get:
           description: get an html version of the candidate's resume
@@ -576,25 +597,38 @@ traits: !include traits.yml
           post:        
     /video:
     /voiceMessage:
+       get:
+       /entryURL:
+         get:
+           description: |
+             Get the url of a small iframe-able web page that will capture a voice message for this candidate. Typically
+             called by an apply UI.
     /items:
-      get:
-    /attachments:
-      /{id}:
-        /meta:
+      /candidateOwned:
+        get:
+          description: Get all candidateOwned items for this candidate
+        /{item}:
           get:
-            description: get metadata about this attachment (size, filename, etc.)
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/fileMeta.json
-                    example: !include ../examples/fileMeta-simple.json
-        /asStream:
+            description: Get a specific candidateOwned item for this candidate
+      /internalOwned:
+        get:
+          description: Get all internalOwned items for this candidate
+        /{item}:
           get:
-            is: [ document_asStream ]
-    /latestSource:
-      get:
-        description: a tracker, as passed in to the edit
+            description: Get a specific internalOwned item for this candidate
+      /internalShared:
+        get:
+          description: Get all internalShared items for this candidate
+        /{item}:
+          get:
+            description: Get a specific internalShared item for this candidate
+      /eeo:
+        get:
+          description: Get all eeo items for this candidate
+        /{item}:
+          get:
+            description: Get a specific eeo item for this candidate
+      
     /categories:
       get:
         description: get the categories for this candidate
@@ -604,29 +638,47 @@ traits: !include traits.yml
               application/json:
                 schema: !include ../schemas/categories.json
                 example: !include ../examples/categories-simple.json
-      
+    /latestApplyTracker:
+      get:
+        description: |
+          The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
+          was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
+          drew them to the site.
     /applications:
       /{job}:
         /items:
-          get:
-        /attachments:
-          /{id}:
-            /meta:
+          /candidateOwned:
+            get:
+              description: Get all candidateOwned items for this application
+            /{item}:
               get:
-                description: get metadata about this attachment (size, filename, etc.)
-                responses:
-                  200:
-                    body:
-                      application/json:
-                        schema: !include ../schemas/fileMeta.json
-                        example: !include ../examples/fileMeta-simple.json
-        /asStream:
-          get:
-            is: [ document_asStream ]
-          
+                description: Get a specific candidateOwned item for this application
+          /internalOwned:
+            get:
+              description: Get all internalOwned items for this application
+            /{item}:
+              get:
+                description: Get a specific internalOwned item for this application
+          /internalShared:
+            get:
+              description: Get all internalShared items for this application
+            /{item}:
+              get:
+                description: Get a specific internalShared item for this application
+          /eeo:
+            get:
+              description: Get all eeo items for this application
+            /{item}:
+              get:
+                description: Get a specific eeo item for this application
         /source:
           get:
             description: a tracker, as passed in to the edit
+    /stars:
+      /forOpenings:
+        /{id}:
+          get:
+            description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
 
   /recruiterFaces:
     /searches:

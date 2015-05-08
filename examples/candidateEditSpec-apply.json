@@ -30,31 +30,71 @@
             "mandatory": false,
             "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
         },
-        "attachmentRules": [
-            {
-                "seq": 0,
-                "type": "C1 nursing certificate",
-                "instructions": "Please download, sign, scan and attach your C1.",
-                "mandatory": true,
-                "allowMultiple": true,
-                "default": {
-                    "directUri": "https://acme.simpleats.com/secure/candidates/702342/attachmentDefaults/C1%20nursing%20certificate/samplecert.pdf",
-                    "fileName": "samplecert.pdf",
-                    "size": 102224
+        "itemsRule": {
+            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+            "type": "object",
+            "properties": {
+                "nursingCert": {
+                    "type": "object",
+                    "format": "tas-fileUpload",
+                    "options": {
+                        "accept": "image/pdf"
+                    },
+                    "description": "Please scan and attach your C1 as pdf",
+                    "properties": {
+                        "data": {
+                            "type": "string",
+                            "media": {
+                                "binaryEncoding": "base64"
+                            }
+                        },
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "via": {
+                            "type": "string"
+                        }
+                    }
                 }
-            }
-        ],
+            },
+            "required": [
+                "favoriteColor"
+            ],
+            "additionalProperties": false
+        },
         "jobRules": [
             {
                 "job": 356347,
                 "itemsRule": {
-                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "$schema": "http://json-schema.org/draft-04/hyper-schema#",
                     "type": "object",
                     "properties": {
+                        "coverLetter": {
+                            "type": "object",
+                            "format": "tas-fileUpload",
+                            "options": {
+                                "accept": "image/png,text/html"
+                            },
+                            "description": "Please upload a cover letter. The shorter the better",
+                            "properties": {
+                                "data": {
+                                    "type": "string",
+                                    "media": {
+                                        "binaryEncoding": "base64"
+                                    }
+                                },
+                                "fileName": {
+                                    "type": "string"
+                                },
+                                "via": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "favoriteColor": {
                             "type": "string",
-                            "title": "Favoritecolor",
-                            "description": "Tell us your favourite color. Our advanced hiring algorithm uses it.",
+                            "title": "Favorite color",
+                            "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
                             "default": "blue"
                         }
                     },

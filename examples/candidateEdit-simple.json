@@ -1,31 +1,35 @@
 {
     "vcard": [
-       { "vcardStuff": "yet to be defined" }
+        {
+            "vcardStuff": "yet to be defined"
+        }
     ],
     "resumePatch": {
-      "op": "replace",
-      "fileUpload": {
-        "fileName": "fredcv.docx",
-        "value": "utg765f876hilf76fg6g..."
+        "op": "replace",
+        "fileUpload": {
+            "fileName": "fredcv.docx",
+            "value": "utg765f876hilf76fg6g..."
         }
     },
     "jobNotifications": true,
-    "video": {
-        "fileName": "fredcv.docx",
-        "value": "utg765f876hilf76fg6g..."
-    },
-    "voiceMessage": {
-        "fileName": "fredcv.docx",
-        "value": "utg765f876hilf76fg6g..."
-    },
+    "newVideo": 100032,
+    "newVoiceMessage": 7569, 
     "categoriesPatch": {
         "op": "replace",
         "patchItems": [
-            { "category": 10032,
-              "values": [  1009, 1010, 10344 ]
+            {
+                "category": 10032,
+                "values": [
+                    1009,
+                    1010,
+                    10344
+                ]
             },
-            { "category": 10055,
-              "values": [  1085 ]
+            {
+                "category": 10055,
+                "values": [
+                    1085
+                ]
             }
         ]
     },
@@ -56,7 +60,12 @@
                 }
             ],
             "items": {
-                "confirmCommitment": true
+                "coverLetter": {
+                    "data": "kihkjhkhk",
+                    "fileName": "fred.doc",
+                    "via": "dropbox.com"
+                },
+                "favoriteColor": "red"
             }
         }
     ]

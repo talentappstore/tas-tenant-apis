@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "description": "Core schema meta-schema",
+    "description": "Core schema meta-schema, modified by AB - diff against http://json-schema.org/schema to see changes",
     "definitions": {
         "schemaArray": {
             "type": "array",
@@ -138,5 +138,6 @@
         "exclusiveMaximum": [ "maximum" ],
         "exclusiveMinimum": [ "minimum" ]
     },
-    "default": {}
+    "default": {},
+    "additionalProperties": true
 }

@@ -116,11 +116,13 @@
         "jobNotifications": {
             "type": "boolean"
         },
-        "video": {
-            "$ref": "./fileUpload.json"
+        "newVideo": {
+          "type": "integer",
+          "description": "recording ID of the candidate's newly uploaded video - overwrites any existing video"
         },
-        "voiceMessage": {
-            "$ref": "./fileUpload.json"
+        "newVoiceMessage": {
+          "type": "integer",
+          "description": "recording ID of the candidate's newly uploaded voice message - overwrites any existing voice message"
         },
         "categoriesPatch": {
             "$ref": "#/definitions/categoriesPatch"

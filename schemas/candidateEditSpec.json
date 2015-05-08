@@ -65,6 +65,28 @@
                 "mandatory"
             ]
         },
+        "voiceMessageRule": {
+            "type": "object",
+            "properties": {
+                "visible": {
+                    "description": "can a voice message be uploaded at all, and can existing message be seen",
+                    "type": "boolean"
+                },
+                "mandatory": {
+                    "description": "is the voice message mandatory - implies visible == true",
+                    "type": "boolean"
+                },
+                "message": {
+                    "description": "a message to help the candidate understand about recording a message",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "visible",
+                "mandatory"
+            ]
+        },
         "vCardRule": {
             "type": "object",
             "properties": {
@@ -73,79 +95,19 @@
                     "type": "boolean"
                 }
             },
-            "required": "someMandatory"
-        },
-        "documentAtUri": {
-            "type": "object",
-            "properties": {
-                "directUri": {
-                    "type": "string",
-                    "description": "be sure this is secured"
-                },
-                "fileName": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "integer"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "directUri",
-                "fileName",
-                "size"
-            ]
-        },
-        "attachmentRule": {
-            "type": "object",
-            "properties": {
-                "seq": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "instructions": {
-                    "type": "string"
-                },
-                "mandatory": {
-                    "type": "boolean"
-                },
-                "allowMultiple": {
-                    "type": "boolean"
-                },
-                "default": {
-                    "$ref": "#/definitions/documentAtUri"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "seq",
-                "type",
-                "instructions",
-                "mandatory",
-                "allowMultiple"
-            ]
-        },
-        "attachmentRules": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/attachmentRule"
-            }
+            "required": "someMandatory",
+            "additionalProperties": false
         },
         "jobRule": {
             "type": "object",
-            "description": "rules that are specific to a single job application (i.e., not candidate-level)",
+            "description": "rules specific to a single job application (i.e., not candidate-scoped)",
             "properties": {
                 "job": {
                     "type": "integer",
-                    "description": "the job application these rules apply to (i.e the non-candidate level rules)"
+                    "description": "the job application these rules apply to"
                 },
                 "itemsRule": {
-                      "$ref": "./schemaSchema.json"
-                },
-                "attachmentRules": {
-                    "$ref": "#/definitions/attachmentRules"
+                      "$ref": "./jsonSchemaSchema.json"
                 }
             },
             "additionalProperties": false
@@ -163,17 +125,17 @@
                 "resumeRule": {
                     "$ref": "#/definitions/resumeRule"
                 },
+                "voiceMessageRule": {
+                    "$ref": "#/definitions/voiceMessageRule"
+                },
                 "vCardRule": {
                     "$ref": "#/definitions/vCardRule"
                 },
-                "attachmentRules": {
-                    "$ref": "#/definitions/attachmentRules"
+                "itemsRule": {
+                   "$ref": "./jsonSchemaSchema.json"
                 },
                 "jobRules": {
                     "$ref": "#/definitions/jobRules"
-                },
-                "itemsRule": {
-                   "$ref": "./schemaSchema.json"
                 }
             },
             "required": []
@@ -182,18 +144,14 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-        "anonymous": {
-            "type": "boolean",
-            "description": "whether this edit spec was generated for an anonymous candidate"
-        },
         "amendedIntent": {
             "$ref": "#/definitions/amendedIntent"
         },
-        "inputModel": {
-            "$ref": "#/definitions/inputModel"
-        },
         "candidateMessage": {
             "$ref": "#/definitions/candidateMessage"
+        },
+        "inputModel": {
+            "$ref": "#/definitions/inputModel"
         }
     },
     "required": []

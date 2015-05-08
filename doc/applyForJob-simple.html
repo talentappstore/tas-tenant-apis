@@ -485,6 +485,24 @@ section(s). These should be loaded into the input controls.</p>
 
 <p>Default values are not the same as previously entered values.</p>
 
+<h3>Setup voice message capture</h3>
+
+<p>If the ioputModel indicates a voice message is required or mandatory, then:
+<ol>
+<li>Generate a random "capture ID"
+<li>Call GET /candidates/{}/voiceMessage/url to obtain the recording entry page
+<li>append "capture=blah" to that URL
+<li>iframe the page at that URL inside simpleapply
+</ol>
+
+<p>Now we have a UI to capture a voice message.
+</p>
+
+<ol>
+<li>Call GET /candidates/{}/voiceMessage to get the URL of the existing voice message if any
+(candidates want to see their existing message before)deciding whether to record a new one).
+</ol>
+
 <h3>Populate category controls</h3>
 
 <p>Since categories may be large (e.g. a definitive list of every county in the US) it's up to simpleapply to decide
@@ -631,6 +649,9 @@ candidate deletes their entire profile (maybe another app?)
 
 
 <h1>Candidate submits application</h1>
+
+<p>Simpleapply calls GET /recordings/{captureID} to see if the candidate did record a new message. If so they add it to the request.
+
 
 <p>Once the candidate has finally completed their work and pressed submit, the completed edit (i.e., job application in
 this example]) is sent to the ATS (jobly).

@@ -9,13 +9,31 @@ securitySchemes:  !include securitySchemes.yml
 traits: !include traits.yml
 
 
-/recordings:
-  /{id}:
-    get:
+/voiceMessageUploads:
+  /{captureID}:
+    /lock:
+      post:
+        description: |
+          Lock the upload with the given capture id if it exists. e.g:
+          - an apply app makes up a capture id and passes it to the voice recording app
+          - some time later (e.g. when candidate clicks submit) the apply app returns to lock the recording (if the candidate made one)
+          - if exists, the apply app passes the capture id to the ats in POST /candidates
+          - the ats takes over responsibility for deleting the message 
+          - the ats app deletes any existing message
+          - and stores the new message id
+    delete:
       description: |
-        Get the recording with the given capture ID if any exists. e.g. an apply app makes up a capture id and passes it to the 
-        voice recording app; some time later (e.g. when candidate clicks submit) the apply app returns to check if there is a new recording.
-        Finally the apply app mashes the recording ID into the candidateEdit. 
+        Delete the given recording if we have it currently locked.  
+
+/videoUploads:
+  /{captureID}:
+    /lock:
+      get:
+        description: |
+          See voiceMessageRecordings.
+    delete:
+      description: |
+        See voiceMessageRecordings.
             
 /jobs:
   description: |
@@ -596,6 +614,8 @@ traits: !include traits.yml
             Probably only useful as non-SoT.
           post:        
     /video:
+      get:
+        description: get the ID of the candidate's video as held in the video app
     /voiceMessage:
        get:
        /entryURL:

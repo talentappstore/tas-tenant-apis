@@ -1,43 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "documentOp": {
-            "enum": [
-                "add",
-                "remove",
-                "replace"
-            ]
-        },
-        "attachmentPatch": {
-            "properties": {
-                "op": {
-                    "$ref": "#/definitions/documentOp"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "the attachment name, e.g. 'Drivers license'"
-                },
-                "fileUpload": {
-                    "$ref": "./fileUpload.json"
-                }
-            }
-        },
-        "resumePatch": {
-            "properties": {
-                "op": {
-                    "$ref": "#/definitions/documentOp"
-                },
-                "fileUpload": {
-                    "$ref": "./fileUpload.json"
-                }
-            }
-        },
-        "attachmentPatches": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/attachmentPatch"
-            }
-        },
         "categoriesPatchOp": {
             "enum": [
                 "add",
@@ -91,9 +54,6 @@
                 "job": {
                     "type": "integer"
                 },
-                "attachmentPatches": {
-                    "$ref": "#/definitions/attachmentPatches"
-                },
                 "items": {
                     "$ref": "./items.json"
                 }
@@ -108,10 +68,10 @@
             "type": "integer"
         },
         "vcard": {
-            "$ref": "./jcard.json"
+            "$ref": "jcard.json"
         },
-        "resumePatch": {
-            "$ref": "#/definitions/resumePatch"
+        "resume": {
+            "$ref": "fileUpload.json"
         },
         "jobNotifications": {
             "type": "boolean"
@@ -127,11 +87,8 @@
         "categoriesPatch": {
             "$ref": "#/definitions/categoriesPatch"
         },
-        "attachmentPatches": {
-            "$ref": "#/definitions/attachmentPatches"
-        },
         "items": {
-            "$ref": "./items.json"
+            "$ref": "items.json"
         },
         "applications": {
             "type": "array",

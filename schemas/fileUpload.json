@@ -1,17 +1,25 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-            "type": "object",
-            "properties": {
-                "fileName": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "fileName",
-                "value"
-            ]
+    "type": "object",
+    "description": "Details for an uploaded file",
+    "properties": {
+        "data": {
+            "type": "string",
+            "media": {
+                "binaryEncoding": "base64"
+            }
+        },
+        "fileName": {
+            "type": "string"
+        },
+        "via": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "data",
+        "fileName",
+        "via"
+    ]
 }

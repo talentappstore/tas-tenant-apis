@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "object",
-    "description": "A json object holding any information, which is intended to be validated against a separate json schema",
+    "description": "A json schema that describes the items that a candidate must supply - see separate doc.",
     "additionalProperties": true
 }

@@ -482,7 +482,7 @@ GET /widgets?$skip=2
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
     "items": {
-        "$ref": "./tracker.json"
+        "$ref": "tracker.json"
     }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
@@ -611,7 +611,7 @@ GET /widgets?$skip=2
             "$ref": "#/definitions/meta"
         },
         "consumer": {
-            "$ref": "./consumer.json"
+            "$ref": "consumer.json"
         },
         "detail": {
             "oneOf": [
@@ -733,7 +733,7 @@ GET /widgets?$skip=2
             "$ref": "#/definitions/meta"
         },
         "consumer": {
-            "$ref": "./consumer.json"
+            "$ref": "consumer.json"
         },
         "detail": {
             "oneOf": [
@@ -1327,43 +1327,6 @@ GET /widgets?$skip=2
 }</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="_candidates" class="panel-title">/candidates</h3></div><div class="panel-body"><div class="top-resource-description"><p>Candidates are people who are in the tenant&#39;s talent world, maybe because they applied for an opening, registered in the database, were imported from some other system, etc. Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned, in which case they have no {E}/{N} values. Owned candidates may use an identity leap IdP.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel__candidates"><span class="parent"></span>/candidates</a> <span class="methods"><a href="#_candidates_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel__candidates" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#_candidates_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.</p><p>See separate design document for detailed information on the request body.</p><p>The producer must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p>Candidate type is not passed - instead the producer should identify candidate type (e.g. internal) by looking for the relevant role in the incoming OAuth token.</p><p>The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate, and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where the consumer writes to any data item for example.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="_candidates_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/candidates</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.</p><p>See separate design document for detailed information on the request body.</p><p>The producer must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p>Candidate type is not passed - instead the producer should identify candidate type (e.g. internal) by looking for the relevant role in the incoming OAuth token.</p><p>The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate, and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where the consumer writes to any data item for example.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#_candidates_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="_candidates_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "documentOp": {
-            "enum": [
-                "add",
-                "remove",
-                "replace"
-            ]
-        },
-        "attachmentPatch": {
-            "properties": {
-                "op": {
-                    "$ref": "#/definitions/documentOp"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "the attachment name, e.g. &#x27;Drivers license&#x27;"
-                },
-                "fileUpload": {
-                    "$ref": "./fileUpload.json"
-                }
-            }
-        },
-        "resumePatch": {
-            "properties": {
-                "op": {
-                    "$ref": "#/definitions/documentOp"
-                },
-                "fileUpload": {
-                    "$ref": "./fileUpload.json"
-                }
-            }
-        },
-        "attachmentPatches": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/attachmentPatch"
-            }
-        },
         "categoriesPatchOp": {
             "enum": [
                 "add",
@@ -1417,9 +1380,6 @@ GET /widgets?$skip=2
                 "job": {
                     "type": "integer"
                 },
-                "attachmentPatches": {
-                    "$ref": "#/definitions/attachmentPatches"
-                },
                 "items": {
                     "$ref": "./items.json"
                 }
@@ -1434,10 +1394,10 @@ GET /widgets?$skip=2
             "type": "integer"
         },
         "vcard": {
-            "$ref": "./jcard.json"
+            "$ref": "jcard.json"
         },
-        "resumePatch": {
-            "$ref": "#/definitions/resumePatch"
+        "resume": {
+            "$ref": "fileUpload.json"
         },
         "jobNotifications": {
             "type": "boolean"
@@ -1453,11 +1413,8 @@ GET /widgets?$skip=2
         "categoriesPatch": {
             "$ref": "#/definitions/categoriesPatch"
         },
-        "attachmentPatches": {
-            "$ref": "#/definitions/attachmentPatches"
-        },
         "items": {
-            "$ref": "./items.json"
+            "$ref": "items.json"
         },
         "applications": {
             "type": "array",
@@ -1474,16 +1431,14 @@ GET /widgets?$skip=2
             "vcardStuff": "yet to be defined"
         }
     ],
-    "resumePatch": {
-        "op": "replace",
-        "fileUpload": {
-            "fileName": "fredcv.docx",
-            "value": "utg765f876hilf76fg6g..."
-        }
+    "resume": {
+        "fileName": "fredcv.docx",
+        "data": "utg765f876hilf76fg6g...",
+        "via": "dropbox.com"
     },
     "jobNotifications": true,
     "newVideo": 100032,
-    "newVoiceMessage": 7569, 
+    "newVoiceMessage": 7569,
     "categoriesPatch": {
         "op": "replace",
         "patchItems": [
@@ -1503,35 +1458,15 @@ GET /widgets?$skip=2
             }
         ]
     },
-    "attachmentPatches": [
-        {
-            "op": "add",
-            "name": "Drivers license",
-            "fileUpload": {
-                "fileName": "fredcv.docx",
-                "value": "utg765f876hilf76fg6g..."
-            }
-        }
-    ],
     "items": {
         "favouriteColor": "red"
     },
     "applications": [
         {
             "job": 23,
-            "attachmentPatches": [
-                {
-                    "op": "add",
-                    "name": "Job-specific upload thingy",
-                    "fileUpload": {
-                        "fileName": "ananda.txt",
-                        "value": "utg7io86hy875filf76fg6g..."
-                    }
-                }
-            ],
             "items": {
                 "coverLetter": {
-                    "data": "kihkjhkhk",
+                    "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
                     "fileName": "fred.doc",
                     "via": "dropbox.com"
                 },

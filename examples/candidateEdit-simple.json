@@ -4,16 +4,14 @@
             "vcardStuff": "yet to be defined"
         }
     ],
-    "resumePatch": {
-        "op": "replace",
-        "fileUpload": {
-            "fileName": "fredcv.docx",
-            "value": "utg765f876hilf76fg6g..."
-        }
+    "resume": {
+        "fileName": "fredcv.docx",
+        "data": "utg765f876hilf76fg6g...",
+        "via": "dropbox.com"
     },
     "jobNotifications": true,
     "newVideo": 100032,
-    "newVoiceMessage": 7569, 
+    "newVoiceMessage": 7569,
     "categoriesPatch": {
         "op": "replace",
         "patchItems": [
@@ -33,35 +31,15 @@
             }
         ]
     },
-    "attachmentPatches": [
-        {
-            "op": "add",
-            "name": "Drivers license",
-            "fileUpload": {
-                "fileName": "fredcv.docx",
-                "value": "utg765f876hilf76fg6g..."
-            }
-        }
-    ],
     "items": {
         "favouriteColor": "red"
     },
     "applications": [
         {
             "job": 23,
-            "attachmentPatches": [
-                {
-                    "op": "add",
-                    "name": "Job-specific upload thingy",
-                    "fileUpload": {
-                        "fileName": "ananda.txt",
-                        "value": "utg7io86hy875filf76fg6g..."
-                    }
-                }
-            ],
             "items": {
                 "coverLetter": {
-                    "data": "kihkjhkhk",
+                    "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
                     "fileName": "fred.doc",
                     "via": "dropbox.com"
                 },

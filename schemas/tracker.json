@@ -87,7 +87,7 @@
             "$ref": "#/definitions/meta"
         },
         "consumer": {
-            "$ref": "./consumer.json"
+            "$ref": "consumer.json"
         },
         "detail": {
             "oneOf": [

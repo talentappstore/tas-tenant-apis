@@ -79,10 +79,23 @@ This can be used to control their display order <b>within their enclosing object
 <div class='codeBlock'>
 "firstName": {
    "type": "string",
+   "access": "candidateOwned",
    "propertyOrder": 1001
 }
 </div>
 </p>
+
+<h2>access</h2>
+
+<p>Individual properties must have an access property, which can take any of these values:
+<ul>
+<li>candidateOwned
+<li>internalOwned
+<li>internalShared
+<li>eeo
+</ul>
+
+
 
 <h2>Special formats for type=object</h2>
 
@@ -107,6 +120,7 @@ that describes the allowable file formats as a comma separated list of mime type
     "coverLetter": {
         "type": "object",
         "format": "tas",
+        "access": "candidateOwned",
         "options": {
             "type]": "fileUpload",
             "accept": "image/png,text/html"

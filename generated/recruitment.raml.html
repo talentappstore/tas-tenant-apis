@@ -1523,7 +1523,9 @@
             "properties": {
                 "nursingCert": {
                     "type": "object",
+                    "title": "C1 nursing certificate",
                     "format": "tas-fileUpload",
+                    "access": "candidateOwned",
                     "options": {
                         "accept": "image/pdf"
                     },
@@ -1556,6 +1558,7 @@
                         "coverLetter": {
                             "type": "object",
                             "format": "tas-fileUpload",
+                            "access": "candidateOwned",
                             "options": {
                                 "accept": "image/png,text/html"
                             },
@@ -1577,6 +1580,7 @@
                         },
                         "favoriteColor": {
                             "type": "string",
+                            "access": "eeo",
                             "title": "Favorite color",
                             "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
                             "default": "blue"

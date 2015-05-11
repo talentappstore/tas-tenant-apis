@@ -209,14 +209,20 @@ traits: !include traits.yml
           post:        
     /video:
       get:
-        description: get the ID of the candidate's video as held in the video app
+        description: get the lock id of the candidate's existing video if any, as held in a separate app
+        responses:
+          200:
+            body:
+              text/plain:
+                example: 30223
     /voiceMessage:
-       get:
-       /entryURL:
-         get:
-           description: |
-             Get the url of a small iframe-able web page that will capture a voice message for this candidate. Typically
-             called by an apply UI.
+      get:
+        description: get the lock id of the candidate's existing voice message if any, as held in a separate app
+        responses:
+          200:
+            body:
+              text/plain:
+                example: 190553
     /items:
       /candidateOwned:
         get:
@@ -558,7 +564,7 @@ traits: !include traits.yml
               the TAS session and perhaps some business data such as whether the candidate has applied for
               the opening already to make its decision.
             queryParameters:
-              tasTracker:
+              tracker:
                 type: integer
                 description: |
                   A tracker that the widget can make use of (candidates only).
@@ -798,32 +804,121 @@ traits: !include traits.yml
             example: !include ../examples/screeningTypes-simple.json
 
 
-
 /voiceMessageUploads:
-  /{captureID}:
+  post:
+    description: Ask the voice message system for a unique ID, that can be used in the future to hold an upload of a voice recording.
+    responses:
+      201:
+        body:
+          text/plain:
+            example: 7600232
+  /{id}:
     /lock:
       post:
         description: |
-          Lock the upload with the given capture id if it exists. e.g:
-          - an apply app makes up a capture id and passes it to the voice recording app
-          - some time later (e.g. when candidate clicks submit) the apply app returns to lock the recording (if the candidate made one)
-          - if exists, the apply app passes the capture id to the ats in POST /candidates
-          - the ats takes over responsibility for deleting the message 
-          - the ats app deletes any existing message
-          - and stores the new message id
-    delete:
-      description: |
-        Delete the given recording if we have it currently locked.  
+          Lock the upload with the given id if it exists. and return an id for the lock.
+          
+          An upload can only be locked once. Once locked, an upload can only be accessed or deleted by
+          whoever holds the lock id.
+          
+           Example flow for a voice message:
+           
+          - an apply app prepares to render its page (a job application form)
+          - the apply app calls POST /voiceMessageUploads to request an id from the voice app
+          - the apply app passes the id back into the iframe-ed voice app via url parameter
+          - the voice app is rendered and made visisble to the candidate
+          - the candidate uses the voice app's UI to record a message with the given id
+          - some time later (e.g. when candidate clicks submit) the apply app attempts to lock the upload (assuming the candidate made one)
+          - later the apply app passes the lock id to the ats via POST /candidates
+          - the ats app checks whether an existing upload is about to be overwritten
+          - if so, ats calls DELETE /voiceMessageUploads/locked/{lockID} 
+          - the ats stores the new lock id on the candidate record
+          - from now on the ats takes over responsibility for deleting the upload (maybe when the candidate deletes their profile) 
+        responses:
+          201:
+            description: the uopload with that id was successfully locked, and the lock's id was returned
+            body:
+              text/plain:
+                example: 7600232
+          404:
+            description: no upload exists with that id
+          423:
+            description: that upload exists but has already been locked
+    /recordingUI:
+      get:
+        description: get the URI of a recording user interface suitable for iframe-ing
+        queryParameters:
+          tracker:
+            type: integer
+            description: |
+              A tracker that the recording app may make use of (perhaps to customise the UI for mobile)
+            example: 16548354764
+            required: false
+  /locked:            
+    /{lockID}:          
+      delete:
+        description: |
+          Delete the locked upload
+        responses:
+          200:
+            description: the upload with that lock id was deleted successfully
+          404:
+            description: no upload exists with that id
+      /playbackUI:
+        get:
+          description: get the URI of a playback user interface suitable for iframe-ing
+          queryParameters:
+            tracker:
+              type: integer
+              description: |
+                A tracker that the recording app may make use of (perhaps to customise the UI for mobile)
+              example: 16548354764
+              required: false
 
 /videoUploads:
-  /{captureID}:
+  post:
+    description: See voiceMessageUploads
+    responses:
+      201:
+        body:
+          text/plain:
+  /{id}:
     /lock:
+      post:
+        description: See voiceMessageUploads
+        responses:
+          201:
+            description: See voiceMessageUploads
+            body:
+              text/plain:
+          404:
+            description: See voiceMessageUploads
+          423:
+            description: See voiceMessageUploads
+    /recordingUI:
       get:
-        description: |
-          See voiceMessageRecordings.
-    delete:
-      description: |
-        See voiceMessageRecordings.
-
+        description: See voiceMessageUploads
+        queryParameters:
+          tracker:
+            type: integer
+            description: See voiceMessageUploads
+            required: false
+  /locked:            
+    /{lockID}:          
+      delete:
+        description: See voiceMessageUploads
+        responses:
+          200:
+            description: See voiceMessageUploads
+          404:
+            description: See voiceMessageUploads
+      /playbackUI:
+        get:
+          description: See voiceMessageUploads
+          queryParameters:
+            tracker:
+              type: integer
+              description: See voiceMessageUploads
+              required: false
 
 

@@ -35,12 +35,9 @@
 <h1>Discuss</h1>
 
 <ul>
-<li>overall UI design, considering all the other scenarios, and discovering 
-<li>storage of drafts (at the candidate level)
-<li>profile editing UI (separate page?)
+<li>keying of drafts (candidate /E/N ?)
 <li>use of the email IdP. When candidates apply using email, instead of social login, do we want to be able to leverage
 their email field without forcing them back to the email IdP for link verification?
-<li>ui flow for registering (not applying) 
 </ul>
 
 <h1>Scenario</h1>
@@ -101,53 +98,34 @@ https://acme.jobboard.com/openings/7622?tracker=73947484
 </div>
 
 <p>Before it can render the simpleapply button, jobly needs to encapsulate
-the candidateSource data inside a tracker, that can be passed through the chain:</p>
+the candidateSource data inside a tracker, that can be passed through the chain as follows:</p>
 
 <div class='codeBlock'>
 (entry URL) -> job details page (jobly)  -> apply pages (simpleapply) -> REST API call for new job application -> (jobly)
 </div>
 
-
-<p>Trackers always start with a campaign tracker.</p>
-
-<p>In this example, jobly parses the candidate source out and adds it as a custom field inside the meta section,
-but equally it could have just left the meta section out altogether since the same information is available in the url field.</p>
+<p>Jobly checks whether it is already holding a tracker for the candidate's session (see detailed notes on tracker for more). In this
+example we assume that jobly finds that the candidate's http session already holds a tracker:
 
 <div class='codeBlock'>
-(jobly)
-
-POST /campaignTrackers/jobly
-
-Request:
-{
-    "type": "jobs",
-    "id": 7622,
-    "url": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
-    "meta": {
-        "candidateSource": "facebook"
-    }
-}
-
-Response: 200
-Location: 763020034
+HttpSession session = ... 
+Integer existingTracker = session.getAttribute("tracker"); // tracker 603343 is found
 </div>
-   
-<p>The next step is for jobly to create a visit tracker. The ATS passes in meta information from the
-http headers of the incoming request from the candidate clicking on the entry URL such as their IP address, user agent, etc.
+</p>
 
+<p>Jobly now creates a new tracker to embed the new information (candidateSource). Since this is not
+a session creation event, jobly uses a campaign tracker. The new tracker is linked to the existing tracker.
+</p>
+
+<p>In this example, jobly parses the candidate source out and adds it as a custom field inside the userArea section.
 <div class='codeBlock'>
-POST /trackers/763020034/jobly/visitTrackers
-{
-   "landingURI": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
-   "referer": "https://www.facebook.com",
-   "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
-   "ipAddress": "20.12.34.102"
-   "acceptLanguage": "en-us,en;q=0.5"
-}
- 
-Response: 200
+POST /trackers/603343/trackers/acme/supersoft/jobly
+<div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
+
+Response: 201
 Location: 763019932
 </div>
+
 
 <h2>Embed the apply now button</h2>
 
@@ -160,7 +138,7 @@ that they would like to inject into the job details page.</p>
 
 <div class='codeBlock'>
 (jobly)
-GET /openings/7622/widgetHtml/candidates/me?tracker=763019932
+GET /jobs/7622/widgetHtml/candidates/me?tracker=763019932
 
 ...
 </div>
@@ -181,7 +159,7 @@ in the tracker, e.g. for candidates on a mobile device:
 
 <div class='codeBlock'>
 (jobly)
-GET /openings/7622/widgetHtml/candidates/me?tracker=763019932
+GET /jobs/7622/widgetHtml/candidates/me?tracker=763019932
 
 Response (from simpleapply):
 &lt;button onClick="https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622"&gt;Apply now&lt;/button&gt;
@@ -193,7 +171,7 @@ Response (from simpleapply):
 the bottom of the job description, and by clicking on it, is sent to simpleapply at this URL:</p>
 
 <div class='codeBlock'>
-https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
 </div>
 
 <p>If the candidate was logged in at jobly (e.g. to save some jobs to a cart), then jobly will pass a hint to
@@ -201,7 +179,7 @@ simpleapply that the candidate is already logged in:
 </p>
 
 <div class='codeBlock'>
-https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622?loggedIn=true
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=true
 </div>
  
 <h1>Simpleapply renders its page (candidate not logged in)</h1>
@@ -220,7 +198,7 @@ always attach the loggedIn URL parameter as a hint when the principal (i.e. the
 candidate) is already logged in.</p>
 
 <div class='codeBlock'>
-https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
 </div>
 
 <p>In this example, the URL does not have the loggedIn parameter, <b>and</b> the target page is one
@@ -253,7 +231,7 @@ jobly (the ATS) interprets as a request for a "safe" edit spec that anyone is al
 
 
 <div class='codeBlock'>
-POST /candidates/editSpecs/fetches
+POST /editSpecs/fetches
 
 Request:
 <div class='clientInclude' data-href='../examples/intent-apply.json'></div>
@@ -280,7 +258,8 @@ their time in applying, so logs in using Facebook and returns to the simpleapply
 
 <p>This section describes how this happens.</p>
 
-<p>When the candidate logs in, their TAS session gets decorated (e.g. has roles injected) by the originating idp and by all of the apps that are acting as login listeners.</p>
+<p>When the candidate logs in, their TAS session gets decorated (e.g. has roles injected) by the
+originating idp and by all of the apps that are acting as login listeners.</p>
 
 <p>So role == internal could have come:
 
@@ -444,7 +423,7 @@ the message should explain to the candidate what and why). For example:</p>
 <p>Simpleapply fetches the edit spec.</p>
 
 <div class='codeBlock'>
-POST /candidates/editSpecs/fetches
+POST /editSpecs/fetches
 
 Request:
 <div class='clientInclude' data-href='../examples/intent-applyPlusExistingCats.json'></div>
@@ -485,23 +464,49 @@ section(s). These should be loaded into the input controls.</p>
 
 <p>Default values are not the same as previously entered values.</p>
 
+
+
 <h3>Setup voice message capture</h3>
 
-<p>If the ioputModel indicates a voice message is required or mandatory, then:
-<ol>
-<li>Generate a random "capture ID"
-<li>Call GET /candidates/{}/voiceMessage/url to obtain the recording entry page
-<li>append "capture=blah" to that URL
-<li>iframe the page at that URL inside simpleapply
-</ol>
+<p>If the inputModel indicates a voice message is required or mandatory, then jobly first requests an id that the
+recording will be held against:
+<div class='codeBlock'>
+POST /voiceMessageUploads
+
+Response:
+170033
+</div>
+</p>
+
+<p>jobly next asks the voice recording app for the recording UI, further passing in the tracker.
+<div class='codeBlock'>
+GET /voiceMessageUploads/{id}/recordingUI&tracker=763019932
+
+Response:
+https://acme.voicely.com/170033/recordingUI.html?tracker=763019932
+</div>
+
+<p>And finally jobly also displays any existing voice message so the candidate can decide whether to
+record a new one or stick with the one they already have.
+</p>
+
+<p>First get the lock id for the existing voice message:
+<div class='codeBlock'>
+GET /candidates/{}/voiceMessage
+
+Response: 2044
+</div>
+
+<p>Now get the playback UI for the message:
+<div class='codeBlock'>
+GET /voiceMessageUploads/locked/2044/playbackUI
+
+Response:
+https://acme.voicely.com/170033/playbackUI.html?tracker=763019932
+</div>
 
 <p>Now we have a UI to capture a voice message.
 </p>
-
-<ol>
-<li>Call GET /candidates/{}/voiceMessage to get the URL of the existing voice message if any
-(candidates want to see their existing message before)deciding whether to record a new one).
-</ol>
 
 <h3>Populate category controls</h3>
 
@@ -518,11 +523,8 @@ GET /categories
 Get details of a specific category ..
 GET /categories/10033
 
-.. and its top level nodes ..
+.. and its tree of nodes
 GET /categories/10033/values
-
-.. and of the sub-nodes of one of the root nodes ..
-GET /categories/10033/values/15543/values
 </div>
 
 
@@ -584,8 +586,6 @@ Response:
 902533
 
 GET /applications/902533/items
-
-GET /applications/902533/attachments
 </div>
 
 
@@ -650,8 +650,22 @@ candidate deletes their entire profile (maybe another app?)
 
 <h1>Candidate submits application</h1>
 
-<p>Simpleapply calls GET /recordings/{captureID} to see if the candidate did record a new message. If so they add it to the request.
+<p>If simpleapply allowed the candidate to record a new voice message, it must now check (by trying to lock) if they did so using
+the previously generated id.
 
+<div class='codeBlock'>
+POST /voiceMessageUploads/170033/lock
+
+Response:
+201
+</div>
+</p>
+
+<p>Looks like they did record one. simpleapply packs the lock id into the body for the call to POST /candidates.
+</p>
+
+<p>If the candidate was to delete this drfat, simpleapply would need to clean up and delete the message (since it had not been handed off to the ATS).
+</p>
 
 <p>Once the candidate has finally completed their work and pressed submit, the completed edit (i.e., job application in
 this example]) is sent to the ATS (jobly).
@@ -666,46 +680,20 @@ Response:
 
 <h2>ATS processes the event</h2>
 
+TODO: clean up any existing messages. 
+
 <p>The ATS processes the event. This may result in creating a new candidate or updating an existing one.
 </p>
 
 <h2>Processing the tracker</h2>
 
-<p>The ATS fetches details about the visit tracker...</p>
+<p>The ATS fetches the chain of trackers, starting from the one passed across to POST /candidates.</p>
 
 <div class='codeBlock'>
-GET $tas$/visitorTrackers/763019932
- 
-Response:
-{
-    "visitorTracker": {
-        "parentTracker": 763020034,
-        "destinationTracker": 763020034,
-        "landingURI": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
-        "referer": "https://www.facebook.com",
-        "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
-        "ipAddress": "20.12.34.102",
-        "acceptLanguage": "en-us,en;q=0.5"
-    }
-}
-</div>
+GET /trackers/763019932/chain
 
-<p>..and the destination tracker...</p>
-
-<div class='codeBlock'>
-GET $tas$/destinationTrackers/763020034
- 
 Response:
-{
-    "destinationTracker": {
-        "type": "jobs",
-        "id": 7622,
-        "url": "https://acme.jobboard.com/openings/7622?candidateSource=facebook",
-        "meta": {
-            "candidateSource": "facebook"
-        }
-    }
-}
+<div class='clientInclude' data-href='../examples/trackers-legacyATS.json'></div>
 </div>
 
 <p>Now the ATS applies its custom logic to cope with its own source conventions.</p>
@@ -719,6 +707,8 @@ Response:
 <p>The ATS first looks to see if these were passed in, and if not it establishes them from the information in the trackers.</p>
 
 <div class='codeBlock'>
+TODO: cleanup
+
 // see if candidateSource was passed in
 candidateSource = destinationTracker.meta.candidateSource;
 if (candidateSource == null)

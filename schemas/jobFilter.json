@@ -12,7 +12,7 @@
             }
         },
         "categories": {
-            "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
+            "$ref": "categoriesActual.json"
         },
         "codeMatch": {
             "type": "string",

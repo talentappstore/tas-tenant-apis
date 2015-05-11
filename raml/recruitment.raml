@@ -51,10 +51,6 @@ traits: !include traits.yml
       post:
         description: Update an existing opening as a recruiter
 
-  /categories:
-    get:
-      description: Fetch the opening's category values as seen by candidates. If any values are inactivated, then the tree will still be normalised.
-
   /searches:
     post:
       description: |
@@ -89,6 +85,16 @@ traits: !include traits.yml
             application/json:
               schema: !include ../schemas/job.json
               example: !include ../examples/job-simple.json
+
+    /categories:
+      get:
+        description: Fetch the job's category values as seen by candidates. If any values are inactivated, then the tree will still be normalised.
+        responses:
+          200:
+            body:
+              application/json:
+                  schema: !include ../schemas/categoriesActual.json
+                  example: !include ../examples/categoriesActual-simple.json
 
     /widgetState:
       /me:
@@ -648,7 +654,6 @@ traits: !include traits.yml
         /{item}:
           get:
             description: Get a specific eeo item for this candidate
-      
     /categories:
       get:
         description: get the categories for this candidate
@@ -656,8 +661,8 @@ traits: !include traits.yml
           200:
             body:
               application/json:
-                schema: !include ../schemas/categories.json
-                example: !include ../examples/categories-simple.json
+                schema: !include ../schemas/categoriesActual.json
+                example: !include ../examples/categoriesActual-simple.json
     /latestApplyTracker:
       get:
         description: |

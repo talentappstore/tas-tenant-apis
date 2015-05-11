@@ -18,7 +18,7 @@
             "$ref": "#/definitions/status"
         },
         "categories": {
-            "$ref": "./candidateEdit.json#/definitions/categoryPatchItems"
+            "$ref": "categoriesActual.json"
         },
         "availableInternally": {
             "type": "boolean",

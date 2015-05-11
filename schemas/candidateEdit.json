@@ -7,36 +7,11 @@
                 "replace"
             ]
         },
-        "categoryPatchItem": {
-            "type": "object",
-            "properties": {
-                "category": {
-                    "type": "integer"
-                },
-                "values": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "category",
-                "values"
-            ]
-        },
-        "categoryPatchItems": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/categoryPatchItem"
-            }
-        },
         "categoriesPatch": {
             "type": "object",
             "properties": {
                 "patchItems": {
-                    "$ref": "#/definitions/categoryPatchItems"
+                    "$ref": "categoriesActual.json"
                 },
                 "op": {
                     "$ref": "#/definitions/categoriesPatchOp"

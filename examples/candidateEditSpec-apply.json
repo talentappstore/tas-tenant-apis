@@ -57,9 +57,6 @@
                     }
                 }
             },
-            "required": [
-                "favoriteColor"
-            ],
             "additionalProperties": false
         },
         "jobRules": [

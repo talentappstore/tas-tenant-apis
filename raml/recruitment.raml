@@ -9,31 +9,458 @@ securitySchemes:  !include securitySchemes.yml
 traits: !include traits.yml
 
 
-/voiceMessageUploads:
-  /{captureID}:
-    /lock:
-      post:
-        description: |
-          Lock the upload with the given capture id if it exists. e.g:
-          - an apply app makes up a capture id and passes it to the voice recording app
-          - some time later (e.g. when candidate clicks submit) the apply app returns to lock the recording (if the candidate made one)
-          - if exists, the apply app passes the capture id to the ats in POST /candidates
-          - the ats takes over responsibility for deleting the message 
-          - the ats app deletes any existing message
-          - and stores the new message id
-    delete:
+/applications:
+  /{id}:
+    /bySourcingApp:
+      /{producer}:
+        /{id}:
+          /deltaPings:
+            post:
+              description: |
+                A ping for any changes to a job application, but which is only sent to the application that sourced the
+                application (i.e., that owns the campaign tracker attached to the application).
+                Probably only non-SoT.
+    /deltaPings:
       description: |
-        Delete the given recording if we have it currently locked.  
-
-/videoUploads:
-  /{captureID}:
-    /lock:
+        The main ping for any changes to a job application.
+        Probably only non-SoT.
+    /tracker:
       get:
         description: |
-          See voiceMessageRecordings.
-    delete:
+          Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
+    /status:
+      get:
+        description: |
+          Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
+          as "interview", "offer", "pre-screen", etc.
+    /candidate:
+      get:
+        description: Get the candidate for this application
+    /job:
+      get:
+        description: Get the job opening for this application
+    /items:
+      get:
+      /candidateOwned:
+        get:
+          description: Get all candidateOwned items for this application
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific candidateOwned item for this application
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+      /internalOwned:
+        get:
+          description: Get all internalOwned items for this application
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific internalOwned item for this application
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+      /internalShared:
+        get:
+          description: Get all internalShared items for this application
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific internalShared item for this application
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+      /eeo:
+        get:
+          description: Get all eeo items for this application
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific eeo item for this application
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+        
+  /bySourcingApp:
+    /{consumer}:
+      /{id}:
+        /sourcerDetails:
+          get:
+            description: |
+              Get a sanitised and basic set of information for a job application, which the consumer is entitled to
+              by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
+  /byCandidate:
+    /{candidateID}:
+      /byOpening:
+        /{openingID}:
+          get:
+            description: get the id of the application (if any)
+          
+/candidates:
+  description:
+    Candidates are people who are in the tenant's talent world, maybe because they applied for an
+    opening, registered in the database, were imported from some other system, etc.
+    Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned,
+    in which case they have no {E}/{N} values. Owned candidates may use an identity leap IdP.
+  /{N}:
+    description: |
+      The name ID of the candidate.
+    get:
       description: |
-        See voiceMessageRecordings.
+        Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
+        The ID is often required as a parameter for other APIs.
+        Can only be called for the current logged in user, using their own name ID.
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
+      
+      See separate design document for detailed information on the request body.
+
+      The producer must run all uploaded files through OWASP security tests:
+      - extension matches actual file type
+      - virus check
+      - etc.
+
+      Candidate type is not passed - instead the producer should identify candidate type (e.g. internal)
+      by looking for the relevant role in the incoming OAuth token.
+  
+      The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
+      and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
+      attacks where the consumer writes to any data item for example.
+      
+    body:
+      application/json:
+        schema: !include ../schemas/candidateEdit.json
+        example: !include ../examples/candidateEdit-simple.json
+  /{id}:
+    get:
+      description: |
+        Get general information about the candidate including notifications (subscribe y/n)
+    /deltaPings:
+      description: |
+        The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
+        Only produced as non-SoT.
+      post:
+    /roles:
+      get:
+        description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
+    /preScreens:
+      /{consumer}:
+        /{id}:
+          /request:
+            get:
+              description: Get details of a screening request
+              body:
+                application/json:
+                  example: !include ../examples/screenRequest-simple.json
+          /responses:
+            /{seq}:
+            /latest:
+              post:
+                description: Update the response to a screening request
+                body:
+                  application/json:
+                    example: !include ../examples/screenResponse-simple.json
+              /candidateFace:
+                /links:
+                  get:
+                    description: get the candidate viewable links from the screening (if any)
+    /vcard:
+      get:
+        description: candidate contact details, in the form described by rfc7095
+    /resume:
+      /meta:
+        get:
+          description: get metadata about the candidate's resume (size, filename, etc.)
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/fileMeta.json
+                  example: !include ../examples/fileMeta-simple.json
+      /asBinary:
+        get:
+          is: [ document_asStream ]
+      /asHtml:
+        get:
+          description: get an html version of the candidate's resume
+        /deltaPings:
+          description: |
+            A separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app.
+            Probably only useful as non-SoT.
+          post:        
+    /video:
+      get:
+        description: get the ID of the candidate's video as held in the video app
+    /voiceMessage:
+       get:
+       /entryURL:
+         get:
+           description: |
+             Get the url of a small iframe-able web page that will capture a voice message for this candidate. Typically
+             called by an apply UI.
+    /items:
+      /candidateOwned:
+        get:
+          description: Get all candidateOwned items for this candidate
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific candidateOwned item for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+      /internalOwned:
+        get:
+          description: Get all internalOwned items for this candidate
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific internalOwned item for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+      /internalShared:
+        get:
+          description: Get all internalShared items for this candidate
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific internalShared item for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+      /eeo:
+        get:
+          description: Get all eeo items for this candidate
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+        /{item}:
+          get:
+            description: Get a specific eeo item for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItem.json
+                example: !include ../examples/existingItem-simple.json
+    /categories:
+      get:
+        description: get the categories for this candidate
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/categoriesActual.json
+                example: !include ../examples/categoriesActual-simple.json
+    /latestApplyTracker:
+      get:
+        description: |
+          The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
+          was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
+          drew them to the site.
+    /applications:
+      /{job}:
+        /items:
+          /candidateOwned:
+            get:
+              description: Get all candidateOwned items for this application
+            /{item}:
+              get:
+                description: Get a specific candidateOwned item for this application
+          /internalOwned:
+            get:
+              description: Get all internalOwned items for this application
+            /{item}:
+              get:
+                description: Get a specific internalOwned item for this application
+          /internalShared:
+            get:
+              description: Get all internalShared items for this application
+            /{item}:
+              get:
+                description: Get a specific internalShared item for this application
+          /eeo:
+            get:
+              description: Get all eeo items for this application
+            /{item}:
+              get:
+                description: Get a specific eeo item for this application
+        /source:
+          get:
+            description: a tracker, as passed in to the edit
+    /stars:
+      /forOpenings:
+        /{id}:
+          get:
+            description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
+
+  /recruiterFaces:
+    /searches:
+      post:
+        securedBy: [hmac]
+        description: |
+          Search candidates, returning recruiter-facing details.
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+          withResume - if present, only return candidates with (if true) or without (if false) an attached resume
+        body:
+          application/json:
+            schema: !include ../schemas/candidates.json
+            example: !include ../examples/candidates-simple.json
+    /{id}:
+      get:
+        description: |
+          Return recruiter-facing details for a specific candidate. e.g do not contact flag
+
+/categories:
+  description: |
+    Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
+    and others. Includes details of inactivated nodes.
+  get:
+    description: |
+      Fetch list of categories
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/categories.json
+            example: !include ../examples/categories-simple.json
+  post:
+    description: Create a single category (without any values)
+    body:
+      application/json:
+        schema: !include ../schemas/category.json
+        example: !include ../examples/category-simple.json
+    
+  /{id}:
+    description: category ID 
+
+    post:
+      description: Update a single category, not including its values
+      body:
+        application/json:
+          schema: !include ../schemas/category.json
+          example: !include ../examples/category-simple.json
+          
+    delete:
+      description: Delete a category, along with all of its values
+      
+    /values:
+      get:
+        description: |
+           Get root values and the hierarchy of values beneath
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/categoryValues.json
+                example: !include ../examples/categoryValues-simple.json
+        
+      patch:
+        description: |
+          Merge in an array of root values. TODO: what happens when:
+          - the merge specifies a different location for an existing node?
+        body:
+          application/json:
+            schema: !include ../schemas/categoryValues.json
+            example: !include ../examples/categoryValues-simple.json
+        
+      post:
+        description: |
+           Arbitrarily set or change the root values for this category.
+        body:
+          application/json:
+            schema: !include ../schemas/categoryValues.json
+            example: !include ../examples/categoryValues-simple.json
+
+      /{id}:
+        get:
+          description: Get the child values for the given value
+        delete:
+          description: delete this node and its child nodes
+        post:
+          description: edit details of this node, including its parent
+        /values:
+          get:
+            description: Get the array of sub-trees attached to this value
+          patch:
+            description: Merge in an array of child values
+          post:
+            description: |
+               Arbitrarily set or change the child values for this value. Values are removed from their previous
+               parent (node or category)
+        /acquires:
+          /{acquiree}:
+            post:
+              description: acquire all of the child nodes of the acquiree, then delete the acquiree node
+
+
+/editSpecs:
+  description: |
+    Major changes to a candidate's data, such as vcard, eeo items, candidate items, categories, etc., must obey an
+    edit spec. Classic case is a job application form.
+    See <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
+  /me:
+    description: Don't cache responses from APIs with /me/ in them
+    /applyOrRegister:
+      description: This API gets editSpecs for a candidate to apply for a job, register or edit their categories
+      /fetches:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            If an anonymous OAuth token is passed, fetch the edit spec that is safe to display to
+            the public (or 403 Forbidden if the intent contains an internal-only job)
+
+            If an "on behalf" OAuth token is passed, fetch the edit spec that is suitable for
+            the candidate who is logged in, and who may or may not have a row in the candidates table (e.g.
+            special questions for an internal candidate or one who found the job via employee referral)
+
+            The editSpec returned by this API can only ever contain candidate and eeo items
+            in its itemsRule and any job itemsRules.  
+            
+            Always produced as SoT. 
+            
+            The method is a POST just because parameters may get too long for a GET.
+          body:
+            application/json:
+              schema: !include ../schemas/intent.json
+              example: !include ../examples/intent-apply.json
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/candidateEditSpec.json
+                  example: !include ../examples/candidateEditSpec-apply.json
             
 /jobs:
   description: |
@@ -246,87 +673,6 @@ traits: !include traits.yml
               example: !include ../examples/tracker-createSessionTracker.json
 
 
-/categories:
-  description: |
-    Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
-    and others. Includes details of inactivated nodes.
-  get:
-    description: |
-      Fetch list of categories
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/categories.json
-            example: !include ../examples/categories-simple.json
-  post:
-    description: Create a single category (without any values)
-    body:
-      application/json:
-        schema: !include ../schemas/category.json
-        example: !include ../examples/category-simple.json
-    
-  /{id}:
-    description: category ID 
-
-    post:
-      description: Update a single category, not including its values
-      body:
-        application/json:
-          schema: !include ../schemas/category.json
-          example: !include ../examples/category-simple.json
-          
-    delete:
-      description: Delete a category, along with all of its values
-      
-    /values:
-      get:
-        description: |
-           Get root values and the hierarchy of values beneath
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/categoryValues.json
-                example: !include ../examples/categoryValues-simple.json
-        
-      patch:
-        description: |
-          Merge in an array of root values. TODO: what happens when:
-          - the merge specifies a different location for an existing node?
-        body:
-          application/json:
-            schema: !include ../schemas/categoryValues.json
-            example: !include ../examples/categoryValues-simple.json
-        
-      post:
-        description: |
-           Arbitrarily set or change the root values for this category.
-        body:
-          application/json:
-            schema: !include ../schemas/categoryValues.json
-            example: !include ../examples/categoryValues-simple.json
-
-      /{id}:
-        get:
-          description: Get the child values for the given value
-        delete:
-          description: delete this node and its child nodes
-        post:
-          description: edit details of this node, including its parent
-        /values:
-          get:
-            description: Get the array of sub-trees attached to this value
-          patch:
-            description: Merge in an array of child values
-          post:
-            description: |
-               Arbitrarily set or change the child values for this value. Values are removed from their previous
-               parent (node or category)
-        /acquires:
-          /{acquiree}:
-            post:
-              description: acquire all of the child nodes of the acquiree, then delete the acquiree node
 
 /recruiters:
   description: |
@@ -440,287 +786,7 @@ traits: !include traits.yml
           will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
           The method is a POST solely because the size and number of parameters might get too large for a GET.
 
-/applications:
-  /{id}:
-    /bySourcingApp:
-      /{producer}:
-        /{id}:
-          /deltaPings:
-            post:
-              description: |
-                A ping for any changes to a job application, but which is only sent to the application that sourced the
-                application (i.e., that owns the campaign tracker attached to the application).
-                Probably only non-SoT.
-    /deltaPings:
-      description: |
-        The main ping for any changes to a job application.
-        Probably only non-SoT.
-    /tracker:
-      get:
-        description: |
-          Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
-    /status:
-      get:
-        description: |
-          Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
-          as "interview", "offer", "pre-screen", etc.
-    /candidate:
-      get:
-        description: Get the candidate for this application
-    /job:
-      get:
-        description: Get the job opening for this application
-    /items:
-      get:
-        
-  /bySourcingApp:
-    /{consumer}:
-      /{id}:
-        /sourcerDetails:
-          get:
-            description: |
-              Get a sanitised and basic set of information for a job application, which the consumer is entitled to
-              by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
-  /byCandidate:
-    /{candidateID}:
-      /byOpening:
-        /{openingID}:
-          get:
-            description: get the id of the application (if any)
-          
-/editSpecs:
-  description: |
-    Major changes to a candidate's data, such as vcard, eeo items, candidate items, categories, etc., must obey an
-    edit spec. Classic case is a job application form.
-    See <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
-  /me:
-    description: Don't cache responses from APIs with /me/ in them
-    /applyOrRegister:
-      description: This API gets editSpecs for a candidate to apply for a job, register or edit their categories
-      /fetches:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            If an anonymous OAuth token is passed, fetch the edit spec that is safe to display to
-            the public (or 403 Forbidden if the intent contains an internal-only job)
 
-            If an "on behalf" OAuth token is passed, fetch the edit spec that is suitable for
-            the candidate who is logged in, and who may or may not have a row in the candidates table (e.g.
-            special questions for an internal candidate or one who found the job via employee referral)
-
-            The editSpec returned by this API can only ever contain candidate and eeo items
-            in its itemsRule and any job itemsRules.  
-            
-            Always produced as SoT. 
-            
-            The method is a POST just because parameters may get too long for a GET.
-          body:
-            application/json:
-              schema: !include ../schemas/intent.json
-              example: !include ../examples/intent-apply.json
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/candidateEditSpec.json
-                  example: !include ../examples/candidateEditSpec-apply.json
-
-/candidates:
-  description:
-    Candidates are people who are in the tenant's talent world, maybe because they applied for an
-    opening, registered in the database, were imported from some other system, etc.
-    Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned,
-    in which case they have no {E}/{N} values. Owned candidates may use an identity leap IdP.
-  /{N}:
-    description: |
-      The name ID of the candidate.
-    get:
-      description: |
-        Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
-        The ID is often required as a parameter for other APIs.
-        Can only be called for the current logged in user, using their own name ID.
-  post:
-    securedBy: [oauth_2_0]
-    description: |
-      Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
-      
-      See separate design document for detailed information on the request body.
-
-      The producer must run all uploaded files through OWASP security tests:
-      - extension matches actual file type
-      - virus check
-      - etc.
-
-      Candidate type is not passed - instead the producer should identify candidate type (e.g. internal)
-      by looking for the relevant role in the incoming OAuth token.
-  
-      The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
-      and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
-      attacks where the consumer writes to any data item for example.
-      
-    body:
-      application/json:
-        schema: !include ../schemas/candidateEdit.json
-        example: !include ../examples/candidateEdit-simple.json
-  /{id}:
-    get:
-      description: |
-        Get general information about the candidate including notifications (subscribe y/n)
-    /deltaPings:
-      description: |
-        The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
-        Only produced as non-SoT.
-      post:
-    /roles:
-      get:
-        description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
-    /preScreens:
-      /{consumer}:
-        /{id}:
-          /request:
-            get:
-              description: Get details of a screening request
-              body:
-                application/json:
-                  example: !include ../examples/screenRequest-simple.json
-          /responses:
-            /{seq}:
-            /latest:
-              post:
-                description: Update the response to a screening request
-                body:
-                  application/json:
-                    example: !include ../examples/screenResponse-simple.json
-              /candidateFace:
-                /links:
-                  get:
-                    description: get the candidate viewable links from the screening (if any)
-    /vcard:
-      get:
-        description: candidate contact details, in the form described by rfc7095
-    /resume:
-      /meta:
-        get:
-          description: get metadata about the candidate's resume (size, filename, etc.)
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/fileMeta.json
-                  example: !include ../examples/fileMeta-simple.json
-      /asBinary:
-        get:
-          is: [ document_asStream ]
-      /asHtml:
-        get:
-          description: get an html version of the candidate's resume
-        /deltaPings:
-          description: |
-            A separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app.
-            Probably only useful as non-SoT.
-          post:        
-    /video:
-      get:
-        description: get the ID of the candidate's video as held in the video app
-    /voiceMessage:
-       get:
-       /entryURL:
-         get:
-           description: |
-             Get the url of a small iframe-able web page that will capture a voice message for this candidate. Typically
-             called by an apply UI.
-    /items:
-      /candidateOwned:
-        get:
-          description: Get all candidateOwned items for this candidate
-        /{item}:
-          get:
-            description: Get a specific candidateOwned item for this candidate
-      /internalOwned:
-        get:
-          description: Get all internalOwned items for this candidate
-        /{item}:
-          get:
-            description: Get a specific internalOwned item for this candidate
-      /internalShared:
-        get:
-          description: Get all internalShared items for this candidate
-        /{item}:
-          get:
-            description: Get a specific internalShared item for this candidate
-      /eeo:
-        get:
-          description: Get all eeo items for this candidate
-        /{item}:
-          get:
-            description: Get a specific eeo item for this candidate
-    /categories:
-      get:
-        description: get the categories for this candidate
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/categoriesActual.json
-                example: !include ../examples/categoriesActual-simple.json
-    /latestApplyTracker:
-      get:
-        description: |
-          The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
-          was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
-          drew them to the site.
-    /applications:
-      /{job}:
-        /items:
-          /candidateOwned:
-            get:
-              description: Get all candidateOwned items for this application
-            /{item}:
-              get:
-                description: Get a specific candidateOwned item for this application
-          /internalOwned:
-            get:
-              description: Get all internalOwned items for this application
-            /{item}:
-              get:
-                description: Get a specific internalOwned item for this application
-          /internalShared:
-            get:
-              description: Get all internalShared items for this application
-            /{item}:
-              get:
-                description: Get a specific internalShared item for this application
-          /eeo:
-            get:
-              description: Get all eeo items for this application
-            /{item}:
-              get:
-                description: Get a specific eeo item for this application
-        /source:
-          get:
-            description: a tracker, as passed in to the edit
-    /stars:
-      /forOpenings:
-        /{id}:
-          get:
-            description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
-
-  /recruiterFaces:
-    /searches:
-      post:
-        securedBy: [hmac]
-        description: |
-          Search candidates, returning recruiter-facing details.
-          The method is a POST solely because the size and number of parameters might get too large for a GET.
-          withResume - if present, only return candidates with (if true) or without (if false) an attached resume
-        body:
-          application/json:
-            schema: !include ../schemas/candidates.json
-            example: !include ../examples/candidates-simple.json
-    /{id}:
-      get:
-        description: |
-          Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
 /preScreens:
   /{producer}:
@@ -730,6 +796,34 @@ traits: !include traits.yml
         body:
           application/json:
             example: !include ../examples/screeningTypes-simple.json
+
+
+
+/voiceMessageUploads:
+  /{captureID}:
+    /lock:
+      post:
+        description: |
+          Lock the upload with the given capture id if it exists. e.g:
+          - an apply app makes up a capture id and passes it to the voice recording app
+          - some time later (e.g. when candidate clicks submit) the apply app returns to lock the recording (if the candidate made one)
+          - if exists, the apply app passes the capture id to the ats in POST /candidates
+          - the ats takes over responsibility for deleting the message 
+          - the ats app deletes any existing message
+          - and stores the new message id
+    delete:
+      description: |
+        Delete the given recording if we have it currently locked.  
+
+/videoUploads:
+  /{captureID}:
+    /lock:
+      get:
+        description: |
+          See voiceMessageRecordings.
+    delete:
+      description: |
+        See voiceMessageRecordings.
 
 
 

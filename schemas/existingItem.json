@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "meta": {
+            "type": "object",
+            "properties": {
+                "schemaFragment": {
+                    "type": "integer",
+                    "description": "the id of the schema relating to this item from the edit spec at the time the item was captured"
+                }
+            },
+            "required": [
+                "schemaFragment"
+            ],
+            "additionalProperties": false
+        },
+        "value": {
+            "type": "object",
+            "description": "A json representation of the item's current value",
+            "additionalProperties": true
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "meta": {
+            "$ref": "#/definitions/meta"
+        },
+        "value": {
+            "$ref": "#/definitions/value"
+        }
+    },
+    "required": [
+        "meta",
+        "value"
+    ]
+}

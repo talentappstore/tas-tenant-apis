@@ -135,10 +135,12 @@ that describes the allowable file formats as a comma separated list of mime type
 <p>The itemsRule section can include arrays (i.e. table questions, such as "which of the following do you have experience in?"). For array to be
 valid, we require that:
 <ul>
-<li>tuple typing must not be used
+<li>Tuple typing must not be used
+<li>Arrays are not nested (only one level of arrays)
 <li>In the schema for the array items:
 <ul>
-<li>one and only one property must have the extension "primaryKey" value set to true
+<li>Array items must be of object type
+<li>one and only one property within the array item must have the extension "primaryKey" value set to true
 <li>that property must be required
 <li>the special property "itemOp" must be present
 <li>it must be an enum of ["add", "replace", "remove"]

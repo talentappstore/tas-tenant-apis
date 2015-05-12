@@ -306,6 +306,9 @@ traits: !include traits.yml
     /applications:
       /{job}:
         /items:
+          description: |
+            Consumers should not cache responses. Responses that contain file uploads also include a burner link to the content, good
+            for 24 hours, that can be embedded in a web page. A different one time link is returned for every request.
           /candidateOwned:
             get:
               description: Get all candidateOwned items for this application
@@ -812,7 +815,7 @@ traits: !include traits.yml
 
 /voiceMessageUploads:
   post:
-    description: Ask the voice message system for a unique ID, that can be used in the future to hold an upload of a voice recording.
+    description: Ask the voice message system for a unique ID that can be used in the future to hold an upload of a voice recording.
     responses:
       201:
         body:

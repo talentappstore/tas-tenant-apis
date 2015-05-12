@@ -87,14 +87,4 @@
          GET /widgets?$top=5
        type: integer
        
-     $skip:
-       description: |
-         <p><span style='color:red'>Deprecated - don't implement.</span><br />The $skip query option is used to specify the start index of the entries, where the resource is a collection. It behaves as per its namesake in
-         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
-       example: |
-         return the widgets, starting with the third widget:
-
-         GET /widgets?$skip=2
-       type: integer
-       
       

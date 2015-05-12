@@ -45,8 +45,6 @@ traits: !include traits.yml
         securedBy: [oauth_2_0]
         description: Get the job opening for this application
     /items:
-      get:
-        securedBy: [oauth_2_0]
       /candidateOwned:
         get:
           securedBy: [oauth_2_0]
@@ -348,8 +346,8 @@ traits: !include traits.yml
       /{job}:
         /items:
           description: |
-            Consumers should not cache responses. Responses that contain file uploads also include a burner link to the content, good
-            for 24 hours, that can be embedded in a web page. A different one time link is returned for every request.
+            Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
+            suitable for directly embedding in a web page. The expiring link is different for every request.
           /candidateOwned:
             get:
               securedBy: [oauth_2_0]
@@ -901,6 +899,17 @@ traits: !include traits.yml
           application/json:
             example: !include ../examples/screeningTypes-simple.json
 
+/schemaFragments:
+  /{id}:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get the specified schema fragment, which is a detailed description of a data item
+        conforming to our modified json schema as per <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
+      body:
+        application/json:
+          schema: !include ../schemas/jsonSchemaSchema.json
+          example: !include ../examples/jsonSchemaSchema-singleItem.json
 
 /voiceMessageUploads:
   post:

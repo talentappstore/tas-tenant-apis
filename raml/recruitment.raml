@@ -16,6 +16,7 @@ traits: !include traits.yml
         /{id}:
           /deltaPings:
             post:
+              securedBy: [oauth_2_0]
               description: |
                 A ping for any changes to a job application, but which is only sent to the application that sourced the
                 application (i.e., that owns the campaign tracker attached to the application).
@@ -26,23 +27,29 @@ traits: !include traits.yml
         Probably only non-SoT.
     /tracker:
       get:
+        securedBy: [oauth_2_0]
         description: |
           Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
     /status:
       get:
+        securedBy: [oauth_2_0]
         description: |
           Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
           as "interview", "offer", "pre-screen", etc.
     /candidate:
       get:
+        securedBy: [oauth_2_0]
         description: Get the candidate for this application
     /job:
       get:
+        securedBy: [oauth_2_0]
         description: Get the job opening for this application
     /items:
       get:
+        securedBy: [oauth_2_0]
       /candidateOwned:
         get:
+          securedBy: [oauth_2_0]
           description: Get all candidateOwned items for this application
           body:
             application/json:
@@ -50,6 +57,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific candidateOwned item for this application
             body:
               application/json:
@@ -57,6 +65,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
       /internalOwned:
         get:
+          securedBy: [oauth_2_0]
           description: Get all internalOwned items for this application
           body:
             application/json:
@@ -64,6 +73,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific internalOwned item for this application
             body:
               application/json:
@@ -71,6 +81,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
       /internalShared:
         get:
+          securedBy: [oauth_2_0]
           description: Get all internalShared items for this application
           body:
             application/json:
@@ -78,6 +89,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific internalShared item for this application
             body:
               application/json:
@@ -85,6 +97,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
       /eeo:
         get:
+          securedBy: [oauth_2_0]
           description: Get all eeo items for this application
           body:
             application/json:
@@ -92,6 +105,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific eeo item for this application
             body:
               application/json:
@@ -103,6 +117,7 @@ traits: !include traits.yml
       /{id}:
         /sourcerDetails:
           get:
+            securedBy: [oauth_2_0]
             description: |
               Get a sanitised and basic set of information for a job application, which the consumer is entitled to
               by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
@@ -111,6 +126,7 @@ traits: !include traits.yml
       /byOpening:
         /{openingID}:
           get:
+            securedBy: [oauth_2_0]
             description: get the id of the application (if any)
           
 /candidates:
@@ -123,6 +139,7 @@ traits: !include traits.yml
     description: |
       The name ID of the candidate.
     get:
+      securedBy: [oauth_2_0]
       description: |
         Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
         The ID is often required as a parameter for other APIs.
@@ -152,6 +169,7 @@ traits: !include traits.yml
         example: !include ../examples/candidateEdit-simple.json
   /registerUI:
     get:
+      securedBy: [oauth_2_0]
       description: |
         Get, from whichever app is the "candidate self-register" app, a uri where candidates can enter their details (name,
         address, resume/CV, etc.). Typically used by apps like careers sites to work out where to direct a candidate once
@@ -160,6 +178,7 @@ traits: !include traits.yml
         Produced as SoT.
   /{id}:
     get:
+      securedBy: [oauth_2_0]
       description: |
         Get general information about the candidate including notifications (subscribe y/n)
     /deltaPings:
@@ -167,14 +186,17 @@ traits: !include traits.yml
         The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
         Only produced as non-SoT.
       post:
+        securedBy: [oauth_2_0]
     /roles:
       get:
+        securedBy: [oauth_2_0]
         description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
     /screens:
       /{consumer}:
         /{id}:
           /request:
             get:
+              securedBy: [oauth_2_0]
               description: Get details of a screening request
               body:
                 application/json:
@@ -183,6 +205,7 @@ traits: !include traits.yml
             /{seq}:
             /latest:
               post:
+                securedBy: [oauth_2_0]
                 description: Update the response to a screening request
                 body:
                   application/json:
@@ -190,13 +213,16 @@ traits: !include traits.yml
               /candidateFace:
                 /links:
                   get:
+                    securedBy: [oauth_2_0]
                     description: get the candidate viewable links from the screening (if any)
     /vcard:
       get:
+        securedBy: [oauth_2_0]
         description: candidate contact details, in the form described by rfc7095
     /resume:
       /meta:
         get:
+          securedBy: [oauth_2_0]
           description: get metadata about the candidate's resume (size, filename, etc.)
           responses:
             200:
@@ -206,17 +232,21 @@ traits: !include traits.yml
                   example: !include ../examples/fileMeta-simple.json
       /asBinary:
         get:
+          securedBy: [oauth_2_0]
           is: [ document_asStream ]
       /asHtml:
         get:
+          securedBy: [oauth_2_0]
           description: get an html version of the candidate's resume
         /deltaPings:
           description: |
             A separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app.
             Probably only useful as non-SoT.
           post:        
+            securedBy: [oauth_2_0]
     /video:
       get:
+        securedBy: [oauth_2_0]
         description: get the lock id of the candidate's existing video if any, as held in a separate app
         responses:
           200:
@@ -225,6 +255,7 @@ traits: !include traits.yml
                 example: 30223
     /voiceMessage:
       get:
+        securedBy: [oauth_2_0]
         description: get the lock id of the candidate's existing voice message if any, as held in a separate app
         responses:
           200:
@@ -234,6 +265,7 @@ traits: !include traits.yml
     /items:
       /candidateOwned:
         get:
+          securedBy: [oauth_2_0]
           description: Get all candidateOwned items for this candidate
           body:
             application/json:
@@ -241,6 +273,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific candidateOwned item for this candidate
             body:
               application/json:
@@ -248,6 +281,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
       /internalOwned:
         get:
+          securedBy: [oauth_2_0]
           description: Get all internalOwned items for this candidate
           body:
             application/json:
@@ -255,6 +289,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific internalOwned item for this candidate
             body:
               application/json:
@@ -262,6 +297,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
       /internalShared:
         get:
+          securedBy: [oauth_2_0]
           description: Get all internalShared items for this candidate
           body:
             application/json:
@@ -269,6 +305,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific internalShared item for this candidate
             body:
               application/json:
@@ -276,6 +313,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
       /eeo:
         get:
+          securedBy: [oauth_2_0]
           description: Get all eeo items for this candidate
           body:
             application/json:
@@ -283,6 +321,7 @@ traits: !include traits.yml
               example: !include ../examples/existingItems-simple.json
         /{item}:
           get:
+            securedBy: [oauth_2_0]
             description: Get a specific eeo item for this candidate
             body:
               application/json:
@@ -290,6 +329,7 @@ traits: !include traits.yml
                 example: !include ../examples/existingItem-simple.json
     /categories:
       get:
+        securedBy: [oauth_2_0]
         description: get the categories for this candidate
         responses:
           200:
@@ -299,6 +339,7 @@ traits: !include traits.yml
                 example: !include ../examples/categoriesActual-simple.json
     /latestApplyTracker:
       get:
+        securedBy: [oauth_2_0]
         description: |
           The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
           was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
@@ -311,41 +352,51 @@ traits: !include traits.yml
             for 24 hours, that can be embedded in a web page. A different one time link is returned for every request.
           /candidateOwned:
             get:
+              securedBy: [oauth_2_0]
               description: Get all candidateOwned items for this application
             /{item}:
               get:
+                securedBy: [oauth_2_0]
                 description: Get a specific candidateOwned item for this application
           /internalOwned:
             get:
+              securedBy: [oauth_2_0]
               description: Get all internalOwned items for this application
             /{item}:
               get:
+                securedBy: [oauth_2_0]
                 description: Get a specific internalOwned item for this application
           /internalShared:
             get:
+              securedBy: [oauth_2_0]
               description: Get all internalShared items for this application
             /{item}:
               get:
+                securedBy: [oauth_2_0]
                 description: Get a specific internalShared item for this application
           /eeo:
             get:
+              securedBy: [oauth_2_0]
               description: Get all eeo items for this application
             /{item}:
               get:
+                securedBy: [oauth_2_0]
                 description: Get a specific eeo item for this application
         /source:
           get:
+            securedBy: [oauth_2_0]
             description: a tracker, as passed in to the edit
     /stars:
       /forOpenings:
         /{id}:
           get:
+            securedBy: [oauth_2_0]
             description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
 
   /recruiterFaces:
     /searches:
       post:
-        securedBy: [hmac]
+        securedBy: [oauth_2_0]
         description: |
           Search candidates, returning recruiter-facing details.
           The method is a POST solely because the size and number of parameters might get too large for a GET.
@@ -356,6 +407,7 @@ traits: !include traits.yml
             example: !include ../examples/candidates-simple.json
     /{id}:
       get:
+        securedBy: [oauth_2_0]
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
@@ -364,6 +416,7 @@ traits: !include traits.yml
     Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
     and others. Includes details of inactivated nodes.
   get:
+    securedBy: [oauth_2_0]
     description: |
       Fetch list of categories
     responses:
@@ -373,6 +426,7 @@ traits: !include traits.yml
             schema: !include ../schemas/categories.json
             example: !include ../examples/categories-simple.json
   post:
+    securedBy: [oauth_2_0]
     description: Create a single category (without any values)
     body:
       application/json:
@@ -383,6 +437,7 @@ traits: !include traits.yml
     description: category ID 
 
     post:
+      securedBy: [oauth_2_0]
       description: Update a single category, not including its values
       body:
         application/json:
@@ -390,10 +445,12 @@ traits: !include traits.yml
           example: !include ../examples/category-simple.json
           
     delete:
+      securedBy: [oauth_2_0]
       description: Delete a category, along with all of its values
       
     /values:
       get:
+        securedBy: [oauth_2_0]
         description: |
            Get root values and the hierarchy of values beneath
         responses:
@@ -404,6 +461,7 @@ traits: !include traits.yml
                 example: !include ../examples/categoryValues-simple.json
         
       patch:
+        securedBy: [oauth_2_0]
         description: |
           Merge in an array of root values. TODO: what happens when:
           - the merge specifies a different location for an existing node?
@@ -413,6 +471,7 @@ traits: !include traits.yml
             example: !include ../examples/categoryValues-simple.json
         
       post:
+        securedBy: [oauth_2_0]
         description: |
            Arbitrarily set or change the root values for this category.
         body:
@@ -422,23 +481,30 @@ traits: !include traits.yml
 
       /{id}:
         get:
+          securedBy: [oauth_2_0]
           description: Get the child values for the given value
         delete:
+          securedBy: [oauth_2_0]
           description: delete this node and its child nodes
         post:
+          securedBy: [oauth_2_0]
           description: edit details of this node, including its parent
         /values:
           get:
+            securedBy: [oauth_2_0]
             description: Get the array of sub-trees attached to this value
           patch:
+            securedBy: [oauth_2_0]
             description: Merge in an array of child values
           post:
+            securedBy: [oauth_2_0]
             description: |
                Arbitrarily set or change the child values for this value. Values are removed from their previous
                parent (node or category)
         /acquires:
           /{acquiree}:
             post:
+              securedBy: [oauth_2_0]
               description: acquire all of the child nodes of the acquiree, then delete the acquiree node
 
 
@@ -488,15 +554,19 @@ traits: !include traits.yml
       APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth,
       the logged in principal would be a user, session decorated as a recruiter.          
     post:
+      securedBy: [oauth_2_0]
       description: Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status
     /{id}:
       get:
+        securedBy: [oauth_2_0]
         description: Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.
       post:
+        securedBy: [oauth_2_0]
         description: Update an existing opening as a recruiter
 
   /searches:
     post:
+      securedBy: [oauth_2_0]
       description: |
         Search jobs, returning only id, title and code (if present) for each.
 
@@ -521,6 +591,7 @@ traits: !include traits.yml
       
   /{id}:
     get:
+      securedBy: [oauth_2_0]
       description: |
         Get common details of a specific job opening
       responses:
@@ -532,6 +603,7 @@ traits: !include traits.yml
 
     /categories:
       get:
+        securedBy: [oauth_2_0]
         description: Fetch the job's category values as seen by candidates. If any values are inactivated, then the tree will still be normalised.
         responses:
           200:
@@ -546,6 +618,7 @@ traits: !include traits.yml
           description: |
             The name of the app that wants to know whether to render its widget or not
           get:
+            securedBy: [oauth_2_0]
             description: |
               Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to
               know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made
@@ -568,6 +641,7 @@ traits: !include traits.yml
       /candidates:
         /me:
           get:
+            securedBy: [oauth_2_0]
             description:
               Get a button type widget for display on the candidate facing page for a job opening.
               If called anonymously, the producer will pass back some default which is applicable to
@@ -584,6 +658,7 @@ traits: !include traits.yml
       /recruiters:
         /me:
           get:
+            securedBy: [oauth_2_0]
             description:
               Get a card type widget for display to the logged in recruiter for a job opening.
               The producer will likely consult the TAS session and perhaps some business data
@@ -592,10 +667,12 @@ traits: !include traits.yml
       /{id}:
         /deltaPings:
           post:
+            securedBy: [oauth_2_0]
             description: |
               Send notification of a change to the candidate-facing details of a job opening.
           /toActive:
             post:
+              securedBy: [oauth_2_0]
               description: |
                 Send notification of a change to the candidate-facing details of a job opening, specifically
                 that the job opening has become newly active. Useful to feed something like a mobile job notification system,
@@ -607,12 +684,14 @@ traits: !include traits.yml
         /{id}:
           /deltaPings:
             post:
+              securedBy: [oauth_2_0]
               description: Alert a pre-screening app that a new screening has been requested
                             
   /public:
     /searches:
       post:
-        is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 }, tasItem: { defaultSelectList: "id" } ]
+        securedBy: [oauth_2_0]
+        is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 } ]
         description: |
           Search job openings, returning id, title and code (if present) for each, but only for job openings that are publicly
           available, i.e. where availableExternally == true AND externalCloseDate is null or in the future.
@@ -632,6 +711,7 @@ traits: !include traits.yml
                 example: !include ../examples/jobs-simple.json
     /{id}:
       get:
+        securedBy: [oauth_2_0]
         description: |
           Get common details of a specific job opening, but only if it is publicly visible, i.e.
           where availableExternally == true AND externalCloseDate is null or in the future.
@@ -651,6 +731,7 @@ traits: !include traits.yml
   /{id}:
     /chain:
       get:
+        securedBy: [oauth_2_0]
         description: |
           Get this tracker, its parent tracker, and so on to the root of the tree.
         responses:
@@ -667,6 +748,7 @@ traits: !include traits.yml
           /{CA}:
             description: Consuming app
             post:
+              securedBy: [oauth_2_0]
               description: |
                 Create a tracker and attach to the specified parent. The implementation MUST check that the values passed in
                 for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
@@ -681,6 +763,7 @@ traits: !include traits.yml
       /{CA}:
         description: Consuming app
         post:
+          securedBy: [oauth_2_0]
           description: |
             Create a base tracker (one with no parent). The implementation MUST check that the values passed in
             for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
@@ -688,8 +771,6 @@ traits: !include traits.yml
             application/json:
               schema: !include ../schemas/tracker.json
               example: !include ../examples/tracker-createSessionTracker.json
-
-
 
 /recruiters:
   description: |
@@ -701,6 +782,7 @@ traits: !include traits.yml
     /{E}:
       /{N}:
         get:
+          securedBy: [oauth_2_0]
           description: |
             Get the ID of the recruiter role holding for ourselves (the currently logged in principal, who must be of principal type 'user',
             session decorated as being a recruiter, with a row in the SoT system for recruiters).
@@ -720,7 +802,6 @@ traits: !include traits.yml
                 - if so, then return the ID of the user's recruiter role holding if they have one, otherwise http 404
                 - if not, does any user row exist with {E} and {N} being not null, and having the matching email address?
                 - if so, does the existing {E} allow "identity leap away from"? (i.e., is it a non-attribute supplying idp)?
-              
                 
                 There are two classes of idp:
                 - attribute suppliers:
@@ -766,9 +847,11 @@ traits: !include traits.yml
               required: false
             
       post:
+        securedBy: [oauth_2_0]
         description: |
           Self-provision a recruiter row for the logged in user (who must have been session decorated as a recruiter) 
   post:
+    securedBy: [oauth_2_0]
     description: |
       Create a recruiter, along with a user, or designate an existing user as being a recruiter. When creating the user,
       the identity fields need to be set, typically by:
@@ -776,19 +859,23 @@ traits: !include traits.yml
       - setting {E} to corporate IdP, {N} to incoming {N}
   /{id}:
     post:
+      securedBy: [oauth_2_0]
       description: update an existing recruiter and/or their user ('s vcard)
     /deltaPings:
       post:
+        securedBy: [oauth_2_0]
         description: |
           Alert interested apps that recruiter CRUD has happened. e.g. one might send welcome messages
           to new recruiters.
           Probably only useful as non-SoT. 
     /userFace:
       get:
+        securedBy: [oauth_2_0]
         description: get the user-facing details for a recruiter (active flag, user ID, org details, etc.)
     /user:
       /vcard:
         get:
+          securedBy: [oauth_2_0]
           description: |
             Get contact details of the recruiter's user record user in the form described by rfc7095.
             Users are people who are more or less inside the organization. Users may be or take on the role
@@ -797,6 +884,7 @@ traits: !include traits.yml
   /userFaces:            
     /searches:
       post:
+        securedBy: [oauth_2_0]
         description: |
           Search recruiters, returning user-facing details.
           When called as OAuth, the logged in recruiter must be passed as a parameter, and the results
@@ -807,6 +895,7 @@ traits: !include traits.yml
   /{producer}:
     /types:
       get:
+        securedBy: [oauth_2_0]
         description: Get details of all of the screening types available to the tenant from this app
         body:
           application/json:
@@ -815,6 +904,7 @@ traits: !include traits.yml
 
 /voiceMessageUploads:
   post:
+    securedBy: [oauth_2_0]
     description: Ask the voice message system for a unique ID that can be used in the future to hold an upload of a voice recording.
     responses:
       201:
@@ -824,6 +914,7 @@ traits: !include traits.yml
   /{id}:
     /lock:
       post:
+        securedBy: [oauth_2_0]
         description: |
           Lock the upload with the given id if it exists. and return an id for the lock.
           
@@ -855,6 +946,7 @@ traits: !include traits.yml
             description: that upload exists but has already been locked
     /recordingUI:
       get:
+        securedBy: [oauth_2_0]
         description: get the URI of a recording user interface suitable for iframe-ing
         queryParameters:
           tracker:
@@ -866,6 +958,7 @@ traits: !include traits.yml
   /locked:            
     /{lockID}:          
       delete:
+        securedBy: [oauth_2_0]
         description: |
           Delete the locked upload
         responses:
@@ -875,6 +968,7 @@ traits: !include traits.yml
             description: no upload exists with that id
       /playbackUI:
         get:
+          securedBy: [oauth_2_0]
           description: get the URI of a playback user interface suitable for iframe-ing
           queryParameters:
             tracker:
@@ -886,6 +980,7 @@ traits: !include traits.yml
 
 /videoUploads:
   post:
+    securedBy: [oauth_2_0]
     description: See voiceMessageUploads
     responses:
       201:
@@ -894,6 +989,7 @@ traits: !include traits.yml
   /{id}:
     /lock:
       post:
+        securedBy: [oauth_2_0]
         description: See voiceMessageUploads
         responses:
           201:
@@ -906,6 +1002,7 @@ traits: !include traits.yml
             description: See voiceMessageUploads
     /recordingUI:
       get:
+        securedBy: [oauth_2_0]
         description: See voiceMessageUploads
         queryParameters:
           tracker:
@@ -915,6 +1012,7 @@ traits: !include traits.yml
   /locked:            
     /{lockID}:          
       delete:
+        securedBy: [oauth_2_0]
         description: See voiceMessageUploads
         responses:
           200:
@@ -923,6 +1021,7 @@ traits: !include traits.yml
             description: See voiceMessageUploads
       /playbackUI:
         get:
+          securedBy: [oauth_2_0]
           description: See voiceMessageUploads
           queryParameters:
             tracker:

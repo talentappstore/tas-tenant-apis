@@ -22,17 +22,17 @@
         },
         "availableInternally": {
             "type": "boolean",
-            "description": "Position is currently open to internals (implies status is active, but callers shuold check that relevant closeDates are in the future)"
+            "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
         },
         "availableExternally": {
             "type": "boolean",
-            "description": "Position is currently open to externals (implies status is active, but callers shuold check that relevant closeDates are in the future)"
+            "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
         },
         "uri": {
             "type": "string",
             "description": "URI of the opening - see HR-XML"
         },
-        "applyURI": {
+        "applyUri": {
             "type": "string",
             "description": "URI of the page where a candidate applies - see HR-XML"
         },

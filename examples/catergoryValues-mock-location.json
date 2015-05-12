@@ -1,0 +1,23 @@
+[
+    {
+        "id": 80085,
+        "name": "Wellington",
+        "available": false
+    },
+    {
+        "id": 80300,
+        "name": "Auckland",
+        "values": [
+            {
+                "id": 80350,
+                "name": "North Shore",
+                "values": [
+                    {
+                        "id": 80351,
+                        "name": "Takapuna"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -170,7 +170,7 @@ traits: !include traits.yml
     /roles:
       get:
         description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
-    /preScreens:
+    /screens:
       /{consumer}:
         /{id}:
           /request:
@@ -599,7 +599,7 @@ traits: !include traits.yml
                 which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
                 a system would need to do its own tests as to whether the opening was visible to any given candidate (i.e.,
                 it might be only visisble to internal candidates)
-    /preScreens:
+    /screens:
       /{producer}:
         /{id}:
           /deltaPings:
@@ -800,9 +800,7 @@ traits: !include traits.yml
           will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
           The method is a POST solely because the size and number of parameters might get too large for a GET.
 
-
-
-/preScreens:
+/screens:
   /{producer}:
     /types:
       get:

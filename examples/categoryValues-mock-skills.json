@@ -1,0 +1,23 @@
+[
+    {
+        "id": 50140,
+        "name": "Accounting",
+        "available": false
+    },
+    {
+        "id": 50200,
+        "name": "Information Technology",
+        "values": [
+            {
+                "id": 50240,
+                "name": "Engineering",
+                "values": [
+                    {
+                        "id": 50246,
+                        "name": "Software"
+                    }
+                ]
+            }
+        ]
+    }
+]

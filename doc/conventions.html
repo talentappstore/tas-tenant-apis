@@ -36,36 +36,37 @@
 <p>The TAS core itself knows nothing about conventions (if it did, this documentation would be part of the TAS core documentation).
 Therefore when building apps you are free to follow these conventions or not as suits.</p>
 
+<h1>/{ct}/{cad}/{ca} (consumer) and /{pt}/{pad}/{pa} (producer) segments</h1>
 
-<h1>{ct}/{cad}/ca} and {producer} segment convention</h1>
+<p>Using /{ct}/{cad}/{ca} (consumer) and /{pt}/{pad}/{pa} (producer) segments within a tenant API's URI template
+is a signal to any app producing or consuming the API that to be valid, API calls should have the (consumer) == the actual consumer,
+and (producer) == the actual producer.</p>
 
-<p>Using {consumer} and {producer} segments within a tenant API's URI template is a signal to any app producing or consuming the API
-that to be valid, API calls should have the {consumer} == the actual consumer, and {producer} == the actual producer.</p>
-
-<p>This means a tenant can install an app like a job board that consumes (say) the API <b>/jobPostings/{consumer}</b>, confident that (as long as the
-app obeys the convention) the job board will only ever access its own postings, and not the posting for some other job board.</p>
+<p>This means a tenant can install an app like a job board that consumes (say) the API <b>/jobs/byConsumer/{ct}/{cad}/{ca}</b>,
+confident that (as long as either (a) the consumer app obeys the convention, and/or (b) the producer enforces it) the job board
+will only ever access its own postings, and not the posting for some other job board.</p>
 
 <h2>Examples</h2>
 
-<p>Given that the app "zambo":</p>
+<p>Given that the app "zambo", from the developer "zamsoft":</p>
 
 <div class='codeBlock'>
-- consumes /positionOpenings/{consumer}
-- produces /m/positionOpenings/{producer}/deltaPings
+- consumes /jobs/{ct}/{cad}/{ca}
+- produces /jobs/{pt}/{pad}/{pa}/deltaPings
 </div>
 
-<p>...the convention means that zambo, and only zambo:</p>
+<p>...the convention means that, when installed by the tenant acme, zambo (and only zambo):</p>
 
 <div class='codeBlock'>
-- can consume		GET /positionOpenings/zambo
-- can produce		POST /m/positionOpenings/zambo/deltaPings
+- can consume		GET /jobs/acme/zamsoft/zambo
+- can produce		POST /jobs/acme/zamsoft/zambo/deltaPings
 </div>
 
 <p>.. and that zambo:</p>
 
 <div class='codeBlock'>
-- can not consume	GET /positionOpenings/fruitbat
-- will never produce	POST /m/positionOpenings/fruitbat/deltaPings
+- can not consume	GET /jobs/acme/zamsoft/fruitbat
+- will never produce	POST /jobs/acme/zamsoft/fruitbat/deltaPings
 </div>
 
 <p>In another example, the repstate app provides a centralised store where apps that act as replication secondaries
@@ -75,26 +76,25 @@ summarise the readiness of all of the replication secondaries the tenant has ins
 <p>Assuming the replicator cursor app:</p>
 
 <div class='codeBlock'>
-- produces /replicationStatuses/{consumer}/{apiDev}/{apiURI}
+- produces /replicationStatuses/{ct}/{cad}/{ca}/{apiDev}/{apiURI}
 </div>
 
-<p>...then the app zambo, and only zambo:</p>
+<p>...then, when installed by the tenant acme, zambo (and only zambo):</p>
 
 <div class='codeBlock'>
-- can consume		POST /replicationStatuses/zambo/tas/requisitions
-- can consume		GET /replicationStatuses/zambo/tas/requisitions
+- can consume		POST /replicationStatuses/acme/zamsoft/zambo/tas/requisitions
+- can consume		GET /replicationStatuses/acme/zamsoft/zambo/tas/requisitions
 </div>
 
 <p>.. and zambo:</p>
 
 <div class='codeBlock'>
-- can not consume	POST /replicationStatuses/fruitbat/tas/requisitions
-- can not consume	GET /replicationStatuses/fruitbat/tas/requisitions
+- can not consume	POST /replicationStatuses/acme/zamsoft/fruitbat/tas/requisitions
+- can not consume	GET /replicationStatuses/acme/zamsoft/fruitbat/tas/requisitions
 </div>
 
 <p><b>NOTE</b>: this approach causes tighter coupling since the producer is changing its behaviour depending on who the consumer is. That implies
 the tenant can't just rip and replace the consumer (just as they can't once the consumer contains its own state).</p>
-
  
 
 <h1>Replication convention</h1>

@@ -144,12 +144,18 @@ traits: !include traits.yml
   
       The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
       and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
-      attacks where the consumer writes to any data item for example.
+      attacks where the consumer tries to write to a random data item for example.
       
     body:
       application/json:
         schema: !include ../schemas/candidateEdit.json
         example: !include ../examples/candidateEdit-simple.json
+  /registerUI:
+    get:
+      description: |
+        Get, from whichever app is the "candidate self-register" app, a uri where candidates can enter their details (name,
+        address, resume/CV, etc.). Typically used by apps like careers sites to work out where to direct a candidate once
+        they have clicked "create an account" (and logged in).
   /{id}:
     get:
       description: |

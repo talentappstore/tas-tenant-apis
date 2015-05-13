@@ -542,6 +542,30 @@ traits: !include traits.yml
                 application/json:
                   schema: !include ../schemas/candidateEditSpec.json
                   example: !include ../examples/candidateEditSpec-apply.json
+
+/itemDefs:
+  /candidate:
+    /candidateOwned:
+    /internalOwned:
+    /internalShared:
+    /eeo:
+      get:
+        securedBy: [oauth_2_0]
+        is: [ offerEmbedSchema, returnItemDefs ] 
+        description: Get definitions for all candidate-scoped, candidateOwned items
+      /{item}:
+        get:
+          securedBy: [oauth_2_0]
+          is: [ offerEmbedSchema, returnItemDef ] 
+          description: Get definitions for a specific candidate-scoped, candidateOwned item
+  /application:
+    /candidateOwned:
+    /internalOwned:
+    /internalShared:
+  /job:
+    /internalOwned:
+    /internalShared:
+
             
 /jobs:
   description: |

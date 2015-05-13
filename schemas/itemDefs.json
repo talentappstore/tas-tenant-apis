@@ -1,0 +1,6 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "array",
+    "items": { "$ref": "itemDef.json" },
+    "description": "An array of packages of information including a reference to, or embedded json schema that describes the items pertaining to a candidate or application - see separate doc."
+}

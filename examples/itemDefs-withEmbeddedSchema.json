@@ -1,0 +1,39 @@
+[
+    {
+        "name": "cover letter",
+        "schemaFragment": 1004328,
+        "embeddedSchemaFragment": {
+            "type": "object",
+            "title": "Cover letter",
+            "format": "tas-fileUpload",
+            "access": "candidateOwned",
+            "options": {
+                "accept": "image/png,text/html"
+            },
+            "description": "Please upload a cover letter. The shorter the better",
+            "properties": {
+                "data": {
+                    "type": "string",
+                    "media": {
+                        "binaryEncoding": "base64"
+                    }
+                },
+                "fileName": {
+                    "type": "string"
+                },
+                "via": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    {
+        "name": "favorite color",
+        "schemaFragment": 1004329,
+        "embeddedSchemaFragment": {
+            "type": "number",
+            "title": "Favorite color",
+            "access": "candidateOwned"
+        }
+    }
+]

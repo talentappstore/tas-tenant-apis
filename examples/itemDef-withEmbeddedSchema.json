@@ -1,6 +1,5 @@
 {
     "name": "cover letter",
-    "schemaFragment": 1004328,
     "embeddedSchemaFragment": {
         "type": "object",
         "title": "Cover letter",

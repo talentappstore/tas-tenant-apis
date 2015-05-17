@@ -2,7 +2,7 @@
 ---
 title: TAS recruitment
 baseUri: http://talentappstore.com/{version}
-version: v1
+version: v0.6
 
 
 securitySchemes:  !include securitySchemes.yml
@@ -189,30 +189,30 @@ traits: !include traits.yml
       get:
         securedBy: [oauth_2_0]
         description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
-    /screens:
+    /engagements:
       /{consumer}:
         /{id}:
           /request:
             get:
               securedBy: [oauth_2_0]
-              description: Get details of a screening request
+              description: Get details of an engagement request
               body:
                 application/json:
-                  example: !include ../examples/screenRequest-simple.json
+                  example: !include ../examples/engagementRequest-simple.json
           /responses:
             /{seq}:
             /latest:
               post:
                 securedBy: [oauth_2_0]
-                description: Update the response to a screening request
+                description: Update the response to a engagement request
                 body:
                   application/json:
-                    example: !include ../examples/screenResponse-simple.json
+                    example: !include ../examples/engagementResponse-simple.json
               /candidateFace:
                 /links:
                   get:
                     securedBy: [oauth_2_0]
-                    description: get the candidate viewable links from the screening (if any)
+                    description: get the candidate viewable links from the engagement (if any)
     /vcard:
       get:
         securedBy: [oauth_2_0]
@@ -701,13 +701,13 @@ traits: !include traits.yml
                 which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
                 a system would need to do its own tests as to whether the opening was visible to any given candidate (i.e.,
                 it might be only visisble to internal candidates)
-    /screens:
+    /engagements:
       /{producer}:
         /{id}:
           /deltaPings:
             post:
               securedBy: [oauth_2_0]
-              description: Alert a pre-screening app that a new screening has been requested
+              description: Alert an engagement app that a new engagement has been requested
                             
   /public:
     /searches:
@@ -913,22 +913,22 @@ traits: !include traits.yml
           will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
           The method is a POST solely because the size and number of parameters might get too large for a GET.
 
-/screens:
+/engagements:
   /{producer}:
     /types:
       get:
         securedBy: [oauth_2_0]
-        description: Get details of all of the screening types available to the tenant from this app
+        description: Get details of all of the engagement types available to the tenant from this app
         body:
           application/json:
-            example: !include ../examples/screeningTypes-simple.json
+            example: !include ../examples/engagementTypes-simple.json
 
 /schemaFragments:
-  /{id}:
+  /{itemName}:
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get the specified schema fragment, which is a detailed description of a data item
+        Get the specified schema fragment, which is a detailed description of the named data item
         conforming to our modified json schema as per <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
       body:
         application/json:

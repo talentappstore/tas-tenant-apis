@@ -1,7 +1,6 @@
 [
     {
         "name": "cover letter",
-        "schemaFragment": 1004328,
         "embeddedSchemaFragment": {
             "type": "object",
             "title": "Cover letter",
@@ -29,7 +28,6 @@
     },
     {
         "name": "favorite color",
-        "schemaFragment": 1004329,
         "embeddedSchemaFragment": {
             "type": "number",
             "title": "Favorite color",

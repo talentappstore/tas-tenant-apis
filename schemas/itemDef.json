@@ -7,17 +7,12 @@
             "type": "string",
             "description": "the identifier for this item"
         },
-        "schemaFragment": {
-            "type": "integer",
-            "description": "id of the schema fragment that describes this item"
-        },
         "embeddedSchemaFragment": {
             "$ref": "jsonSchemaSchema.json"
         }
     },
     "required": [
-        "name",
-        "schemaFragment"
+        "name"
     ],
     "additionalProperties": false
 }

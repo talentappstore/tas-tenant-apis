@@ -685,29 +685,22 @@ traits: !include traits.yml
               Get a card type widget for display to the logged in recruiter for a job opening.
               The producer will likely consult the TAS session and perhaps some business data
               such as the recruiter's area to make its decision.                
-    /candidateFaces:
-      /{id}:
-        /deltaPings:
+  /candidateFaces:
+    /{id}:
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Send notification of a change to the candidate-facing details of a job opening.
+        /toActive:
           post:
             securedBy: [oauth_2_0]
             description: |
-              Send notification of a change to the candidate-facing details of a job opening.
-          /toActive:
-            post:
-              securedBy: [oauth_2_0]
-              description: |
-                Send notification of a change to the candidate-facing details of a job opening, specifically
-                that the job opening has become newly active. Useful to feed something like a mobile job notification system,
-                which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
-                a system would need to do its own tests as to whether the opening was visible to any given candidate (i.e.,
-                it might be only visisble to internal candidates)
-    /engagements:
-      /{producer}:
-        /{id}:
-          /deltaPings:
-            post:
-              securedBy: [oauth_2_0]
-              description: Alert an engagement app that a new engagement has been requested
+              Send notification of a change to the candidate-facing details of a job opening, specifically
+              that the job opening has become newly active. Useful to feed something like a mobile job notification system,
+              which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
+              a system would need to do its own tests as to whether the opening was visible to any given candidate (i.e.,
+              it might be only visisble to internal candidates)
                             
   /public:
     /searches:
@@ -922,6 +915,11 @@ traits: !include traits.yml
         body:
           application/json:
             example: !include ../examples/engagementTypes-simple.json
+    /{id}:
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: Alert an engagement app that a new engagement has been requested
 
 /schemaFragments:
   /{itemName}:

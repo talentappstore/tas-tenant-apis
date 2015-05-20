@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "writeAttachment": {
+            "type": "object",
+            "properties": {
+                "attachmentType": {
+                    "$ref": "readEngagement.json#/definitions/attachmentType"
+                },
+                "fileUpload": {
+                    "$ref": "fileUpload.json"
+                }
+            },
+            "required": [
+                "attachmentType",
+                "fileDownload"
+            ]
+        },
+        "assessmentDetail": {
+            "type": "object",
+            "properties": {
+                "accessPoints": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "readEngagement.json#/definitions/accessPoint"
+                    }
+                },
+                "assessmentOverallResult": {
+                    "$ref": "readEngagement.json#/definitions/result"
+                },
+                "assessmentDetailedResults": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "readEngagement.json#/definitions/result"
+                    }
+                },
+                "attachments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/writeAttachment"
+                    }
+                }
+            }
+        }
+    },
+    "type": "object",
+    "properties": {
+        "status": {
+            "$ref": "readEngagement.json#/definitions/status"
+        },
+        "assessmentDetail": {
+            "$ref": "#/definitions/assessmentDetail"
+        }
+    },
+    "additionalProperties": false,
+    "required": []
+}

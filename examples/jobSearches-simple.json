@@ -1,5 +1,5 @@
 {
-    "filter": {
+    "match": {
         "categories": [
             {
                 "category": 100466,
@@ -17,10 +17,8 @@
         "recruiter": {
             "id": 1,
             "relationship": "owner"
-        },
-        "statuses": [
-            "active"
-        ],
-        "codeMatch": "ADH1333"
-    }
+        }
+    },
+    "filter": "status eq 'active' and code eq 'ADH1333' and id gt 10",
+    "orderby": "id asc" 
 }

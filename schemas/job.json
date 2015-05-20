@@ -1,12 +1,58 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
+        "links": {
+            "type": "object",
+            "properties": {
+                "self": {
+                    "type": "string", "format": "uri",
+                    "description": "URI of the opening - see HR-XML"
+                },
+                "apply": {
+                    "type": "string", "format": "uri",
+                    "description": "URI of the page where a candidate applies - see HR-XML"
+                }
+            }
+        },
         "status": {
             "enum": [
                 "active",
                 "complete"
             ],
             "description": "from HR-XML"
+        },
+        "availability": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/status"
+                },
+                "availableInternally": {
+                    "type": "boolean",
+                    "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
+                },
+                "availableExternally": {
+                    "type": "boolean",
+                    "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
+                },
+                "applicationCloseDates": {
+                    "type": "object",
+                    "properties": {
+                        "closeDate": {
+                            "type": "string", "format": "date-time",
+                            "description": "the date on which applications are scheduled to close"
+                        },
+                        "internalCloseDate": {
+                            "type": "string", "format": "date-time",
+                            "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
+                        },
+                        "externalCloseDate": {
+                            "type": "string", "format": "date-time",
+                            "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
+                        }
+                    }
+                }
+            }
         }
     },
     "type": "object",
@@ -14,44 +60,11 @@
         "id": {
             "type": "integer"
         },
-        "status": {
-            "$ref": "#/definitions/status"
+        "links": {
+            "$ref": "#/definitions/links"
         },
-        "categories": {
-            "$ref": "categoriesActual.json"
-        },
-        "availableInternally": {
-            "type": "boolean",
-            "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
-        },
-        "availableExternally": {
-            "type": "boolean",
-            "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
-        },
-        "uri": {
-            "type": "string",
-            "description": "URI of the opening - see HR-XML"
-        },
-        "applyUri": {
-            "type": "string",
-            "description": "URI of the page where a candidate applies - see HR-XML"
-        },
-        "applicationCloseDates": {
-            "type": "object",
-            "properties": {
-                "closeDate": {
-                    "type": "date-time",
-                    "description": "the date on which applications are scheduled to close"
-                },
-                "internalCloseDate": {
-                    "type": "date-time",
-                    "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
-                },
-                "externalCloseDate": {
-                    "type": "date-time",
-                    "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
-                }
-            }
+        "availability": {
+            "$ref": "#/definitions/availability"
         },
         "code": {
             "type": "string",
@@ -69,10 +82,9 @@
             "type": "string",
             "description": "as per Salesforce, more explicit than org"
         },
-        "userArea": {
-            "$ref": "./userArea.json"
+        "categories": {
+            "$ref": "categoriesActual.json"
         }
     },
-    "required": ["title"],
     "additionalProperties": false
 }

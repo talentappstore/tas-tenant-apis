@@ -41,7 +41,7 @@
      $select:
        description: |
          <p>The $select query option is used to specify which properties should be returned in the resource. It behaves as per its namesake in
-         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
          For example:</p>
 
          <pre>
@@ -74,7 +74,7 @@
      $orderby:
        description: |
          <p>The $orderby query option is used to order the entries, where the resource is a collection. It behaves as per its namesake in
-         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
          The actual properties that can used varies by resource - for <b><<resourcePathName>></b>, it is <b><<orderingProperties>></b>.</p>
        example: |
          return widgets ordered by id (ascending)
@@ -89,7 +89,7 @@
      $filter:
        description: |
          <p>The $filter query option is used to identity a subset of the entries, where the resource is a collection. It behaves as per its namesake in
-         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
          <p>The actual properties that can used for filtering, and the complexity of the expression that is supported varies by resource -
          for <b><<resourcePathName>></b>, it is:</p>
          <p><b><<filterCapabilities>></b></p>.
@@ -103,7 +103,7 @@
      $top:
        description: |
          <p>The $top query option is used to limit the number of entries, where the resource is a collection. It behaves as per its namesake in
-         the OData 2.0 Query String Options (http://www.odata.org/documentation/odata-version-2-0/uri-conventions/).
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
          <p>For <b><<resourcePathName>></b>, $top must be less than or equal to <b><<maxTop>></b>. This is also the default.</p>
        example: |
          return the first 5 widgets:

@@ -1,3 +1,72 @@
 [
-{"id": 102234, "title": "Dog walker", "code": "DF203"}
+    {
+        "id": 10334355,
+        "links": {
+            "self": "https://acme.jobboard.com/jobs/Creative-Director",
+            "apply": "https://acme.bigapply.com/jobs/10334355"
+        },
+        "availability": {
+            "status": "active",
+            "availableInternally": true,
+            "availableExternally": false,
+            "applicationCloseDates": {
+                "closeDate": "2015-11-05T13:15:30Z",
+                "internalCloseDate": "2015-11-05T13:15:30Z",
+                "externalCloseDate": "2015-11-05T13:15:30Z"
+            }
+        },
+        "code": "1022NH",
+        "title": "Creative Director",
+        "categories": [
+            {
+                "category": 1022,
+                "values": [
+                    10024
+                ]
+            },
+            {
+                "category": 1026,
+                "values": [
+                    10044,
+                    10025,
+                    10029
+                ]
+            }
+        ]
+    },
+    {
+        "id": 10334356,
+        "links": {
+            "self": "https://acme.jobboard.com/jobs/Creative-Lackey",
+            "apply": "https://acme.bigapply.com/jobs/10334356"
+        },
+        "availability": {
+            "status": "active",
+            "availableInternally": true,
+            "availableExternally": false,
+            "applicationCloseDates": {
+                "closeDate": "2015-11-05T13:15:30Z",
+                "internalCloseDate": "2015-11-05T13:15:30Z",
+                "externalCloseDate": "2015-11-05T13:15:30Z"
+            }
+        },
+        "code": "1024NH",
+        "title": "Creative Lackey",
+        "categories": [
+            {
+                "category": 1022,
+                "values": [
+                    10024
+                ]
+            },
+            {
+                "category": 1026,
+                "values": [
+                    10044,
+                    10025,
+                    10029
+                ]
+            }
+        ]
+    }
 ]

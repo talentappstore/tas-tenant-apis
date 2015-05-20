@@ -1,5 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "via": {
+            "type": "string",
+            "description": "the mechanism via which the file was uploaded - either 'device' or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+        },
+        "fileName": {
+            "type": "string"
+        }
+    },
     "type": "object",
     "description": "Details for an uploaded file",
     "properties": {
@@ -10,10 +19,10 @@
             }
         },
         "fileName": {
-            "type": "string"
+            "$ref": "#/definitions/fileName"
         },
         "via": {
-            "type": "string"
+            "$ref": "#/definitions/via"
         }
     },
     "additionalProperties": false,

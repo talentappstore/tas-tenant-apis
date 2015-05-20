@@ -1,5 +1,20 @@
 {
-    "id": 100,
+    "id": 10334355,
+    "links": {
+        "self": "https://acme.jobboard.com/jobs/Creative-Director",
+        "apply": "https://acme.bigapply.com/jobs/10334355"
+    },
+    "availability": {
+        "status": "active",
+        "availableInternally": true,
+        "availableExternally": false,
+        "applicationCloseDates": {
+            "closeDate": "2015-11-05T13:15:30Z",
+            "internalCloseDate": "2015-11-05T13:15:30Z",
+            "externalCloseDate": "2015-11-05T13:15:30Z"
+        }
+    },
+    "code": "1022NH",
     "title": "Creative Director",
     "formattedDescription": "One of the most exciting positions ever offered",
     "categories": [
@@ -16,14 +31,6 @@
                 10025,
                 10029
             ]
-        }
-    ],
-    "userArea": [
-        {
-            "carPark": true
-        },
-        {
-            "referralReward": true
         }
     ]
 }

@@ -1,0 +1,49 @@
+[
+    {
+        "id": 70034,
+        "name": "Java",
+        "values": [
+            {
+                "id": 73504,
+                "name": "Javascript",
+                "values": [
+                    {
+                        "id": 75442,
+                        "name": "Spring",
+                        "available": false
+                    },
+                    {
+                        "id": 74823,
+                        "name": "Wicket"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 70032,
+        "name": ".NET",
+        "values": [
+            {
+                "id": 70036,
+                "name": "C#",
+                "values": [
+                    {
+                        "id": 70037,
+                        "name": "ASP MVC"
+                    }
+                ]
+            },
+            {
+                "id": 75521,
+                "name": "Visual Basic",
+                "values": [
+                    {
+                        "id": 75482,
+                        "name": "Winform`"
+                    }
+                ]
+            }
+        ]
+    }
+]

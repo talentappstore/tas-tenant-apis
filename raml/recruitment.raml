@@ -610,10 +610,17 @@ traits: !include traits.yml
           securedBy: [oauth_2_0]
           description: |
             Send notification of a change to the candidate-facing details of a job opening, specifically
-            that the job opening has become newly active. Useful to feed something like a mobile job notification system,
-            which does not care about all of the micro delta pings for an opening, just when it becomes newly active. Such
-            a system would need to do its own tests as to whether the opening was visible to any given candidate (i.e.,
-            it might be only visisble to internal candidates)
+            that the job opening has transitioned to active. Useful to feed something like a push job notification system,
+            which does not care about all of the micro delta pings for an opening, just when it becomes newly active.
+      /toPubliclyActive:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            See /jobs/{id}/deltaPings.
+            
+            Send notification of a change to the candidate-facing details of a job opening, specifically
+            that the job opening has become newly publicly active (perhaps it was active before but internal).
+            
     /widgetState:
       /me:
         /{consumer}:
@@ -700,17 +707,6 @@ traits: !include traits.yml
               application/json:
                 schema: !include ../schemas/job.json
                 example: !include ../examples/job-simple.json
-      /deltaPings:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            Send notification of a change to the candidate-facing details of a job opening, but only if it is publicly visible
-        /toActive:
-          post:
-            securedBy: [oauth_2_0]
-            description: see /jobs/{id}/deltaPings
-              Send notification of a change to the candidate-facing details of a job opening, specifically
-              that the job opening has become newly publicly active (perhaps it was active before but internal).
   /recruiterFaces:
     description: |
       APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth,

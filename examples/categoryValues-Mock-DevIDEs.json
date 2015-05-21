@@ -1,0 +1,49 @@
+[
+    {
+        "id": 60034,
+        "name": "Web IDE",
+        "values": [
+            {
+                "id": 63504,
+                "name": "Eclipse EE",
+                "values": [
+                    {
+                        "id": 65442,
+                        "name": "Spring Tools Suite",
+                        "available": false
+                    },
+                    {
+                        "id": 64823,
+                        "name": "Google Web Toolkit"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 60032,
+        "name": "Desktop IDE",
+        "values": [
+            {
+                "id": 60036,
+                "name": "Visual Studio",
+                "values": [
+                    {
+                        "id": 60037,
+                        "name": "Nunit"
+                    }
+                ]
+            },
+            {
+                "id": 65521,
+                "name": "NetBeans",
+                "values": [
+                    {
+                        "id": 65482,
+                        "name": "JMonkeyEngine"
+                    }
+                ]
+            }
+        ]
+    }
+]

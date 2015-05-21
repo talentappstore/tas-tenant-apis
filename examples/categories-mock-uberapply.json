@@ -1,0 +1,18 @@
+[
+    {
+        "id": 10032,
+        "key": "LOCATION",
+        "name": "Location",
+        "canMultiSelectOnJobs": true
+    },
+    {
+        "id": 10034,
+        "name": "Preferred Development Languages",
+        "canMultiSelectOnJobs": true
+    },
+    {
+	      "id": 25004,
+	      "name": "Development IDEs",
+	      "canMultiSelectOnJobs": false
+    }
+]

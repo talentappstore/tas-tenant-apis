@@ -1,0 +1,43 @@
+{
+    "status": "Complete",
+    "assessmentDetail": {
+        "accessPoints": [],
+        "assessmentOverallResult": {
+            "id": "SALES",
+            "passedIndicator": true,
+            "description": "Good fit",
+            "score": [
+                {
+                    "kind": "ScoreNumeric",
+                    "value": 75,
+                    "type": "RawScore"
+                },
+                {
+                    "kind": "ScoreNumeric",
+                    "value": 56,
+                    "type": "Percentile"
+                }
+            ],
+            "bandID": "A"
+        },
+        "assessmentDetailedResults": [
+            {
+                "id": "SALES_SECT1",
+                "passedIndicator": true,
+                "description": "Awesome talent"
+            }
+        ],
+        "attachments": [
+            {
+                "attachmentType": "Sales Assessment",
+                "fileDownload": {
+                    "fileName": "fredsales.cv",
+                    "size": 3023443,
+                    "md5": "jkghJTYG85UJTvgr765FVYTR9KH5645",
+                    "link": "https://frodo.com/docs/198714509"
+                }
+            }
+        ]
+    }
+}
+

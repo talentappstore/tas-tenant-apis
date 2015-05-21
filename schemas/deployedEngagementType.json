@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "vendor": {
+            "type": "object",
+            "properties": {
+                "ct": {
+                    "type": "string"
+                },
+                "cad": {
+                    "type": "string"
+                },
+                "ca": {
+                    "type": "string"
+                }
+            },
+            "required": ["ct","cad","ca"]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "vendor": {
+            "$ref": "#/definitions/vendor"
+        },
+        "id": {
+            "type": "integer"
+        },
+        "title": {
+            "type": "string",
+            "description": "Title for this engagement type, as seen by tenant (override if any applied)"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "vendor", "id", "title"
+    ]
+}

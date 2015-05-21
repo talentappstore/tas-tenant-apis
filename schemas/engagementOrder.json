@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "deployedEngagementType": 2011,
+        "ct":  {
+            "type": "string"
+        },
+        "cad": {
+            "type": "string"
+        },
+        "ca": {
+            "type": "string"
+        },
+        "firstName": {
+            "type": "string"
+        },
+        "lastName": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "jobTitle": {
+            "type": "string"
+        },
+        "jobRef": {
+            "type": "string"
+        },
+        "candidate": {
+            "type": "integer"
+        },
+        "application": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "deployedEngagementType", "ct", "cad", "ca"
+    ]
+}

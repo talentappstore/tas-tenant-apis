@@ -5,7 +5,7 @@
             "type": "object",
             "properties": {
                 "attachmentType": {
-                    "$ref": "readEngagement.json#/definitions/attachmentType"
+                    "$ref": "engagementReportRead.json#/definitions/attachmentType"
                 },
                 "fileUpload": {
                     "$ref": "fileUpload.json"
@@ -13,7 +13,7 @@
             },
             "required": [
                 "attachmentType",
-                "fileDownload"
+                "fileUpload"
             ]
         },
         "assessmentDetail": {
@@ -22,16 +22,16 @@
                 "accessPoints": {
                     "type": "array",
                     "items": {
-                        "$ref": "readEngagement.json#/definitions/accessPoint"
+                        "$ref": "engagementReportRead.json#/definitions/accessPoint"
                     }
                 },
                 "assessmentOverallResult": {
-                    "$ref": "readEngagement.json#/definitions/result"
+                    "$ref": "engagementReportRead.json#/definitions/result"
                 },
                 "assessmentDetailedResults": {
                     "type": "array",
                     "items": {
-                        "$ref": "readEngagement.json#/definitions/result"
+                        "$ref": "engagementReportRead.json#/definitions/result"
                     }
                 },
                 "attachments": {
@@ -46,7 +46,7 @@
     "type": "object",
     "properties": {
         "status": {
-            "$ref": "readEngagement.json#/definitions/status"
+            "$ref": "engagementReportRead.json#/definitions/status"
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"

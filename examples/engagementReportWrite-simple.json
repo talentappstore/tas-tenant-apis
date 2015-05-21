@@ -1,0 +1,42 @@
+{
+    "status": "Complete",
+    "assessmentDetail": {
+        "accessPoints": [],
+        "assessmentOverallResult": {
+            "id": "SALES",
+            "passedIndicator": true,
+            "description": "Good fit",
+            "score": [
+                {
+                    "kind": "ScoreNumeric",
+                    "value": 75,
+                    "type": "RawScore"
+                },
+                {
+                    "kind": "ScoreNumeric",
+                    "value": 56,
+                    "type": "Percentile"
+                }
+            ],
+            "bandID": "A"
+        },
+        "assessmentDetailedResults": [
+            {
+                "id": "SALES_SECT1",
+                "passedIndicator": true,
+                "description": "Awesome talent"
+            }
+        ],
+        "attachments": [
+            {
+                "attachmentType": "Sales Assessment",
+                "fileUpload": {
+                    "fileName": "fredsales.cv",
+                    "data": "kiuhy876huiytf6534df8o6hpuyf746fi8",
+                    "via": "device"
+                }
+            }
+        ]
+    }
+}
+

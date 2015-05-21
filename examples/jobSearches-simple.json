@@ -20,5 +20,6 @@
         }
     },
     "filter": "status eq 'active' and code eq 'ADH1333' and id gt 10",
-    "orderby": "id asc" 
+    "orderby": "id asc",
+    "top": 20
 }

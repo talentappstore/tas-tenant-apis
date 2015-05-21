@@ -44,6 +44,10 @@
         "orderby": {
             "type": "string",
             "description": "OData-style orderby string: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
+        },
+        "top": {
+            "type": "integer",
+            "description": "OData-style top value: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
         }
     },
     "additionalProperties": false,

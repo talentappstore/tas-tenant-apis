@@ -900,7 +900,7 @@ traits: !include traits.yml
   /{id}:
     /ticket:
       get:
-        description: Get a ticket for any engagement given its id. Effectively provides full access to any engagement.
+        description: Get a ticket for any engagement given its id. Powerful - effectively provides full access to any engagement.
   /byVendor:
     /{CT}:
       /{CAD}:
@@ -915,65 +915,99 @@ traits: !include traits.yml
     post:
       securedBy: [oauth_2_0]
       description: |
-        Alert an engagement app in real time that a new engagement has been requested. The request includes a ticket
-        stamped with the producer's details that they can use to examine the engagement (unless the ping is for a delete).
+        Alert an engagement app in real time that a new engagement has been requested. The consumer should only consume this on
+        the engagement vendor who owns the engagement.
+        The request includes a ticket stamped with the producer's details that they can use to access the engagement (unless the ping is for a delete).
 
         Produced as non-SoT.
   /viaTicket:
     /{ticket}:
-      /request:
+      /order:
         get:
           securedBy: [oauth_2_0]
-          description: Get details of the request portion of an engagement
+          description: Get details of the order of an engagement
           body:
             application/json:
-              example: !include ../examples/engagementRequest-simple.json
-      /response:
+              example: !include ../examples/engagementOrder-simple.json
+      /report:
         get:
         
         post:
           securedBy: [oauth_2_0]
-          description: Create or update the response to a engagement request
+          description:
+            Create or update the report for an engagement order
+            Notes on merging
           body:
             application/json:
-              example: !include ../examples/engagementResponse-simple.json
+              example: !include ../examples/engagementReportWrite-simple.json
       /inRowImageUri:
         get:
           securedBy: [oauth_2_0]
           description: |
-            Get the uri for (unauthenticated - used by ajax) a fixed size image denoting the status of
+            Get an unguessable uri for (unauthenticated - used by ajax) a fixed size image denoting the status of
             this engagement, suitable for embedding into a table cell or list item. The uri should expire
-            within 24 hours. If the engagement contains structured assessment data then the image may be overlaid
-            with additional graphics denoting the status (e.g. "Complete")   
+            within 24 hours. The image may be overlaid with additional graphics denoting the status (e.g. "Complete")   
       /cardUri:
         get:
           securedBy: [oauth_2_0]
           description: |
-            Get the uri for (unauthenticated - used by ajax) the html for a responsive card denoting
+            Get an unguessable uri for (unauthenticated - used by ajax) the html for a responsive card denoting
             the status of this engagement, suitable for stacking underneath other similar cards on a variable
-            width web page. The uri should expire within 5 minutes.  
-      /engagementType:
-        /ticket:
-          get:
-            securedBy: [oauth_2_0]
-            description: |
-              Get a ticket for the engagement type for this engagement (engagement type ID + this consumer, signed by the producer).
+            width web page. The uri should expire within 24 hours.  
+      /deployedEngagementType:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get id of the deployed engagement type for this engagement
 
-/engagementTypes:
+
+/deployedEngagementTypes:
   get:
     securedBy: [oauth_2_0]
-    description: Get details of all of the engagement types available to the tenant
-    body:
-      application/json:
-        example: !include ../examples/engagementTypes-simple.json
-  /viaTicket:
-    /{ticket}:
+    description: |
+      Get details of all of the deployedEngagement types for the tenant, partitioned by vendor.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/deployedEngagementTypes.json
+            example: !include ../examples/deployedEngagementTypes-simple.json
+            
+  /{id}:
+    get:
+      securedBy: [oauth_2_0]
       description: |
-        These APIs are all protected by ticket, i.e. the ticket must be valida and for the API consumer. That stops
-        apps from probing engagement types they should not see.
-      get:
-        description: |
-          Get the tenant-facing details of the given engagement type
+        Get details of all of a specific deployedEngagement type
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/deployedEngagementType.json
+              example: !include ../examples/deployedEngagementType-simple.json
+  /byVendor:
+    /{CT}:
+      /{CAD}:
+        /{CA}:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get details of all of the deployed engagement types for the vendor (the consumer)
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/deployedEngagementTypes.json
+                    example: !include ../examples/deployedEngagementTypes-simple.json
+          /{id}:
+            get:
+              securedBy: [oauth_2_0]
+              description: |
+                Get details of all of a specific deployedEngagement type
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/deployedEngagementType.json
+                      example: !include ../examples/deployedEngagementType-simple.json
 
 
 /schemaFragments:

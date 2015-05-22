@@ -7,14 +7,17 @@
     {
         "id": 50200,
         "name": "Information Technology",
+        "avaliable": true,
         "values": [
             {
                 "id": 50240,
                 "name": "Engineering",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 50246,
-                        "name": "Software"
+                        "name": "Software",
+                        "avaliable": true
                     }
                 ]
             }

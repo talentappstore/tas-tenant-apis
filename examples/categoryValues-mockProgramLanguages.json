@@ -2,10 +2,12 @@
     {
         "id": 70034,
         "name": "Java",
+        "avaliable": true,
         "values": [
             {
                 "id": 73504,
                 "name": "Javascript",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 75442,
@@ -14,7 +16,8 @@
                     },
                     {
                         "id": 74823,
-                        "name": "Wicket"
+                        "name": "Wicket",
+                        "avaliable": true
                     }
                 ]
             }
@@ -23,24 +26,29 @@
     {
         "id": 70032,
         "name": ".NET",
+        "avaliable": true,
         "values": [
             {
                 "id": 70036,
                 "name": "C#",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 70037,
-                        "name": "ASP MVC"
+                        "name": "ASP MVC",
+                        "avaliable": true
                     }
                 ]
             },
             {
                 "id": 75521,
                 "name": "Visual Basic",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 75482,
-                        "name": "Winform`"
+                        "name": "Winforms",
+                        "avaliable": true
                     }
                 ]
             }

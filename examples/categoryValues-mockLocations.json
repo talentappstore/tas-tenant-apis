@@ -2,10 +2,12 @@
     {
         "id": 10034,
         "name": "Wellington",
+        "avaliable": true,
         "values": [
             {
                 "id": 23504,
                 "name": "Hutt Valley",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 35442,
@@ -14,7 +16,8 @@
                     },
                     {
                         "id": 34823,
-                        "name": "Upper Hutt"
+                        "name": "Upper Hutt",
+                        "avaliable": true
                     }
                 ]
             }
@@ -23,24 +26,29 @@
     {
         "id": 10032,
         "name": "Auckland",
+        "avaliable": true,
         "values": [
             {
                 "id": 10036,
                 "name": "North Shore",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 10037,
-                        "name": "Takapuna"
+                        "name": "Takapuna",
+                        "avaliable": true
                     }
                 ]
             },
             {
                 "id": 95521,
                 "name": "Manukau",
+                "avaliable": true,
                 "values": [
                     {
                         "id": 65482,
-                        "name": "Flatbush"
+                        "name": "Flatbush",
+                        "avaliable": true
                     }
                 ]
             }

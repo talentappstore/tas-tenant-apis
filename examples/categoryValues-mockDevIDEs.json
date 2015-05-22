@@ -2,10 +2,12 @@
     {
         "id": 60034,
         "name": "Web IDE",
+        "available": true,
         "values": [
             {
                 "id": 63504,
                 "name": "Eclipse EE",
+                "available": true,
                 "values": [
                     {
                         "id": 65442,
@@ -14,7 +16,8 @@
                     },
                     {
                         "id": 64823,
-                        "name": "Google Web Toolkit"
+                        "name": "Google Web Toolkit",
+                        "available": true
                     }
                 ]
             }
@@ -23,24 +26,29 @@
     {
         "id": 60032,
         "name": "Desktop IDE",
+        "available": true,
         "values": [
             {
                 "id": 60036,
                 "name": "Visual Studio",
+                "available": true,
                 "values": [
                     {
                         "id": 60037,
-                        "name": "Nunit"
+                        "name": "Nunit",
+                        "available": true
                     }
                 ]
             },
             {
                 "id": 65521,
                 "name": "NetBeans",
+                "available": true,
                 "values": [
                     {
                         "id": 65482,
-                        "name": "JMonkeyEngine"
+                        "name": "JMonkeyEngine",
+                        "available": true
                     }
                 ]
             }

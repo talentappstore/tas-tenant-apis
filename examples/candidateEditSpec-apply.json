@@ -120,6 +120,7 @@
                         "letters": {
                             "type": "integer",
                             "title": "Letters",
+                            "access": "eeo",
                             "description": "How many letters are in this sentence?",
                             "minimum": 0,
                             "maximum": 20

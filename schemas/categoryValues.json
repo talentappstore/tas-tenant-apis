@@ -26,6 +26,7 @@
             "additionalProperties": false,
             "required": [
                 "id",
+                "available",
                 "name"
             ]
         }

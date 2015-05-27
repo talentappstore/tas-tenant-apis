@@ -7,14 +7,17 @@
     {
         "id": 10032,
         "name": "Auckland",
+        "available": true,
         "values": [
             {
                 "id": 10036,
                 "name": "North Shore",
+		        "available": true,
                 "values": [
                     {
                         "id": 10037,
-                        "name": "Takapuna"
+                        "name": "Takapuna",
+				        "available": true
                     }
                 ]
             }

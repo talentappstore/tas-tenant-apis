@@ -101,11 +101,33 @@
                             "access": "eeo",
                             "title": "Favorite color",
                             "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-                            "default": "blue"
+                            "default": "blue",
+                            "minLength": 1
                         }
                     },
                     "required": [
                         "favoriteColor"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            {
+                "job": 356347,
+                "itemsRule": {
+                    "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+                    "type": "object",
+                    "properties": {
+                        "letters": {
+                            "type": "integer",
+                            "title": "Letters",
+                            "access": "eeo",
+                            "description": "How many letters are in this sentence?",
+                            "minimum": 0,
+                            "maximum": 20
+                        }
+                    },
+                    "required": [
+                        "letters"    
                     ],
                     "additionalProperties": false
                 }

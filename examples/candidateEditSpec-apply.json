@@ -103,20 +103,7 @@
                             "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
                             "default": "blue",
                             "minLength": 1
-                        }
-                    },
-                    "required": [
-                        "favoriteColor"
-                    ],
-                    "additionalProperties": false
-                }
-            },
-            {
-                "job": 356347,
-                "itemsRule": {
-                    "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-                    "type": "object",
-                    "properties": {
+                        },
                         "letters": {
                             "type": "integer",
                             "title": "Letters",
@@ -127,7 +114,8 @@
                         }
                     },
                     "required": [
-                        "letters"    
+                        "favoriteColor",
+                        "letters"
                     ],
                     "additionalProperties": false
                 }

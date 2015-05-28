@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Engagement APIs</title>
+</head>
+<body>
+
+
+<h1>Table of contents</h1>
+
+<div id="toc"></div>
+
+
+<h1>Overview</h1>
+
+<p>The engagement APIs allow a tenant to use a third party (an engagement vendor) to perform some
+kind of engagement action on a candidate or a job application, where that interaction results in data
+that helps predict the candidate's suitability for employment.
+</p>
+
+<p>An engagement might be anywhere along the scale from attract to hire, and might or might not involve
+the candidate themselves, for example:
+<ul>
+<li>undertaking a skills assessment
+<li>carrying out reference checks
+<li>cultural/fit analysis
+<li>carrying out medical checks or drug tests
+<li>gamification interaction
+<li>probity check
+<li>HR-XML style assessment 
+</ul>
+</p>
+
+<p>The API design is informed by the work of the HR-XML consortium, but is also suitable for very lightweight
+engagements.
+</p>
+ 
+<p>The engagement  vendor delivers their engagement functionality as an app (an engagement app) that the
+tenant can install.
+</p>
+
+<h2>Engagement types</h2>
+
+<p>The tenant requests an engagement by selecting one of the engagement types that the vendor offers.
+</p>
+
+<p>Some engagement vendors may provide highly customised
+engagement types, tailored to each individual customer's needs (e.g., "Acme finance graduate assessment"),
+others just a single, generally applicable screen (e.g. "MS Word proficiency").
+</p>
+
+<p>The engagement app may update/complete the engagement through APIs, or an app is provided that lets zero-code vendors
+update the engagement via screens.
+</p>
+
+ 
+<h1>Supporting apps</h1>
+
+<h2>Engagement hub app</h2>
+
+<p>As well as a engagement app, the tenant must also install a single "engagement hub" app, which provides centralized engagement
+management, and is separate from any single engagement app.
+</p>
+
+<p>The engagement hub app:
+<ul>
+<li>stores details of all engagement, including status, summary and detailed results
+(including scores), links and actual attachments
+<li>stores details of all of the tenant's installed engagement
+apps - for example, the "Microsoft Office proficiency assessment app"
+<li>stores a tenant-specific list of engagement types within each engagement
+app - for example "MS Word proficiency - entry level", "MS Excel proficiency - guru"
+<li>allows the tenant to overwrite the title on each engagement type (for example, to rename
+"MS Excel proficiency - guru" to "Excel expert"
+<li>allows the tenant to specify a view against each engagement type - e.g. to make available the candidate's
+completed "FSA disclosure" document when a "Finance team probity check" is performed. 
+<li>can optionally copy down the set of default engagement types whenever a new tenant
+installs the engagement app (useful for engagement apps that have fixed, generally
+applicable purpose/volume engagement types; and/or
+<li>provides APIs so the engagement vendor can manage engagement types directly
+for any given tenant (useful when the tenant has a customised set of engagement types)
+<li>stores the completed engagements
+<li>securely mediates engagement app access to views of information about the
+candidate/application, and prevents engagement apps from probing candidates they
+are not authorized to access
+<li>detects and securely tracks changes in view data (e.g. in the ATS, an additional
+document is uploaded against the candidate while the engagement is in progress)
+<li>prevents engagements being ordered when an existing report is available within the expiry time 
+</ul>
+
+<h2>Engagement vendor app</h2>
+
+<p>A developer who is an engagement vendor must maintain a tenant of their own, and must
+install the engagement vendor app. Covered more in detail below.
+</p>
+
+<h2>Engagement vendor UI app</h2>
+
+<p>An engagement vendor will also usually install the engagementvendorui app which provides UI to:
+<ul>
+<li>View engagement apps 
+<li>View tenants that have installed each app
+<li>Manually manage engagement types for each install
+<li>Manually complete a engagement (for engagement vendors with no technology of their own - others
+will complete engagements in their own platform and use APIs to post the results to the engagement hub)
+</ul>
+</p>
+
+<p>In theory an engagement vendor can accomplish all of the above through APIs so the engagement
+vendor app is optional.
+</p>
+
+
+<h1>Differences from HR-XML</h1>
+
+<p>The HR-XML ScreeningResultTypeCode is not currently supported, as some of its possible values 
+('Result'|'SummaryResult'|'Error'|'Message'|'Status'|'ManagementReport'|'MultipleResults') clash
+with ScreeningStatusCode values (e.g. Error), or are not suited to microservices (e.g. MultipleResults).
+</p>
+
+<p>The ScreeningResultCode is not currently supported, as some of its possible values
+('Pass'|'Fail'|'Review'|'RecordFound'|'NoRecordFound'|'Clear'|'UnableToContact'|
+'UnableToFulfill'|'UnableToVerify'|'Positive'|'Negative') are ambiguous (HR-XML notes that
+*this set of codes usually would need to be interpretated based on the type of screening and pre-existing understanding
+between service provider and customer on criteria governing the application of the codes*), e.g. Pass vs Positive.
+</p>
+
+<h1>Scenarios</h1>
+
+<h2>Tenant (customer) installs the app</h2>
+
+<h3>Flow</h3>
+
+<div class='seqDiag' id="installing">
+participant TAS
+participant ats
+participant hub
+participant engagementapp
+note right of TAS: new customer (tenant)\nclicks install on the app
+TAS->engagementapp: POST /tenants/{}
+TAS->engagementapp: POST /tenants/{}/preStarts
+TAS->engagementapp: POST /tenants/{}/starts
+note left of engagementapp: vendors sets up per-customer\nengagement types
+engagementapp->hub: POST /deployedEngagementTypes
+</div>
+
+
+<h2>Scenario - tenant orders an engagement</h2>
+
+<h3>Overview</h3>
+
+<p>In this scenario:
+<ol>
+<li>candidate visits the tenant's corporate careers site and registers interest in working in a call center position
+<li>a recruiter manually or automatically tags them to have a testly engagement performed
+</ol>
+</p>
+
+<h3>Flow</h3>
+
+<div class='seqDiag' id="ordering">
+participant TAS
+participant ats
+participant hub
+participant engagementapp
+note right of ats: tenant orders an engagement
+ats->hub: GET /deployedEngagementTypes
+ats->hub: POST /deployedEngagementTypes/{}/engagements
+note left of engagementapp: vendor is informed of the order
+hub->engagementapp: POST /engagements/viaTicket/{}/deltaPings
+engagementapp->hub: GET /engagements/viaTicket/{}/order
+note left of engagementapp: vendor provides report
+engagementapp->hub: POST /engagements/viaTicket/{}/report
+note left of hub: ats is informed of the report, and makes\nit available to the end user
+hub->ats: POST /engagements/{}/report/deltaPings
+ats->hub: GET /engagements/{}/ticket
+ats->hub: GET /engagements/viaTicket/{}/report
+ats->hub: GET /engagements/viaTicket/{}/inRowImageUri
+ats->hub: GET /engagements/viaTicket/{}/cardUri
+</div>
+
+<h3>Details</h3>
+
+<p>Candidate applies for a job and appears in the ATS (jobly).
+</p>
+
+<p>The recruiter clicks an ATS menu item to "start an engagement".
+</p>
+
+<h4>ATS user gets the list of possible engagement types</h4>
+
+<p>The ATS (jobly) asks the engagement hub app for the list of available engagement types, as served up by the sum
+of the installed engagement apps.
+
+<div class='codeBlock'>
+GET /deployedEngagementTypes
+
+Response:
+<div class='clientInclude' data-href='../examples/engagementTypes-simple.json'></div>
+</div>
+</p>
+
+<p>A more sophisticated ATS might:
+<ul>
+<li>filter this list, to only present certain engagement apps/ screen types for certain jobs, according to some
+mappings held by the ATS, e.g. only call center candidates are asked to undertake this assessment.
+</ul>
+
+<h4>Request an engagement</h4>
+
+<p>The ATS user chooses an engagement type and hits "go".
+</p>
+
+<p>The ATS determines the candidate (or job application) that the engagement is for - in this case candidate 20887342.
+</p>
+    
+The ATS calls:
+
+<div class='codeBlock'>
+POST /engagements/{engagementType}
+</div>
+</p>
+
+
+<h2>Admin person sets up candidate view</h2>
+
+<p>Views are an ordered set of fields and attachments related to a candidate that will be pulled together
+for some purpose, e.g. being sent across to a third party who will be reference checking the candidate.
+</p>
+
+<p>In this case, the view specifies what the person/machine performing the screen will see.</p>
+
+<h2>Engagement vendor uses UI to respond to an order</h2>
+
+
+<h1>ATS integration</h1>
+
+<p>The ATS may decide to do any of the following:
+<ul>
+<li>automatic firing
+<li>manual firing
+<li>on response
+   <ul>
+   <li>waiting
+   <li>moving to a new bucket
+   </ul>
+<li>showing results summary in a table cell   
+<li>reusing existing results
+<li>cancelling when declined
+</ul>
+</p>
+
+<h1>Engagementvendorui screens</h1>
+
+<p>Within their own tenant, the engagement vendor has installed the app "engagementvendorui".</p>
+
+<p>They can use this to see how many engagements they are currently working on, and for which tenants.</p>
+
+
+<div class='codeBlock'>
++----------+
+| Tenants  |
+.          +-------------
+
+Tenant   In progress   Completed
+------   -----------   ---------
+acme     _12_          1023
+asb      -             33
+airnz    _8_           83
+</div>
+
+
+<div class='codeBlock'>
++-----------------------+
+| In progress screens   |
+.                       +---------------------
+
+Name                    Date started   Date completed
+----                    ------------   --------------
+_Johnson Turkeyvo_      14 Oct 2014
+_Sally Smart_           17 Oct 2014
+_Xi Tung_               2 Nov 2014
+</div>
+
+
+
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

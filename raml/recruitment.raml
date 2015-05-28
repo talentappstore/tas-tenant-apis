@@ -516,6 +516,8 @@ traits: !include traits.yml
       post:
         description: |
           Order an engagement for the given deployed engagement type.
+          
+          The response includes the id of the newly created engagement.
   /byVendor:
     /{CT}:
       /{CAD}:
@@ -598,17 +600,16 @@ traits: !include traits.yml
               The response is an array of tickets (engagement IDs + this consumer, signed by
               the producer).
               TODO - searchable, including by candidate [HOW? when only storing application on the engagement?], orderable, paging, filterable by status (complete etc.)
-  /deltaPings:
-    post:
-      securedBy: [oauth_2_0]
-      description: |
-        Alert an engagement app in real time that a new engagement has been requested. The consumer should only consume this on
-        the engagement vendor who owns the engagement.
-        The request includes a ticket stamped with the producer's details that they can use to access the engagement (unless the ping is for a delete).
-
-        Produced as non-SoT.
   /viaTicket:
     /{ticket}:
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Alert an engagement app in real time that a new engagement has been requested. The consumer should only consume this on
+            the engagement vendor who owns the engagement.
+
+            Produced as non-SoT.
       /order:
         get:
           securedBy: [oauth_2_0]

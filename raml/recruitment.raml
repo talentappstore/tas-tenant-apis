@@ -515,9 +515,19 @@ traits: !include traits.yml
     /engagements:
       post:
         description: |
-          Order an engagement for the given deployed engagement type.
+          Order an engagement for the given deployed engagement type. The engagement starts in the New state.
           
           The response includes the id of the newly created engagement.
+        body:
+          application/json:
+            schema: !include ../schemas/engagementCreate.json
+            example: !include ../examples/engagementCreate-simple.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/engagementRead.json
+                example: !include ../examples/engagementRead-created.json
   /byVendor:
     /{CT}:
       /{CAD}:
@@ -581,7 +591,6 @@ traits: !include traits.yml
                   schema: !include ../schemas/candidateEditSpec.json
                   example: !include ../examples/candidateEditSpec-apply.json
 
-
 /engagements:
   post:
     description: |
@@ -602,6 +611,28 @@ traits: !include traits.yml
               TODO - searchable, including by candidate [HOW? when only storing application on the engagement?], orderable, paging, filterable by status (complete etc.)
   /viaTicket:
     /{ticket}:
+      post:
+        description: |
+          Update the engagement's details, including its status (from the customer's perspective).
+          
+          The response includes the id of the newly created engagement.
+        body:
+          application/json:
+            schema: !include ../schemas/engagementWrite.json
+            example: !include ../examples/engagementWrite-OnHold.json
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/engagementRead.json
+                example: !include ../examples/engagementRead-created.json
+      get:
+        securedBy: [oauth_2_0]
+        description: Get details of the order of an engagement
+        body:
+          application/json:
+            schema: !include ../schemas/engagementRead.json
+            example: !include ../examples/engagementRead-created.json
       /deltaPings:
         post:
           securedBy: [oauth_2_0]
@@ -610,16 +641,7 @@ traits: !include traits.yml
             the engagement vendor who owns the engagement.
 
             Produced as non-SoT.
-      /order:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get details of the order of an engagement
-          body:
-            application/json:
-              example: !include ../examples/engagementOrder-simple.json
       /report:
-        get:
-        
         post:
           securedBy: [oauth_2_0]
           description:
@@ -627,7 +649,22 @@ traits: !include traits.yml
             Notes on merging
           body:
             application/json:
+              schema: !include ../schemas/engagementReportWrite.json
               example: !include ../examples/engagementReportWrite-simple.json
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/engagementReportRead.json
+                  example: !include ../examples/engagementReportRead-simple.json
+        get:
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/engagementReportRead.json
+                  example: !include ../examples/engagementReportRead-simple.json
+              
       /inRowImageUri:
         get:
           securedBy: [oauth_2_0]

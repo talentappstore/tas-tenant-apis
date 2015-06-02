@@ -1,0 +1,140 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "status": {
+            "description": "Contains information about the current disposition of an engagement - leading part is status - trailing part if present maps to AssessmentStatus or ScreeningStatus in HR-XML",
+            "enum": [
+                "New",
+                "In progress",
+                "Complete",
+                "Cancelled",
+                "Expired",
+                "Review required",
+                "Error",
+                "On hold",
+                "In progress:Assessment - OrderAcknowledged",
+                "In progress:Assessment - TestPendingScheduling",
+                "In progress:Assessment - TestScheduled",
+                "In progress:Assessment - CompletedTestPendingScoring",
+                "In progress:Assessment - ScoredTestPendingReview",
+                "In progress:Assessment - SubjectDeclinedTest",
+                "Complete:Assessment - OrderComplete",
+                "In progress:Assessment - OrderInProgress",
+                "Expired:Assessment - OrderExpired",
+                "Review required:Assessment - OrderReviewRequired",
+                "In progress:Assessment - Deferred",
+                "Error:Assessment - Error",
+                "In progress:Screening - New",
+                "In progress:Screening - InProgress",
+                "Complete:Screening - Closed",
+                "Complete:Screening - Complete",
+                "Complete:Screening - Fulfilled",
+                "In progress:Screening - Delayed",
+                "Error:Screening - Error",
+                "In progress:Screening - Adjudicated",
+                "In progress:Screening - Disputed"
+            ]
+        },
+        "customerStatus": {
+            "description": "That subset of statuses that the customer can apply to an engagement",
+            "enum": [
+                "Cancelled",
+                "On hold"
+            ]
+        },
+        "vendorStatus": {
+            "description": "That subset of statuses that the vendor can apply to an engagement",
+            "enum": [
+                "In progress",
+                "Complete",
+                "Review required",
+                "Error",
+                "In progress:Assessment - OrderAcknowledged",
+                "In progress:Assessment - TestPendingScheduling",
+                "In progress:Assessment - TestScheduled",
+                "In progress:Assessment - CompletedTestPendingScoring",
+                "In progress:Assessment - ScoredTestPendingReview",
+                "In progress:Assessment - SubjectDeclinedTest",
+                "Complete:Assessment - OrderComplete",
+                "In progress:Assessment - OrderInProgress",
+                "Review required:Assessment - OrderReviewRequired",
+                "In progress:Assessment - Deferred",
+                "Error:Assessment - Error",
+                "In progress:Screening - New",
+                "In progress:Screening - InProgress",
+                "Complete:Screening - Closed",
+                "Complete:Screening - Complete",
+                "Complete:Screening - Fulfilled",
+                "In progress:Screening - Delayed",
+                "Error:Screening - Error",
+                "In progress:Screening - Adjudicated",
+                "In progress:Screening - Disputed"
+            ]
+        },
+        "vendor": {
+            "properties": {
+                "deployedEngagementType": {
+                    "type": "integer"
+                },
+                "ct": {
+                    "type": "string"
+                },
+                "cad": {
+                    "type": "string"
+                },
+                "ca": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "deployedEngagementType",
+                "ct",
+                "cad",
+                "ca"
+            ]
+        },
+        "subject": {
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "jobTitle": {
+                    "type": "string"
+                },
+                "jobRef": {
+                    "type": "string"
+                },
+                "candidate": {
+                    "type": "integer"
+                },
+                "application": {
+                    "type": "integer"
+                }
+            },
+            "additionalProperties": false,
+            "required": []
+        }
+    },
+    "type": "object",
+    "properties": {
+        "status": {
+            "$ref": "#/definitions/customerStatus"
+        },
+        "vendor": {
+            "$ref": "#/definitions/vendor"
+        },
+        "subject": {
+            "$ref": "#/definitions/subject"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+    ]
+}

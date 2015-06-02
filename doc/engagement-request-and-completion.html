@@ -42,6 +42,10 @@ kind of engagement action on a candidate or a job application, where that intera
 that helps predict the candidate's suitability for employment.
 </p>
 
+<p>The API design is informed by the work of the HR-XML consortium, but is also suitable for very lightweight
+engagements.
+</p>
+ 
 <p>An engagement might be anywhere along the scale from attract to hire, and might or might not involve
 the candidate themselves, for example:
 <ul>
@@ -55,44 +59,69 @@ the candidate themselves, for example:
 </ul>
 </p>
 
-<p>The API design is informed by the work of the HR-XML consortium, but is also suitable for very lightweight
-engagements.
+<h1>Apps</h1>
+
+<p>The diagram below shows the tenants and apps involved.
 </p>
- 
+
+<p>The engagement vendor requires their own tenant.
+</p>
+
+<b><div class='codeBlock'>
+
+           +-----+         +----------------+
+           | ats |<------->| engagement app |-+
+           +-----+         +----------------+ |-+
+             /\              +----------------+ |
+              |                +----------------+
+              |                  /\
+              |                   |
+              |                   |
+             \/                  \/
+           +--------------------------+
+           |     engagement hub       |
+           +--------------------------+
+                        /\
+                         .
+customer                 .  (communication via shared database)
+tenant                   .
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~~ ~ ~ ~ ~ ~ ~ ~~ ~ ~ ~ ~ ~ ~ ~
+vendor                   .
+tenant                   . 
+                        \/
+           +--------------------------+    +-----------------+
+           |  engagement vendor app   |<-->|  vendor ui app  |
+           +--------------------------+    +-----------------+
+           
+</div>
+</b>
+
+<h2>Engagement app(s)</h2>
+
 <p>The engagement  vendor delivers their engagement functionality as an app (an engagement app) that the
 tenant can install.
 </p>
 
-<h2>Engagement types</h2>
-
-<p>The tenant requests an engagement by selecting one of the engagement types that the vendor offers.
-</p>
-
-<p>Some engagement vendors may provide highly customised
-engagement types, tailored to each individual customer's needs (e.g., "Acme finance graduate assessment"),
-others just a single, generally applicable screen (e.g. "MS Word proficiency").
-</p>
-
-<p>The engagement app may update/complete the engagement through APIs, or an app is provided that lets zero-code vendors
-update the engagement via screens.
-</p>
-
- 
-<h1>Supporting apps</h1>
-
 <h2>Engagement hub app</h2>
 
-<p>As well as a engagement app, the tenant must also install a single "engagement hub" app, which provides centralized engagement
-management, and is separate from any single engagement app.
+<p>As well as the engagement apps they want, the tenant must also install a single "engagement hub"
+app.
+</p>
+
+<p>The engagement hub provides centralized engagement
+management and is separate from any single engagement app.
+</p>
+
+<p>It is tightly coupled (via shared database) to the engagement vendor app.
 </p>
 
 <p>The engagement hub app:
 <ul>
 <li>stores details of all engagement, including status, summary and detailed results
-(including scores), links and actual attachments
-<li>stores details of all of the tenant's installed engagement
+(including scores), links and actual attachments (documents)
+<li>stores the tenant's installed engagement
 apps - for example, the "Microsoft Office proficiency assessment app"
-<li>stores a tenant-specific list of engagement types within each engagement
+<li>stores a tenant-specific list of deployed engagement types within each engagement
 app - for example "MS Word proficiency - entry level", "MS Excel proficiency - guru"
 <li>allows the tenant to overwrite the title on each engagement type (for example, to rename
 "MS Excel proficiency - guru" to "Excel expert"
@@ -135,8 +164,32 @@ vendor app is optional.
 </p>
 
 
-<h1>Differences from HR-XML</h1>
+<h1>API design notes</h1>
 
+<h2>Engagement types</h2>
+
+<p>To avoid an unweildly proliferation of engagement apps, the engagement APIs support the concept of
+an engagement type.
+</p>
+ 
+<p>The first step in the customer requesting an engagement is to select one of the engagement types that the engagement app offers.
+</p>
+
+<p>Some engagement apps may provide highly customised
+engagement types, tailored to each individual customer's needs (e.g., "Acme finance graduate assessment"),
+others just a single, generally applicable screen (e.g. "MS Word proficiency").
+</p>
+
+<p>The engagement app may update/complete the engagement through APIs, or an app is provided that lets zero-code vendors
+update the engagement via screens.
+</p>
+
+
+<h2>Differences from HR-XML</h2>
+
+<p>The design of the engagement APIs is informed by HR-XML but does not follow it slavishly.
+</p>
+ 
 <p>The HR-XML ScreeningResultTypeCode is not currently supported, as some of its possible values 
 ('Result'|'SummaryResult'|'Error'|'Message'|'Status'|'ManagementReport'|'MultipleResults') clash
 with ScreeningStatusCode values (e.g. Error), or are not suited to microservices (e.g. MultipleResults).
@@ -151,9 +204,8 @@ between service provider and customer on criteria governing the application of t
 
 <h1>Scenarios</h1>
 
-<h2>Tenant (customer) installs the app</h2>
+<h2>Customer installs an engagement app</h2>
 
-<h3>Flow</h3>
 
 <div class='seqDiag' id="installing">
 participant TAS
@@ -169,33 +221,52 @@ engagementapp->hub: POST /deployedEngagementTypes
 </div>
 
 
-<h2>Scenario - tenant orders an engagement</h2>
-
-<h3>Overview</h3>
+<h2>Customer orders an engagement</h2>
 
 <p>In this scenario:
 <ol>
 <li>candidate visits the tenant's corporate careers site and registers interest in working in a call center position
-<li>a recruiter manually or automatically tags them to have a testly engagement performed
+<li>as soon as their job application is complete, the ats automatically orders a testly engagement
+<li>candidate is shown a link to complete their part
+<li>once complete, testly performs their own part by reviewing the candidate's details (CV, etc.)
+<li>finally testly pushes the results back
 </ol>
 </p>
 
-<h3>Flow</h3>
 
 <div class='seqDiag' id="ordering">
 participant TAS
 participant ats
 participant hub
 participant engagementapp
-note right of ats: tenant orders an engagement
+note right of ats: customer gets list of\navailable engagement types
 ats->hub: GET /deployedEngagementTypes
-ats->hub: POST /deployedEngagementTypes/{}/engagements
+note right of ats: customer orders an engagement
+ats-->hub: POST /deployedEngagementTypes/{}/engagements
 note left of engagementapp: vendor is informed of the order
-hub->engagementapp: POST /engagements/viaTicket/{}/deltaPings
+hub-->engagementapp: POST /engagements/viaTicket/{}/deltaPings
+note left of engagementapp: engagement app requests more\ndetails about the order
 engagementapp->hub: GET /engagements/viaTicket/{}/order
+note left of engagementapp: this is a candidate-completed assessment,\nso engagement app pushes a follow on uri\nonto the engagement.\nThis does NOT cause a ping loop.
+engagementapp->hub: POST /engagements/viaTicket/{}/followOnDetail
+note left of engagementapp: ping processing complete, return
+hub->engagementapp: POST /engagements/viaTicket/{}/deltaPings
+note right of ats: POST processing complete, return
+ats->hub: POST /deployedEngagementTypes/{}/engagements
+note right of ats: ats asks if a follow on uri was provided
+ats->hub: GET /engagements/{}/ticket
+ats->hub: GET /engagements/viaTicket/{}/followOnDetail
+note right of ats: ats displays follow on message to candidate,\nredirects their browser
+note left of engagementapp: .. time passes ..
+note left of engagementapp: candidate has completed their part, now\nthe second part begins
+note left of engagementapp: engagement app requests the view\n(candidate information)
+engagementapp-->hub: GET /engagements/viaTicket/{}/latestView
+note left of hub: hub fetches the view content, checks\nif it has changed since last time
+hub->ats: GET /views/{}
+note left of engagementapp: .. time passes ..
 note left of engagementapp: vendor provides report
 engagementapp->hub: POST /engagements/viaTicket/{}/report
-note left of hub: ats is informed of the report, and makes\nit available to the end user
+note left of hub: ats is informed of the report,\nand makes it available to the end user
 hub->ats: POST /engagements/{}/report/deltaPings
 ats->hub: GET /engagements/{}/ticket
 ats->hub: GET /engagements/viaTicket/{}/report
@@ -203,7 +274,7 @@ ats->hub: GET /engagements/viaTicket/{}/inRowImageUri
 ats->hub: GET /engagements/viaTicket/{}/cardUri
 </div>
 
-<h3>Details</h3>
+<h3>In detail</h3>
 
 <p>Candidate applies for a job and appears in the ATS (jobly).
 </p>
@@ -230,7 +301,7 @@ Response:
 mappings held by the ATS, e.g. only call center candidates are asked to undertake this assessment.
 </ul>
 
-<h4>Request an engagement</h4>
+<h4>Order an engagement</h4>
 
 <p>The ATS user chooses an engagement type and hits "go".
 </p>
@@ -255,6 +326,8 @@ for some purpose, e.g. being sent across to a third party who will be reference 
 <p>In this case, the view specifies what the person/machine performing the screen will see.</p>
 
 <h2>Engagement vendor uses UI to respond to an order</h2>
+
+
 
 
 <h1>ATS integration</h1>

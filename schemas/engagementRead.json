@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "status": {
+            "$ref": "engagementWrite.json#/definitions/status"
+        },
+        "vendor": {
+            "$ref": "engagementWrite.json#/definitions/vendor"
+        },
+        "subject": {
+            "$ref": "engagementWrite.json#/definitions/subject"
+        },
+        "id": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "id", "vendor", "subject", "status"
+    ]
+}

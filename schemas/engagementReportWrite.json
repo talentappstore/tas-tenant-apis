@@ -46,12 +46,12 @@
     "type": "object",
     "properties": {
         "status": {
-            "$ref": "engagementReportRead.json#/definitions/status"
+            "$ref": "engagementWrite.json#/definitions/vendorStatus"
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"
         }
     },
     "additionalProperties": false,
-    "required": []
+    "required": [ "status" ]
 }

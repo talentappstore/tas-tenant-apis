@@ -1,42 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "status": {
-            "description": "Contains information about the current disposition of an engagement - leading part is status - trailing part if present maps to AssessmentStatus or ScreeningStatus in HR-XML",
-            "enum": [
-                "In progress",
-                "Complete",
-                "Cancelled",
-                "Expired",
-                "Review required",
-                "Error",
-				"On hold",
-                "In progress:Assessment - OrderAcknowledged",
-                "In progress:Assessment - TestPendingScheduling",
-                "In progress:Assessment - TestScheduled",
-                "In progress:Assessment - CompletedTestPendingScoring",
-                "In progress:Assessment - ScoredTestPendingReview",
-                "In progress:Assessment - SubjectDeclinedTest",
-                "Complete:Assessment - OrderComplete",
-                "In progress:Assessment - OrderInProgress",
-                "Cancelled:Assessment - OrderCancelled",
-                "Expired:Assessment - OrderExpired",
-                "Review required:Assessment - OrderReviewRequired",
-                "In progress:Assessment - Deferred",
-                "Error:Assessment - Error",
-                "In progress:Screening - New",
-                "In progress:Screening - InProgress",
-                "Cancelled:Screening - Cancelled",
-                "Complete:Screening - Closed",
-                "Complete:Screening - Complete",
-				"Complete:Screening - Fulfilled",
-				"In progress:Screening - Delayed",
-				"On hold:Screening - OnHold",
-				"Error:Screening - Error",
-				"In progress:Screening - Adjudicated",
-				"In progress:Screening - Disputed"
-            ]
-        },
         "accessPoint": {
             "type": "object",
             "description": "details of a way to access the results of the engagement",
@@ -147,10 +111,7 @@
                 },
                 "passedIndicator": {
                     "type": "boolean",
-                    "description": "An indicator as to whether a rating, score, or appraisal was a satisfactory or passing result",
-                    "score": {
-                        "$ref": "#/definitions/score"
-                    }
+                    "description": "An indicator as to whether a rating, score, or appraisal was a satisfactory or passing result"
                 },
                 "score": {
                     "$ref": "#/definitions/score"
@@ -206,7 +167,7 @@
     "type": "object",
     "properties": {
         "status": {
-            "$ref": "#/definitions/status"
+            "$ref": "engagementWrite.json#/definitions/status"
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"

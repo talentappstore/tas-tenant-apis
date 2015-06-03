@@ -235,28 +235,28 @@ engagementapp->hub: POST /deployedEngagementTypes
 
 
 <div class='seqDiag' id="ordering">
-participant TAS
 participant ats
 participant hub
 participant engagementapp
-note right of ats: customer gets list of\navailable engagement types
+note right of ats: ats knows to order a testly engagement\nfor every candidate who successfully applies
+note right of ats: ats checks testly still available for ordering
 ats->hub: GET /deployedEngagementTypes
-note right of ats: customer orders an engagement
+note right of ats: customer orders the engagement
 ats-->hub: POST /deployedEngagementTypes/{}/engagements
 note left of engagementapp: vendor is informed of the order
 hub-->engagementapp: POST /engagements/viaTicket/{}/deltaPings
 note left of engagementapp: engagement app requests more\ndetails about the order
 engagementapp->hub: GET /engagements/viaTicket/{}
-note left of engagementapp: this is a candidate-completed assessment,\nso engagement app pushes a follow on uri\nonto the engagement.\nThis does NOT cause a ping loop.
-engagementapp->hub: POST /engagements/viaTicket/{}/followOnDetail
+note left of engagementapp: this is a candidate-completed assessment, so the engagement app\nupdates the report to include a candidate invite link.\nSince the hub is still inside POST /deployedEngagementTypes\n(or POST /engagements/{}), it suppresses pings being\nsent back to the ats, hence this does NOT cause a ping loop.
+engagementapp->hub: POST /engagements/viaTicket/{}/report
 note left of engagementapp: ping processing complete, return
 hub->engagementapp: POST /engagements/viaTicket/{}/deltaPings
 note right of ats: POST processing complete, return
 ats->hub: POST /deployedEngagementTypes/{}/engagements
-note right of ats: ats asks if a follow on uri was provided
+note right of ats: ats asks if a candidate invite was provided
 ats->hub: GET /engagements/{}/ticket
-ats->hub: GET /engagements/viaTicket/{}/followOnDetail
-note right of ats: ats displays follow on message to candidate,\nredirects their browser
+ats->hub: GET /engagements/viaTicket/{}/report
+note right of ats: ats displays invite message to candidate,\nredirects their browser
 note left of engagementapp: .. time passes ..
 note left of engagementapp: candidate has completed their part, now\nthe second part begins
 note left of engagementapp: engagement app requests the view\n(candidate information)
@@ -276,57 +276,176 @@ ats->hub: GET /engagements/viaTicket/{}/cardUri
 
 <h3>In detail</h3>
 
-<p>Candidate applies for a job and appears in the ATS (jobly).
+
+<p>ats knows to order a testly engagement for every candidate who successfully applies.
 </p>
 
-<p>The recruiter clicks an ATS menu item to "start an engagement".
-</p>
-
-<h4>ATS user gets the list of possible engagement types</h4>
-
-<p>The ATS (jobly) asks the engagement hub app for the list of available engagement types, as served up by the sum
-of the installed engagement apps.
+<p>ats checks testly still available for ordering by asking the engagement hub app for the list of available
+engagement types, as served up by the sum of the installed engagement apps.
 
 <div class='codeBlock'>
 GET /deployedEngagementTypes
 
 Response:
-<div class='clientInclude' data-href='../examples/engagementTypes-simple.json'></div>
+<div class='clientInclude' data-href='../examples/deployedEngagementTypes-simple.json'></div>
 </div>
 </p>
 
-<p>A more sophisticated ATS might:
-<ul>
-<li>filter this list, to only present certain engagement apps/ screen types for certain jobs, according to some
-mappings held by the ATS, e.g. only call center candidates are asked to undertake this assessment.
-</ul>
+<p>When engagements are ordered manually, the ats might filter this list, to only present certain engagement apps/ screen types
+for certain jobs, according to some mappings held by the ATS, e.g. only call center candidates are asked to undertake this assessment.
 
-<h4>Order an engagement</h4>
+<p>customer orders the engagement
+<div class='codeBlock'>
+POST /deployedEngagementTypes/{}/engagements
 
-<p>The ATS user chooses an engagement type and hits "go".
+Request:
+<div class='clientInclude' data-href='../examples/engagementCreate-simple.json'></div>
+
+Response:
+... (blocks)
+</div>
 </p>
 
-<p>The ATS determines the candidate (or job application) that the engagement is for - in this case candidate 20887342.
+<p>The hub commits the new engagement to its database. This allows it to start producing APIs like GET /engagements/viaTicket/{}. 
 </p>
-    
-The ATS calls:
+
+<p>The hub pings the relevant engagement app to tell it about the order. Engagements are identified by ticket, not by id, to prevent
+engament apps from probing engagements they should not see. 
+<div class='codeBlock'>
+POST /engagements/viaTicket/kuh7645gf8o7hngf635f7o8huyg/deltaPings
+
+Request:
+<div class='clientInclude' data-href='../examples/deltaPing-simple.json'></div>
+
+Response:
+... (blocks)
+</div>
+</p>
+
+<p>This is (partly) a candidate-completed assessment, so the engagement app somehow needs to smuggle a link to the
+candidate and ask them to follow it.
+</p>
+
+<p>The engagement app starts by requesting more detail about the ordered engagement
+(as identified by the ticket passed in the ping call).
+</p>
 
 <div class='codeBlock'>
-POST /engagements/{engagementType}
+GET /engagements/viaTicket/kuh7645gf8o7hngf635f7o8huyg
+
+Response:
+<div class='clientInclude' data-href='../examples/engagementRead-created.json'></div>
 </div>
 </p>
 
-
-<h2>Admin person sets up candidate view</h2>
-
-<p>Views are an ordered set of fields and attachments related to a candidate that will be pulled together
-for some purpose, e.g. being sent across to a third party who will be reference checking the candidate.
+<p>There's not all that much to see - candidate name, etc.
 </p>
 
-<p>In this case, the view specifies what the person/machine performing the screen will see.</p>
+<p>We do see though that "inviteCandidate" is false - that means that
+the engagement app should not send an email to the candidate, instead it should put the candidate invite link on the engagement report,
+so that the ats can issue the invite (hopefully by immediately redirecting the candidate's browser).
+<div class='codeBlock'>
+POST /engagements/viaTicket/kuh7645gf8o7hngf635f7o8huyg/report
 
-<h2>Engagement vendor uses UI to respond to an order</h2>
+Request:
+<div class='clientInclude' data-href='../examples/engagementReportWrite-invite.json'></div>
+</div>
+</p>
 
+<p>Since the hub is still blocking inside POST /deployedEngagementTypes (POST /engagements/{} works the same), it suppresses pings being
+sent back to the ats, hence this does NOT cause a ping loop.
+</p>
+
+<p>Ping processing is now complete, return.
+
+<div class='codeBlock'>
+POST /engagements/viaTicket/kuh7645gf8o7hngf635f7o8huyg/deltaPings
+
+Request:
+...
+
+Response:
+200
+</div>
+</p>
+
+<p>Now that all ping processing has completed, the call to POST /deployedEngagementTypes/{}/engagements
+completes, passing control back to the ats.
+
+<p>customer orders the engagement
+<div class='codeBlock'>
+POST /deployedEngagementTypes/{}/engagements
+
+Request:
+...
+
+Response:
+<div class='clientInclude' data-href='../examples/engagementRead-created.json'></div>
+</div>
+</p>
+
+<p>The ats now checks whether the engagement app set up an invite.
+</p>
+
+<p>It must first trade its id for a ticket, since all access to engagements is via ticket. 
+<div class='codeBlock'>
+GET /engagements/{}/ticket
+
+Response:
+890453924485634239058
+</div>
+
+<br />
+
+<div class='codeBlock'>
+GET /engagements/viaTicket/890453924485634239058/report
+
+Response:
+<div class='clientInclude' data-href='../examples/engagementReportRead-inviteOnly.json'></div>
+</div>
+</p>
+
+<p>Looks like the engagement app did indeed set up an invite.
+</p>
+
+<p>The ats shows the link to the candidate (still at their browser, having just finished
+applying for the job) and redirects their browser. The candidate starts completing the assessment.
+</p>
+
+<p>Eventually the candidate has completed their part, now the second part begins.
+</p>
+
+<p>Some person back at assessment base now needs to review the candidate's CV and their answers to the
+financial probity questions. 
+</p>
+
+<p>This package of information about the candidate is called a view.
+</p>
+
+<p>A view is a json formatted package containing data embedded (e.g. name, address, answers to screening questions)
+and linked (e.g.)resume/CV, cover letter, attached document(s).
+</p>
+
+<p>The customer can attach a different view to each deployed engagement type, exposing just
+enough information for the engagement app to do its work.
+</p>
+
+
+
+
+note left of engagementapp: engagement app requests the view\n(candidate information)
+engagementapp-->hub: GET /engagements/viaTicket/{}/latestView
+note left of hub: hub fetches the view content, checks\nif it has changed since last time
+hub->ats: GET /views/{}
+note left of engagementapp: .. time passes ..
+note left of engagementapp: vendor provides report
+engagementapp->hub: POST /engagements/viaTicket/{}/report
+note left of hub: ats is informed of the report,\nand makes it available to the end user
+hub->ats: POST /engagements/{}/report/deltaPings
+ats->hub: GET /engagements/{}/ticket
+ats->hub: GET /engagements/viaTicket/{}/report
+ats->hub: GET /engagements/viaTicket/{}/inRowImageUri
+ats->hub: GET /engagements/viaTicket/{}/cardUri
 
 
 

@@ -84,7 +84,11 @@
                 },
                 "ca": {
                     "type": "string"
-                }
+                },
+		        "orientCandidate": {
+		            "type": "boolean",
+		            "description": "if true, and this engagement has a candidate-completed aspect, then the engamenent app itself should communicate to the candidate (perhaps email) and send them a link to complete their part of the engagement. If false, the caller will do that, perhaps by displaying the link to the candidate on the page they are already on"
+		        }
             },
             "additionalProperties": false,
             "required": [
@@ -135,6 +139,5 @@
         }
     },
     "additionalProperties": false,
-    "required": [
-    ]
+    "required": []
 }

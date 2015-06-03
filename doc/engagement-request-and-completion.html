@@ -246,7 +246,7 @@ ats-->hub: POST /deployedEngagementTypes/{}/engagements
 note left of engagementapp: vendor is informed of the order
 hub-->engagementapp: POST /engagements/viaTicket/{}/deltaPings
 note left of engagementapp: engagement app requests more\ndetails about the order
-engagementapp->hub: GET /engagements/viaTicket/{}/order
+engagementapp->hub: GET /engagements/viaTicket/{}
 note left of engagementapp: this is a candidate-completed assessment,\nso engagement app pushes a follow on uri\nonto the engagement.\nThis does NOT cause a ping loop.
 engagementapp->hub: POST /engagements/viaTicket/{}/followOnDetail
 note left of engagementapp: ping processing complete, return

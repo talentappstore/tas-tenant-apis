@@ -645,8 +645,11 @@ traits: !include traits.yml
         post:
           securedBy: [oauth_2_0]
           description:
-            Create or update the report for an engagement order
-            Notes on merging
+            Create or update the report for an engagement order, and optionally set the overall status to one of the vendor-allowed
+            values.
+            
+            TODO - Notes on merging, esp attachments and access points.
+            
           body:
             application/json:
               schema: !include ../schemas/engagementReportWrite.json
@@ -664,7 +667,6 @@ traits: !include traits.yml
                 application/json:
                   schema: !include ../schemas/engagementReportRead.json
                   example: !include ../examples/engagementReportRead-simple.json
-              
       /inRowImageUri:
         get:
           securedBy: [oauth_2_0]
@@ -679,11 +681,6 @@ traits: !include traits.yml
             Get an unguessable uri for (unauthenticated - used by ajax) the html for a responsive card denoting
             the status of this engagement, suitable for stacking underneath other similar cards on a variable
             width web page. The uri should expire within 24 hours.  
-      /deployedEngagementType:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get id of the deployed engagement type for this engagement
 
 
 /itemDefs:

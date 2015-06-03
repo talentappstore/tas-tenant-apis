@@ -3,7 +3,8 @@
         "deployedEngagementType": 26,
         "ct": "acme",
         "cad": "supersoft",
-        "ca": "superassess"
+        "ca": "superassess",
+        "orientCandidate": true
     },
     "subject": {
         "firstName": "Fred",
@@ -11,4 +12,5 @@
         "email": "fred@quarry.com",
         "candidate": 1003
     }
+    
 }

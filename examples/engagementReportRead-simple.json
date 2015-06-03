@@ -1,5 +1,9 @@
 {
     "status": "Complete",
+    "candidateInvite": {
+      "uri": "htps://frodo.com/kuyg875f45g78h987",
+      "message": "Howdy! Please complete your enthusiasm assessment now!"
+    },
     "assessmentDetail": {
         "accessPoints": [],
         "assessmentOverallResult": {

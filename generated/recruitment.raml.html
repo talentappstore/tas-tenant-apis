@@ -2060,6 +2060,9 @@
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"
+        },
+        "candidateInvite": {
+            "$ref": "engagementReportRead.json#/definitions/candidateInvite"
         }
     },
     "additionalProperties": false,
@@ -2270,6 +2273,20 @@
                     }
                 }
             }
+        },
+        "candidateInvite": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "a markdown formatted string directing the candidate to follow the uri to complete what they need to"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "a URI for that candidate to follow to complete their part of the engagement (if any)"
+                }
+            }
         }
     },
     "type": "object",
@@ -2279,12 +2296,19 @@
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"
+        },
+        "candidateInvite": {
+            "$ref": "#/definitions/candidateInvite"
         }
     },
     "additionalProperties": false,
     "required": []
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "status": "Complete",
+    "candidateInvite": {
+      "uri": "htps://frodo.com/kuyg875f45g78h987",
+      "message": "Howdy! Please complete your enthusiasm assessment now!"
+    },
     "assessmentDetail": {
         "accessPoints": [],
         "assessmentOverallResult": {
@@ -2490,6 +2514,20 @@
                     }
                 }
             }
+        },
+        "candidateInvite": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "a markdown formatted string directing the candidate to follow the uri to complete what they need to"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "a URI for that candidate to follow to complete their part of the engagement (if any)"
+                }
+            }
         }
     },
     "type": "object",
@@ -2499,12 +2537,19 @@
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"
+        },
+        "candidateInvite": {
+            "$ref": "#/definitions/candidateInvite"
         }
     },
     "additionalProperties": false,
     "required": []
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "status": "Complete",
+    "candidateInvite": {
+      "uri": "htps://frodo.com/kuyg875f45g78h987",
+      "message": "Howdy! Please complete your enthusiasm assessment now!"
+    },
     "assessmentDetail": {
         "accessPoints": [],
         "assessmentOverallResult": {

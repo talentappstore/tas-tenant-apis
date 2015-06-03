@@ -50,6 +50,9 @@
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"
+        },
+        "candidateInvite": {
+            "$ref": "engagementReportRead.json#/definitions/candidateInvite"
         }
     },
     "additionalProperties": false,

@@ -162,6 +162,20 @@
                     }
                 }
             }
+        },
+        "candidateInvite": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "description": "a markdown formatted string directing the candidate to follow the uri to complete what they need to"
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "a URI for that candidate to follow to complete their part of the engagement (if any)"
+                }
+            }
         }
     },
     "type": "object",
@@ -171,6 +185,9 @@
         },
         "assessmentDetail": {
             "$ref": "#/definitions/assessmentDetail"
+        },
+        "candidateInvite": {
+            "$ref": "#/definitions/candidateInvite"
         }
     },
     "additionalProperties": false,

@@ -69,18 +69,20 @@ the candidate themselves, for example:
 
 <b><div class='codeBlock'>
 
-           +-----+         +----------------+
-           | ats |<------->| engagement app |-+
-           +-----+         +----------------+ |-+
-             /\              +----------------+ |
-              |                +----------------+
-              |                  /\
-              |                   |
-              |                   |
-             \/                  \/
-           +--------------------------+
-           |     engagement hub       |
-           +--------------------------+
+                +-----+         +----------------+
+     +--------->| ats |<------->| engagement app |-+
+     |          +-----+         +----------------+ |-+
+     |            /\              +----------------+ |
+     |             |                +----------------+
+    \/             |                  /\
+ +-------------+   |                   |
+ | engageui    |   |                   |
+ +-------------+   |                   |
+         |         |                   |
+        \/        \/                  \/
+      +------------------------------------+
+      |     engagement hub                 |
+      +------------------------------------+
                         /\
                          .
 customer                 .  (communication via shared database)
@@ -140,6 +142,18 @@ are not authorized to access
 document is uploaded against the candidate while the engagement is in progress)
 <li>prevents engagements being ordered when an existing report is available within the expiry time 
 </ul>
+
+<h2>engageui app</h2>
+
+<p>The engageui app allows easy embedding of engagements within an ats.
+</p>
+
+<p>The ats asks engageui for an html fragment, and then renders that alongside other application details.
+</p>
+
+<p>The fragment contains buttons that can be used to order, view results and otherwise interact with engagements via ajax calls, without any
+other integration with the ats.
+</p>
 
 <h2>Engagement vendor app</h2>
 
@@ -218,6 +232,32 @@ TAS->engagementapp: POST /tenants/{}/preStarts
 TAS->engagementapp: POST /tenants/{}/starts
 note left of engagementapp: vendors sets up per-customer\nengagement types
 engagementapp->hub: POST /deployedEngagementTypes
+</div>
+
+
+<h2>Customer views a list of applications</h2>
+
+<p>In this scenario:
+<ol>
+<li>a recruiter is using the ats to view a list of applications
+</ol>
+</p>
+
+
+<div class='seqDiag' id="ordering">
+participant ats
+participant hub
+participant engagementapp
+note right of ats: the ats is about to display applications 20, 21 and 22 within a table
+note right of ats: ats asks for the html fragments for engagements
+ats->engagestrip: GET /engagementStrips?apps=20,21,22
+note left of engagestrip: get existing results
+ats->hub: GET /engagements?apps=20,21,22
+
+note left of engagestrip: get existing linked results
+
+note left of engagestrip: the ats may have an opinion on which deployed\nengagement types are relevant for each application
+engagestrip->ats: GET /deployedEngagementTypes/mappedToApps?apps=20,21,22
 </div>
 
 

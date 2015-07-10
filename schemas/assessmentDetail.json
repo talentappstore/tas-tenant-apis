@@ -1,0 +1,289 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"definitions": 
+	{
+		"accessPoint": 
+		{
+			"type": "object",
+			"description": "Link to an external result.",
+			"properties": 
+			{
+				"uri": 
+				{
+					"title": "URI",
+					"type": "string",
+					"format": "uri"
+				},
+				"typeCode": 
+				{
+					"type": "string",
+					"title": "Type",
+					"enum": 
+					[
+						"Individual",
+						"Group"
+					]
+				}
+			}
+		},
+		"scoreNumeric": 
+		{
+			"type": "object",
+			"properties": 
+			{
+				"kind": 
+				{
+					"type": "string",
+					"enum": 
+					[
+						"ScoreNumeric"
+					],
+					"options": 
+					{
+						"hidden": true
+					}
+				},
+				"type": 
+				{
+					"title": "Type",
+					"type": "string",
+					"enum": 
+					[
+						"Percentile",
+						"Raw Score",
+						"Stanine",
+						"Sten",
+						"T-score",
+						"Z-score",
+						"Intelligence Quotient",
+						"Scaled",
+						"Normal Curve",
+						"GPA"
+					]
+				},
+				"value": 
+				{
+					"title": "Value",
+					"type": "number"
+				}
+			}
+		},
+		"scoreText": 
+		{
+			"type": "object",
+			"properties": 
+			{
+				"kind": 
+				{
+					"type": "string",
+					"enum": 
+					[
+						"Scoretext"
+					],
+					"options": 
+					{
+						"hidden": true
+					}
+				},
+				"type": 
+				{
+					"title": "Type",
+					"type": "string",
+					"enum": 
+					[
+						"Grade Letter"
+					]
+				},
+				"value": 
+				{
+					"title": "Value",
+					"type": "string"
+				}
+			}
+		},
+		"score": 
+		{
+			"type": "array",
+			"items": 
+			{
+				"oneOf": 
+				[
+					{
+						"title": "Numeric Score",
+						"$ref": "#/definitions/scoreNumeric"
+					},
+					{
+						"title": "Text Score",
+						"$ref": "#/definitions/scoreText"
+					}
+				]
+			}
+		},
+		"assessedCompetency": 
+		{
+			"title": "Assessed Competency",
+			"type": "object",
+			"description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
+			"properties": 
+			{
+				"id": 
+				{
+					"title": "Name",
+					"type": "integer"
+				},
+				"proficiencyLevel": 
+				{
+					"title": "Proficiency Level",
+					"$ref": "#/definitions/score"
+				}
+			}
+		},
+		"result": 
+		{
+			"type": "object",
+			"properties": 
+			{
+				"id": 
+				{
+					"title": "Result Name",
+					"type": "string"
+				},
+				"description": 
+				{
+					"title": "Description",
+					"type": "string"
+				},
+				"passedIndicator": 
+				{
+					"title": "Pass?",
+					"type": "boolean"
+				},
+				"score": 
+				{
+					"title": "Score",
+					"$ref": "#/definitions/score"
+				},
+				"comment": 
+				{
+					"title": "Comment",
+					"type": "string"
+				},
+				"bandID": 
+				{
+					"title": "Band",
+					"type": "string"
+				},
+				"assessedCompetency": 
+				{
+					"title": "Assessed Competency",
+					"$ref": "#/definitions/assessedCompetency"
+				}
+			}
+		},
+		"readAttachment": 
+		{
+			"type": "object",
+			"properties": 
+			{
+				"attachmentType": 
+				{
+					"title": "Name",
+					"type": "string",
+					"description": "Only one document with this name can be attached to an assessment result."
+				},
+				"fileDownload": 
+				{
+					"title": "File",
+					"$ref": "#/definitions/file"
+				}
+			},
+			"required": 
+			[
+				"attachmentType",
+				"fileDownload"
+			]
+		},
+		"file": 
+		{
+			"type": "object",
+			"format": "file",
+			"properties": 
+			{
+				"fileName": 
+				{
+					"type": "string"
+				},
+				"via": 
+				{
+					"type": "string"
+				},
+				"size": 
+				{
+					"type": "integer"
+				},
+				"md5": 
+				{
+					"type": "string",
+					"description": "hash of the file's binary content"
+				},
+				"dateUploaded": 
+				{
+					"type": "string",
+					"format": "date-time",
+					"description": "the date and time the file was uploaded"
+				},
+				"link": 
+				{
+					"type": "string",
+					"format": "uri",
+					"description": "expiring link to access the raw data"
+				},
+				"data": 
+				{
+					"type": "string",
+					"media": 
+					{
+						"binaryEncoding": "base64"
+					}
+				}
+			}
+		}
+	},
+	"title": "Results",
+	"type": "object",
+	"properties": 
+	{
+		"assessmentOverallResult": 
+		{
+			"title": "Overall Result",
+			"$ref": "#/definitions/result"
+		},
+		"assessmentDetailedResults": 
+		{
+			"title": "Result Details",
+			"type": "array",
+			"items": 
+			{
+				"$ref": "#/definitions/result"
+			}
+		},
+		"accessPoints": 
+		{
+			"title": "Links",
+			"type": "array",
+			"items": 
+			{
+				"$ref": "#/definitions/accessPoint"
+			}
+		},
+		"attachments": 
+		{
+			"title": "Attachments",
+			"type": "array",
+			"items": 
+			{
+				"$ref": "#/definitions/readAttachment"
+			}
+		}
+	}
+}

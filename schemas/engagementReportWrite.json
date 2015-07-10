@@ -5,7 +5,7 @@
             "type": "object",
             "properties": {
                 "attachmentType": {
-                    "$ref": "engagementReportRead.json#/definitions/attachmentType"
+                    "$ref": "assessmentDetail.json#/definitions/attachmentType"
                 },
                 "fileUpload": {
                     "$ref": "fileUpload.json"
@@ -15,32 +15,6 @@
                 "attachmentType",
                 "fileUpload"
             ]
-        },
-        "assessmentDetail": {
-            "type": "object",
-            "properties": {
-                "accessPoints": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "engagementReportRead.json#/definitions/accessPoint"
-                    }
-                },
-                "assessmentOverallResult": {
-                    "$ref": "engagementReportRead.json#/definitions/result"
-                },
-                "assessmentDetailedResults": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "engagementReportRead.json#/definitions/result"
-                    }
-                },
-                "attachments": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/writeAttachment"
-                    }
-                }
-            }
         }
     },
     "type": "object",
@@ -49,7 +23,7 @@
             "$ref": "engagementWrite.json#/definitions/vendorStatus"
         },
         "assessmentDetail": {
-            "$ref": "#/definitions/assessmentDetail"
+            "$ref": "assessmentDetail.json"
         },
         "candidateInvite": {
             "$ref": "engagementReportRead.json#/definitions/candidateInvite"

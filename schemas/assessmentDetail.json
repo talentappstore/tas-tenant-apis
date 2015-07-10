@@ -180,7 +180,7 @@
 				}
 			}
 		},
-		"readAttachment": 
+		"attachment": 
 		{
 			"type": "object",
 			"properties": 
@@ -191,7 +191,7 @@
 					"type": "string",
 					"description": "Only one document with this name can be attached to an assessment result."
 				},
-				"fileDownload": 
+				"file": 
 				{
 					"title": "File",
 					"$ref": "#/definitions/file"
@@ -200,7 +200,7 @@
 			"required": 
 			[
 				"attachmentType",
-				"fileDownload"
+				"file"
 			]
 		},
 		"file": 
@@ -282,7 +282,7 @@
 			"type": "array",
 			"items": 
 			{
-				"$ref": "#/definitions/readAttachment"
+				"$ref": "#/definitions/attachment"
 			}
 		}
 	}

@@ -10,7 +10,7 @@
                 {
                     "kind": "ScoreNumeric",
                     "value": 75,
-                    "type": "RawScore"
+                    "type": "Raw Score"
                 },
                 {
                     "kind": "ScoreNumeric",
@@ -30,7 +30,7 @@
         "attachments": [
             {
                 "attachmentType": "Sales Assessment",
-                "fileUpload": {
+                "file": {
                     "fileName": "fredsales.cv",
                     "data": "kiuhy876huiytf6534df8o6hpuyf746fi8...",
                     "via": "device"

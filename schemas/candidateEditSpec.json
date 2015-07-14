@@ -94,7 +94,7 @@
                     "type": "boolean"
                 }
             },
-            "required": "someMandatory",
+            "required": ["someMandatory"],
             "additionalProperties": false
         },
         "jobRule": {

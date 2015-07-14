@@ -30,11 +30,10 @@
                     "type": "integer"
                 },
                 "items": {
-                    "$ref": "./items.json"
+                    "$ref": "items.json"
                 }
             },
-            "additionalProperties": false,
-            "required": []
+            "additionalProperties": false
         }
     },
     "type": "object",
@@ -72,6 +71,5 @@
             }
         }
     },
-    "additionalProperties": false,
-    "required": []
+    "additionalProperties": false
 }

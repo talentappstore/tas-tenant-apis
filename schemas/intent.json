@@ -16,6 +16,6 @@
             "$ref": "categoriesActual.json"
         }
     },
-    "required": [],
+    
     "additionalProperties": false
 }

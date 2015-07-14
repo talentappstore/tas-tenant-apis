@@ -28,6 +28,5 @@
             "$ref": "#/definitions/candidateInvite"
         }
     },
-    "additionalProperties": false,
-    "required": []
+    "additionalProperties": false
 }

@@ -1001,10 +1001,9 @@
                 "id": {
                     "type": "integer"
                 }
-            }
-        },
-        "required": [ "id" ]
-        
+            },
+            "required": [ "id" ]
+        }
     },
     "type": "array",
     "items": { "$ref": "#/definitions/candidate" },
@@ -1604,7 +1603,7 @@
                     "type": "boolean"
                 }
             },
-            "required": "someMandatory",
+            "required": ["someMandatory"],
             "additionalProperties": false
         },
         "jobRule": {

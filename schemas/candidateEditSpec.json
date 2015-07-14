@@ -40,7 +40,6 @@
                     "$ref": "categoriesActual.json"
                 }
             },
-            "required": [],
             "additionalProperties": false
         },
         "resumeRule": {
@@ -107,7 +106,7 @@
                     "description": "the job application these rules apply to"
                 },
                 "itemsRule": {
-                      "$ref": "./jsonSchemaSchema.json"
+                      "$ref": "jsonSchemaSchema.json"
                 }
             },
             "additionalProperties": false
@@ -132,13 +131,12 @@
                     "$ref": "#/definitions/vCardRule"
                 },
                 "itemsRule": {
-                   "$ref": "./jsonSchemaSchema.json"
+                   "$ref": "jsonSchemaSchema.json"
                 },
                 "jobRules": {
                     "$ref": "#/definitions/jobRules"
                 }
-            },
-            "required": []
+            }
         }
     },
     "type": "object",
@@ -153,6 +151,5 @@
         "inputModel": {
             "$ref": "#/definitions/inputModel"
         }
-    },
-    "required": []
+    }
 }

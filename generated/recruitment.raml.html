@@ -496,11 +496,10 @@
                     "type": "integer"
                 },
                 "items": {
-                    "$ref": "./items.json"
+                    "$ref": "items.json"
                 }
             },
-            "additionalProperties": false,
-            "required": []
+            "additionalProperties": false
         }
     },
     "type": "object",
@@ -538,9 +537,9 @@
             }
         }
     },
-    "additionalProperties": false,
-    "required": []
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "additionalProperties": false
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "vcard": [
         {
             "vcardStuff": "yet to be defined"
@@ -1021,7 +1020,7 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "array",
     "items": {
-        "$ref": "./category.json"
+        "$ref": "category.json"
     }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
@@ -1501,7 +1500,7 @@
             "$ref": "categoriesActual.json"
         }
     },
-    "required": [],
+    
     "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
        "tracker": 763019932,
@@ -1551,7 +1550,6 @@
                     "$ref": "categoriesActual.json"
                 }
             },
-            "required": [],
             "additionalProperties": false
         },
         "resumeRule": {
@@ -1618,7 +1616,7 @@
                     "description": "the job application these rules apply to"
                 },
                 "itemsRule": {
-                      "$ref": "./jsonSchemaSchema.json"
+                      "$ref": "jsonSchemaSchema.json"
                 }
             },
             "additionalProperties": false
@@ -1643,13 +1641,12 @@
                     "$ref": "#/definitions/vCardRule"
                 },
                 "itemsRule": {
-                   "$ref": "./jsonSchemaSchema.json"
+                   "$ref": "jsonSchemaSchema.json"
                 },
                 "jobRules": {
                     "$ref": "#/definitions/jobRules"
                 }
-            },
-            "required": []
+            }
         }
     },
     "type": "object",
@@ -1664,9 +1661,9 @@
         "inputModel": {
             "$ref": "#/definitions/inputModel"
         }
-    },
-    "required": []
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "amendedIntent": {
         "tracker": 763019932,
         "jobs": [
@@ -1915,8 +1912,7 @@
                     "type": "integer"
                 }
             },
-            "additionalProperties": false,
-            "required": []
+            "additionalProperties": false
         }
     },
     "type": "object",
@@ -1931,9 +1927,9 @@
             "$ref": "#/definitions/subject"
         }
     },
-    "additionalProperties": false,
-    "required": []
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{ "status": "On hold" }</code></pre></div><div class="tab-pane" id="engagements_viaTicket__ticket__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "additionalProperties": false
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{ "status": "On hold" }</code></pre></div><div class="tab-pane" id="engagements_viaTicket__ticket__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
@@ -2112,9 +2108,9 @@
             "$ref": "#/definitions/candidateInvite"
         }
     },
-    "additionalProperties": false,
-    "required": []
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "additionalProperties": false
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "status": "Complete",
     "candidateInvite": {
       "uri": "htps://frodo.com/kuyg875f45g78h987",
@@ -2191,9 +2187,9 @@
             "$ref": "#/definitions/candidateInvite"
         }
     },
-    "additionalProperties": false,
-    "required": []
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "additionalProperties": false
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "status": "Complete",
     "candidateInvite": {
       "uri": "htps://frodo.com/kuyg875f45g78h987",
@@ -2397,8 +2393,7 @@
                     "$ref": "categoriesActual.json"
                 }
             },
-            "additionalProperties": false,
-            "required": []
+            "additionalProperties": false
         }
     },
     "type": "object",
@@ -2419,10 +2414,9 @@
             "description": "OData-style top value: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
         }
     },
-    "additionalProperties": false,
-    "required": [
-    ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "additionalProperties": false
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "match": {
         "categories": [
             {
@@ -2691,8 +2685,7 @@ GET /widgets?$top=5
                     "$ref": "categoriesActual.json"
                 }
             },
-            "additionalProperties": false,
-            "required": []
+            "additionalProperties": false
         }
     },
     "type": "object",
@@ -2713,10 +2706,9 @@ GET /widgets?$top=5
             "description": "OData-style top value: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
         }
     },
-    "additionalProperties": false,
-    "required": [
-    ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "additionalProperties": false
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "match": {
         "categories": [
             {

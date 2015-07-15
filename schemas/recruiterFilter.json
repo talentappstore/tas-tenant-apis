@@ -21,7 +21,9 @@
                 },
                 "categoryValues": {
                     "type": "array",
-                    "items": "integer"
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             },
             "additionalProperties": false,

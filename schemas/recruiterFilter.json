@@ -21,7 +21,9 @@
                 },
                 "categoryValues": {
                     "type": "array",
-                    "items": "integer"
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             },
             "additionalProperties": false,
@@ -39,12 +41,12 @@
     },
     "properties": {
         "recruiter": {
-            "$ref": "./recruiterRelation.json"
+            "$ref": "recruiterRelation.json"
         },
         "statuses": {
             "type": "array",
             "items": {
-                "$ref": "./job.json#/definitions/status"
+                "$ref": "job.json#/definitions/status"
             }
         },
         "locationFactor": {

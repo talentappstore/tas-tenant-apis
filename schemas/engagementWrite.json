@@ -122,8 +122,7 @@
                     "type": "integer"
                 }
             },
-            "additionalProperties": false,
-            "required": []
+            "additionalProperties": false
         }
     },
     "type": "object",
@@ -138,6 +137,5 @@
             "$ref": "#/definitions/subject"
         }
     },
-    "additionalProperties": false,
-    "required": []
+    "additionalProperties": false
 }

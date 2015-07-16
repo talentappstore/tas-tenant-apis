@@ -1,168 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "accessPoint": {
-            "type": "object",
-            "description": "details of a way to access the results of the engagement",
-            "properties": {
-                "uri": {
-                    "type": "string",
-                    "format": "uri"
-                },
-                "typeCode": {
-                    "enum": [
-                        "Individual",
-                        "Group"
-                    ]
-                }
-            }
-        },
-        "scoreNumeric": {
-            "type": "object",
-            "properties": {
-                "kind": {
-                    "enum": [
-                        "ScoreNumeric"
-                    ]
-                },
-                "value": {
-                    "format": "number"
-                },
-                "type": {
-                    "enum": [
-                        "Percentile",
-                        "RawScore",
-                        "Stanine",
-                        "Sten",
-                        "T-score",
-                        "Z-score",
-                        "IntelligenceQuotient",
-                        "Scaled",
-                        "NormalCurve",
-                        "GPA"
-                    ]
-                }
-            }
-        },
-        "scoreText": {
-            "type": "object",
-            "properties": {
-                "kind": {
-                    "enum": [
-                        "Scoretext"
-                    ]
-                },
-                "value": {
-                    "format": "string"
-                },
-                "type": {
-                    "enum": [
-                        "CourseGrade"
-                    ]
-                }
-            }
-        },
-        "score": {
-            "type": "array",
-            "items": {
-                "oneOf": [
-                    {
-                        "$ref": "#/definitions/scoreNumeric"
-                    },
-                    {
-                        "$ref": "#/definitions/scoreText"
-                    }
-                ]
-            }
-        },
-        "assessedCompetency": {
-            "type": "object",
-            "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "id of the competency"
-                },
-                "proficiencyLevel": {
-                    "$ref": "#/definitions/score"
-                }
-            }
-        },
-        "result": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "description": "identifies this result amongst peers if a detailed result - for overall results, ignored"
-                },
-                "assessedCompetency": {
-                    "$ref": "#/definitions/assessedCompetency"
-                },
-                "comment": {
-                    "type": "string",
-                    "description": "a free form note"
-                },
-                "bandID": {
-                    "type": "string",
-                    "description": "An identifier of a band, a place on a distribution of scores"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "passedIndicator": {
-                    "type": "boolean",
-                    "description": "An indicator as to whether a rating, score, or appraisal was a satisfactory or passing result"
-                },
-                "score": {
-                    "$ref": "#/definitions/score"
-                }
-            }
-        },
-        "attachmentType": {
-            "type": "string",
-            "description": "only one document at a time can exist for a given attachment type"
-        },
-        "readAttachment": {
-            "type": "object",
-            "properties": {
-                "attachmentType": {
-                    "$ref": "#/definitions/attachmentType"
-                },
-                "fileDownload": {
-                    "$ref": "fileDownload.json"
-                }
-            },
-            "required": [
-                "attachmentType",
-                "fileDownload"
-            ]
-        },
-        "assessmentDetail": {
-            "type": "object",
-            "properties": {
-                "accessPoints": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/accessPoint"
-                    }
-                },
-                "assessmentOverallResult": {
-                    "$ref": "#/definitions/result"
-                },
-                "assessmentDetailedResults": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/result"
-                    }
-                },
-                "attachments": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/readAttachment"
-                    }
-                }
-            }
-        },
         "candidateInvite": {
             "type": "object",
             "properties": {
@@ -184,12 +22,11 @@
             "$ref": "engagementWrite.json#/definitions/status"
         },
         "assessmentDetail": {
-            "$ref": "#/definitions/assessmentDetail"
+            "$ref": "assessmentDetail.json"
         },
         "candidateInvite": {
             "$ref": "#/definitions/candidateInvite"
         }
     },
-    "additionalProperties": false,
-    "required": []
+    "additionalProperties": false
 }

@@ -3,7 +3,7 @@
     "type": "object",
     "properties": {
         "filter": {
-            "$ref": "./recruiterFilter.json"
+            "$ref": "recruiterFilter.json"
         }
     },
     "additionalProperties": false,

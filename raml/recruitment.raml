@@ -10,106 +10,106 @@ traits: !include traits.yml
 
 
 /applications:
-  /{id}:
-    /bySourcingApp:
-      /{producer}:
-        /{id}:
-          /deltaPings:
-            post:
+  /byID:
+    /{id}:
+      /bySourcingApp:
+        /{producer}:
+          /{id}:
+            /deltaPings:
+              post:
+                securedBy: [oauth_2_0]
+                description: |
+                  A ping for any changes to a job application, but which is only sent to the application that sourced the
+                  application (i.e., that owns the campaign tracker attached to the application).
+                  Probably only non-SoT.
+      /deltaPings:
+        description: |
+          The main ping for any changes to a job application.
+          Probably only non-SoT.
+      /tracker:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
+      /status:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
+            as "interview", "offer", "pre-screen", etc.
+      /candidate:
+        get:
+          securedBy: [oauth_2_0]
+          description: Get the candidate for this application
+      /job:
+        get:
+          securedBy: [oauth_2_0]
+          description: Get the job opening for this application
+      /items:
+        /candidateOwned:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get all candidateOwned items for this application
+            body:
+              application/json:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
               securedBy: [oauth_2_0]
-              description: |
-                A ping for any changes to a job application, but which is only sent to the application that sourced the
-                application (i.e., that owns the campaign tracker attached to the application).
-                Probably only non-SoT.
-    /deltaPings:
-      description: |
-        The main ping for any changes to a job application.
-        Probably only non-SoT.
-    /tracker:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
-    /status:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
-          as "interview", "offer", "pre-screen", etc.
-    /candidate:
-      get:
-        securedBy: [oauth_2_0]
-        description: Get the candidate for this application
-    /job:
-      get:
-        securedBy: [oauth_2_0]
-        description: Get the job opening for this application
-    /items:
-      /candidateOwned:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all candidateOwned items for this application
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
+              description: Get a specific candidateOwned item for this application
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+        /internalOwned:
           get:
             securedBy: [oauth_2_0]
-            description: Get a specific candidateOwned item for this application
+            description: Get all internalOwned items for this application
             body:
               application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-      /internalOwned:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all internalOwned items for this application
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific internalOwned item for this application
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+        /internalShared:
           get:
             securedBy: [oauth_2_0]
-            description: Get a specific internalOwned item for this application
+            description: Get all internalShared items for this application
             body:
               application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-      /internalShared:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all internalShared items for this application
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific internalShared item for this application
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+        /eeo:
           get:
             securedBy: [oauth_2_0]
-            description: Get a specific internalShared item for this application
+            description: Get all eeo items for this application
             body:
               application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-      /eeo:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all eeo items for this application
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get a specific eeo item for this application
-            body:
-              application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-        
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific eeo item for this application
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
   /bySourcingApp:
     /{consumer}:
       /{id}:
@@ -133,43 +133,44 @@ traits: !include traits.yml
     opening, registered in the database, were imported from some other system, etc.
     Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned,
     in which case they have no {E}/{N} values. Owned candidates may use an identity leap IdP.
-  /{N}:
-    description: |
-      The name ID of the candidate.
-    get:
+  /byNameID:
+    /{N}:
+      description: |
+        The name ID of the candidate.
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
+          The ID is often required as a parameter for other APIs.
+          Can only be called for the current logged in user, using their own name ID.
+    post:
       securedBy: [oauth_2_0]
       description: |
-        Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
-        The ID is often required as a parameter for other APIs.
-        Can only be called for the current logged in user, using their own name ID.
-  post:
-    securedBy: [oauth_2_0]
-    description: |
-      Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
-      
-      See separate design document for detailed information on the request body.
+        Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
+        
+        See separate design document for detailed information on the request body.
 
-      The producer must run all uploaded files through OWASP security tests:
-      - extension matches actual file type
-      - virus check
-      - etc.
+        The producer must run all uploaded files through OWASP security tests:
+        - extension matches actual file type
+        - virus check
+        - etc.
 
-      Candidate type is not passed - instead the producer should identify candidate type (e.g. internal)
-      by looking for the relevant role in the incoming OAuth token.
-  
-      The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
-      and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
-      attacks where the consumer tries to write to a random data item for example.
-      
-    body:
-      application/json:
-        schema: !include ../schemas/candidateEdit.json
-        example: !include ../examples/candidateEdit-simple.json
-    responses:
-      200:
-        description: the post was successful
-      201:
-        description: the post was successful
+        Candidate type is not passed - instead the producer should identify candidate type (e.g. internal)
+        by looking for the relevant role in the incoming OAuth token.
+    
+        The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
+        and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
+        attacks where the consumer tries to write to a random data item for example.
+        
+      body:
+        application/json:
+          schema: !include ../schemas/candidateEdit.json
+          example: !include ../examples/candidateEdit-simple.json
+      responses:
+        200:
+          description: the post was successful
+        201:
+          description: the post was successful
   /registerUI:
     get:
       securedBy: [oauth_2_0]
@@ -179,207 +180,208 @@ traits: !include traits.yml
         they have clicked "create an account" (and logged in).
         
         Produced as SoT.
-  /{id}:
-    get:
-      securedBy: [oauth_2_0]
-      description: |
-        Get general information about the candidate including notifications (subscribe y/n)
-    /deltaPings:
-      description: |
-        The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
-        Only produced as non-SoT.
-      post:
-        securedBy: [oauth_2_0]
-    /roles:
+  /byID:
+    /{id}:
       get:
         securedBy: [oauth_2_0]
-        description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
-    /engagements:
-      /tickets:
+        description: |
+          Get general information about the candidate including notifications (subscribe y/n)
+      /deltaPings:
+        description: |
+          The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
+          Only produced as non-SoT.
+        post:
+          securedBy: [oauth_2_0]
+      /roles:
         get:
           securedBy: [oauth_2_0]
-          description: |
-            Get tickets for all engagements for this candidate (including application-scoped engagements).
-            The engagements may span multiple engagement vendors and engagement types.
-            The response is an array of tickets (engagement IDs + this consumer, signed by
-            the producer).
-    /vcard:
-      get:
-        securedBy: [oauth_2_0]
-        description: candidate contact details, in the form described by rfc7095
-    /resume:
-      /meta:
+          description: get the roles (e.g. "internal") that this candidate holds (TODO at least as far as this system knows? who uses this?) 
+      /engagements:
+        /tickets:
+          get:
+            securedBy: [oauth_2_0]
+            description: |
+              Get tickets for all engagements for this candidate (including application-scoped engagements).
+              The engagements may span multiple engagement vendors and engagement types.
+              The response is an array of tickets (engagement IDs + this consumer, signed by
+              the producer).
+      /vcard:
         get:
           securedBy: [oauth_2_0]
-          description: get metadata about the candidate's resume (size, filename, etc.)
+          description: candidate contact details, in the form described by rfc7095
+      /resume:
+        /meta:
+          get:
+            securedBy: [oauth_2_0]
+            description: get metadata about the candidate's resume (size, filename, etc.)
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/fileDownload.json
+                    example: !include ../examples/fileDownload-simple.json
+        /asBinary:
+          get:
+            securedBy: [oauth_2_0]
+            is: [ document_asStream ]
+        /asHtml:
+          get:
+            securedBy: [oauth_2_0]
+            description: get an html version of the candidate's resume
+          /deltaPings:
+            description: |
+              A separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app.
+              Probably only useful as non-SoT.
+            post:        
+              securedBy: [oauth_2_0]
+      /video:
+        get:
+          securedBy: [oauth_2_0]
+          description: get the lock id of the candidate's existing video if any, as held in a separate app
+          responses:
+            200:
+              body:
+                text/plain:
+                  example: 30223
+      /voiceMessage:
+        get:
+          securedBy: [oauth_2_0]
+          description: get the lock id of the candidate's existing voice message if any, as held in a separate app
+          responses:
+            200:
+              body:
+                text/plain:
+                  example: 190553
+      /items:
+        /candidateOwned:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get all candidateOwned items for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific candidateOwned item for this candidate
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+        /internalOwned:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get all internalOwned items for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific internalOwned item for this candidate
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+        /internalShared:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get all internalShared items for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific internalShared item for this candidate
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+        /eeo:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get all eeo items for this candidate
+            body:
+              application/json:
+                schema: !include ../schemas/existingItems.json
+                example: !include ../examples/existingItems-simple.json
+          /{item}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get a specific eeo item for this candidate
+              body:
+                application/json:
+                  schema: !include ../schemas/existingItem.json
+                  example: !include ../examples/existingItem-simple.json
+      /categories:
+        get:
+          securedBy: [oauth_2_0]
+          description: get the categories for this candidate
           responses:
             200:
               body:
                 application/json:
-                  schema: !include ../schemas/fileDownload.json
-                  example: !include ../examples/fileDownload-simple.json
-      /asBinary:
+                  schema: !include ../schemas/categoriesActual.json
+                  example: !include ../examples/categoriesActual-simple.json
+      /latestApplyTracker:
         get:
           securedBy: [oauth_2_0]
-          is: [ document_asStream ]
-      /asHtml:
-        get:
-          securedBy: [oauth_2_0]
-          description: get an html version of the candidate's resume
-        /deltaPings:
           description: |
-            A separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app.
-            Probably only useful as non-SoT.
-          post:        
-            securedBy: [oauth_2_0]
-    /video:
-      get:
-        securedBy: [oauth_2_0]
-        description: get the lock id of the candidate's existing video if any, as held in a separate app
-        responses:
-          200:
-            body:
-              text/plain:
-                example: 30223
-    /voiceMessage:
-      get:
-        securedBy: [oauth_2_0]
-        description: get the lock id of the candidate's existing voice message if any, as held in a separate app
-        responses:
-          200:
-            body:
-              text/plain:
-                example: 190553
-    /items:
-      /candidateOwned:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all candidateOwned items for this candidate
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get a specific candidateOwned item for this candidate
-            body:
-              application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-      /internalOwned:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all internalOwned items for this candidate
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get a specific internalOwned item for this candidate
-            body:
-              application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-      /internalShared:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all internalShared items for this candidate
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get a specific internalShared item for this candidate
-            body:
-              application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-      /eeo:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get all eeo items for this candidate
-          body:
-            application/json:
-              schema: !include ../schemas/existingItems.json
-              example: !include ../examples/existingItems-simple.json
-        /{item}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get a specific eeo item for this candidate
-            body:
-              application/json:
-                schema: !include ../schemas/existingItem.json
-                example: !include ../examples/existingItem-simple.json
-    /categories:
-      get:
-        securedBy: [oauth_2_0]
-        description: get the categories for this candidate
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/categoriesActual.json
-                example: !include ../examples/categoriesActual-simple.json
-    /latestApplyTracker:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
-          was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
-          drew them to the site.
-    /applications:
-      /{job}:
-        /items:
-          description: |
-            Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
-            suitable for directly embedding in a web page. The expiring link is different for every request.
-          /candidateOwned:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all candidateOwned items for this application
-            /{item}:
+            The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
+            was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
+            drew them to the site.
+      /applications:
+        /{job}:
+          /items:
+            description: |
+              Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
+              suitable for directly embedding in a web page. The expiring link is different for every request.
+            /candidateOwned:
               get:
                 securedBy: [oauth_2_0]
-                description: Get a specific candidateOwned item for this application
-          /internalOwned:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all internalOwned items for this application
-            /{item}:
+                description: Get all candidateOwned items for this application
+              /{item}:
+                get:
+                  securedBy: [oauth_2_0]
+                  description: Get a specific candidateOwned item for this application
+            /internalOwned:
               get:
                 securedBy: [oauth_2_0]
-                description: Get a specific internalOwned item for this application
-          /internalShared:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all internalShared items for this application
-            /{item}:
+                description: Get all internalOwned items for this application
+              /{item}:
+                get:
+                  securedBy: [oauth_2_0]
+                  description: Get a specific internalOwned item for this application
+            /internalShared:
               get:
                 securedBy: [oauth_2_0]
-                description: Get a specific internalShared item for this application
-          /eeo:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all eeo items for this application
-            /{item}:
+                description: Get all internalShared items for this application
+              /{item}:
+                get:
+                  securedBy: [oauth_2_0]
+                  description: Get a specific internalShared item for this application
+            /eeo:
               get:
                 securedBy: [oauth_2_0]
-                description: Get a specific eeo item for this application
-        /source:
-          get:
-            securedBy: [oauth_2_0]
-            description: a tracker, as passed in to the edit
-    /stars:
-      /forOpenings:
-        /{id}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
+                description: Get all eeo items for this application
+              /{item}:
+                get:
+                  securedBy: [oauth_2_0]
+                  description: Get a specific eeo item for this application
+          /source:
+            get:
+              securedBy: [oauth_2_0]
+              description: a tracker, as passed in to the edit
+      /stars:
+        /forOpenings:
+          /{id}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
 
   /recruiterFaces:
     /searches:
@@ -421,79 +423,80 @@ traits: !include traits.yml
         schema: !include ../schemas/category.json
         example: !include ../examples/category-simple.json
     
-  /{id}:
-    description: category ID 
+  /byID:
+    /{id}:
+      description: category ID 
 
-    post:
-      securedBy: [oauth_2_0]
-      description: Update a single category, not including its values
-      body:
-        application/json:
-          schema: !include ../schemas/category.json
-          example: !include ../examples/category-simple.json
-          
-    delete:
-      securedBy: [oauth_2_0]
-      description: Delete a category, along with all of its values
-      
-    /values:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-           Get root values and the hierarchy of values beneath
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/categoryValues.json
-                example: !include ../examples/categoryValues-simple.json
-        
-      patch:
-        securedBy: [oauth_2_0]
-        description: |
-          Merge in an array of root values. TODO: what happens when:
-          - the merge specifies a different location for an existing node?
-        body:
-          application/json:
-            schema: !include ../schemas/categoryValues.json
-            example: !include ../examples/categoryValues-simple.json
-        
       post:
         securedBy: [oauth_2_0]
-        description: |
-           Arbitrarily set or change the root values for this category.
+        description: Update a single category, not including its values
         body:
           application/json:
-            schema: !include ../schemas/categoryValues.json
-            example: !include ../examples/categoryValues-simple.json
-
-      /{id}:
+            schema: !include ../schemas/category.json
+            example: !include ../examples/category-simple.json
+            
+      delete:
+        securedBy: [oauth_2_0]
+        description: Delete a category, along with all of its values
+        
+      /values:
         get:
           securedBy: [oauth_2_0]
-          description: Get the child values for the given value
-        delete:
+          description: |
+             Get root values and the hierarchy of values beneath
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/categoryValues.json
+                  example: !include ../examples/categoryValues-simple.json
+          
+        patch:
           securedBy: [oauth_2_0]
-          description: delete this node and its child nodes
+          description: |
+            Merge in an array of root values. TODO: what happens when:
+            - the merge specifies a different location for an existing node?
+          body:
+            application/json:
+              schema: !include ../schemas/categoryValues.json
+              example: !include ../examples/categoryValues-simple.json
+          
         post:
           securedBy: [oauth_2_0]
-          description: edit details of this node, including its parent
-        /values:
+          description: |
+             Arbitrarily set or change the root values for this category.
+          body:
+            application/json:
+              schema: !include ../schemas/categoryValues.json
+              example: !include ../examples/categoryValues-simple.json
+
+        /{id}:
           get:
             securedBy: [oauth_2_0]
-            description: Get the array of sub-trees attached to this value
-          patch:
+            description: Get the child values for the given value
+          delete:
             securedBy: [oauth_2_0]
-            description: Merge in an array of child values
+            description: delete this node and its child nodes
           post:
             securedBy: [oauth_2_0]
-            description: |
-               Arbitrarily set or change the child values for this value. Values are removed from their previous
-               parent (node or category)
-        /acquires:
-          /{acquiree}:
+            description: edit details of this node, including its parent
+          /values:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get the array of sub-trees attached to this value
+            patch:
+              securedBy: [oauth_2_0]
+              description: Merge in an array of child values
             post:
               securedBy: [oauth_2_0]
-              description: acquire all of the child nodes of the acquiree, then delete the acquiree node
+              description: |
+                 Arbitrarily set or change the child values for this value. Values are removed from their previous
+                 parent (node or category)
+          /acquires:
+            /{acquiree}:
+              post:
+                securedBy: [oauth_2_0]
+                description: acquire all of the child nodes of the acquiree, then delete the acquiree node
 
 /deployedEngagementTypes:
   get:
@@ -506,33 +509,34 @@ traits: !include traits.yml
           application/json:
             schema: !include ../schemas/deployedEngagementTypes.json
             example: !include ../examples/deployedEngagementTypes-simple.json
-  /{id}:
-    get:
-      securedBy: [oauth_2_0]
-      description: |
-        Get details of all of a specific deployedEngagement type
-      responses:
-        200:
-          body:
-            application/json:
-              schema: !include ../schemas/deployedEngagementType.json
-              example: !include ../examples/deployedEngagementType-simple.json
-    /engagements:
-      post:
+  /byID:
+    /{id}:
+      get:
+        securedBy: [oauth_2_0]
         description: |
-          Order an engagement for the given deployed engagement type. The engagement starts in the New state.
-          
-          The response includes the id of the newly created engagement.
-        body:
-          application/json:
-            schema: !include ../schemas/engagementCreate.json
-            example: !include ../examples/engagementCreate-simple.json
+          Get details of all of a specific deployedEngagement type
         responses:
           200:
             body:
               application/json:
-                schema: !include ../schemas/engagementRead.json
-                example: !include ../examples/engagementRead-created.json
+                schema: !include ../schemas/deployedEngagementType.json
+                example: !include ../examples/deployedEngagementType-simple.json
+      /engagements:
+        post:
+          description: |
+            Order an engagement for the given deployed engagement type. The engagement starts in the New state.
+            
+            The response includes the id of the newly created engagement.
+          body:
+            application/json:
+              schema: !include ../schemas/engagementCreate.json
+              example: !include ../examples/engagementCreate-simple.json
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/engagementRead.json
+                  example: !include ../examples/engagementRead-created.json
   /byVendor:
     /{CT}:
       /{CAD}:
@@ -600,10 +604,11 @@ traits: !include traits.yml
   post:
     description: |
       Order an engagement for the given deployed engagement type.
-  /{id}:
-    /ticket:
-      get:
-        description: Get a ticket for any engagement given its id. Powerful - effectively provides full access to any engagement.
+  /byID:
+    /{id}:
+      /ticket:
+        get:
+          description: Get a ticket for any engagement given its id. Powerful - effectively provides full access to any engagement.
   /byVendor:
     /{CT}:
       /{CAD}:
@@ -614,7 +619,7 @@ traits: !include traits.yml
               The response is an array of tickets (engagement IDs + this consumer, signed by
               the producer).
               TODO - searchable, including by candidate [HOW? when only storing application on the engagement?], orderable, paging, filterable by status (complete etc.)
-  /viaTicket:
+  /byTicket:
     /{ticket}:
       post:
         description: |
@@ -704,15 +709,16 @@ traits: !include traits.yml
           securedBy: [oauth_2_0]
           is: [ offerEmbedSchema, returnItemDefs ] 
           description: Get definitions for all candidate-scoped, candidateOwned items, when writing to them (POST, PATCH, PUT)
-      /{item}:
-        /forRead:
-          get:
-            description: Get definitions for a specific candidate-scoped, candidateOwned items, when reading from it (GET)
-        /forWrite:
-          get:
-            securedBy: [oauth_2_0]
-            is: [ offerEmbedSchema, returnItemDef ] 
-            description: Get definitions for a specific candidate-scoped, candidateOwned items, when writing to it (POST, PATCH, PUT)
+      /byName:
+        /{item}:
+          /forRead:
+            get:
+              description: Get definitions for a specific candidate-scoped, candidateOwned items, when reading from it (GET)
+          /forWrite:
+            get:
+              securedBy: [oauth_2_0]
+              is: [ offerEmbedSchema, returnItemDef ] 
+              description: Get definitions for a specific candidate-scoped, candidateOwned items, when writing to it (POST, PATCH, PUT)
   /application:
     /candidateOwned:
     /internalOwned:
@@ -749,89 +755,90 @@ traits: !include traits.yml
             application/json:
               schema: !include ../schemas/jobs.json
               example: !include ../examples/jobs-simple.json
-  /{id}:
-    get:
-      securedBy: [oauth_2_0]
-      description: |
-        Get the candidate-facing information for a specific job opening 
-      responses:
-        200:
-          body:
-            application/json:
-              schema: !include ../schemas/job.json
-              example: !include ../examples/job-simple.json
-    /deltaPings:
-      post:
+  /byID:
+    /{id}:
+      get:
         securedBy: [oauth_2_0]
         description: |
-          Send notification of a change to the candidate-facing details of a job opening.
-      /toActive:
+          Get the candidate-facing information for a specific job opening 
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/job.json
+                example: !include ../examples/job-simple.json
+      /deltaPings:
         post:
           securedBy: [oauth_2_0]
           description: |
-            Send notification of a change to the candidate-facing details of a job opening, specifically
-            that the job opening has transitioned to active. Useful to feed something like a push job notification system,
-            which does not care about all of the micro delta pings for an opening, just when it becomes newly active.
-      /toPubliclyActive:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            See /jobs/{id}/deltaPings.
-            
-            Send notification of a change to the candidate-facing details of a job opening, specifically
-            that the job opening has become newly publicly active (perhaps it was active before but internal).
-            
-    /widgetState:
-      /me:
-        /{consumer}:
-          description: |
-            The name of the app that wants to know whether to render its widget or not
-          get:
+            Send notification of a change to the candidate-facing details of a job opening.
+        /toActive:
+          post:
             securedBy: [oauth_2_0]
             description: |
-              Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to
-              know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made
-              by the ATS.
-                
-              The OAuth token may be for a specific candidate, which will allow the API producer to
-              make a fine-grained decision, possibly looking into the TAS session, or an anonymous one
-              (in which case some default decision will be made). 
-            responses:
-              200:
-                body:
-                  application/json:
-                    example: |
-                      { "display": true }
-    /widgetHtml:
-      description: |
-        Resource served up by apps that want to insert an html widget into a web page displaying this job, for example:
-        - an apply now button displayed to a candidate
-        - a menu panel displayed to a recruiter
-      /candidates:
-        /me:
-          get:
+              Send notification of a change to the candidate-facing details of a job opening, specifically
+              that the job opening has transitioned to active. Useful to feed something like a push job notification system,
+              which does not care about all of the micro delta pings for an opening, just when it becomes newly active.
+        /toPubliclyActive:
+          post:
             securedBy: [oauth_2_0]
-            description:
-              Get a button type widget for display on the candidate facing page for a job opening.
-              If called anonymously, the producer will pass back some default which is applicable to
-              public job seekers. If called with a candidate identified, the producer will likely consult
-              the TAS session and perhaps some business data such as whether the candidate has applied for
-              the opening already to make its decision.
-            queryParameters:
-              tracker:
-                type: integer
-                description: |
-                  A tracker that the widget can make use of (candidates only).
-                example: 16548354764
-                required: false
-      /recruiters:
+            description: |
+              See /jobs/{id}/deltaPings.
+              
+              Send notification of a change to the candidate-facing details of a job opening, specifically
+              that the job opening has become newly publicly active (perhaps it was active before but internal).
+              
+      /widgetState:
         /me:
-          get:
-            securedBy: [oauth_2_0]
-            description:
-              Get a card type widget for display to the logged in recruiter for a job opening.
-              The producer will likely consult the TAS session and perhaps some business data
-              such as the recruiter's area to make its decision.                
+          /{consumer}:
+            description: |
+              The name of the app that wants to know whether to render its widget or not
+            get:
+              securedBy: [oauth_2_0]
+              description: |
+                Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to
+                know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made
+                by the ATS.
+                  
+                The OAuth token may be for a specific candidate, which will allow the API producer to
+                make a fine-grained decision, possibly looking into the TAS session, or an anonymous one
+                (in which case some default decision will be made). 
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        { "display": true }
+      /widgetHtml:
+        description: |
+          Resource served up by apps that want to insert an html widget into a web page displaying this job, for example:
+          - an apply now button displayed to a candidate
+          - a menu panel displayed to a recruiter
+        /candidates:
+          /me:
+            get:
+              securedBy: [oauth_2_0]
+              description:
+                Get a button type widget for display on the candidate facing page for a job opening.
+                If called anonymously, the producer will pass back some default which is applicable to
+                public job seekers. If called with a candidate identified, the producer will likely consult
+                the TAS session and perhaps some business data such as whether the candidate has applied for
+                the opening already to make its decision.
+              queryParameters:
+                tracker:
+                  type: integer
+                  description: |
+                    A tracker that the widget can make use of (candidates only).
+                  example: 16548354764
+                  required: false
+        /recruiters:
+          /me:
+            get:
+              securedBy: [oauth_2_0]
+              description:
+                Get a card type widget for display to the logged in recruiter for a job opening.
+                The producer will likely consult the TAS session and perhaps some business data
+                such as the recruiter's area to make its decision.                
   /public:
     /searches:
       post:
@@ -888,49 +895,51 @@ traits: !include traits.yml
     The path from a single leaf to the trunk of the tree represents the chain of sourcing events, for example that led a candidate
     to apply. Each tracker can append meta information (e.g. the employee making an employee referral) to the chain. Trackers can
     be passed by id into tracker-aware APIs such as POST /candidates.
-  /{id}:
-    /chain:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          Get this tracker, its parent tracker, and so on to the root of the tree.
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/trackers.json
-                example: !include ../examples/trackers-simple.json
-    /trackers:          
-      /{CT}:
-        description: Consuming tenant
-        /{CAD}:
-          description: Consuming app developer
-          /{CA}:
-            description: Consuming app
-            post:
-              securedBy: [oauth_2_0]
-              description: |
-                Create a tracker and attach to the specified parent. The implementation MUST check that the values passed in
-                for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
-              body:
-                application/json:
-                  schema: !include ../schemas/tracker.json
-                  example: !include ../examples/tracker-createMailoutTracker.json
-  /{CT}:
-    description: Consuming tenant
-    /{CAD}:
-      description: Consuming app developer
-      /{CA}:
-        description: Consuming app
-        post:
+  /byID:
+    /{id}:
+      /chain:
+        get:
           securedBy: [oauth_2_0]
           description: |
-            Create a base tracker (one with no parent). The implementation MUST check that the values passed in
-            for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
-          body:
-            application/json:
-              schema: !include ../schemas/tracker.json
-              example: !include ../examples/tracker-createSessionTracker.json
+            Get this tracker, its parent tracker, and so on to the root of the tree.
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/trackers.json
+                  example: !include ../examples/trackers-simple.json
+      /trackers:          
+        /{CT}:
+          description: Consuming tenant
+          /{CAD}:
+            description: Consuming app developer
+            /{CA}:
+              description: Consuming app
+              post:
+                securedBy: [oauth_2_0]
+                description: |
+                  Create a tracker and attach to the specified parent. The implementation MUST check that the values passed in
+                  for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
+                body:
+                  application/json:
+                    schema: !include ../schemas/tracker.json
+                    example: !include ../examples/tracker-createMailoutTracker.json
+  /byConsumer:
+    /{CT}:
+      description: Consuming tenant
+      /{CAD}:
+        description: Consuming app developer
+        /{CA}:
+          description: Consuming app
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              Create a base tracker (one with no parent). The implementation MUST check that the values passed in
+              for {CAT}/{CAD}/{CA} match the actual consumer of the API, and disallow the call if not.
+            body:
+              application/json:
+                schema: !include ../schemas/tracker.json
+                example: !include ../examples/tracker-createSessionTracker.json
 
 /recruiters:
   description: |
@@ -1017,30 +1026,31 @@ traits: !include traits.yml
       the identity fields need to be set, typically by:
       - setting {E} to the email IdP, {N} to their email; OR
       - setting {E} to corporate IdP, {N} to incoming {N}
-  /{id}:
-    post:
-      securedBy: [oauth_2_0]
-      description: update an existing recruiter and/or their user ('s vcard)
-    /deltaPings:
+  /byID:
+    /{id}:
       post:
         securedBy: [oauth_2_0]
-        description: |
-          Alert interested apps that recruiter CRUD has happened. e.g. one might send welcome messages
-          to new recruiters.
-          Probably only useful as non-SoT. 
-    /userFace:
-      get:
-        securedBy: [oauth_2_0]
-        description: get the user-facing details for a recruiter (active flag, user ID, org details, etc.)
-    /user:
-      /vcard:
-        get:
+        description: update an existing recruiter and/or their user ('s vcard)
+      /deltaPings:
+        post:
           securedBy: [oauth_2_0]
           description: |
-            Get contact details of the recruiter's user record user in the form described by rfc7095.
-            Users are people who are more or less inside the organization. Users may be or take on the role
-            of other types such as recruiter.
-            When called as OAuth, the target must be the logged in user, or one of their coRecruiters.
+            Alert interested apps that recruiter CRUD has happened. e.g. one might send welcome messages
+            to new recruiters.
+            Probably only useful as non-SoT. 
+      /userFace:
+        get:
+          securedBy: [oauth_2_0]
+          description: get the user-facing details for a recruiter (active flag, user ID, org details, etc.)
+      /user:
+        /vcard:
+          get:
+            securedBy: [oauth_2_0]
+            description: |
+              Get contact details of the recruiter's user record user in the form described by rfc7095.
+              Users are people who are more or less inside the organization. Users may be or take on the role
+              of other types such as recruiter.
+              When called as OAuth, the target must be the logged in user, or one of their coRecruiters.
   /userFaces:            
     /searches:
       post:
@@ -1075,39 +1085,40 @@ traits: !include traits.yml
         body:
           text/plain:
             example: 7600232
-  /{id}:
-    /lock:
-      post:
-        securedBy: [oauth_2_0]
-        description: |
-          Lock the upload with the given id if it exists. and return an id for the lock.
-          
-          An upload can only be locked once. Once locked, an upload can only be accessed or deleted by
-          whoever holds the lock id.
-          
-           Example flow for a voice message:
-           
-          - an apply app prepares to render its page (a job application form)
-          - the apply app calls POST /voiceMessageUploads to request an id from the voice app
-          - the apply app passes the id back into the iframe-ed voice app via url parameter
-          - the voice app is rendered and made visisble to the candidate
-          - the candidate uses the voice app's UI to record a message with the given id
-          - some time later (e.g. when candidate clicks submit) the apply app attempts to lock the upload (assuming the candidate made one)
-          - later the apply app passes the lock id to the ats via POST /candidates
-          - the ats app checks whether an existing upload is about to be overwritten
-          - if so, ats calls DELETE /voiceMessageUploads/locked/{lockID} 
-          - the ats stores the new lock id on the candidate record
-          - from now on the ats takes over responsibility for deleting the upload (maybe when the candidate deletes their profile) 
-        responses:
-          201:
-            description: the uopload with that id was successfully locked, and the lock's id was returned
-            body:
-              text/plain:
-                example: 7600232
-          404:
-            description: no upload exists with that id
-          423:
-            description: that upload exists but has already been locked
+  /byID:
+    /{id}:
+      /lock:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Lock the upload with the given id if it exists. and return an id for the lock.
+            
+            An upload can only be locked once. Once locked, an upload can only be accessed or deleted by
+            whoever holds the lock id.
+            
+             Example flow for a voice message:
+             
+            - an apply app prepares to render its page (a job application form)
+            - the apply app calls POST /voiceMessageUploads to request an id from the voice app
+            - the apply app passes the id back into the iframe-ed voice app via url parameter
+            - the voice app is rendered and made visisble to the candidate
+            - the candidate uses the voice app's UI to record a message with the given id
+            - some time later (e.g. when candidate clicks submit) the apply app attempts to lock the upload (assuming the candidate made one)
+            - later the apply app passes the lock id to the ats via POST /candidates
+            - the ats app checks whether an existing upload is about to be overwritten
+            - if so, ats calls DELETE /voiceMessageUploads/locked/{lockID} 
+            - the ats stores the new lock id on the candidate record
+            - from now on the ats takes over responsibility for deleting the upload (maybe when the candidate deletes their profile) 
+          responses:
+            201:
+              description: the uopload with that id was successfully locked, and the lock's id was returned
+              body:
+                text/plain:
+                  example: 7600232
+            404:
+              description: no upload exists with that id
+            423:
+              description: that upload exists but has already been locked
     /recordingUI:
       get:
         securedBy: [oauth_2_0]
@@ -1150,29 +1161,30 @@ traits: !include traits.yml
       201:
         body:
           text/plain:
-  /{id}:
-    /lock:
-      post:
-        securedBy: [oauth_2_0]
-        description: See voiceMessageUploads
-        responses:
-          201:
-            description: See voiceMessageUploads
-            body:
-              text/plain:
-          404:
-            description: See voiceMessageUploads
-          423:
-            description: See voiceMessageUploads
-    /recordingUI:
-      get:
-        securedBy: [oauth_2_0]
-        description: See voiceMessageUploads
-        queryParameters:
-          tracker:
-            type: integer
-            description: See voiceMessageUploads
-            required: false
+  /byID:
+    /{id}:
+      /lock:
+        post:
+          securedBy: [oauth_2_0]
+          description: See voiceMessageUploads
+          responses:
+            201:
+              description: See voiceMessageUploads
+              body:
+                text/plain:
+            404:
+              description: See voiceMessageUploads
+            423:
+              description: See voiceMessageUploads
+      /recordingUI:
+        get:
+          securedBy: [oauth_2_0]
+          description: See voiceMessageUploads
+          queryParameters:
+            tracker:
+              type: integer
+              description: See voiceMessageUploads
+              required: false
   /locked:            
     /{lockID}:          
       delete:

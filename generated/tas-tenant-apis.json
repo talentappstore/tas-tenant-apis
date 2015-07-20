@@ -3,6 +3,8 @@
   "type": "object",
   "javaType": "com.tas.api.tenant.Tenant",
   "properties": {
+    "apiResult": { "$ref": "../schemas/apiResult.json" },
+    "apiTest": { "$ref": "../schemas/apiTest.json" },
     "assessmentDetail": { "$ref": "../schemas/assessmentDetail.json" },
     "candidateEdit": { "$ref": "../schemas/candidateEdit.json" },
     "candidateEditSpec": { "$ref": "../schemas/candidateEditSpec.json" },

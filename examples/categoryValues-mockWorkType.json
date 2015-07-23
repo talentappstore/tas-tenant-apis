@@ -1,0 +1,32 @@
+[
+  {
+    "id": 100039365,
+    "name": "Full Time",
+    "available": true
+  },
+  {
+    "id": 100039367,
+    "name": "Part Time",
+    "available": true
+  },
+  {
+    "id": 100039363,
+    "name": "Temporary",
+    "available": true
+  },
+  {
+    "id": 100039369,
+    "name": "Shift",
+    "available": true
+  },
+  {
+    "id": 100039361,
+    "name": "Contract",
+    "available": true
+  },
+  {
+    "id": 100039359,
+    "name": "Permanent",
+    "available": true
+  }
+]

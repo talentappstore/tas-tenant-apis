@@ -1,0 +1,27 @@
+[
+  {
+    "id": 100094861,
+    "name": "Entry",
+    "available": true
+  },
+  {
+    "id": 100015639,
+    "name": "Experienced",
+    "available": true
+  },
+  {
+    "id": 100015637,
+    "name": "Graduate",
+    "available": true
+  },
+  {
+    "id": 100015641,
+    "name": "Management",
+    "available": true
+  },
+  {
+    "id": 100015643,
+    "name": "Executive",
+    "available": true
+  }
+]

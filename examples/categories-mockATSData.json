@@ -1,0 +1,23 @@
+[
+  {
+    "id": 100001999,
+    "name": "Expertise",
+    "canMultiSelectOnJobs": true
+  },
+  {
+    "id": 100037613,
+    "key": "LOCATION",
+    "name": "Locations",
+    "canMultiSelectOnJobs": true
+  },
+  {
+    "id": 100015632,
+    "name": "Job Level",
+    "canMultiSelectOnJobs": true
+  },
+  {
+    "id": 100039352,
+    "name": "Work type",
+    "canMultiSelectOnJobs": true
+  }
+]

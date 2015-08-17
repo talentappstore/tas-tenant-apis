@@ -888,7 +888,26 @@ traits: !include traits.yml
       post:
         securedBy: [oauth_2_0]
         description: Update an existing opening as a recruiter
-  
+
+/landingPage:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Produced by apps that want to allow a user viewing the storefront app to click on the app's icon and be offered a link
+      to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.
+      
+      Probably only consumed by storefront apps.
+      
+      SoT: non-SoT (each app has their own landing page).
+      OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)
+       
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/landingPage.json
+            example: !include ../examples/landingPage-simple.json
+    
 /trackers:
   description: |
     A tracker represents a single sourcing event (social sharing, automated job alert, etc.). Trackers are organized into trees.

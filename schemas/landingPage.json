@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "url": {
+            "type": "string",
+            "description": "a (probably tenant-specific) url of the landing page for this app"
+        }
+    },
+    "additionalProperties": false
+}

@@ -113,11 +113,11 @@
             "type": "string",
             "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
         },
-        "formattedDescription": {
+        "shortSummary": {
             "type": "string",
-            "description": "Description for this req"
+            "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
         },
-        "companyRef": {
+        "company": {
             "type": "string",
             "description": "as per Salesforce, more explicit than org"
         },
@@ -136,7 +136,7 @@
         "code",
         "availability",
         "title",
-        "formattedDescription",
+        "shortSummary",
         "country"
     ],
     "additionalProperties": false

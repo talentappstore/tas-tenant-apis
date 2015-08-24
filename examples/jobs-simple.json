@@ -18,7 +18,7 @@
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
-        "formattedDescription": "An amazing opportunity",
+        "shortSummary": "An amazing opportunity",
         "categories": [
             {
                 "category": 1022,
@@ -55,7 +55,7 @@
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
-        "formattedDescription": "An amazing opportunity, unrivalled for enjoyment",
+        "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
                 "category": 1022,

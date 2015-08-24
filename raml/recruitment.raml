@@ -727,20 +727,40 @@ traits: !include traits.yml
     /internalOwned:
     /internalShared:
 
-            
 /jobs:
   description: |
-    Position openings aka vacancies, job openings, etc. 
+    Position openings aka vacancies, job openings, etc.
+  get:    
+    securedBy: [oauth_2_0]
+    is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 } ]
+    description: |
+      Search jobs, returning the candidate-facing information. A POST version of this API provides more searchability.
+    queryParameters:
+      availableInternally:
+        type: boolean
+        description: |
+          Include or exclude jobs that are active and available to internal candidates. Default is false.
+        example: true
+        required: false
+      availableExternally:
+        type: boolean
+        description: |
+          Include or exclude jobs that are active and available to external candidates. Default is true.
+        example: true
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/jobs.json
+            example: !include ../examples/jobs-simple.json
   /searches:
     post:
       securedBy: [oauth_2_0]
       description: |
-        Search jobs, returning the candidate-facing information, except for formattedDescription, which may be large.
+        Search jobs, returning the candidate-facing information.
 
         The method is a POST solely because the size and number of parameters might get too large for a GET.
-        
-        Auth:
-        When called as an OAuth API, the recruiter parameter must be present, and must be set to the logged in recruiter. 
       body:
         application/json:
           schema: !include ../schemas/jobSearches.json
@@ -763,6 +783,16 @@ traits: !include traits.yml
               application/json:
                 schema: !include ../schemas/job.json
                 example: !include ../examples/job-simple.json
+      /description:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the job's description 
+          responses:
+            200:
+              body:
+                text/plain:
+                              
       /deltaPings:
         post:
           securedBy: [oauth_2_0]
@@ -834,42 +864,8 @@ traits: !include traits.yml
               description:
                 Get a card type widget for display to the logged in recruiter for a job opening.
                 The producer will likely consult the TAS session and perhaps some business data
-                such as the recruiter's area to make its decision.                
-  /public:
-    /searches:
-      post:
-        securedBy: [oauth_2_0]
-        is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 } ]
-        description: |
-          Search jobs, returning the candidate-facing information, except for formattedDescription, which may be large,
-          but only for job openings that are publicly available, i.e. where availableExternally == true AND externalCloseDate
-          is null or in the future.
-           
-          See description for POST /jobs/searches.
-           
-          The method is a POST solely because the size and number of parameters might get too large for a GET.
-        body:
-          application/json:
-            schema: !include ../schemas/jobSearches.json
-            example: !include ../examples/jobSearches-simple.json
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/jobs.json
-                example: !include ../examples/jobs-simple.json
-    /{id}:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          Get candidate-facing details of a specific job opening, but only if it is publicly visible, i.e.
-          where availableExternally == true AND externalCloseDate is null or in the future.
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/job.json
-                example: !include ../examples/job-simple.json
+                such as the recruiter's area to make its decision.
+                                
   /recruiterFaces:
     description: |
       APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth,

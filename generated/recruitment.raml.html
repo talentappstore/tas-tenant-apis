@@ -2362,7 +2362,99 @@
             }
         }
     }
-}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="jobs" class="panel-title">/jobs</h3></div><div class="panel-body"><div class="top-resource-description"><p>Position openings aka vacancies, job openings, etc.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_searches"><span class="parent">/jobs</span>/searches</a> <span class="methods"><a href="#jobs_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information, except for formattedDescription, which may be large.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p><p>Auth: When called as an OAuth API, the recruiter parameter must be present, and must be set to the logged in recruiter.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information, except for formattedDescription, which may be large.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p><p>Auth: When called as an OAuth API, the recruiter parameter must be present, and must be set to the logged in recruiter.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="jobs" class="panel-title">/jobs</h3></div><div class="panel-body"><div class="top-resource-description"><p>Position openings aka vacancies, job openings, etc.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs"><span class="parent"></span>/jobs</a> <span class="methods"><a href="#jobs_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information. A POST version of this API provides more searchability.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/jobs</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information. A POST version of this API provides more searchability.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_get_request"><h3>Query Parameters</h3><ul><li><strong>$orderby</strong>: <em>(string)</em><p>The $orderby query option is used to order the entries, where the resource is a collection. It behaves as per its namesake in OData (<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a>). The actual properties that can used varies by resource - for <b>jobs</b>, it is <b>id</b>.</p><p><strong>Example</strong>:</p><pre>return widgets ordered by id (ascending)
+
+GET /widgets?$orderby=id
+
+return the first set of widgets, ordered by quantity on hand
+(ascending), then name (descending)
+GET /widgets?$orderby=quantityOnHand,name desc
+</pre></li><li><strong>$filter</strong>: <em>(string)</em><p></p><p>The $filter query option is used to identity a subset of the entries, where the resource is a collection. It behaves as per its namesake in OData (<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a>).</p><p></p><p>The actual properties that can used for filtering, and the complexity of the expression that is supported varies by resource - for <b>jobs</b>, it is:</p><p></p><p></p><p><b>Gt on id</b></p>.<p></p><p><strong>Example</strong>:</p><pre>return the widgets that are active, and that have status of &#39;online&#39; or that are in Auckland:
+
+GET /widgets?$filter=active eq true and (status eq &#39;online&#39; or location/city eq &#39;Auckland&#39;)
+</pre></li><li><strong>$top</strong>: <em>(integer)</em><p>The $top query option is used to limit the number of entries, where the resource is a collection. It behaves as per its namesake in OData (<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a>).</p><p>For <b>jobs</b>, $top must be less than or equal to <b>20</b>. This is also the default.</p><p><strong>Example</strong>:</p><pre><code>return the first 5 widgets:
+
+GET /widgets?$top=5
+</code></pre></li><li><strong>availableInternally</strong>: <em>(boolean)</em><p>Include or exclude jobs that are active and available to internal candidates. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>availableExternally</strong>: <em>(boolean)</em><p>Include or exclude jobs that are active and available to external candidates. Default is true.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li></ul></div><div class="tab-pane" id="jobs_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref":"job.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+    {
+        "id": 10334355,
+            "status": "active",
+        "links": {
+            "view": "https://acme.jobboard.com/jobs/Creative-Director",
+            "apply": "https://acme.bigapply.com/jobs/10334355"
+        },
+        "availability": {
+            "availableInternally": true,
+            "availableExternally": false,
+            "applicationCloseDates": {
+                "closeDate": "2015-11-05T13:15:30Z",
+                "internalCloseDate": "2015-11-05T13:15:30Z",
+                "externalCloseDate": "2015-11-05T13:15:30Z"
+            }
+        },
+        "code": "1022NH",
+        "title": "Creative Director",
+        "country": "AU",
+        "shortSummary": "An amazing opportunity",
+        "categories": [
+            {
+                "category": 1022,
+                "values": [
+                    10024
+                ]
+            },
+            {
+                "category": 1026,
+                "values": [
+                    10044,
+                    10025,
+                    10029
+                ]
+            }
+        ]
+    },
+    {
+        "id": 10334356,
+            "status": "active",
+        "links": {
+            "view": "https://acme.jobboard.com/jobs/Creative-Lackey",
+            "apply": "https://acme.bigapply.com/jobs/10334356"
+        },
+        "availability": {
+            "availableInternally": true,
+            "availableExternally": false,
+            "applicationCloseDates": {
+                "closeDate": "2015-11-05T13:15:30Z",
+                "internalCloseDate": "2015-11-05T13:15:30Z",
+                "externalCloseDate": "2015-11-05T13:15:30Z"
+            }
+        },
+        "code": "1024NH",
+        "title": "Creative Lackey",
+        "country": "US",
+        "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
+        "categories": [
+            {
+                "category": 1022,
+                "values": [
+                    10024
+                ]
+            },
+            {
+                "category": 1026,
+                "values": [
+                    10044,
+                    10025,
+                    10029
+                ]
+            }
+        ]
+    }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_searches"><span class="parent">/jobs</span>/searches</a> <span class="methods"><a href="#jobs_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "recruiterRelation": {
@@ -2463,7 +2555,7 @@
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
-        "formattedDescription": "An amazing opportunity",
+        "shortSummary": "An amazing opportunity",
         "categories": [
             {
                 "category": 1022,
@@ -2500,7 +2592,7 @@
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
-        "formattedDescription": "An amazing opportunity, unrivalled for enjoyment",
+        "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
                 "category": 1022,
@@ -2633,11 +2725,11 @@
             "type": "string",
             "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
         },
-        "formattedDescription": {
+        "shortSummary": {
             "type": "string",
-            "description": "Description for this req"
+            "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
         },
-        "companyRef": {
+        "company": {
             "type": "string",
             "description": "as per Salesforce, more explicit than org"
         },
@@ -2656,7 +2748,7 @@
         "code",
         "availability",
         "title",
-        "formattedDescription",
+        "shortSummary",
         "country"
     ],
     "additionalProperties": false
@@ -2681,7 +2773,7 @@
     },
     "code": "1022NH",
     "title": "Creative Director",
-    "formattedDescription": "One of the most exciting positions ever offered",
+    "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
     "categories": [
         {
@@ -2701,360 +2793,8 @@
     ]
 }
 
-</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__deltaPings"><span class="parent">/jobs/byID/{id}</span>/deltaPings</a> <span class="methods"><a href="#jobs_byID__id__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__deltaPings_toActive"><span class="parent">/jobs/byID/{id}/deltaPings</span>/toActive</a> <span class="methods"><a href="#jobs_byID__id__deltaPings_toActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__deltaPings_toActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__deltaPings_toActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__deltaPings_toActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/deltaPings</span>/toActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__deltaPings_toActive_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__deltaPings_toActive_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__deltaPings_toPubliclyActive"><span class="parent">/jobs/byID/{id}/deltaPings</span>/toPubliclyActive</a> <span class="methods"><a href="#jobs_byID__id__deltaPings_toPubliclyActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__deltaPings_toPubliclyActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__deltaPings_toPubliclyActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__deltaPings_toPubliclyActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/deltaPings</span>/toPubliclyActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__deltaPings_toPubliclyActive_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__deltaPings_toPubliclyActive_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetState_me__consumer_"><span class="parent">/jobs/byID/{id}/widgetState/me</span>/{consumer}</a> <span class="methods"><a href="#jobs_byID__id__widgetState_me__consumer__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__widgetState_me__consumer_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The name of the app that wants to know whether to render its widget or not</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__widgetState_me__consumer__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made by the ATS.</p><p>The OAuth token may be for a specific candidate, which will allow the API producer to make a fine-grained decision, possibly looking into the TAS session, or an anonymous one (in which case some default decision will be made).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__widgetState_me__consumer__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/widgetState/me</span>/{consumer}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made by the ATS.</p><p>The OAuth token may be for a specific candidate, which will allow the API producer to make a fine-grained decision, possibly looking into the TAS session, or an anonymous one (in which case some default decision will be made).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__widgetState_me__consumer__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__id__widgetState_me__consumer__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__widgetState_me__consumer__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li><li><strong>consumer</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__id__widgetState_me__consumer__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "display": true }
-</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetHtml"><span class="parent">/jobs/byID/{id}</span>/widgetHtml</a> <span class="methods"></span></h4></div><div id="panel_jobs_byID__id__widgetHtml" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Resource served up by apps that want to insert an html widget into a web page displaying this job, for example:</p><ul><li>an apply now button displayed to a candidate</li><li>a menu panel displayed to a recruiter</li></ul></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetHtml_candidates_me"><span class="parent">/jobs/byID/{id}/widgetHtml/candidates</span>/me</a> <span class="methods"><a href="#jobs_byID__id__widgetHtml_candidates_me_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__widgetHtml_candidates_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__widgetHtml_candidates_me_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a button type widget for display on the candidate facing page for a job opening. If called anonymously, the producer will pass back some default which is applicable to public job seekers. If called with a candidate identified, the producer will likely consult the TAS session and perhaps some business data such as whether the candidate has applied for the opening already to make its decision.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__widgetHtml_candidates_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/widgetHtml/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a button type widget for display on the candidate facing page for a job opening. If called anonymously, the producer will pass back some default which is applicable to public job seekers. If called with a candidate identified, the producer will likely consult the TAS session and perhaps some business data such as whether the candidate has applied for the opening already to make its decision.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__widgetHtml_candidates_me_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__widgetHtml_candidates_me_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>tracker</strong>: <em>(integer)</em><p>A tracker that the widget can make use of (candidates only).</p><p><strong>Example</strong>:</p><pre><code>16548354764</code></pre></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetHtml_recruiters_me"><span class="parent">/jobs/byID/{id}/widgetHtml/recruiters</span>/me</a> <span class="methods"><a href="#jobs_byID__id__widgetHtml_recruiters_me_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__widgetHtml_recruiters_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__widgetHtml_recruiters_me_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a card type widget for display to the logged in recruiter for a job opening. The producer will likely consult the TAS session and perhaps some business data such as the recruiter&#39;s area to make its decision.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__widgetHtml_recruiters_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/widgetHtml/recruiters</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a card type widget for display to the logged in recruiter for a job opening. The producer will likely consult the TAS session and perhaps some business data such as the recruiter&#39;s area to make its decision.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__widgetHtml_recruiters_me_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__widgetHtml_recruiters_me_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_public_searches"><span class="parent">/jobs/public</span>/searches</a> <span class="methods"><a href="#jobs_public_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_public_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_public_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information, except for formattedDescription, which may be large, but only for job openings that are publicly available, i.e. where availableExternally == true AND externalCloseDate is null or in the future.</p><p>See description for POST /jobs/searches.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_public_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/public</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information, except for formattedDescription, which may be large, but only for job openings that are publicly available, i.e. where availableExternally == true AND externalCloseDate is null or in the future.</p><p>See description for POST /jobs/searches.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_public_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_public_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_public_searches_post_request"><h3>Query Parameters</h3><ul><li><strong>$orderby</strong>: <em>(string)</em><p>The $orderby query option is used to order the entries, where the resource is a collection. It behaves as per its namesake in OData (<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a>). The actual properties that can used varies by resource - for <b>searches</b>, it is <b>id</b>.</p><p><strong>Example</strong>:</p><pre>return widgets ordered by id (ascending)
-
-GET /widgets?$orderby=id
-
-return the first set of widgets, ordered by quantity on hand
-(ascending), then name (descending)
-GET /widgets?$orderby=quantityOnHand,name desc
-</pre></li><li><strong>$filter</strong>: <em>(string)</em><p></p><p>The $filter query option is used to identity a subset of the entries, where the resource is a collection. It behaves as per its namesake in OData (<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a>).</p><p></p><p>The actual properties that can used for filtering, and the complexity of the expression that is supported varies by resource - for <b>searches</b>, it is:</p><p></p><p></p><p><b>Gt on id</b></p>.<p></p><p><strong>Example</strong>:</p><pre>return the widgets that are active, and that have status of &#39;online&#39; or that are in Auckland:
-
-GET /widgets?$filter=active eq true and (status eq &#39;online&#39; or location/city eq &#39;Auckland&#39;)
-</pre></li><li><strong>$top</strong>: <em>(integer)</em><p>The $top query option is used to limit the number of entries, where the resource is a collection. It behaves as per its namesake in OData (<a href="http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html">http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html</a>).</p><p>For <b>searches</b>, $top must be less than or equal to <b>20</b>. This is also the default.</p><p><strong>Example</strong>:</p><pre><code>return the first 5 widgets:
-
-GET /widgets?$top=5
-</code></pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "recruiterRelation": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer",
-                    "description": "list all openings related to the recruiter, who must be the logged in user."
-                },
-                "relationship": {
-                    "enum": [
-                        "owner",
-                        "accessor"
-                    ],
-                    "description": "is the recruiter the owner, or can they act as if they were the owner (maybe the opening&#39;s owner is a coRecruiter)"
-                }
-            }
-        },
-        "match": {
-            "type": "object",
-            "description": "search parameters that don&#39;t well fit into the filter string",
-            "properties": {
-                "recruiter": {
-                    "$ref": "#/definitions/recruiterRelation"
-                },
-                "categories": {
-                    "$ref": "categoriesActual.json"
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "type": "object",
-    "properties": {
-        "match": {
-            "$ref": "#/definitions/match"
-        },
-        "filter": {
-            "type": "string",
-            "description": "OData-style filter string, AND-ed with any match: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
-        },
-        "orderby": {
-            "type": "string",
-            "description": "OData-style orderby string: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
-        },
-        "top": {
-            "type": "integer",
-            "description": "OData-style top value: see http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html"
-        }
-    },
-    "additionalProperties": false
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "match": {
-        "categories": [
-            {
-                "category": 100466,
-                "values": [
-                    1001
-                ]
-            },
-            {
-                "category": 10034,
-                "values": [
-                    1001
-                ]
-            }
-        ],
-        "recruiter": {
-            "id": 1,
-            "relationship": "owner"
-        }
-    },
-    "filter": "status eq &#39;active&#39; and code eq &#39;ADH1333&#39; and id gt 10",
-    "orderby": "id asc",
-    "top": 20
-}</code></pre></div><div class="tab-pane" id="jobs_public_searches_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-	"$schema":"http://json-schema.org/draft-04/schema#",
-	"type":"array",
-	"items":{ "$ref":"job.json" }
-}</code></pre><p><strong>Example</strong>:</p><pre><code>[
-    {
-        "id": 10334355,
-            "status": "active",
-        "links": {
-            "view": "https://acme.jobboard.com/jobs/Creative-Director",
-            "apply": "https://acme.bigapply.com/jobs/10334355"
-        },
-        "availability": {
-            "availableInternally": true,
-            "availableExternally": false,
-            "applicationCloseDates": {
-                "closeDate": "2015-11-05T13:15:30Z",
-                "internalCloseDate": "2015-11-05T13:15:30Z",
-                "externalCloseDate": "2015-11-05T13:15:30Z"
-            }
-        },
-        "code": "1022NH",
-        "title": "Creative Director",
-        "country": "AU",
-        "formattedDescription": "An amazing opportunity",
-        "categories": [
-            {
-                "category": 1022,
-                "values": [
-                    10024
-                ]
-            },
-            {
-                "category": 1026,
-                "values": [
-                    10044,
-                    10025,
-                    10029
-                ]
-            }
-        ]
-    },
-    {
-        "id": 10334356,
-            "status": "active",
-        "links": {
-            "view": "https://acme.jobboard.com/jobs/Creative-Lackey",
-            "apply": "https://acme.bigapply.com/jobs/10334356"
-        },
-        "availability": {
-            "availableInternally": true,
-            "availableExternally": false,
-            "applicationCloseDates": {
-                "closeDate": "2015-11-05T13:15:30Z",
-                "internalCloseDate": "2015-11-05T13:15:30Z",
-                "externalCloseDate": "2015-11-05T13:15:30Z"
-            }
-        },
-        "code": "1024NH",
-        "title": "Creative Lackey",
-        "country": "US",
-        "formattedDescription": "An amazing opportunity, unrivalled for enjoyment",
-        "categories": [
-            {
-                "category": 1022,
-                "values": [
-                    10024
-                ]
-            },
-            {
-                "category": 1026,
-                "values": [
-                    10044,
-                    10025,
-                    10029
-                ]
-            }
-        ]
-    }
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_public__id_"><span class="parent">/jobs/public</span>/{id}</a> <span class="methods"><a href="#jobs_public__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_public__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_public__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get candidate-facing details of a specific job opening, but only if it is publicly visible, i.e. where availableExternally == true AND externalCloseDate is null or in the future.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_public__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/public</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get candidate-facing details of a specific job opening, but only if it is publicly visible, i.e. where availableExternally == true AND externalCloseDate is null or in the future.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_public__id__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_public__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_public__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_public__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "definitions": {
-        "links": {
-            "type": "object",
-            "properties": {
-                "view": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URI to view the opening - see HR-XML"
-                },
-                "apply": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URI of the page where a candidate applies - see HR-XML"
-                }
-            },
-            "additionalProperties": false
-        },
-        "status": {
-            "enum": [
-                "active",
-                "complete"
-            ],
-            "description": "from HR-XML"
-        },
-        "availability": {
-            "type": "object",
-            "properties": {
-                "availableInternally": {
-                    "type": "boolean",
-                    "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
-                },
-                "availableExternally": {
-                    "type": "boolean",
-                    "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
-                },
-                "jobPublishDates": {
-                    "type": "object",
-                    "properties": {
-                        "publishDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which the job was published (became available to candidates)"
-                        },
-                        "internalPublishDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
-                        },
-                        "externalPublishDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which the job was published to external candidates. If not set, use publishDate."
-                        }
-                    },
-                    "required": [
-                        "publishDate"
-                    ],
-                    "additionalProperties": false
-                },
-                "applicationCloseDates": {
-                    "type": "object",
-                    "properties": {
-                        "closeDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which applications are scheduled to close"
-                        },
-                        "internalCloseDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
-                        },
-                        "externalCloseDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
-                        }
-                    },
-                    "required": [
-                        "closeDate"
-                    ],
-                    "additionalProperties": false
-                }
-            },
-            "required": [
-                "availableInternally",
-                "availableExternally"
-            ],
-            "additionalProperties": false
-        }
-    },
-    "type": "object",
-    "properties": {
-        "id": {
-            "type": "integer"
-        },
-        "links": {
-            "$ref": "#/definitions/links"
-        },
-        "status": {
-            "$ref": "#/definitions/status"
-        },
-        "availability": {
-            "$ref": "#/definitions/availability"
-        },
-        "code": {
-            "type": "string",
-            "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
-        },
-        "title": {
-            "type": "string",
-            "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
-        },
-        "formattedDescription": {
-            "type": "string",
-            "description": "Description for this req"
-        },
-        "companyRef": {
-            "type": "string",
-            "description": "as per Salesforce, more explicit than org"
-        },
-        "country": {
-            "type": "string",
-            "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
-        },
-        "categories": {
-            "$ref": "categoriesActual.json"
-        }
-    },
-    "required": [
-        "id",
-        "links",
-        "status",
-        "code",
-        "availability",
-        "title",
-        "formattedDescription",
-        "country"
-    ],
-    "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "id": 10334355,
-    "status": "active",
-    "links": {
-        "view": "https://acme.jobboard.com/jobs/Creative-Director",
-        "apply": "https://acme.bigapply.com/jobs/10334355"
-    },
-    "availability": {
-        "availableInternally": true,
-        "availableExternally": false,
-        "applicationCloseDates": {
-            "closeDate": "2015-11-05T13:15:30Z",
-            "internalCloseDate": "2015-11-05T13:15:30Z",
-            "externalCloseDate": "2015-11-05T13:15:30Z"
-        },
-        "jobPublishDates": {
-            "publishDate": "2015-11-05T13:15:30Z"
-        }
-    },
-    "code": "1022NH",
-    "title": "Creative Director",
-    "formattedDescription": "One of the most exciting positions ever offered",
-    "country": "AU",
-    "categories": [
-        {
-            "category": 1022,
-            "values": [
-                10024
-            ]
-        },
-        {
-            "category": 1026,
-            "values": [
-                10044,
-                10025,
-                10029
-            ]
-        }
-    ]
-}
-
-</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_recruiterFaces"><span class="parent">/jobs</span>/recruiterFaces</a> <span class="methods"><a href="#jobs_recruiterFaces_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_recruiterFaces" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth, the logged in principal would be a user, session decorated as a recruiter.</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_recruiterFaces_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_recruiterFaces_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/recruiterFaces</h4></div><div class="modal-body"><div class="alert alert-info"><p>Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"></ul><div class="tab-content"></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_recruiterFaces__id_"><span class="parent">/jobs/recruiterFaces</span>/{id}</a> <span class="methods"><a href="#jobs_recruiterFaces__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobs_recruiterFaces__id__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_recruiterFaces__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_recruiterFaces__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_recruiterFaces__id__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update an existing opening as a recruiter</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_recruiterFaces__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/recruiterFaces</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_recruiterFaces__id__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_recruiterFaces__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_recruiterFaces__id__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/recruiterFaces</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update an existing opening as a recruiter</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_recruiterFaces__id__post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_recruiterFaces__id__post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="landingPage" class="panel-title">/landingPage</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_landingPage"><span class="parent"></span>/landingPage</a> <span class="methods"><a href="#landingPage_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_landingPage" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#landingPage_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Produced by apps that want to allow a user viewing the storefront app to click on the app&#39;s icon and be offered a link to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.</p><p>Probably only consumed by storefront apps.</p><p>SoT: non-SoT (each app has their own landing page). OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="landingPage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/landingPage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Produced by apps that want to allow a user viewing the storefront app to click on the app&#39;s icon and be offered a link to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.</p><p>Probably only consumed by storefront apps.</p><p>SoT: non-SoT (each app has their own landing page). OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#landingPage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="landingPage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__description"><span class="parent">/jobs/byID/{id}</span>/description</a> <span class="methods"><a href="#jobs_byID__id__description_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__description" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__description_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the job&#39;s description</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__description_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}</span>/description</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the job&#39;s description</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__description_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__id__description_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__description_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__id__description_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__deltaPings"><span class="parent">/jobs/byID/{id}</span>/deltaPings</a> <span class="methods"><a href="#jobs_byID__id__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__deltaPings_toActive"><span class="parent">/jobs/byID/{id}/deltaPings</span>/toActive</a> <span class="methods"><a href="#jobs_byID__id__deltaPings_toActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__deltaPings_toActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__deltaPings_toActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__deltaPings_toActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/deltaPings</span>/toActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__deltaPings_toActive_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__deltaPings_toActive_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__deltaPings_toPubliclyActive"><span class="parent">/jobs/byID/{id}/deltaPings</span>/toPubliclyActive</a> <span class="methods"><a href="#jobs_byID__id__deltaPings_toPubliclyActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__deltaPings_toPubliclyActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__deltaPings_toPubliclyActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__deltaPings_toPubliclyActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/deltaPings</span>/toPubliclyActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__deltaPings_toPubliclyActive_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__deltaPings_toPubliclyActive_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetState_me__consumer_"><span class="parent">/jobs/byID/{id}/widgetState/me</span>/{consumer}</a> <span class="methods"><a href="#jobs_byID__id__widgetState_me__consumer__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__widgetState_me__consumer_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The name of the app that wants to know whether to render its widget or not</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__widgetState_me__consumer__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made by the ATS.</p><p>The OAuth token may be for a specific candidate, which will allow the API producer to make a fine-grained decision, possibly looking into the TAS session, or an anonymous one (in which case some default decision will be made).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__widgetState_me__consumer__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/widgetState/me</span>/{consumer}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made by the ATS.</p><p>The OAuth token may be for a specific candidate, which will allow the API producer to make a fine-grained decision, possibly looking into the TAS session, or an anonymous one (in which case some default decision will be made).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__widgetState_me__consumer__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__id__widgetState_me__consumer__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__widgetState_me__consumer__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li><li><strong>consumer</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__id__widgetState_me__consumer__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "display": true }
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetHtml"><span class="parent">/jobs/byID/{id}</span>/widgetHtml</a> <span class="methods"></span></h4></div><div id="panel_jobs_byID__id__widgetHtml" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Resource served up by apps that want to insert an html widget into a web page displaying this job, for example:</p><ul><li>an apply now button displayed to a candidate</li><li>a menu panel displayed to a recruiter</li></ul></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetHtml_candidates_me"><span class="parent">/jobs/byID/{id}/widgetHtml/candidates</span>/me</a> <span class="methods"><a href="#jobs_byID__id__widgetHtml_candidates_me_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__widgetHtml_candidates_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__widgetHtml_candidates_me_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a button type widget for display on the candidate facing page for a job opening. If called anonymously, the producer will pass back some default which is applicable to public job seekers. If called with a candidate identified, the producer will likely consult the TAS session and perhaps some business data such as whether the candidate has applied for the opening already to make its decision.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__widgetHtml_candidates_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/widgetHtml/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a button type widget for display on the candidate facing page for a job opening. If called anonymously, the producer will pass back some default which is applicable to public job seekers. If called with a candidate identified, the producer will likely consult the TAS session and perhaps some business data such as whether the candidate has applied for the opening already to make its decision.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__widgetHtml_candidates_me_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__widgetHtml_candidates_me_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>tracker</strong>: <em>(integer)</em><p>A tracker that the widget can make use of (candidates only).</p><p><strong>Example</strong>:</p><pre><code>16548354764</code></pre></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id__widgetHtml_recruiters_me"><span class="parent">/jobs/byID/{id}/widgetHtml/recruiters</span>/me</a> <span class="methods"><a href="#jobs_byID__id__widgetHtml_recruiters_me_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id__widgetHtml_recruiters_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__widgetHtml_recruiters_me_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a card type widget for display to the logged in recruiter for a job opening. The producer will likely consult the TAS session and perhaps some business data such as the recruiter&#39;s area to make its decision.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__widgetHtml_recruiters_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{id}/widgetHtml/recruiters</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a card type widget for display to the logged in recruiter for a job opening. The producer will likely consult the TAS session and perhaps some business data such as the recruiter&#39;s area to make its decision.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__widgetHtml_recruiters_me_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__widgetHtml_recruiters_me_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_recruiterFaces"><span class="parent">/jobs</span>/recruiterFaces</a> <span class="methods"><a href="#jobs_recruiterFaces_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_recruiterFaces" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth, the logged in principal would be a user, session decorated as a recruiter.</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_recruiterFaces_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_recruiterFaces_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/recruiterFaces</h4></div><div class="modal-body"><div class="alert alert-info"><p>Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"></ul><div class="tab-content"></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_recruiterFaces__id_"><span class="parent">/jobs/recruiterFaces</span>/{id}</a> <span class="methods"><a href="#jobs_recruiterFaces__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobs_recruiterFaces__id__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_recruiterFaces__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_recruiterFaces__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_recruiterFaces__id__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update an existing opening as a recruiter</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_recruiterFaces__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/recruiterFaces</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_recruiterFaces__id__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_recruiterFaces__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_recruiterFaces__id__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/recruiterFaces</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update an existing opening as a recruiter</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_recruiterFaces__id__post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_recruiterFaces__id__post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="landingPage" class="panel-title">/landingPage</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_landingPage"><span class="parent"></span>/landingPage</a> <span class="methods"><a href="#landingPage_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_landingPage" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#landingPage_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Produced by apps that want to allow a user viewing the storefront app to click on the app&#39;s icon and be offered a link to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.</p><p>Probably only consumed by storefront apps.</p><p>SoT: non-SoT (each app has their own landing page). OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="landingPage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/landingPage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Produced by apps that want to allow a user viewing the storefront app to click on the app&#39;s icon and be offered a link to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.</p><p>Probably only consumed by storefront apps.</p><p>SoT: non-SoT (each app has their own landing page). OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#landingPage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="landingPage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {

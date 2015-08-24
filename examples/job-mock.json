@@ -1,11 +1,11 @@
 {
     "id": 356347,
+        "status": "active",
     "links": {
-        "self": "https://acme.jobboard.com/jobs/Creative-Director",
+        "view": "https://acme.jobboard.com/jobs/Creative-Director",
         "apply": "https://acme.bigapply.com/jobs/10334355"
     },
     "availability": {
-        "status": "active",
         "availableInternally": true,
         "availableExternally": false,
         "applicationCloseDates": {
@@ -17,6 +17,7 @@
     "code": "1022NH",
     "title": "Creative Director",
     "formattedDescription": "One of the most exciting positions ever offered",
+    "country": "NZ",
     "categories": [
         {
             "category": 1022,

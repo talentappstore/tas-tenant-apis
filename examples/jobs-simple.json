@@ -1,12 +1,12 @@
 [
     {
         "id": 10334355,
+            "status": "active",
         "links": {
-            "self": "https://acme.jobboard.com/jobs/Creative-Director",
+            "view": "https://acme.jobboard.com/jobs/Creative-Director",
             "apply": "https://acme.bigapply.com/jobs/10334355"
         },
         "availability": {
-            "status": "active",
             "availableInternally": true,
             "availableExternally": false,
             "applicationCloseDates": {
@@ -17,6 +17,8 @@
         },
         "code": "1022NH",
         "title": "Creative Director",
+        "country": "AU",
+        "formattedDescription": "An amazing opportunity",
         "categories": [
             {
                 "category": 1022,
@@ -36,12 +38,12 @@
     },
     {
         "id": 10334356,
+            "status": "active",
         "links": {
-            "self": "https://acme.jobboard.com/jobs/Creative-Lackey",
+            "view": "https://acme.jobboard.com/jobs/Creative-Lackey",
             "apply": "https://acme.bigapply.com/jobs/10334356"
         },
         "availability": {
-            "status": "active",
             "availableInternally": true,
             "availableExternally": false,
             "applicationCloseDates": {
@@ -52,6 +54,8 @@
         },
         "code": "1024NH",
         "title": "Creative Lackey",
+        "country": "US",
+        "formattedDescription": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
                 "category": 1022,

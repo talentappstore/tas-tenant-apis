@@ -125,6 +125,9 @@
             "type": "string",
             "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
         },
+        "location": {
+            "type": "string"
+        },
         "categories": {
             "$ref": "categoriesActual.json"
         }

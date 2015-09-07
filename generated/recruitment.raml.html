@@ -1,4 +1,4 @@
-<!DOCTYPE HTML><html><head><title>TAS recruitment API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.0.2"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+<!DOCTYPE HTML><html><head><title>TAS recruitment API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.1.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
       $(document).ready(function() {
         $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
           hljs.highlightBlock(block);
@@ -2399,6 +2399,7 @@ GET /widgets?$top=5
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
+        "location": "Sydney",
         "shortSummary": "An amazing opportunity",
         "categories": [
             {
@@ -2436,6 +2437,7 @@ GET /widgets?$top=5
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
+        "location": "Springfield",
         "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
@@ -2454,7 +2456,8 @@ GET /widgets?$top=5
             }
         ]
     }
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_searches"><span class="parent">/jobs</span>/searches</a> <span class="methods"><a href="#jobs_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_searches"><span class="parent">/jobs</span>/searches</a> <span class="methods"><a href="#jobs_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "recruiterRelation": {
@@ -2555,6 +2558,7 @@ GET /widgets?$top=5
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
+        "location": "Sydney",
         "shortSummary": "An amazing opportunity",
         "categories": [
             {
@@ -2592,6 +2596,7 @@ GET /widgets?$top=5
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
+        "location": "Springfield",
         "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
@@ -2610,7 +2615,8 @@ GET /widgets?$top=5
             }
         ]
     }
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id_"><span class="parent">/jobs/byID</span>/{id}</a> <span class="methods"><a href="#jobs_byID__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate-facing information for a specific job opening</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate-facing information for a specific job opening</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__id_"><span class="parent">/jobs/byID</span>/{id}</a> <span class="methods"><a href="#jobs_byID__id__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__id__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate-facing information for a specific job opening</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate-facing information for a specific job opening</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__id__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
         "links": {
@@ -2737,6 +2743,9 @@ GET /widgets?$top=5
             "type": "string",
             "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
         },
+        "location": {
+            "type": "string"
+        },
         "categories": {
             "$ref": "categoriesActual.json"
         }
@@ -2752,7 +2761,8 @@ GET /widgets?$top=5
         "country"
     ],
     "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "id": 10334355,
     "status": "active",
     "links": {
@@ -2775,6 +2785,7 @@ GET /widgets?$top=5
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
+    "location": "Wollongong",
     "categories": [
         {
             "category": 1022,

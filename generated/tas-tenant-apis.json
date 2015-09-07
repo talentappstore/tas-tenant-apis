@@ -35,6 +35,7 @@
     "jobSearches": { "$ref": "../schemas/jobSearches.json" },
     "jobs": { "$ref": "../schemas/jobs.json" },
     "jsonSchemaSchema": { "$ref": "../schemas/jsonSchemaSchema.json" },
+    "landingPage": { "$ref": "../schemas/landingPage.json" },
     "recruiterFilter": { "$ref": "../schemas/recruiterFilter.json" },
     "recruiter": { "$ref": "../schemas/recruiter.json" },
     "recruiters": { "$ref": "../schemas/recruiters.json" },

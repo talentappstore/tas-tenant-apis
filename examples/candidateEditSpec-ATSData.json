@@ -1,198 +1,195 @@
 {
     "amendedIntent": {
-        "tracker": 763019932,
-        "jobs": [
-            356347
-        ],
-        "categories": [
-            {
-                "category": 10032,
-                "values": [
-                    3344
-                ]
-            },
-            {
-                "category": 10034,
-                "values": [
-                    1001,
-                    1004
-                ]
-            }
-        ]
+	"tracker": 763019932,
+	"jobs": [
+	356348
+	],
+	"categories": [
+	{
+		"category": 10032,
+		"values": [
+		3344
+		]
+	},
+	{
+		"category": 10034,
+		"values": [
+		1001,
+		1004
+		]
+	}
+	]
     },
     "candidateMessage": {
-        "message": "To apply, just complete this simple form. Best of luck!",
-        "level": "info"
+	"message": "To apply, just complete this simple form. Best of luck!",
+	"level": "info"
     },
     "inputModel": {
-        "resumeRule": {
-            "visible": true,
-            "mandatory": false,
-            "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
-        },
-        "voiceMessageRule": {
-            "visible": true,
-            "mandatory": false,
-            "message": "Providing a voice message helps us to gauge your communications skills"
-        },
-        "itemsRule": {
-            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-            "type": "object",
-            "properties": {
-                "nursingCert": {
-                    "type": "object",
-                    "title": "C1 nursing certificate",
-                    "format": "tas-fileUpload",
-                    "access": "candidateOwned",
-                    "options": {
-                        "accept": "image/pdf"
-                    },
-                    "description": "Please scan and attach your C1 as pdf",
-                    "properties": {
-                        "data": {
-                            "type": "string",
-                            "media": {
-                                "binaryEncoding": "base64"
-                            }
-                        },
-                        "fileName": {
-                            "type": "string"
-                        },
-                        "via": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "additionalProperties": false
-        },
-        "jobRules": [
-            {
-                "job": 356347,
-                "itemsRule": {
-                    "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-                    "title": "Items",
-                    "type": "object",
-                    "properties": {
-                        "Multi-choice (multiple selections)": {
-                            "type": "array",
-                            "description": "",
-                            "required": true,
-                            "format": "checkbox",
-                            "items": {
-                                "type": "string",
-                                "enum": [
-                                    "A",
-                                    "B",
-                                    "C"
-                                ]
-                            },
-                            "uniqueItems": true
-                        },
-                        "Yes / No": {
-                            "type": "string",
-                            "description": "",
-                            "required": false,
-                            "enum": [
-                                "",
-                                "Yes",
-                                "No"
-                            ]
-                        },
-                        "Document upload": {
-                            "type": "string",
-                            "description": "",
-                            "required": false,
-                            "format": "file"
-                        },
-                        "Numeric": {
-                            "type": "integer",
-                            "description": "",
-                            "required": false
-                        },
-                        "Multi-choice (single selection)": {
-                            "type": "string",
-                            "description": "",
-                            "required": false,
-                            "enum": [
-                                "",
-                                "A",
-                                "B",
-                                "C"
-                            ]
-                        },
-                        "Date of Birth": {
-                            "type": "string",
-                            "description": "",
-                            "required": false,
-                            "format": "date"
-                        },
-                        "Single-line text": {
-                            "type": "string",
-                            "description": "",
-                            "required": false
-                        },
-                        "Entitlement to work in Australia - EEO": {
-                            "type": "string",
-                            "description": "Are you currently entitled to work in Australia, and if so, how?",
-                            "required": false,
-                            "enum": [
-                                "",
-                                "No",
-                                "Yes (Australian citizen)",
-                                "Yes (Permanent resident)",
-                                "Yes (Work visa holder)",
-                                "Yes (Other)"
-                            ]
-                        },
-                        "Entitlement to work in New Zealand - EEO": {
-                            "type": "string",
-                            "description": "Are you currently entitled to work in New Zealand, and if so, how?",
-                            "required": true,
-                            "enum": [
-                                "",
-                                "Yes (student visa holder)",
-                                "No",
-                                "Yes (NZ citizen)",
-                                "Yes (permanent resident)",
-                                "Yes (work visa holder)",
-                                "Yes (other)"
-                            ]
-                        },
-                        "Criminal convictions": {
-                            "type": "array",
-                            "description": "Do you have a criminal record pursuant to the Criminal Record (Clean Slate) Act 2004 or pending prosecution for a criminal offence, or serious traffic offence, likely to affect acceptance of this application?",
-                            "required": true,
-                            "format": "checkbox",
-                            "items": {
-                                "type": "string",
-                                "enum": [
-                                    "No",
-                                    "Yes"
-                                ]
-                            },
-                            "uniqueItems": true
-                        },
-                        "Multi-line text": {
-                            "type": "string",
-                            "description": "You can use HTML tags in your text, for example: <br> for a new line, <b>your text selection</b> for bold, and <i>your text selection</i> for italics.",
-                            "required": false,
-                            "format": "textarea"
-                        },
-                        "Date and time": {
-                            "type": "string",
-                            "description": "",
-                            "required": false,
-                            "format": "datetime"
-                        },
-                        "Currency": {
-                            "type": "number",
-                            "description": "",
-                            "required": false
-                        }
-                    }
-                }
-            }
-        ]
+	"resumeRule": {
+	"visible": true,
+	"mandatory": false,
+	"message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
+	},
+	"voiceMessageRule": {
+	"visible": true,
+	"mandatory": false,
+	"message": "Providing a voice message helps us to gauge your communications skills"
+	},
+	"itemsRule": {
+	"$schema": "http://json-schema.org/draft-04/hyper-schema#",
+	"type": "object",
+	"properties": {
+		"nursingCert": {
+		"type": "object",
+		"title": "C1 nursing certificate",
+		"format": "tas-fileUpload",
+		"access": "candidateOwned",
+		"options": {
+			"accept": "image/pdf"
+		},
+		"description": "Please scan and attach your C1 as pdf",
+		"properties": {
+			"data": {
+			"type": "string",
+			"media": {
+				"binaryEncoding": "base64"
+			}
+			},
+			"fileName": {
+			"type": "string"
+			},
+			"via": {
+			"type": "string"
+			}
+		}
+		}
+	},
+	"additionalProperties": false
+	},
+	"jobRules": [
+	{
+		"job": 356347,
+		"itemsRule": {
+		"$schema": "http://json-schema.org/draft-04/hyper-schema#",
+		"title": "Items",
+		"type": "object",
+		"required": ["Multi-choice (multiple selections)","Yes / No","Entitlement to work in New Zealand - EEO","Criminal convictions"],
+		"properties": {
+			"Multi-choice (multiple selections)": {
+			"type": "array",
+			"description": "",
+			"format": "checkbox",
+			"items": [
+				{
+					"type": "string",
+					"enum": ["A"]
+				},
+				{
+					"type": "string",
+					"enum": ["B"]
+				},
+				{
+					"type": "string",
+					"enum": ["C"]
+				}
+			],
+			"uniqueItems": true
+			},
+			"Yes / No": {
+			"type": "string",
+			"description": "",
+			"enum": [
+				"",
+				"Yes",
+				"No"
+			]
+			},
+			"Document upload": {
+			"type": "string",
+			"description": "",
+			"format": "file"
+			},
+			"Numeric": {
+			"type": "integer",
+			"description": ""
+			},
+			"Multi-choice (single selection)": {
+			"type": "string",
+			"description": "",
+			"enum": [
+				"",
+				"A",
+				"B",
+				"C"
+			]
+			},
+			"Date of Birth": {
+			"type": "string",
+			"description": "",
+			"format": "date"
+			},
+			"Single-line text": {
+			"type": "string",
+			"description": ""
+			},
+			"Entitlement to work in Australia - EEO": {
+			"type": "string",
+			"description": "Are you currently entitled to work in Australia, and if so, how?",
+			"enum": [
+				"",
+				"No",
+				"Yes (Australian citizen)",
+				"Yes (Permanent resident)",
+				"Yes (Work visa holder)",
+				"Yes (Other)"
+			]
+			},
+			"Entitlement to work in New Zealand - EEO": {
+			"type": "string",
+			"description": "Are you currently entitled to work in New Zealand, and if so, how?",
+			"enum": [
+				"",
+				"Yes (student visa holder)",
+				"No",
+				"Yes (NZ citizen)",
+				"Yes (permanent resident)",
+				"Yes (work visa holder)",
+				"Yes (other)"
+			]
+			},
+			"Criminal convictions": {
+			"type": "array",
+			"description": "Do you have a criminal record pursuant to the Criminal Record (Clean Slate) Act 2004 or pending prosecution for a criminal offence, or serious traffic offence, likely to affect acceptance of this application?",
+			"format": "checkbox",
+			"items": [
+				{
+					"type": "string",
+					"enum": ["No"]
+				},
+				{
+					"type": "string",
+					"enum": ["Yes"]
+				}
+			],
+			"uniqueItems": true
+			},
+			"Multi-line text": {
+			"type": "string",
+			"description": "You can use HTML tags in your text, for example: <br> for a new line, <b>your text selection</b> for bold, and <i>your text selection</i> for italics.",
+			"format": "textarea"
+			},
+			"Date and time": {
+			"type": "string",
+			"description": "",
+			"format": "datetime"
+			},
+			"Currency": {
+			"type": "number",
+			"description": ""
+			}
+		}
+		}
+	}
+	]
     }
 }

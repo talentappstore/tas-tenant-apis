@@ -125,8 +125,13 @@
             "type": "string",
             "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
         },
-        "location": {
-            "type": "string"
+        "locations": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "description": "a list of human-readable locations associated with this job."
         },
         "categories": {
             "$ref": "categoriesActual.json"

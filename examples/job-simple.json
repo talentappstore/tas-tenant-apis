@@ -21,7 +21,7 @@
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
-    "location": "Wollongong",
+    "locations": ["Wollongong, Illawarra, New South Wales"],
     "categories": [
         {
             "category": 1022,

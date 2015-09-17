@@ -18,7 +18,7 @@
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "NZ",
-    "location": "Auckland",
+    "locations": ["Auckland"],
     "categories": [
         {
             "category": 1022,

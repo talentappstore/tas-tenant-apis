@@ -1,4 +1,4 @@
-<!DOCTYPE HTML><html><head><title>TAS recruitment API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.1.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+<!DOCTYPE HTML><html><head><title>TAS recruitment API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.0.2"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
       $(document).ready(function() {
         $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
           hljs.highlightBlock(block);
@@ -2399,7 +2399,7 @@ GET /widgets?$top=5
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
-        "location": "Sydney",
+        "locations": ["Sydney"],
         "shortSummary": "An amazing opportunity",
         "categories": [
             {
@@ -2437,7 +2437,7 @@ GET /widgets?$top=5
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
-        "location": "Springfield",
+        "locations": ["Springfield"],
         "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
@@ -2558,7 +2558,7 @@ GET /widgets?$top=5
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
-        "location": "Sydney",
+        "locations": ["Sydney"],
         "shortSummary": "An amazing opportunity",
         "categories": [
             {
@@ -2596,7 +2596,7 @@ GET /widgets?$top=5
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
-        "location": "Springfield",
+        "locations": ["Springfield"],
         "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {
@@ -2743,8 +2743,13 @@ GET /widgets?$top=5
             "type": "string",
             "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
         },
-        "location": {
-            "type": "string"
+        "locations": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true,
+            "description": "a list of human-readable locations associated with this job."
         },
         "categories": {
             "$ref": "categoriesActual.json"
@@ -2785,7 +2790,7 @@ GET /widgets?$top=5
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
-    "location": "Wollongong",
+    "locations": ["Wollongong, Illawarra, New South Wales"],
     "categories": [
         {
             "category": 1022,

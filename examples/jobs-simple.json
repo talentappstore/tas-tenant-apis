@@ -18,7 +18,7 @@
         "code": "1022NH",
         "title": "Creative Director",
         "country": "AU",
-        "location": "Sydney",
+        "locations": ["Sydney"],
         "shortSummary": "An amazing opportunity",
         "categories": [
             {
@@ -56,7 +56,7 @@
         "code": "1024NH",
         "title": "Creative Lackey",
         "country": "US",
-        "location": "Springfield",
+        "locations": ["Springfield"],
         "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
         "categories": [
             {

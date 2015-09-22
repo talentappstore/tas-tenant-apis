@@ -125,10 +125,6 @@
             "type": "string",
             "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
         },
-        "locationInfo": {
-            "type": "string",
-            "description": "free form text relating to the job's location, e.g. comma separated city/region/suburb names"
-        },
         "categories": {
             "$ref": "categoriesActual.json"
         }

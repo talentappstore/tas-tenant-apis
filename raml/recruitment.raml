@@ -881,6 +881,48 @@ traits: !include traits.yml
         securedBy: [oauth_2_0]
         description: Update an existing opening as a recruiter
 
+/jobSets:
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Used to bulk upload active jobs for those orgs (i.e. category values for the category with the key "ORG") indicated
+      in includedOrgs. 
+      
+      The jobSet is assumed to be the definitive set of jobs for the given orgs, i.e. after the call is complete,
+      if all is well we expect the jobs of those orgs to match the jobSet exactly.
+      
+      The behavior is:
+      - for each org specified in includedOrgs 
+      - .for each job for that org in the jobSet
+      - ..if the job does not exist, create it
+      - ..if the job exists but has different details, update it
+      - ..if the job already exists (as identified by code) and has identical details, leave it
+      - .for each job that exists for the org but was not found in the jobSet for the org, make it not active or delete it     
+
+      Therefore, sending up an empty jobSet effectively deletes all jobs for all orgs in includedOrgs.
+      
+      No changes will be made to jobs for orgs other than those in includedOrgs. 
+      
+      Job codes are unique across all orgs. This could cause (for example) a create to fail if a job with the same
+      code existed for a different org.
+      
+      Existing jobs, once closed, are never re-activated by this call.       
+
+      Status must not be passed on jobs. The assumption is that the jobSet only includes active jobs.
+            
+      The behaviour is not required to be atomic. It is possible that only some changes will be made and for the call to fail
+      after only partially processing the job list.
+    body:
+      application/json:
+        schema: !include ../schemas/jobSet.json
+        example: !include ../examples/jobSet-simple.json
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include ../examples/jobSetResponse-simple.json
+
+      
 /landingPage:
   get:
     securedBy: [oauth_2_0]

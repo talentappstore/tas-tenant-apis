@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Bulk upload jobs</title>
+</head>
+<body>
+
+<div id="toc"></div>
+
+
+
+<h1>Scenario</h1>
+
+<p>This scenario involves these apps:
+<ol>
+<li>myuploader, an app that fetches jobs in bulk from some master database and then
+passes them in bulk to be uploaded to a remote site
+<li>jobboardapp, an app that presents a local facade that tenants can work against to manage their
+jobs at some job board
+</ol>
+</p>
+
+<h1>Steps</h1>
+
+<h2>Install</h2>
+
+<ol>
+<li>Create app "myupload"
+<li>Create tenant "uploadtenant"
+<li>Install myupload into uploadtenant
+<li>Install jobboardapp into uploadtenant
+<li>At master job board, use setup screens to map uploadtenant (visible because they installed the jobboardapp app) to their
+allowed orgs. From now on, all jobs for these organisations must be managed through the integration.
+</ol>
+
+
+<h2>Reload categories</h2>
+
+<p>Periodically/ at setup time/ prior to an upload, myupload grabs the latest categories and category values (these may have changed).
+</p>
+
+<p>First fetch all categories.
+
+<div class='codeBlock'>
+curl -H "Authorization: gjKUy7Y7Ehy0KgE32" \
+https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories
+
+<div class='clientInclude' data-href='../examples/categories-simple.json'></div>
+</div>
+</p>
+
+<p>Next fetch values for all categories individually. e.g.:
+<div class='codeBlock'>
+curl -H "Authorization: gjKUy7Y7Ehy0KgE32" \
+https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories/byID/10022/values
+
+<div class='clientInclude' data-href='../examples/categoryValues-mockLocations.json'></div>
+</div>
+</p>
+
+<h2>Prepare jobset</h2>
+
+<p>myuploader extracts jobs (e.g. via scraping/extracting from source database/APIs) from the source system.
+</p>
+
+<p>Maps jobs to correct category values, e.g. Organization, Expertise, Location
+</p>
+
+<p>Create master "jobSets" document as below. This is a complete list of all advertised jobs - any jobs not in this list will be removed from the target.
+</p>
+
+<h2>Perform upload</h2>
+
+<div class='codeBlock'>
+curl -X POST -H "Authorization: gjKUy7Y7Ehy0KgE32" \
+https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/jobSets
+
+<div class='clientInclude' data-href='../examples/jobSet-simple.json'></div>
+
+Response:
+<div class='clientInclude' data-href='../examples/jobSetResponse-simple.json'></div>
+</div>
+
+<h2>Process response</h2>
+
+<p>Review progress logs from POST /jobSets
+</p>
+
+<p>Communicate about errors (e.g. badly categorised jobs)
+</p>
+
+<p>Email/communicate summaries of progress to affected parties (multiple?)
+</p>
+
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

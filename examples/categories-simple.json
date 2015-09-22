@@ -1,5 +1,11 @@
 [
     {
+        "id": 10022,
+        "key": "ORG",
+        "name": "Organization",
+        "canMultiSelectOnJobs": false
+    },
+    {
         "id": 10032,
         "key": "LOCATION",
         "name": "Location",

@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+        "testFlag": {
+            "type": "boolean",
+            "description": "true if this set is to be applied as a dry run - i.e. no changes should be made to the jobs at the target"
+        },
+        "includedOrgs": {
+            "description": "a list of the org category values that this upload includes the definitive set of jobs for. No changes will be made to any jobs for orgs outside this list",
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "jobs": {
+            "type": "array",
+            "items": {
+                "$ref": "job.json"
+            }
+        }
+    },
+    "required": [
+        "testFlag",
+        "includedOrgs",
+        "jobs"
+    ],
+    "additionalProperties": false
+}

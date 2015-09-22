@@ -8,7 +8,8 @@
         },
         "key": {
             "enum": [
-                "LOCATION"
+                "LOCATION",
+                "ORG"
             ],
             "description": "used to identify categories that are well-known, i.e. agreed on by all apps. User-defined categories don't have a key"
         },

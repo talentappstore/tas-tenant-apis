@@ -11,17 +11,14 @@ traits: !include traits.yml
 
 /applications:
   /byID:
-    /{id}:
+    /{application}:
       /bySourcingApp:
-        /{producer}:
-          /{id}:
-            /deltaPings:
-              post:
-                securedBy: [oauth_2_0]
-                description: |
-                  A ping for any changes to a job application, but which is only sent to the application that sourced the
-                  application (i.e., that owns the campaign tracker attached to the application).
-                  Probably only non-SoT.
+        /deltaPings:
+          post:
+            securedBy: [oauth_2_0]
+          description: |
+            A non-SoT API for pings about applications, but which is only sent to the application that sourced the
+            application (i.e., that owns the campaign tracker attached to the application).
       /deltaPings:
         description: |
           The main ping for any changes to a job application.
@@ -120,9 +117,9 @@ traits: !include traits.yml
               Get a sanitised and basic set of information for a job application, which the consumer is entitled to
               by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
   /byCandidate:
-    /{candidateID}:
-      /byOpening:
-        /{openingID}:
+    /{candidate}:
+      /byJob:
+        /{job}:
           get:
             securedBy: [oauth_2_0]
             description: get the id of the application (if any)
@@ -181,7 +178,7 @@ traits: !include traits.yml
         
         Produced as SoT.
   /byID:
-    /{id}:
+    /{candidate}:
       get:
         securedBy: [oauth_2_0]
         description: |
@@ -377,11 +374,11 @@ traits: !include traits.yml
               securedBy: [oauth_2_0]
               description: a tracker, as passed in to the edit
       /stars:
-        /forOpenings:
-          /{id}:
+        /forJobs:
+          /{job}:
             get:
               securedBy: [oauth_2_0]
-              description: Get the candidate's stars against a specific opening, perhaps inherited from the opening's master
+              description: Get the candidate's stars against a specific job, perhaps inherited from the jobs's master or some talent pool
 
   /recruiterFaces:
     /searches:
@@ -424,7 +421,7 @@ traits: !include traits.yml
         example: !include ../examples/category-simple.json
     
   /byID:
-    /{id}:
+    /{category}:
       description: category ID 
 
       post:
@@ -732,7 +729,7 @@ traits: !include traits.yml
     Position openings aka vacancies, job openings, etc.
   get:    
     securedBy: [oauth_2_0]
-    is: [ tasCollection: { orderingProperties: id, filterCapabilities: "Gt on id", maxTop: 20 } ]
+    is: [ tasCollection: { orderingProperties: id, filterCapabilities: "id gt 'n', status eq 'n'", maxTop: 20 } ]
     description: |
       Search jobs, returning the candidate-facing information. A POST version of this API provides more searchability.
     queryParameters:
@@ -772,7 +769,7 @@ traits: !include traits.yml
               schema: !include ../schemas/jobs.json
               example: !include ../examples/jobs-simple.json
   /byID:
-    /{id}:
+    /{job}:
       get:
         securedBy: [oauth_2_0]
         description: |
@@ -814,42 +811,49 @@ traits: !include traits.yml
               Send notification of a change to the candidate-facing details of a job opening, specifically
               that the job opening has become newly publicly active (perhaps it was active before but internal).
               
-      /widgetState:
-        /me:
-          /{consumer}:
-            description: |
-              The name of the app that wants to know whether to render its widget or not
-            get:
-              securedBy: [oauth_2_0]
-              description: |
-                Called by apps that are able to present candidate-facing buttons (like "apply", "refer") on job openings, and want to
-                know for a specific opening and candidate, whether to display themselves or not. This sort of decision might be made
-                by the ATS.
-                  
-                The OAuth token may be for a specific candidate, which will allow the API producer to
-                make a fine-grained decision, possibly looking into the TAS session, or an anonymous one
-                (in which case some default decision will be made). 
-              responses:
-                200:
-                  body:
-                    application/json:
-                      example: |
-                        { "display": true }
       /widgetHtml:
         description: |
           Resource served up by apps that want to insert an html widget into a web page displaying this job, for example:
           - an apply now button displayed to a candidate
           - a menu panel displayed to a recruiter
         /candidates:
-          /me:
+          /anonymous:
             get:
               securedBy: [oauth_2_0]
               description:
                 Get a button type widget for display on the candidate facing page for a job opening.
-                If called anonymously, the producer will pass back some default which is applicable to
-                public job seekers. If called with a candidate identified, the producer will likely consult
-                the TAS session and perhaps some business data such as whether the candidate has applied for
-                the opening already to make its decision.
+                This form is used when no candidate is logged in (see separate on behalf form). The producer
+                should render some default widget which is applicable to public job seekers.
+              queryParameters:
+                tracker:
+                  type: integer
+                  description: |
+                    A tracker that the widget can make use of (candidates only).
+                  example: 16548354764
+                  required: false
+          /byID:
+            /{candidate}:
+              get:
+                securedBy: [oauth_2_0]
+                description:
+                  Underlying form of API to get widgets for a job being displayed to a candidate when candidate is known.
+                  Producer will use candidate ID to look at some business data (e.g. has candidate has applied previously, are they
+                  internal) to decide whether/in what form/ with what labels to render its widget.
+                queryParameters:
+                  tracker:
+                    type: integer
+                    description: |
+                      A tracker that the widget can make use of (candidates only).
+                    example: 16548354764
+                    required: false
+          /me:
+            get:
+              securedBy: [oauth_2_0]
+              description:
+                On behalf of form of GET /jobs/byID/{id}/widgetHtml.
+                In this form, the producer will likely work out the logged in user through the sub field of the OAuth token, then
+                look at some business data (e.g. has candidate has applied previously, are they internal) to decide whether/in what form/
+                with what labels to render its widget.
               queryParameters:
                 tracker:
                   type: integer

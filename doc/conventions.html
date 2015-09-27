@@ -33,16 +33,15 @@
 
 <p><b>Conventions</b> are patterns or practices that we follow at TAS when defining APIs and developing apps.</p>
 
-<p>The TAS core itself knows nothing about conventions (if it did, this documentation would be part of the TAS core documentation).
-Therefore when building apps you are free to follow these conventions or not as suits.</p>
+<p>The TAS core itself knows nothing about conventions, so when building apps you can follow these conventions or not as suits you.</p>
 
-<h1>/{ct}/{cad}/{ca} (consumer) and /{pt}/{pad}/{pa} (producer) segments</h1>
+<h1>/{ct}/{ca} (consumer) and /{pt}/{pa} (producer) segments</h1>
 
-<p>Using /{ct}/{cad}/{ca} (consumer) and /{pt}/{pad}/{pa} (producer) segments within a tenant API's URI template
+<p>Using /{ct}/{ca} (consumer) and /{pt}/{pa} (producer) segments within a tenant API's URI template
 is a signal to any app producing or consuming the API that to be valid, API calls should have the (consumer) == the actual consumer,
 and (producer) == the actual producer.</p>
 
-<p>This means a tenant can install an app like a job board that consumes (say) the API <b>/jobs/byConsumer/{ct}/{cad}/{ca}</b>,
+<p>This means a tenant can install an app like a job board that consumes (say) the API <b>/jobs/byConsumer/{ct}/{ca}</b>,
 confident that (as long as either (a) the consumer app obeys the convention, and/or (b) the producer enforces it) the job board
 will only ever access its own postings, and not the posting for some other job board.</p>
 
@@ -51,8 +50,8 @@ will only ever access its own postings, and not the posting for some other job b
 <p>Given that the app "zambo", from the developer "zamsoft":</p>
 
 <div class='codeBlock'>
-- consumes /jobs/{ct}/{cad}/{ca}
-- produces /jobs/{pt}/{pad}/{pa}/deltaPings
+- consumes /jobs/{ct}/{ca}
+- produces /jobs/{pt}/{pa}/deltaPings
 </div>
 
 <p>...the convention means that, when installed by the tenant acme, zambo (and only zambo):</p>

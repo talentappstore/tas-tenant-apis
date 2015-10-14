@@ -43,16 +43,13 @@
           "type": "object",
           "title": "Computer Software Engineering certificate",
           "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
-          },
           "description": "Please scan and attach your C1 as pdf",
           "properties": {
             "data": {
               "type": "string",
               "media": {
-                "binaryEncoding": "base64"
+                "binaryEncoding": "base64",
+                "type": "image/pdf"
               }
             },
             "fileName": {
@@ -93,16 +90,13 @@
               "title": "Cover letter",
               "type": "object",
               "format": "tas-fileUpload",
-              "access": "candidateOwned",
-              "options": {
-                "accept": "image/png,text/html"
-              },
               "description": "Please upload a cover letter. The shorter the better",
               "properties": {
                 "data": {
                   "type": "string",
                   "media": {
-                    "binaryEncoding": "base64"
+                    "binaryEncoding": "base64",
+                    "type": "image/png,text/html"
                   }
                 },
                 "fileName": {

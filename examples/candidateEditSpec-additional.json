@@ -62,7 +62,6 @@
         },
         "javaKeywords": {
           "type": "string",
-          "access": "eeo",
           "title": "Name four java keywords",
           "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
           "default": "",
@@ -70,7 +69,6 @@
         },
         "httpStatuses": {
           "type": "string",
-          "access": "eeo",
           "title": "Name as many HTTP Statuses as you possibly can",
           "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
           "default": "",
@@ -109,7 +107,6 @@
             },
             "favoriteColor": {
               "type": "string",
-              "access": "eeo",
               "title": "Favorite color",
               "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
               "default": "blue",
@@ -118,7 +115,6 @@
             "letters": {
               "type": "integer",
               "title": "Letters",
-              "access": "eeo",
               "description": "How many letters are in this sentence?",
               "minimum": 0,
               "maximum": 20

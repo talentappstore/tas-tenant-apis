@@ -35,48 +35,50 @@
       "mandatory": false,
       "message": "Providing a voice message helps us to gauge your communications skills"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "Computer Software Engineering certificate",
-          "format": "file",
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64",
-                "type": "image/pdf"
+    "itemsRule": [
+        {
+        "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+        "type": "object",
+        "properties": {
+          "nursingCert": {
+            "type": "object",
+            "title": "Computer Software Engineering certificate",
+            "format": "file",
+            "description": "Please scan and attach your C1 as pdf",
+            "properties": {
+              "data": {
+                "type": "string",
+                "media": {
+                  "binaryEncoding": "base64",
+                  "type": "image/pdf"
+                }
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "via": {
+                "type": "string"
               }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
             }
+          },
+          "javaKeywords": {
+            "type": "string",
+            "title": "Name four java keywords",
+            "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
+            "default": "",
+            "minLength": 1
+          },
+          "httpStatuses": {
+            "type": "string",
+            "title": "Name as many HTTP Statuses as you possibly can",
+            "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
+            "default": "",
+            "minLength": 1
           }
         },
-        "javaKeywords": {
-          "type": "string",
-          "title": "Name four java keywords",
-          "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
-          "default": "",
-          "minLength": 1
-        },
-        "httpStatuses": {
-          "type": "string",
-          "title": "Name as many HTTP Statuses as you possibly can",
-          "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
-          "default": "",
-          "minLength": 1
-        }
-      },
-      "additionalProperties": false
-    },
+        "additionalProperties": false
+      }
+    ],
     "jobRules": [
       {
         "job": 356347,

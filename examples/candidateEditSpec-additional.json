@@ -87,7 +87,7 @@
             "coverLetter": {
               "title": "Cover letter",
               "type": "object",
-              "format": "tas-fileUpload",
+              "format": "file",
               "description": "Please upload a cover letter. The shorter the better",
               "properties": {
                 "data": {

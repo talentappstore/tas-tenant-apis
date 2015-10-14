@@ -35,34 +35,36 @@
 	"mandatory": false,
 	"message": "Providing a voice message helps us to gauge your communications skills"
 	},
-	"itemsRule": {
-	"$schema": "http://json-schema.org/draft-04/hyper-schema#",
-	"type": "object",
-	"properties": {
-		"nursingCert": {
+	"itemsRule": [
+		{
+		"$schema": "http://json-schema.org/draft-04/hyper-schema#",
 		"type": "object",
-		"title": "C1 nursing certificate",
-		"format": "file",
-		"description": "Please scan and attach your C1 as pdf",
 		"properties": {
-			"data": {
-			"type": "string",
-			"media": {
-				"binaryEncoding": "base64",
-				"type": "image/pdf"
+			"nursingCert": {
+			"type": "object",
+			"title": "C1 nursing certificate",
+			"format": "file",
+			"description": "Please scan and attach your C1 as pdf",
+			"properties": {
+				"data": {
+				"type": "string",
+				"media": {
+					"binaryEncoding": "base64",
+					"type": "image/pdf"
+				}
+				},
+				"fileName": {
+				"type": "string"
+				},
+				"via": {
+				"type": "string"
+				}
 			}
-			},
-			"fileName": {
-			"type": "string"
-			},
-			"via": {
-			"type": "string"
 			}
+		},
+		"additionalProperties": false
 		}
-		}
-	},
-	"additionalProperties": false
-	},
+	],
 	"jobRules": [
 	{
 		"job": 356347,

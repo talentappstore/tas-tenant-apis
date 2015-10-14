@@ -39,17 +39,14 @@
                 "nursingCert": {
                     "type": "object",
                     "title": "C1 nursing certificate",
-                    "format": "tas-fileUpload",
-                    "access": "candidateOwned",
-                    "options": {
-                        "accept": "image/pdf"
-                    },
+                    "format": "file",
                     "description": "Please scan and attach your C1 as pdf",
                     "properties": {
                         "data": {
                             "type": "string",
                             "media": {
                                 "binaryEncoding": "base64"
+                                "type": "image/pdf"
                             }
                         },
                         "fileName": {

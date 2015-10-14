@@ -42,7 +42,7 @@
 		"nursingCert": {
 		"type": "object",
 		"title": "C1 nursing certificate",
-		"format": "tas-fileUpload",
+		"format": "file",
 		"description": "Please scan and attach your C1 as pdf",
 		"properties": {
 			"data": {

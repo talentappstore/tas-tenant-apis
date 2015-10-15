@@ -103,24 +103,19 @@
 		"required": ["Multi-choice (multiple selections)","Yes / No","Entitlement to work in New Zealand - EEO","Criminal convictions"],
 		"properties": {
 			"Multi-choice (multiple selections)": {
-			"type": "array",
-			"description": "",
-			"format": "checkbox",
-			"items": [
-				{
+				"type": "array",
+				"format": "checkbox",
+				"uniqueItems": true,
+				"description": null,
+				"minLength": 0,
+				"items": {
 					"type": "string",
-					"enum": ["A"]
-				},
-				{
-					"type": "string",
-					"enum": ["B"]
-				},
-				{
-					"type": "string",
-					"enum": ["C"]
+					"enum": [
+						"Option 1",
+						"Option 2",
+						"Option 3"
+					]
 				}
-			],
-			"uniqueItems": true
 			},
 			"Yes / No": {
 			"type": "string",

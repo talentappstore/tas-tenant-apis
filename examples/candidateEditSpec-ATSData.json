@@ -136,21 +136,6 @@
 			"description": "",
 			"format": "file"
 			},
-			"Languages": {
-			"type": "array",
-			"format": "checkbox",
-			"uniqueItems": true,
-			"description": null,
-			"minLength": 0,
-			"items": {
-				"type": "string",
-				"enum": [
-					"English",
-					"French",
-					"Javascript"
-				]
-			}
-		},
 			"Numeric": {
 			"type": "integer",
 			"description": ""

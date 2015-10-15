@@ -63,6 +63,34 @@
 			}
 		},
 		"additionalProperties": false
+		},
+		{
+		"$schema": "http://json-schema.org/draft-04/hyper-schema#",
+		"type": "object",
+		"properties": {
+			"nursingCert": {
+			"type": "object",
+			"title": "Transcripts",
+			"format": "file",
+			"description": "Please scan and attach your transcripts",
+			"properties": {
+				"data": {
+				"type": "string",
+				"media": {
+					"binaryEncoding": "base64",
+					"type": "image/pdf"
+				}
+				},
+				"fileName": {
+				"type": "string"
+				},
+				"via": {
+				"type": "string"
+				}
+			}
+			}
+		},
+		"additionalProperties": false
 		}
 	],
 	"jobRules": [

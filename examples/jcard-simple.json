@@ -9,14 +9,14 @@
     ["tel", {"type":["work", "voice"]}, "uri", "tel:+1-111-555-1212"],
     ["tel", {"type":["home", "voice"]}, "uri", "tel:+1-404-555-1212"],
     ["adr",
-      {"label":"100 Waters Edge\nBaytown, LA 30314\nUnited States of America", "type":"work"},
+      {"label":"100 Waters Edge\nBaytown, LA 30314\nUS", "type":"work"},
       "text",
-      ["", "", "100 Waters Edge", "Baytown", "LA", "30314", "United States of America"]
+      ["", "", "100 Waters Edge", "Baytown", "LA", "30314", "US"]
     ],
     ["adr",
-      {"label":"42 Plantation St.\nBaytown, LA 30314\nUnited States of America", "type":"home"},
+      {"label":"42 Plantation St.\nBaytown, LA 30314\nUS", "type":"home"},
       "text",
-      ["", "", "42 Plantation St.", "Baytown", "LA", "30314", "United States of America"]
+      ["", "", "42 Plantation St.", "Baytown", "LA", "30314", "US"]
     ],
     ["email", {}, "text", "forrestgump@example.com"],
     ["rev", {}, "timestamp", "2008-04-24T19:52:43Z"]

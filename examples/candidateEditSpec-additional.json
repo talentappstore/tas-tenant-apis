@@ -110,34 +110,8 @@
                     "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
                     "default": "blue",
                     "minLength": 1
-                },
-                "letters": {
-                    "type": "integer",
-                    "title": "Letters",
-                    "access": "eeo",
-                    "description": "How many letters are in this sentence?",
-                    "minimum": 0,
-                    "maximum": 20
-                },
-                "preferedApplication": {
-                    "type": "string",
-                    "title": "Development technology preference?",
-                    "enum": [
-                        "Desktop applications",
-                        "Web Technologies"
-                    ]
-                },
-                "mathquestion": {
-                    "title": "What is 20% of 100",
-                    "type": "integer",
-                    "default": 0
                 }
-            },
-            "required": [
-                "favoriteColor",
-                "letters"
-            ],
-            "additionalProperties": false
+            }
         }
     }
 }

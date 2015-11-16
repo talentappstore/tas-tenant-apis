@@ -6,17 +6,13 @@
             "type": "string",
             "description": "The consuming tenant"
         },
-        "cad": {
-            "type": "string",
-            "description": "The consuming app developer"
-        },
         "ca": {
             "type": "string",
             "description": "The consuming app"
         }
     },
     "required": [
-        "ct", "cad", "ca"
+        "ct", "ca"
     ],
     "additionalProperties": false
 }

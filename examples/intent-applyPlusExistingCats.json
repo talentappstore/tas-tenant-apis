@@ -1,20 +1,17 @@
 {
-       "tracker": 763019932,
-        "jobs": [
-            356347
-        ],
-        "categories": [
-    {
-        "category": 10032,
-        "values": [
-            3344
-        ]
-    },
-    {
-        "category": 10034,
-        "values": [
-            1001
-        ]
-    }
-]
+    "tracker": 763019932,
+    "categories": [
+        {
+            "category": 10032,
+            "values": [
+                3344
+            ]
+        },
+        {
+            "category": 10034,
+            "values": [
+                1001
+            ]
+        }
+    ]
 }

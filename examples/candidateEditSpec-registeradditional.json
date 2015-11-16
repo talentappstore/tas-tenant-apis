@@ -1,7 +1,11 @@
 {
-    "amendedIntent": {
-        "tracker": 763019932,
-        "categories": [
+    "tracker": 763019932,
+    "candidateMessage": {
+        "message": "To register, just complete this simple form.",
+        "level": "info"
+    },
+    "candidateModel": {
+        "requiredCategoryValues": [
             {
                 "category": 10032,
                 "values": [
@@ -15,22 +19,11 @@
                     1004
                 ]
             }
-        ]
-    },
-    "candidateMessage": {
-        "message": "To register, just complete this simple form.",
-        "level": "info"
-    },
-    "inputModel": {
+        ],
         "resumeRule": {
             "visible": true,
             "mandatory": false,
             "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
-        },
-        "voiceMessageRule": {
-            "visible": true,
-            "mandatory": false,
-            "message": "Providing a voice message helps us to gauge your communications skills"
         },
         "itemsRule": {
             "$schema": "http://json-schema.org/draft-04/hyper-schema#",

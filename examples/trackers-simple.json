@@ -5,7 +5,6 @@
         },
         "consumer": {
             "ct": "acme",
-            "cad": "tas",
             "ca": "jobboard"
         },
         "detail": {
@@ -23,7 +22,6 @@
         },
         "consumer": {
             "ct": "acme",
-            "cad": "supersoft",
             "ca": "refly"
         },
         "detail": {

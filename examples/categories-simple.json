@@ -3,17 +3,26 @@
         "id": 10022,
         "key": "ORG",
         "name": "Organization",
-        "canMultiSelectOnJobs": false
+        "jobRules": {
+            "canMultiSelect": true,
+            "leafSelectionOnly": false
+        }
     },
     {
         "id": 10032,
         "key": "LOCATION",
         "name": "Location",
-        "canMultiSelectOnJobs": false
+        "jobRules": {
+            "canMultiSelect": true,
+            "leafSelectionOnly": false
+        }
     },
     {
         "id": 10034,
         "name": "Nursing specialization",
-        "canMultiSelectOnJobs": true
+        "jobRules": {
+            "canMultiSelect": true,
+            "leafSelectionOnly": false
+        }
     }
 ]

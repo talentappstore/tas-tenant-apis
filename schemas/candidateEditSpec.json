@@ -22,26 +22,6 @@
             ],
             "additionalProperties": false
         },
-        "amendedIntent": {
-            "type": "object",
-            "properties": {
-                "tracker": {
-                    "type": "integer",
-                    "description": "just the same tracker that was passed in with the intent"
-                },
-                "jobs": {
-                    "description": "the jobs that the candidate is interested in and the category values they want - as massaged by the ATS",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "categories": {
-                    "$ref": "categoriesActual.json"
-                }
-            },
-            "additionalProperties": false
-        },
         "resumeRule": {
             "type": "object",
             "properties": {
@@ -64,28 +44,6 @@
                 "mandatory"
             ]
         },
-        "voiceMessageRule": {
-            "type": "object",
-            "properties": {
-                "visible": {
-                    "description": "can a voice message be uploaded at all, and can existing message be seen",
-                    "type": "boolean"
-                },
-                "mandatory": {
-                    "description": "is the voice message mandatory - implies visible == true",
-                    "type": "boolean"
-                },
-                "message": {
-                    "description": "a message to help the candidate understand about recording a message",
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "visible",
-                "mandatory"
-            ]
-        },
         "vCardRule": {
             "type": "object",
             "properties": {
@@ -97,7 +55,7 @@
             "required": ["someMandatory"],
             "additionalProperties": false
         },
-        "jobRule": {
+        "applicationModel": {
             "type": "object",
             "description": "rules specific to a single job application (i.e., not candidate-scoped)",
             "properties": {
@@ -111,30 +69,21 @@
             },
             "additionalProperties": false
         },
-        "jobRules": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/jobRule"
-            }
-        },
-        "inputModel": {
+        "candidateModel": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "requiredCategoryValues": {
+                    "$ref": "categoriesActual.json"
+                },
                 "resumeRule": {
                     "$ref": "#/definitions/resumeRule"
-                },
-                "voiceMessageRule": {
-                    "$ref": "#/definitions/voiceMessageRule"
                 },
                 "vCardRule": {
                     "$ref": "#/definitions/vCardRule"
                 },
                 "itemsRule": {
                    "$ref": "jsonSchemaSchema.json"
-                },
-                "jobRules": {
-                    "$ref": "#/definitions/jobRules"
                 }
             }
         }
@@ -142,14 +91,18 @@
     "type": "object",
     "additionalProperties": false,
     "properties": {
-        "amendedIntent": {
-            "$ref": "#/definitions/amendedIntent"
+        "tracker": {
+            "type": "integer",
+            "description": "just the same tracker that was passed in with the intent"
         },
         "candidateMessage": {
             "$ref": "#/definitions/candidateMessage"
         },
-        "inputModel": {
-            "$ref": "#/definitions/inputModel"
+        "candidateModel": {
+            "$ref": "#/definitions/candidateModel"
+        },
+        "applicationModel": {
+            "$ref": "#/definitions/applicationModel"
         }
     }
 }

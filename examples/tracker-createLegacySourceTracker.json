@@ -1,9 +1,4 @@
 {
-    "consumer": {
-        "ct": "acme",
-        "cad": "supersoft",
-        "ca": "refly"
-    },
     "detail": {
         "kind": "Campaign",
         "campaignKind": "User defined",
@@ -11,6 +6,7 @@
         "objectID": 16670
     },
     "userArea": {
-        "candidateSource": "facebook"
+        "candidateSource": "facebook",
+        "deviceType": "mobile"
     }
 }

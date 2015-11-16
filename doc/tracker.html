@@ -50,57 +50,58 @@ a whole chain of user interactions such as social sharing, emailing links, etc.<
 <p>A candidate arrives at:
 
 <div class='codeBlock'>
-acme/legacyats.com/jobs/Creative-Director-GR4022?source=print-media-smh
+acme/legacyats.com/jobs/Creative-Director-GR4022?candidateSource=facebook
 </div>
 </p>
 
 <p>The legacy ATS knows it will be handing off the apply process to some other microservices.</p>
 
-<p>While the apply process is out of legacyats's control, it can rely on the fact that a tracker will be passed
-back in the request of the POST /candidates call for any completed job application.
+<p>This means the apply process is out of the legacy ATS's control. But eventually the legacy ATS will regain control, when the apply app calls
+POST /candidates to push the candidate and job application in.
 </p>
 
 <p>Therefore the legacy ATS needs to pack its legacy detail into a tracker, and pass that tracker in to the
-apply process.</p>
+apply app, relying on the apply app eventually passing that tracker back in again.</p>
 
+<p>ATS creates a root tracker, of campaign type:
 <div class='codeBlock'>
-POST /trackers/acme/legacysoft/ats
+POST /trackers
 <div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
 Response:
 Location: 16044
 </div>
 </p>
 
+<p>Not shown, but legacy ATS passes this tracker ID in as a URL parameter to the apply app in its job details page.  
+
 <h3>Candidate clicks to apply at the simpleapply microservice</h3>
 
-<p>A deep link like this leads to simpleapply:
-
+<p>ATS renders job details page. In it, a deep link like this leads to simpleapply:
 <div class='codeBlock'>
-acme.simpleapply.com/jobs/42033?tracker=16044
+acme.simpleapply.com/jobs/16670?tracker=16044
 </div>
 </p>
  
-<p>As previously, a session tracker (16045) is now created by simpleapply and chained to the existing tracker.
+<p>Simpleapply applies the normal session filter code as per <a href="tracker.html">tracker.html</a>.
 </p>
 
-<p>Once the candidate has completed the application, simpleapply passes that tracker (16045) into the
+<p>The filter creates a session tracker (16045) and chains it to the existing tracker.
+</p>
+
+<p>Once the candidate has completed the application, simpleapply passes that tracker (16045) back into the ATS via the
 POST /candidates API call.
 </p>
 
-<h3>The legacy ATS produces the API POST /candidates.</h3>
+<h3>The legacy ATS produces the API POST /candidates</h3>
 
-<p>It receives the incoming job application and pulls out the legacy details held in the tracker.
+<p>The ATS receives the incoming job application and pulls out the legacy details held in the tracker.
 </p>
 
-<p>legacyats does not know who "packed" the legacy data.
-</p>
-
-<p>In this example, it was the ATS itself. But
+<p>It does not know who "packed" the legacy data. In this example, it was the ATS itself. But
 it could also have been some other microsite app or similar that embedded the apply button.
 </p>
 
-<p>So legacyats queries for the first (ascending up the chain) tracker of kind==Campaign, and campaignKind==User defined,
-and with a value for legacyats-source (no matter which app created it).
+<p>So legacyats grabs the entire tracker chain and searches it for a suitable tracker (no matter which app created it).
 
 <div class='codeBlock'>
 GET /trackers/16045/chain
@@ -109,21 +110,34 @@ Response:
 </div>
 </p>
 
-<p>legacyats iterates through all the trackers and eventually reaches the one with a legacyats-source value.
-legacyats has now successfully passed its own data through the apply process using trackers.
-</p>
+<p>In this example, it finds tracker 16044, which it deems "suitable" because:
+<ul>
+<li>kind == campaign
+<li>campaignKind == User defined
+<li>has userArea values for candidateSource and deviceType 
+</ul> 
+
+<h3>The legacy ATS uses the original sourcing information</h3>
+
+<p>The legacy ATS can now tag the candidate/application with the same data it originally packed into the job details page:
+<ul>
+<li>candidateSource == facebook
+<li>deviceType == mobile
+</ul> 
+
 
 <h2>Scenario #2a - a job is advertised in a print publication. Someone searches by code at the careers site and then applies. 
 </h2>
 
-<h2>Scenario #3 - a job is emailed to a candidate who shares it with another candidate</h2>
+<h2>Scenario #3 - a job is emailed to a candidate who shares it with another candidate
+</h2>
 
 <h3>An automated alert for a new job is emailed to a candidate</h3>
 
-<p>A base tracker is obtained by the mailout app:
+<p>A root tracker is obtained by the mailout app:
 
 <div class='codeBlock'>
-POST /trackers/acme/tas/mailoutResponse:
+POST /trackers/root
 <div class='clientInclude' data-href='../examples/tracker-createMailoutTracker.json'></div>
 Response:
 Location: 9022
@@ -156,13 +170,13 @@ if (session == null) {
 	Integer trackerID = httpRequest.getParms("tracker");
 	if (trackerID != null) {
 		// we are chaining to an incoming tracker
-		POST /trackers/9022/trackers/acme/tas/careersite
+		POST /trackers/byID/9022/trackers
 		Request: <- request
 		Location: -> trackerID
 	} else
 	{
 		// no incoming tracker to chain to
-		POST /trackers/acme/tas/careersite
+		POST /trackers/root
 		Request: <- request
 		Location: -> trackerID
 	}
@@ -221,7 +235,7 @@ a visit tracker (9025) is created and used for all links.
 <ul>
 <li>the tenant has set up simpleapply to handle job applications
 <li>the candidate goes to acme.simpleapply.com/jobs/26?tracker=9024
-<li>simpleapply does not attach session creation events to the tracker (has no tracker filter)
+<li>simpleapply does not attach session creation events to the tracker (has no tracker filter in this example)
 <li>simpleapply passes the application to the ATS, along with tracker=9024
 </ul>
 
@@ -234,7 +248,7 @@ referral has been made by Fred.
 </p>
 
 <div class='codeBlock'>
-POST /trackers/acme/tas/mailoutResponse:
+POST /trackers/root
 <div class='clientInclude' data-href='../examples/tracker-createEmployeeReferralTracker.json'></div>
 Response:
 Location: 9041
@@ -254,7 +268,7 @@ existing tracker.
 </p>
 
 <div class='codeBlock'>
-POST /trackers/9041/trackers/acme/tas/careersite
+POST /trackers/byID/9041/trackers
 Request
 .. create session tracker
 Response:
@@ -277,7 +291,7 @@ POST /applications/66022/deltaPings
 
 <p>agent insight gets the application's tracker 
 <div class='codeBlock'>
-GET /applications/66022/tracker
+GET /applications/byID/66022/tracker
 Response:
 Location: 9046
 </div>
@@ -287,7 +301,7 @@ Location: 9046
 created a tracker upstream from 9046
 
 <div class='codeBlock'>
-GET /trackers/9046/chain
+GET /trackers/byID/9046/chain
 Response:
 <div class='clientInclude' data-href='../examples/trackers-simple.json'></div>
 </div>

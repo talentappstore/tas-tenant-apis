@@ -1,9 +1,4 @@
 {
-    "consumer": {
-        "ct": "acme",
-        "cad": "supersoft",
-        "ca": "refly"
-    },
     "detail": {
         "kind": "Campaign",
         "campaignKind": "Employee referral",

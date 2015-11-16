@@ -1,10 +1,11 @@
 {
-    "amendedIntent": {
-        "tracker": 763019932,
-        "jobs": [
-            356347
-        ],
-        "categories": [
+    "tracker": 763019932,
+    "candidateMessage": {
+        "message": "To apply, just complete this simple form. Best of luck!",
+        "level": "info"
+    },
+    "candidateModel": {
+        "requiredCategoryValues": [
             {
                 "category": 10032,
                 "values": [
@@ -18,22 +19,11 @@
                     1004
                 ]
             }
-        ]
-    },
-    "candidateMessage": {
-        "message": "To apply, just complete this simple form. Best of luck!",
-        "level": "info"
-    },
-    "inputModel": {
+        ],
         "resumeRule": {
             "visible": true,
             "mandatory": false,
             "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
-        },
-        "voiceMessageRule": {
-            "visible": true,
-            "mandatory": false,
-            "message": "Providing a voice message helps us to gauge your communications skills"
         },
         "itemsRule": {
             "$schema": "http://json-schema.org/draft-04/hyper-schema#",
@@ -65,61 +55,59 @@
                 }
             },
             "additionalProperties": false
-        },
-        "jobRules": [
-            {
-                "job": 356347,
-                "itemsRule": {
-                    "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+        }
+    },
+    "applicationModel": {
+        "job": 356347,
+        "itemsRule": {
+            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+            "type": "object",
+            "properties": {
+                "coverLetter": {
                     "type": "object",
+                    "format": "tas-fileUpload",
+                    "access": "candidateOwned",
+                    "options": {
+                        "accept": "image/png,text/html"
+                    },
+                    "description": "Please upload a cover letter. The shorter the better",
                     "properties": {
-                        "coverLetter": {
-                            "type": "object",
-                            "format": "tas-fileUpload",
-                            "access": "candidateOwned",
-                            "options": {
-                                "accept": "image/png,text/html"
-                            },
-                            "description": "Please upload a cover letter. The shorter the better",
-                            "properties": {
-                                "data": {
-                                    "type": "string",
-                                    "media": {
-                                        "binaryEncoding": "base64"
-                                    }
-                                },
-                                "fileName": {
-                                    "type": "string"
-                                },
-                                "via": {
-                                    "type": "string"
-                                }
+                        "data": {
+                            "type": "string",
+                            "media": {
+                                "binaryEncoding": "base64"
                             }
                         },
-                        "favoriteColor": {
-                            "type": "string",
-                            "access": "eeo",
-                            "title": "Favorite color",
-                            "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-                            "default": "blue",
-                            "minLength": 1
+                        "fileName": {
+                            "type": "string"
                         },
-                        "letters": {
-                            "type": "integer",
-                            "title": "Letters",
-                            "access": "eeo",
-                            "description": "How many letters are in this sentence?",
-                            "minimum": 0,
-                            "maximum": 20
+                        "via": {
+                            "type": "string"
                         }
-                    },
-                    "required": [
-                        "favoriteColor",
-                        "letters"
-                    ],
-                    "additionalProperties": false
+                    }
+                },
+                "favoriteColor": {
+                    "type": "string",
+                    "access": "eeo",
+                    "title": "Favorite color",
+                    "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
+                    "default": "blue",
+                    "minLength": 1
+                },
+                "letters": {
+                    "type": "integer",
+                    "title": "Letters",
+                    "access": "eeo",
+                    "description": "How many letters are in this sentence?",
+                    "minimum": 0,
+                    "maximum": 20
                 }
-            }
-        ]
+            },
+            "required": [
+                "favoriteColor",
+                "letters"
+            ],
+            "additionalProperties": false
+        }
     }
 }

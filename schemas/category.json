@@ -2,6 +2,26 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "description": "details of a a single category, identified by id or key (if a well-known category)",
+    "definitions": {
+        "jobRules": {
+            "type": "object",
+            "properties": {
+                "canMultiSelect": {
+                    "type": "boolean",
+                    "description": "true if a job opening can have multiple values for this category"
+                },
+                "leafSelectionOnly": {
+                    "type": "boolean",
+                    "description": "true if a job opening may only have leaf selections for this category"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "canMultiSelect",
+                "leafSelectionOnly"
+            ]
+        }
+    },
     "properties": {
         "id": {
             "type": "integer"
@@ -17,15 +37,14 @@
             "type": "string",
             "description": "the user visible name for this category"
         },
-        "canMultiSelectOnJobs": {
-            "type": "boolean",
-            "description": "whether a job opening can have multiple values for this category"
+        "jobRules": {
+            "$ref": "#/definitions/jobRules"
         }
     },
     "additionalProperties": false,
     "required": [
         "id",
         "name",
-        "canMultiSelectOnJobs"
+        "jobRules"
     ]
 }

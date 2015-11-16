@@ -1,155 +1,143 @@
 {
-  "amendedIntent": {
     "tracker": 763019932,
-    "jobs": [
-      356347
-    ],
-    "categories": [
-      {
-        "category": 10032,
-        "values": [
-          3344
-        ]
-      },
-      {
-        "category": 10034,
-        "values": [
-          1001,
-          1004
-        ]
-      }
-    ]
-  },
-  "candidateMessage": {
-    "message": "To apply, just complete this simple form. Best of luck!",
-    "level": "info"
-  },
-  "inputModel": {
-    "resumeRule": {
-      "visible": true,
-      "mandatory": false,
-      "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
+    "candidateMessage": {
+        "message": "To apply, just complete this simple form. Best of luck!",
+        "level": "info"
     },
-    "voiceMessageRule": {
-      "visible": true,
-      "mandatory": false,
-      "message": "Providing a voice message helps us to gauge your communications skills"
-    },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "Computer Software Engineering certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
-          },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
+    "candidateModel": {
+        "requiredCategoryValues": [
+            {
+                "category": 10032,
+                "values": [
+                    3344
+                ]
             },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
+            {
+                "category": 10034,
+                "values": [
+                    1001,
+                    1004
+                ]
             }
-          }
+        ],
+        "resumeRule": {
+            "visible": true,
+            "mandatory": false,
+            "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
         },
-        "javaKeywords": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Name four java keywords",
-          "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
-          "default": "",
-          "minLength": 1
-        },
-        "httpStatuses": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Name as many HTTP Statuses as you possibly can",
-          "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
-          "default": "",
-          "minLength": 1
+        "itemsRule": {
+            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+            "type": "object",
+            "properties": {
+                "nursingCert": {
+                    "type": "object",
+                    "title": "Computer Software Engineering certificate",
+                    "format": "tas-fileUpload",
+                    "access": "candidateOwned",
+                    "options": {
+                        "accept": "image/pdf"
+                    },
+                    "description": "Please scan and attach your C1 as pdf",
+                    "properties": {
+                        "data": {
+                            "type": "string",
+                            "media": {
+                                "binaryEncoding": "base64"
+                            }
+                        },
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "via": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "javaKeywords": {
+                    "type": "string",
+                    "access": "eeo",
+                    "title": "Name four java keywords",
+                    "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
+                    "default": "",
+                    "minLength": 1
+                },
+                "httpStatuses": {
+                    "type": "string",
+                    "access": "eeo",
+                    "title": "Name as many HTTP Statuses as you possibly can",
+                    "description": "Tell us four java keywords. Our advanced hiring algorithm uses it.",
+                    "default": "",
+                    "minLength": 1
+                }
+            },
+            "additionalProperties": false
         }
-      },
-      "additionalProperties": false
     },
-    "jobRules": [
-      {
+    "applicationModel": {
         "job": 356347,
         "itemsRule": {
-          "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-          "type": "object",
-          "properties": {
-            "coverLetter": {
-              "title": "Cover letter",
-              "type": "object",
-              "format": "tas-fileUpload",
-              "access": "candidateOwned",
-              "options": {
-                "accept": "image/png,text/html"
-              },
-              "description": "Please upload a cover letter. The shorter the better",
-              "properties": {
-                "data": {
-                  "type": "string",
-                  "media": {
-                    "binaryEncoding": "base64"
-                  }
+            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+            "type": "object",
+            "properties": {
+                "coverLetter": {
+                    "title": "Cover letter",
+                    "type": "object",
+                    "format": "tas-fileUpload",
+                    "access": "candidateOwned",
+                    "options": {
+                        "accept": "image/png,text/html"
+                    },
+                    "description": "Please upload a cover letter. The shorter the better",
+                    "properties": {
+                        "data": {
+                            "type": "string",
+                            "media": {
+                                "binaryEncoding": "base64"
+                            }
+                        },
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "via": {
+                            "type": "string"
+                        }
+                    }
                 },
-                "fileName": {
-                  "type": "string"
+                "favoriteColor": {
+                    "type": "string",
+                    "access": "eeo",
+                    "title": "Favorite color",
+                    "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
+                    "default": "blue",
+                    "minLength": 1
                 },
-                "via": {
-                  "type": "string"
+                "letters": {
+                    "type": "integer",
+                    "title": "Letters",
+                    "access": "eeo",
+                    "description": "How many letters are in this sentence?",
+                    "minimum": 0,
+                    "maximum": 20
+                },
+                "preferedApplication": {
+                    "type": "string",
+                    "title": "Development technology preference?",
+                    "enum": [
+                        "Desktop applications",
+                        "Web Technologies"
+                    ]
+                },
+                "mathquestion": {
+                    "title": "What is 20% of 100",
+                    "type": "integer",
+                    "default": 0
                 }
-              }
             },
-            "favoriteColor": {
-              "type": "string",
-              "access": "eeo",
-              "title": "Favorite color",
-              "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-              "default": "blue",
-              "minLength": 1
-            },
-            "letters": {
-              "type": "integer",
-              "title": "Letters",
-              "access": "eeo",
-              "description": "How many letters are in this sentence?",
-              "minimum": 0,
-              "maximum": 20
-            },
-            "preferedApplication": {
-              "type": "string",
-              "title": "Development technology preference?",
-              "enum": [
-                "Desktop applications",
-                "Web Technologies"
-              ]
-            },
-            "mathquestion": {
-              "title": "What is 20% of 100",
-              "type": "integer",
-              "default": 0
-            }
-          },
-          "required": [
-            "favoriteColor",
-            "letters"
-          ],
-          "additionalProperties": false
+            "required": [
+                "favoriteColor",
+                "letters"
+            ],
+            "additionalProperties": false
         }
-      }
-    ]
-  }
+    }
 }

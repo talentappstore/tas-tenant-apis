@@ -5,17 +5,9 @@
         "tracker": {
             "type": "integer"
         },
-        "jobs": {
-            "description": "the jobs that the candidate is interested in and the category values they want",
-            "type": "array",
-            "items": {
-                "type": "integer"
-            }
-        },
         "categories": {
             "$ref": "categoriesActual.json"
         }
     },
-    
     "additionalProperties": false
 }

@@ -1,5 +1,27 @@
 #%RAML 0.8
 
+- editSpecFetcher:
+    body:
+      application/json:
+        schema: !include ../schemas/intent.json
+        example: !include ../examples/intent-apply.json
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/candidateEditSpec.json
+            example: !include ../examples/candidateEditSpec-apply.json
+
+- trackable:
+    description: resource takes a tracker parameter 
+    queryParameters:
+      tracker:
+        type: integer
+        description: |
+          The ID of a tracker
+        example: 1003423
+        required: true
+
 - document_asStream:
     description: get the document as a stream, i.e. binary document, using the appropriate mime type
     responses:

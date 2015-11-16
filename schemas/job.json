@@ -84,10 +84,6 @@
                     "additionalProperties": false
                 }
             },
-            "required": [
-                "availableInternally",
-                "availableExternally"
-            ],
             "additionalProperties": false
         }
     },
@@ -130,14 +126,10 @@
         }
     },
     "required": [
-        "id",
         "links",
-        "status",
         "code",
         "availability",
-        "title",
-        "shortSummary",
-        "country"
+        "title"
     ],
     "additionalProperties": false
 }

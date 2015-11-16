@@ -44,19 +44,44 @@ jobs at some job board
 </ol>
 </p>
 
-<h1>Steps</h1>
+<h1>Install steps</h1>
 
-<h2>Install</h2>
+<h2>Pre-install (master board)</h2>
+
+<p>These steps take place on the master job board:
+<ol>
+<li>Make sure one (and only one) of the categories on the master board is marked as the org category (returns ORG as the key when calling GET /categories).
+</ol>
+</p>
+
+<p>Now the uploader app can be installed.
+</p>
+
+<h2>Install (uploader tenant)</h2>
 
 <ol>
-<li>Create app "myupload"
+<li>Create app "myupload", producing and consuming APIs as per this document.
 <li>Create tenant "uploadtenant"
 <li>Install myupload into uploadtenant
 <li>Install jobboardapp into uploadtenant
+</ol>
+
+<p>Now the master board can map the uploader to specific orgs.
+</p>
+
+
+<h2>Install (uploader tenant)</h2>
+
+<ol>
 <li>At master job board, use setup screens to map uploadtenant (visible because they installed the jobboardapp app) to their
 allowed orgs. From now on, all jobs for these organisations must be managed through the integration.
 </ol>
 
+<p>Now uploads can start.
+</p>
+
+
+<h1>Regular upload steps</h1>
 
 <h2>Reload categories</h2>
 

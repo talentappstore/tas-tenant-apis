@@ -1,9 +1,4 @@
 {
-    "consumer": {
-        "ct": "acme",
-        "cad": "supersoft",
-        "ca": "refly"
-    },
     "detail": {
         "kind": "Session creation",
         "landingURI": "https://acme.jobboard.com/jobs/1044",

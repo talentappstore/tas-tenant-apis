@@ -2,5 +2,8 @@
         "id": 10032,
         "key": "LOCATION",
         "name": "Location",
-        "canMultiSelectOnJobs": false
+        "jobRules": {
+            "canMultiSelect": true,
+            "leafSelectionOnly": false
+        }
     }

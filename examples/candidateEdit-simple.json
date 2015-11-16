@@ -1,50 +1,48 @@
 {
-    "vcard": [
-        {
-            "vcardStuff": "yet to be defined"
-        }
-    ],
-    "resume": {
-        "fileName": "fredcv.docx",
-        "data": "utg765f876hilf76fg6g...",
-        "via": "dropbox.com"
-    },
-    "jobNotifications": true,
-    "newVideo": 100032,
-    "newVoiceMessage": 7569,
-    "categoriesPatch": {
-        "op": "replace",
-        "patchItems": [
+    "candidateData": {
+        "vcard": [
             {
-                "category": 10032,
-                "values": [
-                    1009,
-                    1010,
-                    10344
-                ]
-            },
-            {
-                "category": 10055,
-                "values": [
-                    1085
-                ]
+                "vcardStuff": "yet to be defined"
             }
-        ]
-    },
-    "items": {
-        "worstColor": "blue"
-    },
-    "applications": [
-        {
-            "job": 23,
-            "items": {
-                "coverLetter": {
-                    "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
-                    "fileName": "fred.doc",
-                    "via": "dropbox.com"
+        ],
+        "resume": {
+            "fileName": "fredcv.docx",
+            "data": "utg765f876hilf76fg6g...",
+            "via": "dropbox.com"
+        },
+        "jobNotifications": true,
+        "categoriesPatch": {
+            "op": "replace",
+            "patchItems": [
+                {
+                    "category": 10032,
+                    "values": [
+                        1009,
+                        1010,
+                        10344
+                    ]
                 },
-                "favoriteColor": "red"
-            }
+                {
+                    "category": 10055,
+                    "values": [
+                        1085
+                    ]
+                }
+            ]
+        },
+        "items": {
+            "worstColor": "blue"
         }
-    ]
+    },
+    "applicationData": {
+        "job": 23,
+        "items": {
+            "coverLetter": {
+                "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
+                "fileName": "fred.doc",
+                "via": "dropbox.com"
+            },
+            "favoriteColor": "red"
+        }
+    }
 }

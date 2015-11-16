@@ -23,7 +23,28 @@
                 "patchItems"
             ]
         },
-        "application": {
+        "candidateData": {
+            "type": "object",
+            "properties": {
+                "vcard": {
+                    "$ref": "jcard.json"
+                },
+                "resume": {
+                    "$ref": "fileUpload.json"
+                },
+                "jobNotifications": {
+                    "type": "boolean"
+                },
+                "categoriesPatch": {
+                    "$ref": "#/definitions/categoriesPatch"
+                },
+                "items": {
+                    "$ref": "items.json"
+                }
+            },
+            "additionalProperties": false
+        },
+        "applicationData": {
             "type": "object",
             "properties": {
                 "job": {
@@ -41,34 +62,11 @@
         "tracker": {
             "type": "integer"
         },
-        "vcard": {
-            "$ref": "jcard.json"
+        "candidateData": {
+            "$ref": "#/definitions/candidateData"
         },
-        "resume": {
-            "$ref": "fileUpload.json"
-        },
-        "jobNotifications": {
-            "type": "boolean"
-        },
-        "newVideo": {
-          "type": "integer",
-          "description": "recording ID of the candidate's newly uploaded video - overwrites any existing video"
-        },
-        "newVoiceMessage": {
-          "type": "integer",
-          "description": "recording ID of the candidate's newly uploaded voice message - overwrites any existing voice message"
-        },
-        "categoriesPatch": {
-            "$ref": "#/definitions/categoriesPatch"
-        },
-        "items": {
-            "$ref": "items.json"
-        },
-        "applications": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/application"
-            }
+        "applicationData": {
+            "$ref": "#/definitions/applicationData"
         }
     },
     "additionalProperties": false

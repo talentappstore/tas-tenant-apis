@@ -24,6 +24,13 @@
 <!-- always required -->
 <link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
+<style>
+DIV.todo {
+   color: red;
+   font-weight: bold;
+   size: 200%;
+}   
+</style>
 
 <title>Apply for opening - simple</title>
 </head>
@@ -34,11 +41,11 @@
 
 <h1>Discuss</h1>
 
-<ul>
-<li>keying of drafts (candidate /E/N ?)
-<li>use of the email IdP. When candidates apply using email, instead of social login, do we want to be able to leverage
-their email field without forcing them back to the email IdP for link verification?
-</ul>
+<div class='todo'>
+The ATS must inject 'role=internal' when a candidate logs into simpleapply and has an existing record as an internal in the ATS.
+This causes simpleapply to render correctly.
+</div>
+
 
 <h1>Scenario</h1>
 
@@ -80,9 +87,10 @@ their email field without forcing them back to the email IdP for link verificati
 <h2>Create a tracker</h2>
 
 <p>In this scenario, jobly, the ATS, has its own particular system for
-candidate source tracking which involves passing a candidateSource parameter.</p>
+candidate source tracking which involves passing both candidateSource and deviceType parameters.</p>
 
-<p>In this example, the candidate has reached the job by clicking on this link (within a Facebook post):</p>
+<p>In this example, the candidate has reached the job by clicking on the link below (within a Facebook post), and the ATS has detected
+that the candidate is using a mobile device:</p>
 
 <div class='codeBlock'>
 https://acme.jobboard.com/openings/7622?candidateSource=facebook
@@ -97,57 +105,42 @@ create the campaign tracker:</p>
 https://acme.jobboard.com/openings/7622?tracker=73947484
 </div>
 
-<p>Before it can render the simpleapply button, jobly needs to encapsulate
-the candidateSource data inside a tracker, that can be passed through the chain as follows:</p>
-
+<p>However the ATS is not tracker-aware, so it needs to create a campaig tracker that will embed candidateSource and deviceType.
 <div class='codeBlock'>
-(entry URL) -> job details page (jobly)  -> apply pages (simpleapply) -> REST API call for new job application -> (jobly)
-</div>
-
-<p>Jobly checks whether it is already holding a tracker for the candidate's session (see detailed notes on tracker for more). In this
-example we assume that jobly finds that the candidate's http session already holds a tracker:
-
-<div class='codeBlock'>
-HttpSession session = ... 
-Integer existingTracker = session.getAttribute("tracker"); // tracker 603343 is found
-</div>
-</p>
-
-<p>Jobly now creates a new tracker to embed the new information (candidateSource). Since this is not
-a session creation event, jobly uses a campaign tracker. The new tracker is linked to the existing tracker.
-</p>
-
-<p>In this example, jobly parses the candidate source out and adds it as a custom field inside the userArea section.
-<div class='codeBlock'>
-POST /trackers/603343/trackers/acme/supersoft/jobly
+POST /trackers/root
 <div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
 
 Response: 201
 Location: 763019932
 </div>
 
-
 <h2>Embed the apply now button</h2>
 
-<p>With the tracker set up, the ATS/job board (jobly) can now ask
-all interested apps whether they have a candidate-facing widget
-(e.g. an apply button, social sharing tool, view counter, etc.)
+<p>With the tracker set up, the ATS (jobly) is ready to render the job details page.
+</p>
+
+<p>As part of that, the ATS asks all interested apps whether they have a candidate-facing widget
+(e.g. an apply button, join talent pool button, social sharing tool, view counter, etc.)
 that they would like to inject into the job details page.</p>
 
-<p>Since the candidate is not logged in jobly uses an anonymous OAuth token.</p>
-
+<p>Since the candidate is not logged in, jobly calls the not-on-behalf version of the API to do this:</p>
 <div class='codeBlock'>
-(jobly)
-GET /jobs/7622/widgetHtml/candidates/me?tracker=763019932
+GET /jobs/byID/7622/widgetPanel/candidates/anonymous?tracker=763019932
 
+Response:
+&lt;button onClick="https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622"&gt;Apply now&lt;/button&gt;
+</div>
+
+<p>If the candidate was logged in, jobly would use the on-behalf version in stead:
+<div class='codeBlock'>
+GET /jobs/byID/7622/widgetPanel/candidates/me?tracker=763019932
+
+Response:
 ...
 </div>
 
-<p>In order to render its button, simpleapply looks at the <b>sub</b> field within the OAuth token. In this case
-the field is not present, so simpleapply knows the OAuth token is anonymous. This means that simpleapply can't, for example,
-see if the candidate has applied previously and if so add a message "You've already applied".</p>
-
-<p>Instead, simpleapply displays whatever is appropriate for a completely unknown candidate.</p>
+<p>In this example candidate is not logged in, so the panel will not say for example, "You've already applied".
+Instead, the panel shows whatever is appropriate for a completely unknown candidate.</p>
 
 <p>Note: even without a logged in candidate, these widget rendering apps could adapt their behaviour based on the data
 in the tracker, e.g. for candidates on a mobile device:
@@ -157,49 +150,43 @@ in the tracker, e.g. for candidates on a mobile device:
 </ul>  
 </p>
 
-<div class='codeBlock'>
-(jobly)
-GET /jobs/7622/widgetHtml/candidates/me?tracker=763019932
-
-Response (from simpleapply):
-&lt;button onClick="https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622"&gt;Apply now&lt;/button&gt;
-</div>
-
 <h1>Candidate clicks apply</h1>
 
 <p>The entire job details page, and the apply button within it, are now rendered, so the candidate sees the "apply now" button at
-the bottom of the job description, and by clicking on it, is sent to simpleapply at this URL:</p>
+the bottom of the job description.</p>
 
 <div class='codeBlock'>
 https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
 </div>
 
-<p>If the candidate was logged in at jobly (e.g. to save some jobs to a cart), then jobly will pass a hint to
-simpleapply that the candidate is already logged in:
+<p>If the candidate was logged in at jobly (e.g. to save some jobs to a cart), then jobly would have passed a hint to
+simpleapply that the candidate is already logged in. Due to the nature of SSO, simpleapply is unable to detect whether
+the visitor is logged into the SSO system or not. Therefore it looks to the loggedIn
+URL parameter for a hint. By convention, TAS apps that hyperlink to other TAS apps
+always attach the loggedIn URL parameter as a hint when the principal (i.e. the
+candidate) is already logged in.</p>
 </p>
 
 <div class='codeBlock'>
 https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=true
 </div>
+
+<p>The candidate clicks on the simpleapply link.
+</p>
+
  
 <h1>Simpleapply renders its page (candidate not logged in)</h1>
 
-<p>simpleapply now renders its page.</p>
+<p>Candidate is now at:
+<div class='codeBlock'>
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+</p>
 
 <h2>Check for logged in candidate</h2>
 
 <p>simpleapply is able to render its "apply form" to either a logged in candidate, or to an anonymous web visitor
 (though the anonymous visitor can't complete the form but can only view it).</p>
-
-<p>However due to the nature of SSO, simpleapply is unable to detect whether
-the visitor is logged into the SSO system or not. Therefore it looks to the loggedIn
-URL parameter for a hint. By convention, TAS apps that hyperlink to other TAS apps
-always attach the loggedIn URL parameter as a hint when the principal (i.e. the
-candidate) is already logged in.</p>
-
-<div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
-</div>
 
 <p>In this example, the URL does not have the loggedIn parameter, <b>and</b> the target page is one
 that can render itself whether or not there is a logged in candidate, so simpleapply begins to render
@@ -224,18 +211,14 @@ does not belong inside simpleapply, but is more likely in the ATS.</p>
 
 <h2>simpleapply fetches edit spec for non-logged in candidate</h2>
 
-<p>simpleapply asks for an <b>edit spec</b>, a document that describes what data
-is required of the candidate to apply for the job. Since there is no candidate logged in,
-simpleapply uses an anonymous OAuth token (i.e. one not associated with a principal), which
-jobly (the ATS) interprets as a request for a "safe" edit spec that anyone is allowed to see.  
+<p>simpleapply asks for an <b>edit spec</b> for applying to this job by an anonymous candidate.  
 
 
 <div class='codeBlock'>
-POST /editSpecs/fetches
+POST /editSpecs/fetches/apply/7622/anonymous
 
 Request:
 <div class='clientInclude' data-href='../examples/intent-apply.json'></div>
-
 </div> 
 </p>
 
@@ -246,35 +229,19 @@ anonymous candidate (we look in more detail later).</p>
 simpleapply renders the form with all fields disabled.  
 </p>
 
+<div class='todo'>
+TODO: clarify how the login embed from the IdP is injected - is it via core API?
+</div>
+
+
 <h1>Candidate logs in to simpleapply</h1>
 
 <p>The candidate sees the apply form, and decides that they are prepared to invest
 their time in applying, so logs in using Facebook and returns to the simpleapply page.</p>
 
+<p>Once the candidate has logged in, their roles are available (e.g. role == internal).</p> 
 
-<h2>The session gets decorated</h2>
-
-<p>Once the candidate has logged in, their TAS session contains their roles (e.g. role == internal).</p> 
-
-<p>This section describes how this happens.</p>
-
-<p>When the candidate logs in, their TAS session gets decorated (e.g. has roles injected) by the
-originating idp and by all of the apps that are acting as login listeners.</p>
-
-<p>So role == internal could have come:
-
-<ul>
-<li>directly from the idp, e.g.:
-<ul>
-<li>because everyone in the corporate idp gets the role
-<li>because people matching the corporate email pattern get the role
-</ul>
-<li>from the ATS - e.g. because jobly's login listener detected the login, looked up the name ID (typically email) in its own
-candidates table, found a row, saw it was marked as internal, and therefore injected role==internal.
-</ul>
-<li>from a more exotic login listener, e.g. some special login listener did it that that provides a
-brute force "I am an internal" link on the intranet that employees click through from
-</ul>
+<p>Simpleapply re-renders its page, now knowing who the candidate is.
 </p>
 
 <h1>Simpleapply renders its page (candidate logged in)</h1>
@@ -288,9 +255,8 @@ this time for real (e.g. maybe now jobly knows who the candidate is, it can dete
 
 <h3>Design decision - replace vs. merge of the candidate's categories</h3>
 
-<p>The <b>POST /candidates</b> API, which simpleapply will
+<p>The <b>POST /candidates/me</b> API, which simpleapply will
 eventually use to push the edit into the jobly ATS, supports two modes for setting the candidate's categories.
-
 <dl>
 
 <dt>merge</dt><dd>The category values in the request are merged with any existing values on the
@@ -339,75 +305,52 @@ provide valid data for the job they are applying to, and does not have to clean 
 <h3>Fetching the candidate's existing information into the intent</h3>
  
 <p>Since simpleapply is going to use replace semantics for the candidate's categories, it now needs to
-fetch any existing categories from the candidate's record.</p>
-
-<p>First, see if there even is a candidate record. A candidate may be logged in (maybe via their facebook account)
-but not have any row in the ATS.</p>
+create a merged set of the candidate's existing category values and the category values indicated in the edit spec.
 
 <div class='codeBlock'>
-GET /candidates/{N}
+POST /candidates/me/categories/merges
 
-Response:
-3022432
+Request:
+<div class='clientInclude' data-href='../examples/categoriesActual-simple.json'></div>
 </div> 
 
-<p>Looks like there is a candidate record already. Grab the candidate's existing categories.</p>
-
-<div class='codeBlock'>
-GET /candidates/3022432/categories
-
 Response:
-[
-    {
-        "id": 10032,
-        "values": [
-            3344
-        ]
-    },
-    {
-        "id": 10034,
-        "values": [
-            1001
-        ]
-    }
-]
+<div class='clientInclude' data-href='../examples/categoriesActual-simple.json'></div>
 </div> 
+</p>
 
-<p>Now merge them into the intent. The intent now looks like this:</p>
-
-<div class='codeBlock'>
-<div class='clientInclude' data-href='../examples/intent-applyPlusExistingCats.json'></div>
-</div>
-
-<p>In this case it was easy to merge the existing categories into the intent, since the intent had no categories.
-If there had been some category values already in the intent (e.g. the candidate
-is applying for a job and at the same time registering interest in the Finance area), then a simple overwrite like
-this would not work - instead simpleapply would use the merge helper to merge the two sets of categories into one like this:</p>
-
-<p>TODO: Insert example of merging two sets of categories using POST /categoryMerges</p>
-
-
-<h3>Fetch the edit spec again</h3>
+<p>If the API returns 404, the candidate does not already exist. Simpleapply just uses the values from the edit spec in this case.
 
 <p>Now:
-
 <ol>
 <li>The candidate has logged in
 <li>We've created an intent which indicates
 <ul>
-<li>what categories they want to end up
-with, i.e. the sum of what they already had and any new ones (in this case none)
-<li>what jobs they want to apply for
+<li>what categories they want to end up with, i.e. the sum of what they already had and any new ones
+<li>the job they want to apply for
 </li>
 </ol>
 
-<p>Simpleapply again fetches the edit spec, this time using the new intent.</p>
+<p>Simpleapply again fetches the edit spec, this time using the new intent, and the on-behalf API</p>
+
+<div class='codeBlock'>
+POST /editSpecs/fetches/apply/7622/me
+
+Request:
+<div class='clientInclude' data-href='../examples/intent-applyPlusExistingCats.json'></div>
+
+Response:
+<div class='clientInclude' data-href='../examples/candidateEditSpec-apply.json'></div>
+</div>
+</p>
+
+
+<h3>How the ATS builds the edit spec</h3>
 
 <p>To build the edit spec, the ATS (jobly) will use data from:
 <ul>
-<li>the TAS session - e.g. details of the candidate's role(s) from the TAS session (e.g. whether they are internal)
-<li>the ATS database - e.g. whether the candidate has been made
-redundant within the last 2 years, or failed a drug test during a previous recruitment process,
+<li>the sub field of the OAuth token passed to the edit spec fetch. This provides access to the candidate's role(s), e.g. whether they are internal
+<li>the ATS database - e.g. whether the candidate has been made redundant within the last 2 years, or failed a drug test during a previous recruitment process,
 and hence cannot apply at all
 </ul>
 
@@ -420,22 +363,61 @@ the message should explain to the candidate what and why). For example:</p>
 <li>candidates applying to some specific customer service job must first apply to a customer service talent pool role
 </ul>
 
-<p>Simpleapply fetches the edit spec.</p>
-
-<div class='codeBlock'>
-POST /editSpecs/fetches
-
-Request:
-<div class='clientInclude' data-href='../examples/intent-applyPlusExistingCats.json'></div>
-
-Response:
-<div class='clientInclude' data-href='../examples/candidateEditSpec-apply.json'></div>
 
 </div> 
 </p>
 
+<h3>Fetch the required engagements</h3>
+
+TODO.
+
 <p>Great! Now simpleapply has the details it needs to begin building its UI.</p>
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Simpleapply handles "items" in the UI like this:
+<pre>
+Upon first candidate login in order to apply, simpleapply:
+	finds any existing draft and loads items from it into the UI
+	then pulls existing items from the candidate record and loads those into the UI
+		but doesn't overwrite the items in the UI when the existing candidate item is null/empty
+
+Subsequent navigation/refreshes of the simpleapply page don't cause reloading of data
+from the candidate record, that only happens on first login (otherwise it would be
+impossible for the candidate to change anything that already had a value on the candidate record).
+
+upon submitting, simpleapply calls POST /candidates/me to update items back on the candidate
+</pre>
+
 <h2>Set up UI</h2>
 
 <p>Simpleapply creates the UI that it will display to the candidate.</p>
@@ -447,15 +429,8 @@ and the candidate is not internal, there might be nothing displayed but the mess
 
 <h3>Set up input fields and controls</h3>
 
-<p>simpleapply now uses the information from the <b>inputModel</b> section to set up the UI - i.e. when
-applying for a job, the inputModel is more or less the application form.</p>
-
-<p>For example, the resumeRule section tells simpleapply it should provide a way to upload a resume, but it is not mandatory.</p>
-
-<p>Most of the information from the inputModel relates to
-the candidate as a whole, but some is specific to individual
-job application(s) (under the <b>openingRules</b> section). Simpleapply
-arranges the opening-specific sections under appropriate headers ()with job title).
+<p>Simpleapply now uses the information from the candidateModel and applicationModel sections to set up the UI - i.e. when
+applying for a job, these are more or less the application form.</p>
 
 <h3>Populate default values</h3>
 
@@ -464,57 +439,12 @@ section(s). These should be loaded into the input controls.</p>
 
 <p>Default values are not the same as previously entered values.</p>
 
-
-
-<h3>Setup voice message capture</h3>
-
-<p>If the inputModel indicates a voice message is required or mandatory, then jobly first requests an id that the
-recording will be held against:
-<div class='codeBlock'>
-POST /voiceMessageUploads
-
-Response:
-170033
-</div>
-</p>
-
-<p>jobly next asks the voice recording app for the recording UI, further passing in the tracker.
-<div class='codeBlock'>
-GET /voiceMessageUploads/{id}/recordingUI&tracker=763019932
-
-Response:
-https://acme.voicely.com/170033/recordingUI.html?tracker=763019932
-</div>
-
-<p>And finally jobly also displays any existing voice message so the candidate can decide whether to
-record a new one or stick with the one they already have.
-</p>
-
-<p>First get the lock id for the existing voice message:
-<div class='codeBlock'>
-GET /candidates/{}/voiceMessage
-
-Response: 2044
-</div>
-
-<p>Now get the playback UI for the message:
-<div class='codeBlock'>
-GET /voiceMessageUploads/locked/2044/playbackUI
-
-Response:
-https://acme.voicely.com/170033/playbackUI.html?tracker=763019932
-</div>
-
-<p>Now we have a UI to capture a voice message.
-</p>
-
 <h3>Populate category controls</h3>
 
 <p>Since categories may be large (e.g. a definitive list of every county in the US) it's up to simpleapply to decide
 how to fetch all possible values so the user can select. For small categories, simpleapply might fetch the entire
 category. For larger ones, it might use ajax calls to only fetch values as, say, the user clicks to expand a node in the hierarchy.
 </p>
-
 
 <div class='codeBlock'>
 Get list of all categories ..
@@ -523,6 +453,7 @@ GET /categories
 .. and its tree of nodes
 GET /categories/10033/values
 </div>
+
 
 
 <h2>Fetch previously entered data</h2>
@@ -540,14 +471,32 @@ logged in using Facebook, then their name and image may be available on the TAS 
 </ul>
 
 <h3>Loading existing category values</h3>
+
+TODO
+
+GET /candidates/me/categories
+
 <h3>Using fine-grained candidate APIs</h3>
+
+
+The classes of items as per above are:
+personal details (vcard)
+job alert (notifications) flag
+categories
+etc..
+
+
+
+
 
 <h4>Load existing resume</h4>
 
 <p>Simpleapply fetches details of the candidate's existing resume (not the stream itself which might be enormous)
 
+TODO
+
 <div class='codeBlock'>
-GET /candidates/3022432/resume/meta
+GET /candidates/me/resume/meta
 
 Response:
 <div class='clientInclude' data-href='../examples/fileDownload-simple.json'></div>
@@ -555,9 +504,12 @@ Response:
 
 <p>Simpleapply also displays a link which the candidate can click through on to open their existing resume document. 
 
+TODO
+
 <div class='codeBlock'>
-GET /candidates/3022432/resume/asStream
+GET /candidates/me/resume/asStream
 </div> 
+
 
 <h4>Load details of existing applications</h4>
 
@@ -587,7 +539,10 @@ GET /applications/902533/items
 
 
 <h3>Using data from the TAS session</h3>
-TODO: clarify storage of the image - TAS core API??
+
+TODO: clarify that simpleapply can access name, image, email off of the SAML assertion using the new helper API.
+
+Pre-populate fields in the UberApply form 
 
 
 
@@ -623,10 +578,11 @@ adds expertise == pilot must now answer additional questions).</p>
 preserve any data from the fields (perhaps using its own draft functionality), rebuild the UI
 using the new edit spec, then reapply that data.</p> 
 
+
 <h2>More candidate interactions with the apply form</h2>
 
 <pre>
- 
+TODO: flesh out 
 candidate clicks to view an existing (exists back on their candidate record) document attachment/CV 
 
 candidate clicks to view a newly added (only present in draft) document attachment/CV
@@ -645,24 +601,139 @@ candidate deletes their entire profile (maybe another app?)
 </pre>
 
 
+
+
+
+
+
+
 <h1>Candidate submits application</h1>
 
-<p>If simpleapply allowed the candidate to record a new voice message, it must now check (by trying to lock) if they did so using
-the previously generated id.
+<h2>Render the "Next steps" page</h2>
+
+<p>We need to show the candidate the engagements they are going to have to complete. This means first actually instantiating them if they haven't been already.
+</p>
+
+<p>Eager creating - this creates the engagements even if the candidate just popped in to see how arduous it will be and browses away - in that case these 
+will get cleaned up by the engagement hub's reaper.
+
+The reaper daemon reaps unfinalized engagements after 6 weeks (leaves time for candidate to return to a draft application from earlier).
+</p>
 
 <div class='codeBlock'>
-POST /voiceMessageUploads/170033/lock
+Request:
+POST /candidates/me/engagements/forJobs/instantiates
+-- intent
+[ "jobs": .. ]
 
 Response:
-201
+[
+  {
+    "engagement": 10022,
+    "linkages": [ 13005, 13006 ]
+  }
+]
 </div>
+
+<p>Render the engagement's name
+GET /candidates/me/engagements/{e}/candidate
+{
+   "engagementID":
+   "entityID":
+   "nameID":
+   "firstName":
+   "lastName":
+   "email":
+}
+
+<p>Render each engagement into the page, passing the current page in as the relay page. Rather than iframeing, which would stop engagements
+rendering outside their area (e.g. large pop-up menus), we inject Javascript. More security risk. Better usability.
+
+GET /candidates/me/engagements/{e}/candidateView?size=medium&relayPage=[this page]
+
+Response:
+application/javascript
 </p>
 
-<p>Looks like they did record one. simpleapply packs the lock id into the body for the call to POST /candidates.
-</p>
+Once the page is served, candidate sees panels for each engagement, along with tick or cross if the engagement has both "isPassFail" and "candidateSeesFail" true. 
 
-<p>If the candidate was to delete this drfat, simpleapply would need to clean up and delete the message (since it had not been handed off to the ATS).
-</p>
+GET /candidates/me/engagements/{e}/engagementType
+{
+   "isPassFail":
+   "candidateSeesFail":
+}   
+
+
+zzzzzzzzzzz
+
+
+ATS tells engagement hub to finalize the engagement linkages that need to be completed by this candidate given the job(s) they are applying for.
+
+The hub will bail if any one of the engagements is not complete.
+
+POST /candidates/me/engagements/forJobs/finalizes
+POST /candidates/me/engagements/forTalentPool/{tp}/finalizes
+
+
+
+<h1>Finalize engagements</h1>
+
+
+
+
+
+TODO:
+
+Attach the engamenents to their job applications or talent pool memberships.
+
+The ATS handles this under POST /candidates.
+
+Most of the work is delegated to the engagement hub.
+
+After this all the engagements are finalized (hold application ID).
+
+
+
+<div class='codeBlock'>
+
+
+Job board tells .. present 
+Job board tells .. prepare 
+
+
+ATS tells engagement hub to finalize the engagement linkages that need to be completed by this candidate given the job(s) they are applying for.
+
+POST /candidates/me/engagements/forJobs/finalizes
+POST /candidates/me/engagements/forTalentPool/{tp}/finalizes
+Request:
+[ 12, 14 ]
+
+
+
+Each of these can be mapped back to the underlying engagement.  
+ 
+
+
+Response:
+</div>
+
+ZZZZZZZZZZ
+
+The result is an ordered list of engagement   
+engagement hub creates a bunch of engagements as a result of this list.
+ 
+ 
+
+The results are a set of engagement types.
+
+An engagement type may be tailored to a specific job. In that case the 
+ 
+
+Those types can make use of the intent to
+
+
+
+
 
 <p>Once the candidate has finally completed their work and pressed submit, the completed edit (i.e., job application in
 this example]) is sent to the ATS (jobly).
@@ -730,6 +801,10 @@ original job details page in this example of applying for a job).</p>
 
 <p>User is now back at the job details page.</p>
 
+
+TODO:
+
+The recruiter views the underway/ completed/ finalized/ engagements for a candidate.
 
 
 <script>

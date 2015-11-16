@@ -1,11 +1,10 @@
 [
     {
         "meta": {
-            "id": 10023
+            "id": 16045
         },
         "consumer": {
             "ct": "acme",
-            "cad": "tas",
             "ca": "jobboard"
         },
         "detail": {
@@ -19,11 +18,10 @@
     },
     {
         "meta": {
-            "id": 10024
+            "id": 16044
         },
         "consumer": {
             "ct": "acme",
-            "cad": "supersoft",
             "ca": "legacyats"
         },
         "detail": {
@@ -33,7 +31,8 @@
             "objectID": 16670
         },
         "userArea": {
-            "candidateSource": "facebook"
+            "candidateSource": "facebook",
+            "deviceType": "mobile"
         }
     }
 ]

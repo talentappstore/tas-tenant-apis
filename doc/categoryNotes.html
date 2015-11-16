@@ -31,34 +31,17 @@
 <pre>
 Tree semantics - jobs, locations
 --------------------------------
-We support hierarchical structures (locations, jobs & job families (and departments?)). Selections from these can be used:
+The TAS tenant APIs have the concept of categories - a hierarchical system for categorizing jobs and candidates, which allows: 
 
-- by candidates when searching jobs
-- by candidates to profile themselves with (i.e., "follow"), possibly immediately after searching
-- by the tenant when searching candidates
-- by the tenant to create a search agent for candidates, possibly immediately after searching
+- searching for jobs that match candidates
+	- actively (candidate searches via UI)
+	- passively (candidate gets email when new jobs are posted that match their own profile)
+- searching for candidates
+	- that match jobs
+	- by the tenant, when searching candidates
+	- by the tenant to create a search agent for candidates, possibly immediately after searching
 
-For some categories, actual openings can only have a single leaf node.
-
-Continuous openings??
-
-Candidates, search agents can have multiple values.  
-
-
-Example tree
-------------
-The following tree is used in the examples below:
-
-/a
-  /b
-    /d
-    /e
-  /c
-    /f
-/g
-  /h
-  /i
-
+For some categories, jobs are restricted to only having a single leaf node (category value).
 
 General principles
 ------------------
@@ -109,25 +92,41 @@ Support office roles
       ..
    
 
+
+Example tree
+------------
+The following tree is used in the examples below:
+
+/a
+  /b
+    /d
+    /e
+  /c
+    /f
+/g
+  /h
+  /i
+
+
 Normalizing selections
 ----------------------
-A selection should be "normalized", which means:
-- any folder or leaf must be selected only once - i.e., it is invalid to explicitly select both a node and one its ancestor nodes.
+A set of category values should be "normalized", which specifically means that:
+- any folder or leaf must be selected (explicitly or implicitly) only once - i.e., it is invalid to select both a node and one its ancestor nodes.
 - the minimum possible number of folder and leaf selections must be used - i.e., it is invalid to explicitly select all of the leaves
 beneath a folder without any differing details - the folder itself should be selected instead.
 
-The following are valid selections:
+The following are correctly normalized:
 
 /a
-/b,/c
 /b,/f
 /a,/h
 
-The following are invalid (assuming the nodes carry no data, but are only selected or not):
+The following are not:
 
+/b,/c (since /a would be more minimal)
 /a,/b (since /a implies /b)
-/d,/e (since /b is more normalized) 
-/f (since /c is more normalized) 
+/d,/e (since /b would be more minimal) 
+/f (since /c would be more minimal) 
 
 A selection that was valid can become invalid due to changes in the master data. For example:
 
@@ -139,20 +138,7 @@ A selection that was valid can become invalid due to changes in the master data.
   /c
     /f
 
-(Since /b is more normalized).
-
-
-
-Example repeated: (DELETE ME)
-/a
-  /b
-    /d
-    /e
-  /c
-    /f
-/g
-  /h
-  /i
+(Since /b would be more minimal).
 
 
 Unprofiled subjects and searching

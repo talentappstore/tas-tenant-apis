@@ -38,7 +38,7 @@
                         "data": {
                             "type": "string",
                             "media": {
-                                "binaryEncoding": "base64"
+                                "binaryEncoding": "base64",
                                 "type": "image/pdf"
                             }
                         },

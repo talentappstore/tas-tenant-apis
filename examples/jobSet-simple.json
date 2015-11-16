@@ -5,17 +5,12 @@
     ],
     "jobs": [
         {
-            "links": {
-                "view": "https://acme.jobboard.com/jobs/Creative-Director",
-                "apply": "https://acme.bigapply.com/jobs/10334355"
-            },
-            "availability": {
-                "applicationCloseDates": {
-                    "closeDate": "2015-11-05T13:15:30Z"
-                }
-            },
+            "viewUri": "https://acme.jobboard.com/jobs/Creative-Director",
+            "applyUri": "https://acme.bigapply.com/jobs/10334355",
+            "closeDate": "2015-11-05T13:15:30Z",
             "code": "1022NH",
             "title": "Creative Director",
+            "description": "The creative director is charged with determining the best ways for us to visually represent our company’s identity online. It's very much a people-oriented job, involving development of high-level concepts for design projects.",
             "categories": [
                 {
                     "category": 1022,
@@ -34,17 +29,12 @@
             ]
         },
         {
-            "links": {
-                "view": "https://acme.jobboard.com/jobs/Creative-Lackey",
-                "apply": "https://acme.bigapply.com/jobs/10334356"
-            },
-            "availability": {
-                "applicationCloseDates": {
-                    "closeDate": "2015-11-05T13:15:30Z"
-                }
-            },
+            "viewUri": "https://acme.jobboard.com/jobs/Janitor",
+            "applyUri": "https://acme.bigapply.com/jobs/10334356",
+            "closeDate": "2015-11-05T13:15:30Z",
             "code": "1024NH",
-            "title": "Creative Lackey",
+            "title": "Janitor",
+            "description": "Clean building floors by sweeping, mopping, scrubbing, or vacuuming them. Gather and empty trash. Service, clean, and supply restrooms. Clean and polish furniture and fixtures.",
             "categories": [
                 {
                     "category": 1022,

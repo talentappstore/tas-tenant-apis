@@ -16,7 +16,7 @@
         "jobs": {
             "type": "array",
             "items": {
-                "$ref": "job.json"
+                "$ref": "jobSetJob.json"
             }
         }
     },

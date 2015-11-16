@@ -33,6 +33,7 @@
     "jcard": { "$ref": "../schemas/jcard.json" },
     "job": { "$ref": "../schemas/job.json" },
     "jobSearches": { "$ref": "../schemas/jobSearches.json" },
+    "jobSetJob": { "$ref": "../schemas/jobSetJob.json" },
     "jobSet": { "$ref": "../schemas/jobSet.json" },
     "jobs": { "$ref": "../schemas/jobs.json" },
     "jsonSchemaSchema": { "$ref": "../schemas/jsonSchemaSchema.json" },

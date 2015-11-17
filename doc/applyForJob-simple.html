@@ -39,14 +39,6 @@ DIV.todo {
 <div id="toc"></div>
 
 
-<h1>Discuss</h1>
-
-<div class='todo'>
-The ATS must inject 'role=internal' when a candidate logs into simpleapply and has an existing record as an internal in the ATS.
-This causes simpleapply to render correctly.
-</div>
-
-
 <h1>Scenario</h1>
 
 <p>This scenario involves these apps:
@@ -375,52 +367,22 @@ TODO.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p>Simpleapply handles "items" in the UI like this:
-<pre>
-Upon first candidate login in order to apply, simpleapply:
-	finds any existing draft and loads items from it into the UI
-	then pulls existing items from the candidate record and loads those into the UI
-		but doesn't overwrite the items in the UI when the existing candidate item is null/empty
-
-Subsequent navigation/refreshes of the simpleapply page don't cause reloading of data
-from the candidate record, that only happens on first login (otherwise it would be
-impossible for the candidate to change anything that already had a value on the candidate record).
-
-upon submitting, simpleapply calls POST /candidates/me to update items back on the candidate
-</pre>
-
 <h2>Set up UI</h2>
 
 <p>Simpleapply creates the UI that it will display to the candidate.</p>
+
+<p>To populate the UI, simpleapply will merge data in from:
+<ul>
+<li>the edit spec (it has default values for some fields, and also contains the category values)
+<li>from any existing draft for the job being applied for
+<li>from the existing candidate record if there is one (but not its category values)
+</ul>
+
+<p>Simpleapply uses a merge strategy that prevents an old draft from overwriting candidate details. E.g. candidate
+starts to apply for A, saves as a draft with empty personal details, then moves on and applies to B with
+completed personal details, then returns to apply for A. We don't want the empty personal details on the draft for A
+to overwrite the filled in details on the candidate record.
+</p>
 
 <h3>Display the message</h3>
 
@@ -432,12 +394,34 @@ and the candidate is not internal, there might be nothing displayed but the mess
 <p>Simpleapply now uses the information from the candidateModel and applicationModel sections to set up the UI - i.e. when
 applying for a job, these are more or less the application form.</p>
 
+<h3>vcard</h3>
+
+<p>Simpleapply gets existing vcard values:
+<div class='codeBlock'>
+GET /candidates/me/vcard
+
+Request:
+<div class='clientInclude' data-href='../examples/categoriesActual-simple.json'></div>
+</div> 
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h3>Populate default values</h3>
 
 <p>The inputModel also includes some default values, e.g. for individual fields in the items
 section(s). These should be loaded into the input controls.</p> 
-
-<p>Default values are not the same as previously entered values.</p>
 
 <h3>Populate category controls</h3>
 
@@ -470,23 +454,12 @@ logged in using Facebook, then their name and image may be available on the TAS 
 </li>
 </ul>
 
-<h3>Loading existing category values</h3>
-
-TODO
-
-GET /candidates/me/categories
-
-<h3>Using fine-grained candidate APIs</h3>
-
 
 The classes of items as per above are:
 personal details (vcard)
 job alert (notifications) flag
 categories
 etc..
-
-
-
 
 
 <h4>Load existing resume</h4>
@@ -599,9 +572,6 @@ candidate deletes a draft application
 
 candidate deletes their entire profile (maybe another app?)
 </pre>
-
-
-
 
 
 

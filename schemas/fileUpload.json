@@ -1,28 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "via": {
-            "type": "string",
-            "description": "the mechanism via which the file was uploaded - either 'device' or the fqdn of a cloud storage platform (e.g. dropbox.com)"
-        },
-        "fileName": {
-            "type": "string"
-        }
-    },
     "type": "object",
-    "description": "Details for an uploaded file",
+    "description": "Details for a file upload operation",
     "properties": {
         "data": {
-            "type": "string",
-            "media": {
-                "binaryEncoding": "base64"
-            }
+            "$ref": "fileDownload.json#/definitions/data"
         },
         "fileName": {
-            "$ref": "#/definitions/fileName"
+            "$ref": "fileDownload.json#/definitions/fileName"
         },
         "via": {
-            "$ref": "#/definitions/via"
+            "$ref": "fileDownload.json#/definitions/via"
         }
     },
     "additionalProperties": false,

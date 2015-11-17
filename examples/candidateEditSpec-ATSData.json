@@ -34,9 +34,7 @@
                     "title": "C1 nursing certificate",
                     "format": "tas-fileUpload",
                     "access": "candidateOwned",
-                    "options": {
-                        "accept": "image/pdf"
-                    },
+                    "accept": "image/pdf",
                     "description": "Please scan and attach your C1 as pdf",
                     "properties": {
                         "data": {
@@ -63,12 +61,6 @@
             "$schema": "http://json-schema.org/draft-04/hyper-schema#",
             "title": "Items",
             "type": "object",
-            "required": [
-                "Multi-choice (multiple selections)",
-                "Yes / No",
-                "Entitlement to work in New Zealand - EEO",
-                "Criminal convictions"
-            ],
             "properties": {
                 "Multi-choice (multiple selections)": {
                     "type": "array",

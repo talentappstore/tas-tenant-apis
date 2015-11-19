@@ -23,6 +23,13 @@
         "resumeRule": {
             "visible": true,
             "mandatory": false,
+            "accept": [
+                "application/pdf",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/msword",
+                "application/rtf",
+                "text/plain"
+            ],
             "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
         },
         "itemsRule": {

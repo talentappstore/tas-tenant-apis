@@ -16,7 +16,9 @@
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 "application/msword",
                 "application/rtf",
-                "text/plain"
+                "text/plain",
+                "image/png",
+                "text/html"
             ]
         },
         "data": {
@@ -52,7 +54,7 @@
         "preSignedUri": {
             "type": "string",
             "format": "uri",
-            "description": "pre-signed link as per http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html to access the raw data"
+            "description": "pre-signed link as per http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html to access the raw data. Includes file name as the trailing component so that browsers name the download correctly."
         }
     },
     "additionalProperties": false,

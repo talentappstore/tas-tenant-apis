@@ -23,6 +23,13 @@
         "resumeRule": {
             "visible": true,
             "mandatory": false,
+            "accept": [
+                "application/pdf",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/msword",
+                "application/rtf",
+                "text/plain"
+            ],
             "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
         },
         "itemsRule": {
@@ -61,6 +68,12 @@
             "$schema": "http://json-schema.org/draft-04/hyper-schema#",
             "title": "Items",
             "type": "object",
+            "required": [
+                "Multi-choice (multiple selections)",
+                "Yes / No",
+                "Entitlement to work in New Zealand - EEO",
+                "Criminal convictions"
+            ],
             "properties": {
                 "Multi-choice (multiple selections)": {
                     "type": "array",

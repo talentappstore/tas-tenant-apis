@@ -73,12 +73,12 @@ This should be used to control the property's display order <b>within their encl
 </div>
 </p>
 
-<p>propertyOrder is really a UI hint that is injected into the item's schema only sometimes. Fetching the itemDef for an item will not include it. 
+<p>propertyOrder is really a presentation hint that is sometimes injected into the item's schema. Fetching the itemDef for an item will not include it. 
 </p>
 
 <h2>access</h2>
 
-<p>Individual properties must have an access property, which can take any of these values:
+<p>Individual properties must have an "access" property, which is one of:
 <ul>
 <li>candidateOwned
 <li>internalOwned
@@ -112,7 +112,7 @@ exactly matching fileUpload.json schema.</p>
         "propertyorder": 100,
         "format": "tas-fileUpload",
         "access": "candidateOwned",
-        "accept": "image/png,text/html",
+        "accept": [ "image/png", "text/html" ],
         "description": "Please upload a cover letter. The shorter the better",
         "properties": {
             "data": {

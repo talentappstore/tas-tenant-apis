@@ -97,7 +97,7 @@ create the campaign tracker:</p>
 https://acme.jobboard.com/openings/7622?tracker=73947484
 </div>
 
-<p>However the ATS is not tracker-aware, so it needs to create a campaig tracker that will embed candidateSource and deviceType.
+<p>However the ATS is not tracker-aware, so it needs to create a campaign tracker that will embed candidateSource and deviceType.
 <div class='codeBlock'>
 POST /trackers/root
 <div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
@@ -117,7 +117,7 @@ that they would like to inject into the job details page.</p>
 
 <p>Since the candidate is not logged in, jobly calls the not-on-behalf version of the API to do this:</p>
 <div class='codeBlock'>
-GET /jobs/byID/7622/widgetPanel/candidates/anonymous?tracker=763019932
+GET /jobs/byID/7622/candidateWidgets/panel/anonymous?tracker=763019932
 
 Response:
 &lt;button onClick="https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622"&gt;Apply now&lt;/button&gt;
@@ -125,7 +125,7 @@ Response:
 
 <p>If the candidate was logged in, jobly would use the on-behalf version in stead:
 <div class='codeBlock'>
-GET /jobs/byID/7622/widgetPanel/candidates/me?tracker=763019932
+GET /jobs/byID/7622/candidateWidgets/panel/me?tracker=763019932
 
 Response:
 ...
@@ -175,22 +175,57 @@ https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.co
 </div>
 </p>
 
-<h2>Check for logged in candidate</h2>
 
 <p>simpleapply is able to render its "apply form" to either a logged in candidate, or to an anonymous web visitor
 (though the anonymous visitor can't complete the form but can only view it).</p>
 
-<p>In this example, the URL does not have the loggedIn parameter, <b>and</b> the target page is one
-that can render itself whether or not there is a logged in candidate, so simpleapply begins to render
-the page for a non-logged in candidate.
+
+<h2>Redirect for logged in candidate</h2>
+
+<p>By logged in, we mean there is either:
+<ul>
+<li>an existing logged-in session
+<li>the loggedIn URL parameter is present (indicating that the candidate was already logged in at the ATS/job board)
+</ul>
+
+<p>If simpleapply detects the candidate is logged in as above, instead of serving the no-logged-in page,
+it returns http 302 to redirect the candidate to:
+
+<div class='codeBlock'>
+https://acme.simpleapply.com/secure/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+</p>
+
+<p>Note the loggedIn parameter has been stripped.
+</p>
+
+<p>In this case, they aren't logged in, so we continue rendering this page.
+</p>
 
 <h2>Render for non-logged in candidate</h2>
 
 <p>simpleapply's goal is to show as much as possible of the apply "form" to the
 candidate, so that they can assess how much work it will be, and hopefully be
 enticed by simpleapply's support for cloud storage (dropbox etc.) for resumes,
-mobile-friendly UI, etc.
+mobile-friendly UI, ease of login via social networks, etc.
 </p>
+
+<p>At the top of this "not logged in" page is an iframe displaying a panel of login controls courtesy of the TAS
+identity system.
+</p>
+
+<p>The URL of this iframe is:
+<div class='codeBlock'>
+https://acme.simpleapply.com/secure/redirectFor/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+</p>
+
+<p>This resource (which is not a web page but a redirect) is SSO-protected, and the user is not logged in, so TAS intercepts access to it
+and instead serves up the login panel (still inside the main page).
+</p>
+
+
+<h2>simpleapply fetches edit spec for non-logged in candidate</h2>
 
 <p>In this example the candidate is not yet logged in, simpleapply can't check for role==internal
 on the TAS session - instead it can only show those questions that an external candidate would need to answer.
@@ -200,8 +235,6 @@ to log in (so they could prove they were internal).
 
 <p>Deciding what to display to the candidate may involve complex logic, which
 does not belong inside simpleapply, but is more likely in the ATS.</p>
-
-<h2>simpleapply fetches edit spec for non-logged in candidate</h2>
 
 <p>simpleapply asks for an <b>edit spec</b> for applying to this job by an anonymous candidate.  
 
@@ -221,17 +254,29 @@ anonymous candidate (we look in more detail later).</p>
 simpleapply renders the form with all fields disabled.  
 </p>
 
-<div class='todo'>
-TODO: clarify how the login embed from the IdP is injected - is it via core API?
-</div>
-
 
 <h1>Candidate logs in to simpleapply</h1>
 
 <p>The candidate sees the apply form, and decides that they are prepared to invest
-their time in applying, so logs in using Facebook and returns to the simpleapply page.</p>
+their time in applying, so logs in using Google (within the iframe-ed panel).
+</p>
 
-<p>Once the candidate has logged in, their roles are available (e.g. role == internal).</p> 
+<p>TAS redirects the user (still inside the iframe) back to:
+<div class='codeBlock'>
+https://acme.simpleapply.com/secure/redirectFor/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+
+<p>That resource is now served up, since SSO now allows the request through. It is not a web page but instead responds with a http 302 redirect.
+The user is redirected to the logged in page, i.e.:
+<div class='codeBlock'>
+https://acme.simpleapply.com/secure/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</div>
+
+<p>The redirect happens to the outer page, not the iframe - so now the user's browser address bar has the above in it,
+and the candidate is looking at the logged in page.
+</p>
+
+<p>Now the candidate has logged in, their roles are available (e.g. role == internal).</p> 
 
 <p>Simpleapply re-renders its page, now knowing who the candidate is.
 </p>
@@ -530,11 +575,18 @@ in a temporary file.</p>
 
 <h2>Save draft</h2>
 
-<p>simpleapply includes draft functionality. The user can save their work in some database (perhaps nosql) and return later.</p>
-
-<p>Those drafts are keyed by candidate name ID alone (there may be no id yet if the candidate is new), and each draft may
-hold details for several jobs (even if UberApply only submits them one at a time).
+<p>simpleapply includes split-level draft functionality. This prevents candidate details being overwritten.
 </p>
+
+<pre>
+A single draft is held for candidate details, keyed by E/N
+A single draft per job being applied for, keyed by E/N/J
+On successful submission
+   Of apply
+      Candidate and job level drafts are deleted
+   Of register
+      Candidate level draft is deleted
+</pre>
 
 <p>The ATS (jobly) is unaware of any draft functionality, simpleapply only pushes completed edits to it.</p> 
 
@@ -585,10 +637,8 @@ candidate deletes their entire profile (maybe another app?)
 </p>
 
 <p>Eager creating - this creates the engagements even if the candidate just popped in to see how arduous it will be and browses away - in that case these 
-will get cleaned up by the engagement hub's reaper.
-
-The reaper daemon reaps unfinalized engagements after 6 weeks (leaves time for candidate to return to a draft application from earlier).
-</p>
+will get cleaned up by the engagement hub's reaper. The reaper daemon reaps unfinalized engagements after 6 weeks (leaves time for
+candidate to return to a draft application from earlier).
 
 <div class='codeBlock'>
 Request:
@@ -604,8 +654,10 @@ Response:
   }
 ]
 </div>
+</p>
 
 <p>Render the engagement's name
+<div class='codeBlock'>
 GET /candidates/me/engagements/{e}/candidate
 {
    "engagementID":
@@ -615,43 +667,48 @@ GET /candidates/me/engagements/{e}/candidate
    "lastName":
    "email":
 }
+</div>
+</p>
 
 <p>Render each engagement into the page, passing the current page in as the relay page. Rather than iframeing, which would stop engagements
 rendering outside their area (e.g. large pop-up menus), we inject Javascript. More security risk. Better usability.
+</p>
 
+<p>
+<div class='codeBlock'>
 GET /candidates/me/engagements/{e}/candidateView?size=medium&relayPage=[this page]
 
 Response:
 application/javascript
+</div>
 </p>
 
-Once the page is served, candidate sees panels for each engagement, along with tick or cross if the engagement has both "isPassFail" and "candidateSeesFail" true. 
-
+<p>Once the page is served, candidate sees panels for each engagement, along with tick or cross if the engagement has both "isPassFail" and "candidateSeesFail" true. 
+<div class='codeBlock'>
 GET /candidates/me/engagements/{e}/engagementType
 {
    "isPassFail":
    "candidateSeesFail":
 }   
+</div>
+</p>
 
+<p>ATS tells engagement hub to finalize the engagement linkages that need to be completed by this candidate given the job(s) they are applying for.
+</p>
 
-zzzzzzzzzzz
+<p>The hub will bail if any one of the engagements is not complete.
 
-
-ATS tells engagement hub to finalize the engagement linkages that need to be completed by this candidate given the job(s) they are applying for.
-
-The hub will bail if any one of the engagements is not complete.
-
+<div class='codeBlock'>
 POST /candidates/me/engagements/forJobs/finalizes
 POST /candidates/me/engagements/forTalentPool/{tp}/finalizes
-
+</div>
+</p>
 
 
 <h1>Finalize engagements</h1>
 
-
-
-
-
+<p>
+<pre>
 TODO:
 
 Attach the engamenents to their job applications or talent pool memberships.
@@ -661,11 +718,6 @@ The ATS handles this under POST /candidates.
 Most of the work is delegated to the engagement hub.
 
 After this all the engagements are finalized (hold application ID).
-
-
-
-<div class='codeBlock'>
-
 
 Job board tells .. present 
 Job board tells .. prepare 
@@ -678,31 +730,22 @@ POST /candidates/me/engagements/forTalentPool/{tp}/finalizes
 Request:
 [ 12, 14 ]
 
-
-
 Each of these can be mapped back to the underlying engagement.  
  
-
-
 Response:
-</div>
 
-ZZZZZZZZZZ
-
-The result is an ordered list of engagement   
+The result is an ordered list of engagement.
+   
 engagement hub creates a bunch of engagements as a result of this list.
- 
- 
 
 The results are a set of engagement types.
 
 An engagement type may be tailored to a specific job. In that case the 
- 
 
 Those types can make use of the intent to
 
-
-
+</pre>
+</p>
 
 
 <p>Once the candidate has finally completed their work and pressed submit, the completed edit (i.e., job application in

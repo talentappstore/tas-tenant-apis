@@ -36,12 +36,20 @@
                 "message": {
                     "description": "a message to help the candidate understand about uploading a resume - e.g. 'resume optional when a video is provided'",
                     "type": "string"
+                },
+                "accept": {
+                  "type": "array",
+                  "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+                  "items": {
+                    "$ref": "fileDownload.json#/definitions/mediaType"
+                  }
                 }
             },
             "additionalProperties": false,
             "required": [
                 "visible",
-                "mandatory"
+                "mandatory",
+                "accept"
             ]
         },
         "vCardRule": {

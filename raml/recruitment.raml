@@ -232,6 +232,7 @@ traits: !include traits.yml
           was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
           drew them to the site.
     /applications:
+      get:
       /{application}:
         /items:
           description: |
@@ -290,18 +291,22 @@ traits: !include traits.yml
           get:
             securedBy: [oauth_2_0]
             description: Get all internalOwned items for this candidate
-            body:
-              application/json:
-                schema: !include ../schemas/existingItems.json
-                example: !include ../examples/existingItems-simple.json
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/existingItems.json
+                    example: !include ../examples/existingItems-simple.json
           /{item}:
             get:
               securedBy: [oauth_2_0]
               description: Get a specific internalOwned item for this candidate
-              body:
-                application/json:
-                  schema: !include ../schemas/existingItem.json
-                  example: !include ../examples/existingItem-simple.json
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/existingItems.json
+                      example: !include ../examples/existingItems-simple.json
       /deltaPings:
         description: |
           The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
@@ -325,6 +330,65 @@ traits: !include traits.yml
         securedBy: [oauth_2_0]
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
+
+
+/candidateWidgets:
+  /panel:
+    description: |
+      A resource, produced by a "widget assembler" via a SoT API, that contains a full strip of
+      all candidate-facing widgets that are general, ie. not for any specific job (register, share site, etc.).
+
+      Beneath the covers the widget assembler calls non-SoT APIs like GET /candidateWidgets/widget/me on
+      many different apps, assembles the results, and passes them back as this single resource.
+                
+      TODO: add a "size" parameter with some standard sizes.        
+    /me:
+      get:
+        description: |
+          Get the widget panel for a logged in candidate.
+        is: [ trackable ]
+        responses:
+          200:
+            body:
+              text/html:
+    /anonymous:
+      get:
+        description: |
+          Get the widget panel when no candidate is logged in (see separate on behalf form). The producer
+          should render some default widget which is applicable to public job seekers.
+        is: [ trackable ]
+        responses:
+          200:
+            body:
+              text/html:
+  /widget:
+    description: |
+      Non-SoT API produced by apps that want to offer a general widget to a candidate (e.g. to register)
+          
+      Apps may customise the button:
+      - display that a partial (draft) registration is already underway
+      - gray the register button out if candidate logged in and already registered
+                
+      TODO: add a "size" parameter with some standard sizes.        
+    /me:
+      get:
+        description: |
+          Get a widget for a logged in candidate.
+        is: [ trackable ]
+        responses:
+          200:
+            body:
+              text/html:
+    /anonymous:
+      get:
+        description: |
+          Get a widget when no candidate is logged in (see separate on behalf form). The producer
+          should render some default widget which is applicable to public job seekers.
+        is: [ trackable ]
+        responses:
+          200:
+            body:
+              text/html:
 
 /categories:
   description: |
@@ -754,16 +818,33 @@ traits: !include traits.yml
               Send notification of a change to the candidate-facing details of a job opening, specifically
               that the job opening has become newly publicly active (perhaps it was active before but internal).
 
-      /widgetPanel:
+      /canApply:
         description: |
-          A resource, produced by a "widget assembler" via a SoT API, that contains a full strip of
-          all candidate-facing widgets for a job (apply, share, save, start pre-apply engagement, etc.).
+          Resource indicating whether a candidate can apply or not for given job. An ATS might prevent it
+          if the candidate has already applied, the job might be closed, or there might be more complex rules.
+        /me:
+          get:
+            description: |
+              Find out if the logged in candidate is allowed to apply for this job, and if not why not.
+            is: [ trackable ]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/canApply.json
+                    example: !include ../examples/canApply-simple.json
+
+
+      /candidateWidgets:
+        /panel:
+          description: |
+            A resource, produced by a "widget assembler" via a SoT API, that contains a full strip of
+            all candidate-facing widgets for a job (apply, share, save, start pre-apply engagement, etc.).
             
-          Beneath the covers the widget assembler calls non-SoT APIs like GET /jobs/{job}/applyButton/candidates/me on
-          many different apps, assembles the results, and passes them back as this single resource.
+            Beneath the covers the widget assembler calls non-SoT APIs like GET /jobs/{job}/candidateWidgets/applyButton/me on
+            many different apps, assembles the results, and passes them back as this single resource.
                 
-          TODO: add a "size" parameter with some standard sizes.        
-        /candidates:
+            TODO: add a "size" parameter with some standard sizes.        
           /me:
             get:
               description: |
@@ -776,15 +857,14 @@ traits: !include traits.yml
                 should render some default widget which is applicable to public job seekers.
               is: [ trackable ]
                 
-      /applyButton:
-        description: |
-          Non-SoT API produced by apps that want to offer an apply button to a candidate.
+        /applyButton:
+          description: |
+            Non-SoT API produced by apps that want to offer an apply button to a candidate.
           
-          Apps may customise the button:
-          - display that a draft is already underway
-          - gray the button out if an application already exists
-
-        /candidates:
+            Apps may customise the button:
+            - display that a draft is already underway
+            - gray the button out if application is not allowed, perhaps because an application exists (the app might call
+            GET /jobs/byID/{}/canApply/me to find out) 
           /anonymous:
             get:
               securedBy: [oauth_2_0]
@@ -859,11 +939,7 @@ traits: !include traits.yml
           application/json:
             example: !include ../examples/jobSetResponse-simple.json
 
-/jobWidgets:
-  /settings:
-    get:
-      description: Non-SoT API to enumerate and examine all installed widgets, i.e. HTML fragments that get inserted when a candidate is looking at a job 
-      
+
 /landingPage:
   get:
     securedBy: [oauth_2_0]
@@ -1049,8 +1125,6 @@ traits: !include traits.yml
           The method is a POST solely because the size and number of parameters might get too large for a GET.
 
 
-
-
 /schemaFragments:
   /{itemName}:
     get:
@@ -1062,134 +1136,4 @@ traits: !include traits.yml
         application/json:
           schema: !include ../schemas/jsonSchemaSchema.json
           example: !include ../examples/jsonSchemaSchema-singleItem.json
-
-/voiceMessageUploads:
-  post:
-    securedBy: [oauth_2_0]
-    description: Ask the voice message system for a unique ID that can be used in the future to hold an upload of a voice recording.
-    responses:
-      201:
-        body:
-          text/plain:
-            example: 7600232
-  /byID:
-    /{id}:
-      /lock:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            Lock the upload with the given id if it exists. and return an id for the lock.
-            
-            An upload can only be locked once. Once locked, an upload can only be accessed or deleted by
-            whoever holds the lock id.
-            
-             Example flow for a voice message:
-             
-            - an apply app prepares to render its page (a job application form)
-            - the apply app calls POST /voiceMessageUploads to request an id from the voice app
-            - the apply app passes the id back into the iframe-ed voice app via url parameter
-            - the voice app is rendered and made visisble to the candidate
-            - the candidate uses the voice app's UI to record a message with the given id
-            - some time later (e.g. when candidate clicks submit) the apply app attempts to lock the upload (assuming the candidate made one)
-            - later the apply app passes the lock id to the ats via POST /candidates
-            - the ats app checks whether an existing upload is about to be overwritten
-            - if so, ats calls DELETE /voiceMessageUploads/locked/{lockID} 
-            - the ats stores the new lock id on the candidate record
-            - from now on the ats takes over responsibility for deleting the upload (maybe when the candidate deletes their profile) 
-          responses:
-            201:
-              description: the uopload with that id was successfully locked, and the lock's id was returned
-              body:
-                text/plain:
-                  example: 7600232
-            404:
-              description: no upload exists with that id
-            423:
-              description: that upload exists but has already been locked
-    /recordingUI:
-      get:
-        securedBy: [oauth_2_0]
-        description: get the URI of a recording user interface suitable for iframe-ing
-        queryParameters:
-          tracker:
-            type: integer
-            description: |
-              A tracker that the recording app may make use of (perhaps to customise the UI for mobile)
-            example: 16548354764
-            required: false
-  /locked:            
-    /{lockID}:          
-      delete:
-        securedBy: [oauth_2_0]
-        description: |
-          Delete the locked upload
-        responses:
-          200:
-            description: the upload with that lock id was deleted successfully
-          404:
-            description: no upload exists with that id
-      /playbackUI:
-        get:
-          securedBy: [oauth_2_0]
-          description: get the URI of a playback user interface suitable for iframe-ing
-          queryParameters:
-            tracker:
-              type: integer
-              description: |
-                A tracker that the recording app may make use of (perhaps to customise the UI for mobile)
-              example: 16548354764
-              required: false
-
-/videoUploads:
-  post:
-    securedBy: [oauth_2_0]
-    description: See voiceMessageUploads
-    responses:
-      201:
-        body:
-          text/plain:
-  /byID:
-    /{id}:
-      /lock:
-        post:
-          securedBy: [oauth_2_0]
-          description: See voiceMessageUploads
-          responses:
-            201:
-              description: See voiceMessageUploads
-              body:
-                text/plain:
-            404:
-              description: See voiceMessageUploads
-            423:
-              description: See voiceMessageUploads
-      /recordingUI:
-        get:
-          securedBy: [oauth_2_0]
-          description: See voiceMessageUploads
-          queryParameters:
-            tracker:
-              type: integer
-              description: See voiceMessageUploads
-              required: false
-  /locked:            
-    /{lockID}:          
-      delete:
-        securedBy: [oauth_2_0]
-        description: See voiceMessageUploads
-        responses:
-          200:
-            description: See voiceMessageUploads
-          404:
-            description: See voiceMessageUploads
-      /playbackUI:
-        get:
-          securedBy: [oauth_2_0]
-          description: See voiceMessageUploads
-          queryParameters:
-            tracker:
-              type: integer
-              description: See voiceMessageUploads
-              required: false
-
 

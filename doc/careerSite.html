@@ -48,7 +48,6 @@ leads candidates to the apply (or register) processes, and allows them to save j
 <ol>
 <li>Create app "supersite"
 <li>Install supersite into tenant
-<li>Tenant configures the master
 </ol>
 
 
@@ -64,37 +63,50 @@ Display global-scoped candidateWidgets somewhere
 </pre>
 
 
-<h2>Primary and secondary job boards</h2>
+<h1>Concepts</h1>
 
-<p>A tenant can install any number of job boards (e.g. their main career site and a number of
-microsites), but one (and only one) needs to be designated as the "primary". Typically the primary would be the
-one most prominently linked from the customer's main web site. 
+<h2>Site types</h2>
+
+
+<pre>
+Microsite
+---------
+Site is full sized (entire page)
+Job links lead to job details page on same site
+Max of one microsite can be designated as primary (main careers site)
+	Primary is typically targeted by links in:
+		- main menu of tenant's web site (i.e. "careers")
+		- job alert emails
+		- job board postings
+		- social media shares
+		- job listings in nanosites
+App should be written to work as either primary or secondary (that's a tenant decision)		
+	
+Nanosite
+--------
+Site is small (designed for embedding via iframe etc.)
+Job links lead to job details page on primary board
+</pre>
+
+
+<h1>Produce APIs
+</h1>
+
+<h2>GET /jobBoardUriBase
+</h2>
+
+<p>Other apps need to know the base URI that your board lives at, so that they can compose links leading to jobs.
 </p>
 
-<p>Other apps need to know the primary job board so that they can create links to jobs (or to the career site itself).
-For example an app that sends job alerts via email needs to embed actual job links inside its emails - those links will be to
-the job on the primary job board.
-</p>
-
-<p>The tenant controls which job board is the primary. Your app probably doesn't need to know unless
-it sends emails that should lead to the primary.
-</p>
-
-
-<h2>Declare the URL of your job board</h2>
-
-<p>Other apps need to know the base URL that your board lives at so that they can compose links leading to jobs.
-</p>
-
-<p>Your app tells them by producing (as non-SoT) the GET /jobBoard API that other apps call like this: 
+<p>Your app tells them by producing (as non-SoT) GET /jobBoardUriBase:
+ 
 <div class='codeBlock'>
-curl -H "Authorization: 1234" \
-https://acme.supersite.tazzy.io/apps/supersite/dev/tas/jobBoard
+GET /jobBoardUriBase
 
 <div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
 
 {
-   "baseUri": "https://awesomeretailcareers.io/careers"
+   "uriBase": "https://awesomeretailcareers.io/careers"
 }
 
 </div>
@@ -102,7 +114,7 @@ https://acme.supersite.tazzy.io/apps/supersite/dev/tas/jobBoard
 
 
 
-<h2>Displaying the search screen</h2>
+<h1>UI - search screen</h1>
 
 <p>Most job boards will display a screen something like this to allow the user to search for jobs:
 
@@ -115,113 +127,80 @@ Keywords:  [______]
 </div>
 </p>
 
-<p>Displaying a screen like this first involves fetching the categories (each of Location, Expertise and Type above are categories)
-via GET /categories, and then fetching the values (which may be hierarchical) via GET /categories/{}/values.
+<p>To populate a search UI like this, the job board should:
+<ol>
+<li>fetch categories via GET /categories
+<li>fetch values (which may be hierarchical) for each category via GET /categories/{}/values
+</ol>
 </p>
 
 
-<h2>Listing and searching jobs</h2>
+<h2>UI - job details page</h2>
 
-<p>Your app can get lists of jobs via either the GET /jobs or POST /jobs/searches APIs. These APIs return the same results
-but POST /jobs/searches provides more complex searching (since its not subject to limits on the length of query strings).
+<p>Unless your board is a nanosite, it probably serves a "job details page" where the candidate can read the job description and click to apply.
+</p>
+ 
+<p>Often internal candidates have a different experience to public job seekers. They may see extra information, or be able to do extra things (like refer a friend).
 </p>
 
-<h3>Examples</h3>
+<p>So normally your board should expose two different pages for each job:
+<ul>
+<li>an SSO-protected "internals" page intended only for logged in candidates who have role == internal, e.g. /internal/jobs/{job}
+<li>a non-SSO-protected "public" page used in all other cases, e.g. /jobs/{job}
+</ul> 
 
-<p>List all active jobs
-GET /jobs?$filter=active eq true
+
+<h3>Perform redirects for candidates arriving at the wrong job details page</h3>
+
+<p>Sometimes candidates will arrive at a job via the wrong URL. For example, an internal candidate
+viewing a job at work may share the link to the "internals" page with a friend via email. The friend is not an employee
+so is not allowed to view the job's internal details. Rather than simply display an error page, your
+app should redirect them to the public view of the job.
 </p>
 
-<p>List all active jobs in Sydney
+<p>The logic below can be used in your board's rendering of job details pages, while avoiding redirect loops. The possible outcomes of the logc below are:
+<ul>
+<li>the page is rendered as normal
+<li>while rendering, the app finds that the job is not visible to the candidate, and
+so renders with an error displayed: "Sorry, job not available - click to go _home_"
+<li>a 302 redirect is served to the "other" URL (e.g. if they started at public, they get redirected to internals) 
+</ul>
 </p>
 
-<h3>Filtering out internal jobs</h3>
-
-<p>Unless the user is an internal candidate, you shouldn't display internal jobs. Use the <b>availableInternally</b>
-flag to test individual jobs (ideally you'd also check closeDate and internalCloseDate are not in the past just in case
-the job closer is lagging).
-</p>
-
-<h3>Keyword search</h3>
-	
-
-<h3>Listing saved jobs</h3>
-
-
-<h2>Creating links for jobs</h2>
-
-<p>Probably, your app will display some kind of search results page, probably showing job title and a link to see the details for that
-job. This section discusses how you build that link.
-</p>
-
-<p>One option would be to use the results of GET /jobs (and POST /jobs/searches). The response includes links to view and apply for
-each job. However normally your app shouldn't use these links, but instead should build its own. That's because your app may not
-be the primary job board (perhaps the tenant is still just trialing it), but GET /jobs always returns a link that points to the
-job as hosted on the primary job board. So using the link from GET /jobs would result in your app erroneously redirecting
-the candidate from your job site to the primary one.
-</p>
-
-<p>To build job links, your app first needs to know the tenant's desired link format. Link formats are under the tenant's control,
-because they influence the way that search engines treat the career site (i.e. SEO). Among other factors, search engines often
-favour links that are more human readable.
-</p>
-
-<p>Your app fetches the link format by consuming (as SoT) the GET /jobBoardGlobalSettings API: 
+<p>Logic to render public page:
 <div class='codeBlock'>
-curl -H "Authorization: 1234" \
-https://acme.supersite.tazzy.io/dev/tas/jobBoardGlobalSettings
-
-<div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
-
-{
-   "externalJobLinkTemplate": "/jobs/{id}-{code}-{safeTitle}"
-   "internalJobLinkTemplate": "/internal/jobs/{id}-{code}-{safeTitle}"
-}
+// candidate may or may not be logged in
+// try to steer internals to the internal view
+if job is open internally
+	if canLandOnInternal in (yes, maybe)
+		redirect to internal page
+	else
+		render (no redirect)
+else
+		// job may not be open externally - don't check, the page will render with "job not available" (URL stays kosher)	
+	no redirect
 </div>
 </p>
 
-<p>The values returned in the template elements are URI Templates conforming to
-https://tools.ietf.org/html/rfc6570 (level 1). The template is in relative form, and when
-creating an absolute link you would prefix it with the same base URL that you provide
-in your response to GET /jobBoard. 
+<p>Logic to render internals page:
+<div class='codeBlock'>
+// Since page is SSO-protected, we know candidate is logged in at this point
+-- try to steer externals to the external view
+if job is open externally
+	if canLandOnInternal in (no) and canLandOnExternal in (maybe, yes)
+		redirect to external view
+	else
+		render (no redirect)
+else
+	render (no redirect)
+</div>
 </p>
 
-<p>The possible variables you may find are:
-ID - always numeric
-safeTitle - space replaced with - etc.
-	NEED TO ADD safeTitle to GET /jobs!
-code - alphanumeric only
-
-These values are available from GET /jobs.
+<p>The logic above refers to booleans such as <b>canLandOnInternal</b>. These are derived as follows. The logic is more permissive for landing on a job, rather than being able to apply for it,
+since we don't want anyone to be prevented from seeing publicly open jobs (they may want to refer a friend).
 </p>
 
-<p>When building links for a visitor at your app (i.e. a candidate browsing jobs), you should use the following logic to decide
-which of the templates to use:
-BORROW FROM REDIRECT LOGIC
-</p> 
-
-<h2>Job details page</h2>
-
-<p>Your app needs to include a 
- 
-
-
-This logic is needed when a visitor:
-
-- arrives at a job through one of the public or private URL for the job
-- 
-
-It results in one of these happening:
-- the page is served as normal
-- a 302 redirect is served to:
-	- the "other" URL (e.g. if they started at public, they get redirected to private) 
-	- an error page "You aren't allowed to see this - click to go _home_"
-
-
-
-The logic here is different from whether you can apply or not - we don't want anyone to be prevented from
-seeing publicly open jobs (they may want to refer a friend).
-
+<pre>
 canApplyForPublic
 	yes
 		logged in and does not have "internal" role
@@ -233,8 +212,8 @@ canApplyForPublic
 
 canLandOnPublic (always true)
 		
-canApplyForPrivate
-canLandOnPrivate
+canApplyForInternal
+canLandOnInternal
 	yes
 		not logged in and coming from internal IP
 		logged in and has "internal" role
@@ -242,62 +221,85 @@ canLandOnPrivate
 		logged in and does not have "internal" role
 	maybe
 		not logged in
+</pre>
 
 
+<h1>UI - job list/search results pages</h1>
 
-The rendering logic on your job details page should check that the job is indeed
-visible and if not say "not visible" without changing the URL
- 
+<p>A board can search/fetch lists of jobs via POST /jobs/searches.
+</p>
 
+<p>Normally the job board should restrict for availableInternally or availableExternally depending on whether a candidate is logged in
+and if so whether they are internal or not (more later). This restriction could be done:
+<ul>
+<li>by passing "availableInternally = true" to the search
+<li>by fetch all jobs then filtering out based on the value of availableInternally  
+</ul>
+</p>
 
-Protect all private pages with SSO
+<h2>Keyword search</h2>
 
-All private pages on the job board should be protected using principal type of candidate.
-
-This guarantees that only candidates who are logged in can reach those pages.
-
-Other strategies are possible (e.g. causing the same page to render differently
-depending on whether the candidate is logged in or not) but these require your app
-to have more involvement in managing SSO.
- 
-
-Perform redirects for candidates arriving at the wrong job details page
-
-Sometimes candidates will arrive at a job via the wrong URL. For example, an internal candidate
-viewing a job at work may share the link with a friend via email. The friend is not an employee
-so is not allowed to view the job's internal details. Rather than simply display an error page, your
-app should redirect them to the public view of the job.
-
-The logic below may be useful to redirect (via http 302) candidates to the appropriate page, while
-avoiding redirect loops.
+TBD - add to spec for search	
 
 
-landing on public page
-	// candidate may or may not be logged in
-	// try to steer internals to the internal view
-	if job is open internally
-		if canLandOnPrivate in (yes, maybe)
-			redirect to private page
-		else
-			no redirect
-	else
- 		// job may not be open externally - don't check, the page will render with "job not available" (URL stays kosher)	
-		no redirect
+<h2>Creating links for jobs</h2>
 
-landing on internals page
-	// Since page is SSO-protected, we know candidate is logged in at this point
-	-- try to steer externals to the external view
-	if job is open externally
-		if canLandOnInternal in (no) and canLandOnExternal in (maybe, yes)
-			redirect to external view
-		else
-			no redirect
-	else
-		no redirect
+<p>If your app allows searching it will likely display some kind of search results page. That page might show a
+list of jobs, with each having a job title and a link to navigate to the details page.
+</p>
+
+<p>To create that link, if your site is a nanosite, you can just use the link returned by POST /jobs/searches, which always points to the primary board.
+</p>
+
+<p>Otherwise your app must build up the link as follows. Link formats are under the tenant's control, because they influence the way that search engines treat the career site (i.e. SEO).
+</p>
+
+<p>Fetch the tenant's link format: 
+<div class='codeBlock'>
+GET /jobBoardGlobalSettings
+
+<div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
+
+{
+   "externalJobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
+   "internalJobUriTemplate": "/internal/jobs/{id}-{code}-{safeTitle}"
+}
+</div>
+</p>
+
+<p>The values returned are URI Templates conforming to
+https://tools.ietf.org/html/rfc6570 (level 1). The template is in relative form, so if you were
+creating an absolute link you would prefix it with the same URI base that you provide
+in your response to GET /jobBoard. 
+</p>
+
+<p>To create the link your app substitutes the variables in the template with values from the job itself. Possible variables are described in jobs.json, and include:
+<ul>
+<li>id - a number value
+<li>safeTitle - space replaced with - etc.
+<li>code - alphanumeric only
+</ul>
+</p>
+
+<p><b>TODO: add safeTitle to GET /jobs.</b>
+</p>
+
+<p>When building links for a visitor at your app (i.e. a candidate browsing jobs), you should use the following logic to decide
+which of the templates to use:
+
+TODO: establish that normally the public link should be used - but does that allow injecting isLoggedIn?
+
+</p> 
+
+
+<h1>TODO</h1>
+
 
 * must attach tracker parameter when redirecting
 
+* must perform tracker session fixation
 
+* isLoggedIn
 
 
 Displaying jobs
@@ -320,27 +322,10 @@ Top-level information
 	
 	Pass the loggedIn parameter
 
-<h2>Login</h2>
-
-<p>Most of the pages on your job board are likely to be publicly visible.
-</p>
-
-<p>You can also create SSO-protected pages that candidates must log in to see - for example a
-page where the candidate can see their saved jobs would be protected.
-</p>
-
-<p>You can also create SSO-protected pages where the candidate must not only log in, but must also
-hold some role - for example a page displaying a job that is only open to candidates holding the role
-"internal".
-</p>
-
-
-
 
 where the candidate can see their saved jobs would be protected.
 </p>
 
- 
 
 
 - eg for saved jobs, reliable internals detection
@@ -362,70 +347,9 @@ Incoming traffic (matching URI template)
 
 Generating trackers for anonymous users
 
-Shadow ATS pages (SnapHire)
+Shadow ATS pages - any ATS
 
 
-
-
-
-
-<h2>Reload categories</h2>
-
-<p>Periodically/ at setup time/ prior to an upload, myupload grabs the latest categories and category values (these may have changed).
-</p>
-
-<p>First fetch all categories.
-
-<div class='codeBlock'>
-curl -H "Authorization: gjKUy7Y7Ehy0KgE32" \
-https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories
-
-<div class='clientInclude' data-href='../examples/categories-simple.json'></div>
-</div>
-</p>
-
-<p>Next fetch values for all categories individually. e.g.:
-<div class='codeBlock'>
-curl -H "Authorization: gjKUy7Y7Ehy0KgE32" \
-https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories/byID/10022/values
-
-<div class='clientInclude' data-href='../examples/categoryValues-mockLocations.json'></div>
-</div>
-</p>
-
-<h2>Prepare jobset</h2>
-
-<p>myuploader extracts jobs (e.g. via scraping/extracting from source database/APIs) from the source system.
-</p>
-
-<p>Maps jobs to correct category values, e.g. Organization, Expertise, Location
-</p>
-
-<p>Create master "jobSets" document as below. This is a complete list of all advertised jobs - any jobs not in this list will be removed from the target.
-</p>
-
-<h2>Perform upload</h2>
-
-<div class='codeBlock'>
-curl -X POST -H "Authorization: gjKUy7Y7Ehy0KgE32" \
-https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/jobSets
-
-<div class='clientInclude' data-href='../examples/jobSet-simple.json'></div>
-
-Response:
-<div class='clientInclude' data-href='../examples/jobSetResponse-simple.json'></div>
-</div>
-
-<h2>Process response</h2>
-
-<p>Review progress logs from POST /jobSets
-</p>
-
-<p>Communicate about errors (e.g. badly categorised jobs)
-</p>
-
-<p>Email/communicate summaries of progress to affected parties (multiple?)
-</p>
 
 
 <script>

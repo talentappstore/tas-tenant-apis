@@ -59,6 +59,18 @@ then they may get a truncated application form
 <p>Items are described by an extension variant of <a href='http://json-schema.org/'>json schema</a>, where each item is a property. The extensions are described below.
 </p>
 
+<h2>description</h2>
+
+<p>Item descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
+with individual lines demarcated with \n.
+</p>
+ 
+<p>Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
+Note that this prevents the markdown blockquote syntax from being used in a job description, or text like
+"candidates must have >10 years experience". The safe subset rules may be relaxed in the future to allow
+these cases.
+</p>
+
 <h2>propertyOrder</h2>
 
 <p>When a set of properties (items) is described in a single aggregating schema (e.g. the itemsRule element of an edit spec), then each property

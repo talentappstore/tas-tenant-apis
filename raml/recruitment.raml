@@ -784,9 +784,8 @@ traits: !include traits.yml
           be rejected.
           
           Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
-          Note that this prevents the markdown blockquote syntax from being used in a job description, or text like
-          "candidates must have >10 years experience". The safe subset rules may be relaxed in the future to allow
-          these cases.
+          Note that this prevents the markdown blockquote syntax from being used in a job description.
+          The safe subset rules may be relaxed in the future.
            
         get:
           securedBy: [oauth_2_0]
@@ -970,9 +969,22 @@ traits: !include traits.yml
     
     Trackers can be passed by id into tracker-aware APIs such as POST /candidates.
     
-    The producer of this API must attach the consuming tenant and consuming app (from the incoming OAuth token) onto the
-    tracker itself, so that later access to the tracker can be restricted to the app that created it.
+    The producers of APIs that create trackers must:
+    - attach the consuming tenant and consuming app (from the incoming OAuth token) onto the
+    tracker itself, so that later access to the tracker can be restricted to the app that created it
+    - reuse rather than create trackers when one exists with identical:
+      - details (e.g. for a session tracker, the user's IP)
+      - consumer
+      - parent tracker
      
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Create a root tracker (one with no parent).
+    body:
+      application/json:
+        schema: !include ../schemas/tracker.json
+        example: !include ../examples/tracker-createSessionTracker.json
   /byID:
     /{id}:
       /chain:
@@ -995,15 +1007,6 @@ traits: !include traits.yml
             application/json:
               schema: !include ../schemas/tracker.json
               example: !include ../examples/tracker-createMailoutTracker.json
-  /root:
-    post:
-      securedBy: [oauth_2_0]
-      description: |
-        Create a root tracker (one with no parent).
-      body:
-        application/json:
-          schema: !include ../schemas/tracker.json
-          example: !include ../examples/tracker-createSessionTracker.json
 
 /recruiters:
   description: |

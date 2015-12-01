@@ -58,8 +58,11 @@ Referrals
 Injecting stuff when job seeker has done a search
 	- add to alerts
 	- other alerts for employee referrals
-Shuld GET /jobs return
-Display global-scoped candidateWidgets somewhere 	
+Should GET /jobs return
+Display global-scoped candidateWidgets somewhere
+Entry with a job code
+How are customer-defined fields found and rendered for a job?
+	Some API needs to list the internally and externally displayed items so the board can request them.
 </pre>
 
 
@@ -114,7 +117,22 @@ GET /jobBoardUriBase
 
 
 
-<h1>UI - search screen</h1>
+<h1>UI
+</h1>
+
+<h2>Header/common area</h2>
+
+<p>Most boards have some kind of header or common area at the top of the page where the candidate's login status etc. is displayed.
+</p>
+
+<p>Your board should consume the relevant APIs to fetch HTML that can then be inserted into this area:
+<ul>
+<li>GET /candidateWidgets/panel/me (if the candidate is logged in) 
+<li>GET /candidateWidgets/panel/anonymous (if no candidate is logged in) 
+</ul>
+
+
+<h2>Job search UI</h2>
 
 <p>Most job boards will display a screen something like this to allow the user to search for jobs:
 
@@ -135,9 +153,62 @@ Keywords:  [______]
 </p>
 
 
-<h2>UI - job details page</h2>
+<h2>Job details page</h2>
 
 <p>Unless your board is a nanosite, it probably serves a "job details page" where the candidate can read the job description and click to apply.
+</p>
+
+<p>The page should be served at GET /jobBoardUriBase + the link as in "creating links for jobs". 
+</p>
+
+<p>If your board supports login, then this page should sit behind a loggedIn filter (as per conventions.html). This way
+a candidate who was logged in at another app (e.g. UberApply) and then linked to here (e.g. by clicking "View job details"), will be asked
+to log in, which should happen invisibly, and can then (for example) see internal details for the job if they are an internal.
+</p> 
+
+<p>Parse the job's ID from the URL and use it to call GET /jobs and GET /jobs/{}/description.
+</p>
+
+<p>Display if the job is internal only (to guide internals not to share it)
+
+<p>Render using this logic to handle internals:
+<pre>
+- if your board supports login
+	- if the candidate is logged in
+		- if the candidate is internal
+			- if the job is visible internally
+				- render the job, with its internal details
+			- else
+				- render "sorry" message
+		- else (public job seeker)
+			- if the job is visible externally
+				- render the job, with its external details
+			- else
+				- render "sorry" message
+	- else
+		- if the job is visible externally
+			- render job, with its external details
+		- else if the job is visible internally
+			- redirect to self with loggedIn param (they may be internal)
+		- else (not visible at all)
+			- render "sorry" message
+</pre>
+</p>
+
+<p>Description is in safe markdown and needs to be converted to HTML.
+</p>
+
+<p>Render the tenant's widgets (apply button, share button, etc.) by injecting the HTML returned by the relevant APIs:
+
+<ul>
+<li>GET /jobs/byID/{job}/candidateWidgets/panel/me (if the candidate is logged in) 
+<li>GET /jobs/byID/{job}/candidateWidgets/panel/anonymous (if no candidate is logged in) 
+</ul>
+
+
+<h2>Job details page - HISTORICAL</h2>
+
+<p>This section is to be replaced by different handling - here for historical purposes only.
 </p>
  
 <p>Often internal candidates have a different experience to public job seekers. They may see extra information, or be able to do extra things (like refer a friend).
@@ -224,7 +295,7 @@ canLandOnInternal
 </pre>
 
 
-<h1>UI - job list/search results pages</h1>
+<h2>Job list/search results pages</h2>
 
 <p>A board can search/fetch lists of jobs via POST /jobs/searches.
 </p>
@@ -237,12 +308,16 @@ and if so whether they are internal or not (more later). This restriction could 
 </ul>
 </p>
 
-<h2>Keyword search</h2>
+<p>Obviously for security reasons it must not be done client-side.
+</p>
+
+
+<h3>Keyword search</h3>
 
 TBD - add to spec for search	
 
 
-<h2>Creating links for jobs</h2>
+<h3>Creating links for jobs</h3>
 
 <p>If your app allows searching it will likely display some kind of search results page. That page might show a
 list of jobs, with each having a job title and a link to navigate to the details page.
@@ -284,12 +359,6 @@ in your response to GET /jobBoard.
 <p><b>TODO: add safeTitle to GET /jobs.</b>
 </p>
 
-<p>When building links for a visitor at your app (i.e. a candidate browsing jobs), you should use the following logic to decide
-which of the templates to use:
-
-TODO: establish that normally the public link should be used - but does that allow injecting isLoggedIn?
-
-</p> 
 
 
 <h1>TODO</h1>
@@ -299,26 +368,20 @@ TODO: establish that normally the public link should be used - but does that all
 
 * must perform tracker session fixation
 
-* isLoggedIn
-
 
 Displaying jobs
 
-	Description
-
-	Displaying if the job is internal only
-	
-	Injecting "per job" widgets/apply links
-		- by either on behalf of, or anonymous
-
-	Passing tracker through to injectors above
+	Passing tracker through to injected widgets above
 
 	Displaying customer-specific job items (custom data)
+
+Generating trackers for anonymous users
+
+Shadow ATS pages - any ATS
 
 
 Top-level information
 
-	Injection of "register" button
 	
 	Pass the loggedIn parameter
 
@@ -339,15 +402,6 @@ Handling internals
 	- using login
 	- restricting jobs
 
-Injecting "master" items
-	- by either on behalf of, or anonymous
-
-Incoming traffic (matching URI template)
-
-
-Generating trackers for anonymous users
-
-Shadow ATS pages - any ATS
 
 
 

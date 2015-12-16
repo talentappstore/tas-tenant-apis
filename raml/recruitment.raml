@@ -145,20 +145,22 @@ resourceTypes: !include resources.yml
             Probably only useful as non-SoT.
           post:        
             securedBy: [oauth_2_0]
-    /itemDefs:
+    /itemMetas:
       description: |
         Metadata for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-      type: itemDefs
+      type: itemMetas
       /byName:
-        type: itemDef
+        /{item}:
+          type: itemMeta
     /items:
       description: |
         Values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned),
         Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
         suitable for directly embedding in a web page. The expiring link is different for every request.
       type: items
-      /{item}:
-        type: item
+      /byName:
+        /{item}:
+          type: item
 
     /categories:
       get:
@@ -1123,17 +1125,4 @@ resourceTypes: !include resources.yml
           When called as OAuth, the logged in recruiter must be passed as a parameter, and the results
           will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
           The method is a POST solely because the size and number of parameters might get too large for a GET.
-
-
-/schemaFragments:
-  /{itemName}:
-    get:
-      securedBy: [oauth_2_0]
-      description: |
-        Get the specified schema fragment, which is a detailed description of the named data item
-        conforming to our modified json schema as per <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
-      body:
-        application/json:
-          schema: !include ../schemas/jsonSchemaSchema.json
-          example: !include ../examples/jsonSchemaSchema-singleItem.json
 

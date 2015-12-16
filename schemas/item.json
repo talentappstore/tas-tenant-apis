@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "json schema for this item"
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "json representation of the item's current value"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}

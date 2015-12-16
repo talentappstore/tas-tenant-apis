@@ -1,6 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object",
-    "description": "A json schema that describes the items that a candidate must supply - see separate doc.",
-    "additionalProperties": true
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref":"item.json" }
 }

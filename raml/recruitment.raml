@@ -146,39 +146,20 @@ resourceTypes: !include resources.yml
           post:        
             securedBy: [oauth_2_0]
     /itemDefs:
-      description: metadata for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-    
-      /forRead:
-        type: itemDefsForRead
-        get:
-      /forWrite:
-        type: itemDefsForWrite
-        get:
+      description: |
+        Metadata for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+      type: itemDefs
       /byName:
-        /{item}:
-          /forRead:
-            type: itemDefByNameForRead
-            get:
-          /forWrite:
-            type: itemDefByNameForWrite
-            get:
+        type: itemDef
     /items:
-      description: values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-      get:
-        securedBy: [oauth_2_0]
-        description: Get values for all items
-        body:
-          application/json:
-            schema: !include ../schemas/existingItems.json
-            example: !include ../examples/existingItems-simple.json
+      description: |
+        Values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned),
+        Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
+        suitable for directly embedding in a web page. The expiring link is different for every request.
+      type: items
       /{item}:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get values for a specific item
-          body:
-            application/json:
-              schema: !include ../schemas/existingItem.json
-              example: !include ../examples/existingItem-simple.json
+        type: item
+
     /categories:
       get:
         securedBy: [oauth_2_0]
@@ -253,47 +234,10 @@ resourceTypes: !include resources.yml
     /applications:
       get:
       /{application}:
-        /items:
-          description: |
-            Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
-            suitable for directly embedding in a web page. The expiring link is different for every request.
-          /candidateOwned:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all candidateOwned items for this application
-            /{item}:
-              get:
-                securedBy: [oauth_2_0]
-                description: Get a specific candidateOwned item for this application
-          /internalOwned:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all internalOwned items for this application
-            /{item}:
-              get:
-                securedBy: [oauth_2_0]
-                description: Get a specific internalOwned item for this application
-          /internalShared:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all internalShared items for this application
-            /{item}:
-              get:
-                securedBy: [oauth_2_0]
-                description: Get a specific internalShared item for this application
-          /eeo:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get all eeo items for this application
-            /{item}:
-              get:
-                securedBy: [oauth_2_0]
-                description: Get a specific eeo item for this application
         /source:
           get:
             securedBy: [oauth_2_0]
             description: a tracker, as passed in to the edit
-      
   /byID:
     /{candidate}:
       /stars:
@@ -302,30 +246,6 @@ resourceTypes: !include resources.yml
             get:
               securedBy: [oauth_2_0]
               description: Get the candidate's stars against a specific job, perhaps inherited from the jobs's master or some talent pool
-      /items:
-        description: |
-          Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
-          suitable for directly embedding in a web page. The expiring link is different for every request.
-        /internalOwned:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get all internalOwned items for this candidate
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/existingItems.json
-                    example: !include ../examples/existingItems-simple.json
-          /{item}:
-            get:
-              securedBy: [oauth_2_0]
-              description: Get a specific internalOwned item for this candidate
-              responses:
-                200:
-                  body:
-                    application/json:
-                      schema: !include ../schemas/existingItems.json
-                      example: !include ../examples/existingItems-simple.json
       /deltaPings:
         description: |
           The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
@@ -538,7 +458,6 @@ resourceTypes: !include resources.yml
         get:
           securedBy: [oauth_2_0]
           description:
-
             This form is used when a candidate is logged in (see separate anonymous form). The producer
             will look at the sub field of the OAuth token, then look at some business data (e.g. has the candidate
             already set up job alerts, are they internal) to decide whether/in what form/ to render the button.
@@ -549,7 +468,6 @@ resourceTypes: !include resources.yml
                 application/json:
                   schema: !include ../schemas/buttonDetail.json
                   example: !include ../examples/buttonDetail-simple.json
-
 
 /categories:
   description: |

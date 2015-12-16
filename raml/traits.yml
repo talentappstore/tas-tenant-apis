@@ -1,21 +1,14 @@
 #%RAML 0.8
 
+- offerEmbedMeta: 
+    queryParameters:
+      embedMeta:
+        type: boolean
+        description: |
+          Pass true to have schema fragments embedded in the response when fetching items.
+          Less network trips, larger overall message. Defaults to false.
+        required: false
 
-- returnItemDef: 
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/itemDef.json
-            example: !include ../examples/itemDef-withEmbeddedSchema.json
-
-- returnItemDefs: 
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/itemDefs.json
-            example: !include ../examples/itemDefs-withEmbeddedSchema.json
 
 - searchWidgetGetter:
     queryParameters:
@@ -57,15 +50,6 @@
           application/msword:
           application/rtf:
           text/plain:
-
-- offerEmbedMeta: 
-    queryParameters:
-      embedMeta:
-        type: boolean
-        description: |
-          Pass true to have schema fragments embedded in the response (less network trips, larger overall message).
-          Defaults to false.
-        required: false
 
 - tasItem:
     queryParameters:

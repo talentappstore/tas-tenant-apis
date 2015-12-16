@@ -1,28 +1,51 @@
 #%RAML 0.8
 
-- itemDefsForRead:
+- itemDefs:
     get:
       securedBy: [oauth_2_0]
-      is: [ offerEmbedSchema, returnItemDefs ] 
-      description: Get metadata for reading from all accessible items (GET)
-      
-- itemDefsForWrite:
-    get:
-      securedBy: [oauth_2_0]
-      is: [ offerEmbedSchema, returnItemDefs ] 
-      description: Get metadata for writing to all accessible items (POST, PATCH, PUT)
-      
-- itemDefByNameForRead:
-    get:
-      securedBy: [oauth_2_0]
-      is: [ offerEmbedSchema, returnItemDef ] 
-      description: Get metadata for reading from a specific accessible item (GET)
-      
-- itemDefByNameForWrite:
-    get:
-      securedBy: [oauth_2_0]
-      is: [ offerEmbedSchema, returnItemDef ] 
-      description: Get metadata for writing to a specific accessible item (GET)
+      description: Get metadata for all items
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/itemDefs.json
+              example: !include ../examples/itemDefs-withEmbeddedSchema.json
 
+- itemDef:
+    get:
+      securedBy: [oauth_2_0]
+      description: Get metadata for a specific item
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/itemDef.json
+              example: !include ../examples/itemDef-withEmbeddedSchema.json
 
+- items:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ offerEmbedMeta ] 
+      description: Get values for all items
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/existingItems.json
+              example: !include ../examples/existingItems-simple.json
+      
+- item:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ offerEmbedMeta ] 
+      description: Get metadata for a specific item
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/existingItem.json
+              example: !include ../examples/existingItem-simple.json
+
+      
+      
       

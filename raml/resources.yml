@@ -1,0 +1,28 @@
+#%RAML 0.8
+
+- itemDefsForRead:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ offerEmbedSchema, returnItemDefs ] 
+      description: Get metadata for reading from all accessible items (GET)
+      
+- itemDefsForWrite:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ offerEmbedSchema, returnItemDefs ] 
+      description: Get metadata for writing to all accessible items (POST, PATCH, PUT)
+      
+- itemDefByNameForRead:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ offerEmbedSchema, returnItemDef ] 
+      description: Get metadata for reading from a specific accessible item (GET)
+      
+- itemDefByNameForWrite:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ offerEmbedSchema, returnItemDef ] 
+      description: Get metadata for writing to a specific accessible item (GET)
+
+
+      

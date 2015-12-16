@@ -91,8 +91,8 @@ allowed orgs. From now on, all jobs for these organisations must be managed thro
 <p>First fetch all categories.
 
 <div class='codeBlock'>
-curl -H "Authorization: gjKUy7Y7Ehy0KgE32" \
-https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories
+curl -H "tazzy-secret: gjKUy7Y7Ehy0KgE32" -H "tazzy-tenant: uploadtenant" \
+https://myuploader.in.tazzy.io/apps/jobboardapp/devs/tas/categories
 
 <div class='clientInclude' data-href='../examples/categories-simple.json'></div>
 </div>
@@ -100,8 +100,8 @@ https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories
 
 <p>Next fetch values for all categories individually. e.g.:
 <div class='codeBlock'>
-curl -H "Authorization: gjKUy7Y7Ehy0KgE32" \
-https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories/byID/10022/values
+curl -H "tazzy-secret: gjKUy7Y7Ehy0KgE32" -H "tazzy-tenant: uploadtenant" \
+https://myuploader.in.tazzy.io/apps/jobboardapp/devs/tas/categories/byID/10022/values
 
 <div class='clientInclude' data-href='../examples/categoryValues-mockLocations.json'></div>
 </div>
@@ -121,8 +121,8 @@ https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/categories/byI
 <h2>Perform upload</h2>
 
 <div class='codeBlock'>
-curl -X POST -H "Authorization: gjKUy7Y7Ehy0KgE32" \
-https://uploadtenant.myuploader.tazzy.io/apps/jobboardapp/dev/tas/jobSets
+curl -X POST -H "tazzy-secret: gjKUy7Y7Ehy0KgE32" -H "tazzy-tenant: uploadtenant" \
+https://myuploader.in.tazzy.io/apps/jobboardapp/devs/tas/jobSets
 
 <div class='clientInclude' data-href='../examples/jobSet-simple.json'></div>
 

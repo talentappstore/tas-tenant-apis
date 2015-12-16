@@ -7,6 +7,7 @@ version: v0.6
 
 securitySchemes:  !include securitySchemes.yml
 traits: !include traits.yml
+resourceTypes: !include resources.yml
 
 
 /applications:
@@ -144,10 +145,28 @@ traits: !include traits.yml
             Probably only useful as non-SoT.
           post:        
             securedBy: [oauth_2_0]
+    /itemDefs:
+      description: metadata for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+    
+      /forRead:
+        type: itemDefsForRead
+        get:
+      /forWrite:
+        type: itemDefsForWrite
+        get:
+      /byName:
+        /{item}:
+          /forRead:
+            type: itemDefByNameForRead
+            get:
+          /forWrite:
+            type: itemDefByNameForWrite
+            get:
     /items:
+      description: values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
       get:
         securedBy: [oauth_2_0]
-        description: Get all items visible to this candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+        description: Get values for all items
         body:
           application/json:
             schema: !include ../schemas/existingItems.json
@@ -155,7 +174,7 @@ traits: !include traits.yml
       /{item}:
         get:
           securedBy: [oauth_2_0]
-          description: Get a specific item visible to this candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+          description: Get values for a specific item
           body:
             application/json:
               schema: !include ../schemas/existingItem.json
@@ -332,63 +351,205 @@ traits: !include traits.yml
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
 
-/candidateWidgets:
-  /panel:
-    description: |
-      A resource, produced by a "widget assembler" via a SoT API, that contains a full strip of
-      all candidate-facing widgets that are general, ie. not for any specific job (register, share site, etc.).
-
-      Beneath the covers the widget assembler calls non-SoT APIs like GET /candidateWidgets/widget/me on
-      many different apps, assembles the results, and passes them back as this single resource.
+/candidateButtons:
+  /general:
+    /all:
+      description: |
+        An array, produced by a "button assembler" via a SoT API, that contains
+        all candidate-facing buttons that are general, ie. not for any specific job (register, share site, etc.).
+  
+        Beneath the covers the widget assembler calls non-SoT APIs like GET /candidateButtons/me on
+        many different apps, assembles the results, and passes them back as this single resource.
+      /me:
+        get:
+          description: |
+            Get all general buttons for a logged in candidate.
+          is: [ trackable ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetails.json
+                  example: !include ../examples/buttonDetails-simple.json
+      /anonymous:
+        get:
+          description: |
+            Get all general buttons when no candidate is logged in (see separate on behalf form).
+          is: [ trackable ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetails.json
+                  example: !include ../examples/buttonDetails-simple.json
+    /single:
+      description:
+        Non-SoT API produced by apps that want to offer a general button to a logged in candidate (e.g. to register)
+  
+        Apps may customise the button;
+        - display that a partial (draft) registration is already underway
+        - gray the register button out if candidate logged in and already registered
+      /me:
+        get:
+          description: |
+            Non-SoT API produced by apps that want to offer a general button to a logged in candidate (e.g. to register)
+          is: [ trackable ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetail.json
+                  example: !include ../examples/buttonDetail-simple.json
+      /anonymous:
+        get:
+          description: |
+            Non-SoT API produced by apps that want to offer a general button to a not logged in candidate (e.g. to register).
+            The producer (if they can) should render some default button which is applicable to public job seekers.
+          is: [ trackable ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetail.json
+                  example: !include ../examples/buttonDetail-simple.json
+  /jobs:
+    /{job}:
+      /all:
+        description: |
+          A resource, produced by a "widget assembler" via a SoT API, that contains a full set of
+          all candidate-facing buttons for a job (apply, share, save, start pre-apply engagement, etc.).
+            
+          Beneath the covers the button assembler calls non-SoT APIs like GET /candidateButtons/jobs/{job}applyButton/me on
+          many different apps, assembles the results, and passes them back as this single resource.
+        /me:
+          get:
+            description: |
+              Get the buttons for this job, for a logged in candidate.
+            is: [ trackable ]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/buttonDetails.json
+                    example: !include ../examples/buttonDetails-simple.json
+        /anonymous:
+          get:
+            description: |
+              Get the buttons for this job, when no candidate is logged in (see separate on behalf form).
+            is: [ trackable ]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/buttonDetails.json
+                    example: !include ../examples/buttonDetails-simple.json
                 
-      TODO: add a "size" parameter with some standard sizes.        
-    /me:
-      get:
+      /single:
         description: |
-          Get the widget panel for a logged in candidate.
-        is: [ trackable ]
-        responses:
-          200:
-            body:
-              text/html:
-    /anonymous:
-      get:
-        description: |
-          Get the widget panel when no candidate is logged in (see separate on behalf form). The producer
-          should render some default widget which is applicable to public job seekers.
-        is: [ trackable ]
-        responses:
-          200:
-            body:
-              text/html:
-  /widget:
-    description: |
-      Non-SoT API produced by apps that want to offer a general widget to a candidate (e.g. to register)
+          Non-SoT API produced by apps that want to offer a button to a candidate.
           
-      Apps may customise the button:
-      - display that a partial (draft) registration is already underway
-      - gray the register button out if candidate logged in and already registered
-                
-      TODO: add a "size" parameter with some standard sizes.        
-    /me:
-      get:
-        description: |
-          Get a widget for a logged in candidate.
-        is: [ trackable ]
-        responses:
-          200:
-            body:
-              text/html:
-    /anonymous:
-      get:
-        description: |
-          Get a widget when no candidate is logged in (see separate on behalf form). The producer
-          should render some default widget which is applicable to public job seekers.
-        is: [ trackable ]
-        responses:
-          200:
-            body:
-              text/html:
+          Apps may customise the button:
+          - display that a draft is already underway
+          - gray the button out if application is not allowed, perhaps because an application exists (the app might call
+          GET /jobs/byID/{}/canApply/me to find out) 
+        /me:
+          get:
+            securedBy: [oauth_2_0]
+            description:
+              On-behalf, non-SoT API to get a button for display on the candidate facing page for a job opening.
+              This form is used when a candidate is logged in (see separate anonymous form). The producer
+              will look at the sub field of the OAuth token, then look at some business data (e.g. has candidate has applied
+              previously, are they internal) to decide whether/in what form/ to render the button.
+            is: [ trackable ]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/buttonDetail.json
+                    example: !include ../examples/buttonDetail-simple.json
+        /anonymous:
+          get:
+            securedBy: [oauth_2_0]
+            description:
+              Non-SoT API to get a button for display on the candidate facing page for a job opening.
+              This form is used when no candidate is logged in (see separate on behalf form). The producer
+              should render some default which is applicable to public job seekers.
+            is: [ trackable ]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/buttonDetail.json
+                    example: !include ../examples/buttonDetail-simple.json
+  /search:
+    /all:
+      description: |
+        A resource, produced by a "button assembler" via a SoT API, that contains a full strip of
+        all candidate-facing buttons for a job search - e.g. buttons like "do you want to be alerted when
+        new jobs are posted?"
+          
+        Beneath the covers the buttons assembler calls GET button on
+        many different apps, assembles the results, and passes them back as this single resource.
+
+      /me:
+        get:
+          description: |
+            Get all buttons for this job, for a logged in candidate.
+          is: [ trackable, searchWidgetGetter ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetails.json
+                  example: !include ../examples/buttonDetails-simple.json
+      /anonymous:
+        get:
+          description: |
+            Get all buttons for this job, when no candidate is logged in (see separate on behalf form). The producer
+            should render some default button which is applicable to public job seekers.
+          is: [ trackable, searchWidgetGetter ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetails.json
+                  example: !include ../examples/buttonDetails-simple.json
+              
+    /single:
+      description: |
+        Non-SoT API produced by apps that want to offer a search-aware button to a candidate.
+        
+      /anonymous:
+        get:
+          securedBy: [oauth_2_0]
+          description:
+            Non-SoT API to get a button to display related to a search of jobs.
+
+            This form is used when no candidate is logged in (see separate on behalf form). The producer
+            should render some default button which is applicable to public job seekers.
+          is: [ trackable ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetail.json
+                  example: !include ../examples/buttonDetail-simple.json
+      /me:
+        get:
+          securedBy: [oauth_2_0]
+          description:
+
+            This form is used when a candidate is logged in (see separate anonymous form). The producer
+            will look at the sub field of the OAuth token, then look at some business data (e.g. has the candidate
+            already set up job alerts, are they internal) to decide whether/in what form/ to render the button.
+          is: [ trackable ]
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/buttonDetail.json
+                  example: !include ../examples/buttonDetail-simple.json
+
 
 /categories:
   description: |
@@ -683,40 +844,6 @@ traits: !include traits.yml
             width web page. The uri should expire within 24 hours.  
 
 
-/itemDefs:
-  /candidate:
-    /candidateOwned:
-    /internalOwned:
-    /internalShared:
-    /eeo:
-      /forRead:
-        get:
-          securedBy: [oauth_2_0]
-          is: [ offerEmbedSchema, returnItemDefs ] 
-          description: Get definitions for all candidate-scoped, candidateOwned items, when reading from them (GET)
-      /forWrite:
-        get:
-          securedBy: [oauth_2_0]
-          is: [ offerEmbedSchema, returnItemDefs ] 
-          description: Get definitions for all candidate-scoped, candidateOwned items, when writing to them (POST, PATCH, PUT)
-      /byName:
-        /{item}:
-          /forRead:
-            get:
-              description: Get definitions for a specific candidate-scoped, candidateOwned items, when reading from it (GET)
-          /forWrite:
-            get:
-              securedBy: [oauth_2_0]
-              is: [ offerEmbedSchema, returnItemDef ] 
-              description: Get definitions for a specific candidate-scoped, candidateOwned items, when writing to it (POST, PATCH, PUT)
-  /application:
-    /candidateOwned:
-    /internalOwned:
-    /internalShared:
-  /job:
-    /internalOwned:
-    /internalShared:
-
 /jobs:
   description: |
     Position openings aka vacancies, job openings, etc.
@@ -833,55 +960,6 @@ traits: !include traits.yml
                   application/json:
                     schema: !include ../schemas/canApply.json
                     example: !include ../examples/canApply-simple.json
-
-
-      /candidateWidgets:
-        /panel:
-          description: |
-            A resource, produced by a "widget assembler" via a SoT API, that contains a full strip of
-            all candidate-facing widgets for a job (apply, share, save, start pre-apply engagement, etc.).
-            
-            Beneath the covers the widget assembler calls non-SoT APIs like GET /jobs/{job}/candidateWidgets/applyButton/me on
-            many different apps, assembles the results, and passes them back as this single resource.
-                
-            TODO: add a "size" parameter with some standard sizes.        
-          /me:
-            get:
-              description: |
-                Get the widget panel for this job, for a logged in candidate.
-              is: [ trackable ]
-          /anonymous:
-            get:
-              description: |
-                Get the widget panel for this job, when no candidate is logged in (see separate on behalf form). The producer
-                should render some default widget which is applicable to public job seekers.
-              is: [ trackable ]
-                
-        /applyButton:
-          description: |
-            Non-SoT API produced by apps that want to offer an apply button to a candidate.
-          
-            Apps may customise the button:
-            - display that a draft is already underway
-            - gray the button out if application is not allowed, perhaps because an application exists (the app might call
-            GET /jobs/byID/{}/canApply/me to find out) 
-          /anonymous:
-            get:
-              securedBy: [oauth_2_0]
-              description:
-                Non-SoT API to get an apply button for display on the candidate facing page for a job opening.
-                This form is used when no candidate is logged in (see separate on behalf form). The producer
-                should render some default widget which is applicable to public job seekers.
-              is: [ trackable ]
-          /me:
-            get:
-              securedBy: [oauth_2_0]
-              description:
-                On-behalf, non-SoT API to get an apply button for display on the candidate facing page for a job opening.
-                This form is used when a candidate is logged in (see separate anonymous form). The producer
-                will look at the sub field of the OAuth token, then look at some business data (e.g. has candidate has applied
-                previously, are they internal) to decide whether/in what form/ to render the button.
-              is: [ trackable ]
                                 
   /recruiterFaces:
     description: |

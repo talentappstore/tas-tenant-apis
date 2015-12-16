@@ -6,6 +6,8 @@
     "apiResult": { "$ref": "../schemas/apiResult.json" },
     "apiTest": { "$ref": "../schemas/apiTest.json" },
     "assessmentDetail": { "$ref": "../schemas/assessmentDetail.json" },
+    "buttonDetail": { "$ref": "../schemas/buttonDetail.json" },
+    "buttonDetails": { "$ref": "../schemas/buttonDetails.json" },
     "canApply": { "$ref": "../schemas/canApply.json" },
     "candidateEdit": { "$ref": "../schemas/candidateEdit.json" },
     "candidateEditSpec": { "$ref": "../schemas/candidateEditSpec.json" },

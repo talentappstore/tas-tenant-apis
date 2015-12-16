@@ -53,11 +53,8 @@ leads candidates to the apply (or register) processes, and allows them to save j
 
 <h1>Unresolved</h1>
 <pre>
-Share job
-Referrals
-Injecting stuff when job seeker has done a search
-	- add to alerts
-	- other alerts for employee referrals
+
+	
 Should GET /jobs return
 Display global-scoped candidateWidgets somewhere
 Entry with a job code
@@ -125,11 +122,21 @@ GET /jobBoardUriBase
 <p>Most boards have some kind of header or common area at the top of the page where the candidate's login status etc. is displayed.
 </p>
 
-<p>Your board should consume the relevant APIs to fetch HTML that can then be inserted into this area:
-<ul>
-<li>GET /candidateWidgets/panel/me (if the candidate is logged in) 
-<li>GET /candidateWidgets/panel/anonymous (if no candidate is logged in) 
-</ul>
+<p>Your board should inject widgets here:
+
+<div class='codeBlock'>
+GET /candidateWidgets/panel/anonymous 
+</div>
+<br />
+</p>
+
+<p>or if the candidate is logged in:
+
+<div class='codeBlock'>
+GET /candidateWidgets/panel/me 
+</div>
+</p>
+
 
 
 <h2>Job search UI</h2>
@@ -152,19 +159,38 @@ Keywords:  [______]
 </ol>
 </p>
 
+<p>Also inject any widgets relevant to the search (e.g. "alert me for jobs like this") using
+
+<div class='codeBlock'>
+/candidateWidgets/search/panel/me
+</div>
+<br />
+</p>
+
+<p>or if the candidate is logged in:
+
+<div class='codeBlock'>
+/candidateWidgets/search/panel/me
+</div>
+</p>
 
 <h2>Job details page</h2>
 
-<p>Unless your board is a nanosite, it probably serves a "job details page" where the candidate can read the job description and click to apply.
+<p>You site may serve a "job details page" where the candidate can read the job description and click to apply.
 </p>
 
-<p>The page should be served at GET /jobBoardUriBase + the link as in "creating links for jobs". 
+<p>Your app should serve the page at GET /jobBoardUriBase + the link as in "creating links for jobs". 
 </p>
 
 <p>If your board supports login, then this page should sit behind a loggedIn filter (as per conventions.html). This way
 a candidate who was logged in at another app (e.g. UberApply) and then linked to here (e.g. by clicking "View job details"), will be asked
 to log in, which should happen invisibly, and can then (for example) see internal details for the job if they are an internal.
 </p> 
+
+ZZZZZZZZZZZZZZ
+
+
+
 
 <p>Parse the job's ID from the URL and use it to call GET /jobs and GET /jobs/{}/description.
 </p>
@@ -198,12 +224,20 @@ to log in, which should happen invisibly, and can then (for example) see interna
 <p>Description is in safe markdown and needs to be converted to HTML.
 </p>
 
-<p>Render the tenant's widgets (apply button, share button, etc.) by injecting the HTML returned by the relevant APIs:
+<p>Inject the job-related widgets (apply button, share button, etc.):
 
-<ul>
-<li>GET /jobs/byID/{job}/candidateWidgets/panel/me (if the candidate is logged in) 
-<li>GET /jobs/byID/{job}/candidateWidgets/panel/anonymous (if no candidate is logged in) 
-</ul>
+<div class='codeBlock'>
+GET /candidateWidgets/jobs/{job}/panel/anonymous</div>
+<br />
+</p>
+
+<p>or if the candidate is logged in:
+
+<div class='codeBlock'>
+GET /candidateWidgets/jobs/{job}/panel/anonymous 
+</div>
+</p>
+
 
 
 <h2>Job details page - HISTORICAL</h2>

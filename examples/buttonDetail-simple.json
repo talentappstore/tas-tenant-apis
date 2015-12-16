@@ -1,0 +1,9 @@
+{
+	"icon": "http://examples.com/images/cat.png",
+	"label": "Refer a friend",
+	"behavior": "redirect",
+	"uri": "https://referrals.com/jobs/1022?tracker=106645",
+	"backgroundColor": "00DDEE",
+	"textColor": "FF5522",
+	"disabled": false
+}

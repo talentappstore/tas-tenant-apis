@@ -1,5 +1,30 @@
 #%RAML 0.8
 
+
+- returnItemDef: 
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/itemDef.json
+            example: !include ../examples/itemDef-withEmbeddedSchema.json
+
+- returnItemDefs: 
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/itemDefs.json
+            example: !include ../examples/itemDefs-withEmbeddedSchema.json
+
+- searchWidgetGetter:
+    queryParameters:
+      search:
+        type: string
+        description: |
+          The search string - a singly url encoded string conforming to categoriesActual.json.
+        required: false
+
 - editSpecFetcher:
     body:
       application/json:
@@ -33,30 +58,14 @@
           application/rtf:
           text/plain:
 
-- offerEmbedSchema: 
+- offerEmbedMeta: 
     queryParameters:
-      embedSchema:
+      embedMeta:
         type: boolean
         description: |
           Pass true to have schema fragments embedded in the response (less network trips, larger overall message).
           Defaults to false.
         required: false
-
-- returnItemDef: 
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/itemDef.json
-            example: !include ../examples/itemDef-withEmbeddedSchema.json
-
-- returnItemDefs: 
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/itemDefs.json
-            example: !include ../examples/itemDefs-withEmbeddedSchema.json
 
 - tasItem:
     queryParameters:

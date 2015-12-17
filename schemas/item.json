@@ -1,15 +1,30 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "meta": {
-      "type": "object",
-      "additionalProperties": true,
-      "description": "json schema for this item"
-    },
-    "value": {
+    "raw": {
       "type": "object",
       "additionalProperties": true,
       "description": "json representation of the item's current value"
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
     }
   },
   "type": "object",

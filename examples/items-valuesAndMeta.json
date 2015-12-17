@@ -1,47 +1,53 @@
 [
-   {
-      "name": "selfScore",
-      "value": {
-         "Travel OK": "Yes"
+  {
+    "name": "selfScore",
+    "value": {
+      "raw": {
+        "Travel OK": "Yes"
       },
-      "meta": {
-         "enum": [
-            "Yes",
-            "No"
-         ]
-      }
-   },
-   {
-      "name": "coverLetter",
-      "value": {
-         "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
-         "fileName": "coverletter.docx",
-         "via": "dropbox.com",
-         "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+      "display": "Yes"
+    },
+    "meta": {
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    }
+  },
+  {
+    "name": "coverLetter",
+    "value": {
+      "raw": {
+        "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+        "fileName": "coverletter.docx",
+        "via": "dropbox.com",
+        "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
       },
-      "meta": {
-         "type": "object",
-         "format": "tas-fileUpload",
-         "access": "candidateOwned",
-         "accept": [
-            "image/png",
-            "text/html"
-         ],
-         "description": "Please upload a cover letter. The shorter the better",
-         "properties": {
-            "data": {
-               "type": "string",
-               "media": {
-                  "binaryEncoding": "base64"
-               }
-            },
-            "fileName": {
-               "type": "string"
-            },
-            "via": {
-               "type": "string"
-            }
-         }
+      "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+    },
+    "meta": {
+      "type": "object",
+      "format": "tas-fileUpload",
+      "access": "candidateOwned",
+      "accept": [
+        "image/png",
+        "text/html"
+      ],
+      "description": "Please upload a cover letter. The shorter the better",
+      "properties": {
+        "data": {
+          "type": "string",
+          "media": {
+            "binaryEncoding": "base64"
+          }
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "via": {
+          "type": "string"
+        }
       }
-   }
+    }
+  }
 ]

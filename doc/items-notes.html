@@ -28,7 +28,7 @@
 
 <h1>About items</h1>
 
-<p>Items are user-defined fields, held against a candidate or their job application(s); for example "Are you legally allowed to work in Australia?".
+<p>Items are user-defined fields, held against major objects such as jobs, candidates, or their job application(s); for example "Are you legally allowed to work in Australia?".
 </p>
 
 <p>Items have a type, as described by an extension variant of <a href='http://json-schema.org/'>json schema</a> - for example, the item above
@@ -85,12 +85,12 @@ This should be used to control the property's display order <b>within their encl
 </div>
 </p>
 
-<p>propertyOrder is really a presentation hint that is sometimes injected into the item's schema. Fetching the itemDef for an item will not include it. 
+<p>propertyOrder is really a presentation hint that is sometimes injected into the item's schema. Fetching the itemMeta for an item will not include it. 
 </p>
 
 <h2>access</h2>
 
-<p>Individual properties must have an "access" property, which is one of:
+<p>Individual items must have an "access" property, which is one of:
 <ul>
 <li>candidateOwned
 <li>internalOwned
@@ -98,7 +98,7 @@ This should be used to control the property's display order <b>within their encl
 <li>eeo
 </ul>
 
-<p>Access should only be specified on actual properties, not on grouping objects, and should only be specified
+<p>Access should only be specified on actual items, not on grouping objects, and should only be specified
 on top level properties (i.e. not on properties within an array). 
 </p>
 
@@ -167,7 +167,6 @@ valid, we require that:
 <li>it must be required
 </ul>
 </ul>
-
 
 
 <h1>Handling incoming items (producing POST /candidates/me)</h1>

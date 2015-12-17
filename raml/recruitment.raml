@@ -272,204 +272,84 @@ resourceTypes: !include resources.yml
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
-
-/candidateButtons:
-  /general:
-    /all:
+/buttons:
+  /candidates:
+    /general:
       description: |
-        An array, produced by a "button assembler" via a SoT API, that contains
-        all candidate-facing buttons that are general, ie. not for any specific job (register, share site, etc.).
-  
-        Beneath the covers the widget assembler calls non-SoT APIs like GET /candidateButtons/me on
-        many different apps, assembles the results, and passes them back as this single resource.
-      /me:
-        get:
-          description: |
-            Get all general buttons for a logged in candidate.
-          is: [ trackable ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetails.json
-                  example: !include ../examples/buttonDetails-simple.json
-      /anonymous:
-        get:
-          description: |
-            Get all general buttons when no candidate is logged in (see separate on behalf form).
-          is: [ trackable ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetails.json
-                  example: !include ../examples/buttonDetails-simple.json
-    /single:
-      description:
-        Non-SoT API produced by apps that want to offer a general button to a logged in candidate (e.g. to register)
-  
-        Apps may customise the button;
-        - display that a partial (draft) registration is already underway
-        - gray the register button out if candidate logged in and already registered
-      /me:
-        get:
-          description: |
-            Non-SoT API produced by apps that want to offer a general button to a logged in candidate (e.g. to register)
-          is: [ trackable ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetail.json
-                  example: !include ../examples/buttonDetail-simple.json
-      /anonymous:
-        get:
-          description: |
-            Non-SoT API produced by apps that want to offer a general button to a not logged in candidate (e.g. to register).
-            The producer (if they can) should render some default button which is applicable to public job seekers.
-          is: [ trackable ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetail.json
-                  example: !include ../examples/buttonDetail-simple.json
-  /jobs:
-    /{job}:
+        General buttons are typically embedded in page headers, e.g. "register", "share this entire site", etc.
       /all:
-        description: |
-          A resource, produced by a "widget assembler" via a SoT API, that contains a full set of
-          all candidate-facing buttons for a job (apply, share, save, start pre-apply engagement, etc.).
-            
-          Beneath the covers the button assembler calls non-SoT APIs like GET /candidateButtons/jobs/{job}applyButton/me on
-          many different apps, assembles the results, and passes them back as this single resource.
         /me:
+          type: candidateButtons
           get:
             description: |
-              Get the buttons for this job, for a logged in candidate.
-            is: [ trackable ]
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/buttonDetails.json
-                    example: !include ../examples/buttonDetails-simple.json
+              Get all general buttons for a logged in candidate (SoT)
         /anonymous:
+          type: candidateButtons
           get:
             description: |
-              Get the buttons for this job, when no candidate is logged in (see separate on behalf form).
-            is: [ trackable ]
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/buttonDetails.json
-                    example: !include ../examples/buttonDetails-simple.json
-                
+              Get all general buttons when no candidate is logged in (SoT) (see separate on behalf form).
       /single:
-        description: |
-          Non-SoT API produced by apps that want to offer a button to a candidate.
-          
-          Apps may customise the button:
-          - display that a draft is already underway
-          - gray the button out if application is not allowed, perhaps because an application exists (the app might call
-          GET /jobs/byID/{}/canApply/me to find out) 
         /me:
+          type: candidateButton
           get:
-            securedBy: [oauth_2_0]
-            description:
-              On-behalf, non-SoT API to get a button for display on the candidate facing page for a job opening.
-              This form is used when a candidate is logged in (see separate anonymous form). The producer
-              will look at the sub field of the OAuth token, then look at some business data (e.g. has candidate has applied
-              previously, are they internal) to decide whether/in what form/ to render the button.
-            is: [ trackable ]
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/buttonDetail.json
-                    example: !include ../examples/buttonDetail-simple.json
+            description: |
+              Get a single general button for a logged in candidate (non-SoT)
         /anonymous:
+          type: candidateButton
           get:
-            securedBy: [oauth_2_0]
-            description:
-              Non-SoT API to get a button for display on the candidate facing page for a job opening.
-              This form is used when no candidate is logged in (see separate on behalf form). The producer
-              should render some default which is applicable to public job seekers.
-            is: [ trackable ]
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/buttonDetail.json
-                    example: !include ../examples/buttonDetail-simple.json
-  /search:
-    /all:
+            description: |
+              Get a single general button when no candidate is logged in (non-SoT) (see separate on behalf form).
+    /jobs:
+      /{job}:
+        description: |
+          Job-level buttons are typically embedded in job details pages, e.g. "apply", "share this job", etc.
+        /all:
+          /me:
+            type: candidateButtons
+            get:
+              description: |
+                Get a all job-scoped buttons for a logged in candidate (SoT)
+          /anonymous:
+            type: candidateButtons
+            get:
+              description: |
+                Get all job-scoped buttons when no candidate is logged in (SoT) (see separate on behalf form).
+        /single:
+          /me:
+            type: candidateButton
+            get:
+              description: |
+                Get a single job-scoped button for a logged in candidate (non-SoT)
+          /anonymous:
+            type: candidateButton
+            get:
+              description: |
+                Get a single job-scoped button when no candidate is logged in (non-SoT) (see separate on behalf form).
+    /search:
       description: |
-        A resource, produced by a "button assembler" via a SoT API, that contains a full strip of
-        all candidate-facing buttons for a job search - e.g. buttons like "do you want to be alerted when
-        new jobs are posted?"
-          
-        Beneath the covers the buttons assembler calls GET button on
-        many different apps, assembles the results, and passes them back as this single resource.
-
-      /me:
-        get:
-          description: |
-            Get all buttons for this job, for a logged in candidate.
-          is: [ trackable, searchWidgetGetter ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetails.json
-                  example: !include ../examples/buttonDetails-simple.json
-      /anonymous:
-        get:
-          description: |
-            Get all buttons for this job, when no candidate is logged in (see separate on behalf form). The producer
-            should render some default button which is applicable to public job seekers.
-          is: [ trackable, searchWidgetGetter ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetails.json
-                  example: !include ../examples/buttonDetails-simple.json
-              
-    /single:
-      description: |
-        Non-SoT API produced by apps that want to offer a search-aware button to a candidate.
-        
-      /anonymous:
-        get:
-          securedBy: [oauth_2_0]
-          description:
-            Non-SoT API to get a button to display related to a search of jobs.
-
-            This form is used when no candidate is logged in (see separate on behalf form). The producer
-            should render some default button which is applicable to public job seekers.
-          is: [ trackable ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetail.json
-                  example: !include ../examples/buttonDetail-simple.json
-      /me:
-        get:
-          securedBy: [oauth_2_0]
-          description:
-            This form is used when a candidate is logged in (see separate anonymous form). The producer
-            will look at the sub field of the OAuth token, then look at some business data (e.g. has the candidate
-            already set up job alerts, are they internal) to decide whether/in what form/ to render the button.
-          is: [ trackable ]
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/buttonDetail.json
-                  example: !include ../examples/buttonDetail-simple.json
+        Search-scoped buttons are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
+      /all:
+        /me:
+          type: candidateButtons
+          get:
+            description: |
+              Get all search-scoped buttons for a logged in candidate (SoT)
+        /anonymous:
+          type: candidateButtons
+          get:
+            description: |
+              Get all search-scoped buttons when no candidate is logged in (SoT) (see separate on behalf form).
+      /single:
+        /me:
+          type: candidateButton
+          get:
+            description: |
+              Get a single search-scoped button for a logged in candidate (non-SoT)
+        /anonymous:
+          type: candidateButton
+          get:
+            description: |
+              Get a single search-scoped button when no candidate is logged in (non-SoT) (see separate on behalf form).
 
 /categories:
   description: |

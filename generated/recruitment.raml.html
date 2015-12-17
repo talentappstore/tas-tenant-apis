@@ -448,7 +448,7 @@
       }
     }
   }
-}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_items"><span class="parent">/candidates/me</span>/items</a> <span class="methods"><a href="#candidates_me_items_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_items" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned), Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content, suitable for directly embedding in a web page. The expiring link is different for every request.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_me_items_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and optionally metadata for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_items_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me</span>/items</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and optionally metadata for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_items_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_items_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_items_get_request"><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="candidates_me_items_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_items"><span class="parent">/candidates/me</span>/items</a> <span class="methods"><a href="#candidates_me_items_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_items" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned), Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content, suitable for directly embedding in a web page. The expiring link is different for every request.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_me_items_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_items_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me</span>/items</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_items_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_items_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_items_get_request"><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="candidates_me_items_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
 	"items":{ "$ref":"item.json" }
@@ -459,13 +459,7 @@
       "raw": {
         "Travel OK": "Yes"
       },
-      "display": "Yes"
-    },
-    "meta": {
-      "enum": [
-        "Yes",
-        "No"
-      ]
+      "display": "Travel:Y"
     }
   },
   {
@@ -478,33 +472,9 @@
         "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
       },
       "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
-    },
-    "meta": {
-      "type": "object",
-      "format": "tas-fileUpload",
-      "access": "candidateOwned",
-      "accept": [
-        "image/png",
-        "text/html"
-      ],
-      "description": "Please upload a cover letter. The shorter the better",
-      "properties": {
-        "data": {
-          "type": "string",
-          "media": {
-            "binaryEncoding": "base64"
-          }
-        },
-        "fileName": {
-          "type": "string"
-        },
-        "via": {
-          "type": "string"
-        }
-      }
     }
   }
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_items_byName__item_"><span class="parent">/candidates/me/items/byName</span>/{item}</a> <span class="methods"><a href="#candidates_me_items_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_items_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_items_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get value and optionally metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_items_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me/items/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get value and optionally metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_items_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_items_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_items_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>item</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="candidates_me_items_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_items_byName__item_"><span class="parent">/candidates/me/items/byName</span>/{item}</a> <span class="methods"><a href="#candidates_me_items_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_items_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_items_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_items_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me/items/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_items_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_items_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_items_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>item</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="candidates_me_items_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "raw": {
@@ -3221,7 +3191,173 @@ GET /widgets?$top=5
         ]
     }
 ]
-</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_searches"><span class="parent">/jobs</span>/searches</a> <span class="methods"><a href="#jobs_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_items_candidate"><span class="parent">/jobs/items</span>/candidate</a> <span class="methods"></span></h4></div><div id="panel_jobs_items_candidate" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Values for all job-scoped items visible to the candidate. Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content, suitable for directly embedding in a web page. The expiring link is different for every request.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_items_candidate_me"><span class="parent">/jobs/items/candidate</span>/me</a> <span class="methods"><a href="#jobs_items_candidate_me_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_items_candidate_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_items_candidate_me_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_items_candidate_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/items/candidate</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#jobs_items_candidate_me_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="jobs_items_candidate_me_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref":"item.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "name": "selfScore",
+    "value": {
+      "raw": {
+        "Travel OK": "Yes"
+      },
+      "display": "Travel:Y"
+    }
+  },
+  {
+    "name": "coverLetter",
+    "value": {
+      "raw": {
+        "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+        "fileName": "coverletter.docx",
+        "via": "dropbox.com",
+        "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+      },
+      "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+    }
+  }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_items_candidate_me_byName__item_"><span class="parent">/jobs/items/candidate/me/byName</span>/{item}</a> <span class="methods"><a href="#jobs_items_candidate_me_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_items_candidate_me_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_items_candidate_me_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_items_candidate_me_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/items/candidate/me/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_items_candidate_me_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_items_candidate_me_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_items_candidate_me_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_items_candidate_me_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "raw": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "json representation of the item&#39;s current value"
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "name": "cover letter",
+  "value": {
+    "raw": {
+      "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+      "fileName": "coverletter.docx",
+      "via": "dropbox.com",
+      "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+    },
+    "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_items_candidate_anonymous"><span class="parent">/jobs/items/candidate</span>/anonymous</a> <span class="methods"><a href="#jobs_items_candidate_anonymous_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_items_candidate_anonymous" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_items_candidate_anonymous_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_items_candidate_anonymous_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/items/candidate</span>/anonymous</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#jobs_items_candidate_anonymous_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="jobs_items_candidate_anonymous_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref":"item.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "name": "selfScore",
+    "value": {
+      "raw": {
+        "Travel OK": "Yes"
+      },
+      "display": "Travel:Y"
+    }
+  },
+  {
+    "name": "coverLetter",
+    "value": {
+      "raw": {
+        "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+        "fileName": "coverletter.docx",
+        "via": "dropbox.com",
+        "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+      },
+      "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+    }
+  }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_items_candidate_anonymous_byName__item_"><span class="parent">/jobs/items/candidate/anonymous/byName</span>/{item}</a> <span class="methods"><a href="#jobs_items_candidate_anonymous_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_items_candidate_anonymous_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_items_candidate_anonymous_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_items_candidate_anonymous_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/items/candidate/anonymous/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_items_candidate_anonymous_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_items_candidate_anonymous_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_items_candidate_anonymous_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_items_candidate_anonymous_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "raw": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "json representation of the item&#39;s current value"
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "name": "cover letter",
+  "value": {
+    "raw": {
+      "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+      "fileName": "coverletter.docx",
+      "via": "dropbox.com",
+      "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+    },
+    "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_searches"><span class="parent">/jobs</span>/searches</a> <span class="methods"><a href="#jobs_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search jobs, returning the candidate-facing information.</p><p>The method is a POST solely because the size and number of parameters might get too large for a GET.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_searches_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_searches_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "recruiterRelation": {

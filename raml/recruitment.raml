@@ -158,10 +158,13 @@ resourceTypes: !include resources.yml
         Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
         suitable for directly embedding in a web page. The expiring link is different for every request.
       type: items
+      get:
+        is: [ offerEmbedMeta ] 
       /byName:
         /{item}:
           type: item
-
+          get:
+            is: [ offerEmbedMeta ] 
     /categories:
       get:
         securedBy: [oauth_2_0]
@@ -671,6 +674,22 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/jobs.json
             example: !include ../examples/jobs-simple.json
+  /items:
+    /candidate:
+      description: |
+        Values for all job-scoped items visible to the candidate.
+        Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
+        suitable for directly embedding in a web page. The expiring link is different for every request.
+      /me:
+        type: items
+        /byName:
+          /{item}:
+            type: item
+      /anonymous:        
+        type: items
+        /byName:
+          /{item}:
+            type: item
   /searches:
     post:
       securedBy: [oauth_2_0]

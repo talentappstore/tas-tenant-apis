@@ -280,79 +280,25 @@ resourceTypes: !include resources.yml
     /general:
       description: |
         General buttons are typically embedded in page headers, e.g. "register", "share this entire site", etc.
-      /all:
-        /me:
-          type: candidateButtons
-          get:
-            description: |
-              Get all general buttons for a logged in candidate (SoT)
-        /anonymous:
-          type: candidateButtons
-          get:
-            description: |
-              Get all general buttons when no candidate is logged in (SoT) (see separate on behalf form).
-      /single:
-        /me:
-          type: candidateButton
-          get:
-            description: |
-              Get a single general button for a logged in candidate (non-SoT)
-        /anonymous:
-          type: candidateButton
-          get:
-            description: |
-              Get a single general button when no candidate is logged in (non-SoT) (see separate on behalf form).
+      /me:
+        type: candidateButtons
+      /anonymous:
+        type: candidateButtons
     /jobs:
       /{job}:
         description: |
           Job-level buttons are typically embedded in job details pages, e.g. "apply", "share this job", etc.
-        /all:
-          /me:
-            type: candidateButtons
-            get:
-              description: |
-                Get a all job-scoped buttons for a logged in candidate (SoT)
-          /anonymous:
-            type: candidateButtons
-            get:
-              description: |
-                Get all job-scoped buttons when no candidate is logged in (SoT) (see separate on behalf form).
-        /single:
-          /me:
-            type: candidateButton
-            get:
-              description: |
-                Get a single job-scoped button for a logged in candidate (non-SoT)
-          /anonymous:
-            type: candidateButton
-            get:
-              description: |
-                Get a single job-scoped button when no candidate is logged in (non-SoT) (see separate on behalf form).
+        /me:
+          type: candidateButtons
+        /anonymous:
+          type: candidateButtons
     /search:
       description: |
         Search-scoped buttons are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
-      /all:
-        /me:
-          type: candidateButtons
-          get:
-            description: |
-              Get all search-scoped buttons for a logged in candidate (SoT)
-        /anonymous:
-          type: candidateButtons
-          get:
-            description: |
-              Get all search-scoped buttons when no candidate is logged in (SoT) (see separate on behalf form).
-      /single:
-        /me:
-          type: candidateButton
-          get:
-            description: |
-              Get a single search-scoped button for a logged in candidate (non-SoT)
-        /anonymous:
-          type: candidateButton
-          get:
-            description: |
-              Get a single search-scoped button when no candidate is logged in (non-SoT) (see separate on behalf form).
+      /me:
+        type: candidateButtons
+      /anonymous:
+        type: candidateButtons
 
 /categories:
   description: |

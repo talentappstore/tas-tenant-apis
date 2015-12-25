@@ -1,5 +1,16 @@
 #%RAML 0.8
 
+- loggedInHint:
+    description: |
+      REMOVE! Implied by on-behalf or not. Resource that takes a url parameter hinting that the principal is already logged in.  
+    queryParameters:
+      loggedIn:
+        type: boolean
+        description: |
+          True if the principal is likely already logged in.
+        example: true
+        required: true
+
 - offerEmbedMeta: 
     queryParameters:
       embedMeta:

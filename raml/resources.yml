@@ -4,7 +4,14 @@
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get all applicable candidate-facing buttons (SoT)
+        Get an array of buttons.
+        
+        When consumed as SoT, the array is a rollup of all applicable candidate-facing buttons from all apps.
+
+        When consumed as non-SoT, the array is just the button(s) for a single app. The producing app might customise the button(s), e.g.;
+        - for an apply button, display that a partial (draft) registration is already underway
+        - gray the register button out if candidate logged in and already registered
+
       is: [ trackable ]
       responses:
         200:
@@ -12,22 +19,6 @@
             application/json:
               schema: !include ../schemas/buttonDetails.json
               example: !include ../examples/buttonDetails-simple.json
-
-- candidateButton:
-    get:
-      securedBy: [oauth_2_0]
-      description: |
-        Get a single candidate-facing button (Non-SoT).
-        The producing app might customise the button, e.g.;
-        - for an apply button, display that a partial (draft) registration is already underway
-        - gray the register button out if candidate logged in and already registered
-      is: [ trackable ]
-      responses:
-        200:
-          body:
-            application/json:
-              schema: !include ../schemas/buttonDetail.json
-              example: !include ../examples/buttonDetail-simple.json
 
 - itemMetas:
     get:

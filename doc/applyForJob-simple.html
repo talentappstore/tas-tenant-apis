@@ -111,95 +111,67 @@ Location: 763019932
 <p>With the tracker set up, the ATS (jobly) is ready to render the job details page.
 </p>
 
-<p>As part of that, the ATS asks all interested apps whether they have a candidate-facing widget
+<p>As part of that, the ATS asks all interested apps whether they have a candidate-facing button
 (e.g. an apply button, join talent pool button, social sharing tool, view counter, etc.)
 that they would like to inject into the job details page.</p>
 
 <p>Since the candidate is not logged in, jobly calls the not-on-behalf version of the API to do this:</p>
 <div class='codeBlock'>
-GET /jobs/byID/7622/candidateWidgets/panel/anonymous?tracker=763019932
+/buttons/candidates/jobs/{job}/all/anonymous?tracker=763019932
 
 Response:
-&lt;button onClick="https://acme.simpleapply.com/openings/7622?tracker=763019932&relayPage=acme.jobly.com/openings/7622"&gt;Apply now&lt;/button&gt;
 </div>
+
+<p>Since the candidate is not logged in, the apply button(s) can't say (for example), "You've already applied".
+Instead, the panel shows whatever is appropriate for a completely unknown candidate, which is to allow apply.</p>
+</p>
 
 <p>If the candidate was logged in, jobly would use the on-behalf version in stead:
 <div class='codeBlock'>
-GET /jobs/byID/7622/candidateWidgets/panel/me?tracker=763019932
+/buttons/candidates/jobs/{job}/all/me?tracker=763019932
 
 Response:
-...
 </div>
-
-<p>In this example candidate is not logged in, so the panel will not say for example, "You've already applied".
-Instead, the panel shows whatever is appropriate for a completely unknown candidate.</p>
-
-<p>Note: even without a logged in candidate, these widget rendering apps could adapt their behaviour based on the data
-in the tracker, e.g. for candidates on a mobile device:
-<ul>
-<li>One apply mechanism (the desktop experience) stops rendering its button
-<li>Another (the mobile experience) starts rendering its button
-</ul>  
 </p>
+
 
 <h1>Candidate clicks apply</h1>
 
 <p>The entire job details page, and the apply button within it, are now rendered, so the candidate sees the "apply now" button at
-the bottom of the job description.</p>
-
-<div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
-</div>
-
-<p>If the candidate was logged in at jobly (e.g. to save some jobs to a cart), then jobly would have passed a hint to
-simpleapply that the candidate is already logged in. Due to the nature of SSO, simpleapply is unable to detect whether
-the visitor is logged into the SSO system or not. Therefore it looks to the loggedIn
-URL parameter for a hint. By convention, TAS apps that hyperlink to other TAS apps
-always attach the loggedIn URL parameter as a hint when the principal (i.e. the
-candidate) is already logged in.</p>
+the bottom of the job description.
 </p>
 
+<p>Note how the apps that generated the individual button links derived the loggedIn query parameter value from
+whether the button was generated from an on-behalf API call (logged in candidate) or for an anonymous candidate.
+</p>
+     
 <div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=true
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=false
 </div>
 
-<p>The candidate clicks on the simpleapply link.
+<p>The candidate clicks on the simpleapply link and is directed to the apply form.
 </p>
 
- 
-<h1>Simpleapply renders its page (candidate not logged in)</h1>
+<h1>Apply form</h1>
 
 <p>Candidate is now at:
 <div class='codeBlock'>
-https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=false
 </div>
 </p>
 
+<p>simpleapply renders its apply form slightly differently depending on whether a candidate is logged in or not.
+An anonymous visitor can't complete the form but can only view it. An anonymous visitor also sees the login disco panel
+embedded at the top of the page.</p>
 
-<p>simpleapply is able to render its "apply form" to either a logged in candidate, or to an anonymous web visitor
-(though the anonymous visitor can't complete the form but can only view it).</p>
-
-
-<h2>Redirect for logged in candidate</h2>
-
-<p>By logged in, we mean there is either:
-<ul>
-<li>an existing logged-in session
-<li>the loggedIn URL parameter is present (indicating that the candidate was already logged in at the ATS/job board)
-</ul>
-
-<p>If simpleapply detects the candidate is logged in as above, instead of serving the no-logged-in page,
-it returns http 302 to redirect the candidate to:
-
-<div class='codeBlock'>
-https://acme.simpleapply.com/secure/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
-</div>
+<p>simpleapply has the loggedIn filter described in <a href='conventions.html'>conventions.html</a>, but the filter doesn't fire
+since loggedIn = false.
 </p>
 
-<p>Note the loggedIn parameter has been stripped.
-</p>
+<p>The page is white listed in the proxy's SSO settings.</p>
 
-<p>In this case, they aren't logged in, so we continue rendering this page.
+<p>simpleapply checks for the tazzy-saml header. Even though this page is white listed, its possible the candidate did log in previously
+somewhere else on simpleapply. In this example, the header is not present.
 </p>
 
 <h2>Render for non-logged in candidate</h2>
@@ -211,17 +183,7 @@ mobile-friendly UI, ease of login via social networks, etc.
 </p>
 
 <p>At the top of this "not logged in" page is an iframe displaying a panel of login controls courtesy of the TAS
-identity system.
-</p>
-
-<p>The URL of this iframe is:
-<div class='codeBlock'>
-https://acme.simpleapply.com/secure/redirectFor/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
-</div>
-</p>
-
-<p>This resource (which is not a web page but a redirect) is SSO-protected, and the user is not logged in, so TAS intercepts access to it
-and instead serves up the login panel (still inside the main page).
+identity system as per <a href='conventions.html'>conventions.html</a>.
 </p>
 
 
@@ -241,6 +203,7 @@ does not belong inside simpleapply, but is more likely in the ATS.</p>
 
 <div class='codeBlock'>
 POST /editSpecs/fetches/apply/7622/anonymous
+
 
 Request:
 <div class='clientInclude' data-href='../examples/intent-apply.json'></div>

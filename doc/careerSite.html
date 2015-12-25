@@ -58,8 +58,7 @@ leads candidates to the apply (or register) processes, and allows them to save j
 Should GET /jobs return
 Display global-scoped candidateWidgets somewhere
 Entry with a job code
-How are customer-defined fields found and rendered for a job?
-	Some API needs to list the internally and externally displayed items so the board can request them.
+
 </pre>
 
 
@@ -224,19 +223,35 @@ ZZZZZZZZZZZZZZ
 <p>Description is in safe markdown and needs to be converted to HTML.
 </p>
 
-<p>Inject the job-related widgets (apply button, share button, etc.):
+<p>Pull back details for all of the job-related buttons (apply button, share button, etc.) and render:
 
 <div class='codeBlock'>
-GET /candidateWidgets/jobs/{job}/panel/anonymous</div>
+GET /buttons/candidates/jobs/{job}/all/anonymous</div>
 <br />
 </p>
 
 <p>or if the candidate is logged in:
 
 <div class='codeBlock'>
-GET /candidateWidgets/jobs/{job}/panel/anonymous 
+GET /buttons/candidates/jobs/{job}/all/me 
 </div>
 </p>
+
+<p>Pull back all of the job-related values (position description documents, etc.) and render (perhaps in a table):
+
+<div class='codeBlock'>
+GET /jobs/items/candidate/anonymous
+<br />
+</p>
+
+<p>or if the candidate is logged in:
+
+<div class='codeBlock'>
+GET /jobs/items/candidate/me
+</div>
+</p>
+
+
 
 
 

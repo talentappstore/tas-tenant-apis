@@ -280,25 +280,43 @@ resourceTypes: !include resources.yml
     /general:
       description: |
         General buttons are typically embedded in page headers, e.g. "register", "share this entire site", etc.
-      /me:
-        type: candidateButtons
-      /anonymous:
-        type: candidateButtons
+      /app:
+        /me:
+          type: candidateAppButtons
+        /anonymous:
+          type: candidateAppButtons
+      /apps:
+        /me:
+          type: candidateAppsButtons
+        /anonymous:
+          type: candidateAppsButtons
     /jobs:
       /{job}:
         description: |
           Job-level buttons are typically embedded in job details pages, e.g. "apply", "share this job", etc.
+      /app:
         /me:
-          type: candidateButtons
+          type: candidateAppButtons
         /anonymous:
-          type: candidateButtons
+          type: candidateAppButtons
+      /apps:
+        /me:
+          type: candidateAppsButtons
+        /anonymous:
+          type: candidateAppsButtons
     /search:
       description: |
         Search-scoped buttons are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
-      /me:
-        type: candidateButtons
-      /anonymous:
-        type: candidateButtons
+      /app:
+        /me:
+          type: candidateAppButtons
+        /anonymous:
+          type: candidateAppButtons
+      /apps:
+        /me:
+          type: candidateAppsButtons
+        /anonymous:
+          type: candidateAppsButtons
 
 /categories:
   description: |

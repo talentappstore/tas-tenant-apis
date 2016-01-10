@@ -1,0 +1,19 @@
+{
+  "app": "myapp",
+  "buttons": [
+    {
+      "verb": "Refer a friend",
+      "uri": "https://referrals.com/jobs/1022?tracker=106645",
+      "behavior": "redirect",
+      "appearance": "default",
+      "disabled": false
+    },
+    {
+      "verb": "Share this job",
+      "uri": "https://sharing.com/jobs/1022?tracker=106645",
+      "behavior": "modal",
+      "appearance": "primary",
+      "disabled": false
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "array",
+    "items": { "$ref": "buttonsForApp.json" },
+    "description": "An array of buttons rolled up across all producing apps"
+}

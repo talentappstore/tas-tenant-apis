@@ -43,6 +43,7 @@
     "recruiterFilter": { "$ref": "../schemas/recruiterFilter.json" },
     "recruiter": { "$ref": "../schemas/recruiter.json" },
     "recruiters": { "$ref": "../schemas/recruiters.json" },
+    "trackerCreation": { "$ref": "../schemas/trackerCreation.json" },
     "tracker": { "$ref": "../schemas/tracker.json" },
     "trackers": { "$ref": "../schemas/trackers.json" },
     "userArea": { "$ref": "../schemas/userArea.json" }

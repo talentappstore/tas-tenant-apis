@@ -846,6 +846,13 @@ resourceTypes: !include resources.yml
       application/json:
         schema: !include ../schemas/tracker.json
         example: !include ../examples/tracker-createSessionTracker.json
+    responses:
+      201:
+        description: a tracker was created
+        body:
+          application/json:
+            schema: !include ../schemas/trackerCreation.json
+            example: !include ../examples/trackerCreation-simple.json
   /byID:
     /{id}:
       /chain:
@@ -868,6 +875,13 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/tracker.json
               example: !include ../examples/tracker-createMailoutTracker.json
+          responses:
+            201:
+              description: a tracker was created
+              body:
+                application/json:
+                  schema: !include ../schemas/trackerCreation.json
+                  example: !include ../examples/trackerCreation-simple.json
 
 /recruiters:
   description: |

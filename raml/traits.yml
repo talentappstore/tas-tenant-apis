@@ -1,5 +1,29 @@
 #%RAML 0.8
 
+- vcardGetter:
+    securedBy: [oauth_2_0]
+    description: get candidate contact details, in the form described by rfc7095
+    responses:
+      200:
+        description: response contains candidate contact details, in the form described by rfc7095
+        body:
+          application/json:
+
+- resumeMetaGetter:
+    securedBy: [oauth_2_0]
+    description: get metadata about the candidate's resume (size, filename, etc.)
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/fileDownload.json
+            example: !include ../examples/fileDownload-simple.json
+
+- socialGetter:
+    responses:
+      404:
+        description: the requested data was not available from the given social network
+
 - loggedInHint:
     description: |
       REMOVE! Implied by on-behalf or not. Resource that takes a url parameter hinting that the principal is already logged in.  

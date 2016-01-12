@@ -115,22 +115,13 @@ resourceTypes: !include resources.yml
       securedBy: [oauth_2_0]
       description: |
         Get general information about the candidate including notifications (subscribe y/n)
-
     /vcard:
       get:
-        securedBy: [oauth_2_0]
-        description: candidate contact details, in the form described by rfc7095
+        is: [ vcardGetter ]
     /resume:
       /meta:
         get:
-          securedBy: [oauth_2_0]
-          description: get metadata about the candidate's resume (size, filename, etc.)
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/fileDownload.json
-                  example: !include ../examples/fileDownload-simple.json
+          is: [ resumeMetaGetter ]
       /asDocument:
         get:
           securedBy: [oauth_2_0]
@@ -227,8 +218,6 @@ resourceTypes: !include resources.yml
                 application/json:
                   schema: !include ../schemas/categoriesActual.json
                   example: !include ../examples/categoriesActual-simple.json
-        
-                
     /latestApplyTracker:
       get:
         securedBy: [oauth_2_0]
@@ -243,6 +232,20 @@ resourceTypes: !include resources.yml
           get:
             securedBy: [oauth_2_0]
             description: a tracker, as passed in to the edit
+    /social:
+      /{network}:
+        /vcard:
+          get:
+            is: [ vcardGetter, socialGetter ]
+        /resume:
+          /meta:
+            get:
+              is: [ resumeMetaGetter, socialGetter ]
+          /asDocument:
+            get:
+              securedBy: [oauth_2_0]
+              is: [ document_asStream, socialGetter ]
+            
   /byID:
     /{candidate}:
       /stars:
@@ -1003,3 +1006,14 @@ resourceTypes: !include resources.yml
           will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
           The method is a POST solely because the size and number of parameters might get too large for a GET.
 
+/socialNetworks:
+  get:
+    description: Get the social networks that are enabled for this tenant 
+    securedBy: [oauth_2_0]
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/socialNetworks.json
+            example: !include ../examples/socialNetworks-simple.json
+    

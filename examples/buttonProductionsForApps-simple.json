@@ -1,0 +1,16 @@
+[
+  {
+    "app": "superapply",
+    "buttonProductions": [
+      "apply"
+    ]
+  },
+  {
+    "app": "legacyats",
+    "buttonProductions": [
+      "apply",
+      "share",
+      "refer"
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"definitions": {
+	  "buttonName": {
+			"type": "string",
+			"description": "fixed name of this button, containing only lower case alpha, digits and '-' characters, length <= 30"
+	  }
+	},
+	"type": "array",
+	"items": {
+	  "$ref": "#/definitions/buttonName"
+	}
+}

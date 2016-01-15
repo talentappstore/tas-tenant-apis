@@ -1,0 +1,21 @@
+{
+  "categories": [
+    {
+      "category": 10032,
+      "values": [
+        10034,
+        10036
+      ]
+    },
+    {
+      "category": 10055,
+      "values": [
+        1085
+      ]
+    }
+  ],
+  "workflows": [
+    10055,
+    10058
+  ]
+}

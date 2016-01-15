@@ -1,5 +1,6 @@
 {
-	"verb": "Refer a friend",
+	"name": "refer",
+	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
 	"appearance": "default",

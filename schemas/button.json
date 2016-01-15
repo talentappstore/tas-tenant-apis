@@ -3,7 +3,11 @@
 	"type": "object",
 	"description": "the logical information needed to populate a button, excluding style information (which is down to the app rendering the button)",
 	"properties": {
-		"verb": {
+		"name": {
+			"type": "string",
+			"description": "fixed name of this button, containing only lower case alpha, digits and '-' characters, length <= 30"
+		},
+		"label": {
 			"type": "string",
 			"description": "a string indicating what the button will do, used as the label"
 		},
@@ -25,5 +29,6 @@
 			"description": "true if the button should appear disabled"
 		}
 	},
+	"required": [ "name", "label", "behavior", "uri", "appearance", "disabled" ],
 	"additionalProperties": false
 }

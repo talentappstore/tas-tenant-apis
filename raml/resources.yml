@@ -32,6 +32,31 @@
               schema: !include ../schemas/buttonsForApps.json
               example: !include ../examples/buttonsForApps-simple.json
 
+- candidateAppPossibleButtons:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array of all buttons that may be produced by a single app. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/buttonProductions.json
+              example: !include ../examples/buttonProductions-simple.json
+
+- candidateAppsPossibleButtons:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array which is a rollup of all possible candidate-facing buttons from all apps. SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/buttonProductionsForApps.json
+              example: !include ../examples/buttonProductionsForApps-simple.json
+
+
 - itemMetas:
     get:
       securedBy: [oauth_2_0]

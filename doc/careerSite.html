@@ -121,10 +121,10 @@ GET /jobBoardUriBase
 <p>Most boards have some kind of header or common area at the top of the page where the candidate's login status etc. is displayed.
 </p>
 
-<p>Your board should inject widgets here:
+<p>Your board should inject HTML for the general buttons in this area. The actual buttons are given by consuming:
 
 <div class='codeBlock'>
-GET /candidateWidgets/panel/anonymous 
+GET /buttons/candidate/general/me/anonymous 
 </div>
 <br />
 </p>
@@ -132,46 +132,10 @@ GET /candidateWidgets/panel/anonymous
 <p>or if the candidate is logged in:
 
 <div class='codeBlock'>
-GET /candidateWidgets/panel/me 
+GET /buttons/candidate/general/me/me 
 </div>
 </p>
 
-
-
-<h2>Job search UI</h2>
-
-<p>Most job boards will display a screen something like this to allow the user to search for jobs:
-
-<div class='codeBlock'>
-Location:  |_Balclutha_______|V]
-Expertise: |_Sales roles_____|V]
-Type:      |_Part-time_______|V]
-Keywords:  [______]
-[Search]
-</div>
-</p>
-
-<p>To populate a search UI like this, the job board should:
-<ol>
-<li>fetch categories via GET /categories
-<li>fetch values (which may be hierarchical) for each category via GET /categories/{}/values
-</ol>
-</p>
-
-<p>Also inject any widgets relevant to the search (e.g. "alert me for jobs like this") using
-
-<div class='codeBlock'>
-/candidateWidgets/search/panel/me
-</div>
-<br />
-</p>
-
-<p>or if the candidate is logged in:
-
-<div class='codeBlock'>
-/candidateWidgets/search/panel/me
-</div>
-</p>
 
 <h2>Job details page</h2>
 
@@ -181,22 +145,22 @@ Keywords:  [______]
 <p>Your app should serve the page at GET /jobBoardUriBase + the link as in "creating links for jobs". 
 </p>
 
-<p>If your board supports login, then this page should sit behind a loggedIn filter (as per conventions.html). This way
+<h3>LoggedIn filter</h3>
+
+<p>If your board supports login (a board that doesn't should only display publicly visible jobs), then this page
+should sit behind a loggedIn filter (as per conventions.html). This way
 a candidate who was logged in at another app (e.g. UberApply) and then linked to here (e.g. by clicking "View job details"), will be asked
 to log in, which should happen invisibly, and can then (for example) see internal details for the job if they are an internal.
 </p> 
 
-ZZZZZZZZZZZZZZ
-
-
-
+<h3>Fetch details for job</h3>
 
 <p>Parse the job's ID from the URL and use it to call GET /jobs and GET /jobs/{}/description.
 </p>
 
 <p>Display if the job is internal only (to guide internals not to share it)
 
-<p>Render using this logic to handle internals:
+<p>Render using this logic to handle internal candidates:
 <pre>
 - if your board supports login
 	- if the candidate is logged in
@@ -204,36 +168,37 @@ ZZZZZZZZZZZZZZ
 			- if the job is visible internally
 				- render the job, with its internal details
 			- else
-				- render "sorry" message
+				- render "sorry, this job is not available to internal candidates" message
 		- else (public job seeker)
 			- if the job is visible externally
 				- render the job, with its external details
 			- else
-				- render "sorry" message
+				- render "sorry, this job is not visible to external candidates" message
 	- else
 		- if the job is visible externally
 			- render job, with its external details
 		- else if the job is visible internally
 			- redirect to self with loggedIn param (they may be internal)
+			- the loggedIn filter fires and forces login
 		- else (not visible at all)
-			- render "sorry" message
+			- render "sorry, this job is no longer available" message
 </pre>
 </p>
 
-<p>Description is in safe markdown and needs to be converted to HTML.
+<p>The job's description is in safe markdown and needs to be converted to HTML.
 </p>
 
 <p>Pull back details for all of the job-related buttons (apply button, share button, etc.) and render:
 
 <div class='codeBlock'>
-GET /buttons/candidates/jobs/{job}/all/anonymous</div>
+GET /buttons/candidate/job/forJob/{job}/anonymous</div>
 <br />
 </p>
 
 <p>or if the candidate is logged in:
 
 <div class='codeBlock'>
-GET /buttons/candidates/jobs/{job}/all/me 
+GET /buttons/candidate/job/forJob/{job}/me 
 </div>
 </p>
 
@@ -250,9 +215,6 @@ GET /jobs/items/candidate/anonymous
 GET /jobs/items/candidate/me
 </div>
 </p>
-
-
-
 
 
 <h2>Job details page - HISTORICAL</h2>
@@ -343,6 +305,43 @@ canLandOnInternal
 		not logged in
 </pre>
 
+
+
+
+<h2>Job search UI</h2>
+
+<p>Most job boards will display a screen something like this to allow the user to search for jobs:
+
+<div class='codeBlock'>
+Location:  |_Balclutha_______|V]
+Expertise: |_Sales roles_____|V]
+Type:      |_Part-time_______|V]
+Keywords:  [______]
+[Search]
+</div>
+</p>
+
+<p>To populate a search UI like this, the job board should:
+<ol>
+<li>fetch categories via GET /categories
+<li>fetch values (which may be hierarchical) for each category via GET /categories/{}/values
+</ol>
+</p>
+
+<p>Also inject any widgets relevant to the search (e.g. "alert me for jobs like this") using
+
+<div class='codeBlock'>
+/candidateWidgets/search/panel/me
+</div>
+<br />
+</p>
+
+<p>or if the candidate is logged in:
+
+<div class='codeBlock'>
+/candidateWidgets/search/panel/me
+</div>
+</p>
 
 <h2>Job list/search results pages</h2>
 

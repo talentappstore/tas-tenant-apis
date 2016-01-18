@@ -136,26 +136,6 @@ resourceTypes: !include resources.yml
             Probably only useful as non-SoT.
           post:        
             securedBy: [oauth_2_0]
-    /itemMetas:
-      description: |
-        Metadata for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-      type: itemMetas
-      /byName:
-        /{item}:
-          type: itemMeta
-    /items:
-      description: |
-        Values for all candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned),
-        Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
-        suitable for directly embedding in a web page. The expiring link is different for every request.
-      type: items
-      get:
-        is: [ offerEmbedMeta ] 
-      /byName:
-        /{item}:
-          type: item
-          get:
-            is: [ offerEmbedMeta ] 
     /categories:
       get:
         securedBy: [oauth_2_0]
@@ -278,62 +258,70 @@ resourceTypes: !include resources.yml
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
+
 /buttons:
-  /candidate:
-    description: candidate buttons are displayed to candidates, e.g. "register", "apply", "share job", etc.
-    /general:
-      description: |
-        General buttons are typically embedded in page headers, e.g. "register", "share this entire site", etc.
-      /possible:
-        type: candidateAppsPossibleButtons
-        /forApp:
-          type: candidateAppPossibleButtons
-      /byName:
-        /{button}:
-          /me:
-            type: candidateAppButton
-          /anonymous:
-            type: candidateAppButton
-      /me:
+  /toCandidate:
+    /me:
+      /general:
         type: candidateAppsButtons
-      /anonymous:
-        type: candidateAppsButtons
-    /job:
-      description: |
-        Job-level buttons are typically embedded in job details pages, e.g. "apply", "share this job", etc.
-      /possible:
-        type: candidateAppsPossibleButtons
-        /forApp:
-          type: candidateAppPossibleButtons
-      /forJob:
-        /{job}:
+        /byApp:
           /byName:
             /{button}:
-              /me:
+              type: candidateAppButton
+      /jobs:
+        /{job}:
+          type: candidateAppsButtons
+          /byApp:
+            /byName:
+              /{button}:
                 type: candidateAppButton
-              /anonymous:
+      /search:
+        type: candidateAppsButtons
+        /byApp:
+          /byName:
+            /{button}:
+              type: candidateAppButton
+    /anonymous:
+      /general:
+        type: candidateAppsButtons
+        /byApp:
+          /byName:
+            /{button}:
+              type: candidateAppButton
+      /jobs:
+        /{job}:
+          type: candidateAppsButtons
+          /byApp:
+            /byName:
+              /{button}:
                 type: candidateAppButton
-          /me:
-            type: candidateAppsButtons
-          /anonymous:
-            type: candidateAppsButtons
+      /search:
+        type: candidateAppsButtons
+        /byApp:
+          /byName:
+            /{button}:
+              type: candidateAppButton
+    /general:
+      description: |
+        General buttons seen by candidates are typically embedded in page headers, e.g. "register", "share this entire site", etc.
+      /possibles:
+        type: candidateAppsPossibleButtons
+        /byApp:
+          type: candidateAppPossibleButtons
+    /job:
+      description: |
+        Job-level buttons seen by candidates are typically embedded in job details pages, e.g. "apply", "share this job", etc.
+      /possibles:
+        type: candidateAppsPossibleButtons
+        /byApp:
+          type: candidateAppPossibleButtons
     /search:
       description: |
-        Search-scoped buttons are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
-      /possible:
+        Search-scoped buttons seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
+      /possibles:
         type: candidateAppsPossibleButtons
-        /forApp:
+        /byApp:
           type: candidateAppPossibleButtons
-      /byName:
-        /{button}:
-          /me:
-            type: candidateAppButton
-          /anonymous:
-            type: candidateAppButton
-      /me:
-        type: candidateAppsButtons
-      /anonymous:
-        type: candidateAppsButtons
 
 /categories:
   description: |
@@ -628,6 +616,80 @@ resourceTypes: !include resources.yml
             width web page. The uri should expire within 24 hours.  
 
 
+/items:
+  /toCandidate:
+    /anonymous:
+      /jobs:
+        /{job}:
+          description: items held on a job that are visible to candidates, e.g. position description document
+          type: items
+          get:
+            is: [ offerEmbedMeta ] 
+          /byName:
+            /{item}:
+              type: item
+              get:
+                is: [ offerEmbedMeta ]
+          /itemMetas:
+            description: |
+              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+            type: itemMetas
+            /byName:
+              /{item}:
+                type: itemMeta
+    /me:
+      description: candidate-visible items held on the candidate themselves, e.g. their own answers when applying for jobs
+      type: items
+      get:
+        is: [ offerEmbedMeta ] 
+      /byName:
+        /{item}:
+          type: item
+          get:
+            is: [ offerEmbedMeta ]
+      /itemMetas:
+        description: |
+          Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+        type: itemMetas
+        /byName:
+          /{item}:
+            type: itemMeta
+      /forJob:
+        /{job}:
+          type: items
+          get:
+            is: [ offerEmbedMeta ] 
+          /byName:
+            /{item}:
+              type: item
+              get:
+                is: [ offerEmbedMeta ]
+          /itemMetas:
+            description: |
+              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+            type: itemMetas
+            /byName:
+              /{item}:
+                type: itemMeta
+      /jobs:
+        /{job}:
+          description: items held on a job that are visible to candidates, e.g. position description document
+          type: items
+          get:
+            is: [ offerEmbedMeta ] 
+          /byName:
+            /{item}:
+              type: item
+              get:
+                is: [ offerEmbedMeta ]
+          /itemMetas:
+            description: |
+              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+            type: itemMetas
+            /byName:
+              /{item}:
+                type: itemMeta
+
 /jobs:
   description: |
     Position openings aka vacancies, job openings, etc.
@@ -655,22 +717,6 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/jobs.json
             example: !include ../examples/jobs-simple.json
-  /items:
-    /candidate:
-      description: |
-        Values for all job-scoped items visible to the candidate.
-        Consumers should not cache responses, as responses that contain file uploads also include an expiring link to the content,
-        suitable for directly embedding in a web page. The expiring link is different for every request.
-      /me:
-        type: items
-        /byName:
-          /{item}:
-            type: item
-      /anonymous:        
-        type: items
-        /byName:
-          /{item}:
-            type: item
   /searches:
     post:
       securedBy: [oauth_2_0]

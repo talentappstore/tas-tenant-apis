@@ -1,5 +1,29 @@
 #%RAML 0.8
 
+- userAppPanels:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array of all of the user-facing panels from a single app. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/panels.json
+              example: !include ../examples/panels-simple.json
+
+- userAppsPanels:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array of all of the user-facing panels from all apps. SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/panelsForApps.json
+              example: !include ../examples/panelsForApps-simple.json
+
 - candidateAppButton:
     get:
       securedBy: [oauth_2_0]

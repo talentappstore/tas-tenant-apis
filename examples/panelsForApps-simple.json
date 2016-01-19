@@ -1,0 +1,18 @@
+[
+  {
+    "app": "buttonmapper",
+    "panels": [
+      {
+        "uri": "https://buttonmapper.com"
+      }
+    ]
+  },
+  {
+    "app": "bigshare",
+    "panels": [
+      {
+        "uri": "https://bigshare.com"
+      }
+    ]
+  }
+]

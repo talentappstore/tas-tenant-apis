@@ -258,6 +258,14 @@ resourceTypes: !include resources.yml
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
+/panels:
+  /toUser:
+    /me:
+      /jobs:
+        /{job}:
+          type: userAppsPanels
+          /byApp:
+            type: userAppPanels
 
 /buttons:
   /toCandidate:

@@ -203,6 +203,28 @@ API consumer calls GET /positionOpenings/10334
 of the tazzy-tenant header and refuse any requests without it.
 </p>  
 
+<h1>URLs for complex resources</h1>
+
+<p>We try and follow something like this pattern for urls of complex resources.
+</p>
+
+<pre>
+Class - broad family for the resource, e.g. buttons
+Who - principal type who can view the resource + actual viewer, e.g., me, anonymous, byID/{id}
+Where - significant location, e.g. general, /jobs/{job} - possibly implied by who  
+What - specific resource type, e.g. possibles, meta, omitted where obvious
+Which - further filtering (over location), e.g. byName/{name}, byApp
+
+e.g.: /items/toCandidate/me/jobs/{job}/itemMetas/byName/{item}
+
+Class - /items
+Who - /toCandidate/me
+Where - /jobs/{job}
+What - /itemMetas
+Which - /byName/{item}
+</pre>
+
+
 <h1>SSO conventions</h1>
 
 <h2>Common resources</h2>

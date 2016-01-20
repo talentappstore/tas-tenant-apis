@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "jobBoard": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "label for this board, e.g. Graduate recruitment site"
+        },
+        "baseUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "base uri for this board, e.g. used to prefix job links"
+        },
+        "jobUriTemplate": {
+          "type": "string",
+          "description": "the URI template (relative) that the board uses as job links - some subset of id, code and safe title may need to be replaced, and a tracker argument may be added"
+        }
+      },
+      "required": [
+        "label",
+        "baseUri",
+        "jobUriTemplate"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/jobBoard"
+  }
+}

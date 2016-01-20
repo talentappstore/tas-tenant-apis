@@ -32,31 +32,13 @@
 <div id="toc"></div>
 
 
-<h1>Scenario</h1>
-
-<p>This scenario involves these apps:
-<ol>
-<li>supersite, an app that acts as the career site for a tenant, i.e. lists and allows search for jobs, provides employment branding content,
-leads candidates to the apply (or register) processes, and allows them to save jobs.
-</ol>
-</p>
-
-<h1>Steps</h1>
-
-<h2>Install</h2>
-
-<ol>
-<li>Create app "supersite"
-<li>Install supersite into tenant
-</ol>
-
-
 <h1>Unresolved</h1>
 <pre>
 
-	
+
+Session tracker
+Source tracking - should all boards support source=X ?	
 Should GET /jobs return
-Display global-scoped candidateWidgets somewhere
 Entry with a job code
 
 </pre>
@@ -64,53 +46,51 @@ Entry with a job code
 
 <h1>Concepts</h1>
 
-<h2>Site types</h2>
+<h2>Boards</h2>
 
+<p>An app can host one or more boards (careers sites), e.g. one for graduate recruitment, one for a specific country, etc.
+</p>
 
-<pre>
-Microsite
----------
-Site is full sized (entire page)
-Job links lead to job details page on same site
-Max of one microsite can be designated as primary (main careers site)
-	Primary is typically targeted by links in:
-		- main menu of tenant's web site (i.e. "careers")
-		- job alert emails
-		- job board postings
-		- social media shares
-		- job listings in nanosites
-App should be written to work as either primary or secondary (that's a tenant decision)		
-	
-Nanosite
---------
-Site is small (designed for embedding via iframe etc.)
-Job links lead to job details page on primary board
-</pre>
+<p>Each board might support:
+<ul>
+<li>browsing and searching for jobs 
+<li>viewing details for a specific job
+<li>displaying buttons for other apps against a job, e.g. apply, share, refer, etc.
+</ul>
+
+<p>A tenant can designate any board as the "primary board", i.e. the main careers site.
+</p>
+
+<p>Other apps will typically target the primary board when they create links to the board itself or to specific jobs on the board, e.g.:
+<ul>
+<li>the main menu of the tenant's web site (i.e. the "careers" section)
+<li>job alert emails
+<li>job board postings
+<li>social media shares
+</ul>
+</p>		
 
 
 <h1>Produce APIs
 </h1>
 
-<h2>GET /jobBoardUriBase
+<h2>GET /jobBoards/forApp
 </h2>
 
-<p>Other apps need to know the base URI that your board lives at, so that they can compose links leading to jobs.
+<p>The APIs have the concept of a primary board. This is the board that other apps, such as a job emailer, would
+generate links to.
 </p>
 
-<p>Your app tells them by producing (as non-SoT) GET /jobBoardUriBase:
+<p>If your app produces any board that may (even in the future) be marked as the primary board, then your
+app needs to declare those boards to other apps by producing (as non-SoT):
  
 <div class='codeBlock'>
-GET /jobBoardUriBase
+GET /jobBoards/forApp
 
-<div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
-
-{
-   "uriBase": "https://awesomeretailcareers.io"
-}
-
+Response:
+<div class='clientInclude' data-href='../examples/jobBoards-simple.json'></div>
 </div>
 </p>
-
 
 
 <h1>UI
@@ -121,7 +101,7 @@ GET /jobBoardUriBase
 <p>Most boards have some kind of header or common area at the top of the page where the candidate's login status etc. is displayed.
 </p>
 
-<p>Your board should inject HTML for the general buttons in this area. The actual buttons are given by consuming:
+<p>Your board should inject HTML for the general buttons in this area, by consuming:
 
 <div class='codeBlock'>
 GET /buttons/candidate/general/me/anonymous 
@@ -139,28 +119,35 @@ GET /buttons/candidate/general/me/me
 
 <h2>Job details page</h2>
 
-<p>You site may serve a "job details page" where the candidate can read the job description and click to apply.
+<p>Your board likely serves a "job details page" where the candidate can read the job description and click to apply.
 </p>
 
-<p>Your app should serve the page at GET /jobBoardUriBase + the link as in "creating links for jobs". 
+<p>Your board should serve these pages at {baseUri} + {jobUriTemplate}, i.e. as your board returns in GET /jobBoards/forApp. 
 </p>
 
 <h3>LoggedIn filter</h3>
 
 <p>If your board supports login (a board that doesn't should only display publicly visible jobs), then this page
-should sit behind a loggedIn filter (as per conventions.html). This way
-a candidate who was logged in at another app (e.g. UberApply) and then linked to here (e.g. by clicking "View job details"), will be asked
+should sit behind a loggedIn filter (as per conventions.html).
+</p>
+
+<p>This way a candidate who was logged in at another app (e.g. UberApply) and then linked to here (e.g. by clicking "View job details"), will be asked
 to log in, which should happen invisibly, and can then (for example) see internal details for the job if they are an internal.
 </p> 
 
 <h3>Fetch details for job</h3>
 
-<p>Parse the job's ID from the URL and use it to call GET /jobs and GET /jobs/{}/description.
+<p>Your board should parse the job's ID from the URL, then use it to consume:
+<ul>
+<li>GET /jobs/byID/{job}
+<li>GET /jobs/byID/{job}/description
+</ul>
 </p>
 
-<p>Display if the job is internal only (to guide internals not to share it)
+<p>You should display an indicator to show if the job is internal only (to guide internals not to share it).
+</p>
 
-<p>Render using this logic to handle internal candidates:
+<p>Your board can render the job using the following logic to handle internal candidates:
 <pre>
 - if your board supports login
 	- if the candidate is logged in
@@ -185,132 +172,42 @@ to log in, which should happen invisibly, and can then (for example) see interna
 </pre>
 </p>
 
-<p>The job's description is in safe markdown and needs to be converted to HTML.
+<p>The job's description is in safe markdown and needs to be converted to HTML before display.
 </p>
 
-<p>Pull back details for all of the job-related buttons (apply button, share button, etc.) and render:
+<p>Your board should also retrieve all of the job-related values (position description documents, etc.) and render (perhaps in a table):
 
 <div class='codeBlock'>
-GET /buttons/candidate/job/forJob/{job}/anonymous</div>
+GET /items/toCandidate/anonymous/jobs/{job}
+</div>
+</p>
+
+<p>or if the candidate is logged in:
+
+<div class='codeBlock'>
+GET /items/toCandidate/me/jobs/{job}
+</div>
+</p>
+
+<p>Your board should retrieve details of all of the job-related buttons (apply button, share button, etc.) and render them:
+
+<div class='codeBlock'>
+GET /buttons/toCandidate/anonymous/jobs/{job}
+</div>
 <br />
 </p>
 
 <p>or if the candidate is logged in:
 
 <div class='codeBlock'>
-GET /buttons/candidate/job/forJob/{job}/me 
+GET /buttons/toCandidate/me/jobs/{job}
 </div>
 </p>
-
-<p>Pull back all of the job-related values (position description documents, etc.) and render (perhaps in a table):
-
-<div class='codeBlock'>
-GET /jobs/items/candidate/anonymous
-<br />
-</p>
-
-<p>or if the candidate is logged in:
-
-<div class='codeBlock'>
-GET /jobs/items/candidate/me
-</div>
-</p>
-
-
-<h2>Job details page - HISTORICAL</h2>
-
-<p>This section is to be replaced by different handling - here for historical purposes only.
-</p>
- 
-<p>Often internal candidates have a different experience to public job seekers. They may see extra information, or be able to do extra things (like refer a friend).
-</p>
-
-<p>So normally your board should expose two different pages for each job:
-<ul>
-<li>an SSO-protected "internals" page intended only for logged in candidates who have role == internal, e.g. /internal/jobs/{job}
-<li>a non-SSO-protected "public" page used in all other cases, e.g. /jobs/{job}
-</ul> 
-
-
-<h3>Perform redirects for candidates arriving at the wrong job details page</h3>
-
-<p>Sometimes candidates will arrive at a job via the wrong URL. For example, an internal candidate
-viewing a job at work may share the link to the "internals" page with a friend via email. The friend is not an employee
-so is not allowed to view the job's internal details. Rather than simply display an error page, your
-app should redirect them to the public view of the job.
-</p>
-
-<p>The logic below can be used in your board's rendering of job details pages, while avoiding redirect loops. The possible outcomes of the logc below are:
-<ul>
-<li>the page is rendered as normal
-<li>while rendering, the app finds that the job is not visible to the candidate, and
-so renders with an error displayed: "Sorry, job not available - click to go _home_"
-<li>a 302 redirect is served to the "other" URL (e.g. if they started at public, they get redirected to internals) 
-</ul>
-</p>
-
-<p>Logic to render public page:
-<div class='codeBlock'>
-// candidate may or may not be logged in
-// try to steer internals to the internal view
-if job is open internally
-	if canLandOnInternal in (yes, maybe)
-		redirect to internal page
-	else
-		render (no redirect)
-else
-		// job may not be open externally - don't check, the page will render with "job not available" (URL stays kosher)	
-	no redirect
-</div>
-</p>
-
-<p>Logic to render internals page:
-<div class='codeBlock'>
-// Since page is SSO-protected, we know candidate is logged in at this point
--- try to steer externals to the external view
-if job is open externally
-	if canLandOnInternal in (no) and canLandOnExternal in (maybe, yes)
-		redirect to external view
-	else
-		render (no redirect)
-else
-	render (no redirect)
-</div>
-</p>
-
-<p>The logic above refers to booleans such as <b>canLandOnInternal</b>. These are derived as follows. The logic is more permissive for landing on a job, rather than being able to apply for it,
-since we don't want anyone to be prevented from seeing publicly open jobs (they may want to refer a friend).
-</p>
-
-<pre>
-canApplyForPublic
-	yes
-		logged in and does not have "internal" role
-	no
-		logged in and has "internal" role
-		not logged in and coming from internal IP
-	maybe
-		not logged in
-
-canLandOnPublic (always true)
-		
-canApplyForInternal
-canLandOnInternal
-	yes
-		not logged in and coming from internal IP
-		logged in and has "internal" role
-	no
-		logged in and does not have "internal" role
-	maybe
-		not logged in
-</pre>
-
-
 
 
 <h2>Job search UI</h2>
 
-<p>Most job boards will display a screen something like this to allow the user to search for jobs:
+<p>Most boards will display a screen something like this to allow the user to search for jobs:
 
 <div class='codeBlock'>
 Location:  |_Balclutha_______|V]
@@ -321,38 +218,27 @@ Keywords:  [______]
 </div>
 </p>
 
-<p>To populate a search UI like this, the job board should:
-<ol>
-<li>fetch categories via GET /categories
-<li>fetch values (which may be hierarchical) for each category via GET /categories/{}/values
-</ol>
-</p>
-
-<p>Also inject any widgets relevant to the search (e.g. "alert me for jobs like this") using
-
-<div class='codeBlock'>
-/candidateWidgets/search/panel/me
-</div>
-<br />
-</p>
-
-<p>or if the candidate is logged in:
-
-<div class='codeBlock'>
-/candidateWidgets/search/panel/me
-</div>
+<p>To populate a search UI like this, your board can consume:
+<ul>
+<li>GET /categories
+<li>GET /categories/{}/values for each category
+</ul>
 </p>
 
 <h2>Job list/search results pages</h2>
 
-<p>A board can search/fetch lists of jobs via POST /jobs/searches.
+<p>To search/fetch lists of jobs, your board consumes one of:
+<ul>
+<li>GET /jobs
+<li>POST /jobs/searches
+</ul>
 </p>
 
-<p>Normally the job board should restrict for availableInternally or availableExternally depending on whether a candidate is logged in
-and if so whether they are internal or not (more later). This restriction could be done:
+<p>Normally your board should restrict for availableInternally or availableExternally depending on whether a candidate is logged in
+and if so whether they are internal or not. This restriction could be done:
 <ul>
 <li>by passing "availableInternally = true" to the search
-<li>by fetch all jobs then filtering out based on the value of availableInternally  
+<li>by fetching all jobs then filtering out based on the value of availableInternally  
 </ul>
 </p>
 
@@ -362,51 +248,30 @@ and if so whether they are internal or not (more later). This restriction could 
 
 <h3>Keyword search</h3>
 
-TBD - add to spec for search	
+TODO - add to spec for search	
 
 
 <h3>Creating links for jobs</h3>
 
-<p>If your app allows searching it will likely display some kind of search results page. That page might show a
-list of jobs, with each having a job title and a link to navigate to the details page.
+<p>Your board may display some kind of job search results page, where each result has job title and a
+link to navigate to the details page for that job.
 </p>
 
-<p>To create that link, if your site is a nanosite, you can just use the link returned by POST /jobs/searches, which always points to the primary board.
+<p>If your board does not display job details itself, that link can be the link returned by POST /jobs/searches,
+which always points to the primary board.
 </p>
 
-<p>Otherwise your app must build up the link as follows. Link formats are under the tenant's control, because they influence the way that search engines treat the career site (i.e. SEO).
-</p>
-
-<p>Fetch the tenant's link format: 
-<div class='codeBlock'>
-GET /jobBoardGlobalSettings
-
-<div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
-
-{
-   "externalJobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
-   "internalJobUriTemplate": "/internal/jobs/{id}-{code}-{safeTitle}"
-}
-</div>
-</p>
-
-<p>The values returned are URI Templates conforming to
-https://tools.ietf.org/html/rfc6570 (level 1). The template is in relative form, so if you were
-creating an absolute link you would prefix it with the same URI base that you provide
-in your response to GET /jobBoard. 
-</p>
-
-<p>To create the link your app substitutes the variables in the template with values from the job itself. Possible variables are described in jobs.json, and include:
+<p>Otherwise your board should build up the link to itself. To create the link your app substitutes the variables in
+the template with values from the job itself. Possible variables are described in jobs.json, and include:
 <ul>
 <li>id - a number value
-<li>safeTitle - space replaced with - etc.
-<li>code - alphanumeric only
+<li>safeTitle - the job's title in safe form, url-compliant form
+<li>code - the job's code
 </ul>
 </p>
 
 <p><b>TODO: add safeTitle to GET /jobs.</b>
 </p>
-
 
 
 <h1>TODO</h1>

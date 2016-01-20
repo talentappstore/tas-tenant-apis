@@ -1,0 +1,23 @@
+[
+  {
+    "app": "superboard",
+    "boards": [
+      {
+        "label": "Graduate site",
+        "baseUri": "https://supergrads.com",
+        "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
+        
+      }
+    ]
+  },
+  {
+    "app": "snailboard",
+    "boards": [
+      {
+        "label": "November campaign microsite",
+        "baseUri": "https://bignovemberjobs.com",
+        "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
+      }
+    ]
+  }
+]

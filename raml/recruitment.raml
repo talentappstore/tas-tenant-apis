@@ -258,15 +258,6 @@ resourceTypes: !include resources.yml
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
-/panels:
-  /toUser:
-    /me:
-      /jobs:
-        /{job}:
-          type: userAppsPanels
-          /byApp:
-            type: userAppPanels
-
 /buttons:
   /toCandidate:
     /me:
@@ -847,6 +838,30 @@ resourceTypes: !include resources.yml
         securedBy: [oauth_2_0]
         description: Update an existing opening as a recruiter
 
+/jobBoards:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      A rollup of all job boards/careers sites produced by all apps. SoT.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/jobBoardsForApps.json
+            example: !include ../examples/jobBoardsForApps-simple.json
+  /forApp:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Produced by any apps that host job boards/careers sites. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobBoards.json
+              example: !include ../examples/jobBoards-simple.json
+
+
 /jobSets:
   post:
     securedBy: [oauth_2_0]
@@ -907,6 +922,15 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/landingPage.json
             example: !include ../examples/landingPage-simple.json
+
+/panels:
+  /toUser:
+    /me:
+      /jobs:
+        /{job}:
+          type: userAppsPanels
+          /byApp:
+            type: userAppPanels
     
 /trackers:
   description: |

@@ -1,26 +1,26 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
-    "buttonProductionsForApp": {
+    "actionProductionsForApp": {
       "type": "object",
       "properties": {
         "app": {
           "type": "string",
-          "description": "the app that can produce these buttons"
+          "description": "the app that can produce these actions"
         },
-        "buttonProductions": {
-          "$ref": "buttonProductions.json"
+        "actionProductions": {
+          "$ref": "actionProductions.json"
         }
       },
       "additionalProperties": false,
       "required": [
         "app",
-        "buttonProductions"
+        "actionProductions"
       ]
     }
   },
   "type": "array",
   "items": {
-    "$ref": "#/definitions/buttonProductionsForApp"
+    "$ref": "#/definitions/actionProductionsForApp"
   }
 }

@@ -9,6 +9,70 @@ securitySchemes:  !include securitySchemes.yml
 traits: !include traits.yml
 resourceTypes: !include resources.yml
 
+/actions:
+  /byCandidate:
+    /me:
+      /general:
+        type: candidateAppsActions
+        /byApp:
+          /byName:
+            /{action}:
+              type: candidateAppAction
+      /jobs:
+        /{job}:
+          type: candidateAppsActions
+          /byApp:
+            /byName:
+              /{action}:
+                type: candidateAppAction
+      /search:
+        type: candidateAppsActions
+        /byApp:
+          /byName:
+            /{action}:
+              type: candidateAppAction
+    /anonymous:
+      /general:
+        type: candidateAppsActions
+        /byApp:
+          /byName:
+            /{action}:
+              type: candidateAppAction
+      /jobs:
+        /{job}:
+          type: candidateAppsActions
+          /byApp:
+            /byName:
+              /{action}:
+                type: candidateAppAction
+      /search:
+        type: candidateAppsActions
+        /byApp:
+          /byName:
+            /{action}:
+              type: candidateAppAction
+    /general:
+      description: |
+        General actions seen by candidates are typically embedded in page headers, e.g. "register", "share this entire site", etc.
+      /possibles:
+        type: candidateAppsPossibleActions
+        /byApp:
+          type: candidateAppPossibleActions
+    /job:
+      description: |
+        Job-level actions seen by candidates are typically embedded in job details pages, e.g. "apply", "share this job", etc.
+      /possibles:
+        type: candidateAppsPossibleActions
+        /byApp:
+          type: candidateAppPossibleActions
+    /search:
+      description: |
+        Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
+      /possibles:
+        type: candidateAppsPossibleActions
+        /byApp:
+          type: candidateAppPossibleActions
+
 
 /applications:
   /byID:
@@ -258,69 +322,6 @@ resourceTypes: !include resources.yml
         description: |
           Return recruiter-facing details for a specific candidate. e.g do not contact flag
 
-/buttons:
-  /toCandidate:
-    /me:
-      /general:
-        type: candidateAppsButtons
-        /byApp:
-          /byName:
-            /{button}:
-              type: candidateAppButton
-      /jobs:
-        /{job}:
-          type: candidateAppsButtons
-          /byApp:
-            /byName:
-              /{button}:
-                type: candidateAppButton
-      /search:
-        type: candidateAppsButtons
-        /byApp:
-          /byName:
-            /{button}:
-              type: candidateAppButton
-    /anonymous:
-      /general:
-        type: candidateAppsButtons
-        /byApp:
-          /byName:
-            /{button}:
-              type: candidateAppButton
-      /jobs:
-        /{job}:
-          type: candidateAppsButtons
-          /byApp:
-            /byName:
-              /{button}:
-                type: candidateAppButton
-      /search:
-        type: candidateAppsButtons
-        /byApp:
-          /byName:
-            /{button}:
-              type: candidateAppButton
-    /general:
-      description: |
-        General buttons seen by candidates are typically embedded in page headers, e.g. "register", "share this entire site", etc.
-      /possibles:
-        type: candidateAppsPossibleButtons
-        /byApp:
-          type: candidateAppPossibleButtons
-    /job:
-      description: |
-        Job-level buttons seen by candidates are typically embedded in job details pages, e.g. "apply", "share this job", etc.
-      /possibles:
-        type: candidateAppsPossibleButtons
-        /byApp:
-          type: candidateAppPossibleButtons
-    /search:
-      description: |
-        Search-scoped buttons seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
-      /possibles:
-        type: candidateAppsPossibleButtons
-        /byApp:
-          type: candidateAppPossibleButtons
 
 /categories:
   description: |

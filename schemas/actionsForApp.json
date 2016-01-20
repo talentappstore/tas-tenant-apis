@@ -4,15 +4,15 @@
   "properties": {
     "app": {
       "type": "string",
-      "description": "the app that produced these buttons"
+      "description": "the app that produced these actions"
     },
-    "buttons": {
-      "$ref": "buttons.json"
+    "actions": {
+      "$ref": "actions.json"
     }
   },
   "additionalProperties": false,
   "required": [
     "app",
-    "buttons"
+    "actions"
   ]
 }

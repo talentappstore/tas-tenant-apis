@@ -1,7 +1,7 @@
 [
   {
     "app": "myapp",
-    "buttons": [{
+    "actions": [{
         	"name": "refer",
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",

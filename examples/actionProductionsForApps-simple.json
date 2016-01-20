@@ -1,13 +1,13 @@
 [
   {
     "app": "superapply",
-    "buttonProductions": [
+    "actionProductions": [
       "apply"
     ]
   },
   {
     "app": "legacyats",
-    "buttonProductions": [
+    "actionProductions": [
       "apply",
       "share",
       "refer"

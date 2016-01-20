@@ -32,19 +32,7 @@
 <div id="toc"></div>
 
 
-<h1>Unresolved</h1>
-<pre>
-
-
-Session tracker
-Source tracking - should all boards support source=X ?	
-Should GET /jobs return
-Entry with a job code
-
-</pre>
-
-
-<h1>Concepts</h1>
+<h1>About job boards</h1>
 
 <h2>Boards</h2>
 
@@ -53,17 +41,19 @@ Entry with a job code
 
 <p>Each board might support:
 <ul>
+<li>static content and employment branding 
 <li>browsing and searching for jobs 
 <li>viewing details for a specific job
-<li>displaying buttons for other apps against a job, e.g. apply, share, refer, etc.
+<li>on a specific job, displaying buttons for other apps, e.g. apply, share, refer, etc.
+<li>on the site as a whole, displaying buttons for other apps, e.g. register
 </ul>
 
-<p>A tenant can designate any board as the "primary board", i.e. the main careers site.
+<p>A tenant can designate (via some settings app) any board as the "primary board", i.e. the main careers site.
 </p>
 
-<p>Other apps will typically target the primary board when they create links to the board itself or to specific jobs on the board, e.g.:
+<p>Other apps will typically target the primary board when they create links to jobs (or to the board itself), e.g. links in:
 <ul>
-<li>the main menu of the tenant's web site (i.e. the "careers" section)
+<li>the main menu of the tenant's web site (i.e. leading to the "careers" section)
 <li>job alert emails
 <li>job board postings
 <li>social media shares
@@ -77,12 +67,8 @@ Entry with a job code
 <h2>GET /jobBoards/forApp
 </h2>
 
-<p>The APIs have the concept of a primary board. This is the board that other apps, such as a job emailer, would
-generate links to.
-</p>
-
-<p>If your app produces any board that may (even in the future) be marked as the primary board, then your
-app needs to declare those boards to other apps by producing (as non-SoT):
+<p>If your app hosts any board that the tenant may want to mark as the primary board (even in the future), or that other
+apps may want to generate links to, then it must declare some details about that board to other apps by producing (as non-SoT):
  
 <div class='codeBlock'>
 GET /jobBoards/forApp
@@ -104,15 +90,17 @@ Response:
 <p>Your board should inject HTML for the general buttons in this area, by consuming:
 
 <div class='codeBlock'>
-GET /buttons/candidate/general/me/anonymous 
+GET /actions/byCandidate/anonymous/general
+
+Response:
+<div class='clientInclude' data-href='../examples/actionsForApps-simple.json'></div>
 </div>
-<br />
 </p>
 
 <p>or if the candidate is logged in:
 
 <div class='codeBlock'>
-GET /buttons/candidate/general/me/me 
+GET /actions/byCandidate/me/general
 </div>
 </p>
 
@@ -122,13 +110,15 @@ GET /buttons/candidate/general/me/me
 <p>Your board likely serves a "job details page" where the candidate can read the job description and click to apply.
 </p>
 
-<p>Your board should serve these pages at {baseUri} + {jobUriTemplate}, i.e. as your board returns in GET /jobBoards/forApp. 
+<p>The URLs that you use for these pages can be anything you want, but if you are producing GET /jobBoards/forApp then
+they should be of the form {baseUri} + {jobUriTemplate}, so that other apps can generate them. 
 </p>
+
 
 <h3>LoggedIn filter</h3>
 
 <p>If your board supports login (a board that doesn't should only display publicly visible jobs), then this page
-should sit behind a loggedIn filter (as per conventions.html).
+should sit behind a loggedIn filter (as per <a href='conventions.html'>conventions</a>).
 </p>
 
 <p>This way a candidate who was logged in at another app (e.g. UberApply) and then linked to here (e.g. by clicking "View job details"), will be asked
@@ -137,11 +127,17 @@ to log in, which should happen invisibly, and can then (for example) see interna
 
 <h3>Fetch details for job</h3>
 
-<p>Your board should parse the job's ID from the URL, then use it to consume:
-<ul>
-<li>GET /jobs/byID/{job}
-<li>GET /jobs/byID/{job}/description
-</ul>
+<p>Your board should parse the job's ID from the URL, then use it to consume APIs to get details about the job:
+
+<div class='codeBlock'>
+GET /jobs/byID/{job}
+
+Response:
+<div class='clientInclude' data-href='../examples/job-simple.json'></div>
+
+
+GET /jobs/byID/{job}/description
+</div>
 </p>
 
 <p>You should display an indicator to show if the job is internal only (to guide internals not to share it).
@@ -179,6 +175,8 @@ to log in, which should happen invisibly, and can then (for example) see interna
 
 <div class='codeBlock'>
 GET /items/toCandidate/anonymous/jobs/{job}
+
+<div class='clientInclude' data-href='../examples/items-values.json'></div>
 </div>
 </p>
 
@@ -189,18 +187,19 @@ GET /items/toCandidate/me/jobs/{job}
 </div>
 </p>
 
-<p>Your board should retrieve details of all of the job-related buttons (apply button, share button, etc.) and render them:
+<p>Your board should retrieve details of all of the job-related actions (apply button, share button, etc.) and render them:
 
 <div class='codeBlock'>
-GET /buttons/toCandidate/anonymous/jobs/{job}
+GET /actions/byCandidate/anonymous/jobs/{job}
+
+<div class='clientInclude' data-href='../examples/actionsForApps-simple.json'></div>
 </div>
-<br />
 </p>
 
 <p>or if the candidate is logged in:
 
 <div class='codeBlock'>
-GET /buttons/toCandidate/me/jobs/{job}
+GET /actions/byCandidate/me/jobs/{job}
 </div>
 </p>
 
@@ -218,24 +217,35 @@ Keywords:  [______]
 </div>
 </p>
 
-<p>To populate a search UI like this, your board can consume:
-<ul>
-<li>GET /categories
-<li>GET /categories/{}/values for each category
-</ul>
+<p>To populate a search UI like this, your board can consume the category APIs:
+<div class='codeBlock'>
+GET /categories
+
+Response:
+<div class='clientInclude' data-href='../examples/categories-simple.json'></div>
+
+GET /categories/byID/{category}/values
+
+Response:
+<div class='clientInclude' data-href='../examples/categoryValues-simple.json'></div>
+</div>
 </p>
+
 
 <h2>Job list/search results pages</h2>
 
 <p>To search/fetch lists of jobs, your board consumes one of:
-<ul>
-<li>GET /jobs
-<li>POST /jobs/searches
-</ul>
+<div class='codeBlock'>
+GET /jobs
+POST /jobs/searches
+
+Response:
+<div class='clientInclude' data-href='../examples/jobs-simple.json'></div>
+</div>
 </p>
 
-<p>Normally your board should restrict for availableInternally or availableExternally depending on whether a candidate is logged in
-and if so whether they are internal or not. This restriction could be done:
+<p>Your board should make sure not to display the wrong jobs to the wrong candidates by restricting for availableInternally or availableExternally
+depending on whether a candidate is logged in and if so whether they are internal or not. This restriction could be done:
 <ul>
 <li>by passing "availableInternally = true" to the search
 <li>by fetching all jobs then filtering out based on the value of availableInternally  
@@ -246,76 +256,32 @@ and if so whether they are internal or not. This restriction could be done:
 </p>
 
 
-<h3>Keyword search</h3>
+<h2>Handling trackers</h2>
 
-TODO - add to spec for search	
+<p>Normally your board should handle trackers as described in <a href='tracker.html'>tracker</a>.
 
-
-<h3>Creating links for jobs</h3>
-
-<p>Your board may display some kind of job search results page, where each result has job title and a
-link to navigate to the details page for that job.
-</p>
-
-<p>If your board does not display job details itself, that link can be the link returned by POST /jobs/searches,
-which always points to the primary board.
-</p>
-
-<p>Otherwise your board should build up the link to itself. To create the link your app substitutes the variables in
-the template with values from the job itself. Possible variables are described in jobs.json, and include:
+<p>This means:
 <ul>
-<li>id - a number value
-<li>safeTitle - the job's title in safe form, url-compliant form
-<li>code - the job's code
+<li>creating session trackers
+<li>attaching the session tracker to all links your board emits
+<li>passing the session tracker to all tracker-aware APIs that your board consumes
 </ul>
-</p>
-
-<p><b>TODO: add safeTitle to GET /jobs.</b>
-</p>
 
 
-<h1>TODO</h1>
+<h1>Add</h1>
 
-
-* must attach tracker parameter when redirecting
-
-* must perform tracker session fixation
-
-
-Displaying jobs
-
-	Passing tracker through to injected widgets above
-
-	Displaying customer-specific job items (custom data)
-
-Generating trackers for anonymous users
-
-Shadow ATS pages - any ATS
-
-
-Top-level information
-
-	
-	Pass the loggedIn parameter
-
-
-where the candidate can see their saved jobs would be protected.
-</p>
-
-
-
-- eg for saved jobs, reliable internals detection
-
-	Displaying logged in candidate's name
-	
-
-Handling internals
+<ul>
+<li>Keyword spec for search	
+<li>Entry with a job code
+<li>Displaying the logged in candidate's name.
+<li>Handling internals
 	- grabbing role from incoming SAML assertion
 	- checking IP address
 	- using login
 	- restricting jobs
-
-
+</ul>
+	
+</pre>
 
 
 

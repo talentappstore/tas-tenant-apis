@@ -1,7 +1,6 @@
 #%RAML 0.8
 ---
 title: TAS recruitment
-baseUri: http://talentappstore.com/{version}
 version: v0.6
 
 
@@ -875,13 +874,13 @@ resourceTypes: !include resources.yml
               securedBy: [oauth_2_0]
               is: [trackable ]
               description: |
-                Get an absolute URL to a specific job on the primary board. SoT.
+                Convenience API to generate a link to a specific job at a given board. The consumer could also have generated the URL using the
+                details from GET /jobBoards/ForApp to achieve the same effect. Non-SoT.
               responses:
                 200:
                   body:
                     text/plain:
                       example: https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge
-                      
   /primary:
     get:
       securedBy: [oauth_2_0]

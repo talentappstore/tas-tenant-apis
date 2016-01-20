@@ -33,7 +33,7 @@
 
 <p>The source tracking APIs (/trackers) defined by TAS are for a candidate source tracking system based on fractional attribution.
 <p>With fractional attribution, an end result (such as someone applying for a job) can be mapped back to
-a whole chain of user interactions such as social sharing, emailing links, etc. This provides far more detailed sourcing information than
+a whole chain of user interactions such as social sharing, emailing links, etc. This provides more detailed sourcing information than
 just tracking the last click that led the candidate to apply for the job.
 </p>
 
@@ -44,7 +44,7 @@ that is tracker aware should create session trackers when candidates use the sit
 <li><b>Campaign trackers</b>, representing a known starting point, such as an automated email alert or a job board posting.
 </ul>
 
-<p>Trackers are organized into trees. The path from a single leaf to the trunk of the tree represents the
+<p>Trackers are organized into trees. The path from any single leaf to the trunk of the tree represents the
 chain of sourcing events that led to a candidate outcome (like applying for a job).
 </p>
 
@@ -57,27 +57,27 @@ that is tracker aware should maintain session trackers when candidates use the s
 <li>Connecting that tracker back to any tracker passed in as a url parameter
 </ul>
 
-<p>For example, when a candidate first follows a link like this:
+<p>For example, when a candidate first follows a link like this to a page in a job board/careers site:
 <div class='codeBlock'>
-https://acme.supersite.com?tracker=1234
+https://acme.supersite.com/marketing.html?tracker=1234
 </div>
 </p>
 
-<p>..then the supersite.com web site should create a session tracker and attach it to the tracker 1234. The resulting tracker tree might be like this:
+<p>..then the job board should create a session tracker and attach it to the tracker 1234. The resulting tracker tree will be like this:
 <div class='codeBlock'>
 1234
 +-- 1287 (session tracker)
 </div>
 </p>
 
-<p>supersite.com attaches the session tracker to all links that it emits, even for internal navigation around the
+<p>After this, the job board should attach the session tracker to all links that it emits, even for internal navigation around the
 site itself. For example, the candidate above might search for jobs at the site, and then click through to a specific job using a link like this:
 <div class='codeBlock'>
 https://acme.supersite.com/job=23&tracker=1287
 </div>
 
-<p>Now, assume that candidate shares the job via email using the browser's native share button. They email the job to a friend. The friend
-clicks through to the job. Because the friend represents a new unique visit, a new session tracker is created by supersite, linking back
+<p>Now, if the candidate might share the job via email using the browser's native share button. They email the job to a friend. The friend
+clicks through to the job. Because the friend represents a new unique visit, a new session tracker is created by the job board, linking back
 to tracker 1287. Now the tracker tree looks like this:
 <div class='codeBlock'>
 1234
@@ -90,7 +90,7 @@ to tracker 1287. Now the tracker tree looks like this:
 a deep insight into how the candidate came to hear about this job.
 </p>
 
-<h3>Sample logic for maintaining session trackers</h3> 
+<h2>Sample logic for maintaining session trackers</h2> 
 
 <p>The following example (in Java) shows one approach to maintaining session trackers.
 </p> 
@@ -146,7 +146,15 @@ if (sessionTracker == null || ! Objects.equals(parentTracker, trackerParam)) {
 </div>
 </p>
 
-</h3>
+<h2>Web site analytics considerations for session trackers</h2>
+
+<p>Attaching the tracker parameter to all URLs that your site emits can affect your web site analytics. You may want to
+instruct analytics code to ignore the tracker parameter - for Google, see https://support.google.com/analytics/answer/1010249?hl=en.
+
+<h2>Web site search engine optimization (SEO) considerations for session trackers</h2>
+
+<p>Attaching the tracker parameter to all URLs that your site emits can affect your web site's SEO. You may want to
+instruct search engines to ignore the tracker parameter - for Google, use Webmaster tools.
 
 
 <h1>Scenarios</h1>

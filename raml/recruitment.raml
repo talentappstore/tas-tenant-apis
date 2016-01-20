@@ -14,42 +14,48 @@ resourceTypes: !include resources.yml
     /me:
       /general:
         type: candidateAppsActions
-        /byApp:
-          /byName:
-            /{action}:
+        /byName:
+          /{action}:
+            type: candidateAppsActions
+            /byApp:
               type: candidateAppAction
       /jobs:
         /{job}:
           type: candidateAppsActions
-          /byApp:
-            /byName:
-              /{action}:
+          /byName:
+            /{action}:
+              type: candidateAppsActions
+              /byApp:
                 type: candidateAppAction
       /search:
         type: candidateAppsActions
-        /byApp:
-          /byName:
-            /{action}:
+        /byName:
+          /{action}:
+            type: candidateAppsActions
+            /byApp:
               type: candidateAppAction
     /anonymous:
       /general:
         type: candidateAppsActions
-        /byApp:
-          /byName:
-            /{action}:
+        /byName:
+          /{action}:
+            type: candidateAppsActions
+            /byApp:
               type: candidateAppAction
       /jobs:
         /{job}:
           type: candidateAppsActions
-          /byApp:
-            /byName:
-              /{action}:
+          /byName:
+            /{action}:
+              type: candidateAppsActions
+              /byApp:
                 type: candidateAppAction
       /search:
         type: candidateAppsActions
-        /byApp:
-          /byName:
-            /{action}:
+        /byName:
+          /{action}:
+            type: candidateAppsActions
+            /byApp:
               type: candidateAppAction
     /general:
       description: |

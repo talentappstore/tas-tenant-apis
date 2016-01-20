@@ -1,0 +1,5 @@
+  {
+    "label": "Graduate site",
+    "baseUri": "https://supergrads.com",
+    "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
+  }

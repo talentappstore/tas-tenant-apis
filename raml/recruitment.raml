@@ -860,7 +860,30 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/jobBoards.json
               example: !include ../examples/jobBoards-simple.json
-
+  /primary:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get details for whichever board which has been marked as the primary by the tenant. SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobBoard.json
+              example: !include ../examples/jobBoard-simple.json
+    /jobLink:
+      /{job}:
+        get:
+          securedBy: [oauth_2_0]
+          is: [trackable ]
+          description: |
+            Get an absolute URL to a specific job on the primary board. SoT.
+          responses:
+            200:
+              body:
+                text/plain:
+                  example: https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge
+      
 
 /jobSets:
   post:

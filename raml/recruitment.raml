@@ -849,7 +849,7 @@ resourceTypes: !include resources.yml
   get:
     securedBy: [oauth_2_0]
     description: |
-      A rollup of all job boards/careers sites produced by all apps. SoT.
+      A rollup of the details of all job boards/careers sites produced by all apps. SoT.
     responses:
       200:
         body:
@@ -860,13 +860,28 @@ resourceTypes: !include resources.yml
     get:
       securedBy: [oauth_2_0]
       description: |
-        Produced by any apps that host job boards/careers sites. Non-SoT.
+        Descriptions of one or more job boards/careers sites hosted by a specific app. Non-SoT.
       responses:
         200:
           body:
             application/json:
               schema: !include ../schemas/jobBoards.json
               example: !include ../examples/jobBoards-simple.json
+    /byName:
+      /{board}:
+        /jobLink:
+          /{job}:
+            get:
+              securedBy: [oauth_2_0]
+              is: [trackable ]
+              description: |
+                Get an absolute URL to a specific job on the primary board. SoT.
+              responses:
+                200:
+                  body:
+                    text/plain:
+                      example: https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge
+                      
   /primary:
     get:
       securedBy: [oauth_2_0]
@@ -878,18 +893,6 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/jobBoard.json
               example: !include ../examples/jobBoard-simple.json
-    /jobLink:
-      /{job}:
-        get:
-          securedBy: [oauth_2_0]
-          is: [trackable ]
-          description: |
-            Get an absolute URL to a specific job on the primary board. SoT.
-          responses:
-            200:
-              body:
-                text/plain:
-                  example: https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge
       
 
 /jobSets:

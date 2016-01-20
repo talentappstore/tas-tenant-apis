@@ -3,6 +3,7 @@
     "app": "superboard",
     "boards": [
       {
+        "id": 12,
         "label": "Graduate site",
         "baseUri": "https://supergrads.com",
         "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
@@ -14,6 +15,7 @@
     "app": "snailboard",
     "boards": [
       {
+        "id": 13,
         "label": "November campaign microsite",
         "baseUri": "https://bignovemberjobs.com",
         "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"

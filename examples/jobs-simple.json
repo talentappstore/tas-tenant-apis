@@ -2,10 +2,6 @@
     {
         "id": 10334355,
             "status": "active",
-        "links": {
-            "view": "https://acme.jobboard.com/jobs/Creative-Director",
-            "apply": "https://acme.bigapply.com/jobs/10334355"
-        },
         "availability": {
             "availableInternally": true,
             "availableExternally": false,
@@ -39,10 +35,6 @@
     {
         "id": 10334356,
             "status": "active",
-        "links": {
-            "view": "https://acme.jobboard.com/jobs/Creative-Lackey",
-            "apply": "https://acme.bigapply.com/jobs/10334356"
-        },
         "availability": {
             "availableInternally": true,
             "availableExternally": false,

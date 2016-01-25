@@ -1,22 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
-        "links": {
-            "type": "object",
-            "properties": {
-                "view": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URI to view the opening - see HR-XML"
-                },
-                "apply": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URI of the page where a candidate applies - see HR-XML"
-                }
-            },
-            "additionalProperties": false
-        },
         "status": {
             "enum": [
                 "active",
@@ -92,9 +76,6 @@
         "id": {
             "type": "integer"
         },
-        "links": {
-            "$ref": "#/definitions/links"
-        },
         "status": {
             "$ref": "#/definitions/status"
         },
@@ -126,7 +107,6 @@
         }
     },
     "required": [
-        "links",
         "code",
         "availability",
         "title"

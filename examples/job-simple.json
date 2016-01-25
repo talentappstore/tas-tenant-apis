@@ -1,10 +1,6 @@
 {
     "id": 10334355,
     "status": "active",
-    "links": {
-        "view": "https://acme.jobboard.com/jobs/Creative-Director",
-        "apply": "https://acme.bigapply.com/jobs/10334355"
-    },
     "availability": {
         "availableInternally": true,
         "availableExternally": false,

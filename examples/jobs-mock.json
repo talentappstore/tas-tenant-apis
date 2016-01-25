@@ -2,10 +2,6 @@
   {
     "id": 10334355,
       "status": "active",
-    "links": {
-      "view": "https://acme.jobboard.com/jobs/Creative-Director",
-      "apply": "https://acme.bigapply.com/jobs/10334355"
-    },
     "availability": {
       "availableInternally": true,
       "availableExternally": false,
@@ -53,10 +49,6 @@
   {
     "id": 10334356,
       "status": "active",
-    "links": {
-      "view": "https://acme.jobboard.com/jobs/Creative-Lackey",
-      "apply": "https://acme.bigapply.com/jobs/10334356"
-    },
     "availability": {
       "availableInternally": true,
       "availableExternally": false,
@@ -104,10 +96,6 @@
   {
     "id": 1155842301,
       "status": "active",
-    "links": {
-      "view": "https://acme.jobboard.com/jobs/Customer-Service",
-      "apply": "https://acme.bigapply.com/jobs/1155842301"
-    },
     "availability": {
       "availableInternally": true,
       "availableExternally": false,
@@ -155,10 +143,6 @@
   {
     "id": 70054513144,
       "status": "active",
-    "links": {
-      "view": "https://acme.jobboard.com/jobs/Information-Services",
-      "apply": "https://acme.bigapply.com/jobs/70054513144"
-    },
     "availability": {
       "availableInternally": true,
       "availableExternally": false,

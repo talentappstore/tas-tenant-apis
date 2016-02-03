@@ -1,6 +1,5 @@
 {
-    "detail": {
-        "kind": "Campaign",
+    "campaign": {
         "campaignKind": "User defined",
         "objectType": "Job",
         "objectID": 16670

@@ -4834,13 +4834,8 @@ GET /widgets?$top=5
         },
         "sessionCreation": {
             "type": "object",
+            "description": "sourcing event for a user creating a new session at a web app such as a careers site",
             "properties": {
-                "kind": {
-                    "enum": [
-                        "Session creation"
-                    ],
-                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
-                },
                 "landingURI": {
                     "type": "string"
                 },
@@ -4858,7 +4853,6 @@ GET /widgets?$top=5
                 }
             },
             "required": [
-                "kind",
                 "landingURI",
                 "userAgent",
                 "ipAddress",
@@ -4869,12 +4863,6 @@ GET /widgets?$top=5
         "campaign": {
             "type": "object",
             "properties": {
-                "kind": {
-                    "enum": [
-                        "Campaign"
-                    ],
-                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
-                },
                 "campaignKind": {
                     "enum": [
                         "Employee referral",
@@ -4892,7 +4880,6 @@ GET /widgets?$top=5
                 }
             },
             "required": [
-                "kind",
                 "campaignKind",
                 "objectType",
                 "objectID"
@@ -4908,26 +4895,20 @@ GET /widgets?$top=5
         "consumer": {
             "$ref": "consumer.json"
         },
-        "detail": {
-            "oneOf": [
-                {
+        "sessionCreation": {
                     "$ref": "#/definitions/sessionCreation"
-                },
-                {
+        },
+        "campaign": {
                     "$ref": "#/definitions/campaign"
-                }
-            ]
         },
         "userArea": {
             "type": "object",
             "additionalProperties": true
         }
     },
-    "additionalProperties": false,
-    "required": [ "detail" ]
+    "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "detail": {
-        "kind": "Session creation",
+    "sessionCreation": {
         "landingURI": "https://acme.jobboard.com/jobs/1044",
         "referer": "https://google.com",
         "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
@@ -4962,8 +4943,7 @@ GET /widgets?$top=5
             "ct": "acme",
             "ca": "jobboard"
         },
-        "detail": {
-            "kind": "Session creation",
+        "sessionCreation": {
             "landingURI": "https://acme.jobboard.com/jobs/1044",
             "referer": "https://google.com",
             "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
@@ -4979,8 +4959,7 @@ GET /widgets?$top=5
             "ct": "acme",
             "ca": "refly"
         },
-        "detail": {
-            "kind": "Campaign",
+        "campaign": {
             "campaignKind": "User defined",
             "objectType": "Job",
             "objectID": 16670
@@ -5006,13 +4985,8 @@ GET /widgets?$top=5
         },
         "sessionCreation": {
             "type": "object",
+            "description": "sourcing event for a user creating a new session at a web app such as a careers site",
             "properties": {
-                "kind": {
-                    "enum": [
-                        "Session creation"
-                    ],
-                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
-                },
                 "landingURI": {
                     "type": "string"
                 },
@@ -5030,7 +5004,6 @@ GET /widgets?$top=5
                 }
             },
             "required": [
-                "kind",
                 "landingURI",
                 "userAgent",
                 "ipAddress",
@@ -5041,12 +5014,6 @@ GET /widgets?$top=5
         "campaign": {
             "type": "object",
             "properties": {
-                "kind": {
-                    "enum": [
-                        "Campaign"
-                    ],
-                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
-                },
                 "campaignKind": {
                     "enum": [
                         "Employee referral",
@@ -5064,7 +5031,6 @@ GET /widgets?$top=5
                 }
             },
             "required": [
-                "kind",
                 "campaignKind",
                 "objectType",
                 "objectID"
@@ -5080,26 +5046,20 @@ GET /widgets?$top=5
         "consumer": {
             "$ref": "consumer.json"
         },
-        "detail": {
-            "oneOf": [
-                {
+        "sessionCreation": {
                     "$ref": "#/definitions/sessionCreation"
-                },
-                {
+        },
+        "campaign": {
                     "$ref": "#/definitions/campaign"
-                }
-            ]
         },
         "userArea": {
             "type": "object",
             "additionalProperties": true
         }
     },
-    "additionalProperties": false,
-    "required": [ "detail" ]
+    "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "detail": {
-        "kind": "Campaign",
+    "campaign": {
         "campaignKind": "Email alert",
         "objectType": "Job",
         "objectID": 16670

@@ -1,6 +1,5 @@
 {
-    "detail": {
-        "kind": "Campaign",
+    "campaign": {
         "campaignKind": "Employee referral",
         "objectType": "Job",
         "objectID": 16670

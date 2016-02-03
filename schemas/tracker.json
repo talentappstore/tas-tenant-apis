@@ -15,13 +15,8 @@
         },
         "sessionCreation": {
             "type": "object",
+            "description": "sourcing event for a user creating a new session at a web app such as a careers site",
             "properties": {
-                "kind": {
-                    "enum": [
-                        "Session creation"
-                    ],
-                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
-                },
                 "landingURI": {
                     "type": "string"
                 },
@@ -39,7 +34,6 @@
                 }
             },
             "required": [
-                "kind",
                 "landingURI",
                 "userAgent",
                 "ipAddress",
@@ -50,12 +44,6 @@
         "campaign": {
             "type": "object",
             "properties": {
-                "kind": {
-                    "enum": [
-                        "Campaign"
-                    ],
-                    "description": "sourcing event for a user creating a new session at a web app such as a careers site"
-                },
                 "campaignKind": {
                     "enum": [
                         "Employee referral",
@@ -73,7 +61,6 @@
                 }
             },
             "required": [
-                "kind",
                 "campaignKind",
                 "objectType",
                 "objectID"
@@ -89,21 +76,16 @@
         "consumer": {
             "$ref": "consumer.json"
         },
-        "detail": {
-            "oneOf": [
-                {
+        "sessionCreation": {
                     "$ref": "#/definitions/sessionCreation"
-                },
-                {
+        },
+        "campaign": {
                     "$ref": "#/definitions/campaign"
-                }
-            ]
         },
         "userArea": {
             "type": "object",
             "additionalProperties": true
         }
     },
-    "additionalProperties": false,
-    "required": [ "detail" ]
+    "additionalProperties": false
 }

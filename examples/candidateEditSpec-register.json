@@ -5,6 +5,16 @@
         "level": "info"
     },
     "candidateModel": {
+    "categoryRules": [
+      {
+        "category": 10032,
+        "visible": true,
+        "mandatory": true
+      }
+    ],
+    "vCardRule": {
+      "someMandatory": true
+    },
         "requiredCategoryValues": [
             {
                 "category": 10032,

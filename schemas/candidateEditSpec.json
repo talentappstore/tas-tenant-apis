@@ -1,116 +1,154 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "candidateMessage": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "description": "a text message to the candidate regarding their proposed edit, may include links"
-                },
-                "level": {
-                    "enum": [
-                        "info",
-                        "warning",
-                        "error"
-                    ]
-                }
-            },
-            "required": [
-                "message",
-                "level"
-            ],
-            "additionalProperties": false
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "candidateMessage": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "a text message to the candidate regarding their proposed edit, may include links"
+        },
+        "level": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ]
+        }
+      },
+      "required": [
+        "message",
+        "level"
+      ],
+      "additionalProperties": false
+    },
+    "resumeRule": {
+      "type": "object",
+      "properties": {
+        "visible": {
+          "description": "can a resume be uploaded at all, and can existing resume be seen",
+          "type": "boolean"
+        },
+        "mandatory": {
+          "description": "is the resume mandatory - implies visible == true",
+          "type": "boolean"
+        },
+        "message": {
+          "description": "a message to help the candidate understand about uploading a resume - e.g. 'resume optional when a video is provided'",
+          "type": "string"
+        },
+        "accept": {
+          "type": "array",
+          "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+          "items": {
+            "$ref": "fileDownload.json#/definitions/mediaType"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "visible",
+        "mandatory",
+        "accept"
+      ]
+    },
+    "vCardRule": {
+      "type": "object",
+      "properties": {
+        "someMandatory": {
+          "description": "a simple way to hint that key vcard fields (first name, last name, email address) are mandatory - probably will get replaced by more fine-grained scheme in the future",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "someMandatory"
+      ],
+      "additionalProperties": false
+    },
+    "categoryRule": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "integer"
+        },
+        "visible": {
+          "description": "whether the category can be seen at all",
+          "type": "boolean"
+        },
+        "mandatory": {
+          "description": "whether a value for the category is mandatory",
+          "type": "boolean"
+        },
+        "message": {
+          "description": "a message to help the candidate understand about completing the category - e.g. 'tell us the top 4 stores you really want to work at'",
+          "type": "string"
+        }
+      },
+      "required": [
+        "category",
+        "visible",
+        "mandatory"
+      ],
+      "additionalProperties": false
+    },
+    "applicationModel": {
+      "type": "object",
+      "description": "rules specific to a single job application (i.e., not candidate-scoped)",
+      "properties": {
+        "job": {
+          "type": "integer",
+          "description": "the job application these rules apply to"
+        },
+        "itemsRule": {
+          "$ref": "jsonSchemaSchema.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidateModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "categoryRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/categoryRule"
+          }
+        },
+        "requiredCategoryValues": {
+          "$ref": "categoriesActual.json"
         },
         "resumeRule": {
-            "type": "object",
-            "properties": {
-                "visible": {
-                    "description": "can a resume be uploaded at all, and can existing resume be seen",
-                    "type": "boolean"
-                },
-                "mandatory": {
-                    "description": "is the resume mandatory - implies visible == true",
-                    "type": "boolean"
-                },
-                "message": {
-                    "description": "a message to help the candidate understand about uploading a resume - e.g. 'resume optional when a video is provided'",
-                    "type": "string"
-                },
-                "accept": {
-                  "type": "array",
-                  "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
-                  "items": {
-                    "$ref": "fileDownload.json#/definitions/mediaType"
-                  }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "visible",
-                "mandatory",
-                "accept"
-            ]
+          "$ref": "#/definitions/resumeRule"
         },
         "vCardRule": {
-            "type": "object",
-            "properties": {
-                "someMandatory": {
-                    "description": "a simple way to hint that key vcard fields (first name, last name, email address) are mandatory - probably will get replaced by more fine-grained scheme in the future",
-                    "type": "boolean"
-                }
-            },
-            "required": ["someMandatory"],
-            "additionalProperties": false
+          "$ref": "#/definitions/vCardRule"
         },
-        "applicationModel": {
-            "type": "object",
-            "description": "rules specific to a single job application (i.e., not candidate-scoped)",
-            "properties": {
-                "job": {
-                    "type": "integer",
-                    "description": "the job application these rules apply to"
-                },
-                "itemsRule": {
-                      "$ref": "jsonSchemaSchema.json"
-                }
-            },
-            "additionalProperties": false
-        },
-        "candidateModel": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "requiredCategoryValues": {
-                    "$ref": "categoriesActual.json"
-                },
-                "resumeRule": {
-                    "$ref": "#/definitions/resumeRule"
-                },
-                "vCardRule": {
-                    "$ref": "#/definitions/vCardRule"
-                },
-                "itemsRule": {
-                   "$ref": "jsonSchemaSchema.json"
-                }
-            }
+        "itemsRule": {
+          "$ref": "jsonSchemaSchema.json"
         }
-    },
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-        "tracker": {
-            "type": "integer",
-            "description": "just the same tracker that was passed in with the intent"
-        },
-        "candidateMessage": {
-            "$ref": "#/definitions/candidateMessage"
-        },
-        "candidateModel": {
-            "$ref": "#/definitions/candidateModel"
-        },
-        "applicationModel": {
-            "$ref": "#/definitions/applicationModel"
-        }
+      },
+      "required": [
+        "resumeRule",
+        "vCardRule"
+      ]
     }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tracker": {
+      "type": "integer",
+      "description": "just the same tracker that was passed in with the intent"
+    },
+    "candidateMessage": {
+      "$ref": "#/definitions/candidateMessage"
+    },
+    "candidateModel": {
+      "$ref": "#/definitions/candidateModel"
+    },
+    "applicationModel": {
+      "$ref": "#/definitions/applicationModel"
+    }
+  }
 }

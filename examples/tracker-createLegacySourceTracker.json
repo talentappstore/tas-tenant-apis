@@ -1,11 +1,15 @@
 {
-    "campaign": {
-        "campaignKind": "User defined",
-        "objectType": "Job",
-        "objectID": 16670
+    "sessionCreation": {
+        "landingURI": "https://acme.jobboard.com/jobs/1044",
+        "referer": "https://google.com",
+        "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
+        "ipAddress": "192.168.1.1",
+        "acceptLanguage": "en-us,en;q=0.5"
     },
     "userArea": {
-        "candidateSource": "facebook",
-        "deviceType": "mobile"
+        "legacyATS": {
+           "candidateSource": "facebook",
+           "device": "mobile"
+        }
     }
 }

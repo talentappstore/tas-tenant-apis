@@ -172,9 +172,12 @@ instruct search engines to ignore the tracker parameter - for Google, use Webmas
 
 <h1>Scenarios</h1>
 
-<h2>Scenario #1 - a legacy ATS uses tracker to pass through legacy source tracking information</h2>
+<h2>Scenario 1 - a legacy ATS uses tracker to pass through legacy source tracking information</h2>
 
-<h3>A candidate arrives at the job details page on the legacy ATS with some legacy information in the "source" url parameter</h3>
+<h3>Candidate arrives at the job details page on the legacy ATS, via a legacy link</h3>
+
+<p>The legacy ATS maintains candidateSource and device values in its session for incoming candidates.
+</p>    
 
 <p>A candidate arrives at:
 
@@ -192,7 +195,12 @@ POST /candidates to push the candidate and job application in.
 <p>Therefore the legacy ATS needs to pack its legacy detail into a tracker, and pass that tracker in to the
 apply app, relying on the apply app eventually passing that tracker back in again.</p>
 
-<p>ATS creates a root tracker, of campaign type:
+<h3>ATS creates a session tracker</h3>
+
+<p>Like any good candidate-facing app, the legacy ATS maintains a session tracker, as per the logic above.
+</p>
+
+<p>In this case the ATS also embeds the legacy sourcing data in the userArea field: 
 <div class='codeBlock'>
 POST /trackers
 <div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
@@ -218,16 +226,29 @@ acme.simpleapply.com/jobs/16670?tracker=16044
 POST /candidates API call.
 </p>
 
-<h3>The legacy ATS produces the API POST /candidates</h3>
+<h3>The ATS produces the API POST /candidates</h3>
 
-<p>The ATS receives the incoming job application and pulls out the legacy details held in the tracker.
-</p>
+<p>The legacy ATS uses the following logic to extract its legacy source details from the incoming tracker:
 
-<p>It does not know who "packed" the legacy data. In this example, it was the ATS itself. But
-it could also have been some other microsite app or similar that embedded the apply button.
-</p>
+<pre>
+The ATS searches up the tracker chain until it reaches a tracker with a "legacyATS" field in the userArea
 
-<p>So legacyats grabs the entire tracker chain and searches it for a suitable tracker (no matter which app created it).
+if found
+	use that for source details
+		
+else
+	the ATS attempts to manufacture its own source details from the immediately incoming tracker. It can only do a very limited job.
+	1) the ATS searches up the tracker chain until it reaches any session tracker
+		device = derive from user-agent as per existing ATS behaviour
+	2) The legacy ATS starts again and searches up the tracker chain until it reaches either:
+		a session tracker with a "sessionCreation.referer" value that matches one of the rows in its own table of media
+		a campaign tracker with a "campaign.referrer" value that matches one of the rows in its own table of media
+		a campaign tracker with a "campaign.referrer" value that matches one of the rows in its own table of media
+		if found
+			candidateSource = the media 
+</pre>
+
+<p>A sample chain is shown here though it doesn't yet show the data discussed above.
 
 <div class='codeBlock'>
 GET /trackers/16045/chain
@@ -236,27 +257,23 @@ Response:
 </div>
 </p>
 
-<p>In this example, it finds tracker 16044, which it deems "suitable" because:
-<ul>
-<li>kind == campaign
-<li>campaignKind == User defined
-<li>has userArea values for candidateSource and deviceType 
-</ul> 
+<h2>Scenario 2 - a job is advertised on a job board</h2>
 
-<h3>The legacy ATS uses the original sourcing information</h3>
+<p>A root campaign tracker is created:
 
-<p>The legacy ATS can now tag the candidate/application with the same data it originally packed into the job details page:
-<ul>
-<li>candidateSource == facebook
-<li>deviceType == mobile
-</ul> 
+<div class='codeBlock'>
+POST /trackers/root
+<div class='clientInclude' data-href='../examples/tracker-createLinkoutTracker.json'></div>
+Response:
+Location: 9022
+</div>
+</p>
 
 
-<h2>Scenario #2a - a job is advertised in a print publication. Someone searches by code at the careers site and then applies. 
-</h2>
 
-<h2>Scenario #3 - a job is emailed to a candidate who shares it with another candidate
-</h2>
+<h2>Scenario #2a - a job is advertised in a print publication. Someone searches by code at the careers site and then applies</h2>
+
+<h2>Scenario #3 - a job is emailed to a candidate who shares it with another candidate</h2>
 
 <h3>An automated alert for a new job is emailed to a candidate</h3>
 

@@ -48,6 +48,7 @@
                     "enum": [
                         "Employee referral",
                         "Email alert",
+                        "Link out",
                         "User defined"
                     ]
                 },
@@ -58,7 +59,13 @@
                 },
                 "objectID": {
                     "type": "integer"
+                },
+                "referrer": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind == link out" 
                 }
+                
             },
             "required": [
                 "campaignKind",

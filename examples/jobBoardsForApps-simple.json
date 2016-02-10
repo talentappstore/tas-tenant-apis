@@ -4,10 +4,7 @@
     "boards": [
       {
         "id": 12,
-        "label": "Graduate site",
-        "baseUri": "https://supergrads.com",
-        "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
-        
+        "label": "Graduate site"
       }
     ]
   },
@@ -15,10 +12,8 @@
     "app": "snailboard",
     "boards": [
       {
-        "id": 13,
-        "label": "November campaign microsite",
-        "baseUri": "https://bignovemberjobs.com",
-        "jobUriTemplate": "/jobs/{id}-{code}-{safeTitle}"
+        "id": 12,
+        "label": "November campaign microsite"
       }
     ]
   }

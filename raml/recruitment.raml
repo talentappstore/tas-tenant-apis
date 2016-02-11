@@ -866,7 +866,7 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/jobBoards.json
               example: !include ../examples/jobBoards-simple.json
-    /byName:
+    /byID:
       /{board}:
         /jobLink:
           /{job}:
@@ -886,12 +886,16 @@ resourceTypes: !include resources.yml
       securedBy: [oauth_2_0]
       description: |
         Get details for whichever board which has been marked as the primary by the tenant. SoT.
+        
+        The response is the same as for GET /jobBoards, except that only the board which has been marked as the
+        primary is included in the results.
+        
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/jobBoard.json
-              example: !include ../examples/jobBoard-simple.json
+              schema: !include ../schemas/jobBoardsForApps.json
+              example: !include ../examples/jobBoardsForApps-primary.json
       
 
 /jobSets:

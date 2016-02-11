@@ -1,0 +1,11 @@
+[
+  {
+    "app": "superboard",
+    "jobBoards": [
+      {
+        "id": 12,
+        "label": "Graduate site"
+      }
+    ]
+  }
+]

@@ -21,7 +21,7 @@
   },
   "type": "array",
   "items": {
-    "$ref": "#definitions/jobBoardsForApp"
+    "$ref": "#/definitions/jobBoardsForApp"
   },
   "description": "An array of job boards rolled up across all producing apps"
 }

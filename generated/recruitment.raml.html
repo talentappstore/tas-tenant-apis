@@ -4759,14 +4759,13 @@ GET /widgets?$top=5
   },
   "type": "array",
   "items": {
-    "$ref": "#definitions/jobBoardsForApp"
+    "$ref": "#/definitions/jobBoardsForApp"
   },
   "description": "An array of job boards rolled up across all producing apps"
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>[
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
     "app": "superboard",
-    "boards": [
+    "jobBoards": [
       {
         "id": 12,
         "label": "Graduate site"
@@ -4775,7 +4774,7 @@ GET /widgets?$top=5
   },
   {
     "app": "snailboard",
-    "boards": [
+    "jobBoards": [
       {
         "id": 12,
         "label": "November campaign microsite"

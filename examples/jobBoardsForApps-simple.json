@@ -1,7 +1,7 @@
 [
   {
     "app": "superboard",
-    "boards": [
+    "jobBoards": [
       {
         "id": 12,
         "label": "Graduate site"
@@ -10,7 +10,7 @@
   },
   {
     "app": "snailboard",
-    "boards": [
+    "jobBoards": [
       {
         "id": 12,
         "label": "November campaign microsite"

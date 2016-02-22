@@ -126,6 +126,7 @@ management and is separate from any single engagement app.
 <ul>
 <li>stores details of all engagement, including status, summary and detailed results
 (including scores), links and actual attachments (documents)
+<li>reuses results when an existing report is available within the expiry time - reduces costs and candidate inconvenience 
 <li>stores the tenant's installed engagement
 apps - for example, the "Microsoft Office proficiency assessment app"
 <li>stores a tenant-specific list of deployed engagement types within each engagement
@@ -134,18 +135,14 @@ app - for example "MS Word proficiency - entry level", "MS Excel proficiency - g
 "MS Excel proficiency - guru" to "Excel expert"
 <li>allows the tenant to specify a view against each engagement type - e.g. to make available the candidate's
 completed "FSA disclosure" document when a "Finance team probity check" is performed. 
-<li>can optionally copy down the set of default engagement types whenever a new tenant
-installs the engagement app (useful for engagement apps that have fixed, generally
-applicable purpose/volume engagement types; and/or
 <li>provides APIs so the engagement vendor can manage engagement types directly
-for any given tenant (useful when the tenant has a customised set of engagement types)
+for any given tenant (e.g. to populate a default engagement type for new tenants).
 <li>stores the completed engagements
 <li>securely mediates engagement app access to views of information about the
 candidate/application, and prevents engagement apps from probing candidates they
 are not authorized to access
-<li>detects and securely tracks changes in view data (e.g. in the ATS, an additional
-document is uploaded against the candidate while the engagement is in progress)
-<li>prevents engagements being ordered when an existing report is available within the expiry time 
+<li>audits changes in view data (e.g. seeing when, in the ATS, an additional
+document was uploaded against the candidate while the engagement is in progress)
 </ul>
 
 <h2>engageui app</h2>
@@ -166,20 +163,32 @@ other integration with the ats.
 install the engagement vendor app. Covered more in detail below.
 </p>
 
-<h2>Engagement vendor UI app</h2>
+<h2>Engagement vendor admin UI app</h2>
 
-<p>An engagement vendor will also usually install the engagementvendorui app which provides UI to:
+<p>An engagement vendor will also usually install the engagementvendoradminui app which provides UI to:
 <ul>
 <li>View engagement apps 
 <li>View tenants that have installed each app
 <li>Manually manage engagement types for each install
-<li>Manually complete a engagement (for engagement vendors with no technology of their own - others
-will complete engagements in their own platform and use APIs to post the results to the engagement hub)
 </ul>
 </p>
 
-<p>In theory an engagement vendor can accomplish all of the above through APIs so the engagement
-vendor app is optional.
+<p>Other more automated engagement vendors can manage engagement types through the APIs from their own platform.
+</p>
+
+<h2>Engagement vendor results UI app</h2>
+
+<p>An engagement vendor who does not have their own IT systems can install the results app.
+
+<ul>
+<li>Browse for outstanding engagements
+<li>See data from the related view
+<li>Enter results manually, including attachments
+<li>Finalize
+</ul>
+</p>
+
+<p>Other more automated engagement vendors can manage and attach results for engagements via APIs.
 </p>
 
 
@@ -187,20 +196,12 @@ vendor app is optional.
 
 <h2>Engagement types</h2>
 
-<p>To avoid an unweildly proliferation of engagement apps, the engagement APIs support the concept of
-an engagement type.
+<p>An app can present a number of engagement types to the tenant.
 </p>
  
-<p>The first step in the customer requesting an engagement is to select one of the engagement types that the engagement app offers.
-</p>
-
 <p>Some engagement apps may provide highly customised
-engagement types, tailored to each individual customer's needs (e.g., "Acme finance graduate assessment"),
-others just a single, generally applicable screen (e.g. "MS Word proficiency").
-</p>
-
-<p>The engagement app may update/complete the engagement through APIs, or an app is provided that lets zero-code vendors
-update the engagement via screens.
+engagement types, tailored to each individual customer's needs (e.g., "Acme finance graduate assessment").
+Others may present just a single, generally applicable screen (e.g. "MS Word proficiency").
 </p>
 
 
@@ -223,8 +224,9 @@ between service provider and customer on criteria governing the application of t
 
 <h1>Scenarios</h1>
 
-<h2>Customer installs an engagement app</h2>
+<h2>Tenant installs an engagement app</h2>
 
+TODO: update to use new possibles APIs
 
 <div class='seqDiag' id="installing">
 participant TAS
@@ -240,49 +242,85 @@ engagementapp->hub: POST /deployedEngagementTypes
 </div>
 
 
-<h2>Customer views a list of applications</h2>
+<h2>Tenant views a list of applications</h2>
 
 <p>In this scenario:
 <ol>
-<li>a recruiter is using the ats to view a list of applications
+<li>a recruiter is using the ats to view a list of job applications
+<li>against each application appears:
+	<ul>
+	<li>a list of buttons for each potential engagement
+	<li>a list of buttons for each underway or completed engagement
+	<li>both repeated, this time for the candidate
+	</ul>
+</li>
 </ol>
 </p>
 
 
-<div class='seqDiag' id="ordering">
-participant ats
+<div class='seqDiag' id="o">
+participant app
 participant hub
-participant engagementapp
-note right of ats: the ats is about to display applications 20, 21 and 22 within a table
-note right of ats: ats asks for the html fragments for engagements
-ats->engagestrip: GET /engagementStrips?apps=20,21,22
-note left of engagestrip: get existing results
-ats->hub: GET /engagements?apps=20,21,22
+note right of ats: ats is about to display applications 20, 21 and 22
 
-note left of engagestrip: get existing linked results
+note right of ats: ats requests the completed, or in-progress actions for the applications
+ats-->>switchgear: GET SoT /actions/byUser/me/started/applications?applications=20,21,22
+note left of switchgear: The engagement hub injects relevant engagements as actions
+switchgear->hub: GET Non-SoT /actions/byUser/me/started/applications/forApp?applications=20,21,22
 
-note left of engagestrip: the ats may have an opinion on which deployed\nengagement types are relevant for each application
-engagestrip->ats: GET /deployedEngagementTypes/mappedToApps?apps=20,21,22
+note right of ats: ats requests the startable user-facing actions relevant to these applications
+ats-->>switchgear: GET SoT /actions/byUser/me/applications?applications=20,21,22
+note left of switchgear: switchgear consults own database for allowable application actions
+note left of switchgear: based on application's bucket, job's workflow, any manual override
+note left of switchgear: the hub presents a rollup of all actions that are engagements,
+note left of switchgear: i.e. it is the hub that processes the "start" engagement
+switchgear->hub: GET non-SoT /actions/byUser/me/applications/byName/{action}/byApp?applications=20,21,22
+
+note right of ats: TODO - same, but now for the candidates (i.e. that own the applications)
+
+for candidate?
+for application?
+re-use?
+
+
 </div>
 
+<h2>Candidate initiates an engagement</h2>
 
-<h2>Customer orders an engagement</h2>
+<h2>User/recruiter initiates an engagement</h2>
 
 <p>In this scenario:
 <ol>
-<li>candidate visits the tenant's corporate careers site and registers interest in working in a call center position
-<li>as soon as their job application is complete, the ats automatically orders a testly engagement
-<li>candidate is shown a link to complete their part
-<li>once complete, testly performs their own part by reviewing the candidate's details (CV, etc.)
+<li>the tenant browses to the job application and clicks on the action button for testly, hosted by the engagement hub
+<li>engagement hub initiates the engagement, and signals the engagement app
+<li>candidate is sent a link to complete their part
+<li>once candidate action is complete, testly performs their own part by reviewing the candidate's results/outcomes (CV, etc.)
 <li>finally testly pushes the results back
 </ol>
 </p>
 
 
+
 <div class='seqDiag' id="ordering">
-participant ats
-participant hub
-participant engagementapp
+note right of hub: user clicks to start an action, which for\nthe hub means to kick off a new engagement,\nthen signal app
+hub->app: POST non-SoT /engagements/byType/{type}/deltaPings
+note right of app: should be on-behalf?
+
+
+ZZZZZZZZZZ
+try and find an existing one to reuse
+
+
+
+
+
+
+/applications/byID/{application}
+
+
+
+
+
 note right of ats: ats knows to order a testly engagement\nfor every candidate who successfully applies
 note right of ats: ats checks testly still available for ordering
 ats->hub: GET /deployedEngagementTypes
@@ -327,6 +365,8 @@ ats->hub: GET /engagements/viaTicket/{}/cardUri
 
 <p>ats checks testly still available for ordering by asking the engagement hub app for the list of available
 engagement types, as served up by the sum of the installed engagement apps.
+
+
 
 <div class='codeBlock'>
 GET /deployedEngagementTypes

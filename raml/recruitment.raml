@@ -131,20 +131,11 @@ resourceTypes: !include resources.yml
           
 /candidates:
   description:
-    Candidates are people who are in the tenant's talent world, most likely meaning they are stored in their applicant tracking system.
+    Candidates are people who are in the tenant's talent world, perhaps stored in their ATS.
     Maybe they applied for an opening, registered in the database, were imported from some other system, etc.
-    Candidate records may be "owned" (have a value for {E} and {N}). e.g. an actual candidate logging in through LinkedIn, or unowned,
-    in which case they have no {E}/{N} values.
   /me:
     description:
       All APIs beneath here are operating on behalf of the logged in candidate.
-    /id:
-      description: |
-        The ID of the candidate.
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
     post:
       securedBy: [oauth_2_0]
       description: |
@@ -180,10 +171,24 @@ resourceTypes: !include resources.yml
           description: the post was successful
         201:
           description: the post was successful
-    get:
-      securedBy: [oauth_2_0]
+    /details:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get general information about the candidate including notifications (subscribe y/n)
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/candidateDetails.json
+                example: !include ../examples/candidateDetails-simple.json
+    /id:
       description: |
-        Get general information about the candidate including notifications (subscribe y/n)
+        The ID of the candidate.
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
     /vcard:
       get:
         is: [ vcardGetter ]

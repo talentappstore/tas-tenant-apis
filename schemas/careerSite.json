@@ -4,11 +4,11 @@
   "properties": {
     "id": {
       "type": "integer",
-      "description": "immutable id for this board"
+      "description": "immutable id for this career site"
     },
     "label": {
       "type": "string",
-      "description": "label for this board, e.g. Graduate recruitment site"
+      "description": "label for this career site, e.g. Graduate recruitment site"
     }
   },
   "required": [

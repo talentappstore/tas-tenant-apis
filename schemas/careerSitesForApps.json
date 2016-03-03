@@ -1,27 +1,27 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
-    "jobBoardsForApp": {
+    "careerSitesForApp": {
       "type": "object",
       "properties": {
         "app": {
           "type": "string",
-          "description": "the app that is hosting these boards"
+          "description": "the app that is hosting these career sites"
         },
-        "jobBoards": {
-          "$ref": "jobBoards.json"
+        "careerSites": {
+          "$ref": "careerSites.json"
         }
       },
       "additionalProperties": false,
       "required": [
         "app",
-        "jobBoards"
+        "careerSites"
       ]
     }
   },
   "type": "array",
   "items": {
-    "$ref": "#/definitions/jobBoardsForApp"
+    "$ref": "#/definitions/careerSitesForApp"
   },
-  "description": "An array of job boards rolled up across all producing apps"
+  "description": "An array of career sites rolled up across all producing apps"
 }

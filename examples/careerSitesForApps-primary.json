@@ -1,7 +1,7 @@
 [
   {
     "app": "superboard",
-    "jobBoards": [
+    "careerSites": [
       {
         "id": 12,
         "label": "Graduate site"

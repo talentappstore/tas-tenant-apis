@@ -1,3 +1,19 @@
 {
-   "notifications": true
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "notifications": {
+      "type": "boolean",
+      "description": "whether this candidate wants to receive email alerts about new jobs"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "notifications": {
+      "$ref": "#/definitions/notifications"
+    }
+  },
+  "required": [
+    "notifications"
+  ],
+  "additionalProperties": false
 }

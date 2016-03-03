@@ -1,28 +1,49 @@
 [
-    {
-        "id": 10022,
-        "key": "ORG",
-        "name": "Organization",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
+  {
+    "id": 10022,
+    "key": "ORG",
+    "name": "Organization",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
     },
-    {
-        "id": 10032,
-        "key": "LOCATION",
-        "name": "Location",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
-    },
-    {
-        "id": 10034,
-        "name": "Nursing specialization",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
     }
+  },
+  {
+    "id": 10032,
+    "key": "LOCATION",
+    "name": "Location",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  },
+  {
+    "id": 10034,
+    "name": "Nursing specialization",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  }
 ]

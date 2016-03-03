@@ -65,32 +65,6 @@
       ],
       "additionalProperties": false
     },
-    "categoryRule": {
-      "type": "object",
-      "properties": {
-        "category": {
-          "type": "integer"
-        },
-        "visible": {
-          "description": "whether the category can be seen at all",
-          "type": "boolean"
-        },
-        "mandatory": {
-          "description": "whether a value for the category is mandatory",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "a message to help the candidate understand about completing the category - e.g. 'tell us the top 4 stores you really want to work at'",
-          "type": "string"
-        }
-      },
-      "required": [
-        "category",
-        "visible",
-        "mandatory"
-      ],
-      "additionalProperties": false
-    },
     "applicationModel": {
       "type": "object",
       "description": "rules specific to a single job application (i.e., not candidate-scoped)",
@@ -109,14 +83,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "categoryRules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/categoryRule"
-          }
-        },
         "requiredCategoryValues": {
-          "$ref": "categoriesActual.json"
+            "$ref": "categoriesActual.json"
         },
         "resumeRule": {
           "$ref": "#/definitions/resumeRule"

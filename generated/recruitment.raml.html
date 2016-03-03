@@ -1326,51 +1326,81 @@
         "$ref": "category.json"
     }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
-    {
-        "id": 10022,
-        "key": "ORG",
-        "name": "Organization",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
+  {
+    "id": 10022,
+    "key": "ORG",
+    "name": "Organization",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
     },
-    {
-        "id": 10032,
-        "key": "LOCATION",
-        "name": "Location",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
-    },
-    {
-        "id": 10034,
-        "name": "Nursing specialization",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
     }
+  },
+  {
+    "id": 10032,
+    "key": "LOCATION",
+    "name": "Location",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  },
+  {
+    "id": 10034,
+    "name": "Nursing specialization",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  }
 ]</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/categories</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a single category (without any values)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "description": "details of a a single category, identified by id or key (if a well-known category)",
     "definitions": {
-        "jobRules": {
+        "rules": {
             "type": "object",
             "properties": {
                 "canMultiSelect": {
                     "type": "boolean",
-                    "description": "true if a job opening can have multiple values for this category"
+                    "description": "true if an object can have multiple values for this category"
                 },
                 "leafSelectionOnly": {
                     "type": "boolean",
-                    "description": "true if a job opening may only have leaf selections for this category"
-                }
+                    "description": "true if an object can have only leaf selections for this category"
+                },
+                "mandatory": {
+		          "description": "whether a value for the category is mandatory",
+		          "type": "boolean"
+		        },
+	            "message": {
+	              	"type": "string",
+	              	"description": "a message to help the candidate/user when entering values for the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;"
+	            }
             },
             "additionalProperties": false,
             "required": [
+              	"mandatory",
                 "canMultiSelect",
                 "leafSelectionOnly"
             ]
@@ -1391,43 +1421,63 @@
             "type": "string",
             "description": "the user visible name for this category"
         },
+        "candidateRules": {
+            "$ref": "#/definitions/rules"
+        },
         "jobRules": {
-            "$ref": "#/definitions/jobRules"
+            "$ref": "#/definitions/rules"
         }
     },
     "additionalProperties": false,
     "required": [
         "id",
         "name",
-        "jobRules"
+        "jobRules",
+        "candidateRules"
     ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>    {
-        "id": 10032,
-        "key": "LOCATION",
-        "name": "Location",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
-    }</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_categories_byID__category_"><span class="parent">/categories/byID</span>/{category}</a> <span class="methods"><a href="#categories_byID__category__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_categories_byID__category_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>category ID</p></div><div class="list-group"><div onclick="window.location.href = '#categories_byID__category__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a single category, not including its values</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a category, along with all of its values</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID</span>/{category}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a single category, not including its values</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__post_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "id": 10032,
+  "key": "LOCATION",
+  "name": "Location",
+  "jobRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "mandatory": true
+  },
+  "candidateRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "message": "Please choose carefully",
+    "mandatory": true
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_categories_byID__category_"><span class="parent">/categories/byID</span>/{category}</a> <span class="methods"><a href="#categories_byID__category__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_categories_byID__category_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>category ID</p></div><div class="list-group"><div onclick="window.location.href = '#categories_byID__category__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update a single category, not including its values</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete a category, along with all of its values</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID</span>/{category}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a single category, not including its values</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__post_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "description": "details of a a single category, identified by id or key (if a well-known category)",
     "definitions": {
-        "jobRules": {
+        "rules": {
             "type": "object",
             "properties": {
                 "canMultiSelect": {
                     "type": "boolean",
-                    "description": "true if a job opening can have multiple values for this category"
+                    "description": "true if an object can have multiple values for this category"
                 },
                 "leafSelectionOnly": {
                     "type": "boolean",
-                    "description": "true if a job opening may only have leaf selections for this category"
-                }
+                    "description": "true if an object can have only leaf selections for this category"
+                },
+                "mandatory": {
+		          "description": "whether a value for the category is mandatory",
+		          "type": "boolean"
+		        },
+	            "message": {
+	              	"type": "string",
+	              	"description": "a message to help the candidate/user when entering values for the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;"
+	            }
             },
             "additionalProperties": false,
             "required": [
+              	"mandatory",
                 "canMultiSelect",
                 "leafSelectionOnly"
             ]
@@ -1448,25 +1498,36 @@
             "type": "string",
             "description": "the user visible name for this category"
         },
+        "candidateRules": {
+            "$ref": "#/definitions/rules"
+        },
         "jobRules": {
-            "$ref": "#/definitions/jobRules"
+            "$ref": "#/definitions/rules"
         }
     },
     "additionalProperties": false,
     "required": [
         "id",
         "name",
-        "jobRules"
+        "jobRules",
+        "candidateRules"
     ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>    {
-        "id": 10032,
-        "key": "LOCATION",
-        "name": "Location",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
-    }</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID</span>/{category}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a category, along with all of its values</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__delete_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__delete_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_categories_byID__category__values"><span class="parent">/categories/byID/{category}</span>/values</a> <span class="methods"><a href="#categories_byID__category__values_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__values_patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__values_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_categories_byID__category__values" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#categories_byID__category__values_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get root values and the hierarchy of values beneath</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__values_patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Merge in an array of root values. TODO: what happens when:</p><ul><li>the merge specifies a different location for an existing node?</li></ul></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__values_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Arbitrarily set or change the root values for this category.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__values_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID/{category}</span>/values</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get root values and the hierarchy of values beneath</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__values_get_request" data-toggle="tab">Request</a></li><li><a href="#categories_byID__category__values_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__values_get_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="categories_byID__category__values_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "id": 10032,
+  "key": "LOCATION",
+  "name": "Location",
+  "jobRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "mandatory": true
+  },
+  "candidateRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "message": "Please choose carefully",
+    "mandatory": true
+  }
+}</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID</span>/{category}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a category, along with all of its values</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__delete_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__delete_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_categories_byID__category__values"><span class="parent">/categories/byID/{category}</span>/values</a> <span class="methods"><a href="#categories_byID__category__values_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__values_patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__values_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_categories_byID__category__values" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#categories_byID__category__values_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get root values and the hierarchy of values beneath</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__values_patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Merge in an array of root values. TODO: what happens when:</p><ul><li>the merge specifies a different location for an existing node?</li></ul></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__values_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Arbitrarily set or change the root values for this category.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__values_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID/{category}</span>/values</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get root values and the hierarchy of values beneath</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__values_get_request" data-toggle="tab">Request</a></li><li><a href="#categories_byID__category__values_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__values_get_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="categories_byID__category__values_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "value": {
@@ -1926,32 +1987,6 @@
       ],
       "additionalProperties": false
     },
-    "categoryRule": {
-      "type": "object",
-      "properties": {
-        "category": {
-          "type": "integer"
-        },
-        "visible": {
-          "description": "whether the category can be seen at all",
-          "type": "boolean"
-        },
-        "mandatory": {
-          "description": "whether a value for the category is mandatory",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "a message to help the candidate understand about completing the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;",
-          "type": "string"
-        }
-      },
-      "required": [
-        "category",
-        "visible",
-        "mandatory"
-      ],
-      "additionalProperties": false
-    },
     "applicationModel": {
       "type": "object",
       "description": "rules specific to a single job application (i.e., not candidate-scoped)",
@@ -1970,14 +2005,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "categoryRules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/categoryRule"
-          }
-        },
         "requiredCategoryValues": {
-          "$ref": "categoriesActual.json"
+            "$ref": "categoriesActual.json"
         },
         "resumeRule": {
           "$ref": "#/definitions/resumeRule"
@@ -2019,13 +2048,6 @@
     "level": "info"
   },
   "candidateModel": {
-    "categoryRules": [
-      {
-        "category": 10032,
-        "visible": true,
-        "mandatory": true
-      }
-    ],
     "vCardRule": {
       "someMandatory": true
     },
@@ -2223,32 +2245,6 @@
       ],
       "additionalProperties": false
     },
-    "categoryRule": {
-      "type": "object",
-      "properties": {
-        "category": {
-          "type": "integer"
-        },
-        "visible": {
-          "description": "whether the category can be seen at all",
-          "type": "boolean"
-        },
-        "mandatory": {
-          "description": "whether a value for the category is mandatory",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "a message to help the candidate understand about completing the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;",
-          "type": "string"
-        }
-      },
-      "required": [
-        "category",
-        "visible",
-        "mandatory"
-      ],
-      "additionalProperties": false
-    },
     "applicationModel": {
       "type": "object",
       "description": "rules specific to a single job application (i.e., not candidate-scoped)",
@@ -2267,14 +2263,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "categoryRules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/categoryRule"
-          }
-        },
         "requiredCategoryValues": {
-          "$ref": "categoriesActual.json"
+            "$ref": "categoriesActual.json"
         },
         "resumeRule": {
           "$ref": "#/definitions/resumeRule"
@@ -2316,13 +2306,6 @@
     "level": "info"
   },
   "candidateModel": {
-    "categoryRules": [
-      {
-        "category": 10032,
-        "visible": true,
-        "mandatory": true
-      }
-    ],
     "vCardRule": {
       "someMandatory": true
     },
@@ -2520,32 +2503,6 @@
       ],
       "additionalProperties": false
     },
-    "categoryRule": {
-      "type": "object",
-      "properties": {
-        "category": {
-          "type": "integer"
-        },
-        "visible": {
-          "description": "whether the category can be seen at all",
-          "type": "boolean"
-        },
-        "mandatory": {
-          "description": "whether a value for the category is mandatory",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "a message to help the candidate understand about completing the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;",
-          "type": "string"
-        }
-      },
-      "required": [
-        "category",
-        "visible",
-        "mandatory"
-      ],
-      "additionalProperties": false
-    },
     "applicationModel": {
       "type": "object",
       "description": "rules specific to a single job application (i.e., not candidate-scoped)",
@@ -2564,14 +2521,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "categoryRules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/categoryRule"
-          }
-        },
         "requiredCategoryValues": {
-          "$ref": "categoriesActual.json"
+            "$ref": "categoriesActual.json"
         },
         "resumeRule": {
           "$ref": "#/definitions/resumeRule"
@@ -2613,13 +2564,6 @@
     "level": "info"
   },
   "candidateModel": {
-    "categoryRules": [
-      {
-        "category": 10032,
-        "visible": true,
-        "mandatory": true
-      }
-    ],
     "vCardRule": {
       "someMandatory": true
     },
@@ -2817,32 +2761,6 @@
       ],
       "additionalProperties": false
     },
-    "categoryRule": {
-      "type": "object",
-      "properties": {
-        "category": {
-          "type": "integer"
-        },
-        "visible": {
-          "description": "whether the category can be seen at all",
-          "type": "boolean"
-        },
-        "mandatory": {
-          "description": "whether a value for the category is mandatory",
-          "type": "boolean"
-        },
-        "message": {
-          "description": "a message to help the candidate understand about completing the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;",
-          "type": "string"
-        }
-      },
-      "required": [
-        "category",
-        "visible",
-        "mandatory"
-      ],
-      "additionalProperties": false
-    },
     "applicationModel": {
       "type": "object",
       "description": "rules specific to a single job application (i.e., not candidate-scoped)",
@@ -2861,14 +2779,8 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "categoryRules": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/categoryRule"
-          }
-        },
         "requiredCategoryValues": {
-          "$ref": "categoriesActual.json"
+            "$ref": "categoriesActual.json"
         },
         "resumeRule": {
           "$ref": "#/definitions/resumeRule"
@@ -2910,13 +2822,6 @@
     "level": "info"
   },
   "candidateModel": {
-    "categoryRules": [
-      {
-        "category": 10032,
-        "visible": true,
-        "mandatory": true
-      }
-    ],
     "vCardRule": {
       "someMandatory": true
     },

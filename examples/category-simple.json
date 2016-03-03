@@ -1,9 +1,16 @@
-    {
-        "id": 10032,
-        "key": "LOCATION",
-        "name": "Location",
-        "jobRules": {
-            "canMultiSelect": true,
-            "leafSelectionOnly": false
-        }
-    }
+{
+  "id": 10032,
+  "key": "LOCATION",
+  "name": "Location",
+  "jobRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "mandatory": true
+  },
+  "candidateRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "message": "Please choose carefully",
+    "mandatory": true
+  }
+}

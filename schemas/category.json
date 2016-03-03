@@ -3,20 +3,29 @@
     "type": "object",
     "description": "details of a a single category, identified by id or key (if a well-known category)",
     "definitions": {
-        "jobRules": {
+        "rules": {
             "type": "object",
             "properties": {
                 "canMultiSelect": {
                     "type": "boolean",
-                    "description": "true if a job opening can have multiple values for this category"
+                    "description": "true if an object can have multiple values for this category"
                 },
                 "leafSelectionOnly": {
                     "type": "boolean",
-                    "description": "true if a job opening may only have leaf selections for this category"
-                }
+                    "description": "true if an object can have only leaf selections for this category"
+                },
+                "mandatory": {
+		          "description": "whether a value for the category is mandatory",
+		          "type": "boolean"
+		        },
+	            "message": {
+	              	"type": "string",
+	              	"description": "a message to help the candidate/user when entering values for the category - e.g. 'tell us the top 4 stores you really want to work at'"
+	            }
             },
             "additionalProperties": false,
             "required": [
+              	"mandatory",
                 "canMultiSelect",
                 "leafSelectionOnly"
             ]
@@ -37,14 +46,18 @@
             "type": "string",
             "description": "the user visible name for this category"
         },
+        "candidateRules": {
+            "$ref": "#/definitions/rules"
+        },
         "jobRules": {
-            "$ref": "#/definitions/jobRules"
+            "$ref": "#/definitions/rules"
         }
     },
     "additionalProperties": false,
     "required": [
         "id",
         "name",
-        "jobRules"
+        "jobRules",
+        "candidateRules"
     ]
 }

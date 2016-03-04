@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "id": {
+      "type": "integer"
+    },
+    "ct": {
+      "type": "string",
+      "description": "The consuming tenant"
+    },
+    "ca": {
+      "type": "string",
+      "description": "The consuming app"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "ct": {
+      "$ref": "#/definitions/ct"
+    },
+    "ca": {
+      "$ref": "#/definitions/ca"
+    }
+  },
+  "required": [
+    "id",
+    "ct",
+    "ca"
+  ],
+  "additionalProperties": false
+}

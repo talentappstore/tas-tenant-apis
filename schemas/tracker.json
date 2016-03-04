@@ -1,18 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
-        "meta": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "id"
-            ],
-            "additionalProperties": false
-        },
         "sessionCreation": {
             "type": "object",
             "description": "sourcing event for a user creating a new session at a web app such as a careers site",
@@ -78,10 +66,7 @@
     "type": "object",
     "properties": {
         "meta": {
-            "$ref": "#/definitions/meta"
-        },
-        "consumer": {
-            "$ref": "consumer.json"
+            "$ref": "trackerMeta.json"
         },
         "sessionCreation": {
                     "$ref": "#/definitions/sessionCreation"

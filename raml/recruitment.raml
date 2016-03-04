@@ -999,8 +999,8 @@ resourceTypes: !include resources.yml
         description: a tracker was created
         body:
           application/json:
-            schema: !include ../schemas/trackerCreation.json
-            example: !include ../examples/trackerCreation-simple.json
+            schema: !include ../schemas/trackerMeta.json
+            example: !include ../examples/trackerMeta-simple.json
   /byID:
     /{id}:
       /chain:
@@ -1028,8 +1028,8 @@ resourceTypes: !include resources.yml
               description: a tracker was created
               body:
                 application/json:
-                  schema: !include ../schemas/trackerCreation.json
-                  example: !include ../examples/trackerCreation-simple.json
+                  schema: !include ../schemas/trackerMeta.json
+                  example: !include ../examples/trackerMeta-simple.json
 
 /recruiters:
   description: |

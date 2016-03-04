@@ -27,7 +27,6 @@
     "categories": { "$ref": "../schemas/categories.json" },
     "category": { "$ref": "../schemas/category.json" },
     "categoryValues": { "$ref": "../schemas/categoryValues.json" },
-    "consumer": { "$ref": "../schemas/consumer.json" },
     "deltaPing": { "$ref": "../schemas/deltaPing.json" },
     "deployedEngagementType": { "$ref": "../schemas/deployedEngagementType.json" },
     "deployedEngagementTypes": { "$ref": "../schemas/deployedEngagementTypes.json" },
@@ -59,8 +58,8 @@
     "recruiter": { "$ref": "../schemas/recruiter.json" },
     "recruiters": { "$ref": "../schemas/recruiters.json" },
     "socialNetworks": { "$ref": "../schemas/socialNetworks.json" },
-    "trackerCreation": { "$ref": "../schemas/trackerCreation.json" },
     "tracker": { "$ref": "../schemas/tracker.json" },
+    "trackerMeta": { "$ref": "../schemas/trackerMeta.json" },
     "trackers": { "$ref": "../schemas/trackers.json" },
     "userArea": { "$ref": "../schemas/userArea.json" }
 

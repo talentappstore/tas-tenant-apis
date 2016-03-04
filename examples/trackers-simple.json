@@ -1,9 +1,7 @@
 [
     {
         "meta": {
-            "id": 10023
-        },
-        "consumer": {
+            "id": 10023,
             "ct": "acme",
             "ca": "jobboard"
         },
@@ -17,9 +15,7 @@
     },
     {
         "meta": {
-            "id": 10024
-        },
-        "consumer": {
+            "id": 10024,
             "ct": "acme",
             "ca": "refly"
         },

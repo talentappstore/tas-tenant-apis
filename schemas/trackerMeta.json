@@ -11,6 +11,11 @@
     "ca": {
       "type": "string",
       "description": "The consuming app"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the tracker was created"
     }
   },
   "type": "object",
@@ -23,12 +28,16 @@
     },
     "ca": {
       "$ref": "#/definitions/ca"
+    },
+    "created": {
+      "$ref": "#/definitions/created"
     }
   },
   "required": [
     "id",
     "ct",
-    "ca"
+    "ca",
+    "created"
   ],
   "additionalProperties": false
 }

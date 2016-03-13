@@ -170,7 +170,52 @@ The primary key used by the primary must:
 
 <h1>Error handling in tenant APIs</h1>
 
-Our error returns follow the draft standard <a href='https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00'>Problem Details for HTTP APIs</a>
+<h2>http status codes</h2>
+
+<p>Where possible, when indicating errors, API producers should document and use existing, meaningful http error codes.
+</p>
+
+<p>For example, <b>409 Conflict</b> could be returned if a consumer tried to create object "foo" but such object already exists.
+</p>
+
+<p>If there is no suitable code, APIs should just use 400 or 500 as appropriate - we don't currently define new http status codes.
+</p>
+
+<p>The RAML for the API should document the superset of http status codes that an API may produce - no app producing the API should return any other statuses.
+</p>
+
+<h2>application/problem+json responses</h2>
+
+<p>In addition to the status code, APIs responding with errors (other than self-explanatory ones such as 404) should also return
+a body of type application/problem+json as per Problem Details for HTTP APIs.
+</p>
+
+<p>The application/problem+json format uses the "type" field (a URI) to identify the type of error.
+</p>
+
+<p>For predictable error cases (e.g. create a job application fails because the job is closed), the API documentation
+should specify actual values for type. At TAS, we start our types with http://constants.talentappstore.com/httpProblems/.
+For example:   
+
+<div class='codeBlock'>
+/applications:
+  post:
+    responses:
+      200:
+      500:
+        body:
+          application/problem+json:
+            schema: !include ../schemas/applicationProblem.json
+            description: |
+              The app producing the API should return one of the following values in the type field where appropriate:
+              - http://constants.talentappstore.com/httpProblems/jobClosed - the job is closed 
+              - http://constants.talentappstore.com/httpproblems/tooLate - its after midnight 
+</div>
+</p>
+
+<p>Apps may also throw errors with undocumented values for type (obviously the consumer won't be able to take any specific action in this case).
+</p>
+
 
 <h1>Constant resource representation in tenant APIs</h1>
 

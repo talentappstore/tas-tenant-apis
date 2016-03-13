@@ -11,6 +11,12 @@ resourceTypes: !include resources.yml
 /actions:
   /byCandidate:
     /me:
+      /engagements:
+        /general:
+          type: candidateAppsActions
+        /forApplication:
+          /{application}:
+            type: candidateAppsActions
       /general:
         type: candidateAppsActions
         /byName:
@@ -31,6 +37,12 @@ resourceTypes: !include resources.yml
             /byApp:
               type: candidateAppAction
     /anonymous:
+      /engagements:
+        /general:
+          type: candidateAppsActions
+        /forApplication:
+          /{application}:
+            type: candidateAppsActions
       /general:
         type: candidateAppsActions
         /byName:

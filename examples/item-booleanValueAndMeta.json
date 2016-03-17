@@ -1,0 +1,12 @@
+{
+  "name": "criminal",
+  "value": {
+    "raw": false,
+    "display": "nope"
+  },
+  "meta": {
+    "type": "boolean",
+    "title": "Criminal",
+    "description": "Are you a criminal?"
+  }
+}

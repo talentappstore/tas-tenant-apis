@@ -2,9 +2,25 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "raw": {
-      "type": "object",
-      "additionalProperties": true,
-      "description": "json representation of the item's current value"
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "json representation of the item's current value as an object"
+        },
+        {
+          "type": "boolean",
+          "description": "json representation of the item's current value as a boolean"
+        },
+        {
+          "type": "string",
+          "description": "json representation of the item's current value as a string"
+        },
+        {
+          "type": "number",
+          "description": "json representation of the item's current value as a number"
+        }
+      ]
     },
     "display": {
       "type": "string",

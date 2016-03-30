@@ -61,7 +61,7 @@ then they may get a truncated application form
 
 <h2>description</h2>
 
-<p>Item descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
+<p>Item descriptions are formatted using a safe subset of <a href='https://daringfireball.net/projects/markdown/syntax'>markdown</a>,
 with individual lines demarcated with \n.
 </p>
  
@@ -115,7 +115,12 @@ on top level properties (i.e. not on properties within an array).
 <p>Used for file uploads, i.e. data about to be applied to the server. Items using this format must have a list of properties
 exactly matching fileUpload.json schema.</p>
 
-<p>The additional, optional property "accept" can be used to limit the allowable file formats (as a comma separated list of mime types).
+<p>These additional, optional properties can be used to tell the client what files are acceptable:
+<ul>
+<li>"accept" can be used to limit the allowable file formats (as a comma separated list of mime types).
+<li>"maxSize" can be used to specify the maximum size of the file in bytes.
+</ul>
+
 
 <div class='codeBlock'>
 {
@@ -125,6 +130,7 @@ exactly matching fileUpload.json schema.</p>
         "format": "tas-fileUpload",
         "access": "candidateOwned",
         "accept": [ "image/png", "text/html" ],
+        "maxSize": 1000000,
         "description": "Please upload a cover letter. The shorter the better",
         "properties": {
             "data": {

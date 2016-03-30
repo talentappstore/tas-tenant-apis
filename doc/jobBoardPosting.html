@@ -25,7 +25,7 @@
 <link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 
-<title>Bulk upload jobs</title>
+<title>Job board posting</title>
 </head>
 <body>
 
@@ -38,8 +38,8 @@
 <p>This scenario involves these apps:
 <ol>
 <li>myuploader, an app that fetches jobs in bulk from some master database and then
-passes them in bulk to be uploaded to a remote site
-<li>jobboardapp, an app that presents a local facade that tenants can work against to manage their
+passes them in bulk to be uploaded to a remote job board
+<li>jobboardapp, an app provided by the job board that presents a local facade that tenants can work against to manage their
 jobs at some job board
 </ol>
 </p>
@@ -122,7 +122,7 @@ https://myuploader.in.tazzy.io/apps/jobboardapp/devs/tas/categories/byID/10022/v
 
 <div class='codeBlock'>
 curl -X POST -H "tazzy-secret: gjKUy7Y7Ehy0KgE32" -H "tazzy-tenant: uploadtenant" \
-https://myuploader.in.tazzy.io/apps/jobboardapp/devs/tas/jobSets
+https://myuploader.in.tazzy.io/apps/jobboardapp/devs/tas/jobSets/forOrg/100
 
 <div class='clientInclude' data-href='../examples/jobSet-simple.json'></div>
 

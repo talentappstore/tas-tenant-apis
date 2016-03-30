@@ -1,8 +1,5 @@
 {
     "testFlag": true,
-    "includedOrgs": [
-        10024
-    ],
     "jobs": [
         {
             "viewUri": "https://acme.jobboard.com/jobs/Creative-Director",
@@ -26,6 +23,9 @@
                         10029
                     ]
                 }
+            ],
+            "links": [
+            {"label": "Position description", "uri": "https://example.com/docs/director.pdf"}
             ]
         },
         {

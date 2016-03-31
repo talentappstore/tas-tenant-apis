@@ -910,45 +910,48 @@ resourceTypes: !include resources.yml
         description: Update an existing opening as a recruiter
 
 /jobSets:
-  /forOrg:
-    /{org}:
-      post:
-        securedBy: [oauth_2_0]
-        description: |
-          Used to bulk upload active jobs for an org (i.e. a category value from the category with the key "ORG").
-          
-          The jobSet is assumed to be the definitive set of jobs for the given org, i.e. after the call is complete,
-          if all is well we expect the jobs of those orgs to match the jobSet exactly.
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Non-SoT.
       
-          The behavior is:
-          - for each job for that org in the jobSet
-          - .search for a matching (by code) job in the database with the same org, and with status == active 
-          - .if the job does not exist, create it
-          - .if the job already exists and has identical details, leave it
-          - .if the job exists but has different details, update it
-          - for each job that exists for the org but was not found in the jobSet for the org, make it not active or delete it     
+      Used to bulk upload active jobs for an org (i.e. a category value from the category with the key "ORG").
+      
+      The jobSet is assumed to be the definitive set of jobs for the given org, i.e. after the call is complete,
+      if all is well we expect the jobs of those orgs to match the jobSet exactly.
+  
+      The behavior is:
+      - for each job for that org in the jobSet
+      - .search for a matching (by code) job in the database with the same org, and with status == active 
+      - .if the job does not exist, create it
+      - .if the job already exists and has identical details, leave it
+      - .if the job exists but has different details, update it
+      - for each job that exists for the org but was not found in the jobSet for the org, make it not active or delete it     
 
-          Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the org.
-      
-          Job codes are unique within org.
-      
-          Existing jobs, once closed, are never re-activated by this call.       
+      Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the org.
+  
+      Job codes are unique within org.
+  
+      Existing jobs, once closed, are never re-activated by this call.       
 
-          Status must not be passed on jobs. The assumption is that the jobSet only includes active jobs.
-            
-          The behaviour is not required to be atomic. It is possible that only some changes will be made and for the call to fail
-          after only partially processing the job list.
+      Status must not be passed on jobs. The assumption is that the jobSet only includes active jobs.
+        
+      The behaviour is not required to be atomic. It is possible that only some changes will be made and for the call to fail
+      after only partially processing the job list.
+    body:
+      application/json:
+        schema: !include ../schemas/jobSet.json
+        example: !include ../examples/jobSet-simple.json
+    responses:
+      200:
         body:
           application/json:
-            schema: !include ../schemas/jobSet.json
-            example: !include ../examples/jobSet-simple.json
-        responses:
-          200:
-            body:
-              application/json:
-                example: !include ../examples/jobSetResponse-simple.json
-
-
+            example: !include ../examples/jobSetResponse-simple.json
+  /forBoard:
+    /{board}:
+      get:
+        description: get the jobset for this board, typically from a mapper type app that tracks which jobs have been posted where 
+        
 /landingPage:
   get:
     securedBy: [oauth_2_0]

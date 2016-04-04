@@ -9,6 +9,7 @@
                 },
                 "values": {
                     "type": "array",
+                    "uniqueItems": true,
                     "items": {
                         "type": "integer"
                     }

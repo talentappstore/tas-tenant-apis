@@ -1,22 +1,364 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "status": {
-            "$ref": "engagementWrite.json#/definitions/status"
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "accessPoint": {
+      "type": "object",
+      "description": "Link to an external result.",
+      "properties": {
+        "uri": {
+          "title": "URI",
+          "type": "string",
+          "format": "uri"
         },
-        "vendor": {
-            "$ref": "engagementWrite.json#/definitions/vendor"
-        },
-        "subject": {
-            "$ref": "engagementWrite.json#/definitions/subject"
-        },
-        "id": {
-            "type": "integer"
+        "typeCode": {
+          "type": "string",
+          "title": "Type",
+          "enum": [
+            "Individual",
+            "Group"
+          ]
         }
+      }
     },
-    "additionalProperties": false,
-    "required": [
-        "id", "vendor", "subject", "status"
-    ]
+    "scoreNumeric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "ScoreNumeric"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Percentile",
+            "Raw Score",
+            "Stanine",
+            "Sten",
+            "T-score",
+            "Z-score",
+            "Intelligence Quotient",
+            "Scaled",
+            "Normal Curve",
+            "GPA"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      }
+    },
+    "scoreText": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Scoretext"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Grade Letter"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      }
+    },
+    "score": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Numeric Score",
+            "$ref": "#/definitions/scoreNumeric"
+          },
+          {
+            "title": "Text Score",
+            "$ref": "#/definitions/scoreText"
+          }
+        ]
+      }
+    },
+    "assessedCompetency": {
+      "title": "Assessed Competency",
+      "type": "object",
+      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
+      "properties": {
+        "id": {
+          "title": "Name",
+          "type": "integer"
+        },
+        "proficiencyLevel": {
+          "title": "Proficiency Level",
+          "$ref": "#/definitions/score"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Result Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "passedIndicator": {
+          "title": "Pass?",
+          "type": "boolean"
+        },
+        "score": {
+          "title": "Score",
+          "$ref": "#/definitions/score"
+        },
+        "comment": {
+          "title": "Comment",
+          "type": "string"
+        },
+        "bandID": {
+          "title": "Band",
+          "type": "string"
+        },
+        "assessedCompetency": {
+          "title": "Assessed Competency",
+          "$ref": "#/definitions/assessedCompetency"
+        }
+      }
+    },
+    "attachmentType": {
+      "title": "Name",
+      "type": "string",
+      "description": "Only one document with this name can be attached to an assessment result."
+    },
+    "attachmentWrite": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileUpload": {
+          "$ref": "fileUpload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileUpload"
+      ]
+    },
+    "attachmentRead": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileDownload": {
+          "$ref": "fileDownload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileDownload"
+      ]
+    },
+    "assessmentDetailWrite": {
+      "properties": {
+        "assessmentOverallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "assessmentDetailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentWrite"
+          }
+        }
+      }
+    },
+    "assessmentDetailRead": {
+      "properties": {
+        "overallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "detailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentRead"
+          }
+        }
+      }
+    },
+    "status": {
+      "description": "The current disposition of an engagement",
+      "enum": [
+        "New",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Expired",
+        "Error"
+      ]
+    },
+    "onHoldFlag": {
+      "type": "boolean",
+      "description": "whether the tenant has placed the engagement on hold"
+    },
+    "subject": {
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "jobTitle": {
+          "type": "string"
+        },
+        "jobRef": {
+          "type": "string"
+        },
+        "candidate": {
+          "type": "integer"
+        },
+        "application": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "interactionUris": {
+      "type": "object",
+      "properties": {
+        "candidateInteractionUri": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "when present, a uri that the candidate must follow to complete some part of the engagement"
+        },
+        "userInteractionUri": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "when present, a uri that the user (e.g. the recruiter) must follow to complete some part of the engagement"
+        }
+      },
+      "additionalProperties": false,
+      "required": [ "candidateInteractionUri", "userInteractionUri"]
+    },
+    "engagementCreate": {
+      "type": "object",
+      "description": "package of data needed to create an engagement",
+      "properties": {
+        "subject": {
+          "$ref": "#/definitions/subject"
+        }
+      },
+      "required": [
+        "subject"
+      ]
+    },
+    "engagementWriteByApp": {
+      "type": "object",
+      "description": "package of data for an engagement app to update an engagement",
+      "properties": {
+        "assessmentDetailWrite": {
+          "$ref": "#/definitions/assessmentDetailWrite"
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "interactionUris": {
+          "$ref": "#/definitions/interactionUris"
+        }
+      }
+    },
+    "engagementWriteByTenant": {
+      "type": "object",
+      "description": "package of data for the tenant (e.g. via some trusted app like an ats) to update an engagement",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "onHoldFlag": {
+          "$ref": "#/definitions/onHoldFlag"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "meta.json"
+    },
+    "subject": {
+      "$ref": "#/definitions/subject"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "onHoldFlag": {
+      "$ref": "#/definitions/onHoldFlag"
+    },
+    "assessmentDetail": {
+      "$ref": "#/definitions/assessmentDetailRead"
+    },
+    "interactionUris": {
+      "$ref": "#/definitions/interactionUris"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "subject",
+    "status",
+    "onHoldFlag"
+  ]
 }

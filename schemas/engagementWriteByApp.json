@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "engagementRead.json#/definitions/status"
+    },
+    "assessmentDetail": {
+      "$ref": "engagementRead.json#/definitions/assessmentDetailWrite"
+    },
+    "interactionUris": {
+      "$ref": "engagementRead.json#/definitions/interactionUris"
+    }
+  },
+  "additionalProperties": false
+}

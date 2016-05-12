@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "key": {
+      "type": "string",
+      "description": "the engagement app's unique (within that app) and immutable key for this engagement type "
+    },
+    "title": {
+      "type": "string",
+      "description": "label for this engagement type"
+    },
+    "daysToExpire": {
+      "type": "integer",
+      "description": "the number of elapsed days before this engagements result is no longer valid - pass 0 to never expire"
+    },
+    "isPassFail": {
+      "type": "boolean",
+      "description": "whether this engagement results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
+    },
+    "candidateSeesResults": {
+      "type": "boolean",
+      "description": "whether the candidate should have visibility of the results of this engagement, including pass/fail"
+    },
+    "canReuse": {
+      "type": "boolean",
+      "description": "whether an unexpired engagement result on one job application can be reused when the candidate makes another job application"
+    },
+    "engagementType": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/key"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "daysToExpire": {
+          "$ref": "#/definitions/daysToExpire"
+        },
+        "isPassFail": {
+          "$ref": "#/definitions/isPassFail"
+        },
+        "candidateSeesResults": {
+          "$ref": "#/definitions/candidateSeesResults"
+        },
+        "canReuse": {
+          "$ref": "#/definitions/canReuse"
+        }
+      }
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/engagementType"
+  }
+}

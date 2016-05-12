@@ -1,0 +1,450 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Engagement apps</title>
+</head>
+<body>
+
+
+<h1>Table of contents</h1>
+
+<div id="toc"></div>
+
+
+<h1>Overview</h1>
+
+
+<p>This document is intended to help developers build engagement apps for Talent App Store.
+</p>
+
+
+<h2>About engagements</h2>
+
+<p>An <b>engagement</b> is an interaction relating to the candidate for a job application that takes place at any point during the recruitment process, for example:
+<ul>
+<li>undertaking a skills assessment
+<li>carrying out reference checks
+<li>cultural/fit analysis
+<li>carrying out medical checks or drug tests
+<li>capturing video interviews 
+<li>gamification interaction
+<li>probity check
+<li>HR-XML style assessment 
+</ul>
+</p>
+
+<p>The tenant (customer) typically uses the results of engagements to decide whether/how to proceed with the job application.
+</p>
+
+<p>An engagement might involve input from:
+<ol>
+<li>the candidate themselves, e.g. an online questionnaire where the
+candidate provides some data that can be used to calculate
+their cultural fit with the company they are apply for.
+<li>a trusted third party, e.g. a fact checking firm that verifies that the
+details in a candidate's resume are accurate.
+<li>a user inside the tenant, e.g. a recruiter providing some information.
+<li>no-one, e.g. a fully automated computer program that scours social networks and web sites,
+scraping the online footprints of the candidate.
+<li>some combination of the above.
+</ol> 
+</p>
+
+<h2>About engagement types</h2>
+
+<p>Once the tenant has installed an engagement app, the app must make a number of <b>engagement types</b> available to the tenant. Every engagement is of a single engagement type.
+</p>
+
+<p>Engagement apps may produce:
+<ol>
+<li>highly customised types, where each tenant has their own unique set of engagement types, tailored to
+their needs (e.g., "Acme finance graduate assessment").
+<li>a single, universal engagement type that is the same for all tenants installing the app (e.g. "MS Word proficiency").
+<li>some combination of the above.
+</ol>
+</p>
+
+<p>A large organization may rely on tens or hundreds of different engagement types, from a variety of engagement apps,
+depending on the variety of roles on offer and their reliance on engagements rather than formal interviews or phone screens.
+</p> 
+
+<h2>Related apps</h2> 
+
+<p>Performing an engagement is a cooperative effort between three apps that call APIs on each other:
+
+<ol>
+
+<li>Your engagement app. Your app does the hard word of actually conducting the engagement. For example a basic
+numeracy testing engagement might guide the candidate through a series of web pages, each one asking them an
+arithmetic question, and then at the end calculate an overall score for them.
+
+<li>The <b>engagement hub</b> app. The hub provides centralized engagement
+management and is separate from any single engagement app. The engagement hub app:
+<ul>
+<li>stores details of all engagement, including status, summary and detailed results
+(including scores), links and attachments (documents)
+<li>reuses results when an existing engagement result for the candidate is available within the expiry time, reducing per-engagement costs and candidate inconvenience 
+<li>stores the tenant's installed engagement apps - for example, the "Microsoft Office proficiency assessment app"
+<li>stores a tenant-specific list of engagement types within each engagement
+app - for example "MS Word proficiency - entry level", "MS Excel proficiency - guru"
+<li>securely mediates engagement app access to views of information about the
+candidate/application, and prevents engagement apps from probing candidates they
+are not authorized to access
+<li>provides a UI for the tenant to map engagement types to specific workflows (e.g., that the "sales skills 101" engagement type is only available for call center jobs),
+and to mark engagement types as being auto-started for new job applications
+</ul>
+
+<li>The applicant tracking system (<b>ATS</b>) app. The ATS holds job applications and displays them, with engagement results, to recruiters/hiring managers. It starts engagements, either automatically or via user action in the embedded menus.
+
+</ol>
+
+</p>
+
+
+<h2>Diagram</h2>
+
+<p>The diagram below shows the apps involved.
+</p>
+
+<div class='codeBlock'>
+
+         +-----+         +----------------+
+         | ats |<------->| engagement app |-+
+         +-----+         +----------------+ |-+
+            /\              +----------------+ |
+            |                +----------------+
+            |                   |
+            \/                  \/
+          +------------------------+
+          |    engagement hub      |
+          +------------------------+
+                    /\
+                     .
+customer             .  (communication via shared database)
+tenant               .
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~~ ~ ~ ~ ~ ~ ~ ~~ ~ ~ ~ ~ ~ ~ ~
+vendor               .
+tenant               . 
+                    \/
+           +--------------------------+
+           |  engagement vendor app   |
+           +--------------------------+
+           
+</div>
+
+
+<h1>Billing and financials</h1>
+
+<p>At this time, Talent App Store does not provide any billing services to third parties, so
+as the developer of an engagement app, you must make your own arrangements for billing tenants
+who have installed your app. There is no requirement for you to share any revenue you
+make from your engagement app with TAS.
+</p>
+
+<p>TAS provides the <b>engagementhub app</b> which your app interacts with (to store details of
+completed engagements). As the vendors of the engagementhub app, TAS charges you, the developer, per completed
+engagement result that your app stores in the engagement hub. Specifically this means each timeyour app
+consumes /engagements/byID/{id}/appDetails, with status equal to complete. There are no
+charges for partial/incomplete results.
+</p>
+
+<p>Currently the cost per completed engagement is <b>$US0.50</b>.
+</p>
+
+<p>Like any app in Talent App Store, your app also incurs costs for core API calls,
+as described at <a href='http://developer.talentappstore.com'>http://developer.talentappstore.com</a>.
+</p>
+
+
+<h1>Writing your app</h1>
+
+<h2>Resources</h2>
+
+<ul>
+<li><a href='http://developer.talentappstore.com'>Developer documentation</a>, for general information on building TAS apps.
+<li><a href='http://talentappstore.github.io/tas-tenant-apis'>TAS tenant API documentation</a>, for detailed technical information on the
+TAS tenant APIs, including the engagement-related APIs.  
+<li><a href='http://talentappstore.github.io/tas-core-apis'>TAS core documentation</a>, for detailed technical information on the
+TAS core APIs. You probably won't need to spend too much time interacting with the core APIs.  
+</ul>
+
+<h2>Produce /tenants API</h2>
+
+<p>Whenever a tenant clicks "install" on your app, you are notified via an incoming core API call to your POST /tenants endpoint (see coreOut.raml.html under the TAS core documentation).
+</p>
+
+<p>You should take this opportunity to do any per-customer setup, e.g. inserting into a customers table, creating a record in your customer management system, sending a welcome email, etc.
+</p>
+
+<p>In the example below, TAS is informing your app that the tenant acme-sandbox-1 has just installed it.
+</p>
+
+<div class='codeBlock'> 
+<div class='clientInclude' data-href='../../tas-core-apis/examples/tenant-simple.json'></div>
+</div>
+</p>
+
+<h3>Dealing with unverified tenants</h3>
+
+<p>At present there is no tenant vetting process in Talent App Store, and anyone can set up a tenant, and install
+publicly listed apps, without any type of approval. The intention is to be open, and to reduce the friction for new
+customers. This means that your new tenant could be a genuine potential customer, a wandering visitor,
+or a competitor looking at your product.
+</p>
+
+<p>We recommend therefore that when you receive the incoming call to POST /tenants, you set up a limited
+demo or read-only account for your new tenant. This way you can let potential customers try out your
+product, but without incurring any significant costs yourself.
+</p>
+
+<p>If your app has any capacity to send messages (e.g. outgoing emails or SMS messages),
+it is important that you <b>do not enable this</b> for demo accounts (except to the tenant contact email),
+or your app may become a target for spammers and other bad actors. Likewise, if your app allows tenants to host
+content (web pages, images, videos etc.) then you should limit or disable this functionality for demo accounts
+to avoid your app being used to host objectionable, illegal, bandwidth-intensive or copyrighted material.
+
+<p>One approach you may choose is to create a demo account, and display a message to
+the person installing your app asking them to make contact with you out of band (e.g. via email)
+to have their account upgraded. In this case you might hold a customer status field on your customers table.
+
+
+<h2>Produce /engagementTypes API</h2>
+
+<p>Your engagement app typically gets started when a recruiter selects one of your engagement types from a drop-down menu for some job application.
+</p>
+
+<p>To keep their local list of your engagement app's engagement types up to date,
+from time to time (for example, after first install),
+other apps will call your app's GET /engagementTypes endpoint.
+</p>
+
+<p>Your app should declare at least one engagement type. However as per above, your approach will
+vary depending on whether your app supports a one-size-fits-all-tenants model (e.g. "MS Word proficiency"),
+or a customized approach where you craft specific engagement types for individual tenants (the latter may
+make it harder for you to provide a meaningful experience for demo accounts of course).
+</p>
+
+<p>In this example, your app is declaring that it supports a single engagement type, "MS Word proficiency".
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='../examples/engagementTypesForApp-simple.json'></div>
+</div>
+
+<p>Based on these settings, a candidate will only need to complete this engagement once, no matter how many different
+jobs they apply for over the next year. Also, the candidate's results are not visible to the candidate themselves.
+</p>
+
+<h2>Consume /engagementTypes/deltaPings API</h2>
+
+<p>From time to time, your app may introduce new engagement types (perhaps the tenant asks you for
+a new custom engagement type, and you have just delivered it).
+</p>
+
+<p>When this happens, you need to consume the deltaPings API on every app that produces it
+(i.e. those apps that care about new engagement types - which will include at least the engagement hub app).
+</p>
+
+<div class='codeBlock'>
+// get a list of apps that produce the API (i.e. that want be notified about new engagement types)
+GET http://myapp.tazzy.io/core/routes/acme/jobboard/tas/%2fengagementTypes%2fdeltaPings/false
+
+Response:
+{
+    "producingAppInstalls": [
+        {
+            "appDeveloper": "tas",
+            "app": "engagementhub",
+            ...
+        },
+        {
+            "appDeveloper": "anydev",
+            "app": "nosyapp",
+            ...
+        }
+    ]
+}
+
+// now notify each app
+POST http://myapp.tazzy.io/apps/engagementhub/devs/tas/engagementTypes/deltaPings
+</div>
+
+
+<h2>Produce /landingPage API</h2>
+
+<p>Your landing page is reached when the user clicks on your app in the storefront. You might display some kind of dashboard, app settings, etc. Be sure to protect your landing page with SSO and
+a check for the appropriate role (using admin is most restrictive).
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='../examples/landingPage-simple.json'></div>
+</div>
+</p>
+
+
+
+<h2>Produce /engagements/byID/{}/tenantDeltaPings API</h2>
+
+<p>At some point, an engagement for one of your engagement types will actually be started, for example when a recruiter
+selects it from a drop-down menu.
+</p>
+
+<p>That results in an engagement being created in the engagement hub
+(which coordinates engagements across all engagement apps).
+</p>
+
+<p>The engagement hub then notifies your app by consuming your endpoint
+POST /engagements/{}/tenantDeltaPings. Your endpoint receives a message like this:
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='../examples/deltaPing-simple.json'></div>
+</div>
+</p>
+
+<p>In response, your app should now do any internal housekeeping for the new engagement, such as creating
+rows in your own tables, sending messages, etc.
+</p>
+
+<p>Once finished, your app updates the engagement to indicate it's new state.
+</p>
+
+<h2>Consume POST /engagements/byID/{}/appDetails API - underway</h2>
+
+<p>For this example, let's assume that your app does its thing by having the candidate complete an online
+assessment. Below, it updates the engagement's status to indicate its underway, and sets the candidate interaction link (indicating the candidate needs to complete some online activity). 
+
+<div class='codeBlock'>
+POST /engagements/byID/{}/appDetails
+<div class='clientInclude' data-href='../examples/engagementWriteByApp-underway.json'></div>
+</div>
+</p>
+
+
+<h2>Get candidate input</h2>
+
+<p>Your app previously set up a link that the candidate can follow to create an online assessment (of course
+some engagements, like background checks, may have no candidate component).
+</p>
+
+<p>At some stage the candidate will follow this link and arrive at your online assessment.
+</p>
+
+<p>You should protect this web page with SSO, using principal type of candidate. This protects against the
+link falling into the hands of someone other than the candidate, and means the candidate enjoys a seamless
+experience as they navigate into your app. 
+</p>
+
+<b>
+<p>TODO: sanity check candidate who logs in matches the one the engagement is for.  
+</p> 
+</b>
+
+<h2>Consume POST /engagements/byID/{}/appDetails API - complete</h2>
+   
+<p>Once the candidate has completed the online process hosted at your app, your app
+pushes the results, with the updated status (in this example, the engagement is now complete, but your app
+might be just posting interim results).
+
+<div class='codeBlock'>
+POST   
+<div class='clientInclude' data-href='../examples/engagementWriteByApp-completed.json'></div>
+</div>
+</p>
+
+<h2>Consume GET /candidates/me/homePage</h2>
+
+<p>Now your app has done its thing, it should redirect the candidate's browser to the candidate "home page",
+served by some other app. Their home page might direct them to the next engagement they need to complete, or
+otherwise keep them updated.
+
+<div class='codeBlock'>
+GET /candidates/me/homePage
+<div class='clientInclude' data-href='../examples/homePage-simple.json'></div>
+</div>
+</p>
+
+
+<h1>Other scenarios</h1>		
+
+<h2>Recognising on hold</h2>
+
+<p>At any time prior to an engagement being completed, the tenant can place it on hold. Upon this, your engagement app should
+probably stop any work underway, and wait until the tenant either removes the on hold marking or cancels the engagement altogether.
+</p>
+
+<p>Your app learns about engagements being placed on hold by producing /engagements/byID/{}/tenantDeltaPings (same as for
+learning about new engagements).
+</p> 
+
+<h2>Fetching the view</h2>
+
+<p>Some engagement apps such as background checking or probity checking apps may need details about the candidate
+such as their CV, address, name, etc.
+</p>
+
+<p>Your app can fetch this information by fetching the view for the engagement. A view is a json
+formatted package containing data embedded (e.g. name, address, answers to screening questions)
+and linked (e.g. resume/CV, cover letter, attached document(s)).
+</p>
+			
+<p>The tenant can attach a different view to each engagement type, exposing just
+enough information for the engagement app to do its work.
+</p>
+			
+
+<h1>HR-XML</h1>
+
+
+<p>The engagement APIs are informed by the work of the HR-XML consortium, but are json-based, designed
+for communications between apps (microservices) rather than business partners,
+and designed to work well for very lightweight interactions, e.g. capturing a video.
+</p>
+ 
+<p>The HR-XML ScreeningResultTypeCode is not supported, as some of its possible values 
+('Result'|'SummaryResult'|'Error'|'Message'|'Status'|'ManagementReport'|'MultipleResults') clash
+with ScreeningStatusCode values (e.g. Error), or are not suited to microservices (e.g. MultipleResults).
+</p>
+
+<p>The ScreeningResultCode is not supported, as some of its possible values
+('Pass'|'Fail'|'Review'|'RecordFound'|'NoRecordFound'|'Clear'|'UnableToContact'|
+'UnableToFulfill'|'UnableToVerify'|'Positive'|'Negative') are ambiguous (HR-XML notes that
+*this set of codes usually would need to be interpretated based on the type of screening and pre-existing understanding
+between service provider and customer on criteria governing the application of the codes*), e.g. Pass vs Positive.
+</p>
+
+
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

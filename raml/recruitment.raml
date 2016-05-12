@@ -88,17 +88,29 @@ resourceTypes: !include resources.yml
 /applications:
   /byID:
     /{application}:
+      /deltaPings:
+        description: |
+          The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
+          
+          Non-SoT.
+          
+      /bucket:
+        /deltaPings:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we
+              know the application has a new bucket.
+              
+              Non-SoT.
+               
       /bySourcingApp:
         /deltaPings:
           post:
             securedBy: [oauth_2_0]
-          description: |
-            A non-SoT API for pings about applications, but which is only sent to the application that sourced the
-            application (i.e., that owns the campaign tracker attached to the application).
-      /deltaPings:
-        description: |
-          The main ping for any changes to a job application.
-          Probably only non-SoT.
+            description: |
+              A non-SoT API for pings about applications, but which is only sent to the application that sourced the
+              application (i.e., that owns the campaign tracker attached to the application).
       /tracker:
         get:
           securedBy: [oauth_2_0]
@@ -188,6 +200,19 @@ resourceTypes: !include resources.yml
               application/json:
                 schema: !include ../schemas/candidateDetails.json
                 example: !include ../examples/candidateDetails-simple.json
+    /homePage:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get the uri of the home page, where a candidate can see their own status, find incomplete activities and so on. Often produced by an ATS.
+          
+          SoT. There is only one home page to send the candidate to.
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/homePage.json
+                example: !include ../examples/homePage-simple.json
     /id:
       description: |
         The ID of the candidate.
@@ -490,69 +515,6 @@ resourceTypes: !include resources.yml
                 securedBy: [oauth_2_0]
                 description: acquire all of the child nodes of the acquiree, then delete the acquiree node
 
-/deployedEngagementTypes:
-  get:
-    securedBy: [oauth_2_0]
-    description: |
-      Get details of all of the deployedEngagement types for the tenant, partitioned by vendor.
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/deployedEngagementTypes.json
-            example: !include ../examples/deployedEngagementTypes-simple.json
-  /byID:
-    /{id}:
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          Get details of all of a specific deployedEngagement type
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/deployedEngagementType.json
-                example: !include ../examples/deployedEngagementType-simple.json
-      /engagements:
-        post:
-          description: |
-            Order an engagement for the given deployed engagement type. The engagement starts in the New state.
-            
-            The response includes the id of the newly created engagement.
-          body:
-            application/json:
-              schema: !include ../schemas/engagementCreate.json
-              example: !include ../examples/engagementCreate-simple.json
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/engagementRead.json
-                  example: !include ../examples/engagementRead-created.json
-  /byVendor:
-    /{CT}:
-      /{CAD}:
-        /{CA}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get details of all of the deployed engagement types for the vendor (the consumer)
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/deployedEngagementTypes.json
-                    example: !include ../examples/deployedEngagementTypes-simple.json
-          /{id}:
-            get:
-              securedBy: [oauth_2_0]
-              description: |
-                Get details of all of a specific deployedEngagement type
-              responses:
-                200:
-                  body:
-                    application/json:
-                      schema: !include ../schemas/deployedEngagementType.json
-                      example: !include ../examples/deployedEngagementType-simple.json
 
 
 /editSpecs:
@@ -593,98 +555,76 @@ resourceTypes: !include resources.yml
           securedBy: [oauth_2_0]
           is: [ editSpecFetcher ]
 
+
 /engagements:
-  post:
-    description: |
-      Order an engagement for the given deployed engagement type.
   /byID:
     /{id}:
-      /ticket:
-        get:
-          description: Get a ticket for any engagement given its id. Powerful - effectively provides full access to any engagement.
-  /byVendor:
-    /{CT}:
-      /{CAD}:
-        /{CA}:
-          get:
-            description: |
-              Get tickets for all engagements for this vendor (the consumer).
-              The response is an array of tickets (engagement IDs + this consumer, signed by
-              the producer).
-              TODO - searchable, including by candidate [HOW? when only storing application on the engagement?], orderable, paging, filterable by status (complete etc.)
-  /byTicket:
-    /{ticket}:
-      post:
-        description: |
-          Update the engagement's details, including its status (from the customer's perspective).
-          
-          The response includes the id of the newly created engagement.
-        body:
-          application/json:
-            schema: !include ../schemas/engagementWrite.json
-            example: !include ../examples/engagementWrite-OnHold.json
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/engagementRead.json
-                example: !include ../examples/engagementRead-created.json
-      get:
-        securedBy: [oauth_2_0]
-        description: Get details of the order of an engagement
-        body:
-          application/json:
-            schema: !include ../schemas/engagementRead.json
-            example: !include ../examples/engagementRead-created.json
-      /deltaPings:
+      /appDetails:
         post:
-          securedBy: [oauth_2_0]
           description: |
-            Alert an engagement app in real time that a new engagement has been requested. The consumer should only consume this on
-            the engagement vendor who owns the engagement.
-
-            Produced as non-SoT.
-      /report:
-        post:
-          securedBy: [oauth_2_0]
-          description:
-            Create or update the report for an engagement order, and optionally set the overall status to one of the vendor-allowed
-            values.
-            
-            TODO - Notes on merging, esp attachments and access points.
-            
+            Consumed by the engagement app to update an existing engagement. Apps may set
+            most details and some statuses for an engagement, but cannot alter the on hold flag.
           body:
             application/json:
-              schema: !include ../schemas/engagementReportWrite.json
-              example: !include ../examples/engagementReportWrite-simple.json
+              schema: !include ../schemas/engagementWriteByApp.json
+              example: !include ../examples/engagementWriteByApp-completed.json
           responses:
             200:
-              body:
-                application/json:
-                  schema: !include ../schemas/engagementReportRead.json
-                  example: !include ../examples/engagementReportRead-simple.json
-        get:
+              description: the update was successful
+      /tenantDetails:
+        post:
+          description: |
+            Consumed by the engagement hub, as a result of some tenant action, to update an existing engagement.
+            The tenant cannot alter many details of an engagement other than to change the status or place it on hold.
+          body:
+            application/json:
+              schema: !include ../schemas/engagementWriteByTenant.json
+              example: !include ../examples/engagementWriteByTenant-onhold.json
           responses:
             200:
-              body:
-                application/json:
-                  schema: !include ../schemas/engagementReportRead.json
-                  example: !include ../examples/engagementReportRead-simple.json
-      /inRowImageUri:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get an unguessable uri for (unauthenticated - used by ajax) a fixed size image denoting the status of
-            this engagement, suitable for embedding into a table cell or list item. The uri should expire
-            within 24 hours. The image may be overlaid with additional graphics denoting the status (e.g. "Complete")   
-      /cardUri:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get an unguessable uri for (unauthenticated - used by ajax) the html for a responsive card denoting
-            the status of this engagement, suitable for stacking underneath other similar cards on a variable
-            width web page. The uri should expire within 24 hours.  
-
+              description: the update was successful
+  /byType:
+    /{engagementType}:
+      /forApplication:
+        /{application}:
+          post:
+            description: |
+              Tenant creates (or reuses) an engagement of the given type, for the given job application,
+              for example upon a candidate applying and being screened in.
+              
+              SoT. Typically implemented by the engagement hub.
+            body:
+              application/json:
+                schema: !include ../schemas/engagementOrderByTenant.json
+                example: !include ../examples/engagementOrderByTenant-simple.json
+            responses:
+              200:
+                description: the post was successful
+              201:
+                description: the post was successful
+      
+/engagementTypes:
+  /forApp:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get the list of engagement types produced by an engagement app.
+        
+        Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/engagementTypesForApp.json
+              example: !include ../examples/engagementTypesForApp-simple.json
+    /deltaPings:
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          Consumed by an engagement app to alert any interested parties that the list
+          of engagement types produced by the app has changed.
+        
+          Non-SoT (there may be many listeners).
 
 /items:
   /toCandidate:
@@ -1011,8 +951,8 @@ resourceTypes: !include resources.yml
         description: a tracker was created
         body:
           application/json:
-            schema: !include ../schemas/trackerMeta.json
-            example: !include ../examples/trackerMeta-simple.json
+            schema: !include ../schemas/meta.json
+            example: !include ../examples/meta-simple.json
   /byID:
     /{id}:
       /chain:
@@ -1040,8 +980,8 @@ resourceTypes: !include resources.yml
               description: a tracker was created
               body:
                 application/json:
-                  schema: !include ../schemas/trackerMeta.json
-                  example: !include ../examples/trackerMeta-simple.json
+                  schema: !include ../schemas/meta.json
+                  example: !include ../examples/meta-simple.json
 
 /recruiters:
   description: |

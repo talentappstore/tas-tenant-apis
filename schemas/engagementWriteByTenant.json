@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "engagementRead.json#/definitions/status"
+    },
+    "onHoldFlag": {
+      "$ref": "engagementRead.json#/definitions/onHoldFlag"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,17 +1,16 @@
 {
-    "id": 10045363,
-    "status": "New",
-    "vendor": {
-        "deployedEngagementType": 26,
-        "ct": "acme",
-        "cad": "supersoft",
-        "ca": "superassess",
-        "inviteCandidate": false
-    },
-    "subject": {
-        "firstName": "Fred",
-        "lastName": "Flintstone",
-        "email": "fred@quarry.com",
-        "candidate": 1003
-    }
+  "meta": {
+    "id": 100,
+    "ct": "acme",
+    "ca": "myapp",
+    "created": "2015-11-05T13:15:30Z"
+  },
+  "status": "New",
+  "onHoldFlag": false,
+  "subject": {
+    "firstName": "Fred",
+    "lastName": "Flintstone",
+    "email": "fred@quarry.com",
+    "candidate": 1003
+  }
 }

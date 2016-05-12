@@ -365,6 +365,9 @@ resourceTypes: !include resources.yml
 
 
 /careerSites:
+  description: |
+    Career sites are web portals showing jobs that exist inside the tenant, as opposed to job boards, which live outside the tenant.
+    
   get:
     securedBy: [oauth_2_0]
     description: |
@@ -387,7 +390,7 @@ resourceTypes: !include resources.yml
               schema: !include ../schemas/careerSites.json
               example: !include ../examples/careerSites-simple.json
     /byID:
-      /{board}:
+      /{site}:
         /jobLink:
           /{job}:
             get:
@@ -700,6 +703,34 @@ resourceTypes: !include resources.yml
               /{item}:
                 type: itemMeta
 
+/jobBoards:
+  description: |
+    Job boards are external sites that a tenant may post their jobs to, as opposed to career sites, which are web portals
+    showing jobs that exist inside the tenant.
+    
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      A rollup of the details of all job boards produced by all apps. SoT.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/jobBoardsForApps.json
+            example: !include ../examples/jobBoardsForApps-simple.json
+  /forApp:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Descriptions of one or more job boards hosted by a specific app. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobBoards.json
+              example: !include ../examples/jobBoards-simple.json
+
+
 /jobs:
   description: |
     Position openings aka vacancies, job openings, etc.
@@ -855,27 +886,24 @@ resourceTypes: !include resources.yml
     description: |
       Non-SoT.
       
-      Used to bulk upload active jobs for an org (i.e. a category value from the category with the key "ORG").
+      Used to bulk upload active jobs for a tenant to a remote job board. See also APIs to:
+      - GET /jobBoards
       
-      The jobSet is assumed to be the definitive set of jobs for the given org, i.e. after the call is complete,
-      if all is well we expect the jobs of those orgs to match the jobSet exactly.
+      The jobSet is assumed to be the definitive set of jobs for the given tenant, i.e. after the call is complete,
+      if all is well we expect the jobs for this tenant at that board to match the jobSet exactly.
   
-      The behavior is:
-      - for each job for that org in the jobSet
-      - .search for a matching (by code) job in the database with the same org, and with status == active 
-      - .if the job does not exist, create it
+      Hence the behavior of the producer is something like:
+      - for each job in the jobSet
+      - .search for a matching (by code) job in the database, and with status == active 
+      - .if the job does not exist, create it (producer might also choose to re-open an old one) 
       - .if the job already exists and has identical details, leave it
       - .if the job exists but has different details, update it
-      - for each job that exists for the org but was not found in the jobSet for the org, make it not active or delete it     
+      - for each job that exists but was not found in the jobSet for the org, make it not active or delete it     
 
-      Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the org.
+      Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the tenant.
   
-      Job codes are unique within org.
-  
-      Existing jobs, once closed, are never re-activated by this call.       
+      Job codes are unique within a tenant's open jobs at the board.
 
-      Status must not be passed on jobs. The assumption is that the jobSet only includes active jobs.
-        
       The behaviour is not required to be atomic. It is possible that only some changes will be made and for the call to fail
       after only partially processing the job list.
     body:
@@ -1040,10 +1068,11 @@ resourceTypes: !include resources.yml
                 
                 This allows the user to swap login mechanisms (e.g. from email to Google) and keep their entitlements.
                 
-                HOW? WHY NECESSARY? Step by step!
+                TODO - how, why necessary, step by step.
                 
                 Idp-specific rules can not be applied to non-attribute suppliers. (e.g. can't make *@acme.com an internal when logging
-                in through LinkedIn, but not Google). Instead, rules must be applied either to all non-attribute supplying idps, or to specific attribute supplying idps.
+                in through LinkedIn, but not Google). Instead, rules must be applied either to all non-attribute supplying idps, or
+                to specific attribute supplying idps.
               
                 TODO: expand on this, considering:
                 - how to broadcast the leap to all apps that have a user database so they can fix their own records for the person

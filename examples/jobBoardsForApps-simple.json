@@ -1,0 +1,20 @@
+[
+  {
+    "app": "topboardsllc",
+    "jobBoards": [
+      {
+        "id": 12,
+        "label": "Super grads"
+      }
+    ]
+  },
+  {
+    "app": "bigboards",
+    "jobBoards": [
+      {
+        "id": 12,
+        "label": "Top people"
+      }
+    ]
+  }
+]

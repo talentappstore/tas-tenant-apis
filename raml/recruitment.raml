@@ -915,6 +915,10 @@ resourceTypes: !include resources.yml
         body:
           application/json:
             example: !include ../examples/jobSetResponse-simple.json
+      400:
+        description: Error - See response in RFC 7807 format for more details.
+        body:
+          application/problem+json:
   /forBoard:
     /{board}:
       get:

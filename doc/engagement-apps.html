@@ -325,12 +325,26 @@ POST /engagements/{}/tenantDeltaPings. Your endpoint receives a message like thi
 </div>
 </p>
 
-<p>In response, your app should now do any internal housekeeping for the new engagement, such as creating
+<p>In response, your app should now fetch details about the engagement and then do any internal housekeeping for the new engagement, such as creating
 rows in your own tables, sending messages, etc.
 </p>
 
 <p>Once finished, your app updates the engagement to indicate it's new state.
 </p>
+
+<p>Your may also be informed via this API that an engagement has been deleted (e.g. in response to some privacy request), in which case your
+app should normally clean up by deleting any data held at your end on the engagement. 
+</p>
+
+<p>Your may also be informed via this API that an engagement has been updated (e.g. in response to the tenant putting it on hold), in which case your
+app should review the tenant normally clean up by deleting any data held at your end on the engagement. 
+</p>
+
+<h2>Consume GET /engagements/byID/{} API</h2>
+
+<p>Call this API to get details about the engagement.
+</p>
+
 
 <h2>Consume POST /engagements/byID/{}/appDetails API - underway</h2>
 

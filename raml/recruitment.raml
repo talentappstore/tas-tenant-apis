@@ -612,10 +612,17 @@ resourceTypes: !include resources.yml
           securedBy: [oauth_2_0]
           is: [ editSpecFetcher ]
 
-
 /engagements:
   /byID:
     /{id}:
+      get:
+        description: get details of this engagement, reflecting changes made by the app and/or the tenant. 
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/engagementRead.json
+                example: !include ../examples/engagementRead-created.json
       /appDetails:
         post:
           description: |
@@ -640,6 +647,11 @@ resourceTypes: !include resources.yml
           responses:
             200:
               description: the update was successful
+      /tenantDeltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Alerts listeners to a change to an engagement caused by the tenant
   /byType:
     /{engagementType}:
       /forApplication:

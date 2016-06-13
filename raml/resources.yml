@@ -84,6 +84,20 @@
               schema: !include ../schemas/actionProductionsForApps.json
               example: !include ../examples/actionProductionsForApps-simple.json
 
+- candidateAppsStrip:
+    get:
+      securedBy: [oauth_2_0]
+      is: [trackable ]
+      description: |
+        Get the html for the strip of buttons, ready to plug into a job details page as viewed by the candidate. SoT.
+             
+        The app building the page that embeds this strip must in its head section pull in style sheet,
+        javascript, etc. as obtained via a call to GET /actions/byCandidate/headHtml.
+      responses:
+        200:
+          body:
+            text/html:
+              example: some html containing a strip of buttons, using only styles from the headHtml call
 
 - itemMetas:
     get:

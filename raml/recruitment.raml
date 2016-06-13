@@ -10,7 +10,20 @@ resourceTypes: !include resources.yml
 
 /actions:
   /byCandidate:
+    /headHtml:
+      get:
+        description: |
+          Get html head snippet (typically an include of a stylesheet) used to style the html for a strip of buttons.
+              
+          The app building the page that embeds the buttons must insert the results of this API call in its head section.
+        responses:
+          200:
+            body:
+              text/html:
+                example: some html pulling in stylesheet, javascript etc.
     /me:
+      description:
+        All APIs beneath here are operating on behalf of the logged in candidate.
       /engagements:
         /general:
           type: candidateAppsActions
@@ -19,6 +32,8 @@ resourceTypes: !include resources.yml
             type: candidateAppsActions
       /general:
         type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
         /byName:
           /{action}:
             /byApp:
@@ -26,12 +41,16 @@ resourceTypes: !include resources.yml
       /jobs:
         /{job}:
           type: candidateAppsActions
+          /asHtml:
+            type: candidateAppsStrip
           /byName:
             /{action}:
               /byApp:
                 type: candidateAppAction
       /search:
         type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
         /byName:
           /{action}:
             /byApp:
@@ -45,6 +64,8 @@ resourceTypes: !include resources.yml
             type: candidateAppsActions
       /general:
         type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
         /byName:
           /{action}:
             /byApp:
@@ -52,12 +73,16 @@ resourceTypes: !include resources.yml
       /jobs:
         /{job}:
           type: candidateAppsActions
+          /asHtml:
+            type: candidateAppsStrip
           /byName:
             /{action}:
               /byApp:
                 type: candidateAppAction
       /search:
         type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
         /byName:
           /{action}:
             /byApp:
@@ -76,6 +101,35 @@ resourceTypes: !include resources.yml
         type: candidateAppsPossibleActions
         /byApp:
           type: candidateAppPossibleActions
+          /byName:
+            /{action}:
+              /forJob:
+                /{job}:
+                  /setupPage:
+                    get:
+                      description: |
+                        Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action's app that can be used to set up detail
+                        for this action when used against this job - for example, to set the referral amount if the button is for an employee referral program.
+                      queryParameters:
+                        redirectOnOK:
+                          type: string
+                          description: |
+                            A singly urlencoded string representing a url that the setup page should redirect the user to after they have completed the setup and
+                            clicked OK, i.e. saved their changes 
+                          required: true
+                        redirectOnCancel:
+                          type: string
+                          description: |
+                            A singly urlencoded string representing a url that the setup page should redirect the user to after they have completed the setup and
+                            clicked cancel 
+                          required: true
+                      responses:
+                        200:
+                          body:
+                            text/plain:
+                              example: http://www.google.com
+                        404:
+                          description: there is no job-specific setup for this action.                              
     /search:
       description: |
         Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
@@ -629,6 +683,21 @@ resourceTypes: !include resources.yml
         
           Non-SoT (there may be many listeners).
 
+/global:
+  description: resources which are global in scope and possibly useful to all apps
+  /jqueryInclude:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to
+        any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps
+        must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all
+        apps therefore receive the update at once.  
+      responses:
+        200:
+          body:
+            text/html:
+              example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 /items:
   /toCandidate:
     /anonymous:

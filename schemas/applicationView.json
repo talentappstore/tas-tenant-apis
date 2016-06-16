@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "job": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "job.json#/definitions/code"
+        },
+        "title": {
+          "$ref": "job.json#/definitions/title"
+        },
+        "items": {
+          "$ref": "items.json"
+        }
+      },
+      "required": [
+        "code",
+        "title",
+        "items"
+      ]
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "vcard": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "internalFlag": {
+          "$ref": "#/definitions/internalFlag"
+        },
+        "resumeMeta": {
+          "$ref": "fileDownload.json"
+        },
+        "items": {
+          "$ref": "items.json"
+        }
+      },
+      "required": [
+        "vcard",
+        "resumeMeta",
+        "internalFlag",
+        "items"
+      ]
+    },
+    "application": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "$ref": "items.json"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "jobCoordinator": {
+      "type": "object",
+      "properties": {
+        "vcard": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "vcard"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "application": {
+      "$ref": "#definitions/application"
+    },
+    "job": {
+      "$ref": "#definitions/job"
+    },
+    "candidate": {
+      "$ref": "#definitions/candidate"
+    },
+    "jobCoordinator": {
+      "$ref": "#definitions/jobCoordinator"
+    }
+  },
+  "required": [
+    "application",
+    "job",
+    "candidate",
+    "jobCoordinator"
+  ],
+  "additionalProperties": false
+}

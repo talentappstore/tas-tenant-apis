@@ -103,33 +103,19 @@ resourceTypes: !include resources.yml
           type: candidateAppPossibleActions
           /byName:
             /{action}:
+              /setupPage:
+                description: setup page for default values, that will affect all jobs (unless overridden at workflow level or on the job itself) 
+                type: actionSetupPage
+              /forWorkflow:
+                /{workflow}:
+                  /setupPage:
+                    description: setup page for default values that will affect all jobs of the given workflow, unless overridden on the job itself 
+                    type: actionSetupPage
               /forJob:
                 /{job}:
                   /setupPage:
-                    get:
-                      description: |
-                        Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action's app that can be used to set up detail
-                        for this action when used against this job - for example, to set the referral amount if the button is for an employee referral program.
-                      queryParameters:
-                        redirectOnOK:
-                          type: string
-                          description: |
-                            A singly urlencoded string representing a url that the setup page should redirect the user to after they have completed the setup and
-                            clicked OK, i.e. saved their changes 
-                          required: true
-                        redirectOnCancel:
-                          type: string
-                          description: |
-                            A singly urlencoded string representing a url that the setup page should redirect the user to after they have completed the setup and
-                            clicked cancel 
-                          required: true
-                      responses:
-                        200:
-                          body:
-                            text/plain:
-                              example: http://www.google.com
-                        404:
-                          description: there is no job-specific setup for this action.                              
+                    description: setup page for values that affect only this job 
+                    type: actionSetupPage
     /search:
       description: |
         Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
@@ -165,6 +151,23 @@ resourceTypes: !include resources.yml
             description: |
               A non-SoT API for pings about applications, but which is only sent to the application that sourced the
               application (i.e., that owns the campaign tracker attached to the application).
+      /items:
+        description: all items held on an application
+        type: items
+        get:
+          is: [ offerEmbedMeta ] 
+        /byName:
+          /{item}:
+            type: item
+            get:
+              is: [ offerEmbedMeta ]
+        /itemMetas:
+          description: |
+            Metadata for items held on the candidate
+          type: itemMetas
+          /byName:
+            /{item}:
+              type: itemMeta
       /tracker:
         get:
           securedBy: [oauth_2_0]
@@ -384,9 +387,25 @@ resourceTypes: !include resources.yml
             get:
               securedBy: [oauth_2_0]
               is: [ document_asStream, socialGetter ]
-            
   /byID:
     /{candidate}:
+      /items:
+        description: all items held on a candidate
+        type: items
+        get:
+          is: [ offerEmbedMeta ] 
+        /byName:
+          /{item}:
+            type: item
+            get:
+              is: [ offerEmbedMeta ]
+        /itemMetas:
+          description: |
+            Metadata for items held on the candidate
+          type: itemMetas
+          /byName:
+            /{item}:
+              type: itemMeta
       /stars:
         /forJobs:
           /{job}:
@@ -652,6 +671,20 @@ resourceTypes: !include resources.yml
           securedBy: [oauth_2_0]
           description: |
             Alerts listeners to a change to an engagement caused by the tenant
+      /view:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the view, i.e. information the tenant has decreed that the engagement app should see about this engagement.
+            
+            SoT.
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/applicationView.json
+                  example: !include ../examples/applicationView-simple.json
+            
   /byType:
     /{engagementType}:
       /forApplication:
@@ -697,6 +730,21 @@ resourceTypes: !include resources.yml
 
 /global:
   description: resources which are global in scope and possibly useful to all apps
+  /internalIPMatches:
+    /byIP:
+      /{ip}:
+        get:
+          description: |
+            Return true if the IP passed in falls within one of the ranges known to be internal. Apps can
+            use this to make educated guesses about whether to display, for example, buttons like "employee referral"
+            on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as
+            an indication, and should require the candidate to actually log in and thus be proven an internal
+            before unlocking any actual internal behaviour (e.g. allowing the referral to be made).
+          responses:
+            200:
+              body:
+                text/plain:
+                  example: false
   /jqueryInclude:
     get:
       securedBy: [oauth_2_0]

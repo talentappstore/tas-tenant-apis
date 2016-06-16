@@ -1,3 +1,4 @@
 {
-   "notifications": true
+   "notifications": true,
+   "internalFlag": false
 }

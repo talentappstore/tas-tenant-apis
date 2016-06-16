@@ -2,15 +2,31 @@
   {
     "app": "superapply",
     "actionProductions": [
-      "apply"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "share",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "refer",
+        "availableToInternals": true,
+        "availableToExternals": false
+      }
     ]
   },
   {
     "app": "legacyats",
     "actionProductions": [
-      "apply",
-      "share",
-      "refer"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      }
     ]
   }
 ]

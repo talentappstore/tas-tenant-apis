@@ -4,16 +4,24 @@
     "notifications": {
       "type": "boolean",
       "description": "whether this candidate wants to receive email alerts about new jobs"
+    },
+    "internalFlag": {
+      "type": "boolean",
+      "description": "whether this candidate is an internal"
     }
   },
   "type": "object",
   "properties": {
     "notifications": {
       "$ref": "#/definitions/notifications"
+    },
+    "internalFlag": {
+      "$ref": "#/definitions/internalFlag"
     }
   },
   "required": [
-    "notifications"
+    "notifications",
+    "internalFlag"
   ],
   "additionalProperties": false
 }

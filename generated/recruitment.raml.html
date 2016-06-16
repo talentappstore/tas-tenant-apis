@@ -679,33 +679,77 @@
   {
     "app": "superapply",
     "actionProductions": [
-      "apply"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "share",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "refer",
+        "availableToInternals": true,
+        "availableToExternals": false
+      }
     ]
   },
   {
     "app": "legacyats",
     "actionProductions": [
-      "apply",
-      "share",
-      "refer"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      }
     ]
   }
 ]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_general_possibles_byApp"><span class="parent">/actions/byCandidate/general/possibles</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_general_possibles_byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_general_possibles_byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_general_possibles_byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_general_possibles_byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/general/possibles</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_general_possibles_byApp_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_general_possibles_byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"definitions": {
-	  "actionName": {
-			"type": "string",
-			"description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
-	  }
-	},
-	"type": "array",
-	"items": {
-	  "$ref": "#/definitions/actionName"
-	}
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "possibleAction": {
+      "type": "object",
+      "properties": {
+        "actionName": {
+          "type": "string",
+          "description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
+        },
+        "availableToInternals": {
+          "type": "boolean"
+        },
+        "availableToExternals": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actionName",
+        "availableToInternals",
+        "availableToExternals"
+      ]
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/possibleAction"
+  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
-      "apply",
-      "share",
-      "refer"
+  {
+    "actionName": "apply",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "share",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "refer",
+    "availableToInternals": true,
+    "availableToExternals": false
+  }
 ]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job"><span class="parent">/actions/byCandidate</span>/job</a> <span class="methods"></span></h4></div><div id="panel_actions_byCandidate_job" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Job-level actions seen by candidates are typically embedded in job details pages, e.g. "apply", "share this job", etc.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles"><span class="parent">/actions/byCandidate/job</span>/possibles</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/job</span>/possibles</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_job_possibles_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_job_possibles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
@@ -735,34 +779,78 @@
   {
     "app": "superapply",
     "actionProductions": [
-      "apply"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "share",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "refer",
+        "availableToInternals": true,
+        "availableToExternals": false
+      }
     ]
   },
   {
     "app": "legacyats",
     "actionProductions": [
-      "apply",
-      "share",
-      "refer"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      }
     ]
   }
 ]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles_byApp"><span class="parent">/actions/byCandidate/job/possibles</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles_byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/job/possibles</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_job_possibles_byApp_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_job_possibles_byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"definitions": {
-	  "actionName": {
-			"type": "string",
-			"description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
-	  }
-	},
-	"type": "array",
-	"items": {
-	  "$ref": "#/definitions/actionName"
-	}
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "possibleAction": {
+      "type": "object",
+      "properties": {
+        "actionName": {
+          "type": "string",
+          "description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
+        },
+        "availableToInternals": {
+          "type": "boolean"
+        },
+        "availableToExternals": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actionName",
+        "availableToInternals",
+        "availableToExternals"
+      ]
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/possibleAction"
+  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
-      "apply",
-      "share",
-      "refer"
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage"><span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}/forJob/{job}</span>/setupPage</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that can be used to set up detail for this action when used against this job - for example, to set the referral amount if the button is for an employee referral program.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}/forJob/{job}</span>/setupPage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that can be used to set up detail for this action when used against this job - for example, to set the referral amount if the button is for an employee referral program.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_request"><h3>URI Parameters</h3><ul><li><strong>action</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>redirectOnOK</strong>: <em>required (string)</em><p>A singly urlencoded string representing a url that the setup page should redirect the user to after they have completed the setup and clicked OK, i.e. saved their changes</p></li><li><strong>redirectOnCancel</strong>: <em>required (string)</em><p>A singly urlencoded string representing a url that the setup page should redirect the user to after they have completed the setup and clicked cancel</p></li></ul></div><div class="tab-pane" id="actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>http://www.google.com</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there is no job-specific setup for this action.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search"><span class="parent">/actions/byCandidate</span>/search</a> <span class="methods"></span></h4></div><div id="panel_actions_byCandidate_search" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search_possibles"><span class="parent">/actions/byCandidate/search</span>/possibles</a> <span class="methods"><a href="#actions_byCandidate_search_possibles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_search_possibles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_search_possibles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_search_possibles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/search</span>/possibles</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_search_possibles_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_search_possibles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  {
+    "actionName": "apply",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "share",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "refer",
+    "availableToInternals": true,
+    "availableToExternals": false
+  }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles_byApp_byName__action__setupPage"><span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}</span>/setupPage</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles_byApp_byName__action__setupPage" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>setup page for default values, that will affect all jobs (unless overridden at workflow level or on the job itself)</p></div><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that the user can use to to set up defaults or values for this action - for example, to set the referral amount or limits if the button is for an employee referral program.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}</span>/setupPage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that the user can use to to set up defaults or values for this action - for example, to set the referral amount or limits if the button is for an employee referral program.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get_request"><h3>URI Parameters</h3><ul><li><strong>action</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="actions_byCandidate_job_possibles_byApp_byName__action__setupPage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>http://www.google.com</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there is no setup for this action, i.e. it doesn&#39;t need any parameters</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage"><span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}/forWorkflow/{workflow}</span>/setupPage</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>setup page for default values that will affect all jobs of the given workflow, unless overridden on the job itself</p></div><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that the user can use to to set up defaults or values for this action - for example, to set the referral amount or limits if the button is for an employee referral program.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}/forWorkflow/{workflow}</span>/setupPage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that the user can use to to set up defaults or values for this action - for example, to set the referral amount or limits if the button is for an employee referral program.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get_request"><h3>URI Parameters</h3><ul><li><strong>action</strong>: <em>required (string)</em></li><li><strong>workflow</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="actions_byCandidate_job_possibles_byApp_byName__action__forWorkflow__workflow__setupPage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>http://www.google.com</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there is no setup for this action, i.e. it doesn&#39;t need any parameters</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage"><span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}/forJob/{job}</span>/setupPage</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>setup page for values that affect only this job</p></div><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that the user can use to to set up defaults or values for this action - for example, to set the referral amount or limits if the button is for an employee referral program.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/job/possibles/byApp/byName/{action}/forJob/{job}</span>/setupPage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action&#39;s app that the user can use to to set up defaults or values for this action - for example, to set the referral amount or limits if the button is for an employee referral program.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_request"><h3>URI Parameters</h3><ul><li><strong>action</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="actions_byCandidate_job_possibles_byApp_byName__action__forJob__job__setupPage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>http://www.google.com</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there is no setup for this action, i.e. it doesn&#39;t need any parameters</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search"><span class="parent">/actions/byCandidate</span>/search</a> <span class="methods"></span></h4></div><div id="panel_actions_byCandidate_search" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search_possibles"><span class="parent">/actions/byCandidate/search</span>/possibles</a> <span class="methods"><a href="#actions_byCandidate_search_possibles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_search_possibles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_search_possibles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_search_possibles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/search</span>/possibles</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_search_possibles_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_search_possibles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
     "actionProductionsForApp": {
@@ -791,34 +879,306 @@
   {
     "app": "superapply",
     "actionProductions": [
-      "apply"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "share",
+        "availableToInternals": true,
+        "availableToExternals": true
+      },
+      {
+        "actionName": "refer",
+        "availableToInternals": true,
+        "availableToExternals": false
+      }
     ]
   },
   {
     "app": "legacyats",
     "actionProductions": [
-      "apply",
-      "share",
-      "refer"
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true
+      }
     ]
   }
 ]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search_possibles_byApp"><span class="parent">/actions/byCandidate/search/possibles</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_search_possibles_byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_search_possibles_byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_search_possibles_byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_search_possibles_byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/search/possibles</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_search_possibles_byApp_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_search_possibles_byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"definitions": {
-	  "actionName": {
-			"type": "string",
-			"description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
-	  }
-	},
-	"type": "array",
-	"items": {
-	  "$ref": "#/definitions/actionName"
-	}
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "possibleAction": {
+      "type": "object",
+      "properties": {
+        "actionName": {
+          "type": "string",
+          "description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
+        },
+        "availableToInternals": {
+          "type": "boolean"
+        },
+        "availableToExternals": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actionName",
+        "availableToInternals",
+        "availableToExternals"
+      ]
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/possibleAction"
+  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
-      "apply",
-      "share",
-      "refer"
-]</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applications" class="panel-title">/applications</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__deltaPings"><span class="parent">/applications/byID/{application}</span>/deltaPings</a> <span class="methods"></span></h4></div><div id="panel_applications_byID__application__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.</p><p>Non-SoT.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__bucket_deltaPings"><span class="parent">/applications/byID/{application}/bucket</span>/deltaPings</a> <span class="methods"><a href="#applications_byID__application__bucket_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__bucket_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__bucket_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we know the application has a new bucket.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__bucket_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/bucket</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we know the application has a new bucket.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__bucket_deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__bucket_deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__bySourcingApp_deltaPings"><span class="parent">/applications/byID/{application}/bySourcingApp</span>/deltaPings</a> <span class="methods"><a href="#applications_byID__application__bySourcingApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__bySourcingApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__bySourcingApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>A non-SoT API for pings about applications, but which is only sent to the application that sourced the application (i.e., that owns the campaign tracker attached to the application).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__bySourcingApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/bySourcingApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>A non-SoT API for pings about applications, but which is only sent to the application that sourced the application (i.e., that owns the campaign tracker attached to the application).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__bySourcingApp_deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__bySourcingApp_deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__tracker"><span class="parent">/applications/byID/{application}</span>/tracker</a> <span class="methods"><a href="#applications_byID__application__tracker_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__tracker" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__tracker_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the tracker, if any, associated with this application. This is fixed at the time that application is made.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__tracker_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/tracker</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the tracker, if any, associated with this application. This is fixed at the time that application is made.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__tracker_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__tracker_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__status"><span class="parent">/applications/byID/{application}</span>/status</a> <span class="methods"><a href="#applications_byID__application__status_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__status" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__status_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such as "interview", "offer", "pre-screen", etc.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__status_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/status</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such as "interview", "offer", "pre-screen", etc.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__status_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__status_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__candidate"><span class="parent">/applications/byID/{application}</span>/candidate</a> <span class="methods"><a href="#applications_byID__application__candidate_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__candidate" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__candidate_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate for this application</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__candidate_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/candidate</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate for this application</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__candidate_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__candidate_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__job"><span class="parent">/applications/byID/{application}</span>/job</a> <span class="methods"><a href="#applications_byID__application__job_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__job" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__job_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the job opening for this application</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__job_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/job</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the job opening for this application</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__job_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__job_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_bySourcingApp__consumer___id__sourcerDetails"><span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</a> <span class="methods"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_bySourcingApp__consumer___id__sourcerDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_bySourcingApp__consumer___id__sourcerDetails_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_bySourcingApp__consumer___id__sourcerDetails_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_bySourcingApp__consumer___id__sourcerDetails_get_request"><h3>URI Parameters</h3><ul><li><strong>consumer</strong>: <em>required (string)</em></li><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byCandidate__candidate__byJob__job_"><span class="parent">/applications/byCandidate/{candidate}/byJob</span>/{job}</a> <span class="methods"><a href="#applications_byCandidate__candidate__byJob__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byCandidate__candidate__byJob__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byCandidate__candidate__byJob__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>get the id of the application (if any)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byCandidate__candidate__byJob__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byCandidate/{candidate}/byJob</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get the id of the application (if any)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byCandidate__candidate__byJob__job__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byCandidate__candidate__byJob__job__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="candidates" class="panel-title">/candidates</h3></div><div class="panel-body"><div class="top-resource-description"><p>Candidates are people who are in the tenant&#39;s talent world, perhaps stored in their ATS. Maybe they applied for an opening, registered in the database, were imported from some other system, etc.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me"><span class="parent">/candidates</span>/me</a> <span class="methods"><a href="#candidates_me_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>All APIs beneath here are operating on behalf of the logged in candidate.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_me_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.</p><p>See separate design document for detailed information on the request body.</p><p>The producer must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p>Candidate type is not passed - instead the producer should identify candidate type (e.g. internal) by looking for the relevant role in the incoming OAuth token.</p><p>The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate, and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where the consumer tries to write to a random data item for example.</p><p>If a resume element is passed then any existing resume will be replaced by the contents of the resume element. If null, the existing resume will be removed.</p><p>Where an application is included, the producer should check that the job is active. No check is needed of the "open to internal" rules on the job vs. the candidate&#39;s actual type as that sort of validation gets in the way of sending special candidate direct links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.</p><p>See separate design document for detailed information on the request body.</p><p>The producer must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p>Candidate type is not passed - instead the producer should identify candidate type (e.g. internal) by looking for the relevant role in the incoming OAuth token.</p><p>The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate, and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where the consumer tries to write to a random data item for example.</p><p>If a resume element is passed then any existing resume will be replaced by the contents of the resume element. If null, the existing resume will be removed.</p><p>Where an application is included, the producer should check that the job is active. No check is needed of the "open to internal" rules on the job vs. the candidate&#39;s actual type as that sort of validation gets in the way of sending special candidate direct links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  {
+    "actionName": "apply",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "share",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "refer",
+    "availableToInternals": true,
+    "availableToExternals": false
+  }
+]</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applications" class="panel-title">/applications</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__deltaPings"><span class="parent">/applications/byID/{application}</span>/deltaPings</a> <span class="methods"></span></h4></div><div id="panel_applications_byID__application__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.</p><p>Non-SoT.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__bucket_deltaPings"><span class="parent">/applications/byID/{application}/bucket</span>/deltaPings</a> <span class="methods"><a href="#applications_byID__application__bucket_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__bucket_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__bucket_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we know the application has a new bucket.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__bucket_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/bucket</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we know the application has a new bucket.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__bucket_deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__bucket_deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__bySourcingApp_deltaPings"><span class="parent">/applications/byID/{application}/bySourcingApp</span>/deltaPings</a> <span class="methods"><a href="#applications_byID__application__bySourcingApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__bySourcingApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__bySourcingApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>A non-SoT API for pings about applications, but which is only sent to the application that sourced the application (i.e., that owns the campaign tracker attached to the application).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__bySourcingApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/bySourcingApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>A non-SoT API for pings about applications, but which is only sent to the application that sourced the application (i.e., that owns the campaign tracker attached to the application).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__bySourcingApp_deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__bySourcingApp_deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__items"><span class="parent">/applications/byID/{application}</span>/items</a> <span class="methods"><a href="#applications_byID__application__items_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__items" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>all items held on an application</p></div><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__items_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__items_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/items</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__items_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__items_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__items_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="applications_byID__application__items_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref": "item.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "name": "selfScore",
+    "value": {
+      "raw": {
+        "Travel OK": "Yes"
+      },
+      "display": "Travel:Y"
+    }
+  },
+  {
+    "name": "coverLetter",
+    "value": {
+      "raw": {
+        "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+        "fileName": "coverletter.docx",
+        "via": "dropbox.com",
+        "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+      },
+      "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+    }
+  }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__items_byName__item_"><span class="parent">/applications/byID/{application}/items/byName</span>/{item}</a> <span class="methods"><a href="#applications_byID__application__items_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__items_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__items_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__items_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/items/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__items_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__items_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__items_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="applications_byID__application__items_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "raw": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "json representation of the item&#39;s current value as an object"
+        },
+        {
+          "type": "boolean",
+          "description": "json representation of the item&#39;s current value as a boolean"
+        },
+        {
+          "type": "string",
+          "description": "json representation of the item&#39;s current value as a string"
+        },
+        {
+          "type": "number",
+          "description": "json representation of the item&#39;s current value as a number"
+        }
+      ]
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "name": "cover letter",
+  "value": {
+    "raw": {
+      "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+      "fileName": "coverletter.docx",
+      "via": "dropbox.com",
+      "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+    },
+    "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__items_itemMetas"><span class="parent">/applications/byID/{application}/items</span>/itemMetas</a> <span class="methods"><a href="#applications_byID__application__items_itemMetas_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__items_itemMetas" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Metadata for items held on the candidate</p></div><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__items_itemMetas_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__items_itemMetas_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/items</span>/itemMetas</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__items_itemMetas_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__items_itemMetas_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__items_itemMetas_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byID__application__items_itemMetas_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref": "item.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+   {
+      "name": "cover letter",
+      "meta": {
+         "type": "object",
+         "title": "Cover letter",
+         "format": "tas-fileUpload",
+         "access": "candidateOwned",
+         "options": {
+            "accept": "image/png,text/html"
+         },
+         "description": "Please upload a cover letter. The shorter the better",
+         "properties": {
+            "data": {
+               "type": "string",
+               "media": {
+                  "binaryEncoding": "base64"
+               }
+            },
+            "fileName": {
+               "type": "string"
+            },
+            "via": {
+               "type": "string"
+            }
+         }
+      }
+   },
+   {
+      "name": "favorite color",
+      "meta": {
+         "enum": [
+            "Red",
+            "Green"
+         ]
+      }
+   }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__items_itemMetas_byName__item_"><span class="parent">/applications/byID/{application}/items/itemMetas/byName</span>/{item}</a> <span class="methods"><a href="#applications_byID__application__items_itemMetas_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__items_itemMetas_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__items_itemMetas_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__items_itemMetas_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/items/itemMetas/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__items_itemMetas_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__items_itemMetas_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__items_itemMetas_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byID__application__items_itemMetas_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "raw": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "json representation of the item&#39;s current value as an object"
+        },
+        {
+          "type": "boolean",
+          "description": "json representation of the item&#39;s current value as a boolean"
+        },
+        {
+          "type": "string",
+          "description": "json representation of the item&#39;s current value as a string"
+        },
+        {
+          "type": "number",
+          "description": "json representation of the item&#39;s current value as a number"
+        }
+      ]
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "name": "cover letter",
+  "meta": {
+    "type": "object",
+    "title": "Cover letter",
+    "format": "tas-fileUpload",
+    "access": "candidateOwned",
+    "options": {
+      "accept": "image/png,text/html"
+    },
+    "description": "Please upload a cover letter. The shorter the better",
+    "properties": {
+      "data": {
+        "type": "string",
+        "media": {
+          "binaryEncoding": "base64"
+        }
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "via": {
+        "type": "string"
+      }
+    }
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__tracker"><span class="parent">/applications/byID/{application}</span>/tracker</a> <span class="methods"><a href="#applications_byID__application__tracker_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__tracker" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__tracker_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the tracker, if any, associated with this application. This is fixed at the time that application is made.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__tracker_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/tracker</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the tracker, if any, associated with this application. This is fixed at the time that application is made.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__tracker_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__tracker_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__status"><span class="parent">/applications/byID/{application}</span>/status</a> <span class="methods"><a href="#applications_byID__application__status_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__status" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__status_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such as "interview", "offer", "pre-screen", etc.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__status_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/status</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such as "interview", "offer", "pre-screen", etc.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__status_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__status_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__candidate"><span class="parent">/applications/byID/{application}</span>/candidate</a> <span class="methods"><a href="#applications_byID__application__candidate_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__candidate" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__candidate_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate for this application</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__candidate_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/candidate</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate for this application</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__candidate_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__candidate_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__job"><span class="parent">/applications/byID/{application}</span>/job</a> <span class="methods"><a href="#applications_byID__application__job_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__job" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__job_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the job opening for this application</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__job_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}</span>/job</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the job opening for this application</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__job_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__job_get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_bySourcingApp__consumer___id__sourcerDetails"><span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</a> <span class="methods"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_bySourcingApp__consumer___id__sourcerDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_bySourcingApp__consumer___id__sourcerDetails_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_bySourcingApp__consumer___id__sourcerDetails_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_bySourcingApp__consumer___id__sourcerDetails_get_request"><h3>URI Parameters</h3><ul><li><strong>consumer</strong>: <em>required (string)</em></li><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byCandidate__candidate__byJob__job_"><span class="parent">/applications/byCandidate/{candidate}/byJob</span>/{job}</a> <span class="methods"><a href="#applications_byCandidate__candidate__byJob__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byCandidate__candidate__byJob__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byCandidate__candidate__byJob__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>get the id of the application (if any)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byCandidate__candidate__byJob__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byCandidate/{candidate}/byJob</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get the id of the application (if any)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byCandidate__candidate__byJob__job__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byCandidate__candidate__byJob__job__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="candidates" class="panel-title">/candidates</h3></div><div class="panel-body"><div class="top-resource-description"><p>Candidates are people who are in the tenant&#39;s talent world, perhaps stored in their ATS. Maybe they applied for an opening, registered in the database, were imported from some other system, etc.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me"><span class="parent">/candidates</span>/me</a> <span class="methods"><a href="#candidates_me_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>All APIs beneath here are operating on behalf of the logged in candidate.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_me_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.</p><p>See separate design document for detailed information on the request body.</p><p>The producer must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p>Candidate type is not passed - instead the producer should identify candidate type (e.g. internal) by looking for the relevant role in the incoming OAuth token.</p><p>The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate, and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where the consumer tries to write to a random data item for example.</p><p>If a resume element is passed then any existing resume will be replaced by the contents of the resume element. If null, the existing resume will be removed.</p><p>Where an application is included, the producer should check that the job is active. No check is needed of the "open to internal" rules on the job vs. the candidate&#39;s actual type as that sort of validation gets in the way of sending special candidate direct links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.</p><p>See separate design document for detailed information on the request body.</p><p>The producer must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p>Candidate type is not passed - instead the producer should identify candidate type (e.g. internal) by looking for the relevant role in the incoming OAuth token.</p><p>The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate, and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where the consumer tries to write to a random data item for example.</p><p>If a resume element is passed then any existing resume will be replaced by the contents of the resume element. If null, the existing resume will be removed.</p><p>Where an application is included, the producer should check that the job is active. No check is needed of the "open to internal" rules on the job vs. the candidate&#39;s actual type as that sort of validation gets in the way of sending special candidate direct links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "categoriesPatchOp": {
@@ -947,20 +1307,29 @@
     "notifications": {
       "type": "boolean",
       "description": "whether this candidate wants to receive email alerts about new jobs"
+    },
+    "internalFlag": {
+      "type": "boolean",
+      "description": "whether this candidate is an internal"
     }
   },
   "type": "object",
   "properties": {
     "notifications": {
       "$ref": "#/definitions/notifications"
+    },
+    "internalFlag": {
+      "$ref": "#/definitions/internalFlag"
     }
   },
   "required": [
-    "notifications"
+    "notifications",
+    "internalFlag"
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
-   "notifications": true
+   "notifications": true,
+   "internalFlag": false
 }</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_homePage"><span class="parent">/candidates/me</span>/homePage</a> <span class="methods"><a href="#candidates_me_homePage_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_homePage" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_homePage_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the uri of the home page, where a candidate can see their own status, find incomplete activities and so on. Often produced by an ATS.</p><p>SoT. There is only one home page to send the candidate to.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_homePage_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me</span>/homePage</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the uri of the home page, where a candidate can see their own status, find incomplete activities and so on. Often produced by an ATS.</p><p>SoT. There is only one home page to send the candidate to.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#candidates_me_homePage_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="candidates_me_homePage_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
@@ -1278,7 +1647,235 @@
  "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
  "dateUploaded": "2015-11-05T13:15:30Z",
  "preSignedUri": "https://frodo.com/docs/198714509"
-}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>the requested data was not available from the given social network</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_social__network__resume_asDocument"><span class="parent">/candidates/me/social/{network}/resume</span>/asDocument</a> <span class="methods"><a href="#candidates_me_social__network__resume_asDocument_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_social__network__resume_asDocument" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_social__network__resume_asDocument_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>get the document as a stream, i.e. binary document, using the appropriate mime type</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_social__network__resume_asDocument_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me/social/{network}/resume</span>/asDocument</h4></div><div class="modal-body"><div class="alert alert-info"><p>get the document as a stream, i.e. binary document, using the appropriate mime type</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_social__network__resume_asDocument_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_social__network__resume_asDocument_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_social__network__resume_asDocument_get_request"><h3>URI Parameters</h3><ul><li><strong>network</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates_me_social__network__resume_asDocument_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/pdf</strong></p><p><strong>Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document</strong></p><p><strong>Type: application/msword</strong></p><p><strong>Type: application/rtf</strong></p><p><strong>Type: text/plain</strong></p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>the requested data was not available from the given social network</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__stars_forJobs__job_"><span class="parent">/candidates/byID/{candidate}/stars/forJobs</span>/{job}</a> <span class="methods"><a href="#candidates_byID__candidate__stars_forJobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__stars_forJobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__stars_forJobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate&#39;s stars against a specific job, perhaps inherited from the jobs&#39;s master or some talent pool</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__stars_forJobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}/stars/forJobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate&#39;s stars against a specific job, perhaps inherited from the jobs&#39;s master or some talent pool</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__stars_forJobs__job__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__stars_forJobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__deltaPings"><span class="parent">/candidates/byID/{candidate}</span>/deltaPings</a> <span class="methods"><a href="#candidates_byID__candidate__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The main ping for any changes to a candidate, other than the html resume, which has its own delta ping. Only produced as non-SoT.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_recruiterFaces_searches"><span class="parent">/candidates/recruiterFaces</span>/searches</a> <span class="methods"><a href="#candidates_recruiterFaces_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_recruiterFaces_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_recruiterFaces_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search candidates, returning recruiter-facing details. The method is a POST solely because the size and number of parameters might get too large for a GET. withResume - if present, only return candidates with (if true) or without (if false) an attached resume</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_recruiterFaces_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/recruiterFaces</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search candidates, returning recruiter-facing details. The method is a POST solely because the size and number of parameters might get too large for a GET. withResume - if present, only return candidates with (if true) or without (if false) an attached resume</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_recruiterFaces_searches_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_recruiterFaces_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>the requested data was not available from the given social network</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_social__network__resume_asDocument"><span class="parent">/candidates/me/social/{network}/resume</span>/asDocument</a> <span class="methods"><a href="#candidates_me_social__network__resume_asDocument_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_social__network__resume_asDocument" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_social__network__resume_asDocument_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>get the document as a stream, i.e. binary document, using the appropriate mime type</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_social__network__resume_asDocument_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me/social/{network}/resume</span>/asDocument</h4></div><div class="modal-body"><div class="alert alert-info"><p>get the document as a stream, i.e. binary document, using the appropriate mime type</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_social__network__resume_asDocument_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_social__network__resume_asDocument_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_social__network__resume_asDocument_get_request"><h3>URI Parameters</h3><ul><li><strong>network</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates_me_social__network__resume_asDocument_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/pdf</strong></p><p><strong>Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document</strong></p><p><strong>Type: application/msword</strong></p><p><strong>Type: application/rtf</strong></p><p><strong>Type: text/plain</strong></p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>the requested data was not available from the given social network</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__items"><span class="parent">/candidates/byID/{candidate}</span>/items</a> <span class="methods"><a href="#candidates_byID__candidate__items_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__items" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>all items held on a candidate</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__items_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__items_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}</span>/items</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__items_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_byID__candidate__items_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__items_get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="candidates_byID__candidate__items_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref": "item.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "name": "selfScore",
+    "value": {
+      "raw": {
+        "Travel OK": "Yes"
+      },
+      "display": "Travel:Y"
+    }
+  },
+  {
+    "name": "coverLetter",
+    "value": {
+      "raw": {
+        "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+        "fileName": "coverletter.docx",
+        "via": "dropbox.com",
+        "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+      },
+      "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+    }
+  }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__items_byName__item_"><span class="parent">/candidates/byID/{candidate}/items/byName</span>/{item}</a> <span class="methods"><a href="#candidates_byID__candidate__items_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__items_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__items_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__items_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}/items/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get value and (in some scenarios), metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__items_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_byID__candidate__items_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__items_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="candidates_byID__candidate__items_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "raw": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "json representation of the item&#39;s current value as an object"
+        },
+        {
+          "type": "boolean",
+          "description": "json representation of the item&#39;s current value as a boolean"
+        },
+        {
+          "type": "string",
+          "description": "json representation of the item&#39;s current value as a string"
+        },
+        {
+          "type": "number",
+          "description": "json representation of the item&#39;s current value as a number"
+        }
+      ]
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "name": "cover letter",
+  "value": {
+    "raw": {
+      "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
+      "fileName": "coverletter.docx",
+      "via": "dropbox.com",
+      "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+    },
+    "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__items_itemMetas"><span class="parent">/candidates/byID/{candidate}/items</span>/itemMetas</a> <span class="methods"><a href="#candidates_byID__candidate__items_itemMetas_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__items_itemMetas" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Metadata for items held on the candidate</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__items_itemMetas_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__items_itemMetas_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}/items</span>/itemMetas</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__items_itemMetas_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_byID__candidate__items_itemMetas_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__items_itemMetas_get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates_byID__candidate__items_itemMetas_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"type":"array",
+	"items":{ "$ref": "item.json" }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+   {
+      "name": "cover letter",
+      "meta": {
+         "type": "object",
+         "title": "Cover letter",
+         "format": "tas-fileUpload",
+         "access": "candidateOwned",
+         "options": {
+            "accept": "image/png,text/html"
+         },
+         "description": "Please upload a cover letter. The shorter the better",
+         "properties": {
+            "data": {
+               "type": "string",
+               "media": {
+                  "binaryEncoding": "base64"
+               }
+            },
+            "fileName": {
+               "type": "string"
+            },
+            "via": {
+               "type": "string"
+            }
+         }
+      }
+   },
+   {
+      "name": "favorite color",
+      "meta": {
+         "enum": [
+            "Red",
+            "Green"
+         ]
+      }
+   }
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__items_itemMetas_byName__item_"><span class="parent">/candidates/byID/{candidate}/items/itemMetas/byName</span>/{item}</a> <span class="methods"><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__items_itemMetas_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__items_itemMetas_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__items_itemMetas_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}/items/itemMetas/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__items_itemMetas_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates_byID__candidate__items_itemMetas_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "raw": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "json representation of the item&#39;s current value as an object"
+        },
+        {
+          "type": "boolean",
+          "description": "json representation of the item&#39;s current value as a boolean"
+        },
+        {
+          "type": "string",
+          "description": "json representation of the item&#39;s current value as a string"
+        },
+        {
+          "type": "number",
+          "description": "json representation of the item&#39;s current value as a number"
+        }
+      ]
+    },
+    "display": {
+      "type": "string",
+      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
+    },
+    "value": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "$ref": "#/definitions/raw"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        }
+      },
+      "required": [
+        "raw",
+        "display"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "value": {
+      "$ref": "#/definitions/value"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "name": "cover letter",
+  "meta": {
+    "type": "object",
+    "title": "Cover letter",
+    "format": "tas-fileUpload",
+    "access": "candidateOwned",
+    "options": {
+      "accept": "image/png,text/html"
+    },
+    "description": "Please upload a cover letter. The shorter the better",
+    "properties": {
+      "data": {
+        "type": "string",
+        "media": {
+          "binaryEncoding": "base64"
+        }
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "via": {
+        "type": "string"
+      }
+    }
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__stars_forJobs__job_"><span class="parent">/candidates/byID/{candidate}/stars/forJobs</span>/{job}</a> <span class="methods"><a href="#candidates_byID__candidate__stars_forJobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__stars_forJobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__stars_forJobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate&#39;s stars against a specific job, perhaps inherited from the jobs&#39;s master or some talent pool</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__stars_forJobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}/stars/forJobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate&#39;s stars against a specific job, perhaps inherited from the jobs&#39;s master or some talent pool</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__stars_forJobs__job__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__stars_forJobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__deltaPings"><span class="parent">/candidates/byID/{candidate}</span>/deltaPings</a> <span class="methods"><a href="#candidates_byID__candidate__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The main ping for any changes to a candidate, other than the html resume, which has its own delta ping. Only produced as non-SoT.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__deltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_recruiterFaces_searches"><span class="parent">/candidates/recruiterFaces</span>/searches</a> <span class="methods"><a href="#candidates_recruiterFaces_searches_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_recruiterFaces_searches" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_recruiterFaces_searches_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Search candidates, returning recruiter-facing details. The method is a POST solely because the size and number of parameters might get too large for a GET. withResume - if present, only return candidates with (if true) or without (if false) an attached resume</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_recruiterFaces_searches_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/recruiterFaces</span>/searches</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search candidates, returning recruiter-facing details. The method is a POST solely because the size and number of parameters might get too large for a GET. withResume - if present, only return candidates with (if true) or without (if false) an attached resume</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_recruiterFaces_searches_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_recruiterFaces_searches_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "candidate": {
@@ -3275,7 +3872,129 @@
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "onHoldFlag": true
-}</code></pre></div><div class="tab-pane" id="engagements_byID__id__tenantDetails_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the update was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id__tenantDeltaPings"><span class="parent">/engagements/byID/{id}</span>/tenantDeltaPings</a> <span class="methods"><a href="#engagements_byID__id__tenantDeltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_engagements_byID__id__tenantDeltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__tenantDeltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alerts listeners to a change to an engagement caused by the tenant</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__tenantDeltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/engagements/byID/{id}</span>/tenantDeltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alerts listeners to a change to an engagement caused by the tenant</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__tenantDeltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__tenantDeltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byType__engagementType__forApplication__application_"><span class="parent">/engagements/byType/{engagementType}/forApplication</span>/{application}</a> <span class="methods"><a href="#engagements_byType__engagementType__forApplication__application__post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_engagements_byType__engagementType__forApplication__application_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byType__engagementType__forApplication__application__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Tenant creates (or reuses) an engagement of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the engagement hub.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byType__engagementType__forApplication__application__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/engagements/byType/{engagementType}/forApplication</span>/{application}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Tenant creates (or reuses) an engagement of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the engagement hub.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byType__engagementType__forApplication__application__post_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byType__engagementType__forApplication__application__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byType__engagementType__forApplication__application__post_request"><h3>URI Parameters</h3><ul><li><strong>engagementType</strong>: <em>required (string)</em></li><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="engagements_byID__id__tenantDetails_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the update was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id__tenantDeltaPings"><span class="parent">/engagements/byID/{id}</span>/tenantDeltaPings</a> <span class="methods"><a href="#engagements_byID__id__tenantDeltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_engagements_byID__id__tenantDeltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__tenantDeltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alerts listeners to a change to an engagement caused by the tenant</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__tenantDeltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/engagements/byID/{id}</span>/tenantDeltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alerts listeners to a change to an engagement caused by the tenant</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__tenantDeltaPings_post_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__tenantDeltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id__view"><span class="parent">/engagements/byID/{id}</span>/view</a> <span class="methods"><a href="#engagements_byID__id__view_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_engagements_byID__id__view" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__view_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the view, i.e. information the tenant has decreed that the engagement app should see about this engagement.</p><p>SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__view_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/engagements/byID/{id}</span>/view</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the view, i.e. information the tenant has decreed that the engagement app should see about this engagement.</p><p>SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__view_get_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byID__id__view_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__view_get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="engagements_byID__id__view_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "job": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "job.json#/definitions/code"
+        },
+        "title": {
+          "$ref": "job.json#/definitions/title"
+        },
+        "items": {
+          "$ref": "items.json"
+        }
+      },
+      "required": [
+        "code",
+        "title",
+        "items"
+      ]
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "vcard": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "internalFlag": {
+          "$ref": "#/definitions/internalFlag"
+        },
+        "resumeMeta": {
+          "$ref": "fileDownload.json"
+        },
+        "items": {
+          "$ref": "items.json"
+        }
+      },
+      "required": [
+        "vcard",
+        "resumeMeta",
+        "internalFlag",
+        "items"
+      ]
+    },
+    "application": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "$ref": "items.json"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "jobCoordinator": {
+      "type": "object",
+      "properties": {
+        "vcard": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "vcard"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "application": {
+      "$ref": "#definitions/application"
+    },
+    "job": {
+      "$ref": "#definitions/job"
+    },
+    "candidate": {
+      "$ref": "#definitions/candidate"
+    },
+    "jobCoordinator": {
+      "$ref": "#definitions/jobCoordinator"
+    }
+  },
+  "required": [
+    "application",
+    "job",
+    "candidate",
+    "jobCoordinator"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "application": {
+    "items": []
+  },
+  "job": {
+    "code": "TTfg321",
+    "title": "Creative Director",
+    "items": []
+  },
+  "candidate": {
+    "vcard": [
+      "blah",
+      "blah"
+    ],
+    "internalFlag": false,
+    "resumeMeta": {
+      "fileName": "fredcv.docx",
+      "size": 3023443,
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "dateUploaded": "2015-11-05T13:15:30Z",
+      "preSignedUri": "https://frodo.com/docs/198714509"
+    },
+    "items": []
+  },
+  "jobCoordinator": {
+    "vcard": [
+      "blah",
+      "blah"
+    ]
+  }
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byType__engagementType__forApplication__application_"><span class="parent">/engagements/byType/{engagementType}/forApplication</span>/{application}</a> <span class="methods"><a href="#engagements_byType__engagementType__forApplication__application__post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_engagements_byType__engagementType__forApplication__application_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byType__engagementType__forApplication__application__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Tenant creates (or reuses) an engagement of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the engagement hub.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byType__engagementType__forApplication__application__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/engagements/byType/{engagementType}/forApplication</span>/{application}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Tenant creates (or reuses) an engagement of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the engagement hub.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byType__engagementType__forApplication__application__post_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byType__engagementType__forApplication__application__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byType__engagementType__forApplication__application__post_request"><h3>URI Parameters</h3><ul><li><strong>engagementType</strong>: <em>required (string)</em></li><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
@@ -3356,7 +4075,7 @@
     "candidateSeesResults": false,
     "canReuse": true
   }
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagementTypes_forApp_deltaPings"><span class="parent">/engagementTypes/forApp</span>/deltaPings</a> <span class="methods"><a href="#engagementTypes_forApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_engagementTypes_forApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagementTypes_forApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumed by an engagement app to alert any interested parties that the list of engagement types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagementTypes_forApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/engagementTypes/forApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by an engagement app to alert any interested parties that the list of engagement types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"></ul><div class="tab-content"></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="global" class="panel-title">/global</h3></div><div class="panel-body"><div class="top-resource-description"><p>resources which are global in scope and possibly useful to all apps</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_jqueryInclude"><span class="parent">/global</span>/jqueryInclude</a> <span class="methods"><a href="#global_jqueryInclude_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_global_jqueryInclude" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_jqueryInclude_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_jqueryInclude_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/global</span>/jqueryInclude</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#global_jqueryInclude_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="global_jqueryInclude_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"&gt;&lt;/script&gt;</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="items" class="panel-title">/items</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_items_toCandidate_anonymous_jobs__job_"><span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</a> <span class="methods"><a href="#items_toCandidate_anonymous_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_items_toCandidate_anonymous_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>items held on a job that are visible to candidates, e.g. position description document</p></div><div class="list-group"><div onclick="window.location.href = '#items_toCandidate_anonymous_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="items_toCandidate_anonymous_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#items_toCandidate_anonymous_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#items_toCandidate_anonymous_jobs__job__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="items_toCandidate_anonymous_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="items_toCandidate_anonymous_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagementTypes_forApp_deltaPings"><span class="parent">/engagementTypes/forApp</span>/deltaPings</a> <span class="methods"><a href="#engagementTypes_forApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_engagementTypes_forApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagementTypes_forApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumed by an engagement app to alert any interested parties that the list of engagement types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagementTypes_forApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/engagementTypes/forApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by an engagement app to alert any interested parties that the list of engagement types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"></ul><div class="tab-content"></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="global" class="panel-title">/global</h3></div><div class="panel-body"><div class="top-resource-description"><p>resources which are global in scope and possibly useful to all apps</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_internalIPMatches_byIP__ip_"><span class="parent">/global/internalIPMatches/byIP</span>/{ip}</a> <span class="methods"><a href="#global_internalIPMatches_byIP__ip__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_global_internalIPMatches_byIP__ip_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_internalIPMatches_byIP__ip__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Return true if the IP passed in falls within one of the ranges known to be internal. Apps can use this to make educated guesses about whether to display, for example, buttons like "employee referral" on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as an indication, and should require the candidate to actually log in and thus be proven an internal before unlocking any actual internal behaviour (e.g. allowing the referral to be made).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_internalIPMatches_byIP__ip__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/global/internalIPMatches/byIP</span>/{ip}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Return true if the IP passed in falls within one of the ranges known to be internal. Apps can use this to make educated guesses about whether to display, for example, buttons like "employee referral" on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as an indication, and should require the candidate to actually log in and thus be proven an internal before unlocking any actual internal behaviour (e.g. allowing the referral to be made).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#global_internalIPMatches_byIP__ip__get_request" data-toggle="tab">Request</a></li><li><a href="#global_internalIPMatches_byIP__ip__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_internalIPMatches_byIP__ip__get_request"><h3>URI Parameters</h3><ul><li><strong>ip</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="global_internalIPMatches_byIP__ip__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_jqueryInclude"><span class="parent">/global</span>/jqueryInclude</a> <span class="methods"><a href="#global_jqueryInclude_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_global_jqueryInclude" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_jqueryInclude_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_jqueryInclude_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/global</span>/jqueryInclude</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#global_jqueryInclude_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane" id="global_jqueryInclude_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"&gt;&lt;/script&gt;</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="items" class="panel-title">/items</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_items_toCandidate_anonymous_jobs__job_"><span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</a> <span class="methods"><a href="#items_toCandidate_anonymous_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_items_toCandidate_anonymous_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>items held on a job that are visible to candidates, e.g. position description document</p></div><div class="list-group"><div onclick="window.location.href = '#items_toCandidate_anonymous_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="items_toCandidate_anonymous_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#items_toCandidate_anonymous_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#items_toCandidate_anonymous_jobs__job__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="items_toCandidate_anonymous_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="items_toCandidate_anonymous_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
 	"items":{ "$ref": "item.json" }
@@ -4561,121 +5280,126 @@ GET /widgets?$top=5
     }
 ]
 </code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job_"><span class="parent">/jobs/byID</span>/{job}</a> <span class="methods"><a href="#jobs_byID__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate-facing information for a specific job opening</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate-facing information for a specific job opening</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "definitions": {
-        "status": {
-            "enum": [
-                "active",
-                "complete"
-            ],
-            "description": "from HR-XML"
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "status": {
+      "enum": [
+        "active",
+        "complete"
+      ],
+      "description": "from HR-XML"
+    },
+    "code": {
+      "type": "string",
+      "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
+    },
+    "title": {
+      "type": "string",
+      "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
+    },
+    "availability": {
+      "type": "object",
+      "properties": {
+        "availableInternally": {
+          "type": "boolean",
+          "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
         },
-        "availability": {
-            "type": "object",
-            "properties": {
-                "availableInternally": {
-                    "type": "boolean",
-                    "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
-                },
-                "availableExternally": {
-                    "type": "boolean",
-                    "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
-                },
-                "jobPublishDates": {
-                    "type": "object",
-                    "properties": {
-                        "publishDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which the job was published (became available to candidates)"
-                        },
-                        "internalPublishDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
-                        },
-                        "externalPublishDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which the job was published to external candidates. If not set, use publishDate."
-                        }
-                    },
-                    "required": [
-                        "publishDate"
-                    ],
-                    "additionalProperties": false
-                },
-                "applicationCloseDates": {
-                    "type": "object",
-                    "properties": {
-                        "closeDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which applications are scheduled to close"
-                        },
-                        "internalCloseDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
-                        },
-                        "externalCloseDate": {
-                            "type": "string",
-                            "format": "date-time",
-                            "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
-                        }
-                    },
-                    "required": [
-                        "closeDate"
-                    ],
-                    "additionalProperties": false
-                }
+        "availableExternally": {
+          "type": "boolean",
+          "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
+        },
+        "jobPublishDates": {
+          "type": "object",
+          "properties": {
+            "publishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published (became available to candidates)"
             },
-            "additionalProperties": false
+            "internalPublishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
+            },
+            "externalPublishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published to external candidates. If not set, use publishDate."
+            }
+          },
+          "required": [
+            "publishDate"
+          ],
+          "additionalProperties": false
+        },
+        "applicationCloseDates": {
+          "type": "object",
+          "properties": {
+            "closeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications are scheduled to close"
+            },
+            "internalCloseDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
+            },
+            "externalCloseDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
+            }
+          },
+          "required": [
+            "closeDate"
+          ],
+          "additionalProperties": false
         }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
     },
-    "type": "object",
-    "properties": {
-        "id": {
-            "type": "integer"
-        },
-        "status": {
-            "$ref": "#/definitions/status"
-        },
-        "availability": {
-            "$ref": "#/definitions/availability"
-        },
-        "code": {
-            "type": "string",
-            "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
-        },
-        "title": {
-            "type": "string",
-            "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
-        },
-        "shortSummary": {
-            "type": "string",
-            "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
-        },
-        "company": {
-            "type": "string",
-            "description": "as per Salesforce, more explicit than org"
-        },
-        "country": {
-            "type": "string",
-            "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
-        },
-        "categories": {
-            "$ref": "categoriesActual.json"
-        }
+    "status": {
+      "$ref": "#/definitions/status"
     },
-    "required": [
-        "code",
-        "availability",
-        "title"
-    ],
-    "additionalProperties": false
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "availability": {
+      "$ref": "#/definitions/availability"
+    },
+    "code": {
+      "$ref": "#/definitions/code"
+    },
+    "title": {
+      "$ref": "#/definitions/title"
+    },
+    "shortSummary": {
+      "type": "string",
+      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "company": {
+      "type": "string",
+      "description": "as per Salesforce, more explicit than org"
+    },
+    "country": {
+      "type": "string",
+      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+    },
+    "categories": {
+      "$ref": "categoriesActual.json"
+    }
+  },
+  "required": [
+    "code",
+    "availability",
+    "title"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "id": 10334355,
     "status": "active",
     "availability": {

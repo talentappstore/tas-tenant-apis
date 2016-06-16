@@ -1,5 +1,17 @@
 [
-      "apply",
-      "share",
-      "refer"
+  {
+    "actionName": "apply",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "share",
+    "availableToInternals": true,
+    "availableToExternals": true
+  },
+  {
+    "actionName": "refer",
+    "availableToInternals": true,
+    "availableToExternals": false
+  }
 ]

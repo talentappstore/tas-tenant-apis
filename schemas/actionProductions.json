@@ -1,13 +1,29 @@
 {
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"definitions": {
-	  "actionName": {
-			"type": "string",
-			"description": "fixed name of this action, containing only lower case alpha, digits and '-' characters, length <= 30"
-	  }
-	},
-	"type": "array",
-	"items": {
-	  "$ref": "#/definitions/actionName"
-	}
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "possibleAction": {
+      "type": "object",
+      "properties": {
+        "actionName": {
+          "type": "string",
+          "description": "fixed name of this action, containing only lower case alpha, digits and '-' characters, length <= 30"
+        },
+        "availableToInternals": {
+          "type": "boolean"
+        },
+        "availableToExternals": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actionName",
+        "availableToInternals",
+        "availableToExternals"
+      ]
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/possibleAction"
+  }
 }

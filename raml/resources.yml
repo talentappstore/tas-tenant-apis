@@ -1,5 +1,20 @@
 #%RAML 0.8
 
+- actionSetupPage:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action's app that the user can use to to set up defaults or values
+        for this action - for example, to set the referral amount or limits if the button is for an employee referral program.
+      responses:
+        200:
+          body:
+            text/plain:
+              example: http://www.google.com
+        404:
+          description: there is no setup for this action, i.e. it doesn't need any parameters                              
+
+
 - userAppPanels:
     get:
       securedBy: [oauth_2_0]

@@ -4,8 +4,24 @@
     get:
       securedBy: [oauth_2_0]
       description: |
-        Non-SoT, on-behalf (principal == user) API to get a link to a page hosted by the action's app that the user can use to to set up defaults or values
+        API to get a link to a page hosted by the action's app that the user can use to to set up defaults or values
         for this action - for example, to set the referral amount or limits if the button is for an employee referral program.
+        
+        Non-SoT, on-behalf (principal == user).
+        
+      queryParameters:
+        redirectOnOK:
+          type: string
+          description: |
+            The url that the setup page should redirect the user to after they have successfully saved and made the action ready for use.
+          example: https://acme.switchgear.com/actionOn/100233
+          required: true
+        redirectOnCancel:
+          type: string
+          description: |
+            The url that the setup page should redirect the user to if they don't complete setup but instead hit cancel.
+          example: https://acme.switchgear.com/cancelled
+          required: true
       responses:
         200:
           body:

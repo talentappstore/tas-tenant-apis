@@ -103,19 +103,27 @@ resourceTypes: !include resources.yml
           type: candidateAppPossibleActions
           /byName:
             /{action}:
-              /{internal}:
-                description: true if the setup page is setting up details for internal candidates, or false for externals 
-                /setupPage:
-                  description: setup page for default values, that will affect all jobs (unless overridden at workflow level or on the job itself) 
-                  type: actionSetupPage
-                  /forWorkflow:
-                    /{workflow}:
-                      description: setup page for default values that will affect all jobs of the given workflow, unless overridden on the job itself 
-                      type: actionSetupPage
-                  /forJob:
-                    /{job}:
-                      description: setup page for values that affect only this job 
-                      type: actionSetupPage
+              /{uiMode}:
+                description: |
+                  The setup page uses uiMode to understand whether the user is at a point in the UI where they are:
+                  - *viewOnly*: viewing setup details, and should not be offered an edit option
+                  - *view*: viewing setup details, with the possibility of editing them
+                  - *edit*: editing setup details
+                  In all cases the app should apply its own security to decide whether the ser is actually allowed to view/edit, this
+                  value is just a hint to make the setup page work smoothly in conjunction with ab "edit mode" in the containing UI.
+                /{internal}:
+                  description: true if the setup page is setting up details for internal candidates, or false for externals 
+                  /setupPage:
+                    description: setup page for default values, that will affect all jobs (unless overridden at workflow level or on the job itself) 
+                    type: actionSetupPage
+                    /forWorkflow:
+                      /{workflow}:
+                        description: setup page for default values that will affect all jobs of the given workflow, unless overridden on the job itself 
+                        type: actionSetupPage
+                    /forJob:
+                      /{job}:
+                        description: setup page for values that affect only this job 
+                        type: actionSetupPage
     /search:
       description: |
         Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.

@@ -20,6 +20,10 @@
         "items"
       ]
     },
+    "internalFlag": {
+      "type": "boolean",
+      "description": "whether this candidate is an internal"
+    },
     "candidate": {
       "type": "object",
       "properties": {

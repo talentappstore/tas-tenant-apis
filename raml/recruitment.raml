@@ -106,9 +106,11 @@ resourceTypes: !include resources.yml
               /{uiMode}:
                 description: |
                   The setup page uses uiMode to understand whether the user is at a point in the UI where they are:
+                  
                   - *viewOnly*: viewing setup details, and should not be offered an edit option
                   - *view*: viewing setup details, with the possibility of editing them
                   - *edit*: editing setup details
+                  
                   In all cases the app should apply its own security to decide whether the ser is actually allowed to view/edit, this
                   value is just a hint to make the setup page work smoothly in conjunction with ab "edit mode" in the containing UI.
                 /{internal}:
@@ -766,6 +768,17 @@ resourceTypes: !include resources.yml
           body:
             text/html:
               example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  /candidateTAndCs:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get the url of the terms and conditions that a candidate must accept before creating an account. Any apps that allow
+        candidates to create accounts (such as apply apps) must require the candidate to agree to these.
+      responses:
+        200:
+          body:
+            text/plain:
+              example: https://example.com/candidate/termsAndConditions.html
 /items:
   /toCandidate:
     /anonymous:

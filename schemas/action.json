@@ -20,15 +20,15 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"appearance": {
-		  "description": "the appearance of the button/control, as per http://getbootstrap.com/css/#buttons",
-		  "enum": [ "default", "primary", "success", "info", "warning", "danger" ]
+		"color": {
+		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		  "type": "string"
 		},
 		"disabled": {
 			"type": "boolean",
 			"description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
 		}
 	},
-	"required": [ "name", "label", "behavior", "uri", "appearance", "disabled" ],
+	"required": [ "name", "label", "behavior", "uri", "disabled" ],
 	"additionalProperties": false
 }

@@ -29,11 +29,11 @@ resourceTypes: !include resources.yml
           type: candidateAppsActions
         /forApplication:
           /{application}:
-            type: candidateAppsActions
       /general:
         type: candidateAppsActions
         /asHtml:
           type: candidateAppsStrip
+          is: [ hasAccountManagerFilter ]
         /byName:
           /{action}:
             /byApp:
@@ -66,6 +66,7 @@ resourceTypes: !include resources.yml
         type: candidateAppsActions
         /asHtml:
           type: candidateAppsStrip
+          is: [ hasAccountManagerFilter ]
         /byName:
           /{action}:
             /byApp:

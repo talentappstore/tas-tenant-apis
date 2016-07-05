@@ -6,7 +6,7 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-        "appearance": "default",
+	"color": "dddddd",
         "disabled": false
       },
       {
@@ -14,7 +14,7 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-        "appearance": "primary",
+	"color": "dddddd",
         "disabled": false
       }
     ]

@@ -1,5 +1,13 @@
 #%RAML 0.8
 
+- hasAccountManagerFilter:
+    queryParameters:
+      accountManagerFilter:
+        type: boolean
+        description: |
+          When present and true, filters the actions to only include actions that are account managers.
+        required: false
+
 - vcardGetter:
     securedBy: [oauth_2_0]
     description: get candidate contact details, in the form described by rfc7095

@@ -1,5 +1,15 @@
 #%RAML 0.8
 
+- hasRelayPage:
+    description: a URL can be passed in that the user will be redirected to at some time in the future 
+    queryParameters:
+      relayPage:
+        type: string
+        description: |
+          A URL that the user will be redirected to.
+        example: https://myapp.com/kh87876
+        required: true
+
 - hasAccountManagerFilter:
     queryParameters:
       accountManagerFilter:

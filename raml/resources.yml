@@ -65,7 +65,7 @@
         - for an apply button, display that a partial (draft) registration is already underway
         - gray the register button out if candidate logged in and already registered
 
-      is: [ trackable ]
+      is: [ trackable, hasRelayPage ]
       responses:
         200:
           body:
@@ -83,7 +83,7 @@
       description: |
         Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.
 
-      is: [ trackable ]
+      is: [ trackable, hasRelayPage ]
       responses:
         200:
           body:
@@ -118,7 +118,7 @@
 - candidateAppsStrip:
     get:
       securedBy: [oauth_2_0]
-      is: [trackable ]
+      is: [trackable, hasRelayPage ]
       description: |
         Get the html for the strip of buttons, ready to plug into a job details page as viewed by the candidate. SoT.
              

@@ -8,6 +8,10 @@
           "type": "string",
           "description": "fixed name of this action, containing only lower case alpha, digits and '-' characters, length <= 30"
         },
+        "description": {
+           	"type": "string",
+           	"description": "A description of what this action does"
+        },
         "availableToInternals": {
           "type": "boolean"
         },

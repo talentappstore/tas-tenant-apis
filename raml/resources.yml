@@ -139,7 +139,7 @@
           body:
             application/json:
               schema: !include ../schemas/items.json
-              example: !include ../examples/items-metaWithFileUpload.json
+#              example: !include ../examples/items-metaWithFileUpload.json
 
 - itemMeta:
     get:
@@ -150,29 +150,29 @@
           body:
             application/json:
               schema: !include ../schemas/item.json
-              example: !include ../examples/item-metaWithFileUpload.json
+#              example: !include ../examples/item-metaWithFileUpload.json
 
 - items:
     get:
       securedBy: [oauth_2_0]
-      description: Get values and (in some scenarios) metadata, for all items
+      description: Get answers for all item questions.
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/items.json
-              example: !include ../examples/items-values.json
+              schema: !include ../schemas/answers.json
+              example: !include ../examples/answers-simple.json
       
 - item:
     get:
       securedBy: [oauth_2_0]
-      description: Get value and (in some scenarios), metadata for a specific item
+      description: Get the answer for an item question.
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/item.json
-              example: !include ../examples/item-value.json
+              schema: !include ../schemas/answer.json
+              example: !include ../examples/answer-simple.json
 
       
       

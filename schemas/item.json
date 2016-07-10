@@ -1,63 +1,983 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://talentappstore.github.io/tas-tenant-apis/item",
+  "title": "tas-item",
+  "description": "A question item for TAS",
   "definitions": {
-    "raw": {
-      "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": true,
-          "description": "json representation of the item's current value as an object"
-        },
-        {
-          "type": "boolean",
-          "description": "json representation of the item's current value as a boolean"
-        },
-        {
-          "type": "string",
-          "description": "json representation of the item's current value as a string"
-        },
-        {
-          "type": "number",
-          "description": "json representation of the item's current value as a number"
-        }
-      ]
-    },
-    "display": {
-      "type": "string",
-      "description": "the value rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using erl encoding"
-    },
-    "value": {
+
+    "tas-singleLine": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-singleLine",
+      "title": "tas-string",
+      "description": "A text question item",
       "type": "object",
       "properties": {
-        "raw": {
-          "$ref": "#/definitions/raw"
+        "type": {
+          "type": "string",
+          "default": "singleLine"
         },
-        "display": {
-          "$ref": "#/definitions/display"
+        "maxSize": {
+          "description": "Max number of characters",
+          "type": "number",
+          "default": 140
         }
-      },
-      "required": [
-        "raw",
-        "display"
-      ],
-      "additionalProperties": false
+      }       
+    },  
+
+    "tas-multiline": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-multiline",
+      "title": "tas-multiline",
+      "description": "A multiline text question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "multiline"
+        },
+        "maxSize": {
+          "description": "Max number of characters",
+          "type": "number",
+          "default": 1000
+        }
+      }      
+    },
+
+    "tas-number": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-number",
+      "title": "tas-number",
+      "description": "A number question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "number"
+        },
+        "maximum": {
+          "description": "Max number size",
+          "type": "number"
+        },
+        "minimum": {
+          "description": "Min number size",
+          "type": "number"
+        }
+      }
+    },
+
+    "tas-bool": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-bool",
+      "title": "tas-bool",
+      "description": "A boolean question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "bool"
+        },
+        "trueString": {
+          "description": "String that represents a true answer",
+          "type": "string",
+          "default": "Yes"
+        },
+        "falseString": {
+          "description": "String that represents a false answer",
+          "type": "string",
+          "default": "No"
+        }
+      }
+    },
+
+    "tas-resume": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-resume",
+      "title": "tas-resume",
+      "description": "A resume question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "resume"
+        },
+        "version": {
+          "description": "Previous version ID",
+          "type": "string"
+        },
+        "job": {
+          "description": "ID for the job associated with this item",
+          "type": "string"
+        },
+        "candidate": {
+          "description": "ID for the candidate associated with this item",
+          "type": "string"
+        },
+        "allowTyped": {
+          "description": "Allow user to type resume instead of uploading file",
+          "type": "boolean",
+          "default": "false"
+        },
+        "maxTypedSize": {
+          "description": "Max characters for a typed resume",
+          "type": "number",
+          "default": 4000
+        },
+        "accept": {
+          "description": "Allowable file mime types",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maxSize": {
+          "description": "Maximum size of the file in bytes",
+          "type": "number",
+          "default": 1000000
+        }
+      }
+    },
+
+    "tas-image": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-image",
+      "title": "tas-image",
+      "description": "An image question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "image"
+        },
+        "accept": {
+          "description": "Allowable file mime types",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maxSize": {
+          "description": "Maximum size of the file in bytes",
+          "type": "number",
+          "default": 1000000
+        },
+        "ascpectRatio": {
+          "description": "Required aspect ratio for this image",
+          "type": "string"
+        },
+        "maxWidth": {
+          "description": "Max width for this image",
+          "type": "number"
+        },
+        "maxHeight": {
+          "description": "Max height for this image",
+          "type": "number"
+        },
+        "minWidth": {
+          "description": "Min width for this image",
+          "type": "number"
+        },
+        "minHeight": {
+          "description": "Min height for this image",
+          "type": "number"
+        }
+      }
+    },
+
+    "tas-signature": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-signature",
+      "title": "tas-signature",
+      "description": "A signature question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "signature"
+        }      
+      }       
+    },  
+
+    "tas-document": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-document",
+      "title": "tas-document",
+      "description": "A document question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "document"
+        },
+        "accept": {
+          "description": "Allowable file mime types",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maxSize": {
+          "description": "Maximum size of the file in bytes",
+          "type": "number",
+          "default": 1000000
+        },
+        "signatureRequired": {
+          "description": "If the document must be signed",
+          "type": "boolean"
+        }
+      }
+    },
+
+    "tas-audio": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-audio",
+      "title": "tas-audio",
+      "description": "An audio question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "audio"
+        },
+        "maxLength": {
+          "description": "Max length of recording allowed (in minutes)",
+          "type": "number"
+        },
+        "accept": {
+          "description": "Allowable file mime types",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maxSize": {
+          "description": "Maximum size of the file in bytes",
+          "type": "number",
+          "default": 1000000
+        }
+      }
+    },
+
+    "tas-video": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-video",
+      "title": "tas-video",
+      "description": "An video question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "video"
+        },
+        "maxLength": {
+          "description": "Max length of recording allowed (in minutes)",
+          "type": "number"
+        },
+        "accept": {
+          "description": "Allowable file mime types",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maxSize": {
+          "description": "Maximum size of the file in bytes",
+          "type": "number",
+          "default": 1000000
+        }
+      }
+    },
+
+    "tas-avatar": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-avatar",
+      "title": "tas-avatar",
+      "description": "An avatar image question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "avatar"
+        },
+        "user": {
+          "description": "Unique ID for the user represented by avatar",
+          "type": "string"
+        },
+        "accept": {
+          "description": "Allowable file mime types",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maxSize": {
+          "description": "Maximum size of the file in bytes",
+          "type": "number",
+          "default": 1000000
+        }
+      }
+    },
+
+    "tas-profile": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-profile",
+      "title": "tas-profile",
+      "description": "A social profile question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "profile"
+        },
+        "acceptedNetworks": {
+          "description": "List of accepted social networks",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "defaultNetwork": {
+          "description": "Default social network",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-url": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-url",
+      "title": "tas-url",
+      "description": "A url question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "url"
+        },
+        "maxSize": {
+          "description": "Max number of characters",
+          "type": "number",
+          "default": 400
+        }
+      }   
+    },
+
+    "tas-phone": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-phone",
+      "title": "tas-phone",
+      "description": "A phone question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "phone"
+        },
+        "maxSize": {
+          "description": "Max number of characters",
+          "type": "number",
+          "default": 40
+        },
+        "phoneTypes": {
+          "description": "List of phone types allowed",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }  
+    },
+
+    "tas-email": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-email",
+      "title": "tas-email",
+      "description": "A email question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "email"
+        }
+      }      
+    },
+
+    "tas-enum": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-enum",
+      "title": "tas-enum",
+      "description": "An single-select question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enum"
+        },
+        "options": {
+          "description": "Possible string choices for this item",
+          "type": "array",
+          "items": {            
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "displayText": { "type": "string" }
+            }
+          }
+        }
+      }      
+    },
+
+    "tas-enumMulti": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-enumMulti",
+      "title": "tas-enumMulti",
+      "description": "An multi-select question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enumMulti"
+        },
+        "options": {
+          "description": "Possible string choices for this item",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "displayText": { "type": "string" }
+            }
+          }
+        },
+        "minSelections": {
+          "description": "Minimum number of selections required",
+          "type": "number"
+        },
+        "maxSelections": {
+          "description": "Maximum number of selections allowed",
+          "type": "number"
+        }
+      }      
+    },
+
+    "tas-enumDetails": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-enumDetails",
+      "title": "tas-enumDetails",
+      "description": "An more-details question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enumDetails"
+        },
+        "options": {
+          "description": "Possible string choices for this item",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {                  
+              "option": {
+                "type": "object",
+                "properties": {
+                   "id": { "type": "string" },
+                   "displayText": { "type": "string" }
+                }
+              },
+              "hasMoreDetails": {"type": "boolean"},
+              "maxLength": {"type": "number"}
+            }   
+          }
+        },
+        "minSelections": {
+          "description": "Minimum number of selections required",
+          "type": "number"
+        },
+        "maxSelections": {
+          "description": "Maximum number of selections allowed",
+          "type": "number"
+        }
+      }      
+    },
+
+    "tas-enumQuestions": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-enumDetails",
+      "title": "tas-enumQuestions",
+      "description": "An more-questions question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enumQuestions"
+        },
+        "options": {
+          "description": "Possible string choices for this item",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {                  
+              "option": {
+                "type": "object",
+                "properties": {
+                   "id": { "type": "string" },
+                   "displayText": { "type": "string" }
+                }
+              },
+              "hasMoreDetails": {"type": "boolean"},
+              "followupQuestions": {
+                 "type": "array",
+                 "items": {
+                    "allOf": { "$ref": "#" }
+                 }
+              }
+            }   
+          }
+        },
+        "minSelections": {
+          "description": "Minimum number of selections required",
+          "type": "number"
+        },
+        "maxSelections": {
+          "description": "Maximum number of selections allowed",
+          "type": "number"
+        }
+      }      
+    },
+
+    "tas-category": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-category",
+      "title": "tas-category",
+      "description": "An catergory question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "catergory"
+        },
+        "options": {
+          "description": "Possible string choices for this item",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {                  
+              "name": {"type": "string"},
+              "additionalProperties": { "type": "string" }        
+            }
+          }
+        },
+        "minSelections": {
+          "description": "Minimum number of selections required",
+          "type": "number"
+        },
+        "maxSelections": {
+          "description": "Maximum number of selections allowed",
+          "type": "number"
+        }
+      }      
+    },
+
+    "tas-geolocation": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-geolocation",
+      "title": "tas-geolocation",
+      "description": "A geolocation question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "geolocation"
+        }
+      }      
+    },
+
+    "tas-sheet": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-sheet",
+      "title": "tas-sheet",
+      "description": "A spreadsheet question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "sheet"
+        },
+        "columns": {
+          "description": "List of columns",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {                  
+              "name":        {"type": "string"},
+              "title":       {"type": "string"},
+              "type":        {"type": "string"},
+              "format":      {"type": "string"},
+              "description": {"type": "string"}
+            }
+          }
+        }
+      }      
+    },
+
+    "tas-wysiwyg": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-wysiwyg",
+      "title": "tas-wysiwyg",
+      "description": "A freeform text question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "wysiwyg"
+        },
+        "maxSize": {
+          "description": "Max number of characters",
+          "type": "number",
+          "default": 1000
+        },
+        "encoding": {
+          "description": "Characer encoding that should be used for returned data",
+          "type": "string"
+        }
+      }      
+    },
+
+    "tas-address": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-address",
+      "title": "tas-address",
+      "description": "A multiline text question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "address"
+        },
+        "addressTypes": {
+          "description": "Types of address",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }      
+    },
+
+    "tas-employement": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-employement",
+      "title": "tas-employement",
+      "description": "A employement history item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "employement"
+        },
+        "employmentTypes": {
+          "description": "Types of employement",
+          "type": "array",
+          "items" : { "type": "string" }
+        }
+      }      
+    },
+
+    "tas-reference": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-reference",
+      "title": "tas-reference",
+      "description": "A reference item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "reference"
+        },
+        "maxNumber": {
+          "description": "Max number of records allowed",
+          "type": "number"       
+        }
+      }      
+    },
+
+    "tas-certificate": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-certificate",
+      "title": "tas-certificate",
+      "description": "A certifications item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "certificate"
+        },
+        "maxNumber": {
+          "description": "Max number of records allowed",
+          "type": "number"       
+        },
+        "certificateTypes": {
+          "description": "Types of certification",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }      
+    },
+
+    "tas-volunteer": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-volunteer",
+      "title": "tas-volunteer",
+      "description": "A volunteer item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "volunteer"
+        },
+        "maxNumber": {
+          "description": "Max number of records allowed",
+          "type": "number"       
+        }
+      }      
+    },
+
+    "tas-skill": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-skill",
+      "title": "tas-references",
+      "description": "A skills item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "skill"
+        },
+        "maxNumber": {
+          "description": "Max number of skill allowed",
+          "type": "number"       
+        }
+      }      
+    },
+
+    "tas-education": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-education",
+      "title": "tas-education",
+      "description": "A education item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "education"
+        },
+        "maxNumber": {
+          "description": "Max number of education objects allowed",
+          "type": "number"       
+        },
+        "educationTypes": {
+          "description": "Types of education",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }      
+    },
+
+    "tas-date": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-date",
+      "title": "tas-date",
+      "description": "A date item YYYY-MM-DD",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "date"
+        },
+        "oldestDateAllowed": {
+          "description": "Oldest date that can be selected",
+          "type": "string"
+        },
+        "newestDateAllowed": {
+          "description": "Newest date that can be selected",
+          "type": "string"
+        }
+      }      
+    },
+
+    "tas-time": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-time",
+      "title": "tas-time",
+      "description": "A time item HH:MM:SS-HH:MM",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "time"
+        },
+        "oldestTimeAllowed": {
+          "description": "Oldest time that can be selected",
+          "type": "string"
+        },
+        "newestTimeAllowed": {
+          "description": "Newest time that can be selected",
+          "type": "string"
+        }
+      }      
+    },
+
+    "tas-datetime": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-datetime",
+      "title": "tas-datetime",
+      "description": "A date item YYYY-MM-DDTHH:MM:SS-HH:MM",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "datetime"
+        },
+        "oldestDateAllowed": {
+          "description": "Oldest datetime that can be selected",
+          "type": "string"
+        },
+        "newestDateAllowed": {
+          "description": "Newest datetime that can be selected",
+          "type": "string"
+        }
+      }      
+    },
+
+    "tas-salary": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-salary",
+      "title": "tas-salary",
+      "description": "A salary question item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "salary"
+        },
+        "payBands": {
+          "description": "List of options if freeform input not allowed",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "maximumDigitals": {
+          "description": "Max number characters",
+          "type": "number",
+          "default": 15
+        }
+      }
+    },
+
+    "tas-info": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-info",
+      "title": "tas-info",
+      "description": "An info item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "info"
+        },
+        "name": {
+          "description": "Name to be used to ID heading",
+          "type": "string"        
+        },
+        "text": {
+          "description": "Text for info",
+          "type": "string"
+        }
+      }      
+    },
+
+    "tas-heading": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "id": "http://talentappstore.github.io/tas-tenant-apis/tas-heading",
+      "title": "tas-heading",
+      "description": "A heading item",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "heading"
+        },
+        "name": {
+          "description": "Name to be used to ID heading",
+          "type": "string"        
+        },
+        "text": {
+          "description": "Text for heading",
+          "type": "string"
+        },
+        "level": {
+          "description": "Recommended heading size",
+          "type": "number"
+        }
+      }      
     }
+
   },
   "type": "object",
+  "oneOf": [
+    { "$ref": "#/definitions/tas-string" },
+    { "$ref": "#/definitions/tas-multiline" },
+    { "$ref": "#/definitions/tas-number" },
+    { "$ref": "#/definitions/tas-bool" },
+    { "$ref": "#/definitions/tas-resume" },
+    { "$ref": "#/definitions/tas-image" },
+    { "$ref": "#/definitions/tas-signature" },
+    { "$ref": "#/definitions/tas-document" },
+    { "$ref": "#/definitions/tas-audio" },
+    { "$ref": "#/definitions/tas-video" },
+    { "$ref": "#/definitions/tas-avatar" },
+    { "$ref": "#/definitions/tas-profile" },
+    { "$ref": "#/definitions/tas-url" },
+    { "$ref": "#/definitions/tas-phone" },
+    { "$ref": "#/definitions/tas-email" },
+    { "$ref": "#/definitions/tas-enum" },
+    { "$ref": "#/definitions/tas-enumMulti" },
+    { "$ref": "#/definitions/tas-enumDetails" },
+    { "$ref": "#/definitions/tas-category" },
+    { "$ref": "#/definitions/tas-geolocation" },
+    { "$ref": "#/definitions/tas-sheet" },
+    { "$ref": "#/definitions/tas-wysiwyg" },
+    { "$ref": "#/definitions/tas-address" },
+    { "$ref": "#/definitions/tas-employement" },
+    { "$ref": "#/definitions/tas-reference" },
+    { "$ref": "#/definitions/tas-certificate" },
+    { "$ref": "#/definitions/tas-volunteer" },
+    { "$ref": "#/definitions/tas-references" },
+    { "$ref": "#/definitions/tas-education" },
+    { "$ref": "#/definitions/tas-date" },
+    { "$ref": "#/definitions/tas-time" },
+    { "$ref": "#/definitions/tas-datetime" },
+    { "$ref": "#/definitions/tas-salary" },
+    { "$ref": "#/definitions/tas-info" },
+    { "$ref": "#/definitions/tas-heading" }
+  ],
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "name of the item"
+    "type": {
+      "description": "TAS item type",
+      "type": "string"
     },
-    "meta": {
-      "$ref": "jsonSchemaSchema.json"
+    "id": {
+      "description": "The unique ID of the question",
+      "type": "string"
     },
-    "value": {
-      "$ref": "#/definitions/value"
+    "question": {
+      "description": "Question text",
+      "type": "string"
+    },
+    "prompt": {
+      "description": "Additiona helper text",
+      "type": "string"
+    },
+    "isRequired": {
+      "description": "If an answer is required",
+      "type": "boolean",
+      "default": false
+    },
+    "isReadOnly": {
+      "description": "Answer cannot be edited",
+      "type": "boolean",
+      "default": false
+    },
+    "access": {
+      "description": "Accessibility for this item",
+      "enum": [ "candidateOwned", "internalOwned", "internalShared", "eeo" ],
+      "default": "candidateOwned"
+    },
+    "propertyOrder": {
+      "description": "Hint for display order",
+      "type": "number",
+      "default": 0
     }
   },
-  "required": [
-    "name"
-  ],
-  "additionalProperties": false
+  "required": [ "id", "type", "question" ] 
 }

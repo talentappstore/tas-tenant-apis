@@ -1,0 +1,84 @@
+[
+  {
+    "type" : "enumMulti",
+    "id" : "100160746",
+    "access" : "candidateOwned",
+    "value" : [ ]
+  },
+  {
+    "type" : "singleLine",
+    "id" : "100163130",
+    "access" : "candidateOwned",
+    "value" : ""
+  },
+  {
+    "type" : "multiline",
+    "id" : "100149218",
+    "access" : "candidateOwned",
+    "value" : "<a href=\"http://www.talentappstore.com\">Go to talentappstore</a>"
+  },
+  {
+    "type" : "number",
+    "id" : "100149219",
+    "access" : "candidateOwned",
+    "value" : null
+  },
+  {
+    "type" : "enumDetails",
+    "id" : "100149220",
+    "access" : "candidateOwned",
+    "value" : [ {
+      "choice" : "100149221",
+      "details" : ""
+    } ]
+  },
+  {
+    "type" : "bool",
+    "id" : "100149228",
+    "access" : "candidateOwned",
+    "value" : false
+  },
+  {
+    "type" : "datetime",
+    "id" : "100149229",
+    "access" : "candidateOwned",
+    "value" : "2090-12-25T00:00"
+  },
+  {
+    "type" : "document",
+    "id" : "100149231",
+    "access" : "candidateOwned",
+    "mimeType" : "text/plain,application/pdf,application/msword",
+    "data" : null,
+    "name" : "",
+    "via" : "",
+    "url" : "www.example.com/somefile.png",
+    "confirmUrl" : null,
+    "signed" : false,
+    "signature" : null
+  },
+  {
+    "type" : "image",
+    "id" : "100113467",
+    "access" : "candidateOwned",
+    "mimeType" : "image/png",
+    "data" : null,
+    "name" : "",
+    "via" : "",
+    "url" : "www.example.com/somefile.png",
+    "confirmUrl" : null,
+    "format" : ""
+  },
+  {
+    "type" : "video",
+    "id" : "100164521",
+    "access" : "candidateOwned",
+    "mimeType" : "video/avi",
+    "data" : null,
+    "name" : "",
+    "via" : "",
+    "url" : "",
+    "confirmUrl" : null,
+    "language" : "undefined"
+  }
+]

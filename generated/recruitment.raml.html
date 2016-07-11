@@ -5690,7 +5690,7 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "$ref": "items.json"
         }
       },
       "additionalProperties": false
@@ -5772,90 +5772,65 @@
       ],
       "message": "Providing a resume is great, but if you don&#39;t have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        }
-      },
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
-      },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   }
 }</code></pre></div><div class="tab-pane" id="editSpecs_fetches_apply__job__me_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_editSpecs_fetches_apply__job__anonymous"><span class="parent">/editSpecs/fetches/apply/{job}</span>/anonymous</a> <span class="methods"><a href="#editSpecs_fetches_apply__job__anonymous_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_editSpecs_fetches_apply__job__anonymous" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#editSpecs_fetches_apply__job__anonymous_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="editSpecs_fetches_apply__job__anonymous_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/editSpecs/fetches/apply/{job}</span>/anonymous</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#editSpecs_fetches_apply__job__anonymous_post_request" data-toggle="tab">Request</a></li><li><a href="#editSpecs_fetches_apply__job__anonymous_post_response" data-toggle="tab">Response</a></li><li><a href="#editSpecs_fetches_apply__job__anonymous_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="editSpecs_fetches_apply__job__anonymous_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -5948,7 +5923,7 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "$ref": "items.json"
         }
       },
       "additionalProperties": false
@@ -6030,90 +6005,65 @@
       ],
       "message": "Providing a resume is great, but if you don&#39;t have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        }
-      },
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
-      },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   }
 }</code></pre></div><div class="tab-pane" id="editSpecs_fetches_apply__job__anonymous_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_editSpecs_fetches_register_me"><span class="parent">/editSpecs/fetches/register</span>/me</a> <span class="methods"><a href="#editSpecs_fetches_register_me_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_editSpecs_fetches_register_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#editSpecs_fetches_register_me_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="editSpecs_fetches_register_me_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/editSpecs/fetches/register</span>/me</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#editSpecs_fetches_register_me_post_request" data-toggle="tab">Request</a></li><li><a href="#editSpecs_fetches_register_me_post_response" data-toggle="tab">Response</a></li><li><a href="#editSpecs_fetches_register_me_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="editSpecs_fetches_register_me_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -6206,7 +6156,7 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "$ref": "items.json"
         }
       },
       "additionalProperties": false
@@ -6288,90 +6238,65 @@
       ],
       "message": "Providing a resume is great, but if you don&#39;t have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        }
-      },
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
-      },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   }
 }</code></pre></div><div class="tab-pane" id="editSpecs_fetches_register_me_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_editSpecs_fetches_register_anonymous"><span class="parent">/editSpecs/fetches/register</span>/anonymous</a> <span class="methods"><a href="#editSpecs_fetches_register_anonymous_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_editSpecs_fetches_register_anonymous" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#editSpecs_fetches_register_anonymous_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="editSpecs_fetches_register_anonymous_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/editSpecs/fetches/register</span>/anonymous</h4></div><div class="modal-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#editSpecs_fetches_register_anonymous_post_request" data-toggle="tab">Request</a></li><li><a href="#editSpecs_fetches_register_anonymous_post_response" data-toggle="tab">Response</a></li><li><a href="#editSpecs_fetches_register_anonymous_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="editSpecs_fetches_register_anonymous_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -6464,7 +6389,7 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "$ref": "items.json"
         }
       },
       "additionalProperties": false
@@ -6546,90 +6471,65 @@
       ],
       "message": "Providing a resume is great, but if you don&#39;t have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        }
-      },
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
-      },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   }
 }</code></pre></div><div class="tab-pane" id="editSpecs_fetches_register_anonymous_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="engagements" class="panel-title">/engagements</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id_"><span class="parent">/engagements/byID</span>/{id}</a> <span class="methods"><a href="#engagements_byID__id__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_engagements_byID__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this engagement, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/engagements/byID</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this engagement, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__get_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byID__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="engagements_byID__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",

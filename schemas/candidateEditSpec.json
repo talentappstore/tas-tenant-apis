@@ -74,7 +74,7 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "$ref": "items.json"
         }
       },
       "additionalProperties": false

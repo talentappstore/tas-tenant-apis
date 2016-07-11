@@ -35,89 +35,64 @@
       ],
       "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        }
-      },
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
+    "itemsRule": [
+      {
+        "type":"enumMulti",
+        "id":"100160746",
+        "question":"Enum multi question",
+        "prompt":"Please make your selection.",
+        "required":false,
+        "readOnly":false,
+        "access":"candidateOwned",
+        "propertyOrder":1,
+        "options":[
+          {
+            "id":"1010750",
+            "displayText":"A"
           },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
+          {
+            "id":"1006752",
+            "displayText":"B"
+          },
+          {
+            "id":"1160754",
+            "displayText":"C"
           }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
-      },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
+        ],
+        "minSelections":null,
+        "maxSelections":null
+      }
+    ]
   }
 }

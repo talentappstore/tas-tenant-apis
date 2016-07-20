@@ -36,6 +36,7 @@
       securedBy: [oauth_2_0]
       description: |
         Get an array of all of the user-facing panels from a single app. Non-SoT.
+      is: [ iframeContained ]
       responses:
         200:
           body:
@@ -48,6 +49,7 @@
       securedBy: [oauth_2_0]
       description: |
         Get an array of all of the user-facing panels from all apps. SoT.
+      is: [ iframeContained ]
       responses:
         200:
           body:

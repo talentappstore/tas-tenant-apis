@@ -1,5 +1,15 @@
 #%RAML 0.8
 
+- iframeContained:
+    queryParameters:
+      containerID:
+        type: string
+        description: |
+          The id of the DOM element (i.e. an iframe) containing this panel. If the panel changes its size, it can trigger a resize of the iframe in the containing
+          window via a postMessage call, passing this ID, the verb "resize" and the new width and height.
+        example: embed01
+        required: true
+
 - hasRelayPage:
     description: a URL can be passed in that the user will be redirected to at some time in the future 
     queryParameters:

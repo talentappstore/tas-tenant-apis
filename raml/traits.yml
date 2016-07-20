@@ -1,5 +1,15 @@
 #%RAML 0.8
 
+- isSetupPage:
+    queryParameters:
+      containerID:
+        type: string
+        description: |
+          The id of the DOM element (i.e. an iframe) containing this page. When this page has done its thing, it should signal the containing
+          window via a postMessage call, passing this ID and one of the verbs "ok" or "cancel".
+        example: embed01
+        required: true
+
 - iframeContained:
     queryParameters:
       containerID:

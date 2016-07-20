@@ -6,6 +6,7 @@
     "action": { "$ref": "../schemas/action.json" },
     "actionProductionsForApps": { "$ref": "../schemas/actionProductionsForApps.json" },
     "actionProductions": { "$ref": "../schemas/actionProductions.json" },
+    "actionSetupPageDetail": { "$ref": "../schemas/actionSetupPageDetail.json" },
     "actionsForApp": { "$ref": "../schemas/actionsForApp.json" },
     "actionsForApps": { "$ref": "../schemas/actionsForApps.json" },
     "actions": { "$ref": "../schemas/actions.json" },

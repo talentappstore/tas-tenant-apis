@@ -18,6 +18,10 @@
         "availableToExternals": {
           "type": "boolean"
         },
+        "mayRequireSetupFlag": {
+          "type": "boolean",
+          "description": "true if this action may provide a setup page (i.e. require some setup before it can be used)"
+        },
         "accountManagerFlag": {
           "type": "boolean",
           "description": "true if this action can create or edit the candidate's account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions, when it should always appear, otherwise should not be present"
@@ -26,7 +30,8 @@
       "required": [
         "actionName",
         "availableToInternals",
-        "availableToExternals"
+        "availableToExternals",
+        "mayRequireSetupFlag"
       ]
     }
   },

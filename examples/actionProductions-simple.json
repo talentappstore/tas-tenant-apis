@@ -2,16 +2,19 @@
   {
     "actionName": "apply",
     "availableToInternals": true,
-    "availableToExternals": true
+    "availableToExternals": true,
+    "mayRequireSetupFlag": true
   },
   {
     "actionName": "share",
     "availableToInternals": true,
-    "availableToExternals": true
+    "availableToExternals": true,
+    "mayRequireSetupFlag": false
   },
   {
     "actionName": "refer",
     "availableToInternals": true,
-    "availableToExternals": false
+    "availableToExternals": false,
+    "mayRequireSetupFlag": true
   }
 ]

@@ -51,11 +51,6 @@
       "format": "date-time",
       "description": "the date on which applications are scheduled to close"
     },
-    "publishDate": {
-      "type": "string",
-      "format": "date-time",
-      "description": "the date on which the job was published (became available to candidates)"
-    },
     "categories": {
       "$ref": "categoriesActual.json"
     },

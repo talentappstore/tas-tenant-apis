@@ -108,12 +108,11 @@ resourceTypes: !include resources.yml
                 description: |
                   The setup page uses uiMode to understand whether the user is at a point in the UI where they are:
                   
-                  - *viewOnly*: viewing setup details, and should not be offered an edit option
-                  - *view*: viewing setup details, with the possibility of editing them
+                  - *view*: viewing setup details
                   - *edit*: editing setup details
                   
-                  In all cases the app should apply its own security to decide whether the ser is actually allowed to view/edit, this
-                  value is just a hint to make the setup page work smoothly in conjunction with ab "edit mode" in the containing UI.
+                  In all cases the app should apply its own security to decide whether the user is actually allowed to view/edit, this
+                  value is just a hint to make the setup page work smoothly in conjunction with the "edit mode" as set in the containing UI.
                 /{internal}:
                   description: true if the setup page is setting up details for internal candidates, or false for externals 
                   /setupPage:

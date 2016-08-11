@@ -1,6 +1,37 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
+    "semantics": {
+      "description": "details about the semantics of this action that can be used by other apps. For example, knowledge that the action is used to apply for jobs may be useful if we want to (e.g.) prevent the user from applying unless they have completed some pre-qualification stage",
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "description": "values are: createAccount - this action can create or edit the candidate's account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions. apply - this action can be used to apply for a job. Applies only to job actions",
+          "enum": [
+            "createAccount",
+            "apply"
+          ]
+        },
+        "gateBehaviour": {
+          "type": "object",
+          "description": "present if this action acts as a gate for the actual actions that have this purpose, rather than actually carrying out this purpose",
+          "properties": {
+            "canReuseFlag": {
+              "type": "boolean",
+              "description": "true if when this gate is satisfied, it happens at the candidate level. false if the candidate will need to satisfy this gate on every object, e.g. job"
+            }
+          },
+          "allowAdditionalProperties": false,
+          "required": [
+            "canReuseFlag"
+          ]
+        }
+      },
+      "allowAdditionalProperties": false,
+      "required": [
+        "purpose"
+      ]
+    },
     "possibleAction": {
       "type": "object",
       "properties": {
@@ -9,8 +40,8 @@
           "description": "fixed name of this action, containing only lower case alpha, digits and '-' characters, length <= 30"
         },
         "description": {
-           	"type": "string",
-           	"description": "A description of what this action does"
+          "type": "string",
+          "description": "A description of what this action does"
         },
         "availableToInternals": {
           "type": "boolean"
@@ -22,11 +53,11 @@
           "type": "boolean",
           "description": "true if this action may provide a setup page (i.e. require some setup before it can be used)"
         },
-        "accountManagerFlag": {
-          "type": "boolean",
-          "description": "true if this action can create or edit the candidate's account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions, when it should always appear, otherwise should not be present"
+        "semantics": {
+          "$ref": "#/definitions/semantics"
         }
       },
+      "allowAdditionalProperties": false,
       "required": [
         "actionName",
         "availableToInternals",

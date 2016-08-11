@@ -6,7 +6,8 @@
       "label": "Refer a friend",
       "uri": "https://referrals.com/jobs/1022?tracker=106645",
       "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
       "disabled": false
     },
     {
@@ -14,7 +15,8 @@
       "label": "Share this job",
       "uri": "https://sharing.com/jobs/1022?tracker=106645",
       "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
       "disabled": false
     }
   ]

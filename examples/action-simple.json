@@ -3,6 +3,7 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
 }

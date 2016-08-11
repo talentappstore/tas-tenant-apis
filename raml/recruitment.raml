@@ -80,6 +80,32 @@ resourceTypes: !include resources.yml
             /{action}:
               /byApp:
                 type: candidateAppAction
+          /satisfyLink:
+            /{purpose}:
+              description: |
+                The purpose (as per the semantics section of a candidate facing action's production) to be satisfied
+              get:
+                securedBy: [oauth_2_0]
+                is: [trackable, hasRelayPage ]
+                queryParameters:
+                  message:
+                    type: string
+                    description: |
+                      The message that will be displayed to the user on the linked web page, once they have logged in.
+                    example: Congratulations! You can apply for this job now.
+                    required: true
+                description: |
+                  Obtain a link that a candidate can use to mark themselves as qualified for a particular purpose (e.g. to apply) on a job.
+                  When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the
+                  given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.
+                  
+                  SoT.
+                responses:
+                  200:
+                    body:
+                      text/plain:
+                        example: https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
+              
       /search:
         type: candidateAppsActions
         /asHtml:

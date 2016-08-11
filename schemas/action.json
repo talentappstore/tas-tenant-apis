@@ -20,8 +20,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button's text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button's background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {

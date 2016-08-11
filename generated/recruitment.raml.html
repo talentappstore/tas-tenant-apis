@@ -156,7 +156,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -164,7 +165,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -183,7 +185,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -191,7 +194,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -218,8 +222,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {
@@ -234,7 +242,8 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_me_general_byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_me_jobs__job_"><span class="parent">/actions/byCandidate/me/jobs</span>/{job}</a> <span class="methods"><a href="#actions_byCandidate_me_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_me_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_me_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_me_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/me/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_me_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_me_jobs__job__get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_me_jobs__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_me_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_me_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
@@ -250,7 +259,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -258,7 +268,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -285,8 +296,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {
@@ -301,7 +316,8 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_me_jobs__job__byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_me_search"><span class="parent">/actions/byCandidate/me</span>/search</a> <span class="methods"><a href="#actions_byCandidate_me_search_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_me_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_me_search_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_me_search_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/me</span>/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_me_search_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_me_search_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_me_search_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_me_search_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_me_search_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
@@ -317,7 +333,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -325,7 +342,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -352,8 +370,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {
@@ -368,7 +390,8 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_me_search_byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_engagements_general"><span class="parent">/actions/byCandidate/anonymous/engagements</span>/general</a> <span class="methods"><a href="#actions_byCandidate_anonymous_engagements_general_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_engagements_general" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_engagements_general_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_engagements_general_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/engagements</span>/general</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_engagements_general_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_engagements_general_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_engagements_general_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_engagements_general_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_engagements_general_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
@@ -384,7 +407,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -392,7 +416,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -411,7 +436,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -419,7 +445,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -438,7 +465,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -446,7 +474,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -473,8 +502,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {
@@ -489,7 +522,8 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_general_byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_jobs__job_"><span class="parent">/actions/byCandidate/anonymous/jobs</span>/{job}</a> <span class="methods"><a href="#actions_byCandidate_anonymous_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
@@ -505,7 +539,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -513,7 +548,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -540,8 +576,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {
@@ -556,9 +596,10 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
-}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_search"><span class="parent">/actions/byCandidate/anonymous</span>/search</a> <span class="methods"><a href="#actions_byCandidate_anonymous_search_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_search_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_search_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous</span>/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_search_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_search_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_search_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_search_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_search_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose_"><span class="parent">/actions/byCandidate/anonymous/jobs/{job}/satisfyLink</span>/{purpose}</a> <span class="methods"><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The purpose (as per the semantics section of a candidate facing action&#39;s production) to be satisfied</p></div><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Obtain a link that a candidate can use to mark themselves as qualified for a particular purpose (e.g. to apply) on a job. When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.</p><p>SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/jobs/{job}/satisfyLink</span>/{purpose}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Obtain a link that a candidate can use to mark themselves as qualified for a particular purpose (e.g. to apply) on a job. When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.</p><p>SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li><li><strong>purpose</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li><li><strong>message</strong>: <em>required (string)</em><p>The message that will be displayed to the user on the linked web page, once they have logged in.</p><p><strong>Example</strong>:</p><pre>Congratulations! You can apply for this job now.</pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh</code></pre></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__purpose__get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_search"><span class="parent">/actions/byCandidate/anonymous</span>/search</a> <span class="methods"><a href="#actions_byCandidate_anonymous_search_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_search_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_search_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous</span>/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_search_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_search_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_search_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_search_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPage</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>required (integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_search_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
     "items": { "$ref": "actionsForApp.json" },
@@ -572,7 +613,8 @@
         "label": "Refer a friend",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       },
       {
@@ -580,7 +622,8 @@
         "label": "Share this job",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
         "disabled": false
       }
     ]
@@ -607,8 +650,12 @@
 			"format": "uri",
 			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
 		},
-		"color": {
-		  "description": "the color that the button should be rendered in, e.g. 00ff00",
+		"textColor": {
+		  "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
 		  "type": "string"
 		},
 		"disabled": {
@@ -623,7 +670,8 @@
 	"label": "Refer a friend",
 	"behavior": "redirect",
 	"uri": "https://referrals.com/jobs/1022?tracker=106645",
-	"color": "dddddd",
+	"textColor": "dddddd",
+	"backgroundColor": "010203",
 	"disabled": false
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can&#39;t be performed, probably because of the object&#39;s state.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_search_byName__action__byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_general"><span class="parent">/actions/byCandidate</span>/general</a> <span class="methods"></span></h4></div><div id="panel_actions_byCandidate_general" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>General actions seen by candidates are typically embedded in page headers, e.g. "register", "share this entire site", etc.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_general_possibles"><span class="parent">/actions/byCandidate/general</span>/possibles</a> <span class="methods"><a href="#actions_byCandidate_general_possibles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_general_possibles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_general_possibles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_general_possibles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/general</span>/possibles</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_general_possibles_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_general_possibles_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_general_possibles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -692,6 +740,37 @@
 </code></pre></div><div class="tab-pane" id="actions_byCandidate_general_possibles_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_general_possibles_byApp"><span class="parent">/actions/byCandidate/general/possibles</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_general_possibles_byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_general_possibles_byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_general_possibles_byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_general_possibles_byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/general/possibles</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_general_possibles_byApp_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_general_possibles_byApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_general_possibles_byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
+    "semantics": {
+      "description": "details about the semantics of this action that can be used by other apps. For example, knowledge that the action is used to apply for jobs may be useful if we want to (e.g.) prevent the user from applying unless they have completed some pre-qualification stage",
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "description": "values are: createAccount - this action can create or edit the candidate&#39;s account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions. apply - this action can be used to apply for a job. Applies only to job actions",
+          "enum": [
+            "createAccount",
+            "apply"
+          ]
+        },
+        "gateBehaviour": {
+          "type": "object",
+          "description": "present if this action acts as a gate for the actual actions that have this purpose, rather than actually carrying out this purpose",
+          "properties": {
+            "canReuseFlag": {
+              "type": "boolean",
+              "description": "true if when this gate is satisfied, it happens at the candidate level. false if the candidate will need to satisfy this gate on every object, e.g. job"
+            }
+          },
+          "allowAdditionalProperties": false,
+          "required": [
+            "canReuseFlag"
+          ]
+        }
+      },
+      "allowAdditionalProperties": false,
+      "required": [
+        "purpose"
+      ]
+    },
     "possibleAction": {
       "type": "object",
       "properties": {
@@ -700,8 +779,8 @@
           "description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
         },
         "description": {
-           	"type": "string",
-           	"description": "A description of what this action does"
+          "type": "string",
+          "description": "A description of what this action does"
         },
         "availableToInternals": {
           "type": "boolean"
@@ -713,11 +792,11 @@
           "type": "boolean",
           "description": "true if this action may provide a setup page (i.e. require some setup before it can be used)"
         },
-        "accountManagerFlag": {
-          "type": "boolean",
-          "description": "true if this action can create or edit the candidate&#39;s account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions, when it should always appear, otherwise should not be present"
+        "semantics": {
+          "$ref": "#/definitions/semantics"
         }
       },
+      "allowAdditionalProperties": false,
       "required": [
         "actionName",
         "availableToInternals",
@@ -816,6 +895,37 @@
 </code></pre></div><div class="tab-pane" id="actions_byCandidate_job_possibles_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_job_possibles_byApp"><span class="parent">/actions/byCandidate/job/possibles</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_job_possibles_byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_job_possibles_byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_job_possibles_byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_job_possibles_byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/job/possibles</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_job_possibles_byApp_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_job_possibles_byApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_job_possibles_byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
+    "semantics": {
+      "description": "details about the semantics of this action that can be used by other apps. For example, knowledge that the action is used to apply for jobs may be useful if we want to (e.g.) prevent the user from applying unless they have completed some pre-qualification stage",
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "description": "values are: createAccount - this action can create or edit the candidate&#39;s account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions. apply - this action can be used to apply for a job. Applies only to job actions",
+          "enum": [
+            "createAccount",
+            "apply"
+          ]
+        },
+        "gateBehaviour": {
+          "type": "object",
+          "description": "present if this action acts as a gate for the actual actions that have this purpose, rather than actually carrying out this purpose",
+          "properties": {
+            "canReuseFlag": {
+              "type": "boolean",
+              "description": "true if when this gate is satisfied, it happens at the candidate level. false if the candidate will need to satisfy this gate on every object, e.g. job"
+            }
+          },
+          "allowAdditionalProperties": false,
+          "required": [
+            "canReuseFlag"
+          ]
+        }
+      },
+      "allowAdditionalProperties": false,
+      "required": [
+        "purpose"
+      ]
+    },
     "possibleAction": {
       "type": "object",
       "properties": {
@@ -824,8 +934,8 @@
           "description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
         },
         "description": {
-           	"type": "string",
-           	"description": "A description of what this action does"
+          "type": "string",
+          "description": "A description of what this action does"
         },
         "availableToInternals": {
           "type": "boolean"
@@ -837,11 +947,11 @@
           "type": "boolean",
           "description": "true if this action may provide a setup page (i.e. require some setup before it can be used)"
         },
-        "accountManagerFlag": {
-          "type": "boolean",
-          "description": "true if this action can create or edit the candidate&#39;s account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions, when it should always appear, otherwise should not be present"
+        "semantics": {
+          "$ref": "#/definitions/semantics"
         }
       },
+      "allowAdditionalProperties": false,
       "required": [
         "actionName",
         "availableToInternals",
@@ -1003,6 +1113,37 @@
 </code></pre></div><div class="tab-pane" id="actions_byCandidate_search_possibles_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search_possibles_byApp"><span class="parent">/actions/byCandidate/search/possibles</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_search_possibles_byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_search_possibles_byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_search_possibles_byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_search_possibles_byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/search/possibles</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array of all actions that may be produced by a single app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_search_possibles_byApp_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_search_possibles_byApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_search_possibles_byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
+    "semantics": {
+      "description": "details about the semantics of this action that can be used by other apps. For example, knowledge that the action is used to apply for jobs may be useful if we want to (e.g.) prevent the user from applying unless they have completed some pre-qualification stage",
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "description": "values are: createAccount - this action can create or edit the candidate&#39;s account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions. apply - this action can be used to apply for a job. Applies only to job actions",
+          "enum": [
+            "createAccount",
+            "apply"
+          ]
+        },
+        "gateBehaviour": {
+          "type": "object",
+          "description": "present if this action acts as a gate for the actual actions that have this purpose, rather than actually carrying out this purpose",
+          "properties": {
+            "canReuseFlag": {
+              "type": "boolean",
+              "description": "true if when this gate is satisfied, it happens at the candidate level. false if the candidate will need to satisfy this gate on every object, e.g. job"
+            }
+          },
+          "allowAdditionalProperties": false,
+          "required": [
+            "canReuseFlag"
+          ]
+        }
+      },
+      "allowAdditionalProperties": false,
+      "required": [
+        "purpose"
+      ]
+    },
     "possibleAction": {
       "type": "object",
       "properties": {
@@ -1011,8 +1152,8 @@
           "description": "fixed name of this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
         },
         "description": {
-           	"type": "string",
-           	"description": "A description of what this action does"
+          "type": "string",
+          "description": "A description of what this action does"
         },
         "availableToInternals": {
           "type": "boolean"
@@ -1024,11 +1165,11 @@
           "type": "boolean",
           "description": "true if this action may provide a setup page (i.e. require some setup before it can be used)"
         },
-        "accountManagerFlag": {
-          "type": "boolean",
-          "description": "true if this action can create or edit the candidate&#39;s account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions, when it should always appear, otherwise should not be present"
+        "semantics": {
+          "$ref": "#/definitions/semantics"
         }
       },
+      "allowAdditionalProperties": false,
       "required": [
         "actionName",
         "availableToInternals",

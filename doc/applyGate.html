@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Apply gate</title>
+</head>
+<body>
+
+<div id="toc"></div>
+
+
+<h1>Apply gate apps</h1>
+
+<p>An apply gate app lets a customer selectively prevent candidates from applying for selected job(s) until they
+have successfully completed some qualifying/pre-requisite stage (i.e., your app). 
+</p>
+
+<p>Examples:
+<ul>
+<li>Ask candidates to agree to a set of non-negotiables before applying
+<li>Only allow candidates to apply who are not from countries with draconian data security laws
+<li>Have candidates complete a culture/fit analysis before applying  
+</ul>
+</p>
+
+<p>An apply gate app works by suppressing the apply button(s) on a job. Once some condition
+to do with the candidate has been met (e.g. the candidate has passed some kind of quiz), the apply gate
+can mark the candidate as having satisfied the gate. It does this by redirecting the candidate to a page
+hosted by switchgear. Afterwards, the candidate returns to the job and now sees the apply button(s) and can apply.
+</p>
+
+<p>The way this works is general, and can be used for any button (print/apply/whatever), but we talk about apply gate here as that's the only known case right now.
+</p>
+
+<p>There is currently no mechanism for passing results from the apply gate (e.g. their quiz results) through to the apply process. However if the apply gate uses the TAS SSO system, then it can store such information against the candidate and make it available inside the ATS, e.g. via the universal menu.
+</p>
+
+<h1>How it works</h1>
+
+<h2>Install and tenant setup</h2>
+
+<p>The tenant installs the apply gate app.
+</p>
+
+<p>Your apply gate app produces an API to declare that it produces a candidate facing action (i.e. a button).
+<div class='codeBlock'>
+GET /actions/byCandidate/job/possibles/byApp
+
+Response:
+<div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
+</div>
+</p>
+
+<p>
+The data that you are passing back in this example is as follows:
+
+<ul>
+
+<li><b>actionName</b> is the key for your button. Users recognise your button by this as they perform setup, e.g. controlling which
+jobs your button appears on. It should be unique among all buttons your app produces (if more than one). If you have only one button,
+consider using your company or app name.
+
+<li>The <b>availableToInternals</b> and <b>availableToExternals</b> fields control whether the user is able to present your button to public job seekers
+and/or employees.
+
+<li>In this example, <b>mayRequireSetupFlag</b> is false, meaning your app does not have a setup page. This means, for example, that when
+the tenant says that all of their "sales" jobs should have your button, they don't get to also configure your button at that point (e.g. for a quiz,
+perhaps add some sales-specific questions).
+
+<li>For an apply gate  like yours, the <b>semantics</b> section must be present, along with the <b>purpose</b> and the <b>gateBehaviour</b> sections.
+In this case, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
+and then later applies for another job, they won't need to re-perform your process. For example, if your button is for a company-side culture
+fit analysis, then there's no need to make the candidate complete that for every job they apply for.
+  
+</ul>
+
+
+<p>The tenant uses the switchgear app to add the button to a job using the normal mechanisms. For example they might apply the button to all jobs, just to sales jobs, or just to a specific job (e.g. for testing).
+</p>
+
+
+<h2>Candidate views the job</h2>
+
+<p>At runtime, when a candidate views a job, the careers site app asks the switchgear app for all candidate-facing buttons (share, print, apply, etc.).
+</p>
+
+<p>To respond, your app must produce two APIs.
+
+<div class='codeBlock'>
+GET /actions/byCandidate/me/general/byName/{action}/byApp
+GET /actions/byCandidate/anonymous/general/byName/{action}/byApp
+
+Response:
+<div class='clientInclude' data-href='../examples/action-applyGate.json'></div>
+</div>
+</p>
+
+<p>In this example:
+
+<ul>
+<li><b>name</b> corresponds to the actionName from previously.
+<li><b>uri</b> is the link the user will be led to when they click your button. Since <b>behaviour</b> is "redirect", they will be redirected
+rather than seeing your web page in an iframe inside a modal.
+<li><b>textColor</b> and <b>backgroundColor</b> allow you to customise how the button appears, along with <b>label</b> and <b>disabled</b>. 
+</ul>
+</p>
+
+<p>having fetched all other buttons for the job, switchgear then filters out all of those buttons that (a) have a purpose (like "apply")
+and (b) there exists at least one enabled gate button for that purpose which is not yet satisfied (i.e., your button). Switchgear displays
+the first unsatisfied gate button, but no others.
+</p>
+
+<p>From the tenant's point of view, adding an apply gate button to a job has the effect of hiding the apply button(s) until that gate is satisfied.
+</p>
+
+<h2>Candidate completes the pre-apply experience</h2>
+
+<p>The candidate now clicks on your button. They are redirected to the link you passed back in the API call previously.
+</p>
+
+<p>They now arrive at your app's web site, where they do their thing, whatever that is (e.g. complete an online quiz).
+</p>
+
+<p>If your apply gate app requires login (maybe to save the candidate's data so they can start the quiz on a mobile
+device and complete it on desktop), then it is strongly recommended that TAS single sign on (SSO) is used for the best candidate experience.
+</p>
+
+<p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply.
+</p>
+
+<p>If the apply gate app uses SSO then you can call the satisfy API directly.
+</p>
+
+<p>Otherwise (no SSO), your app requests a "satisfy link" from switchgear, and then presents it to the candidate to click on.
+
+<div class='codeBlock'>
+GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{purpose}?relayPage=blah&tracker=blah?message=Good+news
+
+Response:
+https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
+</div>
+</p>
+
+<p>In this example:
+<ul>
+<li><b>relayPage</b> should be the same relayPage that was passed in to your button, since that's where we want to lead the candidate back to after
+they've completed the satisfy operation.
+<li><b>message</b> is a message telling the candidate they've completed your process, whatever that is. 
+</ul>
+</p>
+
+<p>
+ISSUES: need to document the /me case.
+</p>
+
+<h2>Candidate satisfies the gate</h2>
+
+<p>The candidate clicks the satisfy link and goes through to the satisfy page. The page requires them to authenticate
+using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied
+(either for this specific job, or for the button as a whole) and displays something like this, with your message at the top:
+
+<div class='codeBlock'>
++---------------
+|
+| Congratulations! You're a savvy dude.
+| [Proceed to job]
+| 
++-----------------
+</div>
+</p>
+
+<h2>Candidate applies</h2>
+
+<p>The candidate clicks back to the job, and the apply button is now visible. Candidate applies.
+</p>
+
+
+<h1>Setup page</h1>
+
+<p>If the button requires some per-job or default setup then a setup page can be declared. The tenant will be prompted to complete
+setup when the add the button to a job or as a default for a group of jobs.
+</p>  
+
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

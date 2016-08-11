@@ -1,0 +1,14 @@
+[
+  {
+    "actionName": "qualify",
+    "availableToInternals": true,
+    "availableToExternals": true,
+    "mayRequireSetupFlag": false,
+    "semantics": {
+      "purpose": "apply",
+      "gateBehaviour": {
+         "canReuseFlag": true 
+      }
+    }
+  }
+]

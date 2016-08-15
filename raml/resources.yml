@@ -59,6 +59,20 @@
         - for an apply button, display that a partial (draft) registration is already underway
         - gray the register button out if candidate logged in and already registered
 
+        *Security considerations*: If the producing app attaches the incoming relayPage paramater to the button's link,
+        then it should protect itelf from Open Redirection attacks as described at 
+        https://www.owasp.org/index.php/Testing_for_Client_Side_URL_Redirect_(OTG-CLIENT-004).
+        
+        One approach would be by:
+        - attaching an additional digital signature to the link based on the link's other values, including the relayPage
+        - verifying when the candidate follows the link that the relayPage has not been tampered with
+        
+        Another approach would be not putting the relayPage in the link at all, but instead storing it and
+        putting a key into the link.
+        
+        The commonly used approach of whitelisting is not useful as there is no common repository of all of the valid
+        domains in use by all apps that a tenant may have installed and that may include this action.
+        
       is: [ trackable, hasRelayPage ]
       responses:
         200:

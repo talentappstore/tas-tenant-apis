@@ -111,7 +111,7 @@
         description: |
           The ID of a tracker
         example: 1003423
-        required: true
+        required: false
 
 - document_asStream:
     description: get the document as a stream, i.e. binary document, using the appropriate mime type

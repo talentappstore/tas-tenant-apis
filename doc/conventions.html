@@ -275,9 +275,9 @@ Which - /byName/{item}
 <p>This section has some conventions that most apps that use SSO should follow.
 </p>
 
-<h2>Add the loggedIn parameter to outgoing links</h2>
+<h2>Add the isSignedIn parameter to outgoing links</h2>
 
-<p>Some apps have pages that work both when the user is logged in, and when they are not.
+<p>Some apps have pages that work both when the user is signed in, and when they are not.
 </p>
 
 <p>For example a career site may have a job landing page like:
@@ -287,52 +287,52 @@ https://acme.careersiteapp.com/jobs/100
 </div>
 </p>
 
-<p>When the user <b>is not</b> logged in, the page displays an apply button.
+<p>When the user <b>is not</b> signed in, the page displays an apply button.
 </p>
 
-<p>When the user <b>is</b> logged in, the apply button changes to "You've already applied". The page also detects that they are an employee, and a
+<p>When the user <b>is</b> signed in, the apply button changes to "You've already applied". The page also detects that they are an employee, and a
 "refer a friend" button appears.
 </p>
 
-<p>A problem occurs when the user follows a link from one app, where they are logged in, to another app, where they are not logged in (but could be instantly
+<p>A problem occurs when the user follows a link from one app, where they are signed in, to another app, where they are not signed in (but could be instantly
 thanks to SSO). For example:
 <ol>
 <li>The candidate surfs to the careers site, then into a specific job, then clicks apply. They are redirected to the apply app.
 <li>They authenticate and apply.
-<li>Finally they click back to the careers site app. The career site app does not know that they are logged in, so it cannot display its
+<li>Finally they click back to the careers site app. The career site app does not know that they are signed in, so it cannot display its
 contents intelligently (e.g., displaying "you've already applied" instead of an apply button).
 </ol> 
 </p>
 
 <p>One solution to the above would be for the career site to always ask everyone to log in before viewing the page,
-but that would be a barrier for non-logged in users, and cause SEO problems.
+but that would be a barrier for non-signed in users, and cause SEO problems.
 </p>
 
 <p>So to handle this we follow this convention:
 
 <blockquote>
-<b>Whenever an app emits a link which it believes is to another app, and there is a logged in user, it appends the "loggedIn" hint to it.</b>
+<b>Whenever an app emits a link which it believes is to another app, and there is a signed in user, it appends the "isSignedIn" hint to it.</b>
 </blockquote>
 
-The hint indicates to the destination app that the user is most likely already logged in, so it is probably OK to ask them to authenticate since we have
+The hint indicates to the destination app that the user is most likely already signed in, so it is probably OK to ask them to authenticate since we have
 good reason to believe the process will be instant and invisible (thanks to SSO).
 </p>
 
-<p>In the example above, when the apply app links the user back to the job on the career site via acme.careersiteapp.com/jobs/100, it appends the loggedIn hint as follows:
+<p>In the example above, when the apply app links the user back to the job on the career site via acme.careersiteapp.com/jobs/100, it appends the isSignedIn hint as follows:
 <div class='codeBlock'>
-https://acme.careersiteapp.com/jobs/100?loggedIn=candidate
+https://acme.careersiteapp.com/jobs/100?isSignedIn=candidate
 </div>
 <p>
 
 
-<h2>Add a filter to handle the loggedIn parameter on incoming traffic</h2>
+<h2>Add a filter to handle the isSignedIn parameter on incoming traffic</h2>
 
-<p>Apps that use SSSO should incorporates a loggedIn filter, which behaves as follows:
+<p>Apps that use SSSO should incorporates a isSignedIn filter, which behaves as follows:
 <div class='codeBlock'>
-for all requests with the loggedIn query parameter
+for all requests with the isSignedIn query parameter
    if the parameter's value == the principal type for this app
-      // the user is likely logged in
-      force the user to authenticate before visiting the page (with the loggedIn parameter stripped off)
+      // the user is likely signed in
+      force the user to authenticate before visiting the page (with the isSignedIn parameter stripped off)
 </div>
 
 <h2>Tracker session behaviour</h2>

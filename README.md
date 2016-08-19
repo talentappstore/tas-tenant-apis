@@ -1,7 +1,7 @@
 Tenant API definitions by Aotal, for Talent App Store
 =====================================================
 
-This repository contains [Aotal's API definitions](http://talentappstore.github.io/tas-tenant-apis/) for [Talent App Store](https://www.talentappstore.com, an open marketplace for HR microservices (aka apps).
+This repository contains [Aotal's API definitions](http://talentappstore.github.io/tas-tenant-apis/) for [Talent App Store](https://www.talentappstore.com), an open marketplace for HR microservices (aka apps).
 
 
 Background - about Talent App Store

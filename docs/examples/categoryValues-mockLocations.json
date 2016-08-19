@@ -1,0 +1,176 @@
+[
+  {
+    "id": 100042894,
+    "name": "Austrailia",
+    "available": true,
+    "values": [
+      {
+        "id": 100114678,
+        "name": "Northern Territory",
+        "available": true
+      },
+      {
+        "id": 100114675,
+        "name": "Darwin",
+        "available": true
+      },
+      {
+        "id": 100114648,
+        "name": "Melbourne",
+        "available": true
+      },
+      {
+        "id": 100114663,
+        "name": "Perth",
+        "available": true
+      },
+      {
+        "id": 100114660,
+        "name": "Queensland",
+        "available": true
+      },
+      {
+        "id": 100114645,
+        "name": "NSW",
+        "available": true
+      },
+      {
+        "id": 100114669,
+        "name": "Adelaide",
+        "available": true
+      },
+      {
+        "id": 100114642,
+        "name": "Sydney",
+        "available": true
+      },
+      {
+        "id": 100114657,
+        "name": "Gold Coast",
+        "available": true
+      },
+      {
+        "id": 100114672,
+        "name": "Hobart",
+        "available": true
+      },
+      {
+        "id": 100114666,
+        "name": "Western Australia",
+        "available": true
+      },
+      {
+        "id": 100114654,
+        "name": "Brisbane",
+        "available": true
+      },
+      {
+        "id": 100114651,
+        "name": "VIC",
+        "available": true
+      }
+    ]
+  },
+  {
+    "id": 100114808,
+    "name": "Other",
+    "available": true
+  },
+  {
+    "id": 100042788,
+    "name": "New Zealand",
+    "available": true,
+    "values": [
+      {
+        "id": 100114478,
+        "name": "Christchurch",
+        "available": true
+      },
+      {
+        "id": 100114457,
+        "name": "Wellington",
+        "available": true
+      },
+      {
+        "id": 100114445,
+        "name": "Rotorua",
+        "available": true
+      },
+      {
+        "id": 100114427,
+        "name": "Auckland",
+        "available": true
+      },
+      {
+        "id": 100114469,
+        "name": "Nelson",
+        "available": true
+      },
+      {
+        "id": 100114466,
+        "name": "Invercargill",
+        "available": true
+      },
+      {
+        "id": 100114448,
+        "name": "Tauranga",
+        "available": true
+      },
+      {
+        "id": 100114460,
+        "name": "Blenheim",
+        "available": true
+      },
+      {
+        "id": 100114451,
+        "name": "Wanganui",
+        "available": true
+      },
+      {
+        "id": 100114433,
+        "name": "Gisborne",
+        "available": true
+      },
+      {
+        "id": 100114454,
+        "name": "Whangarei",
+        "available": true
+      },
+      {
+        "id": 100114463,
+        "name": "Dunedin",
+        "available": true
+      },
+      {
+        "id": 100114472,
+        "name": "Timaru",
+        "available": true
+      },
+      {
+        "id": 100114436,
+        "name": "Hamilton",
+        "available": true
+      },
+      {
+        "id": 100114475,
+        "name": "Queenstown",
+        "available": true
+      },
+      {
+        "id": 100114430,
+        "name": "Palmerston North",
+        "available": true
+      },
+      {
+        "id": 100114439,
+        "name": "Napier- Hastings",
+        "available": true
+      },
+      {
+        "id": 100114442,
+        "name": "New Plymouth",
+        "available": true
+      }
+    ]
+  }
+]

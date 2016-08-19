@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "id": 100,
+    "ct": "acme",
+    "ca": "myapp",
+    "created": "2015-11-05T13:15:30Z"
+  },
+  "status": "New",
+  "onHoldFlag": false,
+  "subject": {
+    "firstName": "Fred",
+    "lastName": "Flintstone",
+    "email": "fred@quarry.com",
+    "candidate": 1003
+  }
+}

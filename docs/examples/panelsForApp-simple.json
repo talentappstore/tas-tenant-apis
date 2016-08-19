@@ -1,0 +1,8 @@
+{
+  "app": "buttonmapper",
+  "panels": [
+      {
+        "uri": "https://buttonmapper.com"
+      }
+]
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "meta": {
+      "id": 16045,
+      "ct": "acme",
+      "ca": "jobboard",
+      "created": "2015-11-05T13:15:30Z"
+    },
+    "sessionCreation": {
+      "landingURI": "https://acme.jobboard.com/jobs/1044",
+      "referer": "https://google.com",
+      "userAgent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
+      "ipAddress": "192.168.1.1",
+      "acceptLanguage": "en-us,en;q=0.5"
+    }
+  },
+  {
+    "meta": {
+      "id": 16045,
+      "ct": "acme",
+      "ca": "jobboard",
+      "created": "2015-11-05T13:15:30Z"      
+    },
+    "campaign": {
+      "campaignKind": "User defined",
+      "objectType": "Job",
+      "objectID": 16670
+    },
+    "userArea": {
+      "candidateSource": "facebook",
+      "deviceType": "mobile"
+    }
+  }
+]

@@ -1,0 +1,16 @@
+{
+    "vendor": {
+        "deployedEngagementType": 26,
+        "ct": "acme",
+        "cad": "supersoft",
+        "ca": "superassess",
+        "inviteCandidate": true
+    },
+    "subject": {
+        "firstName": "Fred",
+        "lastName": "Flintstone",
+        "email": "fred@quarry.com",
+        "candidate": 1003
+    }
+    
+}

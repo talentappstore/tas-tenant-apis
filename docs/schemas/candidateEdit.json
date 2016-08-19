@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "categoriesPatchOp": {
+            "enum": [
+                "add",
+                "replace"
+            ]
+        },
+        "categoriesPatch": {
+            "type": "object",
+            "properties": {
+                "patchItems": {
+                    "$ref": "categoriesActual.json"
+                },
+                "op": {
+                    "$ref": "#/definitions/categoriesPatchOp"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "op",
+                "patchItems"
+            ]
+        },
+        "candidateData": {
+            "type": "object",
+            "properties": {
+                "vcard": {
+                    "$ref": "jcard.json"
+                },
+                "resume": {
+                    "$ref": "fileUpload.json"
+                },
+                "jobNotifications": {
+                    "type": "boolean"
+                },
+                "categoriesPatch": {
+                    "$ref": "#/definitions/categoriesPatch"
+                },
+                "items": {
+                  "description": "an opaque json object probably similar to the edit spec",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "applicationData": {
+            "type": "object",
+            "properties": {
+                "job": {
+                    "type": "integer"
+                },
+                "items": {
+                  "description": "an opaque json object probably similar to the edit spec",
+                  "type": "object",
+                  "additionalProperties": true
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "type": "object",
+    "properties": {
+        "tracker": {
+            "type": "integer"
+        },
+        "candidateData": {
+            "$ref": "#/definitions/candidateData"
+        },
+        "applicationData": {
+            "$ref": "#/definitions/applicationData"
+        }
+    },
+    "additionalProperties": false
+}

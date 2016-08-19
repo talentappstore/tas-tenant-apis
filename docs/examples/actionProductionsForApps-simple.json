@@ -1,0 +1,39 @@
+[
+  {
+    "app": "superapply",
+    "actionProductions": [
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true,
+        "mayRequireSetupFlag": true
+        
+      },
+      {
+        "actionName": "share",
+        "availableToInternals": true,
+        "availableToExternals": true,
+        "mayRequireSetupFlag": false
+        
+      },
+      {
+        "actionName": "refer",
+        "availableToInternals": true,
+        "availableToExternals": false,
+        "mayRequireSetupFlag": true
+        
+      }
+    ]
+  },
+  {
+    "app": "legacyats",
+    "actionProductions": [
+      {
+        "actionName": "apply",
+        "availableToInternals": true,
+        "availableToExternals": true,
+        "mayRequireSetupFlag": true
+      }
+    ]
+  }
+]

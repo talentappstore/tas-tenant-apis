@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "status": {
+      "enum": [
+        "active",
+        "complete"
+      ],
+      "description": "from HR-XML"
+    },
+    "code": {
+      "type": "string",
+      "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
+    },
+    "title": {
+      "type": "string",
+      "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
+    },
+    "availability": {
+      "type": "object",
+      "properties": {
+        "availableInternally": {
+          "type": "boolean",
+          "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
+        },
+        "availableExternally": {
+          "type": "boolean",
+          "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
+        },
+        "jobPublishDates": {
+          "type": "object",
+          "properties": {
+            "publishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published (became available to candidates)"
+            },
+            "internalPublishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
+            },
+            "externalPublishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published to external candidates. If not set, use publishDate."
+            }
+          },
+          "required": [
+            "publishDate"
+          ],
+          "additionalProperties": false
+        },
+        "applicationCloseDates": {
+          "type": "object",
+          "properties": {
+            "closeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications are scheduled to close"
+            },
+            "internalCloseDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
+            },
+            "externalCloseDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
+            }
+          },
+          "required": [
+            "closeDate"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "availability": {
+      "$ref": "#/definitions/availability"
+    },
+    "code": {
+      "$ref": "#/definitions/code"
+    },
+    "title": {
+      "$ref": "#/definitions/title"
+    },
+    "shortSummary": {
+      "type": "string",
+      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "company": {
+      "type": "string",
+      "description": "as per Salesforce, more explicit than org"
+    },
+    "country": {
+      "type": "string",
+      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+    },
+    "categories": {
+      "$ref": "categoriesActual.json"
+    }
+  },
+  "required": [
+    "code",
+    "availability",
+    "title"
+  ],
+  "additionalProperties": false
+}

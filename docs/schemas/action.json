@@ -1,0 +1,38 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"description": "the logical information needed to populate a button/control to initiate the action, excluding style information (which is down to the app rendering the button/control)",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "fixed name for this action, containing only lower case alpha, digits and '-' characters, length <= 30"
+		},
+		"label": {
+			"type": "string",
+			"description": "a string indicating what the action will do, used as the label on its button/control"
+		},
+		"behavior": {
+			"description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
+			"enum": ["redirect", "modal"]
+		},
+		"uri": {
+			"type": "string",
+			"format": "uri",
+			"description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+		},
+		"textColor": {
+		  "description": "the color that the button's text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"backgroundColor": {
+		  "description": "the color that the button's background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+		  "type": "string"
+		},
+		"disabled": {
+			"type": "boolean",
+			"description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+		}
+	},
+	"required": [ "name", "label", "behavior", "uri", "disabled" ],
+	"additionalProperties": false
+}

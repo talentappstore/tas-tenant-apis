@@ -1,0 +1,187 @@
+#%RAML 0.8
+
+- actionSetupPage:
+    get:
+      securedBy: [oauth_2_0]
+      is: [ isSetupPage ]
+      description: |
+        API to get a link to a page hosted by the action's app that the user can use to to set up defaults or values
+        for this action - for example, to set the referral amount or limits if the button is for an employee referral program.
+        For actions relating to jobs, the setup page can be used to set defaults (at either the global or workflow level) or values
+        (at the job level).
+        
+        Non-SoT, on-behalf (principal == user).
+        
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/actionSetupPageDetail.json
+              example: !include ../examples/actionSetupPageDetail-simple.json
+        404:
+          description: |
+            There is no setup for this action at this level (i.e. it doesn't need any parameters)                              
+
+
+- userAppPanels:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array of all of the user-facing panels from a single app. Non-SoT.
+      is: [ iframeContained ]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/panels.json
+              example: !include ../examples/panels-simple.json
+
+- userAppsPanels:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array of all of the user-facing panels from all apps. SoT.
+      is: [ iframeContained ]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/panelsForApps.json
+              example: !include ../examples/panelsForApps-simple.json
+
+- candidateAppAction:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get a single, named action from a single app. Non-SoT.
+        
+        The producing app might customise the button/control(s), or choose not display it at all e.g.;
+        - for an apply button, display that a partial (draft) registration is already underway
+        - gray the register button out if candidate logged in and already registered
+
+        *Security considerations*: If the producing app attaches the incoming relayPage paramater to the button's link,
+        then it should protect itelf from Open Redirection attacks as described at 
+        https://www.owasp.org/index.php/Testing_for_Client_Side_URL_Redirect_(OTG-CLIENT-004).
+        
+        One approach would be by:
+        - attaching an additional digital signature to the link based on the link's other values, including the relayPage
+        - verifying when the candidate follows the link that the relayPage has not been tampered with
+        
+        Another approach would be not putting the relayPage in the link at all, but instead storing it and
+        putting a key into the link.
+        
+        The commonly used approach of whitelisting is not useful as there is no common repository of all of the valid
+        domains in use by all apps that a tenant may have installed and that may include this action.
+        
+      is: [ trackable, hasRelayPage ]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/action.json
+              example: !include ../examples/action-simple.json
+        404:
+          description: |
+            The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can't be performed,
+            probably because of the object's state.
+
+- candidateAppsActions:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.
+
+      is: [ trackable, hasRelayPage ]
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/actionsForApps.json
+              example: !include ../examples/actionsForApps-simple.json
+
+- candidateAppPossibleActions:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array of all actions that may be produced by a single app. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/actionProductions.json
+              example: !include ../examples/actionProductions-simple.json
+
+- candidateAppsPossibleActions:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/actionProductionsForApps.json
+              example: !include ../examples/actionProductionsForApps-simple.json
+
+- candidateAppsStrip:
+    get:
+      securedBy: [oauth_2_0]
+      is: [trackable, hasRelayPage ]
+      description: |
+        Get the html for the strip of buttons, ready to plug into a job details page as viewed by the candidate. SoT.
+             
+        The app building the page that embeds this strip must in its head section pull in style sheet,
+        javascript, etc. as obtained via a call to GET /actions/byCandidate/headHtml.
+      responses:
+        200:
+          body:
+            text/html:
+              example: some html containing a strip of buttons, using only styles from the headHtml call
+
+- itemMetas:
+    get:
+      securedBy: [oauth_2_0]
+      description: Get metadata for all items
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/items.json
+              example: !include ../examples/items-metaWithFileUpload.json
+
+- itemMeta:
+    get:
+      securedBy: [oauth_2_0]
+      description: Get metadata for a specific item
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/item.json
+              example: !include ../examples/item-metaWithFileUpload.json
+
+- items:
+    get:
+      securedBy: [oauth_2_0]
+      description: Get values and (in some scenarios) metadata, for all items
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/items.json
+              example: !include ../examples/items-values.json
+      
+- item:
+    get:
+      securedBy: [oauth_2_0]
+      description: Get value and (in some scenarios), metadata for a specific item
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/item.json
+              example: !include ../examples/item-value.json
+
+      
+      
+      

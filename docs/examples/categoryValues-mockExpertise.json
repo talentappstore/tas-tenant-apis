@@ -1,0 +1,112 @@
+[
+  {
+    "id": 100115528,
+    "name": "General Management",
+    "available": true
+  },
+  {
+    "id": 100115555,
+    "name": "Research & Development",
+    "available": true
+  },
+  {
+    "id": 100115552,
+    "name": "Quality Assurance",
+    "available": true
+  },
+  {
+    "id": 100115513,
+    "name": "Credit Control",
+    "available": true
+  },
+  {
+    "id": 100115522,
+    "name": "Executive Level Management",
+    "available": true
+  },
+  {
+    "id": 100115540,
+    "name": "Logistics",
+    "available": true
+  },
+  {
+    "id": 100115543,
+    "name": "Marketing",
+    "available": true
+  },
+  {
+    "id": 100115561,
+    "name": "Service Technician",
+    "available": true
+  },
+  {
+    "id": 100115567,
+    "name": "Supply Chain",
+    "available": true
+  },
+  {
+    "id": 100115516,
+    "name": "Customer Service",
+    "available": true
+  },
+  {
+    "id": 100115534,
+    "name": "Information Technology",
+    "available": true
+  },
+  {
+    "id": 100115546,
+    "name": "Procurement",
+    "available": true
+  },
+  {
+    "id": 100115519,
+    "name": "Engineering",
+    "available": true
+  },
+  {
+    "id": 100115549,
+    "name": "Project Management",
+    "available": true
+  },
+  {
+    "id": 100115510,
+    "name": "Contact Centre",
+    "available": true
+  },
+  {
+    "id": 100115525,
+    "name": "Finance",
+    "available": true
+  },
+  {
+    "id": 100115537,
+    "name": "Legal",
+    "available": true
+  },
+  {
+    "id": 100115504,
+    "name": "Administration",
+    "available": true
+  },
+  {
+    "id": 100115531,
+    "name": "Human Resources",
+    "available": true
+  },
+  {
+    "id": 100115507,
+    "name": "Communications",
+    "available": true
+  },
+  {
+    "id": 100115558,
+    "name": "Sales",
+    "available": true
+  },
+  {
+    "id": 100115564,
+    "name": "Strategy",
+    "available": true
+  }
+]

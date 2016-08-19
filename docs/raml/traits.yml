@@ -1,0 +1,202 @@
+#%RAML 0.8
+
+- isSetupPage:
+    queryParameters:
+      containerID:
+        type: string
+        description: |
+          The id of the DOM element (i.e. an iframe) containing this page. When this page has done its thing, it should signal the containing
+          window via a postMessage call, passing this ID and one of the verbs "ok" or "cancel".
+        example: embed01
+        required: true
+
+- iframeContained:
+    queryParameters:
+      containerID:
+        type: string
+        description: |
+          The id of the DOM element (i.e. an iframe) containing this panel. If the panel changes its size, it can trigger a resize of the iframe in the containing
+          window via a postMessage call, passing this ID, the verb "resize" and the new width and height.
+        example: embed01
+        required: true
+
+- hasRelayPage:
+    description: a URL can be passed in that the user will be redirected to at some time in the future 
+    queryParameters:
+      relayPage:
+        type: string
+        description: |
+          A URL that the user will be redirected to.
+        example: https://myapp.com/kh87876
+        required: true
+
+- hasAccountManagerFilter:
+    queryParameters:
+      accountManagerFilter:
+        type: boolean
+        description: |
+          When present and true, filters the actions to only include actions that are account managers.
+        required: false
+
+- vcardGetter:
+    securedBy: [oauth_2_0]
+    description: get candidate contact details, in the form described by rfc7095
+    responses:
+      200:
+        description: response contains candidate contact details, in the form described by rfc7095
+        body:
+          application/json:
+
+- resumeMetaGetter:
+    securedBy: [oauth_2_0]
+    description: get metadata about the candidate's resume (size, filename, etc.)
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/fileDownload.json
+            example: !include ../examples/fileDownload-simple.json
+
+- socialGetter:
+    responses:
+      404:
+        description: the requested data was not available from the given social network
+
+- loggedInHint:
+    description: |
+      REMOVE! Implied by on-behalf or not. Resource that takes a url parameter hinting that the principal is already logged in.  
+    queryParameters:
+      loggedIn:
+        type: boolean
+        description: |
+          True if the principal is likely already logged in.
+        example: true
+        required: true
+
+- offerEmbedMeta: 
+    queryParameters:
+      embedMeta:
+        type: boolean
+        description: |
+          Pass true to have schema fragments embedded in the response when fetching items.
+          Less network trips, larger overall message. Defaults to false.
+        required: false
+
+
+- searchWidgetGetter:
+    queryParameters:
+      search:
+        type: string
+        description: |
+          The search string - a singly url encoded string conforming to categoriesActual.json.
+        required: false
+
+- editSpecFetcher:
+    body:
+      application/json:
+        schema: !include ../schemas/intent.json
+        example: !include ../examples/intent-apply.json
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/candidateEditSpec.json
+            example: !include ../examples/candidateEditSpec-apply.json
+
+- trackable:
+    description: resource takes a tracker parameter 
+    queryParameters:
+      tracker:
+        type: integer
+        description: |
+          The ID of a tracker
+        example: 1003423
+        required: false
+
+- document_asStream:
+    description: get the document as a stream, i.e. binary document, using the appropriate mime type
+    responses:
+      200:
+        body:
+          application/pdf:
+          application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+          application/msword:
+          application/rtf:
+          text/plain:
+
+- tasItem:
+    queryParameters:
+     $select:
+       description: |
+         <p>The $select query option is used to specify which properties should be returned in the resource. It behaves as per its namesake in
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
+         For example:</p>
+
+         <pre>
+         GET /widgets?$select=kind,items/id,items/name
+
+         Response:
+
+         {
+           "kind": "widgets",
+           "items": [
+             {
+               "id": 10223,
+               "name": "Red widget"
+             },
+             {
+               "id": "10224",
+               "name": "Blue widget"
+             }
+           ]
+         }
+         </pre>
+         
+         <p>If you don't specify $select for <b><<resourcePathName>></b>, the default set of fields is:<br />
+         <b><<defaultSelectList>></b>
+       required: false
+       type: string
+
+- tasCollection:
+    queryParameters:
+     $orderby:
+       description: |
+         <p>The $orderby query option is used to order the entries, where the resource is a collection. It behaves as per its namesake in
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
+         The actual properties that can used varies by resource - for <b><<resourcePathName>></b>, it is <b><<orderingProperties>></b>.</p>
+       example: |
+         return widgets ordered by id (ascending)
+
+         GET /widgets?$orderby=id
+         
+         return the first set of widgets, ordered by quantity on hand
+         (ascending), then name (descending)
+         GET /widgets?$orderby=quantityOnHand,name desc
+       type: string
+       
+     $filter:
+       description: |
+         <p>The $filter query option is used to identity a subset of the entries, where the resource is a collection. It behaves as per its namesake in
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
+         <p>The actual properties that can used for filtering, and the complexity of the expression that is supported varies by resource -
+         for <b><<resourcePathName>></b>, it is:</p>
+         <p><b><<filterCapabilities>></b></p>.
+         
+       example: |
+         return the widgets that are active, and that have status of 'online' or that are in Auckland:
+
+         GET /widgets?$filter=active eq true and (status eq 'online' or location/city eq 'Auckland')
+       type: string
+       
+     $top:
+       description: |
+         <p>The $top query option is used to limit the number of entries, where the resource is a collection. It behaves as per its namesake in
+         OData (http://docs.oasis-open.org/odata/odata/v4.0/odata-v4.0-part2-url-conventions.html).
+         <p>For <b><<resourcePathName>></b>, $top must be less than or equal to <b><<maxTop>></b>. This is also the default.</p>
+       example: |
+         return the first 5 widgets:
+
+         GET /widgets?$top=5
+       type: integer
+       
+      

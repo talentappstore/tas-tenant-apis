@@ -1,0 +1,18 @@
+[
+{
+"name": "Employee referral",
+"description": null
+},
+{
+"name": "Job board posting",
+"description": "Paid posting on a job board"
+},
+{
+"name": "Link",
+"description": "Linked to from some web site (other than a job board)"
+},
+{
+"name": "Mailout",
+"description": "Automated email marketing, e.g. job alerts"
+}
+]

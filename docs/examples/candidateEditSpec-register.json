@@ -1,0 +1,67 @@
+{
+    "tracker": 763019932,
+    "candidateMessage": {
+        "message": "To register, just complete this simple form.",
+        "level": "info"
+    },
+    "candidateModel": {
+    "vCardRule": {
+      "someMandatory": true
+    },
+        "requiredCategoryValues": [
+            {
+                "category": 10032,
+                "values": [
+                    3344
+                ]
+            },
+            {
+                "category": 10034,
+                "values": [
+                    1001,
+                    1004
+                ]
+            }
+        ],
+        "resumeRule": {
+            "visible": true,
+            "mandatory": false,
+            "accept": [
+                "application/pdf",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/msword",
+                "application/rtf",
+                "text/plain"
+            ],
+            "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
+        },
+        "itemsRule": {
+            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
+            "type": "object",
+            "properties": {
+                "nursingCert": {
+                    "type": "object",
+                    "title": "C1 nursing certificate",
+                    "format": "file",
+                    "description": "Please scan and attach your C1 as pdf",
+                    "properties": {
+                        "data": {
+                            "type": "string",
+                            "media": {
+                                "binaryEncoding": "base64",
+                                "type": "image/pdf"
+                            }
+                        },
+                        "fileName": {
+                            "type": "string"
+                        },
+                        "via": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "created": {
+    "total": 5
+  },
+  "createFailed": {
+    "total": 1,
+    "details": [
+      {
+        "code": "AZDH55",
+        "message": "missing value for location"
+      }
+    ]
+  },
+  "updated": {
+    "total": 3
+  },
+  "updateFailed": {
+    "total": 0
+  },
+  "closed": {
+    "total": 3
+  },
+  "closeFailed": {
+    "total": 0
+  }
+}

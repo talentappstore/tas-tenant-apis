@@ -1,0 +1,20 @@
+[
+  {
+    "app": "superboard",
+    "careerSites": [
+      {
+        "id": 12,
+        "label": "Graduate site"
+      }
+    ]
+  },
+  {
+    "app": "snailboard",
+    "careerSites": [
+      {
+        "id": 12,
+        "label": "November campaign microsite"
+      }
+    ]
+  }
+]

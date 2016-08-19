@@ -1,0 +1,10 @@
+[
+  {
+    "key": "mswordprof",
+    "title": "MS Word proficiency - basic",
+    "daysToExpire": 365,
+    "isPassFail": false,
+    "candidateSeesResults": false,
+    "canReuse": true
+  }
+]

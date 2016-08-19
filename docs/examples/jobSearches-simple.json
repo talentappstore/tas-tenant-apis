@@ -1,0 +1,25 @@
+{
+    "match": {
+        "categories": [
+            {
+                "category": 100466,
+                "values": [
+                    1001
+                ]
+            },
+            {
+                "category": 10034,
+                "values": [
+                    1001
+                ]
+            }
+        ],
+        "recruiter": {
+            "id": 1,
+            "relationship": "owner"
+        }
+    },
+    "filter": "status eq 'active' and code eq 'ADH1333' and id gt 10",
+    "orderby": "id asc",
+    "top": 20
+}

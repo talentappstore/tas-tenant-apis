@@ -1,0 +1,1339 @@
+#%RAML 0.8
+---
+title: TAS recruitment
+version: v0.6
+
+
+securitySchemes:  !include securitySchemes.yml
+traits: !include traits.yml
+resourceTypes: !include resources.yml
+
+/actions:
+  /byCandidate:
+    /headHtml:
+      get:
+        description: |
+          Get html head snippet (typically an include of a stylesheet) used to style the html for a strip of buttons.
+              
+          The app building the page that embeds the buttons must insert the results of this API call in its head section.
+        responses:
+          200:
+            body:
+              text/html:
+                example: some html pulling in stylesheet, javascript etc.
+    /me:
+      description:
+        All APIs beneath here are operating on behalf of the logged in candidate.
+      /engagements:
+        /general:
+          type: candidateAppsActions
+        /forApplication:
+          /{application}:
+      /general:
+        type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
+          is: [ hasAccountManagerFilter ]
+        /byName:
+          /{action}:
+            /byApp:
+              type: candidateAppAction
+      /jobs:
+        /{job}:
+          type: candidateAppsActions
+          /asHtml:
+            type: candidateAppsStrip
+          /byName:
+            /{action}:
+              /byApp:
+                type: candidateAppAction
+      /search:
+        type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
+        /byName:
+          /{action}:
+            /byApp:
+              type: candidateAppAction
+    /anonymous:
+      /engagements:
+        /general:
+          type: candidateAppsActions
+        /forApplication:
+          /{application}:
+            type: candidateAppsActions
+      /general:
+        type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
+          is: [ hasAccountManagerFilter ]
+        /byName:
+          /{action}:
+            /byApp:
+              type: candidateAppAction
+      /jobs:
+        /{job}:
+          type: candidateAppsActions
+          /asHtml:
+            type: candidateAppsStrip
+          /byName:
+            /{action}:
+              /byApp:
+                type: candidateAppAction
+          /satisfyLink:
+            /{purpose}:
+              description: |
+                The purpose (as per the semantics section of a candidate facing action's production) to be satisfied
+              get:
+                securedBy: [oauth_2_0]
+                is: [trackable, hasRelayPage ]
+                queryParameters:
+                  message:
+                    type: string
+                    description: |
+                      The message that will be displayed to the user on the linked web page, once they have logged in.
+                    example: Congratulations! You can apply for this job now.
+                    required: true
+                description: |
+                  Obtain a link that a candidate can use to mark themselves as qualified for a particular purpose (e.g. to apply) on a job.
+                  When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the
+                  given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.
+                  
+                  SoT.
+                responses:
+                  200:
+                    body:
+                      text/plain:
+                        example: https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
+              
+      /search:
+        type: candidateAppsActions
+        /asHtml:
+          type: candidateAppsStrip
+        /byName:
+          /{action}:
+            /byApp:
+              type: candidateAppAction
+    /general:
+      description: |
+        General actions seen by candidates are typically embedded in page headers, e.g. "register", "share this entire site", etc.
+      /possibles:
+        type: candidateAppsPossibleActions
+        /byApp:
+          type: candidateAppPossibleActions
+    /job:
+      description: |
+        Job-level actions seen by candidates are typically embedded in job details pages, e.g. "apply", "share this job", etc.
+      /possibles:
+        type: candidateAppsPossibleActions
+        /byApp:
+          type: candidateAppPossibleActions
+          /byName:
+            /{action}:
+              /{uiMode}:
+                description: |
+                  The setup page uses uiMode to understand whether the user is at a point in the UI where they are:
+                  
+                  - *view*: viewing setup details
+                  - *edit*: editing setup details
+                  
+                  In all cases the app should apply its own security to decide whether the user is actually allowed to view/edit, this
+                  value is just a hint to make the setup page work smoothly in conjunction with the "edit mode" as set in the containing UI.
+                /{internal}:
+                  description: true if the setup page is setting up details for internal candidates, or false for externals 
+                  /setupPage:
+                    description: setup page for default values, that will affect all jobs (unless overridden at workflow level or on the job itself) 
+                    type: actionSetupPage
+                    /forWorkflow:
+                      /{workflow}:
+                        description: setup page for default values that will affect all jobs of the given workflow, unless overridden on the job itself 
+                        type: actionSetupPage
+                    /forJob:
+                      /{job}:
+                        description: setup page for values that affect only this job 
+                        type: actionSetupPage
+    /search:
+      description: |
+        Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
+      /possibles:
+        type: candidateAppsPossibleActions
+        /byApp:
+          type: candidateAppPossibleActions
+
+
+/applications:
+  /byID:
+    /{application}:
+      /deltaPings:
+        description: |
+          The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
+          
+          Non-SoT.
+          
+      /bucket:
+        /deltaPings:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we
+              know the application has a new bucket.
+              
+              Non-SoT.
+               
+      /bySourcingApp:
+        /deltaPings:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              A non-SoT API for pings about applications, but which is only sent to the application that sourced the
+              application (i.e., that owns the campaign tracker attached to the application).
+      /items:
+        description: all items held on an application
+        type: items
+        get:
+          is: [ offerEmbedMeta ] 
+        /byName:
+          /{item}:
+            type: item
+            get:
+              is: [ offerEmbedMeta ]
+        /itemMetas:
+          description: |
+            Metadata for items held on the candidate
+          type: itemMetas
+          /byName:
+            /{item}:
+              type: itemMeta
+      /tracker:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
+      /status:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
+            as "interview", "offer", "pre-screen", etc.
+      /candidate:
+        get:
+          securedBy: [oauth_2_0]
+          description: Get the candidate for this application
+      /job:
+        get:
+          securedBy: [oauth_2_0]
+          description: Get the job opening for this application
+  /bySourcingApp:
+    /{consumer}:
+      /{id}:
+        /sourcerDetails:
+          get:
+            securedBy: [oauth_2_0]
+            description: |
+              Get a sanitised and basic set of information for a job application, which the consumer is entitled to
+              by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
+  /byCandidate:
+    /{candidate}:
+      /byJob:
+        /{job}:
+          get:
+            securedBy: [oauth_2_0]
+            description: get the id of the application (if any)
+          
+/candidates:
+  description:
+    Candidates are people who are in the tenant's talent world, perhaps stored in their ATS.
+    Maybe they applied for an opening, registered in the database, were imported from some other system, etc.
+  /me:
+    description:
+      All APIs beneath here are operating on behalf of the logged in candidate.
+    post:
+      securedBy: [oauth_2_0]
+      description: |
+        Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
+        
+        See separate design document for detailed information on the request body.
+
+        The producer must run all uploaded files through OWASP security tests:
+        - extension matches actual file type
+        - virus check
+        - etc.
+
+        Candidate type is not passed - instead the producer should identify candidate type (e.g. internal)
+        by looking for the relevant role in the incoming OAuth token.
+    
+        The producer must not blindly apply the incoming data. It must first generate an editSpec for the candidate,
+        and then assert that the incoming data is a subset of what the editSpec allows/requires. This prevents
+        attacks where the consumer tries to write to a random data item for example.
+
+        If a resume element is passed then any existing resume will be replaced by the contents of the resume element. If null, the existing
+        resume will be removed.
+
+        Where an application is included, the producer should check that the job is active. No check is needed of the "open to internal" rules
+        on the job vs. the candidate's actual type as that sort of validation gets in the way of sending special candidate direct links for
+        them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).
+
+      body:
+        application/json:
+          schema: !include ../schemas/candidateEdit.json
+          example: !include ../examples/candidateEdit-simple.json
+      responses:
+        200:
+          description: the post was successful
+        201:
+          description: the post was successful
+    /details:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get general information about the candidate including notifications (subscribe y/n)
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/candidateDetails.json
+                example: !include ../examples/candidateDetails-simple.json
+    /homePage:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get the uri of the home page, where a candidate can see their own status, find incomplete activities and so on. Often produced by an ATS.
+          
+          SoT. There is only one home page to send the candidate to.
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/homePage.json
+                example: !include ../examples/homePage-simple.json
+    /id:
+      description: |
+        The ID of the candidate.
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get the ID (database primary key) of ourselves (the currently logged in principal, who must be of principal type 'candidate').
+    /vcard:
+      get:
+        is: [ vcardGetter ]
+    /resume:
+      /meta:
+        get:
+          is: [ resumeMetaGetter ]
+      /asDocument:
+        get:
+          securedBy: [oauth_2_0]
+          is: [ document_asStream ]
+      /asHtml:
+        get:
+          securedBy: [oauth_2_0]
+          description: get an html version of the candidate's resume
+        /deltaPings:
+          description: |
+            A separate delta ping from the main candidate one, since managing the html version may be done delayed by a downstream app.
+            Probably only useful as non-SoT.
+          post:        
+            securedBy: [oauth_2_0]
+    /categories:
+      get:
+        securedBy: [oauth_2_0]
+        description: get the categories for this candidate
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/categoriesActual.json
+                example: !include ../examples/categoriesActual-simple.json
+      /merges:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Perform a normalized merge of the candidate's category values with the passed in values, and return the result. The candidate
+            is not altered. We use a POST to allow passing a request body.
+            
+            By normalizing we mean that:
+            - any folder or leaf must be included (explicitly or implicitly) only once
+            - the minimum possible number of folders and leaves should be included
+
+            e.g. given an example tree like this:
+
+            ````
+            /a
+              /b
+                /d
+                /e
+              /c
+                /f
+            /g
+              /h
+              /i
+            ````
+  
+            The following are correctly normalized:
+
+            ````
+            /a
+            /b,/f
+            /a,/h
+            ````
+
+            The following are not:
+
+            ````
+            /b,/c (since /a would be more minimal)
+            /a,/b (since /a already implies /b)
+            /d,/e (since /b would be more minimal) 
+            /f (since /c would be more minimal) 
+            ````
+            
+          body:
+            application/json:
+              schema: !include ../schemas/categoriesActual.json
+              example: !include ../examples/categoriesActual-simple.json
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/categoriesActual.json
+                  example: !include ../examples/categoriesActual-simple.json
+    /latestApplyTracker:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          The tracker (if any) that was passed in when this candidate last applied for a job (i.e. a call to POST /candidates
+          was made with a job specified). When a candidate applies for multiple jobs over time, this helps understand what last
+          drew them to the site.
+    /applications:
+      get:
+      /{application}:
+        /source:
+          get:
+            securedBy: [oauth_2_0]
+            description: a tracker, as passed in to the edit
+    /social:
+      /{network}:
+        /vcard:
+          get:
+            is: [ vcardGetter, socialGetter ]
+        /resume:
+          /meta:
+            get:
+              is: [ resumeMetaGetter, socialGetter ]
+          /asDocument:
+            get:
+              securedBy: [oauth_2_0]
+              is: [ document_asStream, socialGetter ]
+  /byID:
+    /{candidate}:
+      /items:
+        description: all items held on a candidate
+        type: items
+        get:
+          is: [ offerEmbedMeta ] 
+        /byName:
+          /{item}:
+            type: item
+            get:
+              is: [ offerEmbedMeta ]
+        /itemMetas:
+          description: |
+            Metadata for items held on the candidate
+          type: itemMetas
+          /byName:
+            /{item}:
+              type: itemMeta
+      /stars:
+        /forJobs:
+          /{job}:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get the candidate's stars against a specific job, perhaps inherited from the jobs's master or some talent pool
+      /deltaPings:
+        description: |
+          The main ping for any changes to a candidate, other than the html resume, which has its own delta ping.
+          Only produced as non-SoT.
+        post:
+          securedBy: [oauth_2_0]
+  /recruiterFaces:
+    /searches:
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          Search candidates, returning recruiter-facing details.
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+          withResume - if present, only return candidates with (if true) or without (if false) an attached resume
+        body:
+          application/json:
+            schema: !include ../schemas/candidates.json
+            example: !include ../examples/candidates-simple.json
+    /{id}:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Return recruiter-facing details for a specific candidate. e.g do not contact flag
+
+
+/careerSites:
+  description: |
+    Career sites are web portals showing jobs that exist inside the tenant, as opposed to job boards, which live outside the tenant.
+    
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      A rollup of the details of all careers sites produced by all apps. SoT.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/careerSitesForApps.json
+            example: !include ../examples/careerSitesForApps-simple.json
+  /forApp:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Descriptions of one or more careers sites hosted by a specific app. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/careerSites.json
+              example: !include ../examples/careerSites-simple.json
+    /byID:
+      /{site}:
+        /jobLink:
+          /{job}:
+            get:
+              securedBy: [oauth_2_0]
+              is: [trackable ]
+              description: |
+                Convenience API to generate a link to a specific job at a given career site. The consumer could also have generated the URL using the
+                details from GET /careerSites/forApp to achieve the same effect. Non-SoT.
+              responses:
+                200:
+                  body:
+                    text/plain:
+                      example: https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge
+  /primary:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get details for whichever career site which has been marked as the primary by the tenant. SoT.
+        
+        The response is the same as for GET /careerSites, except that only the board which has been marked as the
+        primary is included in the results.
+        
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/careerSitesForApps.json
+              example: !include ../examples/careerSitesForApps-primary.json
+      
+
+/categories:
+  description: |
+    Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
+    and others. Includes details of inactivated nodes.
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Fetch list of categories
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/categories.json
+            example: !include ../examples/categories-simple.json
+  post:
+    securedBy: [oauth_2_0]
+    description: Create a single category (without any values)
+    body:
+      application/json:
+        schema: !include ../schemas/category.json
+        example: !include ../examples/category-simple.json
+    
+  /byID:
+    /{category}:
+      description: category ID 
+
+      post:
+        securedBy: [oauth_2_0]
+        description: Update a single category, not including its values
+        body:
+          application/json:
+            schema: !include ../schemas/category.json
+            example: !include ../examples/category-simple.json
+            
+      delete:
+        securedBy: [oauth_2_0]
+        description: Delete a category, along with all of its values
+        
+      /values:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+             Get root values and the hierarchy of values beneath
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/categoryValues.json
+                  example: !include ../examples/categoryValues-simple.json
+          
+        patch:
+          securedBy: [oauth_2_0]
+          description: |
+            Merge in an array of root values. TODO: what happens when:
+            - the merge specifies a different location for an existing node?
+          body:
+            application/json:
+              schema: !include ../schemas/categoryValues.json
+              example: !include ../examples/categoryValues-simple.json
+          
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+             Arbitrarily set or change the root values for this category.
+          body:
+            application/json:
+              schema: !include ../schemas/categoryValues.json
+              example: !include ../examples/categoryValues-simple.json
+
+        /{id}:
+          get:
+            securedBy: [oauth_2_0]
+            description: Get the child values for the given value
+          delete:
+            securedBy: [oauth_2_0]
+            description: delete this node and its child nodes
+          post:
+            securedBy: [oauth_2_0]
+            description: edit details of this node, including its parent
+          /values:
+            get:
+              securedBy: [oauth_2_0]
+              description: Get the array of sub-trees attached to this value
+            patch:
+              securedBy: [oauth_2_0]
+              description: Merge in an array of child values
+            post:
+              securedBy: [oauth_2_0]
+              description: |
+                 Arbitrarily set or change the child values for this value. Values are removed from their previous
+                 parent (node or category)
+          /acquires:
+            /{acquiree}:
+              post:
+                securedBy: [oauth_2_0]
+                description: acquire all of the child nodes of the acquiree, then delete the acquiree node
+
+
+
+/editSpecs:
+  description: |
+    When making major changes to a candidate's data during a register or apply process, changes to data such as vcard, eeo items, candidate items,
+    categories, etc., must obey certain rules. Those rules are contained in an edit spec. Classic case is a job application form.
+    See <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
+
+    An edit spec may be for:
+    - a known, logged in candidate, who may or may not have an existing row in the candidates table. When the candidate is known, the edit spec might
+    for example include special questions for an internal candidate or one who found the job via employee referral.
+    - an unknown, anonymous candidate. Such an edit spec is safe to display to the public (or 403 Forbidden if the intent contains an internal-only job)
+
+    The editSpec returned by these APIs can only ever contain candidate and eeo items
+    in its itemsRule and any job itemsRules.  
+
+    Always produced as SoT.
+     
+    The methods are POST solely because parameters may get too long for a GET.
+  /fetches:
+    /apply:
+      /{job}:
+        /me:
+          post:
+            securedBy: [oauth_2_0]
+            is: [ editSpecFetcher ]
+        /anonymous:
+          post:
+            securedBy: [oauth_2_0]
+            is: [ editSpecFetcher ]
+    /register:
+      /me:
+        post:
+          securedBy: [oauth_2_0]
+          is: [ editSpecFetcher ]
+      /anonymous:
+        post:
+          securedBy: [oauth_2_0]
+          is: [ editSpecFetcher ]
+
+/engagements:
+  /byID:
+    /{id}:
+      get:
+        description: get details of this engagement, reflecting changes made by the app and/or the tenant. 
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/engagementRead.json
+                example: !include ../examples/engagementRead-created.json
+      /appDetails:
+        post:
+          description: |
+            Consumed by the engagement app to update an existing engagement. Apps may set
+            most details and some statuses for an engagement, but cannot alter the on hold flag.
+          body:
+            application/json:
+              schema: !include ../schemas/engagementWriteByApp.json
+              example: !include ../examples/engagementWriteByApp-completed.json
+          responses:
+            200:
+              description: the update was successful
+      /tenantDetails:
+        post:
+          description: |
+            Consumed by the engagement hub, as a result of some tenant action, to update an existing engagement.
+            The tenant cannot alter many details of an engagement other than to change the status or place it on hold.
+          body:
+            application/json:
+              schema: !include ../schemas/engagementWriteByTenant.json
+              example: !include ../examples/engagementWriteByTenant-onhold.json
+          responses:
+            200:
+              description: the update was successful
+      /tenantDeltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Alerts listeners to a change to an engagement caused by the tenant
+      /view:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the view, i.e. information the tenant has decreed that the engagement app should see about this engagement.
+            
+            SoT.
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/applicationView.json
+                  example: !include ../examples/applicationView-simple.json
+            
+  /byType:
+    /{engagementType}:
+      /forApplication:
+        /{application}:
+          post:
+            description: |
+              Tenant creates (or reuses) an engagement of the given type, for the given job application,
+              for example upon a candidate applying and being screened in.
+              
+              SoT. Typically implemented by the engagement hub.
+            body:
+              application/json:
+                schema: !include ../schemas/engagementOrderByTenant.json
+                example: !include ../examples/engagementOrderByTenant-simple.json
+            responses:
+              200:
+                description: the post was successful
+              201:
+                description: the post was successful
+      
+/engagementTypes:
+  /forApp:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get the list of engagement types produced by an engagement app.
+        
+        Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/engagementTypesForApp.json
+              example: !include ../examples/engagementTypesForApp-simple.json
+    /deltaPings:
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          Consumed by an engagement app to alert any interested parties that the list
+          of engagement types produced by the app has changed.
+        
+          Non-SoT (there may be many listeners).
+
+/global:
+  description: resources which are global in scope and possibly useful to all apps
+  /internalIPMatches:
+    /byIP:
+      /{ip}:
+        get:
+          description: |
+            Return true if the IP passed in falls within one of the ranges known to be internal. Apps can
+            use this to make educated guesses about whether to display, for example, buttons like "employee referral"
+            on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as
+            an indication, and should require the candidate to actually log in and thus be proven an internal
+            before unlocking any actual internal behaviour (e.g. allowing the referral to be made).
+          responses:
+            200:
+              body:
+                text/plain:
+                  example: false
+  /jqueryInclude:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to
+        any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps
+        must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all
+        apps therefore receive the update at once.  
+      responses:
+        200:
+          body:
+            text/html:
+              example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  /candidateTAndCs:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get the url of the terms and conditions that a candidate must accept before creating an account. Any apps that allow
+        candidates to create accounts (such as apply apps) must require the candidate to agree to these.
+      responses:
+        200:
+          body:
+            text/plain:
+              example: https://example.com/candidate/termsAndConditions.html
+/items:
+  /toCandidate:
+    /anonymous:
+      /jobs:
+        /{job}:
+          description: items held on a job that are visible to candidates, e.g. position description document
+          type: items
+          get:
+            is: [ offerEmbedMeta ] 
+          /byName:
+            /{item}:
+              type: item
+              get:
+                is: [ offerEmbedMeta ]
+          /itemMetas:
+            description: |
+              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+            type: itemMetas
+            /byName:
+              /{item}:
+                type: itemMeta
+    /me:
+      description: candidate-visible items held on the candidate themselves, e.g. their own answers when applying for jobs
+      type: items
+      get:
+        is: [ offerEmbedMeta ] 
+      /byName:
+        /{item}:
+          type: item
+          get:
+            is: [ offerEmbedMeta ]
+      /itemMetas:
+        description: |
+          Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+        type: itemMetas
+        /byName:
+          /{item}:
+            type: itemMeta
+      /forJob:
+        /{job}:
+          type: items
+          get:
+            is: [ offerEmbedMeta ] 
+          /byName:
+            /{item}:
+              type: item
+              get:
+                is: [ offerEmbedMeta ]
+          /itemMetas:
+            description: |
+              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+            type: itemMetas
+            /byName:
+              /{item}:
+                type: itemMeta
+      /jobs:
+        /{job}:
+          description: items held on a job that are visible to candidates, e.g. position description document
+          type: items
+          get:
+            is: [ offerEmbedMeta ] 
+          /byName:
+            /{item}:
+              type: item
+              get:
+                is: [ offerEmbedMeta ]
+          /itemMetas:
+            description: |
+              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
+            type: itemMetas
+            /byName:
+              /{item}:
+                type: itemMeta
+
+/jobBoards:
+  description: |
+    Job boards are external sites that a tenant may post their jobs to, as opposed to career sites, which are web portals
+    showing jobs that exist inside the tenant.
+    
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      A rollup of the details of all job boards produced by all apps. SoT.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/jobBoardsForApps.json
+            example: !include ../examples/jobBoardsForApps-simple.json
+  /forApp:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Descriptions of one or more job boards hosted by a specific app. Non-SoT.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobBoards.json
+              example: !include ../examples/jobBoards-simple.json
+
+
+/jobs:
+  description: |
+    Position openings aka vacancies, job openings, etc.
+  get:    
+    securedBy: [oauth_2_0]
+    is: [ tasCollection: { orderingProperties: id, filterCapabilities: "id gt 'n', status eq 'n'", maxTop: 20 } ]
+    description: |
+      Search jobs, returning the candidate-facing information. A POST version of this API provides more searchability.
+    queryParameters:
+      availableInternally:
+        type: boolean
+        description: |
+          Include or exclude jobs that are active and available to internal candidates. Default is false.
+        example: true
+        required: false
+      availableExternally:
+        type: boolean
+        description: |
+          Include or exclude jobs that are active and available to external candidates. Default is true.
+        example: true
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/jobs.json
+            example: !include ../examples/jobs-simple.json
+  /searches:
+    post:
+      securedBy: [oauth_2_0]
+      description: |
+        Search jobs, returning the candidate-facing information.
+
+        The method is a POST solely because the size and number of parameters might get too large for a GET.
+      body:
+        application/json:
+          schema: !include ../schemas/jobSearches.json
+          example: !include ../examples/jobSearches-simple.json
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobs.json
+              example: !include ../examples/jobs-simple.json
+  /byID:
+    /{job}:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get the candidate-facing information for a specific job opening 
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/job.json
+                example: !include ../examples/job-simple.json
+      /description:
+        description: |
+          Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
+          with individual lines demarcated with \n.
+          
+          When a description is fetched, the response will always conform to the safe subset.
+          
+          When a description is uploaded, the request must conform to the safe subset, or it will
+          be rejected.
+          
+          Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
+          Note that this prevents the markdown blockquote syntax from being used in a job description.
+          The safe subset rules may be relaxed in the future.
+           
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the job's description. Job descriptions are formatted using the safe subset
+            of [markdown](https://daringfireball.net/projects/markdown/syntax). 
+          responses:
+            200:
+              body:
+                text/plain:
+                              
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Send notification of a change to the candidate-facing details of a job opening.
+        /toActive:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              Send notification of a change to the candidate-facing details of a job opening, specifically
+              that the job opening has transitioned to active. Useful to feed something like a push job notification system,
+              which does not care about all of the micro delta pings for an opening, just when it becomes newly active.
+        /toPubliclyActive:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              See /jobs/{id}/deltaPings.
+              
+              Send notification of a change to the candidate-facing details of a job opening, specifically
+              that the job opening has become newly publicly active (perhaps it was active before but internal).
+
+      /canApply:
+        description: |
+          Resource indicating whether a candidate can apply or not for given job. An ATS might prevent it
+          if the candidate has already applied, the job might be closed, or there might be more complex rules.
+        /me:
+          get:
+            description: |
+              Find out if the logged in candidate is allowed to apply for this job, and if not why not.
+            is: [ trackable ]
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/canApply.json
+                    example: !include ../examples/canApply-simple.json
+      /filters:
+        /job:
+          get:
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/filterJobs.json
+                    example: !include ../examples/filterJobs-simple.json
+      /workflow:
+        /candidate:
+          get:
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/candidateWorkflow.json
+                    example: !include ../examples/candidateWorkflow-simple.json
+  /recruiterFaces:
+    description: |
+      APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth,
+      the logged in principal would be a user, session decorated as a recruiter.          
+    post:
+      securedBy: [oauth_2_0]
+      description: Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status
+    /{id}:
+      get:
+        securedBy: [oauth_2_0]
+        description: Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.
+      post:
+        securedBy: [oauth_2_0]
+        description: Update an existing opening as a recruiter
+
+/jobSets:
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Non-SoT.
+      
+      Used to bulk upload active jobs for a tenant to a remote job board. See also APIs to:
+      - GET /jobBoards
+      
+      The jobSet is assumed to be the definitive set of jobs for the given tenant, i.e. after the call is complete,
+      if all is well we expect the jobs for this tenant at that board to match the jobSet exactly.
+  
+      Hence the behavior of the producer is something like:
+      - for each job in the jobSet
+      - .search for a matching (by code) job in the database, and with status == active 
+      - .if the job does not exist, create it (producer might also choose to re-open an old one) 
+      - .if the job already exists and has identical details, leave it
+      - .if the job exists but has different details, update it
+      - for each job that exists but was not found in the jobSet for the org, make it not active or delete it     
+
+      Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the tenant.
+  
+      Job codes are unique within a tenant's open jobs at the board.
+
+      The behaviour is not required to be atomic. It is possible that only some changes will be made and for the call to fail
+      after only partially processing the job list.
+    body:
+      application/json:
+        schema: !include ../schemas/jobSet.json
+        example: !include ../examples/jobSet-simple.json
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include ../examples/jobSetResponse-simple.json
+      400:
+        description: Error - See response in RFC 7807 format for more details.
+        body:
+          application/problem+json:
+  /forBoard:
+    /{board}:
+      get:
+        description: |
+          SoT.
+          
+          Get the jobset for this board, typically from a mapper type app that tracks which jobs have been posted where 
+        
+/landingPage:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Produced by apps that want to allow a user viewing the storefront app to click on the app's icon and be offered a link
+      to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.
+      
+      Probably only consumed by storefront apps.
+      
+      SoT: non-SoT (each app has their own landing page).
+      OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)
+       
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/landingPage.json
+            example: !include ../examples/landingPage-simple.json
+
+/panels:
+  /toUser:
+    /me:
+      /jobs:
+        /{job}:
+          type: userAppsPanels
+          /byApp:
+            type: userAppPanels
+    
+/trackers:
+  description: |
+    A tracker represents a single sourcing event (social sharing, automated job alert, etc.).
+    
+    Trackers are organized into trees. The path from a single leaf to the trunk of the tree represents the chain
+    of sourcing events, for example that led a candidate to apply. Each tracker can append meta information (e.g. the employee
+    making an employee referral) to the chain.
+    
+    Trackers can be passed by id into tracker-aware APIs such as POST /candidates.
+    
+    The producers of APIs that create trackers must:
+    - attach the consuming tenant and consuming app (from the incoming OAuth token) onto the
+    tracker itself, so that later access to the tracker can be restricted to the app that created it
+    - reuse rather than create trackers when one exists with identical:
+      - details (e.g. for a session tracker, the user's IP)
+      - consumer
+      - parent tracker
+     
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Create a root tracker (one with no parent).
+    body:
+      application/json:
+        schema: !include ../schemas/tracker.json
+        example: !include ../examples/tracker-createSessionTracker.json
+    responses:
+      201:
+        description: a tracker was created
+        body:
+          application/json:
+            schema: !include ../schemas/meta.json
+            example: !include ../examples/meta-simple.json
+  /byID:
+    /{id}:
+      /chain:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get this tracker, its parent tracker, and so on to the root of the tree.
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/trackers.json
+                  example: !include ../examples/trackers-simple.json
+      /trackers:          
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Create a tracker and attach to the specified parent.
+          body:
+            application/json:
+              schema: !include ../schemas/tracker.json
+              example: !include ../examples/tracker-createMailoutTracker.json
+          responses:
+            201:
+              description: a tracker was created
+              body:
+                application/json:
+                  schema: !include ../schemas/meta.json
+                  example: !include ../examples/meta-simple.json
+
+/recruiters:
+  description: |
+    Recruiters are HR professionals or recruitment specialists who bring talent into the organization.
+    To perform their role, recruiters are trusted with a high degree of access to sensitive information such as salaries,
+    performance management records, etc.
+
+  /byEN:    
+    /{E}:
+      /{N}:
+        get:
+          securedBy: [oauth_2_0]
+          description: |
+            Get the ID of the recruiter role holding for ourselves (the currently logged in principal, who must be of principal type 'user',
+            session decorated as being a recruiter, with a row in the SoT system for recruiters).
+            Calls by apps, typically immediately after a user authenticates in, to get the id of the recruiter role holding.
+             
+            since that is the time to perform identity leap. 
+          queryParameters:
+            email:
+              type: string
+              description: |
+                The verified email address of the logged in recruiter. The endpoint SHOULD use this to identify opportunities for
+                "identity leap", e.g. when someone with an existing user record authenticated by LinkedIn clicks to log in with Google
+                instead, identity leap allows them to switch their {E} and {N} so that henceforth they log in via Google.
+              
+                The endpoint's logic will be something like:
+                - does a user row exist with {E}/{N}?
+                - if so, then return the ID of the user's recruiter role holding if they have one, otherwise http 404
+                - if not, does any user row exist with {E} and {N} being not null, and having the matching email address?
+                - if so, does the existing {E} allow "identity leap away from"? (i.e., is it a non-attribute supplying idp)?
+                
+                There are two classes of idp:
+                - attribute suppliers:
+                   - corporate SSO
+                   - bootstrap idp
+                - non-attribute suppliers:
+                   - backdoor idp (these may have attributes but can inject them via login listening on email match)
+                   - social logins (e.g. Google, LinkedIn)
+                   - email idp
+                   - common SAML (e.g. RealMe)
+                
+                Identity leap is by default not allowed *away* from attribute suppling idps, since leaping away means losing access
+                to the idp-supplied attributes, which may hold vital authorization information. Also, corporate SSO has
+                been put in place for strong security reasons - most corporates would not want it supplanted by other login mechanisms,
+                e.g. login with Google.
+                
+                The only case for turning on "allow identity leap away from" on a corporate idp is probably when that idp is being retired in favour of
+                a new one - a fringe case we aren't going to handle.
+                
+                Leaping *to* attribute supplying idps is powerful - e.g., when the tenant has an existing database of password or Google (or whatever) protected
+                users, and they install a corporate SAML idp, they can disable the existing login methods (which implies TAS needs a disabled flag) and then
+                each user will be forced to switch authentication to the SAML when they next attempt log in.
+                
+                Session decorators should normally decorate based on email address rather than {E}/{N}.
+                
+                This allows the user to swap login mechanisms (e.g. from email to Google) and keep their entitlements.
+                
+                TODO - how, why necessary, step by step.
+                
+                Idp-specific rules can not be applied to non-attribute suppliers. (e.g. can't make *@acme.com an internal when logging
+                in through LinkedIn, but not Google). Instead, rules must be applied either to all non-attribute supplying idps, or
+                to specific attribute supplying idps.
+              
+                TODO: expand on this, considering:
+                - how to broadcast the leap to all apps that have a user database so they can fix their own records for the person
+
+                /m/candidates/byEmail/{email}/identityLeaps:
+              
+                - how/whether to cleanup the email IdP if that is the IdP we are leaping from (similar problem to
+                allowing candidates to delete their own records)
+                - likewise when we leap away from the backdoor idp, we probably can't delete the record, but we need to cleanse it
+                of password information
+              example: fred@acme.com
+              required: false
+            
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          Self-provision a recruiter row for the logged in user (who must have been session decorated as a recruiter) 
+  post:
+    securedBy: [oauth_2_0]
+    description: |
+      Create a recruiter, along with a user, or designate an existing user as being a recruiter. When creating the user,
+      the identity fields need to be set, typically by:
+      - setting {E} to the email IdP, {N} to their email; OR
+      - setting {E} to corporate IdP, {N} to incoming {N}
+  /byID:
+    /{id}:
+      post:
+        securedBy: [oauth_2_0]
+        description: update an existing recruiter and/or their user ('s vcard)
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Alert interested apps that recruiter CRUD has happened. e.g. one might send welcome messages
+            to new recruiters.
+            Probably only useful as non-SoT. 
+      /userFace:
+        get:
+          securedBy: [oauth_2_0]
+          description: get the user-facing details for a recruiter (active flag, user ID, org details, etc.)
+      /user:
+        /vcard:
+          get:
+            securedBy: [oauth_2_0]
+            description: |
+              Get contact details of the recruiter's user record user in the form described by rfc7095.
+              Users are people who are more or less inside the organization. Users may be or take on the role
+              of other types such as recruiter.
+              When called as OAuth, the target must be the logged in user, or one of their coRecruiters.
+  /userFaces:            
+    /searches:
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          Search recruiters, returning user-facing details.
+          When called as OAuth, the logged in recruiter must be passed as a parameter, and the results
+          will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
+          The method is a POST solely because the size and number of parameters might get too large for a GET.
+
+/socialNetworks:
+  get:
+    description: Get the social networks that are enabled for this tenant 
+    securedBy: [oauth_2_0]
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/socialNetworks.json
+            example: !include ../examples/socialNetworks-simple.json
+    
+/workflows:
+  /candidate:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/candidateWorkflows.json
+              example: !include ../examples/candidateWorkflows-simple.json
+    
+    

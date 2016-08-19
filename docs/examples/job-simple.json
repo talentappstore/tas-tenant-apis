@@ -1,0 +1,37 @@
+{
+    "id": 10334355,
+    "status": "active",
+    "availability": {
+        "availableInternally": true,
+        "availableExternally": false,
+        "applicationCloseDates": {
+            "closeDate": "2015-11-05T13:15:30Z",
+            "internalCloseDate": "2015-11-05T13:15:30Z",
+            "externalCloseDate": "2015-11-05T13:15:30Z"
+        },
+        "jobPublishDates": {
+            "publishDate": "2015-11-05T13:15:30Z"
+        }
+    },
+    "code": "1022NH",
+    "title": "Creative Director",
+    "shortSummary": "One of the most exciting positions ever offered",
+    "country": "AU",
+    "categories": [
+        {
+            "category": 1022,
+            "values": [
+                10024
+            ]
+        },
+        {
+            "category": 1026,
+            "values": [
+                10044,
+                10025,
+                10029
+            ]
+        }
+    ]
+}
+

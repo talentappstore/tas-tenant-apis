@@ -1,0 +1,10 @@
+{
+    "campaign": {
+        "campaignKind": "Employee referral",
+        "objectType": "Job",
+        "objectID": 16670
+    },
+    "userArea": {
+      "referredVia": "fred@acme.com"
+    }
+}

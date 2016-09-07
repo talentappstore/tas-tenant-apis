@@ -9,11 +9,17 @@
     "label": {
       "type": "string",
       "description": "label for this career site, e.g. Graduate recruitment site"
+    },
+    "homePage": {
+      "type": "string",
+      "format": "uri",
+      "description": "the homepage for this career site"
     }
   },
   "required": [
     "id",
-    "label"
+    "label",
+    "homePage"
   ],
   "additionalProperties": false
 }

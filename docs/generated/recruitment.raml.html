@@ -2181,7 +2181,8 @@
     "careerSites": [
       {
         "id": 12,
-        "label": "Graduate site"
+        "label": "Graduate site",
+        "homePage": "http://example.com"
       }
     ]
   },
@@ -2190,7 +2191,8 @@
     "careerSites": [
       {
         "id": 12,
-        "label": "November campaign microsite"
+        "label": "November campaign microsite",
+	    "homePage": "http://example.com"
       }
     ]
   }
@@ -2204,7 +2206,8 @@
 </code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
     "id": 12,
-    "label": "Graduate site"
+    "label": "Graduate site",
+    "homePage": "http://example.com"
   }
 ]</code></pre></div><div class="tab-pane" id="careerSites_forApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_careerSites_forApp_byID__site__jobLink__job_"><span class="parent">/careerSites/forApp/byID/{site}/jobLink</span>/{job}</a> <span class="methods"><a href="#careerSites_forApp_byID__site__jobLink__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_careerSites_forApp_byID__site__jobLink__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#careerSites_forApp_byID__site__jobLink__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Convenience API to generate a link to a specific job at a given career site. The consumer could also have generated the URL using the details from GET /careerSites/forApp to achieve the same effect. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="careerSites_forApp_byID__site__jobLink__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/careerSites/forApp/byID/{site}/jobLink</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Convenience API to generate a link to a specific job at a given career site. The consumer could also have generated the URL using the details from GET /careerSites/forApp to achieve the same effect. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#careerSites_forApp_byID__site__jobLink__job__get_request" data-toggle="tab">Request</a></li><li><a href="#careerSites_forApp_byID__site__jobLink__job__get_response" data-toggle="tab">Response</a></li><li><a href="#careerSites_forApp_byID__site__jobLink__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="careerSites_forApp_byID__site__jobLink__job__get_request"><h3>URI Parameters</h3><ul><li><strong>site</strong>: <em>required (string)</em></li><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="careerSites_forApp_byID__site__jobLink__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge</code></pre></div><div class="tab-pane" id="careerSites_forApp_byID__site__jobLink__job__get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_careerSites_primary"><span class="parent">/careerSites</span>/primary</a> <span class="methods"><a href="#careerSites_primary_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_careerSites_primary" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#careerSites_primary_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get details for whichever career site which has been marked as the primary by the tenant. SoT.</p><p>The response is the same as for GET /careerSites, except that only the board which has been marked as the primary is included in the results.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="careerSites_primary_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/careerSites</span>/primary</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get details for whichever career site which has been marked as the primary by the tenant. SoT.</p><p>The response is the same as for GET /careerSites, except that only the board which has been marked as the primary is included in the results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#careerSites_primary_get_response" data-toggle="tab">Response</a></li><li><a href="#careerSites_primary_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="careerSites_primary_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -2239,7 +2242,8 @@
     "careerSites": [
       {
         "id": 12,
-        "label": "Graduate site"
+        "label": "Graduate site",
+	    "homePage": "http://example.com"
       }
     ]
   }

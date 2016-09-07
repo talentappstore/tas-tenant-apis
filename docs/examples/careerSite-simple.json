@@ -1,4 +1,5 @@
   {
     "id": 12,
-    "label": "Graduate site"
+    "label": "Graduate site",
+    "homePage": "http://example.com"
   }

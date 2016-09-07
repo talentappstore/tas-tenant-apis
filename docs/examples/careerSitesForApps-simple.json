@@ -4,7 +4,8 @@
     "careerSites": [
       {
         "id": 12,
-        "label": "Graduate site"
+        "label": "Graduate site",
+        "homePage": "http://example.com"
       }
     ]
   },
@@ -13,7 +14,8 @@
     "careerSites": [
       {
         "id": 12,
-        "label": "November campaign microsite"
+        "label": "November campaign microsite",
+	    "homePage": "http://example.com"
       }
     ]
   }

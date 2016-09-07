@@ -51,6 +51,11 @@
       "format": "date-time",
       "description": "the date on which applications are scheduled to close"
     },
+    "datePosted": {
+      "type": "string",
+      "format": "date-time",
+      "description": "the date on which the job was advertised/posted - downstream job boards may use or ignore"
+    },
     "categories": {
       "$ref": "categoriesActual.json"
     },

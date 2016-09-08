@@ -47,6 +47,19 @@ resourceTypes: !include resources.yml
             /{action}:
               /byApp:
                 type: candidateAppAction
+          /satisfy:
+            /{purpose}:
+              description: |
+                The purpose (as per the semantics section of a candidate facing action's production) to be satisfied
+              post:
+                securedBy: [oauth_2_0]
+                description: |
+                  Mark this candidate as qualified for a particular purpose (e.g. to apply) on a job.
+                  
+                  SoT.
+                responses:
+                  200:
+                
       /search:
         type: candidateAppsActions
         /asHtml:

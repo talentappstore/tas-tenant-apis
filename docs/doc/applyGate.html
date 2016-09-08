@@ -35,29 +35,52 @@
 <h1>Apply gate apps</h1>
 
 <p>An apply gate app lets a customer selectively prevent candidates from applying for selected job(s) until they
-have successfully completed some qualifying/pre-requisite stage (i.e., your app). 
+have successfully completed some qualifying/pre-requisite stage.
+</p>
+
+<p>Your app acts as a gate - candidates can't apply until your app says so.
 </p>
 
 <p>Examples:
 <ul>
-<li>Ask candidates to agree to a set of non-negotiables before applying
+<li>Ask candidates to agree to a set of non-negotiables before applying, e.g. mandatory skills
 <li>Only allow candidates to apply who are not from countries with draconian data security laws
-<li>Have candidates complete a culture/fit analysis before applying  
+<li>Have candidates complete a culture/fit analysis before applying
+</p>
+
+<p>An apply gate app works by suppressing the apply button(s) on a job. Once the customer adds your button to a job,
+the apply buttons no longer appear to the candidate.
+</p>
+
+<p>Once the candidate has clicked on your button, and then passed your gate - e.g. some kind
+of quiz within your app - your app marks the candidate as having satisfied the gate and redirects them back to the job. The candidate returns
+to the job and now sees the apply button(s) and can apply.
+</p>
+
+<p>Gates can be used for any type of button (print/apply/whatever), but to keep the documentation simple we only talk about apply gates.
+</p>
+
+<h1>Choosing whether to use SSO</h1>
+
+<p>TAS provides an easy way for you to add SSO (single sign on) to your app. If some or all of your app's web pages are SSO protected,
+then candidates must sign in before they can see them. The actual sign in mechanism is dictated by the customer - for example, candidates
+might be able to sign in using Facebook, Google or the corporate SAML IdP. Your app does not need to deal with any of the complexities of
+this. It can just assume that any traffic in to your web pages is from already authenticated candidates, and can grab candidate details
+(first name,)last name, email address) from http request headers.
+</p>
+
+<p>SSO is optional, and you can build an apply gate app without it. But using SSO gives you some advantages:
+<ul>
+<li>Without SSO, canny candidates might fail your test, but then just try again straight away. You could prevent this using cookies, but they might
+try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their ID, so you can
+tell straight away if this is a new or returning candidate.
+<li>In the future APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
+so that a recruiter/hiring manager can view them. Those APIs will require that you have the candidate's identity, which you can only get if your app uses SSO.
+Without this, your app can't attach results (other than a simple "they've passed"). This may or may not be a problem depending on what your app is testing for
+(e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
 </ul>
-</p>
 
-<p>An apply gate app works by suppressing the apply button(s) on a job. Once some condition
-to do with the candidate has been met (e.g. the candidate has passed some kind of quiz), the apply gate
-can mark the candidate as having satisfied the gate. It does this by redirecting the candidate to a page
-hosted by switchgear. Afterwards, the candidate returns to the job and now sees the apply button(s) and can apply.
-</p>
-
-<p>The way this works is general, and can be used for any button (print/apply/whatever), but we talk about apply gate here as that's the only known case right now.
-</p>
-
-<p>There is currently no mechanism for passing results from the apply gate (e.g. their quiz results) through to the apply process. However if the apply gate uses the TAS SSO system, then it can store such information against the candidate and make it available inside the ATS, e.g. via the universal menu.
-</p>
-
+  
 <h1>How it works</h1>
 
 <h2>Install and tenant setup</h2>
@@ -107,7 +130,8 @@ fit analysis, then there's no need to make the candidate complete that for every
 <p>At runtime, when a candidate views a job, the careers site app asks the switchgear app for all candidate-facing buttons (share, print, apply, etc.).
 </p>
 
-<p>To respond, your app must produce two APIs.
+<p>To respond, your app must produce two APIs (one for logged in candidates and one for anonymous ones) that pass back button details, like text, color, link, etc.
+</p>
 
 <div class='codeBlock'>
 GET /actions/byCandidate/me/general/byName/{action}/byApp
@@ -118,7 +142,11 @@ Response:
 </div>
 </p>
 
-<p>In this example:
+<p>If your app does not use SSO, you'll pass back the same results for both APIs. If you do use SSO, you might respond differently to the /me API - for
+example, don't show the button at all if the candidate has already completed your test.
+</p>
+
+<p>In the response above:
 
 <ul>
 <li><b>name</b> corresponds to the actionName from previously.
@@ -128,13 +156,11 @@ rather than seeing your web page in an iframe inside a modal.
 </ul>
 </p>
 
-<p>having fetched all other buttons for the job, switchgear then filters out all of those buttons that (a) have a purpose (like "apply")
-and (b) there exists at least one enabled gate button for that purpose which is not yet satisfied (i.e., your button). Switchgear displays
-the first unsatisfied gate button, but no others.
+<p>You only need to worry about your own button. Under the covers, another app (e.g. switchgear) will fetch yours and all other buttons for the job.
+It then filters out all of those buttons that (a) have a purpose (like "apply") and (b) there exists at least one enabled gate button for that
+purpose which is not yet satisfied (i.e., your button). Switchgear displays the first unsatisfied gate button, but no others.
 </p>
 
-<p>From the tenant's point of view, adding an apply gate button to a job has the effect of hiding the apply button(s) until that gate is satisfied.
-</p>
 
 <h2>Candidate completes the pre-apply experience</h2>
 
@@ -144,17 +170,24 @@ the first unsatisfied gate button, but no others.
 <p>They now arrive at your app's web site, where they do their thing, whatever that is (e.g. complete an online quiz).
 </p>
 
-<p>If your apply gate app requires login (maybe to save the candidate's data so they can start the quiz on a mobile
-device and complete it on desktop), then it is strongly recommended that TAS single sign on (SSO) is used for the best candidate experience.
+<p>If your app uses SSO (maybe to save the candidate's data so they can start the quiz on a mobile
+device and complete it on desktop), then your link will be to an SSO-protected page within your app.
 </p>
 
 <p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply.
 </p>
 
-<p>If the apply gate app uses SSO then you can call the satisfy API directly.
+<p>There are two ways your app can signal that a candidate has passed your gate.
+</p>
+ 
+<p>If your app uses SSO, you can call the satisfy API directly:
+
+<div class='codeBlock'>
+POST /actions/byCandidate/me/jobs/{job}/satisfy/{purpose}
+</div>
 </p>
 
-<p>Otherwise (no SSO), your app requests a "satisfy link" from switchgear, and then presents it to the candidate to click on.
+<p>If your app does not use SSO, your app requests a "satisfy link" from switchgear, and then redirects the candidate there:
 
 <div class='codeBlock'>
 GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{purpose}?relayPage=blah&tracker=blah?message=Good+news
@@ -172,15 +205,12 @@ they've completed the satisfy operation.
 </ul>
 </p>
 
-<p>
-ISSUES: need to document the /me case.
-</p>
+<h2>Candidate satisfies the gate (non-SSO)</h2>
 
-<h2>Candidate satisfies the gate</h2>
+<p>When your app does not use SSO, you can't make the API call to record the pass directly. Instead, your app requests a satisfy link, then
+redirects the candidate to the satisfy page. The page requires them to authenticate
+using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied and redirects them to the relay page.
 
-<p>The candidate clicks the satisfy link and goes through to the satisfy page. The page requires them to authenticate
-using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied
-(either for this specific job, or for the button as a whole) and displays something like this, with your message at the top:
 
 <div class='codeBlock'>
 +---------------

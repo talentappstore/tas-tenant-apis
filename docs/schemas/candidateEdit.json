@@ -39,9 +39,7 @@
                     "$ref": "#/definitions/categoriesPatch"
                 },
                 "items": {
-                  "description": "an opaque json object probably similar to the edit spec",
-                  "type": "object",
-                  "additionalProperties": true
+                  "$ref": "items.json"
                 }
             },
             "additionalProperties": false
@@ -53,9 +51,7 @@
                     "type": "integer"
                 },
                 "items": {
-                  "description": "an opaque json object probably similar to the edit spec",
-                  "type": "object",
-                  "additionalProperties": true
+                  "$ref": "items.json"
                 }
             },
             "additionalProperties": false

@@ -1,0 +1,728 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "tas-answer",
+  "description": "An item anwser",
+  "definitions": {
+
+    "tas-file": {
+      "description": "Uploaded file",
+      "type": "object",
+      "properties": {
+        "mimeType":   { "type": "string" },
+        "data":       { "type": "base64" },
+        "name":       { "type": "string" },
+        "via":        { "type": "string" },
+        "url":        { "type": "string" },
+        "confirmUrl": { "type": "string" }
+      }
+    },
+
+    "tas-stringAnswer": {
+      "description": "Schema for string answer",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-chronoAnswer": {
+      "description": "Schema for string answer",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-singleLineAnswer": {
+      "description": "Schema for singleLine answer",
+      "allOf": [
+         { "$ref": "#/definitions/tas-stringAnswer" },
+         { "properties": {
+             "type": {
+               "type": "string",
+               "default": "singleLine"
+             }
+           }
+         }
+      ]
+    },
+
+    "tas-multilineAnswer": {
+      "description": "Schema for multiline answer",
+      "allOf": [
+         { "$ref": "#/definitions/tas-stringAnswer" },
+         { "properties": {
+             "type": {
+               "type": "string",
+               "default": "multiline"
+             }
+           }
+         }
+      ]
+    },
+
+    "tas-numberAnswer": {
+      "description": "Schema for number answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "number"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "number",
+          "multipleOf" : 1,
+          "minimum": -2147483648,
+          "maximum": 2147483647
+        }
+      }
+    },
+
+    "tas-boolAnswer": {
+      "description": "Schema for boolean answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "bool"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "boolean"
+        }
+      }
+    },
+
+    "tas-resumeAnswer": {
+      "description": "Schema for resume answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "resume"
+            },
+            "job": {
+              "description": "ID for the job associated with this item",
+              "type": "string"
+            },
+            "candidate": {
+              "description": "ID for the candidate associated with this item",
+              "type": "string"
+            },
+            "isTyped": {
+              "description": "Was the resume typed rather than sent as a file",
+              "type": "boolean",
+              "default": "false"
+            },
+            "typedString": {
+              "description": "The answer if the resume was typed rather than uploaded",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-imageAnswer": {
+      "description": "Schema for image answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "image"
+            },
+            "format": {
+              "description": "Mime type of file",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-signatureAnswer": {
+      "description": "Schema for signature answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "signature"
+            },
+            "signatureString": {
+              "description": "String of signature",
+              "type": "string"
+            },
+            "dateSigned": {
+              "description": "Date (YYYY-MM-DD) when signature was captured",
+              "type": "string"
+            },
+            "authority": {
+              "description": "Organization that verifies signature",
+              "type": "string"
+            },
+            "authorityReferenceId": {
+              "description": "Reference ID for signature",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-documentAnswer": {
+      "description": "Schema for document answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "document"
+            },
+            "signed": {
+              "description": "Is this a signed document",
+              "type": "boolean"
+            },
+            "signature": {
+              "description": "Signature answer",
+              "type": "object",
+              "allOf": [ { "$ref": "#/definitions/tas-signatureAnswer" } ]
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-audioAnswer": {
+      "description": "Schema for aduio answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "audio"
+            },
+            "language": {
+              "description": "Recorded language",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-videoAnswer": {
+      "description": "Schema for video answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "video"
+            },
+            "language": {
+              "description": "Recorded language",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-avatarAnswer": {
+      "description": "Schema for avatar answer",
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/definitions/tas-file" },
+        { "properties": {
+            "type": {
+              "type": "string",
+              "default": "avatar"
+            },
+            "language": {
+              "description": "Recorded language",
+              "type": "string"
+            },
+            "imageType": {
+              "description": "What type of image was used for avatar",
+              "enum": ["gallery", "custom", "generated"]
+            },
+            "user": {
+              "description": "Unique ID for the user represented by avatar",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
+    "tas-profileAnswer": {
+      "description": "Schema for profile answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "profile"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        },
+        "network": {
+          "description": "Name of the social network",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-urlAnswer": {
+      "description": "Schema for url answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "url"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "string",
+          "pattern": "^(?!mailto:)(?:(?:http|https|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$"
+        }
+      }
+    },
+
+    "tas-phoneAnswer": {
+      "description": "Schema for phone answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "phone",
+          "default": "boolean"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        },
+        "phoneType": {
+          "description": "Type of phone number",
+          "type": "string"
+        },
+        "country": {
+          "description": "ISO 3166-1 three-letter country code for this number",
+          "type": "string"
+        },
+        "format": {
+          "description": "Format pattern for number, example: '+N (NNN) NNN-NNNN NNN'",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-emailAnswer": {
+      "description": "Schema for item answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "email"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-enumAnswer": {
+      "description": "Schema for enum answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enum"
+        },
+        "value": {
+          "description": "Selection for this item",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-enumMultAnswer": {
+      "description": "Schema for enum multi-select answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enumMulti"
+        },
+        "value": {
+          "description": "Selections for this item",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "tas-enumDetailsAnswer": {
+      "description": "Schema for enum with more details answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enumDetails"
+        },
+        "value": {
+          "description": "Selections and details for this item",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "choice":  {"type": "string"},
+              "details": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+
+    "tas-enumQuestionsAnswer": {
+      "description": "Schema for enum with more questions answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "enumQuestions"
+        },
+        "value": {
+          "description": "Selections and details for this item",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "choice":  {"type": "string"},
+              "answers": {
+                 "type": "array",
+                 "items": {
+                    "allOf": { "$ref": "#" }
+                 }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "tas-categoryAnswer": {
+      "description": "Schema for category answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "catergory"
+        },
+        "value": {
+          "description": "Selections for this item",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "tas-geoLocationAnswer": {
+      "description": "Schema for geo location answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "geolocation"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        }
+      }
+    },
+
+    "tas-sheetAnswer": {
+      "description": "Schema for sheet answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "sheet"
+        },
+        "rows": {
+          "description": "Array of submitted rows",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "column": {"type": "string"},
+              "value":  {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+
+    "tas-wysiwygAnswer": {
+      "description": "Schema for wysiwyg answer",
+      "allOf": [
+         { "$ref": "#/definitions/tas-stringAnswer" },
+         { "properties": {
+             "type": {
+               "type": "string",
+               "default": "wysiwyg"
+             }
+           }
+         }
+      ]
+    },
+
+    "tas-addressAnswer": {
+      "description": "Schema for address answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "address"
+          },
+          "addressType": { "type": "string" },
+          "street":      { "type": "string" },
+          "city":        { "type": "string" },
+          "state":       { "type": "string" },
+          "country":     { "type": "string" },
+          "postCode":    { "type": "string" }
+        }
+      }
+    },
+
+    "tas-employementAnswer": {
+      "description": "Schema for employement answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "employement"
+          },
+          "employmentType": { "type": "string" },
+          "employeer":      { "type": "string" },
+          "startDate":      { "type": "string" },
+          "endDate":        { "type": "string" },
+          "position":       { "type": "string" },
+          "duties":         { "type": "string" }
+        }
+      }
+    },
+
+    "tas-referenceAnswer": {
+      "description": "Schema for reference answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "reference"
+          },
+          "name":          { "type": "string" },
+          "relation":      { "type": "string" },
+          "directManager": { "type": "boolean" },
+          "phone1":        { "type": "string" },
+          "phone2":        { "type": "string" },
+          "email":         { "type": "string" }
+        }
+      }
+    },
+
+    "tas-certificateAnswer": {
+      "description": "Schema for certificate answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "certificate"
+          },
+          "name":         { "type": "string" },
+          "dateIssued":   { "type": "string" },
+          "dateExpires":  { "type": "string" },
+          "authority":    { "type": "string" },
+          "authAddress":  { "type": "string" }
+        }
+      }
+    },
+
+    "tas-volunteerAnswer": {
+      "description": "Schema for volunteer answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "volunteer"
+          },
+          "name":          { "type": "string" },
+          "organization":  { "type": "string" },
+          "startDate":     { "type": "string" },
+          "endDate":       { "type": "string" },
+          "role":          { "type": "string" },
+          "contact":       { "type": "string" }
+        }
+      }
+    },
+
+    "tas-skillAnswer": {
+      "description": "Schema for skill answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "skill"
+          },
+          "name": "string"
+        }
+      }
+    },
+
+    "tas-educationAnswer": {
+      "description": "Schema for education answer",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "default": "education"
+          },
+          "educationType": { "type": "string" },
+          "degree":        { "type": "string" },
+          "dateStarted":   { "type": "string" },
+          "dateGraduated": { "type": "string" },
+          "institution":   { "type": "string" },
+          "gpa":           { "type": "string" }
+        }
+      }
+    },
+
+    "tas-dateAnswer": {
+      "description": "Schema for date answer",
+      "allOf": [
+         { "$ref": "#/definitions/tas-chronoAnswer" },
+         { "properties": {
+             "type": {
+               "type": "string",
+               "default": "date"
+             }
+           }
+         }
+      ]
+    },
+
+    "tas-timeAnswer": {
+      "description": "Schema for time answer",
+      "allOf": [
+         { "$ref": "#/definitions/tas-chronoAnswer" },
+         { "properties": {
+             "type": {
+               "type": "string",
+               "default": "time"
+             }
+           }
+         }
+      ]
+    },
+
+    "tas-datetimeAnswer": {
+      "description": "Schema for datetime answer",
+      "allOf": [
+         { "$ref": "#/definitions/tas-chronoAnswer" },
+         { "properties": {
+             "type": {
+               "type": "string",
+               "default": "datetime"
+             }
+           }
+         }
+      ]
+    },
+
+    "tas-salaryAnswer": {
+      "description": "Schema for salary answer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "salary"
+        },
+        "value": {
+          "description": "Answer for this item",
+          "type": "string"
+        }
+      }
+    }
+
+  },
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/definitions/tas-stringAnswer" },
+    { "$ref": "#/definitions/tas-multilineAnswer" },
+    { "$ref": "#/definitions/tas-numberAnswer" },
+    { "$ref": "#/definitions/tas-boolAnswer" },
+    { "$ref": "#/definitions/tas-resumeAnswer" },
+    { "$ref": "#/definitions/tas-imageAnswer" },
+    { "$ref": "#/definitions/tas-signatureAnswer" },
+    { "$ref": "#/definitions/tas-documentAnswer" },
+    { "$ref": "#/definitions/tas-audioAnswer" },
+    { "$ref": "#/definitions/tas-videoAnswer" },
+    { "$ref": "#/definitions/tas-avatarAnswer" },
+    { "$ref": "#/definitions/tas-profileAnswer" },
+    { "$ref": "#/definitions/tas-urlAnswer" },
+    { "$ref": "#/definitions/tas-phoneAnswer" },
+    { "$ref": "#/definitions/tas-emailAnswer" },
+    { "$ref": "#/definitions/tas-enumAnswer" },
+    { "$ref": "#/definitions/tas-enumMultiAnswer" },
+    { "$ref": "#/definitions/tas-enumDetailsAnswer" },
+    { "$ref": "#/definitions/tas-categoryAnswer" },
+    { "$ref": "#/definitions/tas-geolocationAnswer" },
+    { "$ref": "#/definitions/tas-sheetAnswer" },
+    { "$ref": "#/definitions/tas-wysiwygAnswer" },
+    { "$ref": "#/definitions/tas-addressAnswer" },
+    { "$ref": "#/definitions/tas-employementAnswer" },
+    { "$ref": "#/definitions/tas-referenceAnswer" },
+    { "$ref": "#/definitions/tas-certificateAnswer" },
+    { "$ref": "#/definitions/tas-volunteerAnswer" },
+    { "$ref": "#/definitions/tas-referencesAnswer" },
+    { "$ref": "#/definitions/tas-educationAnswer" },
+    { "$ref": "#/definitions/tas-dateAnswer" },
+    { "$ref": "#/definitions/tas-timeAnswer" },
+    { "$ref": "#/definitions/tas-datetimeAnswer" },
+    { "$ref": "#/definitions/tas-salaryAnswer" }
+  ]
+}

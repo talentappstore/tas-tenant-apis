@@ -74,7 +74,10 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "type": "array",
+          "items": {
+            "$ref": "itemMeta.json"
+          }
         }
       },
       "additionalProperties": false
@@ -93,7 +96,10 @@
           "$ref": "#/definitions/vCardRule"
         },
         "itemsRule": {
-          "$ref": "jsonSchemaSchema.json"
+          "type": "array",
+          "items": {
+            "$ref": "itemMeta.json"
+          }
         }
       },
       "required": [

@@ -46,6 +46,7 @@ have successfully completed some qualifying/pre-requisite stage.
 <li>Ask candidates to agree to a set of non-negotiables before applying, e.g. mandatory skills
 <li>Only allow candidates to apply who are not from countries with draconian data security laws
 <li>Have candidates complete a culture/fit analysis before applying
+</ul>
 </p>
 
 <p>An apply gate app works by suppressing the apply button(s) on a job. Once the customer adds your button to a job,
@@ -156,9 +157,27 @@ rather than seeing your web page in an iframe inside a modal.
 </ul>
 </p>
 
-<p>You only need to worry about your own button. Under the covers, another app (e.g. switchgear) will fetch yours and all other buttons for the job.
-It then filters out all of those buttons that (a) have a purpose (like "apply") and (b) there exists at least one enabled gate button for that
-purpose which is not yet satisfied (i.e., your button). Switchgear displays the first unsatisfied gate button, but no others.
+<p>You only need to worry about your own button.
+</p>
+
+<p>Under the covers, at the point the job page is displayed, another app (e.g. switchgear)
+will decide which buttons to display on it as follows:
+
+<ol>
+<li>Switchgear fetches yours and all other possible buttons for the job.
+<li>Some of those buttons may return 404 indicating they aren't to be displayed.
+<li>Switchgear now has a full list (the "displayable list") of all buttons that wish to be displayed.
+<li>Now switchgear selectively removes buttons as follows
+<li>Switchgear filters out any displayable buttons that:
+<ul>
+<li>have a purpose (like "apply"); and
+<li>are not gate buttons; and
+<li>where there exists at least one displayable gate button for that purpose which is not yet satisfied (e.g., your button).
+</ul>
+In other words, switchgear won't display any apply buttons if there is at least one apply gate that the candidate hasn't completed.
+<li>Switchgear then filters out all but the first unsatisfied gate button for each purpose. So if there were 10 gates the candidate
+had to get through before they could apply, they would only see each gate after completing the previous one.
+</ol>
 </p>
 
 

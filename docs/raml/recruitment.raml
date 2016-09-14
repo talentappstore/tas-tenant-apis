@@ -148,6 +148,8 @@ resourceTypes: !include resources.yml
         type: candidateAppsPossibleActions
         /byApp:
           type: candidateAppPossibleActions
+          /deltaPings:
+            type: candidateAppPossibleActionsDelta
     /job:
       description: |
         Job-level actions seen by candidates are typically embedded in job details pages, e.g. "apply", "share this job", etc.
@@ -179,6 +181,8 @@ resourceTypes: !include resources.yml
                       /{job}:
                         description: setup page for values that affect only this job 
                         type: actionSetupPage
+          /deltaPings:
+            type: candidateAppPossibleActionsDelta
     /search:
       description: |
         Search-scoped actions seen by candidates are typically embedded in job search results pages, e.g. "tell me when new jobs like this arrive", etc.
@@ -186,6 +190,8 @@ resourceTypes: !include resources.yml
         type: candidateAppsPossibleActions
         /byApp:
           type: candidateAppPossibleActions
+          /deltaPings:
+            type: candidateAppPossibleActionsDelta
 
 
 /applications:

@@ -82,14 +82,15 @@ Without this, your app can't attach results (other than a simple "they've passed
 </ul>
 
   
-<h1>How it works</h1>
+<h1>Sequence of events</h1>
 
-<h2>Install and tenant setup</h2>
+<h2>Tenant installs your app</h2>
 
-<p>The tenant installs the apply gate app.
+<p>The tenant installs your apply gate app. This triggers other apps (such as the coordinating app - e.g. switchgear) to ask
+your app about all the buttons it may possibly ever produce for a candidate to see on a job.
 </p>
 
-<p>Your apply gate app produces an API to declare that it produces a candidate facing action (i.e. a button).
+<p>Your apply gate app supports this by producing an API that declares its candidate facing buttons:
 <div class='codeBlock'>
 GET /actions/byCandidate/job/possibles/byApp
 
@@ -102,7 +103,6 @@ Response:
 The data that you are passing back in this example is as follows:
 
 <ul>
-
 <li><b>actionName</b> is the key for your button. Users recognise your button by this as they perform setup, e.g. controlling which
 jobs your button appears on. It should be unique among all buttons your app produces (if more than one). If you have only one button,
 consider using your company or app name.
@@ -118,21 +118,55 @@ perhaps add some sales-specific questions).
 In this case, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
 and then later applies for another job, they won't need to re-perform your process. For example, if your button is for a company-side culture
 fit analysis, then there's no need to make the candidate complete that for every job they apply for.
-  
 </ul>
-
-
-<p>The tenant uses the switchgear app to add the button to a job using the normal mechanisms. For example they might apply the button to all jobs, just to sales jobs, or just to a specific job (e.g. for testing).
 </p>
 
+<h2>Your app vs the coordinating app</h2>
+
+<p>The tenant may have a number of button-producing apps like yours installed. They may also want different combinations of those buttons
+shown to different candidates (e.g. internal vs external) on different jobs.
+</p>
+
+<p>This complexity is handled via a coordinating app (such as switchgear)
+that manages rolling buttons from all installed apps up into the set that a candidate sees on any particular job. 
+</p>
+
+<p>For example the customers might use switchgear to apply your button to all jobs, just to sales jobs, or just to a specific job (e.g. for testing).
+</p>
+
+<h2>If your app changes the buttons it produces</h2>
+
+<p>Normally the coordinating app (e.g. switchgear) will call the API to learn about your app's buttons at the time your app is installed. That will work
+fine, as long as your app doesn't change its set of buttons after its been installed.
+</p>
+
+<p>However if your app does add new buttons (or remove or change existing ones) after install, then it should alert other interested apps of that by consuming:
+
+<div class='codeBlock'>
+POST /actions/byCandidate/job/possibles/byApp
+
+Response:
+<div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
+</div>
+</p>
+
+<p>This acts as a hint to switchgear (or any other app that cares) that it should re-scan your possible buttons, since they may have changed.
+</p>
 
 <h2>Candidate views the job</h2>
 
-<p>At runtime, when a candidate views a job, the careers site app asks the switchgear app for all candidate-facing buttons (share, print, apply, etc.).
+<p>At runtime, when a candidate views a job, the careers site app asks switchgear for a rollup of all
+candidate-facing buttons (share, print, apply, etc.).
 </p>
 
-<p>To respond, your app must produce two APIs (one for logged in candidates and one for anonymous ones) that pass back button details, like text, color, link, etc.
+<p>Switchgear already knows that your button may possibly produce a button - it now asks whether it actually does for this job and candidate, and if so,
+for the button's precise details (text, color, etc.) 
 </p>
+
+<p>To respond, your app must produce two APIs, one for logged in candidates and one for anonymous ones.
+</p>
+
+<p>In your response, you pass back button details, like text, color, link, etc.
 
 <div class='codeBlock'>
 GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp
@@ -157,18 +191,21 @@ rather than seeing your web page in an iframe inside a modal.
 </ul>
 </p>
 
-<p>You only need to worry about your own button.
+<h2>How gates are applied</h2>
+
+<p>Although you only need to worry about your own button, it can be useful to understand the bigger picture of how switchgear decides which buttons
+the candiate should see.
 </p>
 
-<p>Under the covers, at the point the job page is displayed, another app (e.g. switchgear)
-will decide which buttons to display on it as follows:
+<p>At the point the job page is displayed, the coordinating app (e.g. switchgear) will decide which buttons to display on it as follows:
 
 <ol>
-<li>Switchgear fetches yours and all other possible buttons for the job.
+<li>switchgear already knows all the buttons that may possibly be displayed.
+<li>switchgear now fetches the actual details for your button(s) and all other possible buttons for the job.
 <li>Some of those buttons may return 404 indicating they aren't to be displayed.
-<li>Switchgear now has a full list (the "displayable list") of all buttons that wish to be displayed.
+<li>switchgear now has a full list (the "displayable list") of all buttons that wish to be displayed.
 <li>Now switchgear selectively removes buttons as follows
-<li>Switchgear filters out any displayable buttons that:
+<li>switchgear filters out any displayable buttons that:
 <ul>
 <li>have a purpose (like "apply"); and
 <li>are not gate buttons; and
@@ -196,7 +233,7 @@ device and complete it on desktop), then your link will be to an SSO-protected p
 <p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply.
 </p>
 
-<p>There are two ways your app can signal that a candidate has passed your gate.
+<p>There are two ways that your app can signal that a candidate has satisfied your gate.
 </p>
  
 <p>If your app uses SSO, you can call the satisfy API directly:

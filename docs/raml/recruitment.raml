@@ -48,17 +48,32 @@ resourceTypes: !include resources.yml
               /byApp:
                 type: candidateAppAction
           /satisfy:
-            /{purpose}:
+            /{actionName}:
               description: |
-                The purpose (as per the semantics section of a candidate facing action's production) to be satisfied
+                The name of an action button that should now be marked as satisfied.
               post:
                 securedBy: [oauth_2_0]
                 description: |
-                  Mark this candidate as qualified for a particular purpose (e.g. to apply) on a job.
+                  The name of the action button, belonging to the app that is consuming the API, that should now be marked as satisfied,
+                  for the given job and candidate. If the action is marked as canReuse, then this would also imply that the same
+                  action button is satisfied by all other jobs now and in the future as well.
                   
                   SoT.
                 responses:
                   200:
+              /byApp:
+                /{app}:
+                  post:
+                    securedBy: [oauth_2_0]
+                    description: |
+                      The name of the action button, belonging to the app that is passed in the URL, that should now be marked as satisfied,
+                      for the given job and candidate. This API is more powerful than the form that does not accept app as a url parameter,
+                      as it allows any button to be marked as satisfied on any app.
+                  
+                      SoT.
+                    responses:
+                      200:
+                
       /search:
         type: candidateAppsActions
         /asHtml:
@@ -93,9 +108,9 @@ resourceTypes: !include resources.yml
               /byApp:
                 type: candidateAppAction
           /satisfyLink:
-            /{purpose}:
+            /{actionName}:
               description: |
-                The purpose (as per the semantics section of a candidate facing action's production) to be satisfied
+                The name of an action button, belonging to the app that is consuming the API, that is to be marked as satisfied by someone following the link
               get:
                 securedBy: [oauth_2_0]
                 is: [trackable, hasRelayPage ]
@@ -107,7 +122,7 @@ resourceTypes: !include resources.yml
                     example: Congratulations! You can apply for this job now.
                     required: true
                 description: |
-                  Obtain a link that a candidate can use to mark themselves as qualified for a particular purpose (e.g. to apply) on a job.
+                  Obtain a link that a candidate can use to mark themselves as having satisfied the given action button on a job.
                   When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the
                   given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.
                   

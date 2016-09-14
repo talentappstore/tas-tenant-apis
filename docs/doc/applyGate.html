@@ -135,8 +135,8 @@ fit analysis, then there's no need to make the candidate complete that for every
 </p>
 
 <div class='codeBlock'>
-GET /actions/byCandidate/me/general/byName/{action}/byApp
-GET /actions/byCandidate/anonymous/general/byName/{action}/byApp
+GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp
+GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp
 
 Response:
 <div class='clientInclude' data-href='../examples/action-applyGate.json'></div>
@@ -202,14 +202,14 @@ device and complete it on desktop), then your link will be to an SSO-protected p
 <p>If your app uses SSO, you can call the satisfy API directly:
 
 <div class='codeBlock'>
-POST /actions/byCandidate/me/jobs/{job}/satisfy/{purpose}
+POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
 </div>
 </p>
 
 <p>If your app does not use SSO, your app requests a "satisfy link" from switchgear, and then redirects the candidate there:
 
 <div class='codeBlock'>
-GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{purpose}?relayPage=blah&tracker=blah?message=Good+news
+GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName}?relayPage=blah&tracker=blah?message=Good+news
 
 Response:
 https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
@@ -252,6 +252,19 @@ using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediate
 <p>If the button requires some per-job or default setup then a setup page can be declared. The tenant will be prompted to complete
 setup when the add the button to a job or as a default for a group of jobs.
 </p>  
+
+<h1>General actions</h1>
+
+<p>As well as adding gates onn job actions, you can also gate general actions (such as registering).
+</p>
+
+<pre>
+GET /actions/byCandidate/me/general/byName/{action}/byApp
+GET /actions/byCandidate/anonymous/general/byName/{action}/byApp
+</pre>
+
+
+
 
 
 <script>

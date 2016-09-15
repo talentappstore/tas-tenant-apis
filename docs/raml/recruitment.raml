@@ -1155,6 +1155,30 @@ resourceTypes: !include resources.yml
             schema: !include ../schemas/landingPage.json
             example: !include ../examples/landingPage-simple.json
 
+/menuedApps:
+  description: These APIs are for the universal menu that many apps inject into their UI. 
+  /byUser:
+    description: These are menued apps that get displayed to users (as opposed to e.g. candidates, though currently there's no universal menu for anyone but users)
+    /headHtml:
+      get:
+        description: |
+          Get html head snippet (typically an include of a stylesheet) used to style the html for the universal menu.
+              
+          The app building the page that embeds the universal menu must insert the results of this API call in its head section.
+        responses:
+          200:
+            body:
+              text/html:
+                example: some html pulling in stylesheet, javascript etc.
+    /me:
+      description:
+        All APIs beneath here are operating on behalf of the logged in user.
+      /jobs:
+        /{job}:
+          type: menuedAppInquiry
+          /asHtml:
+            type: universalMenuBody
+
 /panels:
   /toUser:
     /me:

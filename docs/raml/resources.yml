@@ -1,5 +1,45 @@
 #%RAML 0.8
 
+- universalMenuBody:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get the html to display the universal menu.
+             
+        The app building the page that embeds the universal menu must in its head section pull in the corresponding style sheet,
+        javascript, etc. as obtained via separate API call.
+        
+        SoT.
+      responses:
+        200:
+          body:
+            text/html:
+              example: some html containing a strip of buttons, using only styles from the headHtml call
+
+- menuedAppInquiry:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        This API is called to ask an app whether it wants to be displayed in the universal menu for the given context (e.g. for a specific job)
+        
+        The producing app should decide whether it has anything meaningful to display for this specific context, and if so
+        it should return a link, which will be inected into the universal menu. For example, if the context is job 100, then an ATS app likely
+        would inject the URL of its job details page for that job.
+        
+        Apps should not inject themselves in a spammy way (i.e. when they have nothing relevant to this context). The user
+        can always get to the app via the storefront, and will find the spammy behaviour annoying, so there is no need to do this.
+
+        Non-SoT.
+      responses:
+        200:
+          description: The app has a link to be injected into the universal menu. 
+          body:
+            text/plain:
+              example: a link
+        404:
+          description: The app does not want to be injected into the universal menu.
+
+
 - actionSetupPage:
     get:
       securedBy: [oauth_2_0]

@@ -2,35 +2,20 @@
   "name": "cover letter",
   "value": {
     "raw": {
+      "type": "document",
       "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
-      "fileName": "coverletter.docx",
+      "name": "coverletter.docx",
       "via": "dropbox.com",
-      "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+      "url": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
     },
     "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
   },
   "meta": {
-    "type": "object",
-    "title": "Cover letter",
-    "format": "tas-fileUpload",
+    "name": "1002",
+    "type": "document",
+    "question": "Cover letter",
     "access": "candidateOwned",
-    "options": {
-      "accept": "image/png,text/html"
-    },
-    "description": "Please upload a cover letter. The shorter the better",
-    "properties": {
-      "data": {
-        "type": "string",
-        "media": {
-          "binaryEncoding": "base64"
-        }
-      },
-      "fileName": {
-        "type": "string"
-      },
-      "via": {
-        "type": "string"
-      }
-    }
+    "accept": ["image/png,text/html"],
+    "prompt": "Please upload a cover letter. The shorter the better"
   }
 }

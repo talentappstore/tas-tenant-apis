@@ -35,89 +35,47 @@
       ],
       "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
-          },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "additionalProperties": false
-    }
+    "itemsRule": [
+      {
+        "name": "nursingCert",
+        "type": "document",
+        "question": "C1 nursing certificate",
+        "prompt": "Please scan and attach your C1 as pdf",
+        "access": "candidateOwned",
+        "accept": ["image/pdf"]
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
-          },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
-          }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
+    "itemsRule": [
+      {
+        "name": "coverLetter",
+        "type": "document",
+        "access": "candidateOwned",
+        "accept": ["image/png,text/html"],
+        "question": "Cover Letter",
+        "prompt": "Please upload a cover letter. The shorter the better"
       },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
+      {
+        "name": "favoriteColor",
+        "type": "singleLine",
+        "access": "eeo",
+        "question": "Favorite color",
+        "prompt": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
+        "minSize": 1,
+        "isRequired": true
+      },
+      {
+        "name": "letters",
+        "type": "number",
+        "question": "Letters",
+        "prompt": "How many letters are in this sentence?",
+        "access": "eeo",
+        "minimum": 0,
+        "maximum": 20,
+        "isRequired": true
+      }
+    ]
   }
 }

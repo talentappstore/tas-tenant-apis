@@ -8,8 +8,13 @@
       "description": "Uploaded file",
       "type": "object",
       "properties": {
+        "data": {
+          "type": "string",
+          "media": {
+              "binaryEncoding": "base64"
+          }
+        },
         "mimeType":   { "type": "string" },
-        "data":       { "type": "base64" },
         "name":       { "type": "string" },
         "via":        { "type": "string" },
         "url":        { "type": "string" },
@@ -46,7 +51,7 @@
          { "properties": {
              "type": {
                "type": "string",
-               "default": "singleLine"
+               "enum": ["singleLine"]
              }
            }
          }
@@ -60,7 +65,7 @@
          { "properties": {
              "type": {
                "type": "string",
-               "default": "multiline"
+               "enum": ["multiline"]
              }
            }
          }
@@ -73,7 +78,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "number"
+          "enum": ["number"]
         },
         "value": {
           "description": "Answer for this item",
@@ -91,7 +96,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "bool"
+          "enum": ["bool"]
         },
         "value": {
           "description": "Answer for this item",
@@ -108,7 +113,7 @@
         { "properties": {
             "type": {
               "type": "string",
-              "default": "resume"
+              "enum": ["resume"]
             },
             "job": {
               "description": "ID for the job associated with this item",
@@ -140,7 +145,7 @@
         { "properties": {
             "type": {
               "type": "string",
-              "default": "image"
+              "enum": ["image"]
             },
             "format": {
               "description": "Mime type of file",
@@ -159,7 +164,7 @@
         { "properties": {
             "type": {
               "type": "string",
-              "default": "signature"
+              "enum": ["signature"]
             },
             "signatureString": {
               "description": "String of signature",
@@ -186,11 +191,10 @@
       "description": "Schema for document answer",
       "type": "object",
       "allOf": [
-        { "$ref": "#/definitions/tas-file" },
         { "properties": {
             "type": {
               "type": "string",
-              "default": "document"
+              "enum": ["document"]
             },
             "signed": {
               "description": "Is this a signed document",
@@ -202,7 +206,8 @@
               "allOf": [ { "$ref": "#/definitions/tas-signatureAnswer" } ]
             }
           }
-        }
+        },
+        { "$ref": "#/definitions/tas-file" }
       ]
     },
 
@@ -214,7 +219,7 @@
         { "properties": {
             "type": {
               "type": "string",
-              "default": "audio"
+              "enum": ["audio"]
             },
             "language": {
               "description": "Recorded language",
@@ -233,7 +238,7 @@
         { "properties": {
             "type": {
               "type": "string",
-              "default": "video"
+              "enum": ["video"]
             },
             "language": {
               "description": "Recorded language",
@@ -252,7 +257,7 @@
         { "properties": {
             "type": {
               "type": "string",
-              "default": "avatar"
+              "enum": ["avatar"]
             },
             "language": {
               "description": "Recorded language",
@@ -277,7 +282,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "profile"
+          "enum": ["profile"]
         },
         "value": {
           "description": "Answer for this item",
@@ -296,7 +301,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "url"
+          "enum": ["url"]
         },
         "value": {
           "description": "Answer for this item",
@@ -311,8 +316,8 @@
       "type": "object",
       "properties": {
         "type": {
-          "type": "phone",
-          "default": "boolean"
+          "type": "string",
+          "enum": ["phone"]
         },
         "value": {
           "description": "Answer for this item",
@@ -339,7 +344,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "email"
+          "enum": ["email"]
         },
         "value": {
           "description": "Answer for this item",
@@ -354,7 +359,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "enum"
+          "enum": ["enum"]
         },
         "value": {
           "description": "Selection for this item",
@@ -363,13 +368,13 @@
       }
     },
 
-    "tas-enumMultAnswer": {
+    "tas-enumMultiAnswer": {
       "description": "Schema for enum multi-select answer",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "default": "enumMulti"
+          "enum": ["enumMulti"]
         },
         "value": {
           "description": "Selections for this item",
@@ -385,7 +390,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "enumDetails"
+          "enum": ["enumDetails"]
         },
         "value": {
           "description": "Selections and details for this item",
@@ -407,7 +412,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "enumQuestions"
+          "enum": ["enumQuestions"]
         },
         "value": {
           "description": "Selections and details for this item",
@@ -419,7 +424,7 @@
               "answers": {
                  "type": "array",
                  "items": {
-                    "allOf": { "$ref": "#" }
+                    "$ref": "#"
                  }
               }
             }
@@ -434,7 +439,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "catergory"
+          "enum": ["category"]
         },
         "value": {
           "description": "Selections for this item",
@@ -446,13 +451,13 @@
       }
     },
 
-    "tas-geoLocationAnswer": {
+    "tas-geolocationAnswer": {
       "description": "Schema for geo location answer",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "default": "geolocation"
+          "enum": ["geolocation"]
         },
         "value": {
           "description": "Answer for this item",
@@ -467,7 +472,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "sheet"
+          "enum": ["sheet"]
         },
         "rows": {
           "description": "Array of submitted rows",
@@ -490,7 +495,7 @@
          { "properties": {
              "type": {
                "type": "string",
-               "default": "wysiwyg"
+               "enum": ["wysiwyg"]
              }
            }
          }
@@ -505,7 +510,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "address"
+            "enum": ["address"]
           },
           "addressType": { "type": "string" },
           "street":      { "type": "string" },
@@ -517,7 +522,7 @@
       }
     },
 
-    "tas-employementAnswer": {
+    "tas-employmentAnswer": {
       "description": "Schema for employement answer",
       "type": "array",
       "items": {
@@ -525,7 +530,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "employement"
+            "enum": ["employment"]
           },
           "employmentType": { "type": "string" },
           "employeer":      { "type": "string" },
@@ -545,7 +550,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "reference"
+            "enum": ["reference"]
           },
           "name":          { "type": "string" },
           "relation":      { "type": "string" },
@@ -565,7 +570,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "certificate"
+            "enum": ["certificate"]
           },
           "name":         { "type": "string" },
           "dateIssued":   { "type": "string" },
@@ -584,7 +589,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "volunteer"
+            "enum": ["volunteer"]
           },
           "name":          { "type": "string" },
           "organization":  { "type": "string" },
@@ -604,9 +609,11 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "skill"
+            "enum": ["skill"]
           },
-          "name": "string"
+          "name": {
+            "type": "string"
+          }
         }
       }
     },
@@ -619,7 +626,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "default": "education"
+            "enum": ["education"]
           },
           "educationType": { "type": "string" },
           "degree":        { "type": "string" },
@@ -638,7 +645,7 @@
          { "properties": {
              "type": {
                "type": "string",
-               "default": "date"
+               "enum": ["date"]
              }
            }
          }
@@ -652,7 +659,7 @@
          { "properties": {
              "type": {
                "type": "string",
-               "default": "time"
+               "enum": ["time"]
              }
            }
          }
@@ -666,7 +673,7 @@
          { "properties": {
              "type": {
                "type": "string",
-               "default": "datetime"
+               "enum": ["datetime"]
              }
            }
          }
@@ -679,7 +686,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "default": "salary"
+          "enum": ["salary"]
         },
         "value": {
           "description": "Answer for this item",
@@ -687,11 +694,10 @@
         }
       }
     }
-
   },
   "type": "object",
   "oneOf": [
-    { "$ref": "#/definitions/tas-stringAnswer" },
+    { "$ref": "#/definitions/tas-singleLineAnswer" },
     { "$ref": "#/definitions/tas-multilineAnswer" },
     { "$ref": "#/definitions/tas-numberAnswer" },
     { "$ref": "#/definitions/tas-boolAnswer" },
@@ -714,11 +720,10 @@
     { "$ref": "#/definitions/tas-sheetAnswer" },
     { "$ref": "#/definitions/tas-wysiwygAnswer" },
     { "$ref": "#/definitions/tas-addressAnswer" },
-    { "$ref": "#/definitions/tas-employementAnswer" },
-    { "$ref": "#/definitions/tas-referenceAnswer" },
+    { "$ref": "#/definitions/tas-employmentAnswer" },
     { "$ref": "#/definitions/tas-certificateAnswer" },
     { "$ref": "#/definitions/tas-volunteerAnswer" },
-    { "$ref": "#/definitions/tas-referencesAnswer" },
+    { "$ref": "#/definitions/tas-referenceAnswer" },
     { "$ref": "#/definitions/tas-educationAnswer" },
     { "$ref": "#/definitions/tas-dateAnswer" },
     { "$ref": "#/definitions/tas-timeAnswer" },

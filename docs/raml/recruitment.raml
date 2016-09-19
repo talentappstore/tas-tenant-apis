@@ -1090,18 +1090,80 @@ resourceTypes: !include resources.yml
         description: Update an existing opening as a recruiter
 
 /jobSets:
+  /uploads:
+    post:
+      securedBy: [oauth_2_0]
+      description: |
+        Non-SoT.
+
+        Used to bulk upload active jobs for a tenant to a remote job board. See also APIs to:
+        - GET /jobSets/forBoard/{board}
+      
+        The jobSet is assumed to be the definitive set of jobs for the given tenant, i.e. after the call is complete,
+        if it all went OK, the jobs for this tenant at that board will match the jobSet exactly.
+  
+        The behavior of the producer is something like:
+        - for each job in the jobSet
+        - .search for a matching (by code) job in the database, and with status == active 
+        - .if the job does not exist, create it (producer might also choose to re-open an old one) 
+        - .if the job already exists and has identical details, leave it
+        - .if the job exists but has different details, update it
+        - for each job that exists but was not found in the jobSet for the org, make it not active or delete it     
+
+        Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the tenant.
+  
+        The producer may enforce that job codes are unique within a tenant's open jobs at the board.
+
+        The producer's behaviour is not required to be atomic - it is allowed the call could fail
+        after only partially processing the job list, leaving partial changes applied.
+        
+      body:
+        application/json:
+          schema: !include ../schemas/jobSet.json
+          example: !include ../examples/jobSet-simple.json
+      responses:
+        201:
+          description: the launch was successful, and the upload is underway
+          body:
+            application/json:
+              schema: !include ../schemas/jobSetUploadLaunch.json
+              example: !include ../examples/jobSetUploadLaunch-simple.json
+        409:
+          description: Conflict - the producer has an existing, incomplete upload operation for this tenant  - See response in RFC 7807 format for more details.
+          body:
+            application/problem+json:
+    /{uploadID}:
+      description: the ID of a previously launched job set upload
+      get:            
+        securedBy: [oauth_2_0]
+        description: |
+          Get the status of a previously started upload operation. Normally the producer should keep results around for some time (i.e. weeks/months)
+          after the upload has completed.
+         
+          Non-SoT.
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/jobSetUploadStatus.json
+                example: !include ../examples/jobSetUploadStatus-simple.json
+          404:
+            description: No launch with the ID is available. Perhaps it has been garbage collected.
+    
   post:
     securedBy: [oauth_2_0]
     description: |
       Non-SoT.
-      
+
+      *This API is deprecated in favour of POST /jobSets/uploads and will shortly be removed.*
+            
       Used to bulk upload active jobs for a tenant to a remote job board. See also APIs to:
-      - GET /jobBoards
+      - GET /jobSets/forBoard/{board}
       
       The jobSet is assumed to be the definitive set of jobs for the given tenant, i.e. after the call is complete,
-      if all is well we expect the jobs for this tenant at that board to match the jobSet exactly.
+      if it all went OK, the jobs for this tenant at that board will match the jobSet exactly.
   
-      Hence the behavior of the producer is something like:
+      The behavior of the producer is something like:
       - for each job in the jobSet
       - .search for a matching (by code) job in the database, and with status == active 
       - .if the job does not exist, create it (producer might also choose to re-open an old one) 
@@ -1111,10 +1173,10 @@ resourceTypes: !include resources.yml
 
       Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the tenant.
   
-      Job codes are unique within a tenant's open jobs at the board.
+      The producer may enforce that job codes are unique within a tenant's open jobs at the board.
 
-      The behaviour is not required to be atomic. It is possible that only some changes will be made and for the call to fail
-      after only partially processing the job list.
+      The producer's behaviour is not required to be atomic - it is allowed the call could fail
+      after only partially processing the job list, leaving partial changes applied.
     body:
       application/json:
         schema: !include ../schemas/jobSet.json
@@ -1124,6 +1186,7 @@ resourceTypes: !include resources.yml
         body:
           application/json:
             example: !include ../examples/jobSetResponse-simple.json
+            
       400:
         description: Error - See response in RFC 7807 format for more details.
         body:

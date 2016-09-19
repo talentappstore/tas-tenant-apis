@@ -25,8 +25,7 @@
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
     },
     "code": {
-      "type": "string",
-      "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
+      "$ref": "job.json#/definitions/code"
     },
     "shortSummary": {
       "type": "string",

@@ -1,0 +1,27 @@
+{
+  "started": "2015-11-05T13:15:30Z",
+  "status": "underway",
+  "results": [
+    {
+      "operation": "created",
+      "succeeded": 1,
+      "failed": 1,
+      "failedJobDetails": [
+        {
+          "code": "AZDH55",
+          "message": "missing value for location"
+        }
+      ]
+    },
+    {
+      "operation": "updated",
+      "succeeded": 0,
+      "failed": 0
+    },
+    {
+      "operation": "closed",
+      "succeeded": 0,
+      "failed": 0
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "description": "the status of a previously launched job set upload",
+  "definitions": {
+    "failureDetail": {
+      "type": "object",
+      "description": "details of why a single job failed the crud operation (create or whatever)",
+      "properties": {
+        "code": {
+          "$ref": "job.json#/definitions/code"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "crudOutcome": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "enum": [
+            "created",
+            "updated",
+            "closed"
+          ]
+        },
+        "succeeded": {
+          "type": "integer",
+          "description": "how many jobs in the set have so far been successfully [operation]"
+        },
+        "failed": {
+          "type": "integer",
+          "description": "how many jobs in the set have so far been unsuccessfully [operation]"
+        },
+        "failedJobDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/failureDetail"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "succeeded",
+        "failed"
+      ]
+    },
+    "crudOutcomes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/crudOutcome"
+      }
+    }
+  },
+  "properties": {
+    "started": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "queued",
+        "underway",
+        "complete",
+        "error"
+      ]
+    },
+    "results": {
+      "$ref": "#/definitions/crudOutcomes"
+    }
+  },
+  "required": [
+    "started",
+    "status",
+    "results"
+  ],
+  "additionalProperties": false
+}

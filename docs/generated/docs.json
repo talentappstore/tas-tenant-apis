@@ -50,6 +50,8 @@
     "jobSearches": { "$ref": "../schemas/jobSearches.json" },
     "jobSetJob": { "$ref": "../schemas/jobSetJob.json" },
     "jobSet": { "$ref": "../schemas/jobSet.json" },
+    "jobSetUploadLaunch": { "$ref": "../schemas/jobSetUploadLaunch.json" },
+    "jobSetUploadStatus": { "$ref": "../schemas/jobSetUploadStatus.json" },
     "jobs": { "$ref": "../schemas/jobs.json" },
     "jsonSchemaSchema": { "$ref": "../schemas/jsonSchemaSchema.json" },
     "landingPage": { "$ref": "../schemas/landingPage.json" },

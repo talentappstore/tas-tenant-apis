@@ -1,12 +1,13 @@
 {
   "name": "criminal",
   "value": {
-    "raw": false,
+    "raw": { "type":"bool", "value": false },
     "display": "nope"
   },
   "meta": {
-    "type": "boolean",
-    "title": "Criminal",
-    "description": "Are you a criminal?"
+    "type": "bool",
+    "name": "0001",
+    "question": "Criminal",
+    "prompt": "Are you a criminal?"
   }
 }

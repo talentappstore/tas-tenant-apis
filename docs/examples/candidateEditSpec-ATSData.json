@@ -35,172 +35,172 @@
       ],
       "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "accept": "image/pdf",
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "additionalProperties": false
-    }
+    "itemsRule": [
+      {
+        "name": "nursingCert",
+        "type": "document",
+        "question": "C1 nursing certificate",
+        "prompt": "Please scan and attach your C1 as pdf",
+        "access": "candidateOwned",
+        "accept": ["image/pdf"]
+      }
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "title": "Items",
-      "type": "object",
-      "required": [
-        "Multi-choice (multiple selections)",
-        "Yes / No",
-        "Entitlement to work in New Zealand - EEO",
-        "Criminal convictions"
-      ],
-      "properties": {
-        "Multi-choice (multiple selections)": {
-          "type": "array",
-          "description": "",
-          "format": "checkbox",
-          "items": [
+    "itemsRule": [
+        {
+          "name": "0001",
+          "type": "enumMulti",
+          "question": "Multi-choice (multiple selections)",
+          "prompt": "Select as appropriate",
+          "minSelections": 0,
+          "maxSelections": 10,
+          "options": [
             {
-              "type": "string",
-              "enum": [
-                "A"
-              ]
+              "id": "1",
+              "displayText": "A"
             },
             {
-              "type": "string",
-              "enum": [
-                "B"
-              ]
+              "id": "2",
+              "displayText": "B"
             },
             {
-              "type": "string",
-              "enum": [
-                "C"
-              ]
+              "id": "3",
+              "displayText": "C"
             }
-          ],
-          "uniqueItems": true
-        },
-        "Yes / No": {
-          "type": "string",
-          "description": "",
-          "enum": [
-            "",
-            "Yes",
-            "No"
           ]
         },
-        "Document upload": {
-          "type": "string",
-          "description": "",
-          "format": "file"
+        {
+          "name": "0002",
+          "type": "bool",
+          "question": "Yes / No",
+          "prompt": "Do you?",
+          "trueString": "Yes",
+          "falseString": "No"
         },
-        "Numeric": {
-          "type": "integer",
-          "description": ""
+        {
+          "name": "0003",
+          "type": "document",
+          "question": "Document upload",
+          "prompt": "Upload a file"
         },
-        "Multi-choice (single selection)": {
-          "type": "string",
-          "description": "",
-          "enum": [
-            "",
-            "A",
-            "B",
-            "C"
-          ]
-        },
-        "Date of Birth": {
-          "type": "string",
-          "description": "",
-          "format": "date"
-        },
-        "Single-line text": {
-          "type": "string",
-          "description": ""
-        },
-        "Entitlement to work in Australia - EEO": {
-          "type": "string",
-          "description": "Are you currently entitled to work in Australia, and if so, how?",
-          "enum": [
-            "",
-            "No",
-            "Yes (Australian citizen)",
-            "Yes (Permanent resident)",
-            "Yes (Work visa holder)",
-            "Yes (Other)"
-          ]
-        },
-        "Entitlement to work in New Zealand - EEO": {
-          "type": "string",
-          "description": "Are you currently entitled to work in New Zealand, and if so, how?",
-          "enum": [
-            "",
-            "Yes (student visa holder)",
-            "No",
-            "Yes (NZ citizen)",
-            "Yes (permanent resident)",
-            "Yes (work visa holder)",
-            "Yes (other)"
-          ]
-        },
-        "Criminal convictions": {
-          "type": "array",
-          "description": "Do you have a criminal record pursuant to the Criminal Record (Clean Slate) Act 2004 or pending prosecution for a criminal offence, or serious traffic offence, likely to affect acceptance of this application?",
-          "format": "checkbox",
-          "items": [
-            {
-              "type": "string",
-              "enum": [
-                "No"
-              ]
-            },
-            {
-              "type": "string",
-              "enum": [
-                "Yes"
-              ]
-            }
-          ],
-          "uniqueItems": true
-        },
-        "Multi-line text": {
-          "type": "string",
-          "description": "You can use HTML tags in your text, for example: <br> for a new line, <b>your text selection</b> for bold, and <i>your text selection</i> for italics.",
-          "format": "textarea"
-        },
-        "Date and time": {
-          "type": "string",
-          "description": "",
-          "format": "datetime"
-        },
-        "Currency": {
+        {
+          "name": "0004",
           "type": "number",
-          "description": ""
+          "question": "Numeric",
+          "prompt": "How many?",
+          "maximum": 10,
+          "minimum": -1
+        },
+        {
+          "name": "0005",
+          "type": "enumMulti",
+          "question": "Multi-choice (single selection)",
+          "prompt": "Choose one",
+          "minSelections": 1,
+          "maxSelections": 1,
+          "options": [
+            {
+              "id": "1",
+              "displayText": "A"
+            },
+            {
+              "id": "2",
+              "displayText": "B"
+            },
+            {
+              "id": "3",
+              "displayText": "C"
+            }
+          ]
+        },
+        {
+          "name": "0006",
+          "type": "date",
+          "question": "Date of Birth",
+          "prompt": "When?"
+        },
+        {
+          "name": "0007",
+          "type": "singleLine",
+          "question": "Single-line text",
+          "prompt": "Write"
+        },
+        {
+          "name": "0008",
+          "type": "enumMulti",
+          "minSelections": 1,
+          "maxSelections": 1,
+          "question": "Entitlement to work in Australia - EEO",
+          "prompt": "Are you currently entitled to work in New Zealand, and if so, how?",
+          "options": [
+            {
+              "id": "1",
+              "displayText": "No"
+            },
+            {
+              "id": "2",
+              "displayText": "Yes (NZ citizen)"
+            },
+            {
+              "id": "3",
+              "displayText": "Yes (Permanent resident)"
+            },
+            {
+              "id": "4",
+              "displayText": "Yes (Work visa holder)"
+            },
+            {
+              "id": "5",
+              "displayText": "Yes (Other)"
+            }
+          ]
+        },
+        {
+          "name": "0009",
+          "type": "enumDetails",
+          "minSelections": 1,
+          "maxSelections": 1,
+          "question": "Criminal convictions",
+          "prompt": "Do you have a criminal record pursuant to the Criminal Record (Clean Slate) Act 2004 or pending prosecution for a criminal offence, or serious traffic offence, likely to affect acceptance of this application?",
+          "options": [
+            {
+              "option": {
+                "id": "1",
+                "displayText": "No"
+              }
+            },
+            {
+              "option": {
+                "id": "2",
+                "displayText": "Yes"
+              },
+              "hasMoreDetails": true,
+              "moreDetailsPrompt": "Why did you do it?",
+              "maxLength": 80
+            }
+          ]
+        },
+        {
+          "name": "0010",
+          "type": "multiline",
+          "question": "Multi-line text",
+          "prompt": "You can use HTML tags in your text, for example: <br> for a new line, <b>your text selection</b> for bold, and <i>your text selection</i> for italics."
+        },
+        {
+          "name": "0011",
+          "type": "datetime",
+          "question": "Date and time",
+          "prompt": "Exactly when?"
+        },
+        {
+          "name": "0012",
+          "type": "salary",
+          "question": "Currency",
+          "prompt": "How Much?",
+          "maximumDigitals": 6
         }
-      }
+      ]
     }
   }
-}

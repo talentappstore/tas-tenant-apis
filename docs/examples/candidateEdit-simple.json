@@ -30,19 +30,44 @@
                 }
             ]
         },
-        "items": {
-            "worstColor": "blue"
-        }
+        "items": [
+            {
+              "name": "worstColor",
+              "value": {
+                "raw": {
+                  "type": "singleLine",
+                  "value": "blue"
+                },
+                "display": "blue"
+              }
+            }
+        ]
     },
     "applicationData": {
         "job": 23,
-        "items": {
-            "coverLetter": {
-                "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
-                "fileName": "fred.doc",
-                "via": "dropbox.com"
+        "items": [
+            {
+              "name" : "coverLetter",
+              "value": {
+                "raw": {
+                  "type": "document",
+                  "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
+                  "name": "fred.doc",
+                  "via": "dropbox.com"
+                },
+                "display": "<img src=';base64,ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf' alt='Cover Letter' />"
+              }
             },
-            "favoriteColor": "red"
-        }
+            {
+              "name": "favoriteColor",
+              "value": {
+                "raw": {
+                  "type": "singleLine",
+                  "value": "red"
+                },
+                "display": "red"
+              }
+            }
+        ]
     }
 }

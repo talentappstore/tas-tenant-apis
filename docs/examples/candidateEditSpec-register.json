@@ -35,33 +35,15 @@
             ],
             "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
         },
-        "itemsRule": {
-            "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-            "type": "object",
-            "properties": {
-                "nursingCert": {
-                    "type": "object",
-                    "title": "C1 nursing certificate",
-                    "format": "file",
-                    "description": "Please scan and attach your C1 as pdf",
-                    "properties": {
-                        "data": {
-                            "type": "string",
-                            "media": {
-                                "binaryEncoding": "base64",
-                                "type": "image/pdf"
-                            }
-                        },
-                        "fileName": {
-                            "type": "string"
-                        },
-                        "via": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "additionalProperties": false
-        }
+        "itemsRule": [
+          {
+            "name": "nursingCert",
+            "type": "document",
+            "question": "C1 nursing certificate",
+            "prompt": "Please scan and attach your C1 as pdf",
+            "access": "candidateOwned",
+            "accept": ["image/pdf"]
+          }
+        ]
     }
 }

@@ -1,38 +1,31 @@
 [
-   {
-      "name": "cover letter",
-      "meta": {
-         "type": "object",
-         "title": "Cover letter",
-         "format": "tas-fileUpload",
-         "access": "candidateOwned",
-         "options": {
-            "accept": "image/png,text/html"
-         },
-         "description": "Please upload a cover letter. The shorter the better",
-         "properties": {
-            "data": {
-               "type": "string",
-               "media": {
-                  "binaryEncoding": "base64"
-               }
-            },
-            "fileName": {
-               "type": "string"
-            },
-            "via": {
-               "type": "string"
-            }
-         }
-      }
-   },
+    {
+        "name": "cover letter",
+        "meta": {
+            "name": "1002",
+            "type": "document",
+            "question": "Cover letter",
+            "access": "candidateOwned",
+            "accept": ["image/png,text/html"],
+            "prompt": "Please upload a cover letter. The shorter the better"
+        }
+    },
    {
       "name": "favorite color",
       "meta": {
-         "enum": [
-            "Red",
-            "Green"
-         ]
+        "name": "favorite color",
+        "type": "enum",
+        "question": "What is your favorite color?",
+        "options": [
+           {
+             "id": "red",
+             "displayText": "Red"
+           },
+           {
+             "id": "green",
+             "displayText": "Green"
+           }
+        ]
       }
    }
 ]

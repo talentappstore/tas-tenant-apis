@@ -1,23 +1,25 @@
 [
   {
-    "name": "selfScore",
+    "name": "travel",
     "value": {
       "raw": {
-        "Travel OK": "Yes"
+        "type": "bool",
+        "value": true
       },
       "display": "Travel:Y"
     }
   },
   {
-    "name": "coverLetter",
+    "name": "cover letter",
     "value": {
       "raw": {
+        "type": "document",
         "data": "iu7g6xswqs6216Ug564fojho7if8dfi876GKJH..",
-        "fileName": "coverletter.docx",
+        "name": "coverletter.docx",
         "via": "dropbox.com",
-        "burnerUri": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
+        "url": "https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI"
       },
-      "display": "%3Ca%20href%3D%22https%3A%2F%2Facme.superats.com%2Fburnerlinks%2FuygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI%22%3Ecoverletter.docx%3C%2Fa%3E"
+      "display": "<a href='https://acme.superats.com/burnerlinks/uygUy35WEsw2rdcrewd45FtIEsw2rdcrewd45FtI'>coverletter.docx</a>"
     }
   }
 ]

@@ -1019,6 +1019,16 @@ resourceTypes: !include resources.yml
             200:
               body:
                 text/plain:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Set the job's description. Job descriptions are formatted using the safe subset
+            of [markdown](https://daringfireball.net/projects/markdown/syntax).
+          body:
+            text/plain:
+          responses:
+            200:
+              description: the description was successfully updated
                               
       /deltaPings:
         post:

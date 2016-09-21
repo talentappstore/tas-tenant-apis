@@ -32,6 +32,7 @@
 <div id="toc"></div>
 
 
+
 <h1>Apply gate apps</h1>
 
 <p>An apply gate app lets a customer selectively prevent candidates from applying for selected job(s) until they
@@ -81,9 +82,65 @@ Without this, your app can't attach results (other than a simple "they've passed
 (e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
 </ul>
 
+
+<h1>Helping the customer to customize your button(s)</h1>
+
+<p>Whatever button(s) your app produces, the customer may want to customize which jobs it appears on. For example:
+
+<ul>
+<li>a fancy share button that lets a candidate share the job to github should only show up on IT jobs.
+<li>a button that lets the candidate self-select in for a retail job by completing a basic job simulation of what its
+like to work in a store should only be displayed on retail jobs.
+</ul>
+</p>
+
+<p>Its crucial that this mapping of buttons to jobs is as easy and automated as possible for customers.
+</p>
+
+<p>In particular, having defaults such as "this button always and only appears on retail jobs" is vital. Customers do not want to perform per-job setup,
+as a large organization will have many jobs being opened by many people, and having a manual step on each job is a significant source of errors.
+Requiring manual per-job steps also prevents jobs from being copied, or created from templates, or otherwise automatically created.
+</p> 
+
+<h2>Drag and drop mapping of buttons to jobs</h2>
+
+<p>Fortunately, as long as your app produces a different button for every purpose, you don't need to deal with mapping your button(s) to jobs at all. Other apps (like switchgear)
+handle it by giving the customer a drag and drop user interface that they can use to drag your button(s):
+<ol>
+<li>in or out at a global level, so that by default your button will appear or not appear on all jobs
+<li>in or out at a job workflow level, so your button will apepar only on jobs that have a specific workflow (e.g. "retail")
+<li>in or out of a specific job
+</ol>
+
+<h2>App-supplied setup pages</h2>
+
+<p>As long as your button doesn't need any additional information, the drag and drop user interface is all the customer needs.
+</p>
+
+<p>However if your app does have some kind of settings, then you may want to use setup pages.
+</p>
+
+<p>A setup page is a small HTML page
+that your app can present to the user right at the point when they drag and drop your button into the global or workflow areas or onto a specific job.
+</p>
+
+<p>For example, lets say your app is an employee referral app. Employees can click your button on a job and then use your user interface to refer the job to their friends. They get a cash reward if they are hired.
+</p>
+
+<p>In this example your app might present two separate setup pages:
+<ol>
+<li>when your button is dragged to the global or workflow areas, you capture the minimum, maximum and default cash reward (number fields)
+<li>when your button is dragged or clicked on for a specific job, you capture the actual cash reward for this job
+</ul>  
+</ol>
+</p>
+
   
 <h1>Sequence of events</h1>
 
+<p>This section gives blow by blow dtails of how your app interacts with other apps and the customer through APIs.
+</p>
+   
 <h2>Tenant installs your app</h2>
 
 <p>The tenant installs your apply gate app. This triggers other apps (such as the coordinating app - e.g. switchgear) to ask

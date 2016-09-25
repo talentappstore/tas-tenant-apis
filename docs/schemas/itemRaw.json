@@ -125,8 +125,7 @@
             },
             "isTyped": {
               "description": "Was the resume typed rather than sent as a file",
-              "type": "boolean",
-              "default": "false"
+              "type": "boolean"
             },
             "typedString": {
               "description": "The answer if the resume was typed rather than uploaded",

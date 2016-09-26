@@ -1,11 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "tas-answer",
-  "description": "An item anwser",
   "definitions": {
 
     "tas-file": {
-      "description": "Uploaded file",
       "type": "object",
       "properties": {
         "data": {
@@ -23,29 +20,25 @@
     },
 
     "tas-stringAnswer": {
-      "description": "Schema for string answer",
       "type": "object",
       "properties": {
         "value": {
-          "description": "Answer for this item",
           "type": "string"
         }
       }
     },
 
     "tas-chronoAnswer": {
-      "description": "Schema for string answer",
       "type": "object",
       "properties": {
         "value": {
-          "description": "Answer for this item",
           "type": "string"
         }
       }
     },
 
     "tas-singleLineAnswer": {
-      "description": "Schema for singleLine answer",
+      "description": "A single line of plain text",
       "allOf": [
          { "$ref": "#/definitions/tas-stringAnswer" },
          { "properties": {
@@ -59,7 +52,7 @@
     },
 
     "tas-multilineAnswer": {
-      "description": "Schema for multiline answer",
+      "description": "Multiple lines of plain text",
       "allOf": [
          { "$ref": "#/definitions/tas-stringAnswer" },
          { "properties": {
@@ -73,7 +66,7 @@
     },
 
     "tas-numberAnswer": {
-      "description": "Schema for number answer",
+      "description": "A 32-bit integer",
       "type": "object",
       "properties": {
         "type": {
@@ -81,8 +74,7 @@
           "enum": ["number"]
         },
         "value": {
-          "description": "Answer for this item",
-          "type": "number",
+          "type": "integer",
           "multipleOf" : 1,
           "minimum": -2147483648,
           "maximum": 2147483647
@@ -91,7 +83,7 @@
     },
 
     "tas-boolAnswer": {
-      "description": "Schema for boolean answer",
+      "description": "A binary answer",
       "type": "object",
       "properties": {
         "type": {
@@ -99,14 +91,13 @@
           "enum": ["bool"]
         },
         "value": {
-          "description": "Answer for this item",
           "type": "boolean"
         }
       }
     },
 
     "tas-imageAnswer": {
-      "description": "Schema for image answer",
+      "description": "An image file",
       "type": "object",
       "allOf": [
         { "$ref": "#/definitions/tas-file" },
@@ -125,22 +116,13 @@
     },
 
     "tas-documentAnswer": {
-      "description": "Schema for document answer",
+      "description": "An uploaded document",
       "type": "object",
       "allOf": [
         { "properties": {
             "type": {
               "type": "string",
               "enum": ["document"]
-            },
-            "signed": {
-              "description": "Is this a signed document",
-              "type": "boolean"
-            },
-            "signature": {
-              "description": "Signature answer",
-              "type": "object",
-              "allOf": [ { "$ref": "#/definitions/tas-signatureAnswer" } ]
             }
           }
         },
@@ -149,7 +131,7 @@
     },
 
     "tas-audioAnswer": {
-      "description": "Schema for aduio answer",
+      "description": "A sound file",
       "type": "object",
       "allOf": [
         { "$ref": "#/definitions/tas-file" },
@@ -168,7 +150,7 @@
     },
 
     "tas-enumDetailsAnswer": {
-      "description": "Schema for enum with more details answer",
+      "description": "A multi-choice answer, possibly with further details",
       "type": "object",
       "properties": {
         "type": {
@@ -190,7 +172,7 @@
     },
 
     "tas-enumQuestionsAnswer": {
-      "description": "Schema for enum with more questions answer",
+      "description": "A multi-level answer",
       "type": "object",
       "properties": {
         "type": {
@@ -217,7 +199,7 @@
     },
 
     "tas-categoryAnswer": {
-      "description": "Schema for category answer",
+      "description": "A list of selected category values",
       "type": "object",
       "properties": {
         "type": {
@@ -225,7 +207,6 @@
           "enum": ["category"]
         },
         "value": {
-          "description": "Selections for this item",
           "type": "array",
           "items": {
             "type": "string"
@@ -235,7 +216,7 @@
     },
 
     "tas-sheetAnswer": {
-      "description": "Schema for sheet answer",
+      "description": "Rows of answers",
       "type": "object",
       "properties": {
         "type": {
@@ -246,10 +227,9 @@
           "description": "Array of submitted rows",
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "column": {"type": "string"},
-              "value":  {"type": "string"}
+            "type": "array",
+            "items": {
+              "$ref": "#"
             }
           }
         }
@@ -257,7 +237,7 @@
     },
 
     "tas-wysiwygAnswer": {
-      "description": "Schema for wysiwyg answer",
+      "description": "Markdown-formatted text",
       "allOf": [
          { "$ref": "#/definitions/tas-stringAnswer" },
          { "properties": {
@@ -271,7 +251,7 @@
     },
 
     "tas-dateAnswer": {
-      "description": "Schema for date answer",
+      "description": "A date",
       "allOf": [
          { "$ref": "#/definitions/tas-chronoAnswer" },
          { "properties": {
@@ -285,7 +265,7 @@
     },
 
     "tas-timeAnswer": {
-      "description": "Schema for time answer",
+      "description": "A time of day",
       "allOf": [
          { "$ref": "#/definitions/tas-chronoAnswer" },
          { "properties": {
@@ -299,7 +279,7 @@
     },
 
     "tas-datetimeAnswer": {
-      "description": "Schema for datetime answer",
+      "description": "A date and time",
       "allOf": [
          { "$ref": "#/definitions/tas-chronoAnswer" },
          { "properties": {
@@ -313,7 +293,7 @@
     },
 
     "tas-salaryAnswer": {
-      "description": "Schema for salary answer",
+      "description": "A salary value",
       "type": "object",
       "properties": {
         "type": {

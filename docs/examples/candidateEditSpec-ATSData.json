@@ -51,7 +51,7 @@
     "itemsRule": [
         {
           "name": "0001",
-          "type": "enumMulti",
+          "type": "enumDetails",
           "question": "Multi-choice (multiple selections)",
           "prompt": "Select as appropriate",
           "minSelections": 0,
@@ -95,7 +95,7 @@
         },
         {
           "name": "0005",
-          "type": "enumMulti",
+          "type": "enumDetails",
           "question": "Multi-choice (single selection)",
           "prompt": "Choose one",
           "minSelections": 1,
@@ -129,7 +129,7 @@
         },
         {
           "name": "0008",
-          "type": "enumMulti",
+          "type": "enumDetails",
           "minSelections": 1,
           "maxSelections": 1,
           "question": "Entitlement to work in Australia - EEO",
@@ -166,16 +166,12 @@
           "prompt": "Do you have a criminal record pursuant to the Criminal Record (Clean Slate) Act 2004 or pending prosecution for a criminal offence, or serious traffic offence, likely to affect acceptance of this application?",
           "options": [
             {
-              "option": {
-                "id": "1",
-                "displayText": "No"
-              }
+              "id": "1",
+              "displayText": "No"
             },
             {
-              "option": {
-                "id": "2",
-                "displayText": "Yes"
-              },
+              "id": "2",
+              "displayText": "Yes",
               "hasMoreDetails": true,
               "moreDetailsPrompt": "Why did you do it?",
               "maxLength": 80

@@ -167,37 +167,6 @@
       ]
     },
 
-    "tas-enumAnswer": {
-      "description": "Schema for enum answer",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": ["enum"]
-        },
-        "value": {
-          "description": "Selection for this item",
-          "type": "string"
-        }
-      }
-    },
-
-    "tas-enumMultiAnswer": {
-      "description": "Schema for enum multi-select answer",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": ["enumMulti"]
-        },
-        "value": {
-          "description": "Selections for this item",
-          "type": "array",
-          "items": { "type": "string" }
-        }
-      }
-    },
-
     "tas-enumDetailsAnswer": {
       "description": "Schema for enum with more details answer",
       "type": "object",
@@ -367,8 +336,6 @@
     { "$ref": "#/definitions/tas-imageAnswer" },
     { "$ref": "#/definitions/tas-documentAnswer" },
     { "$ref": "#/definitions/tas-audioAnswer" },
-    { "$ref": "#/definitions/tas-enumAnswer" },
-    { "$ref": "#/definitions/tas-enumMultiAnswer" },
     { "$ref": "#/definitions/tas-enumDetailsAnswer" },
     { "$ref": "#/definitions/tas-categoryAnswer" },
     { "$ref": "#/definitions/tas-sheetAnswer" },

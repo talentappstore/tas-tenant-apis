@@ -174,71 +174,6 @@
             }
         },
 
-        "tas-enum": {
-            "$schema": "http://json-schema.org/draft-04/schema",
-            "id": "http://talentappstore.github.io/tas-tenant-apis/tas-enum",
-            "title": "tas-enum",
-            "description": "An single-select question item",
-            "type": "object",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["enum"]
-                },
-                "options": {
-                    "description": "Possible string choices for this item",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "string"
-                            },
-                            "displayText": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-        "tas-enumMulti": {
-            "$schema": "http://json-schema.org/draft-04/schema",
-            "title": "tas-enumMulti",
-            "description": "An multi-select question item",
-            "type": "object",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["enumMulti"]
-                },
-                "options": {
-                    "description": "Possible string choices for this item",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "id": {
-                                "type": "string"
-                            },
-                            "displayText": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "minSelections": {
-                    "description": "Minimum number of selections required",
-                    "type": "integer"
-                },
-                "maxSelections": {
-                    "description": "Maximum number of selections allowed",
-                    "type": "integer"
-                }
-            }
-        },
-
         "tas-enumDetails": {
             "$schema": "http://json-schema.org/draft-04/schema",
             "id": "http://talentappstore.github.io/tas-tenant-apis/tas-enumDetails",
@@ -256,18 +191,16 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "option": {
-                                "type": "object",
-                                "properties": {
-                                    "id": {
-                                        "type": "string"
-                                    },
-                                    "displayText": {
-                                        "type": "string"
-                                    }
-                                }
+                            "id": {
+                                "type": "string"
+                            },
+                            "displayText": {
+                                "type": "string"
                             },
                             "hasMoreDetails": {
+                                "type": "boolean"
+                            },
+                            "requiresMoreDetails": {
                                 "type": "boolean"
                             },
                             "moreDetailsPrompt": {
@@ -353,27 +286,10 @@
                     "enum": ["category"]
                 },
                 "options": {
-                    "description": "Possible string choices for this item",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
+                    "$ref": "categoryValues.json"
                 },
-                "minSelections": {
-                    "description": "Minimum number of selections required",
-                    "type": "integer"
-                },
-                "maxSelections": {
-                    "description": "Maximum number of selections allowed",
-                    "type": "integer"
+                "rules": {
+                    "$ref": "category.json#/definitions/rules"
                 }
             }
         },
@@ -393,24 +309,7 @@
                     "description": "List of columns",
                     "type": "array",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
-                            },
-                            "title": {
-                                "type": "string"
-                            },
-                            "type": {
-                                "type": "string"
-                            },
-                            "format": {
-                                "type": "string"
-                            },
-                            "description": {
-                                "type": "string"
-                            }
-                        }
+                        "$ref": "#"
                     }
                 }
             }
@@ -431,17 +330,8 @@
             }]
         },
 
-        "tas-date": {
-            "$schema": "http://json-schema.org/draft-04/schema",
-            "id": "http://talentappstore.github.io/tas-tenant-apis/tas-date",
-            "title": "tas-date",
-            "description": "A date item YYYY-MM-DD",
-            "type": "object",
+        "tas-chrono": {
             "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["date"]
-                },
                 "oldestDateAllowed": {
                     "description": "Oldest date that can be selected",
                     "type": "string"
@@ -453,26 +343,48 @@
             }
         },
 
+        "tas-date": {
+            "$schema": "http://json-schema.org/draft-04/schema",
+            "id": "http://talentappstore.github.io/tas-tenant-apis/tas-date",
+            "title": "tas-date",
+            "description": "A date item YYYY-MM-DD",
+            "allOf": [{
+                "$ref": "#/definitions/tas-chrono"
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["date"]
+                    }
+                }
+            }]
+        },
+
         "tas-time": {
             "$schema": "http://json-schema.org/draft-04/schema",
             "id": "http://talentappstore.github.io/tas-tenant-apis/tas-time",
             "title": "tas-time",
             "description": "A time item HH:MM:SS-HH:MM",
-            "type": "object",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["time"]
-                },
-                "oldestTimeAllowed": {
-                    "description": "Oldest time that can be selected",
-                    "type": "string"
-                },
-                "newestTimeAllowed": {
-                    "description": "Newest time that can be selected",
-                    "type": "string"
+            "allOf": [{
+                "$ref": "#/definitions/tas-chrono"
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["time"]
+                    },
+                    "oldestTimeAllowed": {
+                        "description": "Oldest time that can be selected",
+                        "type": "string"
+                    },
+                    "newestTimeAllowed": {
+                        "description": "Newest time that can be selected",
+                        "type": "string"
+                    }
                 }
-            }
+            }]
         },
 
         "tas-datetime": {
@@ -480,21 +392,25 @@
             "id": "http://talentappstore.github.io/tas-tenant-apis/tas-datetime",
             "title": "tas-datetime",
             "description": "A date item YYYY-MM-DDTHH:MM:SS-HH:MM",
-            "type": "object",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["datetime"]
-                },
-                "oldestDateAllowed": {
-                    "description": "Oldest datetime that can be selected",
-                    "type": "string"
-                },
-                "newestDateAllowed": {
-                    "description": "Newest datetime that can be selected",
-                    "type": "string"
+            "allOf": [{
+                "$ref": "#/definitions/tas-chrono"
+            }, {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["datetime"]
+                    },
+                    "oldestDateAllowed": {
+                        "description": "Oldest datetime that can be selected",
+                        "type": "string"
+                    },
+                    "newestDateAllowed": {
+                        "description": "Newest datetime that can be selected",
+                        "type": "string"
+                    }
                 }
-            }
+            }]
         },
 
         "tas-salary": {
@@ -571,83 +487,77 @@
         }
 
     },
-    "allOf": [
-        {
-            "oneOf": [{
-                "$ref": "#/definitions/tas-singleLine"
-            }, {
-                "$ref": "#/definitions/tas-multiline"
-            }, {
-                "$ref": "#/definitions/tas-number"
-            }, {
-                "$ref": "#/definitions/tas-bool"
-            }, {
-                "$ref": "#/definitions/tas-image"
-            }, {
-                "$ref": "#/definitions/tas-document"
-            }, {
-                "$ref": "#/definitions/tas-audio"
-            }, {
-                "$ref": "#/definitions/tas-enum"
-            }, {
-                "$ref": "#/definitions/tas-enumMulti"
-            }, {
-                "$ref": "#/definitions/tas-enumDetails"
-            }, {
-                "$ref": "#/definitions/tas-category"
-            }, {
-                "$ref": "#/definitions/tas-sheet"
-            }, {
-                "$ref": "#/definitions/tas-wysiwyg"
-            }, {
-                "$ref": "#/definitions/tas-date"
-            }, {
-                "$ref": "#/definitions/tas-time"
-            }, {
-                "$ref": "#/definitions/tas-datetime"
-            }, {
-                "$ref": "#/definitions/tas-salary"
-            }, {
-                "$ref": "#/definitions/tas-info"
-            }, {
-                "$ref": "#/definitions/tas-heading"
-            }]
+    "allOf": [{
+        "oneOf": [{
+            "$ref": "#/definitions/tas-singleLine"
         }, {
-            "properties": {
-                "type": {
-                    "description": "TAS item type",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The unique ID of the question",
-                    "type": "string"
-                },
-                "question": {
-                    "description": "Question text",
-                    "type": "string"
-                },
-                "prompt": {
-                    "description": "Additional helper text",
-                    "type": "string"
-                },
-                "isRequired": {
-                    "description": "If an answer is required",
-                    "type": "boolean"
-                },
-                "isReadOnly": {
-                    "description": "Answer cannot be edited",
-                    "type": "boolean"
-                },
-                "access": {
-                    "description": "Accessibility for this item",
-                    "enum": ["candidateOwned", "internalOwned", "internalShared", "eeo"]
-                },
-                "propertyOrder": {
-                    "description": "Hint for display order",
-                    "type": "integer"
-                }
+            "$ref": "#/definitions/tas-multiline"
+        }, {
+            "$ref": "#/definitions/tas-number"
+        }, {
+            "$ref": "#/definitions/tas-bool"
+        }, {
+            "$ref": "#/definitions/tas-image"
+        }, {
+            "$ref": "#/definitions/tas-document"
+        }, {
+            "$ref": "#/definitions/tas-audio"
+        }, {
+            "$ref": "#/definitions/tas-enumDetails"
+        }, {
+            "$ref": "#/definitions/tas-category"
+        }, {
+            "$ref": "#/definitions/tas-sheet"
+        }, {
+            "$ref": "#/definitions/tas-wysiwyg"
+        }, {
+            "$ref": "#/definitions/tas-date"
+        }, {
+            "$ref": "#/definitions/tas-time"
+        }, {
+            "$ref": "#/definitions/tas-datetime"
+        }, {
+            "$ref": "#/definitions/tas-salary"
+        }, {
+            "$ref": "#/definitions/tas-info"
+        }, {
+            "$ref": "#/definitions/tas-heading"
+        }]
+    }, {
+        "properties": {
+            "type": {
+                "description": "TAS item type",
+                "type": "string"
             },
-            "required": ["name", "type", "question"]
-        }
-    ]
+            "name": {
+                "description": "The unique ID of the question",
+                "type": "string"
+            },
+            "question": {
+                "description": "Question text",
+                "type": "string"
+            },
+            "prompt": {
+                "description": "Additional helper text",
+                "type": "string"
+            },
+            "isRequired": {
+                "description": "If an answer is required",
+                "type": "boolean"
+            },
+            "isReadOnly": {
+                "description": "Answer cannot be edited",
+                "type": "boolean"
+            },
+            "access": {
+                "description": "Accessibility for this item",
+                "enum": ["candidateOwned", "internalOwned", "internalShared", "eeo"]
+            },
+            "propertyOrder": {
+                "description": "Hint for display order",
+                "type": "integer"
+            }
+        },
+        "required": ["name", "type", "question"]
+    }]
 }

@@ -272,6 +272,26 @@ resourceTypes: !include resources.yml
           get:
             securedBy: [oauth_2_0]
             description: get the id of the application (if any)
+
+/appStatus:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Produced by apps to inform the storefront app of this app's:
+      - landing page, i.e where should the user go to do on clicking "open" on the app - e.g. clicking a job board app might go to the front page of the job board
+      - setup required status, i.e. whether the app is degraded or unusable due to some missing setup
+      - setup page, i.e. where should the user go to adjust the app's setup   
+      
+      Probably only consumed by storefront apps.
+      
+      SoT: non-SoT (each app has their own landing page).
+      
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/appStatus.json
+            example: !include ../examples/appStatus-simple.json
           
 /candidates:
   description:
@@ -1213,12 +1233,15 @@ resourceTypes: !include resources.yml
   get:
     securedBy: [oauth_2_0]
     description: |
+      *deprecated* - use GET /appStatus instead.
+      
       Produced by apps that want to allow a user viewing the storefront app to click on the app's icon and be offered a link
       to some page (probably) within the app. e.g. clicking a job board app might go to the front page of the job board.
       
       Probably only consumed by storefront apps.
       
       SoT: non-SoT (each app has their own landing page).
+      
       OAuth: client credentials only (if principal-specific behaviour is needed that might happen after SSO on the landing page itself)
        
     responses:

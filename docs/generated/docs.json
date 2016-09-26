@@ -13,6 +13,7 @@
     "apiResult": { "$ref": "../schemas/apiResult.json" },
     "apiTest": { "$ref": "../schemas/apiTest.json" },
     "applicationView": { "$ref": "../schemas/applicationView.json" },
+    "appStatus": { "$ref": "../schemas/appStatus.json" },
     "canApply": { "$ref": "../schemas/canApply.json" },
     "candidateDetails": { "$ref": "../schemas/candidateDetails.json" },
     "candidateEdit": { "$ref": "../schemas/candidateEdit.json" },

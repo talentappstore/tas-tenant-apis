@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "landingPage": {
+            "type": "string",
+             "format": "uri",
+            "description": "a (probably tenant-specific) url of the landing page for this app. The landing page is where the user is led to after clicking [open] in the UI."
+        },
+        "settingsPage": {
+            "type": "string",
+             "format": "uri",
+            "description": "a url of a settings page for this app. The setup page is where the user is led to after clicking [settings] in the UI. After setup is complete the app should redirect the user back to the passed in relayPage."
+        },
+        "setupRequired": {
+            "type": "boolean",
+            "description": "true if the app is unusable or degraded due to lack of some setup. When true, this causes the setup required indicator to appear next to the app in the UI. When true, the app should provide a value for settingsPage."
+        }        
+    },
+    "additionalProperties": false,
+    "required": [ "setupRequired" ]
+}

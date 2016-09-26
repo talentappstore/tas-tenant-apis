@@ -276,6 +276,7 @@ resourceTypes: !include resources.yml
 /appStatus:
   get:
     securedBy: [oauth_2_0]
+    is: [ hasRelayPage ]
     description: |
       Produced by apps to inform the storefront app of this app's:
       - landing page, i.e where should the user go to do on clicking "open" on the app - e.g. clicking a job board app might go to the front page of the job board
@@ -285,7 +286,10 @@ resourceTypes: !include resources.yml
       Probably only consumed by storefront apps.
       
       SoT: non-SoT (each app has their own landing page).
-      
+
+      When the app is generating the setup page url, the relayPage parameter indicates where the user should be redirected to after completing
+      the setup (i.e. typically the app details page witin the storefront).
+             
     responses:
       200:
         body:

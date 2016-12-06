@@ -197,11 +197,38 @@ resourceTypes: !include resources.yml
 /applications:
   /byID:
     /{application}:
-      /deltaPings:
+      get:
+        securedBy: [oauth_2_0]
         description: |
-          The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
+          Get details of a job application.
           
-          Non-SoT.
+          SoT.
+                 
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/application.json
+                example: !include ../examples/application-simple.json
+                
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
+            
+            The body contains not just the operation (insert, update, delete) but also key data fom the application (its job, candidate etc.) so that clients
+            don't need to fetch that separately. This data is as at
+            - after insert
+            - after update
+            - before delete
+          
+            Non-SoT.
+
+          body:
+            application/json:
+              schema: !include ../schemas/applicationDeltaPing.json
+              example: !include ../examples/applicationDeltaPing-simple.json
           
       /bucket:
         /deltaPings:
@@ -237,25 +264,12 @@ resourceTypes: !include resources.yml
           /byName:
             /{item}:
               type: itemMeta
-      /tracker:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get the tracker, if any, associated with this application. This is fixed at the time that application is made.
       /status:
         get:
           securedBy: [oauth_2_0]
           description: |
             Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
             as "interview", "offer", "pre-screen", etc.
-      /candidate:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get the candidate for this application
-      /job:
-        get:
-          securedBy: [oauth_2_0]
-          description: Get the job opening for this application
   /bySourcingApp:
     /{consumer}:
       /{id}:
@@ -296,6 +310,37 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/appStatus.json
             example: !include ../examples/appStatus-simple.json
+
+/buckets:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/buckets.json
+            example: !include ../examples/buckets-simple.json
+  /byID:
+    /{id}:
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/bucket.json
+                example: !include ../examples/bucket-simple.json
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            The main ping for any changes to a bucket. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
+            
+            Non-SoT.
+
+          body:
+            application/json:
+              schema: !include ../schemas/deltaPing.json
+              example: !include ../examples/deltaPing-simple.json
+
           
 /candidates:
   description:
@@ -725,6 +770,21 @@ resourceTypes: !include resources.yml
           is: [ editSpecFetcher ]
 
 /engagements:
+  /strips:
+    /headHtml:
+      get:
+        description: |
+          Get html head snippet (typically an include of a stylesheet) used to style the html for the engagements strip.
+              
+          The app building the page (e.g. applicant list) that embeds engagement strips must insert the results of this API call in its head section.
+        responses:
+          200:
+            body:
+              text/html:
+                example: some html pulling in stylesheet, javascript etc.
+    /forApplications:
+      /asHtml:
+        type: applicationEngagementsStrip
   /byID:
     /{id}:
       get:
@@ -788,6 +848,7 @@ resourceTypes: !include resources.yml
               for example upon a candidate applying and being screened in.
               
               SoT. Typically implemented by the engagement hub.
+              
             body:
               application/json:
                 schema: !include ../schemas/engagementOrderByTenant.json
@@ -1492,5 +1553,26 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/candidateWorkflows.json
               example: !include ../examples/candidateWorkflows-simple.json
+    /byID:
+      /{id}:
+        get:
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/candidateWorkflow.json
+                  example: !include ../examples/candidateWorkflow-simple.json
+        /deltaPings:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              The main ping for any changes to a workflow. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
+            
+              Non-SoT.
+
+            body:
+              application/json:
+                schema: !include ../schemas/deltaPing.json
+                example: !include ../examples/deltaPing-simple.json
     
     

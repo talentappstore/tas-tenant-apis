@@ -1,0 +1,10 @@
+[
+  {
+    "application": 1,
+    "strip": "<div>blah 0</div>"
+  },
+  {
+    "application": 22,
+    "strip": "<div>blah</div>"
+  }
+]

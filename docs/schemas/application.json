@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "application": {
+      "type": "integer"
+    },
+    "candidate": {
+      "type": "integer"
+    },
+    "job": {
+      "type": "integer"
+    },
+    "bucket": {
+      "type": "string"
+    },
+    "tracker": {
+      "type": "integer",
+      "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
+    }
+  },
+  "required": [
+    "application",
+    "candidate",
+    "job",
+    "bucket",
+    "tracker"
+  ],
+  "additionalProperties": false
+}

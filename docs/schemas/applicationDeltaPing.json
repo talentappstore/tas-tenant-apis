@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "detail": {
+      "$ref": "application.json"
+    },
+    "operation": {
+      "$ref": "deltaPing.json#/definitions/operation"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "detail",
+    "operation"
+  ]
+}

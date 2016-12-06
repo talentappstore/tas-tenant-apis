@@ -1,13 +1,18 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object",
-    "properties": {
-        "operation": {
+    "definitions": {
+      "operation": {
             "enum": [
                 "insert",
                 "update",
                 "delete"
             ]
+      }
+    },
+    "type": "object",
+    "properties": {
+        "operation": {
+          "$ref": "#/definitions/operation"
         }
     },
     "required": [

@@ -243,6 +243,7 @@
         "Complete",
         "Cancelled",
         "Expired",
+        "Released",
         "Error"
       ]
     },
@@ -304,33 +305,6 @@
       "required": [
         "subject"
       ]
-    },
-    "engagementWriteByApp": {
-      "type": "object",
-      "description": "package of data for an engagement app to update an engagement",
-      "properties": {
-        "assessmentDetailWrite": {
-          "$ref": "#/definitions/assessmentDetailWrite"
-        },
-        "status": {
-          "$ref": "#/definitions/status"
-        },
-        "interactionUris": {
-          "$ref": "#/definitions/interactionUris"
-        }
-      }
-    },
-    "engagementWriteByTenant": {
-      "type": "object",
-      "description": "package of data for the tenant (e.g. via some trusted app like an ats) to update an engagement",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/status"
-        },
-        "onHoldFlag": {
-          "$ref": "#/definitions/onHoldFlag"
-        }
-      }
     }
   },
   "type": "object",

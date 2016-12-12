@@ -62,25 +62,26 @@
           description: |
             There is no setup for this action at this level (i.e. it doesn't need any parameters)                              
 
-
-- userAppPanels:
+- appPanel:
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get an array of all of the user-facing panels from a single app. Non-SoT.
+        Get a panel (purpose-specific small, ebeddable web page) from a single app. Non-SoT.
       is: [ iframeContained ]
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/panels.json
-              example: !include ../examples/panels-simple.json
+              schema: !include ../schemas/panel.json
+              example: !include ../examples/panel-simple.json
+        404:
+          description: the app has no panel to provide
 
-- userAppsPanels:
+- appsPanels:
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get an array of all of the user-facing panels from all apps. SoT.
+        Get an array of all of the panels from all apps. SoT.
       is: [ iframeContained ]
       responses:
         200:

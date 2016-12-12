@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
-    "items": { "$ref": "panelsForApp.json" },
+    "items": { "$ref": "panelForApp.json" },
     "description": "An array of panels rolled up across all producing apps"
 }

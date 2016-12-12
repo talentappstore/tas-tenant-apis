@@ -5,6 +5,8 @@
     "daysToExpire": 365,
     "isPassFail": false,
     "candidateSeesResults": false,
-    "canReuse": true
+    "canReuse": true,
+    "candidateDescription": "The MS Word proficiency test is an easy, painless way to assess you ability to use this most excellent of products.",
+    "appCommunicatesDirectlyToCandidate": false
   }
 ]

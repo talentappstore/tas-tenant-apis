@@ -319,8 +319,8 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/buckets.json
             example: !include ../examples/buckets-simple.json
-  /byID:
-    /{id}:
+  /byKey:
+    /{key}:
       get:
         responses:
           200:
@@ -398,9 +398,15 @@ resourceTypes: !include resources.yml
     /homePage:
       get:
         securedBy: [oauth_2_0]
+        is: [ hasRelayPage ]
         description: |
-          Get the uri of the home page, where a candidate can see their own status, find incomplete activities and so on. Often produced by an ATS.
-          
+          Get the uri of the home page, a landing page where a logged in candidate can see anything they should know about or should do, e.g.
+          the status of their job application, engagements they still haven't completed, etc. Often produced by an ATS.
+
+          Details of a relayPage can be passed in when the home page was reached as part of some activity. e.g. candidate applies for job and after submission is redirected
+          to the home page, e.g. so they can complete any auto-started engagements. Passing the relayPage of the job (where they clicked Apply) causes navigation
+          link "Back to Creative Director" to be displayed at the top of the candidate home page. 
+                    
           SoT. There is only one home page to send the candidate to.
         responses:
           200:
@@ -408,6 +414,7 @@ resourceTypes: !include resources.yml
               application/json:
                 schema: !include ../schemas/homePage.json
                 example: !include ../examples/homePage-simple.json
+
     /id:
       description: |
         The ID of the candidate.
@@ -883,7 +890,7 @@ resourceTypes: !include resources.yml
           Non-SoT (there may be many listeners).
 
 /global:
-  description: resources which are global in scope and possibly useful to all apps
+  description: resources which are global/singletons
   /internalIPMatches:
     /byIP:
       /{ip}:
@@ -923,6 +930,7 @@ resourceTypes: !include resources.yml
           body:
             text/plain:
               example: https://example.com/candidate/termsAndConditions.html
+        
 /items:
   /toCandidate:
     /anonymous:
@@ -1345,9 +1353,17 @@ resourceTypes: !include resources.yml
     /me:
       /jobs:
         /{job}:
-          type: userAppsPanels
+          description: Panels shown to a user about a specific job  
+          type: appsPanels
           /byApp:
-            type: userAppPanels
+            type: appPanel
+  /toCandidate:
+    /me:
+      /home:
+        description: Panels shown to a candidate about themselves, i.e on a logged in home page  
+        type: appsPanels
+        /byApp:
+          type: appPanel
     
 /trackers:
   description: |

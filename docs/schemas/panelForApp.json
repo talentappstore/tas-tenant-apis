@@ -4,15 +4,15 @@
   "properties": {
     "app": {
       "type": "string",
-      "description": "the app that produced these panels"
+      "description": "the app that produced this panel"
     },
-    "panels": {
-      "$ref": "panels.json"
+    "panel": {
+      "$ref": "panel.json"
     }
   },
   "additionalProperties": false,
   "required": [
     "app",
-    "panels"
+    "panel"
   ]
 }

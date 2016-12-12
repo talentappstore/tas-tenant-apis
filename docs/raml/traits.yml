@@ -23,10 +23,16 @@
 - hasRelayPage:
     description: a URL can be passed in that the user will be redirected to at some time in the future 
     queryParameters:
-      relayPage:
+      relayPageURL:
         type: string
         description: |
           A URL that the user will be redirected to.
+        example: https://myapp.com/kh87876
+        required: true
+      relayPageLabel:
+        type: string
+        description: |
+          A label for the URL that the user will be redirected to, e.g. "Creative Director".
         example: https://myapp.com/kh87876
         required: true
 

@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
+  "description": "package of data for an engagement app to update an engagement",
   "properties": {
     "status": {
       "$ref": "engagementRead.json#/definitions/status"

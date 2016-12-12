@@ -3,7 +3,7 @@
   "definitions": {
     "key": {
       "type": "string",
-      "description": "the engagement app's unique (within that app) and immutable key for this engagement type "
+      "description": "the engagement app's unique (within that app) and immutable key for this engagement type"
     },
     "title": {
       "type": "string",
@@ -25,6 +25,14 @@
       "type": "boolean",
       "description": "whether an unexpired engagement result on one job application can be reused when the candidate makes another job application"
     },
+    "candidateDescription": {
+      "type": "string",
+      "description": "A description, worded for the candidate, of the purpose of this engagement. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we're hiring."
+    },
+    "appCommunicatesDirectlyToCandidate": {
+      "type": "boolean",
+      "description": "True if the app communicates directly with the candidate when an engagement is started. In this case the hub will not send the candidate an email message."
+    },
     "engagementType": {
       "type": "object",
       "properties": {
@@ -45,8 +53,24 @@
         },
         "canReuse": {
           "$ref": "#/definitions/canReuse"
+        },
+        "candidateDescription": {
+          "$ref": "#/definitions/candidateDescription"
+        },
+        "appCommunicatesDirectlyToCandidate": {
+          "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
         }
-      }
+      },
+      "required": [
+        "key",
+        "title",
+        "daysToExpire",
+        "isPassFail",
+        "candidateSeesResults",
+        "canReuse",
+        "candidateDescription",
+        "appCommunicatesDirectlyToCandidate"
+      ]
     }
   },
   "type": "array",

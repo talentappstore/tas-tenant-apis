@@ -45,6 +45,8 @@
     "fileUpload": { "$ref": "../schemas/fileUpload.json" },
     "filterJob": { "$ref": "../schemas/filterJob.json" },
     "filterJobs": { "$ref": "../schemas/filterJobs.json" },
+    "hireView": { "$ref": "../schemas/hireView.json" },
+    "hireViews": { "$ref": "../schemas/hireViews.json" },
     "homePage": { "$ref": "../schemas/homePage.json" },
     "intent": { "$ref": "../schemas/intent.json" },
     "item": { "$ref": "../schemas/item.json" },

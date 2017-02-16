@@ -930,6 +930,22 @@ resourceTypes: !include resources.yml
           body:
             text/plain:
               example: https://example.com/candidate/termsAndConditions.html
+
+/hires:
+  description: |
+    Hires (i.e. candidates who have been hired into a job)
+  get:    
+    securedBy: [oauth_2_0]
+    is: [ tasCollection: { orderingProperties: hireDate, filterCapabilities: "hireDate gt 'n', hireDate lt 'n'", maxTop: 20 } ]
+    description: |
+      Search hires, based on hire date.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/hireViews.json
+            example: !include ../examples/hireViews-simple.json
+
         
 /items:
   /toCandidate:

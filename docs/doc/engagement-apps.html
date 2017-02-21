@@ -65,11 +65,9 @@
 <li>the candidate themselves, e.g. an online questionnaire where the
 candidate provides some data that can be used to calculate
 their cultural fit with the company they are apply for.
-<li>a trusted third party, e.g. a fact checking firm that verifies that the
-details in a candidate's resume are accurate.
+<li>you, the vendor - e.g. you are a fact checking firm that verifies that the details in a candidate's resume are accurate.
 <li>a user inside the tenant, e.g. a recruiter providing some information.
-<li>no-one, e.g. a fully automated computer program that scours social networks and web sites,
-scraping the online footprints of the candidate.
+<li>no-one, e.g. a fully automated computer program that scours social networks and web sites, scraping the online footprints of the candidate.
 <li>some combination of the above.
 </ol> 
 </p>
@@ -105,20 +103,20 @@ arithmetic question, and then at the end calculate an overall score for them.
 <li>The <b>engagement hub</b> app. The hub provides centralized engagement
 management and is separate from any single engagement app. The engagement hub app:
 <ul>
-<li>stores details of all engagement, including status, summary and detailed results
-(including scores), links and attachments (documents)
-<li>reuses results when an existing engagement result for the candidate is available within the expiry time, reducing per-engagement costs and candidate inconvenience 
+<li>stores summary details of all engagements, including status, pass/fail and status image
+<li>reuses engagements when an existing engagement for the candidate is available within the expiry time, reducing per-engagement
+costs and candidate inconvenience 
 <li>stores the tenant's installed engagement apps - for example, the "Microsoft Office proficiency assessment app"
 <li>stores a tenant-specific list of engagement types within each engagement
 app - for example "MS Word proficiency - entry level", "MS Excel proficiency - guru"
-<li>securely mediates engagement app access to views of information about the
-candidate/application, and prevents engagement apps from probing candidates they
-are not authorized to access
-<li>provides a UI for the tenant to map engagement types to specific workflows (e.g., that the "sales skills 101" engagement type is only available for call center jobs),
-and to mark engagement types as being auto-started for new job applications
+<li>securely mediates engagement app access to views of information about the candidate/application, and prevents engagement apps
+from probing candidates they are not authorized to access
+<li>provides a UI for the tenant to map engagement types to specific workflows (e.g., that the "sales skills 101"
+engagement type is only available for call center jobs), and to mark engagement types as being auto-started for new job applications
 </ul>
 
-<li>The applicant tracking system (<b>ATS</b>) app. The ATS holds job applications and displays them, with engagement results, to recruiters/hiring managers. It starts engagements, either automatically or via user action in the embedded menus.
+<li>The applicant tracking system (<b>ATS</b>) app. The ATS holds job applications and displays them, with engagement results,
+to recruiters/hiring managers. It starts engagements, either automatically or via user action in the embedded menus.
 
 </ol>
 
@@ -196,10 +194,12 @@ TAS core APIs. You probably won't need to spend too much time interacting with t
 
 <h2>Produce /tenants API</h2>
 
-<p>Whenever a tenant clicks "install" on your app, you are notified via an incoming core API call to your POST /tenants endpoint (see coreOut.raml.html under the TAS core documentation).
+<p>Whenever a tenant clicks "install" on your app, you are notified via an incoming core API call to
+your POST /tenants endpoint (see coreOut.raml.html under the TAS core documentation).
 </p>
 
-<p>You should take this opportunity to do any per-customer setup, e.g. inserting into a customers table, creating a record in your customer management system, sending a welcome email, etc.
+<p>You should take this opportunity to do any per-customer setup, e.g. inserting into a customers
+table, creating a record in your customer management system, sending a welcome email, etc.
 </p>
 
 <p>In the example below, TAS is informing your app that the tenant acme-sandbox-1 has just installed it.
@@ -274,7 +274,6 @@ a new custom engagement type, and you have just delivered it).
 
 <p>When this happens, you need to consume the deltaPings API on every app that produces it
 (i.e. those apps that care about new engagement types - which will include at least the engagement hub app).
-</p>
 
 <div class='codeBlock'>
 // get a list of apps that produce the API (i.e. that want be notified about new engagement types)
@@ -299,7 +298,10 @@ Response:
 // now notify each app
 POST http://myapp.tazzy.io/apps/engagementhub/devs/tas/engagementTypes/deltaPings
 </div>
+</p>
 
+<p>In the future the tazz proxy will make this easier for you.
+</p>
 
 <h2>Produce /landingPage API</h2>
 
@@ -334,15 +336,15 @@ POST /engagements/byID/{}/tenantDeltaPings. Your endpoint receives a message lik
 rows in your own tables, sending messages, etc.
 </p>
 
-<p>Once finished, your app updates the engagement to indicate it's new state.
+<p>Once finished, your app updates the engagement to indicate its new state.
 </p>
 
-<p>Your may also be informed via this API that an engagement has been deleted (e.g. in response to some privacy request), in which case your
+<p>Your app may also be informed via this API that an engagement has been deleted (e.g. in response to some privacy request), in which case your
 app should normally clean up by deleting any data held at your end on the engagement. 
 </p>
 
-<p>Your may also be informed via this API that an engagement has been updated (e.g. in response to the tenant putting it on hold), in which case your
-app should review the tenant normally clean up by deleting any data held at your end on the engagement. 
+<p>Your app may also be informed via this API that an engagement has been updated (e.g. in response to the tenant putting it on hold), in which case your
+app should stop whatever it is doing with the candidate.
 </p>
 
 <h2>Consume GET /engagements/byID/{} API</h2>
@@ -437,6 +439,10 @@ enough information for the engagement app to do its work.
 
 <h1>HR-XML</h1>
 
+<p>Previous versions of the engagement APIs stored results in HR-XML like form. Now, all the engagement hub stores is the
+pass/fail (if relevant) and an image provided by the engagement app to visually summarize status/outcomes. The following is kept for now
+but is not relevant.
+</p>
 
 <p>The engagement APIs are informed by the work of the HR-XML consortium, but are json-based, designed
 for communications between apps (microservices) rather than business partners,

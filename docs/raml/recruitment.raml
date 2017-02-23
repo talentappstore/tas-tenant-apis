@@ -936,16 +936,16 @@ resourceTypes: !include resources.yml
     Hires (i.e. candidates who have been hired into a job)
   get:    
     securedBy: [oauth_2_0]
-    is: [ tasCollection: { orderingProperties: hireDate, filterCapabilities: "hireDate gt 'n', hireDate lt 'n'", maxTop: 20 } ]
+    is: [ tasCollection: { orderingProperties: hireDate, filterCapabilities: "hireDate gt 'n'", maxTop: 20 } ]
     description: |
-      Search hires, based on hire date.
+      Search hires, filtered by starting hire date, and ordered by hire date. Both the filter and the ordering parameters must
+      be present.
     responses:
       200:
         body:
           application/json:
             schema: !include ../schemas/hireViews.json
             example: !include ../examples/hireViews-simple.json
-
         
 /items:
   /toCandidate:

@@ -6,7 +6,8 @@
     },
     "candidateModel": {
     "vCardRule": {
-      "someMandatory": true
+      "someMandatory": true,
+      "showPrefixField": false
     },
         "requiredCategoryValues": [
             {

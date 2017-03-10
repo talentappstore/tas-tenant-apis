@@ -67,7 +67,7 @@
 	  "type": "array",
           "description": "the allowable titles from the ATS. E.g.: [ Mr., Mrs., Ms., Dr. ]",
 	  "items": {
-            "$ref": "#/definitions/value"
+            "type": "string"
            }
         }        
       },

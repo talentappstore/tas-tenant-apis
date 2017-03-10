@@ -4,6 +4,9 @@
     "job": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "code": {
           "$ref": "job.json#/definitions/code"
         },
@@ -27,6 +30,9 @@
     "candidate": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "vcard": {
           "type": "object",
           "additionalProperties": true
@@ -51,6 +57,9 @@
     "application": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "items": {
           "$ref": "items.json"
         }
@@ -62,6 +71,9 @@
     "jobCoordinator": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "vcard": {
           "type": "object",
           "additionalProperties": true
@@ -70,6 +82,58 @@
       "required": [
         "vcard"
       ]
+    },
+    "remuneration": {
+      "type": "object",
+      "description": "See HR/XML OnBoardingDeploymentType",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The monetary value of the object in which the amount is associated"
+        },
+        "rateIntervalCode": {
+          "type": "string",
+          "description": "See HR/XML PayRateIntervalCodeType"
+        },
+        "typeCode": {
+          "type": "string",
+          "description": "A code classifying the type of remuneration (HR/XML)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dutyEntryDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Per- HR-XML, the date the employee or human resource actually begins work or enters on duty"
+    },
+    "hireDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Per- HR-XML, The date on which the associated person was hired."
+    },
+    "onBoardedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the associated person completed onboarding."
+    },
+    "hireDetails": {
+      "type": "object",
+      "properties": {
+        "remuneration": {
+          "$ref": "#/definitions/remuneration"
+        },
+        "dutyEntryDate": {
+          "$ref": "#/definitions/dutyEntryDate"
+        },
+        "hireDate": {
+          "$ref": "#/definitions/hireDate"
+        },
+        "onBoardedDate": {
+          "$ref": "#/definitions/onBoardedDate"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "type": "object",
@@ -85,6 +149,9 @@
     },
     "jobCoordinator": {
       "$ref": "#definitions/jobCoordinator"
+    },
+    "hireDetails": {
+      "$ref": "#definitions/hireDetails"
     }
   },
   "required": [

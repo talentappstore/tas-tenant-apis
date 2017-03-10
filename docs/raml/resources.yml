@@ -1,5 +1,34 @@
 #%RAML 0.8
 
+
+- applicationGetter:
+    get:    
+      securedBy: [oauth_2_0]
+      description: |
+        Get all applications that have completed this phase now, or (if since is specified) after a given date date, AND (if minID
+        is specified) that have id > a given value (allows paging of results).
+        Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number
+        is returned, the client should fetch again, specifying minID, as there may be more results.
+      queryParameters:
+        since:
+          type: date
+          required: false
+          example: A string such as "2015-11-05T13:15:30Z"
+        minID:
+          type: number
+          required: false
+          example: 1001
+          description: if present, only applications with id > this value will be returned 
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationViews.json
+              example: !include ../examples/applicationViews-simple.json
+        404:
+          description: there are no applications matching the filters
+
+
 - universalMenuBody:
     get:
       securedBy: [oauth_2_0]

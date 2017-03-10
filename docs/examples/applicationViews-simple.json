@@ -1,7 +1,5 @@
+[
 {
-  "hire": {
-     "hireDate": "2015-11-05T13:15:30Z" 
-  },
   "application": {
     "items": []
   },
@@ -11,7 +9,10 @@
     "items": []
   },
   "candidate": {
-    "vcard": {},
+    "vcard": [
+      "blah",
+      "blah"
+    ],
     "internalFlag": false,
     "resumeMeta": {
       "fileName": "fredcv.docx",
@@ -23,6 +24,10 @@
     "items": []
   },
   "jobCoordinator": {
-    "vcard": {}
+    "vcard": [
+      "blah",
+      "blah"
+    ]
   }
 }
+]

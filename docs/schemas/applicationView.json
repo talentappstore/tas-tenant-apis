@@ -1,28 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "job": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "code": {
-          "$ref": "job.json#/definitions/code"
-        },
-        "title": {
-          "$ref": "job.json#/definitions/title"
-        },
-        "items": {
-          "$ref": "items.json"
-        }
-      },
-      "required": [
-        "code",
-        "title",
-        "items"
-      ]
-    },
     "internalFlag": {
       "type": "boolean",
       "description": "whether this candidate is an internal"
@@ -142,7 +120,7 @@
       "$ref": "#definitions/application"
     },
     "job": {
-      "$ref": "#definitions/job"
+      "$ref": "job.json"
     },
     "candidate": {
       "$ref": "#definitions/candidate"

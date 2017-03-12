@@ -1067,6 +1067,16 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/jobs.json
             example: !include ../examples/jobs-simple.json
+  post:
+    description: |
+      Create a job. The id field should not be present in the request.
+    body:
+      application/json:
+        schema: !include ../schemas/job.json
+        example: !include ../examples/job-simple.json
+    responses:
+      201:
+        description: the job was successfully created
   /searches:
     post:
       securedBy: [oauth_2_0]
@@ -1086,6 +1096,16 @@ resourceTypes: !include resources.yml
               example: !include ../examples/jobs-simple.json
   /byID:
     /{job}:
+      patch:
+        description: |
+          Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
+        body:
+          application/merge-patch+json:
+            schema: !include ../schemas/job.json
+            example: !include ../examples/job-simple.json
+        responses:
+          200:
+            description: the job was successfully updated
       get:
         securedBy: [oauth_2_0]
         description: |
@@ -1184,21 +1204,6 @@ resourceTypes: !include resources.yml
                   application/json:
                     schema: !include ../schemas/candidateWorkflow.json
                     example: !include ../examples/candidateWorkflow-simple.json
-  /recruiterFaces:
-    description: |
-      APIs that present information relevant to someone who is acting as a recruiter. Normally when these APIs are called as OAuth,
-      the logged in principal would be a user, session decorated as a recruiter.          
-    post:
-      securedBy: [oauth_2_0]
-      description: Post a new opening as a recruiter, perhaps using another opening as a template, making sure to specify owner and status
-    /{id}:
-      get:
-        securedBy: [oauth_2_0]
-        description: Get recruiter-facing details for a specific opening by ID. When called as OAuth, the opening must be visible to the recruiter.
-      post:
-        securedBy: [oauth_2_0]
-        description: Update an existing opening as a recruiter
-
 /jobSets:
   /uploads:
     post:

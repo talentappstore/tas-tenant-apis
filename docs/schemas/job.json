@@ -110,12 +110,10 @@
     },
     "categories": {
       "$ref": "categoriesActual.json"
+    },
+    "items": {
+       "$ref": "items.json"
     }
   },
-  "required": [
-    "code",
-    "availability",
-    "title"
-  ],
   "additionalProperties": false
 }

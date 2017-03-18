@@ -49,7 +49,9 @@
     "homePage": { "$ref": "../schemas/homePage.json" },
     "intent": { "$ref": "../schemas/intent.json" },
     "item": { "$ref": "../schemas/item.json" },
+    "itemOut": { "$ref": "../schemas/itemOut.json" },
     "items": { "$ref": "../schemas/items.json" },
+    "itemsOut": { "$ref": "../schemas/itemsOut.json" },
     "jcard": { "$ref": "../schemas/jcard.json" },
     "jobBoard": { "$ref": "../schemas/jobBoard.json" },
     "jobBoardsForApps": { "$ref": "../schemas/jobBoardsForApps.json" },
@@ -73,7 +75,8 @@
     "socialNetworks": { "$ref": "../schemas/socialNetworks.json" },
     "tracker": { "$ref": "../schemas/tracker.json" },
     "trackers": { "$ref": "../schemas/trackers.json" },
-    "userArea": { "$ref": "../schemas/userArea.json" }
+    "userArea": { "$ref": "../schemas/userArea.json" },
+    "user": { "$ref": "../schemas/user.json" }
 
   }
 }

@@ -22,7 +22,7 @@
           "$ref": "fileDownload.json"
         },
         "items": {
-          "$ref": "items.json"
+          "$ref": "itemsOut.json"
         }
       },
       "required": [
@@ -39,26 +39,11 @@
           "type": "integer"
         },
         "items": {
-          "$ref": "items.json"
+          "$ref": "itemsOut.json"
         }
       },
       "required": [
         "items"
-      ]
-    },
-    "jobCoordinator": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "vcard": {
-          "type": "object",
-          "additionalProperties": true
-        }
-      },
-      "required": [
-        "vcard"
       ]
     },
     "remuneration": {
@@ -117,26 +102,20 @@
   "type": "object",
   "properties": {
     "application": {
-      "$ref": "#definitions/application"
+      "$ref": "#/definitions/application"
     },
     "job": {
       "$ref": "job.json"
     },
     "candidate": {
-      "$ref": "#definitions/candidate"
+      "$ref": "#/definitions/candidate"
     },
-    "jobCoordinator": {
-      "$ref": "#definitions/jobCoordinator"
+    "job.manager": {
+      "$ref": "user.json"
     },
     "hireDetails": {
-      "$ref": "#definitions/hireDetails"
+      "$ref": "#/definitions/hireDetails"
     }
   },
-  "required": [
-    "application",
-    "job",
-    "candidate",
-    "jobCoordinator"
-  ],
   "additionalProperties": false
 }

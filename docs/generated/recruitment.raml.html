@@ -1472,10 +1472,7 @@
     "items": []
   },
   "candidate": {
-    "vcard": [
-      "blah",
-      "blah"
-    ],
+    "vcard": {},
     "internalFlag": false,
     "resumeMeta": {
       "fileName": "fredcv.docx",
@@ -1486,11 +1483,9 @@
     },
     "items": []
   },
-  "jobCoordinator": {
-    "vcard": [
-      "blah",
-      "blah"
-    ]
+  "job.manager": {
+    "vcard": {
+    }
   }
 }
 ]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there are no applications matching the filters</p></div><div class="tab-pane" id="applications_hired_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_onBoarded"><span class="parent">/applications</span>/onBoarded</a> <span class="methods"><a href="#applications_onBoarded_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_onBoarded" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Onboarded hires (i.e. candidates who have completed the onboarding process)</p></div><div class="list-group"><div onclick="window.location.href = '#applications_onBoarded_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all applications that have completed this phase now, or (if since is specified) after a given date date, AND (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_onBoarded_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications</span>/onBoarded</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all applications that have completed this phase now, or (if since is specified) after a given date date, AND (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_onBoarded_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_onBoarded_get_response" data-toggle="tab">Response</a></li><li><a href="#applications_onBoarded_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_onBoarded_get_request"><h3>Query Parameters</h3><ul><li><strong>since</strong>: <em>(date)</em><p><strong>Example</strong>:</p><pre><code>A string such as "2015-11-05T13:15:30Z"</code></pre></li><li><strong>minID</strong>: <em>(number)</em><p>if present, only applications with id &gt; this value will be returned</p><p><strong>Example</strong>:</p><pre><code>1001</code></pre></li></ul></div><div class="tab-pane" id="applications_onBoarded_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
@@ -1508,10 +1503,7 @@
     "items": []
   },
   "candidate": {
-    "vcard": [
-      "blah",
-      "blah"
-    ],
+    "vcard": {},
     "internalFlag": false,
     "resumeMeta": {
       "fileName": "fredcv.docx",
@@ -1522,11 +1514,9 @@
     },
     "items": []
   },
-  "jobCoordinator": {
-    "vcard": [
-      "blah",
-      "blah"
-    ]
+  "job.manager": {
+    "vcard": {
+    }
   }
 }
 ]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there are no applications matching the filters</p></div><div class="tab-pane" id="applications_onBoarded_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="appStatus" class="panel-title">/appStatus</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_appStatus"><span class="parent"></span>/appStatus</a> <span class="methods"><a href="#appStatus_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_appStatus" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#appStatus_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Produced by apps to inform the storefront app of this app&#39;s:</p><ul><li>landing page, i.e where should the user go to do on clicking "open" on the app - e.g. clicking a job board app might go to the front page of the job board</li><li>setup required status, i.e. whether the app is degraded or unusable due to some missing setup</li><li>setup page, i.e. where should the user go to adjust the app&#39;s setup</li></ul><p>Probably only consumed by storefront apps.</p><p>SoT: non-SoT (each app has their own landing page).</p><p>When the app is generating the setup page url, the relayPage parameter indicates where the user should be redirected to after completing the setup (i.e. typically the app details page witin the storefront).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="appStatus_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/appStatus</h4></div><div class="modal-body"><div class="alert alert-info"><p>Produced by apps to inform the storefront app of this app&#39;s:</p><ul><li>landing page, i.e where should the user go to do on clicking "open" on the app - e.g. clicking a job board app might go to the front page of the job board</li><li>setup required status, i.e. whether the app is degraded or unusable due to some missing setup</li><li>setup page, i.e. where should the user go to adjust the app&#39;s setup</li></ul><p>Probably only consumed by storefront apps.</p><p>SoT: non-SoT (each app has their own landing page).</p><p>When the app is generating the setup page url, the relayPage parameter indicates where the user should be redirected to after completing the setup (i.e. typically the app details page witin the storefront).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#appStatus_get_request" data-toggle="tab">Request</a></li><li><a href="#appStatus_get_response" data-toggle="tab">Response</a></li><li><a href="#appStatus_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="appStatus_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li></ul></div><div class="tab-pane" id="appStatus_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
@@ -4367,7 +4357,7 @@
           "$ref": "fileDownload.json"
         },
         "items": {
-          "$ref": "items.json"
+          "$ref": "itemsOut.json"
         }
       },
       "required": [
@@ -4384,26 +4374,11 @@
           "type": "integer"
         },
         "items": {
-          "$ref": "items.json"
+          "$ref": "itemsOut.json"
         }
       },
       "required": [
         "items"
-      ]
-    },
-    "jobCoordinator": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "vcard": {
-          "type": "object",
-          "additionalProperties": true
-        }
-      },
-      "required": [
-        "vcard"
       ]
     },
     "remuneration": {
@@ -4462,34 +4437,44 @@
   "type": "object",
   "properties": {
     "application": {
-      "$ref": "#definitions/application"
+      "$ref": "#/definitions/application"
     },
     "job": {
       "$ref": "job.json"
     },
     "candidate": {
-      "$ref": "#definitions/candidate"
+      "$ref": "#/definitions/candidate"
     },
-    "jobCoordinator": {
-      "$ref": "#definitions/jobCoordinator"
+    "job.manager": {
+      "$ref": "user.json"
     },
     "hireDetails": {
-      "$ref": "#definitions/hireDetails"
+      "$ref": "#/definitions/hireDetails"
     }
   },
-  "required": [
-    "application",
-    "job",
-    "candidate",
-    "jobCoordinator"
-  ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "application": {
-    "items": []
+    "items": [
+      {
+        "name": "mypicks",
+        "raw": [
+          {
+            "pickChoice": "choice1"
+          },
+          {
+            "pickChoice": "choice2",
+            "subItem": {
+              "name": "myreason",
+              "raw": "because"
+            }
+          }
+        ]
+      }
+    ]
   },
   "hireDetails": {
-     "hireDate": "2015-11-05T13:15:30Z" 
+    "hireDate": "2015-11-05T13:15:30Z"
   },
   "job": {
     "code": "TTfg321",
@@ -4497,10 +4482,7 @@
     "items": []
   },
   "candidate": {
-    "vcard": [
-      "blah",
-      "blah"
-    ],
+    "vcard": {},
     "internalFlag": false,
     "resumeMeta": {
       "fileName": "fredcv.docx",
@@ -4511,12 +4493,7 @@
     },
     "items": []
   },
-  "jobCoordinator": {
-    "vcard": [
-      "blah",
-      "blah"
-    ]
-  }
+  "job.manager": {}
 }</code></pre></div><div class="tab-pane" id="engagements_byID__id__view_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byType__engagementType__forApplication__application_"><span class="parent">/engagements/byType/{engagementType}/forApplication</span>/{application}</a> <span class="methods"><a href="#engagements_byType__engagementType__forApplication__application__post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_engagements_byType__engagementType__forApplication__application_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byType__engagementType__forApplication__application__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Tenant creates (or reuses) an engagement of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the engagement hub.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byType__engagementType__forApplication__application__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/engagements/byType/{engagementType}/forApplication</span>/{application}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Tenant creates (or reuses) an engagement of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the engagement hub.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byType__engagementType__forApplication__application__post_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byType__engagementType__forApplication__application__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byType__engagementType__forApplication__application__post_request"><h3>URI Parameters</h3><ul><li><strong>engagementType</strong>: <em>required (string)</em></li><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
@@ -5794,6 +5771,10 @@ GET /widgets?$top=5
     },
     "items": {
        "$ref": "items.json"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
     }
   },
   "additionalProperties": false
@@ -6098,6 +6079,10 @@ GET /widgets?$top=5
     },
     "items": {
        "$ref": "items.json"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
     }
   },
   "additionalProperties": false
@@ -6253,6 +6238,10 @@ GET /widgets?$top=5
     },
     "items": {
        "$ref": "items.json"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
     }
   },
   "additionalProperties": false

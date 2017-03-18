@@ -9,10 +9,7 @@
     "items": []
   },
   "candidate": {
-    "vcard": [
-      "blah",
-      "blah"
-    ],
+    "vcard": {},
     "internalFlag": false,
     "resumeMeta": {
       "fileName": "fredcv.docx",
@@ -23,11 +20,9 @@
     },
     "items": []
   },
-  "jobCoordinator": {
-    "vcard": [
-      "blah",
-      "blah"
-    ]
+  "job.manager": {
+    "vcard": {
+    }
   }
 }
 ]

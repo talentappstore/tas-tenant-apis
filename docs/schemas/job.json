@@ -113,6 +113,10 @@
     },
     "items": {
        "$ref": "items.json"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
     }
   },
   "additionalProperties": false

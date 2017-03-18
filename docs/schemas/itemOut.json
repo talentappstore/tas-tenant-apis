@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "raw": {
+      "oneOf": [
+        {
+          "type": "boolean",
+          "description": "json representation of the item's current value as a boolean"
+        },
+        {
+          "type": "string",
+          "description": "json representation of the item's current value as a string"
+        },
+        {
+          "type": "number",
+          "description": "json representation of the item's current value as a number"
+        },
+        {
+          "$ref": "fileDownload.json"
+        },
+        {
+          "$ref": "#/definitions/pickItems"
+        }
+      ]
+    },
+    "pickItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/pickItem"
+      }
+    },
+    "pickItem": {
+      "type": "object",
+      "properties": {
+        "pickChoice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "subItem": {
+          "type": "object",
+          "description": "an item unlocked based on a picklist choice",
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/name"
+            },
+            "raw": {
+              "$ref": "#/definitions/raw"
+            }
+          },
+          "required": [
+            "name",
+            "raw"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "pickChoice"
+      ],
+      "additionalProperties": false
+    },
+    "display": {
+      "type": "string",
+      "description": "the value - including any subitems - rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using url encoding"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "$ref": "#/definitions/name"
+    },
+    "display": {
+      "$ref": "#/definitions/display"
+    },
+    "meta": {
+      "$ref": "jsonSchemaSchema.json"
+    },
+    "raw": {
+      "$ref": "#/definitions/raw"
+    }
+  },
+  "required": [
+    "name",
+    "raw"
+  ],
+  "additionalProperties": false
+}

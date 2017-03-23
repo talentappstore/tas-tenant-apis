@@ -1,55 +1,84 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "name": {
-      "type": "string",
-      "description": "name of the item"
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/booleanItem"
     },
-    "subItem": {
+    {
+      "$ref": "#/definitions/stringItem"
+    },
+    {
+      "$ref": "#/definitions/numberItem"
+    },
+    {
+      "$ref": "#/definitions/dateItem"
+    },
+    {
+      "$ref": "#/definitions/fileItem"
+    },
+    {
+      "$ref": "#/definitions/picklistItem"
+    }
+  ],
+  "definitions": {
+    "picklistItem": {
       "type": "object",
-      "description": "an item unlocked based on a picklist choice",
       "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
         "name": {
           "$ref": "#/definitions/name"
         },
-        "value": {
-          "$ref": "#/definitions/value"
+        "display": {
+          "$ref": "#/definitions/display"
         },
         "meta": {
           "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "$ref": "#/definitions/pickChoices"
         }
       },
+      "additionalProperties": false,
       "required": [
+        "type",
         "name",
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
-    "pickItem": {
+    "pickChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/pickChoice"
+      }
+    },
+    "pickChoice": {
       "type": "object",
       "properties": {
-        "pickChoice": {
+        "choice": {
           "type": "string",
           "description": "the name of a choice that the user selected"
         },
         "subItems": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/subItem"
+            "$ref": "#"
           },
           "description": "items unlocked based on a picklist choice"
         }
       },
       "required": [
-        "pickChoice"
+        "choice"
       ],
       "additionalProperties": false
     },
-    "pickItems": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/pickItem"
-      }
+    "name": {
+      "type": "string",
+      "description": "name of the item"
     },
     "display": {
       "type": "string",
@@ -199,55 +228,6 @@
         "name",
         "value"
       ]
-    },
-    "picklistItem": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "enum": [
-            "picklist"
-          ]
-        },
-        "name": {
-          "$ref": "#/definitions/name"
-        },
-        "display": {
-          "$ref": "#/definitions/display"
-        },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
-        },
-        "value": {
-          "$ref": "#/definitions/picklistItems"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "type",
-        "name",
-        "value"
-      ]
     }
-  },
-  "type": "object",
-  "oneOf": [
-    {
-      "$ref": "#/definitions/booleanItem"
-    },
-    {
-      "$ref": "#/definitions/stringItem"
-    },
-    {
-      "$ref": "#/definitions/numberItem"
-    },
-    {
-      "$ref": "#/definitions/dateItem"
-    },
-    {
-      "$ref": "#/definitions/fileItem"
-    },
-    {
-      "$ref": "#/definitions/picklistItem"
-    }
-  ]
+  }
 }

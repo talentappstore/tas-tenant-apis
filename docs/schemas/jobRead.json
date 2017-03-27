@@ -12,6 +12,10 @@
       "type": "string",
       "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
     },
+    "description": {
+       "type": "string",
+       "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
+    },
     "company": {
       "type": "string",
       "description": "as per Salesforce, more explicit than org"
@@ -114,6 +118,9 @@
     },
     "shortSummary": {
       "$ref": "#/definitions/shortSummary"
+    },
+    "description": {
+      "$ref": "#/definitions/description"
     },
     "company": {
       "$ref": "#/definitions/company"

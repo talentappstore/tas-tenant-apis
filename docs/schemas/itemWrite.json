@@ -1,0 +1,233 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/booleanItem"
+    },
+    {
+      "$ref": "#/definitions/stringItem"
+    },
+    {
+      "$ref": "#/definitions/numberItem"
+    },
+    {
+      "$ref": "#/definitions/dateItem"
+    },
+    {
+      "$ref": "#/definitions/fileItem"
+    },
+    {
+      "$ref": "#/definitions/picklistItem"
+    }
+  ],
+  "definitions": {
+    "picklistItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "$ref": "#/definitions/pickChoices"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "pickChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/pickChoice"
+      }
+    },
+    "pickChoice": {
+      "type": "object",
+      "properties": {
+        "choice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          },
+          "description": "items unlocked based on a picklist choice"
+        }
+      },
+      "required": [
+        "choice"
+      ],
+      "additionalProperties": false
+    },
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "display": {
+      "type": "string",
+      "description": "the value - including any subitems - rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using url encoding"
+    },
+    "booleanItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "json representation of a boolean item's current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "stringItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "type": "string",
+          "description": "json representation of a string item's current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "numberItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "type": "number",
+          "description": "json representation of a number item's current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "dateItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "type": "string",
+          "format": "date-time",
+          "description": "json representation of a date item's current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "fileItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "$ref": "fileUpload.json"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "birthdate",
+    "type": "date",
+    "value": "2015-11-05T13:15:30Z"
+  },
+  {
+    "name": "keenworkerflag",
+    "type": "boolean",
+    "value": true
+  },
+  {
+    "name": "minsalary",
+    "type": "number",
+    "value": 120000.5
+  },
+  {
+    "name": "coverletter",
+    "type": "file",
+    "value": {
+      "fileName": "fredcv.docx",
+      "size": 3023443,
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "dateUploaded": "2015-11-05T13:15:30Z",
+      "preSignedUri": "https://frodo.com/docs/198714509"
+    }
+  },
+  {
+    "name": "mypicks",
+    "type": "picklist",
+    "value": [
+      {
+        "choice": "choice1"
+      },
+      {
+        "choice": "choice2",
+        "subItems": [
+          {
+            "name": "myreason",
+            "type": "string",
+            "value": "just because"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,45 @@
+[
+  {
+    "name": "birthdate",
+    "type": "date",
+    "value": "2015-11-05T13:15:30Z"
+  },
+  {
+    "name": "keenworkerflag",
+    "type": "boolean",
+    "value": true
+  },
+  {
+    "name": "minsalary",
+    "type": "number",
+    "value": 120000.5
+  },
+  {
+    "name": "coverletter",
+    "type": "file",
+    "value": {
+       "fileName": "fredcv.docx",
+       "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
+       "via": "dropbox.com"
+    }
+  },
+  {
+    "name": "mypicks",
+    "type": "picklist",
+    "value": [
+      {
+        "choice": "choice1"
+      },
+      {
+        "choice": "choice2",
+        "subItems": [
+          {
+            "name": "myreason",
+            "type": "string",
+            "value": "just because"
+          }
+        ]
+      }
+    ]
+  }
+]

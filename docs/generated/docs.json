@@ -52,6 +52,8 @@
     "itemRead": { "$ref": "../schemas/itemRead.json" },
     "items": { "$ref": "../schemas/items.json" },
     "itemsRead": { "$ref": "../schemas/itemsRead.json" },
+    "itemsWrite": { "$ref": "../schemas/itemsWrite.json" },
+    "itemWrite": { "$ref": "../schemas/itemWrite.json" },
     "jcard": { "$ref": "../schemas/jcard.json" },
     "jobBoard": { "$ref": "../schemas/jobBoard.json" },
     "jobBoardsForApps": { "$ref": "../schemas/jobBoardsForApps.json" },

@@ -1681,7 +1681,7 @@
         ],
         "resume": {
             "fileName": "fredcv.docx",
-            "data": "utg765f876hilf76fg6g...",
+            "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
             "via": "dropbox.com"
         },
         "jobNotifications": true,
@@ -4457,21 +4457,6 @@
   "application": {
     "items": [
       {
-        "name": "birthdate",
-        "type": "date",
-        "value": "2015-11-05T13:15:30Z"
-      },
-      {
-        "name": "keenworkerflag",
-        "type": "boolean",
-        "value": true
-      },
-      {
-        "name": "minsalary",
-        "type": "number",
-        "value": 120000.50
-      },
-      {
         "name": "coverletter",
         "type": "file",
         "value": {
@@ -4481,25 +4466,6 @@
           "dateUploaded": "2015-11-05T13:15:30Z",
           "preSignedUri": "https://frodo.com/docs/198714509"
         }
-      },
-      {
-        "name": "mypicks",
-        "type": "picklist",
-        "value": [
-          {
-            "choice": "choice1"
-          },
-          {
-            "choice": "choice2",
-            "subItems": [
-              {
-                "name": "myreason",
-                "type": "string",
-                "value": "just because"
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -5700,6 +5666,10 @@ GET /widgets?$top=5
       "type": "string",
       "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
     },
+    "description": {
+       "type": "string",
+       "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
+    },
     "company": {
       "type": "string",
       "description": "as per Salesforce, more explicit than org"
@@ -5802,6 +5772,9 @@ GET /widgets?$top=5
     },
     "shortSummary": {
       "$ref": "#/definitions/shortSummary"
+    },
+    "description": {
+      "$ref": "#/definitions/description"
     },
     "company": {
       "$ref": "#/definitions/company"
@@ -6038,7 +6011,7 @@ GET /widgets?$top=5
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "itemsIn.json"
+       "$ref": "itemsWrite.json"
     }
   },
   "additionalProperties": false
@@ -6059,6 +6032,10 @@ GET /widgets?$top=5
     "shortSummary": {
       "type": "string",
       "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "description": {
+       "type": "string",
+       "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
     },
     "company": {
       "type": "string",
@@ -6162,6 +6139,9 @@ GET /widgets?$top=5
     },
     "shortSummary": {
       "$ref": "#/definitions/shortSummary"
+    },
+    "description": {
+      "$ref": "#/definitions/description"
     },
     "company": {
       "$ref": "#/definitions/company"

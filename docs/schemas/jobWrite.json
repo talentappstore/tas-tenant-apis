@@ -30,7 +30,7 @@
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "itemsIn.json"
+       "$ref": "itemsWrite.json"
     }
   },
   "additionalProperties": false

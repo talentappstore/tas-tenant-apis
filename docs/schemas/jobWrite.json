@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "jobRead.json#/definitions/status"
+    },
+    "availability": {
+      "$ref": "jobRead.json#/definitions/availability"
+    },
+    "code": {
+      "$ref": "jobRead.json#/definitions/code"
+    },
+    "title": {
+      "$ref": "jobRead.json#/definitions/title"
+    },
+    "shortSummary": {
+      "$ref": "jobRead.json#/definitions/shortSummary"
+    },
+    "company": {
+      "$ref": "jobRead.json#/definitions/company"
+    },
+    "country": {
+      "$ref": "jobRead.json#/definitions/country"
+    },
+    "manager": {
+      "$ref": "jobRead.json#/definitions/manager"
+    },
+    "categories": {
+      "$ref": "categoriesActual.json"
+    },
+    "items": {
+       "$ref": "itemsIn.json"
+    }
+  },
+  "additionalProperties": false
+}

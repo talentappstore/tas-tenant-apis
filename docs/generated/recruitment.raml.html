@@ -4357,7 +4357,7 @@
           "$ref": "fileDownload.json"
         },
         "items": {
-          "$ref": "itemsOut.json"
+          "$ref": "itemsRead.json"
         }
       },
       "required": [
@@ -4374,7 +4374,7 @@
           "type": "integer"
         },
         "items": {
-          "$ref": "itemsOut.json"
+          "$ref": "itemsRead.json"
         }
       },
       "required": [
@@ -4440,7 +4440,7 @@
       "$ref": "#/definitions/application"
     },
     "job": {
-      "$ref": "job.json"
+      "$ref": "jobRead.json"
     },
     "candidate": {
       "$ref": "#/definitions/candidate"
@@ -5617,7 +5617,7 @@ GET /widgets?$top=5
 </code></pre></li><li><strong>availableInternally</strong>: <em>(boolean)</em><p>Include or exclude jobs that are active and available to internal candidates. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>availableExternally</strong>: <em>(boolean)</em><p>Include or exclude jobs that are active and available to external candidates. Default is true.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li></ul></div><div class="tab-pane" id="jobs_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
-	"items":{ "$ref":"job.json" }
+	"items":{ "$ref":"jobRead.json" }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
         "id": 10334355,
@@ -5695,6 +5695,22 @@ GET /widgets?$top=5
         "complete"
       ],
       "description": "from HR-XML"
+    },
+    "shortSummary": {
+      "type": "string",
+      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "company": {
+      "type": "string",
+      "description": "as per Salesforce, more explicit than org"
+    },
+    "country": {
+      "type": "string",
+      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
     },
     "code": {
       "type": "string",
@@ -5785,26 +5801,22 @@ GET /widgets?$top=5
       "$ref": "#/definitions/title"
     },
     "shortSummary": {
-      "type": "string",
-      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+      "$ref": "#/definitions/shortSummary"
     },
     "company": {
-      "type": "string",
-      "description": "as per Salesforce, more explicit than org"
+      "$ref": "#/definitions/company"
     },
     "country": {
-      "type": "string",
-      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+      "$ref": "#/definitions/country"
+    },
+    "manager": {
+      "$ref": "#/definitions/manager"
     },
     "categories": {
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "items.json"
-    },
-    "manager": {
-       "type" : "integer",
-       "description": "Manager for this job"
+       "$ref": "itemsRead.json"
     }
   },
   "additionalProperties": false
@@ -5925,7 +5937,7 @@ GET /widgets?$top=5
 }</code></pre></div><div class="tab-pane" id="jobs_searches_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
-	"items":{ "$ref":"job.json" }
+	"items":{ "$ref":"jobRead.json" }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
         "id": 10334355,
@@ -5994,7 +6006,47 @@ GET /widgets?$top=5
         ]
     }
 ]
-</code></pre></div><div class="tab-pane" id="jobs_searches_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job_"><span class="parent">/jobs/byID</span>/{job}</a> <span class="methods"><a href="#jobs_byID__job__patch"><span class="badge badge_patch">patch</span></a> <a href="#jobs_byID__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update a job using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The id field must not be present in the request.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_byID__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate-facing information for a specific job opening</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/jobs/byID</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a job using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The id field must not be present in the request.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__patch_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__patch_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre></div><div class="tab-pane" id="jobs_searches_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job_"><span class="parent">/jobs/byID</span>/{job}</a> <span class="methods"><a href="#jobs_byID__job__patch"><span class="badge badge_patch">patch</span></a> <a href="#jobs_byID__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>APIs to deal with jobs.</p><p>Job descriptions are formatted using a safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>, with individual lines demarcated with \n.</p><p>Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed. Note that this prevents the markdown blockquote syntax from being used in a job description. The safe subset rules may be relaxed in the future.</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update a job using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The id field must not be present in the request.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_byID__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the candidate-facing information for a specific job opening.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/jobs/byID</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update a job using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The id field must not be present in the request.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__patch_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__patch_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "jobRead.json#/definitions/status"
+    },
+    "availability": {
+      "$ref": "jobRead.json#/definitions/availability"
+    },
+    "code": {
+      "$ref": "jobRead.json#/definitions/code"
+    },
+    "title": {
+      "$ref": "jobRead.json#/definitions/title"
+    },
+    "shortSummary": {
+      "$ref": "jobRead.json#/definitions/shortSummary"
+    },
+    "company": {
+      "$ref": "jobRead.json#/definitions/company"
+    },
+    "country": {
+      "$ref": "jobRead.json#/definitions/country"
+    },
+    "manager": {
+      "$ref": "jobRead.json#/definitions/manager"
+    },
+    "categories": {
+      "$ref": "categoriesActual.json"
+    },
+    "items": {
+       "$ref": "itemsIn.json"
+    }
+  },
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "title": "Creative Director, now updated"
+}
+
+</code></pre></div><div class="tab-pane" id="jobs_byID__job__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the job was successfully updated</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate-facing information for a specific job opening.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byID__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
     "status": {
@@ -6003,6 +6055,22 @@ GET /widgets?$top=5
         "complete"
       ],
       "description": "from HR-XML"
+    },
+    "shortSummary": {
+      "type": "string",
+      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "company": {
+      "type": "string",
+      "description": "as per Salesforce, more explicit than org"
+    },
+    "country": {
+      "type": "string",
+      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
     },
     "code": {
       "type": "string",
@@ -6093,26 +6161,22 @@ GET /widgets?$top=5
       "$ref": "#/definitions/title"
     },
     "shortSummary": {
-      "type": "string",
-      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+      "$ref": "#/definitions/shortSummary"
     },
     "company": {
-      "type": "string",
-      "description": "as per Salesforce, more explicit than org"
+      "$ref": "#/definitions/company"
     },
     "country": {
-      "type": "string",
-      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+      "$ref": "#/definitions/country"
+    },
+    "manager": {
+      "$ref": "#/definitions/manager"
     },
     "categories": {
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "items.json"
-    },
-    "manager": {
-       "type" : "integer",
-       "description": "Manager for this job"
+       "$ref": "itemsRead.json"
     }
   },
   "additionalProperties": false
@@ -6153,166 +6217,7 @@ GET /widgets?$top=5
     ]
 }
 
-</code></pre></div><div class="tab-pane" id="jobs_byID__job__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the job was successfully updated</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate-facing information for a specific job opening</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byID__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "definitions": {
-    "status": {
-      "enum": [
-        "active",
-        "complete"
-      ],
-      "description": "from HR-XML"
-    },
-    "code": {
-      "type": "string",
-      "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
-    },
-    "title": {
-      "type": "string",
-      "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
-    },
-    "availability": {
-      "type": "object",
-      "properties": {
-        "availableInternally": {
-          "type": "boolean",
-          "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
-        },
-        "availableExternally": {
-          "type": "boolean",
-          "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
-        },
-        "jobPublishDates": {
-          "type": "object",
-          "properties": {
-            "publishDate": {
-              "type": "string",
-              "format": "date-time",
-              "description": "the date on which the job was published (became available to candidates)"
-            },
-            "internalPublishDate": {
-              "type": "string",
-              "format": "date-time",
-              "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
-            },
-            "externalPublishDate": {
-              "type": "string",
-              "format": "date-time",
-              "description": "the date on which the job was published to external candidates. If not set, use publishDate."
-            }
-          },
-          "required": [
-            "publishDate"
-          ],
-          "additionalProperties": false
-        },
-        "applicationCloseDates": {
-          "type": "object",
-          "properties": {
-            "closeDate": {
-              "type": "string",
-              "format": "date-time",
-              "description": "the date on which applications are scheduled to close"
-            },
-            "internalCloseDate": {
-              "type": "string",
-              "format": "date-time",
-              "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
-            },
-            "externalCloseDate": {
-              "type": "string",
-              "format": "date-time",
-              "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
-            }
-          },
-          "required": [
-            "closeDate"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    }
-  },
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "integer"
-    },
-    "status": {
-      "$ref": "#/definitions/status"
-    },
-    "availability": {
-      "$ref": "#/definitions/availability"
-    },
-    "code": {
-      "$ref": "#/definitions/code"
-    },
-    "title": {
-      "$ref": "#/definitions/title"
-    },
-    "shortSummary": {
-      "type": "string",
-      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
-    },
-    "company": {
-      "type": "string",
-      "description": "as per Salesforce, more explicit than org"
-    },
-    "country": {
-      "type": "string",
-      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
-    },
-    "categories": {
-      "$ref": "categoriesActual.json"
-    },
-    "items": {
-       "$ref": "items.json"
-    },
-    "manager": {
-       "type" : "integer",
-       "description": "Manager for this job"
-    }
-  },
-  "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "id": 10334355,
-    "status": "active",
-    "availability": {
-        "availableInternally": true,
-        "availableExternally": false,
-        "applicationCloseDates": {
-            "closeDate": "2015-11-05T13:15:30Z",
-            "internalCloseDate": "2015-11-05T13:15:30Z",
-            "externalCloseDate": "2015-11-05T13:15:30Z"
-        },
-        "jobPublishDates": {
-            "publishDate": "2015-11-05T13:15:30Z"
-        }
-    },
-    "code": "1022NH",
-    "title": "Creative Director",
-    "shortSummary": "One of the most exciting positions ever offered",
-    "country": "AU",
-    "categories": [
-        {
-            "category": 1022,
-            "values": [
-                10024
-            ]
-        },
-        {
-            "category": 1026,
-            "values": [
-                10044,
-                10025,
-                10029
-            ]
-        }
-    ]
-}
-
-</code></pre></div><div class="tab-pane" id="jobs_byID__job__get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__description"><span class="parent">/jobs/byID/{job}</span>/description</a> <span class="methods"><a href="#jobs_byID__job__description_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobs_byID__job__description_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__description" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Job descriptions are formatted using a safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>, with individual lines demarcated with \n.</p><p>When a description is fetched, the response will always conform to the safe subset.</p><p>When a description is uploaded, the request must conform to the safe subset, or it will be rejected.</p><p>Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed. Note that this prevents the markdown blockquote syntax from being used in a job description. The safe subset rules may be relaxed in the future.</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__description_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_byID__job__description_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Set the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__description_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}</span>/description</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__description_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__description_get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byID__job__description_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__description_get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__description_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p></div><div class="tab-pane" id="jobs_byID__job__description_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__description_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}</span>/description</h4></div><div class="modal-body"><div class="alert alert-info"><p>Set the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__description_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__description_post_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byID__job__description_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__description_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: text/plain</strong></p></div><div class="tab-pane" id="jobs_byID__job__description_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the description was successfully updated</p></div><div class="tab-pane" id="jobs_byID__job__description_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__deltaPings"><span class="parent">/jobs/byID/{job}</span>/deltaPings</a> <span class="methods"><a href="#jobs_byID__job__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__deltaPings_toActive"><span class="parent">/jobs/byID/{job}/deltaPings</span>/toActive</a> <span class="methods"><a href="#jobs_byID__job__deltaPings_toActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__deltaPings_toActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__deltaPings_toActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__deltaPings_toActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}/deltaPings</span>/toActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__deltaPings_toActive_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__deltaPings_toActive_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__deltaPings_toActive_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__deltaPings_toActive_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__deltaPings_toPubliclyActive"><span class="parent">/jobs/byID/{job}/deltaPings</span>/toPubliclyActive</a> <span class="methods"><a href="#jobs_byID__job__deltaPings_toPubliclyActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__deltaPings_toPubliclyActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__deltaPings_toPubliclyActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__deltaPings_toPubliclyActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}/deltaPings</span>/toPubliclyActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__deltaPings_toPubliclyActive_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__deltaPings_toPubliclyActive_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__deltaPings_toPubliclyActive_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__deltaPings_toPubliclyActive_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__canApply"><span class="parent">/jobs/byID/{job}</span>/canApply</a> <span class="methods"></span></h4></div><div id="panel_jobs_byID__job__canApply" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Resource indicating whether a candidate can apply or not for given job. An ATS might prevent it if the candidate has already applied, the job might be closed, or there might be more complex rules.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__canApply_me"><span class="parent">/jobs/byID/{job}/canApply</span>/me</a> <span class="methods"><a href="#jobs_byID__job__canApply_me_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_jobs_byID__job__canApply_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__canApply_me_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Find out if the logged in candidate is allowed to apply for this job, and if not why not.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__canApply_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/jobs/byID/{job}/canApply</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Find out if the logged in candidate is allowed to apply for this job, and if not why not.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__canApply_me_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__canApply_me_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__canApply_me_get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="jobs_byID__job__canApply_me_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre></div><div class="tab-pane" id="jobs_byID__job__get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__description"><span class="parent">/jobs/byID/{job}</span>/description</a> <span class="methods"><a href="#jobs_byID__job__description_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobs_byID__job__description_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__description" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Job descriptions are formatted using a safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>, with individual lines demarcated with \n.</p><p>When a description is fetched, the response will always conform to the safe subset.</p><p>When a description is uploaded, the request must conform to the safe subset, or it will be rejected.</p><p>Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed. Note that this prevents the markdown blockquote syntax from being used in a job description. The safe subset rules may be relaxed in the future.</p></div><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__description_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p><em>This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.</em></p><p>Get the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_byID__job__description_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p><em>This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.</em></p><p>Set the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__description_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}</span>/description</h4></div><div class="modal-body"><div class="alert alert-info"><p><em>This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.</em></p><p>Get the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__description_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__description_get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byID__job__description_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__description_get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__description_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p></div><div class="tab-pane" id="jobs_byID__job__description_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__description_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}</span>/description</h4></div><div class="modal-body"><div class="alert alert-info"><p><em>This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.</em></p><p>Set the job&#39;s description. Job descriptions are formatted using the safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__description_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__description_post_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byID__job__description_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__description_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: text/plain</strong></p></div><div class="tab-pane" id="jobs_byID__job__description_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the description was successfully updated</p></div><div class="tab-pane" id="jobs_byID__job__description_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__deltaPings"><span class="parent">/jobs/byID/{job}</span>/deltaPings</a> <span class="methods"><a href="#jobs_byID__job__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__deltaPings_toActive"><span class="parent">/jobs/byID/{job}/deltaPings</span>/toActive</a> <span class="methods"><a href="#jobs_byID__job__deltaPings_toActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__deltaPings_toActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__deltaPings_toActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__deltaPings_toActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}/deltaPings</span>/toActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has transitioned to active. Useful to feed something like a push job notification system, which does not care about all of the micro delta pings for an opening, just when it becomes newly active.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__deltaPings_toActive_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__deltaPings_toActive_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__deltaPings_toActive_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__deltaPings_toActive_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__deltaPings_toPubliclyActive"><span class="parent">/jobs/byID/{job}/deltaPings</span>/toPubliclyActive</a> <span class="methods"><a href="#jobs_byID__job__deltaPings_toPubliclyActive_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byID__job__deltaPings_toPubliclyActive" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__deltaPings_toPubliclyActive_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__deltaPings_toPubliclyActive_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byID/{job}/deltaPings</span>/toPubliclyActive</h4></div><div class="modal-body"><div class="alert alert-info"><p>See /jobs/{id}/deltaPings.</p><p>Send notification of a change to the candidate-facing details of a job opening, specifically that the job opening has become newly publicly active (perhaps it was active before but internal).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__deltaPings_toPubliclyActive_post_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__deltaPings_toPubliclyActive_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__deltaPings_toPubliclyActive_post_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byID__job__deltaPings_toPubliclyActive_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__canApply"><span class="parent">/jobs/byID/{job}</span>/canApply</a> <span class="methods"></span></h4></div><div id="panel_jobs_byID__job__canApply" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Resource indicating whether a candidate can apply or not for given job. An ATS might prevent it if the candidate has already applied, the job might be closed, or there might be more complex rules.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byID__job__canApply_me"><span class="parent">/jobs/byID/{job}/canApply</span>/me</a> <span class="methods"><a href="#jobs_byID__job__canApply_me_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_jobs_byID__job__canApply_me" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byID__job__canApply_me_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Find out if the logged in candidate is allowed to apply for this job, and if not why not.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byID__job__canApply_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/jobs/byID/{job}/canApply</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Find out if the logged in candidate is allowed to apply for this job, and if not why not.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byID__job__canApply_me_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byID__job__canApply_me_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byID__job__canApply_me_get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="jobs_byID__job__canApply_me_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "description": "details of a candidate&#39;s ability to apply for a given job",
@@ -6599,7 +6504,7 @@ GET /widgets?$top=5
       "description": "details of why a single job failed the crud operation (create or whatever)",
       "properties": {
         "code": {
-          "$ref": "job.json#/definitions/code"
+          "$ref": "jobRead.json#/definitions/code"
         },
         "message": {
           "type": "string"

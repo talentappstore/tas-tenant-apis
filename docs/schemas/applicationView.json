@@ -22,7 +22,7 @@
           "$ref": "fileDownload.json"
         },
         "items": {
-          "$ref": "itemsOut.json"
+          "$ref": "itemsRead.json"
         }
       },
       "required": [
@@ -39,7 +39,7 @@
           "type": "integer"
         },
         "items": {
-          "$ref": "itemsOut.json"
+          "$ref": "itemsRead.json"
         }
       },
       "required": [
@@ -105,7 +105,7 @@
       "$ref": "#/definitions/application"
     },
     "job": {
-      "$ref": "job.json"
+      "$ref": "jobRead.json"
     },
     "candidate": {
       "$ref": "#/definitions/candidate"

@@ -1,5 +1,5 @@
 {
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
-	"items":{ "$ref": "itemOut.json" }
+	"items":{ "$ref":"jobRead.json" }
 }

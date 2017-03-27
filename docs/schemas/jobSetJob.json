@@ -25,7 +25,7 @@
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
     },
     "code": {
-      "$ref": "job.json#/definitions/code"
+      "$ref": "jobRead.json#/definitions/code"
     },
     "shortSummary": {
       "type": "string",

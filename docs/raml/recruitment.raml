@@ -1065,15 +1065,15 @@ resourceTypes: !include resources.yml
       200:
         body:
           application/json:
-            schema: !include ../schemas/jobs.json
-            example: !include ../examples/jobs-simple.json
+            schema: !include ../schemas/jobsRead.json
+            example: !include ../examples/jobsRead-simple.json
   post:
     description: |
       Create a job. The id field should not be present in the request.
     body:
       application/json:
-        schema: !include ../schemas/job.json
-        example: !include ../examples/job-simple.json
+        schema: !include ../schemas/jobRead.json
+        example: !include ../examples/jobRead-simple.json
     responses:
       201:
         description: the job was successfully created
@@ -1092,30 +1092,39 @@ resourceTypes: !include resources.yml
         200:
           body:
             application/json:
-              schema: !include ../schemas/jobs.json
-              example: !include ../examples/jobs-simple.json
+              schema: !include ../schemas/jobsRead.json
+              example: !include ../examples/jobsRead-simple.json
   /byID:
     /{job}:
+      description: |
+        APIs to deal with jobs.
+        
+        Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
+        with individual lines demarcated with \n.
+          
+        Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
+        Note that this prevents the markdown blockquote syntax from being used in a job description.
+        The safe subset rules may be relaxed in the future.
       patch:
         description: |
           Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
         body:
           application/merge-patch+json:
-            schema: !include ../schemas/job.json
-            example: !include ../examples/job-simple.json
+            schema: !include ../schemas/jobWrite.json
+            example: !include ../examples/jobWrite-simple.json
         responses:
           200:
             description: the job was successfully updated
       get:
         securedBy: [oauth_2_0]
         description: |
-          Get the candidate-facing information for a specific job opening 
+          Get the candidate-facing information for a specific job opening.
         responses:
           200:
             body:
               application/json:
-                schema: !include ../schemas/job.json
-                example: !include ../examples/job-simple.json
+                schema: !include ../schemas/jobRead.json
+                example: !include ../examples/jobRead-simple.json
       /description:
         description: |
           Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
@@ -1133,6 +1142,8 @@ resourceTypes: !include resources.yml
         get:
           securedBy: [oauth_2_0]
           description: |
+            *This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.*
+            
             Get the job's description. Job descriptions are formatted using the safe subset
             of [markdown](https://daringfireball.net/projects/markdown/syntax). 
           responses:
@@ -1142,6 +1153,8 @@ resourceTypes: !include resources.yml
         post:
           securedBy: [oauth_2_0]
           description: |
+            *This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.*
+            
             Set the job's description. Job descriptions are formatted using the safe subset
             of [markdown](https://daringfireball.net/projects/markdown/syntax).
           body:

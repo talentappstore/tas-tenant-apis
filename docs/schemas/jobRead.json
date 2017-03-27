@@ -8,6 +8,22 @@
       ],
       "description": "from HR-XML"
     },
+    "shortSummary": {
+      "type": "string",
+      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "company": {
+      "type": "string",
+      "description": "as per Salesforce, more explicit than org"
+    },
+    "country": {
+      "type": "string",
+      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+    },
+    "manager": {
+       "type" : "integer",
+       "description": "Manager for this job"
+    },
     "code": {
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
@@ -97,26 +113,22 @@
       "$ref": "#/definitions/title"
     },
     "shortSummary": {
-      "type": "string",
-      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+      "$ref": "#/definitions/shortSummary"
     },
     "company": {
-      "type": "string",
-      "description": "as per Salesforce, more explicit than org"
+      "$ref": "#/definitions/company"
     },
     "country": {
-      "type": "string",
-      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+      "$ref": "#/definitions/country"
+    },
+    "manager": {
+      "$ref": "#/definitions/manager"
     },
     "categories": {
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "items.json"
-    },
-    "manager": {
-       "type" : "integer",
-       "description": "Manager for this job"
+       "$ref": "itemsRead.json"
     }
   },
   "additionalProperties": false

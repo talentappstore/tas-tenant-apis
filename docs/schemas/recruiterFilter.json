@@ -46,7 +46,7 @@
         "statuses": {
             "type": "array",
             "items": {
-                "$ref": "job.json#/definitions/status"
+                "$ref": "jobRead.json#/definitions/status"
             }
         },
         "locationFactor": {

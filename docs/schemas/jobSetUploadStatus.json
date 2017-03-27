@@ -8,7 +8,7 @@
       "description": "details of why a single job failed the crud operation (create or whatever)",
       "properties": {
         "code": {
-          "$ref": "job.json#/definitions/code"
+          "$ref": "jobRead.json#/definitions/code"
         },
         "message": {
           "type": "string"

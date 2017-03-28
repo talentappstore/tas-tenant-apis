@@ -9,7 +9,7 @@
     "items": []
   },
   "candidate": {
-    "vcard": {},
+    "vcard": [],
     "internalFlag": false,
     "resumeMeta": {
       "fileName": "fredcv.docx",
@@ -21,8 +21,7 @@
     "items": []
   },
   "job.manager": {
-    "vcard": {
-    }
+    "vcard": []
   }
 }
 ]

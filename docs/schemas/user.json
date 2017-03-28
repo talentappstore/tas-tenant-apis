@@ -10,8 +10,7 @@
        "description": "whether e.g. this person can be the manager on a job"
     },
     "vcard": {
-      "type": "object",
-      "additionalProperties": true
+      "$ref": "jcard.json"
     }
   },
   "additionalProperties": false

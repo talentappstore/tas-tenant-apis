@@ -12,8 +12,7 @@
           "type": "integer"
         },
         "vcard": {
-          "type": "object",
-          "additionalProperties": true
+          "$ref": "jcard.json"
         },
         "internalFlag": {
           "$ref": "#/definitions/internalFlag"

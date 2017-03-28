@@ -19,9 +19,52 @@
     },
     {
       "$ref": "#/definitions/picklistItem"
+    },
+    {
+      "$ref": "#/definitions/tableItem"
     }
   ],
   "definitions": {
+    "tableItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "display": {
+          "$ref": "#/definitions/display"
+        },
+        "meta": {
+          "$ref": "jsonSchemaSchema.json"
+        },
+        "value": {
+          "$ref": "#/definitions/tableRows"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "tableRows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tableRow"
+      }
+    },
+    "tableRow": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
+      }
+    },
     "picklistItem": {
       "type": "object",
       "properties": {

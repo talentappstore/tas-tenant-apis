@@ -6710,7 +6710,8 @@ GET /widgets?$top=5
                         "Email alert",
                         "Link out",
                         "User defined"
-                    ]
+                    ],
+                    "description": "Link out is used for job board postings"
                 },
                 "objectType": {
                     "enum": [
@@ -6724,6 +6725,10 @@ GET /widgets?$top=5
                   "type": "string",
                   "format": "uri",
                   "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind == link out" 
+                },
+                "accessCode": {
+                  "type": "string",
+                  "description": "a code that, if it matches the current code on the job, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
                 }
                 
             },
@@ -6885,7 +6890,8 @@ GET /widgets?$top=5
                         "Email alert",
                         "Link out",
                         "User defined"
-                    ]
+                    ],
+                    "description": "Link out is used for job board postings"
                 },
                 "objectType": {
                     "enum": [
@@ -6899,6 +6905,10 @@ GET /widgets?$top=5
                   "type": "string",
                   "format": "uri",
                   "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind == link out" 
+                },
+                "accessCode": {
+                  "type": "string",
+                  "description": "a code that, if it matches the current code on the job, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
                 }
                 
             },
@@ -6931,7 +6941,8 @@ GET /widgets?$top=5
     "campaign": {
         "campaignKind": "Email alert",
         "objectType": "Job",
-        "objectID": 16670
+        "objectID": 16670,
+        "accessCode": "kjy876gijhIUYGIY9786"
     }
 }</code></pre></div><div class="tab-pane" id="trackers_byID__id__trackers_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>a tracker was created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",

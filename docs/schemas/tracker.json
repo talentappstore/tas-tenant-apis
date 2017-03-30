@@ -38,7 +38,8 @@
                         "Email alert",
                         "Link out",
                         "User defined"
-                    ]
+                    ],
+                    "description": "Link out is used for job board postings"
                 },
                 "objectType": {
                     "enum": [
@@ -52,6 +53,10 @@
                   "type": "string",
                   "format": "uri",
                   "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind == link out" 
+                },
+                "accessCode": {
+                  "type": "string",
+                  "description": "a code that, if it matches the current code on the job, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
                 }
                 
             },

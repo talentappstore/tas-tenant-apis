@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>Get jobs</title>
+</head>
+<body>
+
+<div id="toc"></div>
+
+
+<h1>Get jobs app</h1>
+
+<p>Here's a quick walk through of what's required to write a sourcing app in Talent App store - i.e. an app that:
+<ol>
+<li>pulls jobs from a customer's site
+<li>creates a links for each job that a candidate can click on to reach the customer's career site (and eventually apply)
+- embeds tracking information into each link, so that when candidates click through from your site, the tenant knows they came via you
+</ol>
+
+
+<h1>About TAS</h1>
+
+<p>Writing an app may sound intimidating, but its not. You're not actually creating a downloadable app that the customer runs themselves.
+Instead you're just producing and consuming RESTful APIs on your own servers - in a way that looks like an app to the customer.
+</p>
+
+<p>For example, when a customer clicks install on your app in Talent App Store, you'll receive an incoming API call to your own server telling you that you have a new customer.
+From this point you can start making API calls to fetch jobs for that customer.
+</p>
+
+<p>All your app's code runs on your own servers, and we (Aotal) don't perform any review or testing of your code, nor do we need
+any IP rights to it. Also the APIs you will use are all open source, so you're free to use them in any way you see fit. And of course you
+can write and host your app using whatever tools and technologies you already use.
+</p> 
+
+<p>For more about TAS, see <a href='http://www.talentappstore.com'>http://www.talentappstore.com</a>.
+
+
+<h1>Steps</h1>
+
+<p>Here are the typical steps you would go through to build this app.
+</p>
+
+
+<h2>Create your app and fetch currently open jobs</h2>
+
+<p>1) Create a developer account at developer.talentappstore.com.
+</p>
+
+<p>2) Define your app, giving it a name, logo etc. Make a note of your app's secret key - you'll need this later. Don't share this with anyone. Finally, define the APIs that your app consumes (calls). First, lets just consume the API to pull jobs (make sure you specify source of truth == true):
+<blockquote>
+GET /jobs (http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get)
+</blockquote>
+
+<p>Later on, you'll write some code and then attach your actual servers. But for now, lets install your app and start making some API calls from the command line.
+In Talent App Store, your app can't do much at all until its installed by a tenant. So to develop and test your app, and make API calls, you'll need a tenant of your own (its free to create one).
+</p>
+
+<p>3) Back at the app, in the developer site, click the install link.
+</p>   
+
+<p>4) You'll be guided to create an account at www.talentappstore.com. Create a tenant, and finally install your app into your new tenant.
+You'll see a couple of other apps pre-installed for you.
+</p>
+
+<p>Next, for your app to consume an API like GET /jobs), some other app needs to produce that API.
+In a production tenant, that app might be an applicant tracking system (ATS). Since installing an ATS and getting test data into
+it can be something of a big deal, we (Aotal) provide a simple test app that produces the APIs you're going to use and is pre-loaded with test data.
+</p>
+
+
+<p>5) Click <a hrf='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2pvYnM.k3FX2j6HCJHwnV9XCdgkU2KGfCP_RzcpcQRn55PJy4jiQxvG2RUxbN9wZfNYvubwnyjmnkZYaM6v7ctDRoPFtaaErulzY0GmDkKbByuwhB1fhOLPG4k2M53TCds1I_wbszipJ3y8m4vtDCeiQ8QbO2C67Gk-idmaG93yw4nsMdeL1944tchvCJqhCqlOzElyDkG_zcTPSMk_WBrADhROCaEtMsoaEeYX_QWxZzlpud7RBMHXge1ZXE_LelKAPMZ03XEk7lh2sXjT_y_Ozr8MJkBrVk8M797mCS8mrBZCWy2RuAPqQ9eg-4SzhN0MCLhmEF3sSqjXP9lEKpL0Bc9dww'>
+here</a> to install the mock jobs app into your tenant.
+
+<p>Now you're ready to make an API call to fetch jobs. We'll use the familiar curl command.
+</p>
+
+<p>6) At the command line, type the following (substituting your own app, tenant and secret key):
+
+<div class='codeBlock'>
+# as the app "getjobstest",
+# and acting for tenant "acme",  
+# call the API GET /jobs
+# as defined by the developer "tas"
+
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://getjobstest.tazzy.io/devs/tas/jobs
+</div>
+</p>
+
+<p>You should see a list of jobs come back. If not, check the preceding steps. If you're stuck, feel free to ask for help on the forums linked to the developer site.
+</p>
+
+<p>IMPORTANT: the list of jobs you fetched has all jobs, including internal-only jobs. It would be a serious security exposure to display internal jobs to external candidates,
+so be very careful to filter jobs based on who is using your system.
+</p>
+
+
+<h2>Decode each job's category values</h2>
+
+<p>If you look closely at each job, you'll see that the job's category values (e.g. its location) are identified by ids.
+To obtain the mapping from those ids into actual values (e.g. 2013 == Auckland), you'll need to call two more APIs.
+</p>
+
+<p>The GET /categories API gives you the list of categories - e.g., that this tenant has categorized their jobs by location and by expertise.
+</p>
+
+<p>The GET /categories/byID/{}/values API gives you all of the values for any single category - e.g., all the locations that this tenant has set up.
+</p>
+
+<p>You should cache the results of these APIs so that you don't need to make the API calls to often, or your app might be throttled.  
+</p>
+
+<p>7) At the developer site, update your app so that it consumes these APIs (again, as source of truth).
+<ul>
+<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_get'>GET /categories</a>
+<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_byID__category__values_get'>GET /categories/byID/{}/values</a>
+</ul>
+</p>
+
+<p>8) Now click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2NhdGVnb3JpZXM.SCj2xnKz-YOCh80Bg6EDPwBPzw2m99o2PX2ERYCyQ_5UOjpB1BVf7mrhi2PzIwZMRjN8dwMM3y9PlMH0YEWUoKHK5w0-FwtxPLKK1OhwimIb5ouZ8N_yDiKDA9ADmtf7L043UyaFAESoCG4oUzC94T3rzfA3ldxHd-ixXgI4QlB6BuANbHS8em1j1zsexmdfRqMziwbKrK0UyJ49kf8SC95UAIR3SgNGuD2A9w3KF2XKJwbLQgm4vj8_TFHl3hweLPqUpO2uRI16Ogc0ksYhmYfb0bQJurRkJIR1fkqGUFTfueoXrUWUi-SEEZDvwKkBQdb-nW8nJDm_MjiHv9PSkA'>here </a>
+to install the "mock categories" app. This provides some test values for the categories APIs. 
+</p>
+
+<p>To test this out, you can call these APIs using curl as above, e.g.:
+<div class='codeBlock'>
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://getjobstest.tazzy.io/devs/tas/categories
+</div>
+</p>
+
+<p>One of the categories returned above was 100001999, so to get the values for this category, call:
+<div class='codeBlock'>
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://mockjobstest.tazzy.io/devs/tas/categories/byID/100001999/values
+</div>
+</p>
+
+
+<h2>Creating a link back to the career site</h2>
+
+<p>The next step in building your app is to compose a link leading back to the job. The tenant may have many career sites (e.g. graduate site, main site, campaign site for a new store opening).
+One of these will be marked as the default - your app learns which by calling an API.
+</p>
+
+<p>9) First, click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2NhdGVnb3JpZXM.SCj2xnKz-YOCh80Bg6EDPwBPzw2m99o2PX2ERYCyQ_5UOjpB1BVf7mrhi2PzIwZMRjN8dwMM3y9PlMH0YEWUoKHK5w0-FwtxPLKK1OhwimIb5ouZ8N_yDiKDA9ADmtf7L043UyaFAESoCG4oUzC94T3rzfA3ldxHd-ixXgI4QlB6BuANbHS8em1j1zsexmdfRqMziwbKrK0UyJ49kf8SC95UAIR3SgNGuD2A9w3KF2XKJwbLQgm4vj8_TFHl3hweLPqUpO2uRI16Ogc0ksYhmYfb0bQJurRkJIR1fkqGUFTfueoXrUWUi-SEEZDvwKkBQdb-nW8nJDm_MjiHv9PSkA'>here</a> 
+to install the "mock career site" app. This app can display jobs in a basic way.
+</p>
+
+<p>10) Now install the switchgear app (you'll find this in the store). Switchgear is a kind of coordinating app that, among other things, lets the customer choose which of their career sites will be the primary.
+</p>
+
+<p>11) Now click on the switchgear icon, then click "Open". You're at the switchgear landing page. You should see your career site listed - mark it as the primary.
+</p>
+
+<p>12) Now edit your app to consume the
+<a href='GET /careerSites/primary'>http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#careerSites_primary_get</a>
+API (as source of truth) to learn which career site is the primary (in this case it will be the mock career site).
+</p>
+
+<p>13) You can now consume the 
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#panel_careerSites_forApp_byID__site__jobLink__job_'>GET /careerSites/forApp/byID/{site}/jobLink/{job}</a>
+API to ask the primary career site to build you a link for each specific job. Again, you should cache the results to this API call, e.g. against the job's ID.
+</p>
+
+<h2>Add your own trackers</h2>
+
+<p>(This step is optional).
+</p>
+
+<p>Great! You've extracted a list of jobs, and for each one, you've built a link that the candidate can click on within your site, that will lead them to the job on the primary careers site.
+</p>
+
+<p>When the candidate reaches the primary career site, their browser will add your site (in the referer http header), so there's a fair chance that any candidate job applications made via
+your app will be attributed as the source of any resulting job applications (by the career site checking the referer header set by the candidate's browser).
+</p>
+
+<p>However you may want to make sure that source detection works correctly - or add aditional tracking information that you can use later - by attaching a <b>tracker</b> to the link.
+Trackers get passed through to any job applications resulting from clicking on your link. As a result:
+<ul>
+<li>the tenant knows the application came via you (i.e. in their sourcing statistics)
+<li>other APIs may give you visibility into "your" applications (how many, at what stage, etc.)
+</ul>
+
+<p>You can also embed your own information into trackers. For example, if your app is a kind of social referral app, then
+you could embed in the tracker the details of the person who shared the job. Then, when someone is hired after applying using that shared link, you could pay the referrer a bounty.
+</p>
+
+<p>In this case we'll just create a very simple tracker for each job with no embedded information.
+</p>
+
+<p>14) At the developer site, update your app so that it consumes the
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#trackers_post'>POST /trackers</a>
+API (again, as source of truth).
+</p>
+
+<p>15) From your storefront, install the tracker app.
+</p>
+
+<p>16) From the command line, create a tracker with details of your site in it:
+
+<div class='codeBlock'>
+# as the app "getjobstest",
+# and acting for tenant "acme",  
+# call the API GET /jobs
+# as defined by the developer "tas"
+
+curl -H "tazzy-secret: gjKUy7Y7Ehy0KgE32" http://jobboard.tazzy.io/t/acme/devs/tas/jobs/1001
+</div>
+</p>     
+
+<p>The response to your API call contains a tracker ID which you can now attach to the career site link. Note that if you
+call the tracker API again you'll get the same tracker back - but you should cache the results of this API call rather than repeatedly calling the API at an excessive rate.
+</p>
+
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

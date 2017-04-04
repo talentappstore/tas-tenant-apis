@@ -2,14 +2,16 @@
   "application": {
     "items": [
       {
-        "name": "coverletter",
-        "type": "file",
-        "value": {
-          "fileName": "fredcv.docx",
-          "size": 3023443,
-          "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          "dateUploaded": "2015-11-05T13:15:30Z",
-          "preSignedUri": "https://frodo.com/docs/198714509"
+        "item": {
+          "name": "coverletter",
+          "type": "file",
+          "value": {
+            "fileName": "fredcv.docx",
+            "size": 3023443,
+            "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "dateUploaded": "2015-11-05T13:15:30Z",
+            "preSignedUri": "https://frodo.com/docs/198714509"
+          }
         }
       }
     ]

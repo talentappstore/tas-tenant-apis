@@ -1,0 +1,341 @@
+{
+  "definitions": {
+    "title": {
+      "type": "string",
+      "description": "a short label for this item, e.g. 'Date of birth'"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
+    },
+    "boolean": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "presentation": {
+          "enum": [
+            "checkbox",
+            "select"
+          ],
+          "description": "a hint as to how the item should be rendered"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "The label that should be used for the 'no selection' choice. When present, implies presentation == select"
+        },
+        "defaultValue": {
+          "type": "boolean",
+          "description": "defaults to false if not present"
+        },
+        "trueLabel": {
+          "type": "string",
+          "description": "defaults to 'yes'"
+        },
+        "falseLabel": {
+          "type": "string",
+          "description": "defaults to 'no'"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "number": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "precision": {
+          "type": "integer"
+        },
+        "scale": {
+          "type": "integer"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "defaultValue": {
+          "type": "number"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "string": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "format": {
+          "enum": [
+            "singleLine",
+            "multiLine",
+            "markDown"
+          ],
+          "description": "what sort of string the item holds"
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "maxLength": {
+          "type": "integer"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "date": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "showTime": {
+          "type": "boolean",
+          "description": "whether time component should be shown - entered dates default to midnight if false"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present, results in a selectable UI element that equates to no selection"
+        },
+        "minDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "maxDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "defaultValue": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "purpose": {
+            "enum": [
+              "audio",
+              "document",
+              "image",
+              "video"
+            ]
+        },
+        "accept": {
+          "type": "array",
+          "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+          "items": {
+            "$ref": "fileDownload.json#/definitions/mediaType"
+          }
+        },
+        "maxSize": {
+          "type": "integer",
+          "description": "maximum file size in bytes"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "picklist": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present,  and presntation == showOne, then a pseudo-choice will be injected"
+        },
+        "minChoices": {
+          "type": "integer"
+        },
+        "maxChoices": {
+          "type": "integer"
+        },
+        "presentation": {
+          "enum": [
+            "showOne",
+            "showAll"
+          ],
+          "description": "showOne is only usable when maxChoices == 1"
+        },
+        "choices": {
+          "$ref": "#/definitions/picklistChoice"
+        }
+      }
+    },
+    "table": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "itemRead.json#/definitions/instructions"
+        },
+        "minRows": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "columns": {
+          "$ref": "#/definitions/columns"
+        }
+      }
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
+      },
+      "description": "a series of itemMetas, each representing a column within the table"
+    },
+    "subItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
+      },
+      "description": "a bunch of items that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
+    },
+    "picklistChoice": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "an immutable key for this choice"
+        },
+        "label": {
+          "type": "string",
+          "description": "how the user sees this choice"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "will always be compatible with minChoices, maxChoices"
+        },
+        "subItems": {
+          "$ref": "#/definitions/subItems"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/boolean"
+    },
+    {
+      "$ref": "#/definitions/number"
+    },
+    {
+      "$ref": "#/definitions/string"
+    },
+    {
+      "$ref": "#/definitions/date"
+    },
+    {
+      "$ref": "#/definitions/file"
+    },
+    {
+      "$ref": "#/definitions/picklist"
+    },
+    {
+      "$ref": "#/definitions/table"
+    }
+  ]
+}

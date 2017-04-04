@@ -21,7 +21,7 @@
           "$ref": "fileDownload.json"
         },
         "items": {
-          "$ref": "itemsRead.json"
+          "$ref": "itemPackagesRead.json"
         }
       },
       "required": [
@@ -38,7 +38,7 @@
           "type": "integer"
         },
         "items": {
-          "$ref": "itemsRead.json"
+          "$ref": "itemPackagesRead.json"
         }
       },
       "required": [

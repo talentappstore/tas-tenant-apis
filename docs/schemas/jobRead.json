@@ -135,7 +135,7 @@
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "itemsRead.json"
+       "$ref": "itemPackagesRead.json"
     }
   },
   "additionalProperties": false

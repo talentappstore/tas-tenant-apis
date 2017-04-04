@@ -4354,7 +4354,7 @@
           "$ref": "fileDownload.json"
         },
         "items": {
-          "$ref": "itemsRead.json"
+          "$ref": "itemPackagesRead.json"
         }
       },
       "required": [
@@ -4371,7 +4371,7 @@
           "type": "integer"
         },
         "items": {
-          "$ref": "itemsRead.json"
+          "$ref": "itemPackagesRead.json"
         }
       },
       "required": [
@@ -4454,14 +4454,16 @@
   "application": {
     "items": [
       {
-        "name": "coverletter",
-        "type": "file",
-        "value": {
-          "fileName": "fredcv.docx",
-          "size": 3023443,
-          "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          "dateUploaded": "2015-11-05T13:15:30Z",
-          "preSignedUri": "https://frodo.com/docs/198714509"
+        "item": {
+          "name": "coverletter",
+          "type": "file",
+          "value": {
+            "fileName": "fredcv.docx",
+            "size": 3023443,
+            "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "dateUploaded": "2015-11-05T13:15:30Z",
+            "preSignedUri": "https://frodo.com/docs/198714509"
+          }
         }
       }
     ]
@@ -5786,7 +5788,7 @@ GET /widgets?$top=5
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "itemsRead.json"
+       "$ref": "itemPackagesRead.json"
     }
   },
   "additionalProperties": false
@@ -6153,7 +6155,7 @@ GET /widgets?$top=5
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "itemsRead.json"
+       "$ref": "itemPackagesRead.json"
     }
   },
   "additionalProperties": false

@@ -72,12 +72,13 @@
 - actionSetupPage:
     get:
       securedBy: [oauth_2_0]
-      is: [ isSetupPage ]
       description: |
         API to get a link to a page hosted by the action's app that the user can use to to set up defaults or values
         for this action - for example, to set the referral amount or limits if the button is for an employee referral program.
         For actions relating to jobs, the setup page can be used to set defaults (at either the global or workflow level) or values
         (at the job level).
+
+        When this page has done its thing, it should signal the containing window via a postMessage call, passing one of the verbs "ok" or "cancel".
         
         Non-SoT, on-behalf (principal == user).
         
@@ -95,8 +96,11 @@
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get a panel (purpose-specific small, ebeddable web page) from a single app. Non-SoT.
-      is: [ iframeContained ]
+        Get a panel (purpose-specific small, ebeddable web page) from a single app.
+
+        If the panel changes its size, it can trigger a resize of the iframe in the containing via a postMessage call, passing the verb "resize" and the new width and height.
+        
+        Non-SoT.
       responses:
         200:
           body:
@@ -110,8 +114,9 @@
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get an array of all of the panels from all apps. SoT.
-      is: [ iframeContained ]
+        Get an array of all of the panels from all apps.
+        
+        SoT.
       responses:
         200:
           body:

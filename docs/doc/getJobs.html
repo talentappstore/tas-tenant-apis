@@ -107,7 +107,7 @@ here</a> to install the mock jobs app into your tenant.
 # call the API GET /jobs
 # as defined by the developer "tas"
 
-curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://getjobstest.tazzy.io/devs/tas/jobs
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobstest.tazzy.io/t/acme/devs/tas/jobs
 </div>
 </p>
 
@@ -147,13 +147,13 @@ to install the "mock categories" app. This provides some test values for the cat
 
 <p>To test this out, you can call these APIs using curl as above, e.g.:
 <div class='codeBlock'>
-curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://getjobstest.tazzy.io/devs/tas/categories
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobstest.tazzy.io/t/acme/devs/tas/categories
 </div>
 </p>
 
 <p>One of the categories returned above was 100001999, so to get the values for this category, call:
 <div class='codeBlock'>
-curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://mockjobstest.tazzy.io/devs/tas/categories/byID/100001999/values
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://mockjobstest.tazzy.io/t/acme/devs/tas/categories/byID/100001999/values
 </div>
 </p>
 

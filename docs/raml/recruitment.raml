@@ -195,20 +195,22 @@ resourceTypes: !include resources.yml
 
 
 /applications:
+  type: applicationGetter
+    
   /byID:
     /{application}:
       get:
         securedBy: [oauth_2_0]
         description: |
-          Get details of a job application.
+          Get details of a specific job application.
           
           SoT.
                  
           200:
             body:
               application/json:
-                schema: !include ../schemas/application.json
-                example: !include ../examples/application-simple.json
+              schema: !include ../schemas/applicationView.json
+              example: !include ../examples/applicationView-simple.json
                 
       /deltaPings:
         post:
@@ -216,7 +218,7 @@ resourceTypes: !include resources.yml
           description: |
             The main ping for any changes to a job application. Noisy, i.e. other apps need to store previous state to work out what has actually changed.
             
-            The body contains not just the operation (insert, update, delete) but also key data fom the application (its job, candidate etc.) so that clients
+            The body contains not just the operation (insert, update, delete) but also key data from the application (its job, candidate etc.) so that clients
             don't need to fetch that separately. This data is as at
             - after insert
             - after update
@@ -263,12 +265,6 @@ resourceTypes: !include resources.yml
           /byName:
             /{item}:
               type: itemMeta
-      /status:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get the bucket and sourcingBucket for the application. SourcingBucket is from a hard-coded set of values such
-            as "interview", "offer", "pre-screen", etc.
   /bySourcingApp:
     /{consumer}:
       /{id}:
@@ -278,21 +274,77 @@ resourceTypes: !include resources.yml
             description: |
               Get a sanitised and basic set of information for a job application, which the consumer is entitled to
               by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
-  /byCandidate:
-    /{candidate}:
-      /byJob:
-        /{job}:
-          get:
-            securedBy: [oauth_2_0]
-            description: get the id of the application (if any)
-  /hired:
-    description: |
-      Hires (i.e. candidates who have been hired into a job)
-    type: applicationGetter
-  /onBoarded:
-    description: |
-      Onboarded hires (i.e. candidates who have completed the onboarding process)
-    type: applicationGetter
+
+  /byPhase:
+    description: Phases may overlap or be sequential, depending on the customer's workflow.
+    /interview:
+      /inProgress:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+      /complete:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+    /offer:
+      /inProgress:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+      /complete:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+    /hire:
+      description: Phase where the candidate is marked as hired (likely an integration point with core HR system)
+      /inProgress:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+      /complete:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+    /approval:
+      description: Phase where we are internally approving the details of the hire (which may include reviewing interview notes, offer details)
+    /onboard:
+      /inProgress:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+      /complete:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+    /decline:
+      /inProgress:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
+      /complete:
+        type: applicationPhaseGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhasePinger
 
 /appStatus:
   get:

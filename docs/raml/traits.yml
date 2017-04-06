@@ -1,5 +1,52 @@
 #%RAML 0.8
 
+
+- applicationProjector:
+    queryParameters:
+      includeAppDetails:
+        description: when true, causes application fields to be included in the response - if false (the default), application ID only will be included
+        type: boolean
+        required: false
+        example: true
+      includeJobDetails:
+        description: when true, causes the application's job to be included in the response. Default is false.
+        type: boolean
+        required: false
+        example: true
+      includeJobManagerDetails:
+        description: when true, causes the application's job's manager to be included in the response. Default is false.
+        type: boolean
+        required: false
+        example: true
+      includeCandidateDetails:
+        description: when true, causes the application's candidate to be included in the response. Default is false.
+        type: boolean
+        required: false
+        example: true
+
+
+- applicationPager:
+    queryParameters:
+      minID:
+        type: number
+        required: false
+        example: 1001
+        description: if present, only applications with id > this value will be returned 
+
+- applicationObjectFilter:
+    queryParameters:
+      job:
+        description: when specified, limits to just applications for this particular job 
+        type: integer
+        required: false
+        example: 10033433
+      candidate:
+        description: when specified, limits to just applications for this particular candidate 
+        type: integer
+        required: false
+        example: 1002443
+
+
 - hasRelayPage:
     description: a URL can be passed in that the user will be redirected to at some time in the future 
     queryParameters:

@@ -3,7 +3,32 @@
   "type": "object",
   "properties": {
     "detail": {
-      "$ref": "application.json"
+      "type": "object",
+      "properties": {
+	    "id": {
+	      "type": "integer",
+          "$ref": "applicationRead.json#/definitions/id"
+	    },
+	    "candidate": {
+          "$ref": "applicationRead.json#/definitions/candidate"
+	    },
+	    "job": {
+          "$ref": "applicationRead.json#/definitions/job"
+	    },
+	    "bucket": {
+          "$ref": "applicationRead.json#/definitions/bucket"
+	    },
+	    "tracker": {
+          "$ref": "applicationRead.json#/definitions/tracker"
+	    }
+      },
+      "required": [
+	    "id",
+	    "candidate",
+	    "job",
+	    "bucket",
+	    "tracker"
+	    ]
     },
     "operation": {
       "$ref": "deltaPing.json#/definitions/operation"

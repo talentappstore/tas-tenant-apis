@@ -1,9 +1,9 @@
 {
   "detail": {
-    "application": 1001,
+    "id": 1001,
     "candidate": 1033,
     "job": 82,
-    "bucket": "incoming",
+    "bucket": 2,
     "tracker": 10044
   },
   "operation": "insert"

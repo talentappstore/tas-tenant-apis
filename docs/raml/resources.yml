@@ -1,11 +1,21 @@
 #%RAML 0.8
 
 
-- applicationGetter:
-    get:    
+- applicationPhasePinger:
+    post:    
       securedBy: [oauth_2_0]
       description: |
-        Get all applications that have completed this phase now, or (if since is specified) after a given date date, AND (if minID
+        A ping for when an application enters this stattus for the given phase, i.e. a real time mechanism for other apps to listen for job applications
+        reaching some stage in the recruitment process. There is no request body.
+            
+        Non-SoT.
+
+- applicationPhaseGetter:
+    get:
+      is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
+      securedBy: [oauth_2_0]
+      description: |
+        Get all applications that have reached this status for this phase now, or (if since is specified) after a given date date, AND (if minID
         is specified) that have id > a given value (allows paging of results).
         Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number
         is returned, the client should fetch again, specifying minID, as there may be more results.
@@ -14,11 +24,29 @@
           type: date
           required: false
           example: A string such as "2015-11-05T13:15:30Z"
-        minID:
-          type: number
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationViews.json
+              example: !include ../examples/applicationViews-simple.json
+        404:
+          description: there are no applications matching the filters
+
+- applicationGetter:
+    get:
+      is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
+      securedBy: [oauth_2_0]
+      description: |
+        Get all applications that match the parameters and (if minID is specified) that have id > a given value (allows paging of results).
+        Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number
+        is returned, the client should fetch again, specifying minID, as there may be more results.
+      queryParameters:
+        bucket:
+          description: when present, filters to only include applications in this bucket
+          type: integer
           required: false
-          example: 1001
-          description: if present, only applications with id > this value will be returned 
+          example: 1003
       responses:
         200:
           body:

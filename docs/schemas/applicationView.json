@@ -1,50 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "internalFlag": {
-      "type": "boolean",
-      "description": "whether this candidate is an internal"
-    },
-    "candidate": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "vcard": {
-          "$ref": "jcard.json"
-        },
-        "internalFlag": {
-          "$ref": "#/definitions/internalFlag"
-        },
-        "resumeMeta": {
-          "$ref": "fileDownload.json"
-        },
-        "items": {
-          "$ref": "itemPackagesRead.json"
-        }
-      },
-      "required": [
-        "vcard",
-        "resumeMeta",
-        "internalFlag",
-        "items"
-      ]
-    },
-    "application": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "items": {
-          "$ref": "itemPackagesRead.json"
-        }
-      },
-      "required": [
-        "items"
-      ]
-    },
     "remuneration": {
       "type": "object",
       "description": "See HR/XML OnBoardingDeploymentType",
@@ -101,16 +57,16 @@
   "type": "object",
   "properties": {
     "application": {
-      "$ref": "#/definitions/application"
+      "$ref": "applicationRead.json"
     },
     "job": {
       "$ref": "jobRead.json"
     },
     "candidate": {
-      "$ref": "#/definitions/candidate"
+      "$ref": "candidateRead.json"
     },
     "job.manager": {
-      "$ref": "user.json"
+      "$ref": "userRead.json"
     },
     "hireDetails": {
       "$ref": "#/definitions/hireDetails"

@@ -13,7 +13,7 @@
     "apiResult": { "$ref": "../schemas/apiResult.json" },
     "apiTest": { "$ref": "../schemas/apiTest.json" },
     "applicationDeltaPing": { "$ref": "../schemas/applicationDeltaPing.json" },
-    "application": { "$ref": "../schemas/application.json" },
+    "applicationRead": { "$ref": "../schemas/applicationRead.json" },
     "applicationView": { "$ref": "../schemas/applicationView.json" },
     "applicationViews": { "$ref": "../schemas/applicationViews.json" },
     "appStatus": { "$ref": "../schemas/appStatus.json" },
@@ -23,6 +23,7 @@
     "candidateDetails": { "$ref": "../schemas/candidateDetails.json" },
     "candidateEdit": { "$ref": "../schemas/candidateEdit.json" },
     "candidateEditSpec": { "$ref": "../schemas/candidateEditSpec.json" },
+    "candidateRead": { "$ref": "../schemas/candidateRead.json" },
     "candidates": { "$ref": "../schemas/candidates.json" },
     "candidateWorkflow": { "$ref": "../schemas/candidateWorkflow.json" },
     "candidateWorkflows": { "$ref": "../schemas/candidateWorkflows.json" },
@@ -81,7 +82,7 @@
     "tracker": { "$ref": "../schemas/tracker.json" },
     "trackers": { "$ref": "../schemas/trackers.json" },
     "userArea": { "$ref": "../schemas/userArea.json" },
-    "user": { "$ref": "../schemas/user.json" }
+    "userRead": { "$ref": "../schemas/userRead.json" }
 
   }
 }

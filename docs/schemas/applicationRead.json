@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "properties": {
-    "application": {
+  "definitions": {
+    "id": {
       "type": "integer"
     },
     "candidate": {
@@ -12,19 +12,32 @@
       "type": "integer"
     },
     "bucket": {
-      "type": "string"
+      "type": "integer"
     },
     "tracker": {
       "type": "integer",
       "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
     }
   },
-  "required": [
-    "application",
-    "candidate",
-    "job",
-    "bucket",
-    "tracker"
-  ],
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "candidate": {
+      "$ref": "#/definitions/candidate"
+    },
+    "job": {
+      "$ref": "#/definitions/job"
+    },
+    "bucket": {
+      "$ref": "#/definitions/bucket"
+    },
+    "tracker": {
+      "$ref": "#/definitions/tracker"
+    },
+    "items": {
+      "$ref": "itemPackagesRead.json"
+    }
+  },
   "additionalProperties": false
 }

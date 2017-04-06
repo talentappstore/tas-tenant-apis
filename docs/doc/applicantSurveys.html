@@ -25,21 +25,17 @@
 <link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 
-<title>Get jobs</title>
+<title>Survey applicants</title>
 </head>
 <body>
 
 <div id="toc"></div>
 
 
-<h1>Get jobs app</h1>
+<h1>Survey applicants app</h1>
 
-<p>Here's a quick walk through of what's required to write a sourcing app in Talent App store - i.e. an app that:
-<ol>
-<li>pulls jobs from a customer's site
-<li>creates a links for each job that a candidate can click on to reach the customer's career site (and eventually apply)
-- embeds tracking information into each link, so that when candidates click through from your site, the tenant knows they came via you
-</ol>
+<p>Here's a quick walk through of what's required to write a survey app in Talent App store - i.e. an app that sends a survey to applicants who have been unsuccessful in order to understand candidate care levels.
+</p>
 
 
 <h1>About TAS</h1>
@@ -48,7 +44,8 @@
 Instead you're just producing and consuming RESTful APIs on your own servers - in a way that looks like an app to the customer.
 </p>
 
-<p>For example, when a customer clicks install on your app in Talent App Store, you'll receive an incoming API call to your own server telling you that you have a new customer.
+<p>For example, when a customer clicks install on your app in Talent App Store, you'll receive an
+incoming API call to your own server telling you that you have a new customer.
 From this point you can start making API calls to fetch jobs for that customer.
 </p>
 
@@ -65,13 +62,36 @@ can write and host your app using whatever tools and technologies you already us
 <p>Here are the typical steps you would go through to build this app.
 </p>
 
+<h2>Define your data gathering strategy</h2>
+
+<p>Your survey will be triggered by an applicant being marked as unsuccessful in their application for a job. There are two ways you can learn about unsuccessful applicants:
+<dl>
+<dt>Pull (polling)</dt>
+<dd>
+<p>You periodically (e.g. once an hour, overnight) call the API GET /applications/byPhase/decline/complete, passing in a date. The response includes
+all applications that have been declined since that date - typically the date you pass in will be the date of the previous poll operation.
+</p>
+<p>This approach is not real time, but that's probably not a concern for this kind of app - you may want to allow some time for the candidate
+to absorb the fact that they've been unsuccessful before approaching them.
+</p>
+<dt>Push (delta ping)</dt>
+<dd>
+<p>You  
+ 
+</dl>
+
+</p> 
 
 <h2>Create your app and fetch currently open jobs</h2>
 
 <p>1) Create a developer account at developer.talentappstore.com.
 </p>
 
-<p>2) Define your app, giving it a name, logo etc. Make a note of your app's secret key - you'll need this later. Don't share this with anyone. Finally, define the APIs that your app consumes (calls). First, lets just consume the API to pull jobs (make sure you specify source of truth == true):
+<p>2) Define your app, giving it a name, logo etc. Make a note of your app's secret key - you'll need this later. Don't share this with anyone.
+Finally, define the APIs that your app consumes (calls) and produces. In this case, you want your app to produce the API  
+
+
+First, lets just consume the API to pull jobs (make sure you specify source of truth == true):
 <blockquote>
 GET /jobs (http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get)
 </blockquote>
@@ -93,7 +113,7 @@ it can be something of a big deal, we (Aotal) provide a simple test app that pro
 </p>
 
 
-<p>5) Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2pvYnM.k3FX2j6HCJHwnV9XCdgkU2KGfCP_RzcpcQRn55PJy4jiQxvG2RUxbN9wZfNYvubwnyjmnkZYaM6v7ctDRoPFtaaErulzY0GmDkKbByuwhB1fhOLPG4k2M53TCds1I_wbszipJ3y8m4vtDCeiQ8QbO2C67Gk-idmaG93yw4nsMdeL1944tchvCJqhCqlOzElyDkG_zcTPSMk_WBrADhROCaEtMsoaEeYX_QWxZzlpud7RBMHXge1ZXE_LelKAPMZ03XEk7lh2sXjT_y_Ozr8MJkBrVk8M797mCS8mrBZCWy2RuAPqQ9eg-4SzhN0MCLhmEF3sSqjXP9lEKpL0Bc9dww'>
+<p>5) Click <a hrf='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2pvYnM.k3FX2j6HCJHwnV9XCdgkU2KGfCP_RzcpcQRn55PJy4jiQxvG2RUxbN9wZfNYvubwnyjmnkZYaM6v7ctDRoPFtaaErulzY0GmDkKbByuwhB1fhOLPG4k2M53TCds1I_wbszipJ3y8m4vtDCeiQ8QbO2C67Gk-idmaG93yw4nsMdeL1944tchvCJqhCqlOzElyDkG_zcTPSMk_WBrADhROCaEtMsoaEeYX_QWxZzlpud7RBMHXge1ZXE_LelKAPMZ03XEk7lh2sXjT_y_Ozr8MJkBrVk8M797mCS8mrBZCWy2RuAPqQ9eg-4SzhN0MCLhmEF3sSqjXP9lEKpL0Bc9dww'>
 here</a> to install the mock jobs app into your tenant.
 
 <p>Now you're ready to make an API call to fetch jobs. We'll use the familiar curl command.

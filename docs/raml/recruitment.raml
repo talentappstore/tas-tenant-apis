@@ -276,7 +276,11 @@ resourceTypes: !include resources.yml
               by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
 
   /byPhase:
-    description: Phases may overlap or be sequential, depending on the customer's workflow.
+    description: |
+      Phases may overlap or be sequential, depending on the customer's workflow. An application may jump straight to complete,
+      without going through inProgress (e.g. declines are commonly like this, though a tenant who wanted to delay outgoing
+      decline messages would have applications that spent time in inProgress).
+    
     /interview:
       /inProgress:
         type: applicationPhaseGetter

@@ -7,10 +7,7 @@
             "description": "true if this set is to be applied as a dry run - i.e. no changes should be made to the jobs at the target"
         },
         "jobs": {
-            "type": "array",
-            "items": {
-                "$ref": "jobSetJob.json"
-            }
+            "$ref": "jobSetJobs.json"
         }
     },
     "required": [

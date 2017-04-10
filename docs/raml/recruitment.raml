@@ -350,29 +350,6 @@ resourceTypes: !include resources.yml
             /deltaPings:
               type: applicationPhasePinger
 
-/appStatus:
-  get:
-    securedBy: [oauth_2_0]
-    is: [ hasRelayPage ]
-    description: |
-      Produced by apps to inform the storefront app of this app's:
-      - landing page, i.e where should the user go to do on clicking "open" on the app - e.g. clicking a job board app might go to the front page of the job board
-      - setup required status, i.e. whether the app is degraded or unusable due to some missing setup
-      - setup page, i.e. where should the user go to adjust the app's setup   
-      
-      Probably only consumed by storefront apps.
-      
-      SoT: non-SoT (each app has their own landing page).
-
-      When the app is generating the setup page url, the relayPage parameter indicates where the user should be redirected to after completing
-      the setup (i.e. typically the app details page witin the storefront).
-             
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/appStatus.json
-            example: !include ../examples/appStatus-simple.json
 
 /buckets:
   get:
@@ -706,23 +683,7 @@ resourceTypes: !include resources.yml
   description: |
     Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
     and others. Includes details of inactivated nodes.
-  get:
-    securedBy: [oauth_2_0]
-    description: |
-      Fetch list of categories
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/categories.json
-            example: !include ../examples/categories-simple.json
-  post:
-    securedBy: [oauth_2_0]
-    description: Create a single category (without any values)
-    body:
-      application/json:
-        schema: !include ../schemas/category.json
-        example: !include ../examples/category-simple.json
+  type: catsget
     
   /byID:
     /{category}:
@@ -1267,6 +1228,8 @@ resourceTypes: !include resources.yml
       /workflow:
         /candidate:
           get:
+            description: |
+              *This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.*
             responses:
               200:
                 body:
@@ -1376,12 +1339,20 @@ resourceTypes: !include resources.yml
         body:
           application/problem+json:
   /forBoard:
-    /{board}:
-      get:
-        description: |
-          SoT.
+    /{app}:
+      description: the shortcode of the app that owns the board 
+      /{board}:
+        description: the ID (an integer) of the board 
+        get:
+          description: |
+            SoT.
           
-          Get the jobset for this board, typically from a mapper type app that tracks which jobs have been posted where 
+            Get the jobset for this board, typically from a mapper type app that tracks which jobs have been posted where. 
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/jobSetJobs.json
         
 /landingPage:
   get:

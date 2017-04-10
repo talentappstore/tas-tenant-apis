@@ -94,6 +94,9 @@
             "closeDate"
           ],
           "additionalProperties": false
+        },
+        "workflow": {
+          "type": "integer"
         }
       },
       "additionalProperties": false
@@ -130,6 +133,9 @@
     },
     "manager": {
       "$ref": "#/definitions/manager"
+    },
+    "workflow": {
+      "$ref": "#/definitions/workflow"
     },
     "categories": {
       "$ref": "categoriesActual.json"

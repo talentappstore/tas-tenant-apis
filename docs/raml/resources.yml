@@ -315,6 +315,25 @@
               schema: !include ../schemas/item.json
               example: !include ../examples/item-value.json
 
+- catsget:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Fetch list of categories
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/categories.json
+              example: !include ../examples/categories-simple.json
+    post:
+      securedBy: [oauth_2_0]
+      description: Create a single category (without any values)
+      body:
+        application/json:
+          schema: !include ../schemas/category.json
+          example: !include ../examples/category-simple.json
+
       
       
       

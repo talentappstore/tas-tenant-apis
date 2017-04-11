@@ -16,6 +16,7 @@
     "applicationRead": { "$ref": "../schemas/applicationRead.json" },
     "applicationView": { "$ref": "../schemas/applicationView.json" },
     "applicationViews": { "$ref": "../schemas/applicationViews.json" },
+    "appStatus": { "$ref": "../schemas/appStatus.json" },
     "bucket": { "$ref": "../schemas/bucket.json" },
     "buckets": { "$ref": "../schemas/buckets.json" },
     "canApply": { "$ref": "../schemas/canApply.json" },

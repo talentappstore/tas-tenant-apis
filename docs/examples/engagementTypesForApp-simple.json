@@ -7,6 +7,7 @@
     "candidateSeesResults": false,
     "canReuse": true,
     "candidateDescription": "The MS Word proficiency test is an easy, painless way to assess you ability to use this most excellent of products.",
-    "appCommunicatesDirectlyToCandidate": false
+    "appCommunicatesDirectlyToCandidate": false,
+    "image": "https://www.example.com/image.png"
   }
 ]

@@ -59,7 +59,10 @@
         },
         "appCommunicatesDirectlyToCandidate": {
           "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
-        }
+        },
+	    "image": {
+	      "$ref": "engagementRead.json#/definitions/imageWriteUrl"
+	    }
       },
       "required": [
         "key",
@@ -69,7 +72,8 @@
         "candidateSeesResults",
         "canReuse",
         "candidateDescription",
-        "appCommunicatesDirectlyToCandidate"
+        "appCommunicatesDirectlyToCandidate",
+        "image"
       ]
     }
   },

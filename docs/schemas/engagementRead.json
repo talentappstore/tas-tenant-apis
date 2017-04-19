@@ -109,6 +109,10 @@
         }
       }
     },
+    "passedFlag": {
+      "title": "Pass?",
+      "type": "boolean"
+    },
     "result": {
       "type": "object",
       "properties": {
@@ -120,9 +124,8 @@
           "title": "Description",
           "type": "string"
         },
-        "passedIndicator": {
-          "title": "Pass?",
-          "type": "boolean"
+        "passedFlag": {
+           "$ref": "#/definitions/passedFlag"
         },
         "score": {
           "title": "Score",
@@ -305,6 +308,11 @@
       "required": [
         "subject"
       ]
+    },
+    "imageWriteUrl": {
+      "description": "url of an image that will be loaded from an engagement app into the engagement hub to represent an engagement's status or an unstarted engagement type",
+      "type": "string",
+      "format": "url"
     }
   },
   "type": "object",

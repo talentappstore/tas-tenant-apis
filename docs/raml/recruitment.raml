@@ -852,24 +852,25 @@ resourceTypes: !include resources.yml
                 schema: !include ../schemas/engagementRead.json
                 example: !include ../examples/engagementRead-created.json
       /appDetails:
-        post:
+        patch:
           description: |
-            Consumed by the engagement app to update an existing engagement. Apps may set
-            most details and some statuses for an engagement, but cannot alter the on hold flag.
+            Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789).
+            Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.
           body:
-            application/json:
+            application/merge-patch+json:
               schema: !include ../schemas/engagementWriteByApp.json
               example: !include ../examples/engagementWriteByApp-completed.json
           responses:
             200:
               description: the update was successful
       /tenantDetails:
-        post:
+        patch:
           description: |
-            Consumed by the engagement hub, as a result of some tenant action, to update an existing engagement.
+            Consumed by the engagement hub, as a result of some tenant action, to update an existing engagement
+            using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789).
             The tenant cannot alter many details of an engagement other than to change the status or place it on hold.
           body:
-            application/json:
+            application/merge-patch+json:
               schema: !include ../schemas/engagementWriteByTenant.json
               example: !include ../examples/engagementWriteByTenant-onhold.json
           responses:

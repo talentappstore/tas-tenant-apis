@@ -6,11 +6,14 @@
     "status": {
       "$ref": "engagementRead.json#/definitions/status"
     },
-    "assessmentDetail": {
-      "$ref": "engagementRead.json#/definitions/assessmentDetailWrite"
+    "passedFlag": {
+       "$ref": "engagementRead.json#/definitions/passedFlag"
     },
     "interactionUris": {
       "$ref": "engagementRead.json#/definitions/interactionUris"
+    },
+    "image": {
+      "$ref": "engagementRead.json#/definitions/imageWriteUrl"
     }
   },
   "additionalProperties": false

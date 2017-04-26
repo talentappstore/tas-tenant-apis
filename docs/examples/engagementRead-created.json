@@ -1,16 +1,53 @@
 {
   "meta": {
     "id": 100,
-    "ct": "acme",
-    "ca": "myapp",
     "created": "2015-11-05T13:15:30Z"
   },
+  "engagementType": 10022,
   "status": "New",
   "onHoldFlag": false,
-  "subject": {
-    "firstName": "Fred",
-    "lastName": "Flintstone",
-    "email": "fred@quarry.com",
-    "candidate": 1003
+  "applicationView": {
+    "application": {
+      "items": [
+        {
+          "item": {
+            "name": "coverletter",
+            "type": "file",
+            "value": {
+              "fileName": "fredcv.docx",
+              "size": 3023443,
+              "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "dateUploaded": "2015-11-05T13:15:30Z",
+              "preSignedUri": "https://frodo.com/docs/198714509"
+            }
+          }
+        }
+      ]
+    },
+    "hireDetails": {
+      "hireDate": "2015-11-05T13:15:30Z"
+    },
+    "job": {
+      "code": "TTfg321",
+      "title": "Creative Director",
+      "items": []
+    },
+    "candidate": {
+      "vcard": [],
+      "internalFlag": false,
+      "resumeMeta": {
+        "fileName": "fredcv.docx",
+        "size": 3023443,
+        "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "dateUploaded": "2015-11-05T13:15:30Z",
+        "preSignedUri": "https://frodo.com/docs/198714509"
+      },
+      "items": []
+    },
+    "job.manager": {}
+  },
+  "interactionUris": {
+    "candidateInteractionUri": null,
+    "userInteractionUri": null
   }
 }

@@ -881,41 +881,37 @@ resourceTypes: !include resources.yml
           securedBy: [oauth_2_0]
           description: |
             Alerts listeners to a change to an engagement caused by the tenant
-      /view:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get the view, i.e. information the tenant has decreed that the engagement app should see about this engagement.
-            
-            SoT.
-          responses:
-            200:
-              body:
-                application/json:
-                  schema: !include ../schemas/applicationView.json
-                  example: !include ../examples/applicationView-simple.json
-            
   /byType:
-    /{engagementType}:
-      /forApplication:
-        /{application}:
-          post:
-            description: |
-              Tenant creates (or reuses) an engagement of the given type, for the given job application,
-              for example upon a candidate applying and being screened in.
+    /{app}:
+      description: the engagement app (owning the engagement type) 
+      /{engagementType}:
+        /forApplication:
+          /{application}:
+            post:
+              description: |
+                Tenant creates (or reuses) an engagement of the given type, for the given job application,
+                for example upon a candidate applying and being screened in.
               
-              SoT. Typically implemented by the engagement hub.
+                SoT. Typically implemented by the engagement hub.
+
+                There is no request body. The response contains the engagement ID.
               
-            body:
-              application/json:
-                schema: !include ../schemas/engagementOrderByTenant.json
-                example: !include ../examples/engagementOrderByTenant-simple.json
-            responses:
-              200:
-                description: the post was successful
-              201:
-                description: the post was successful
-      
+              responses:
+                200:
+                  description: the post was successful, and an existing engagement was reused.
+                  body:
+                    text/plain:
+                      description: details about the reused engagement
+                      schema: !include ../schemas/engagementMeta.json
+                      example: !include ../examples/engagementMeta-simple.json
+                201:
+                  description: the post was successful, and a new engagement was created.
+                  body:
+                    text/plain:
+                      description: details about the newly created engagement
+                      schema: !include ../schemas/engagementMeta.json
+                      example: !include ../examples/engagementMeta-simple.json
+
 /engagementTypes:
   /forApp:
     get:

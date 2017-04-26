@@ -254,32 +254,6 @@
       "type": "boolean",
       "description": "whether the tenant has placed the engagement on hold"
     },
-    "subject": {
-      "properties": {
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "jobTitle": {
-          "type": "string"
-        },
-        "jobRef": {
-          "type": "string"
-        },
-        "candidate": {
-          "type": "integer"
-        },
-        "application": {
-          "type": "integer"
-        }
-      },
-      "additionalProperties": false
-    },
     "interactionUris": {
       "type": "object",
       "properties": {
@@ -297,20 +271,13 @@
       "additionalProperties": false,
       "required": [ "candidateInteractionUri", "userInteractionUri"]
     },
-    "engagementCreate": {
-      "type": "object",
-      "description": "package of data needed to create an engagement",
-      "properties": {
-        "subject": {
-          "$ref": "#/definitions/subject"
-        }
-      },
-      "required": [
-        "subject"
-      ]
-    },
     "imageWriteUrl": {
       "description": "url of an image that will be loaded from an engagement app into the engagement hub to represent an engagement's status or an unstarted engagement type",
+      "type": "string",
+      "format": "url"
+    },
+    "imageReadUrl": {
+      "description": "url of an image cached by the engagement hub to represent an engagement's status or an unstarted engagement type",
       "type": "string",
       "format": "url"
     }
@@ -318,29 +285,37 @@
   "type": "object",
   "properties": {
     "meta": {
-      "$ref": "meta.json"
+      "$ref": "engagementMeta.json"
     },
-    "subject": {
-      "$ref": "#/definitions/subject"
+    "engagementType": {
+      "type": "integer"
     },
     "status": {
       "$ref": "#/definitions/status"
     },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
+    "applicationView": {
+       "$ref": "applicationView.json"
     },
-    "assessmentDetail": {
-      "$ref": "#/definitions/assessmentDetailRead"
+   "passedFlag": {
+       "$ref": "#/definitions/passedFlag"
     },
     "interactionUris": {
       "$ref": "#/definitions/interactionUris"
+    },
+    "image": {
+      "$ref": "#/definitions/imageReadUrl"
+    },
+    "onHoldFlag": {
+      "$ref": "#/definitions/onHoldFlag"
     }
   },
   "additionalProperties": false,
   "required": [
     "meta",
-    "subject",
+    "engagementType",
     "status",
+    "applicationView",
+    "interactionUris",
     "onHoldFlag"
   ]
 }

@@ -36,7 +36,7 @@
     "category": { "$ref": "../schemas/category.json" },
     "categoryValues": { "$ref": "../schemas/categoryValues.json" },
     "deltaPing": { "$ref": "../schemas/deltaPing.json" },
-    "engagementOrderByTenant": { "$ref": "../schemas/engagementOrderByTenant.json" },
+    "engagementMeta": { "$ref": "../schemas/engagementMeta.json" },
     "engagementRead": { "$ref": "../schemas/engagementRead.json" },
     "engagementStrip": { "$ref": "../schemas/engagementStrip.json" },
     "engagementStrips": { "$ref": "../schemas/engagementStrips.json" },

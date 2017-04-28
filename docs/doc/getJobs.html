@@ -68,36 +68,48 @@ can write and host your app using whatever tools and technologies you already us
 
 <h2>Create your app and fetch currently open jobs</h2>
 
-<p>1) Create a developer account at developer.talentappstore.com.
+<p>1) Create a developer account at <a href='https://developer.talentappstore.com'>developer.talentappstore.com</a>.
+For now, please use Google authentication (not an email and password).
 </p>
 
-<p>2) Define your app, giving it a name, logo etc. Make a note of your app's secret key - you'll need this later. Don't share this with anyone. Finally, define the APIs that your app consumes (calls). First, lets just consume the API to pull jobs (make sure you specify source of truth == true):
+<p>2) At the developer site, define your app:
+<ol>
+<li>Give it a name and shortcode
+<li>Under "APIs", have your app consume <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'> GET /jobs</a>.<b>Make sure to consume it as source of truth == true</b>. 
+<li>Make a note of your app's secret key - you'll need this later. Don't share this with anyone.
+</ol>
+
 <blockquote>
-GET /jobs (http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get)
+Later on, you'll write some code and then attach your actual servers. But for now, lets install your app and start making some API calls from the command line.
+In Talent App Store, your app can't do much at all until its installed by a tenant. So to develop and test your app, and make API calls, you'll need a tenant of your own (its free to create one).
 </blockquote>
 
-<p>Later on, you'll write some code and then attach your actual servers. But for now, lets install your app and start making some API calls from the command line.
-In Talent App Store, your app can't do much at all until its installed by a tenant. So to develop and test your app, and make API calls, you'll need a tenant of your own (its free to create one).
 </p>
+
 
 <p>3) Back at the app, in the developer site, click the install link.
 </p>   
 
-<p>4) You'll be guided to create an account at www.talentappstore.com. Create a tenant, and finally install your app into your new tenant.
-You'll see a couple of other apps pre-installed for you.
+<p>4) You'll be guided to create an account at www.talentappstore.com. Again, use Google authentication for now.
+<ol>
+<li>Create a tenant. Click into the tenant. You'll see a couple of apps pre-installed for you.
+<li>Install your app into your new tenant.
+</ol>
+During the above steps, you may have to log in a couple of times during this process. Start again from the install link if you get stuck.
 </p>
 
-<p>Next, for your app to consume an API like GET /jobs), some other app needs to produce that API.
+<blockquote>
+Next, for your app to consume an API like GET /jobs), some other app needs to produce that API.
 In a production tenant, that app might be an applicant tracking system (ATS). Since installing an ATS and getting test data into
 it can be something of a big deal, we (Aotal) provide a simple test app that produces the APIs you're going to use and is pre-loaded with test data.
-</p>
-
+</blockquote>
 
 <p>5) Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2pvYnM.k3FX2j6HCJHwnV9XCdgkU2KGfCP_RzcpcQRn55PJy4jiQxvG2RUxbN9wZfNYvubwnyjmnkZYaM6v7ctDRoPFtaaErulzY0GmDkKbByuwhB1fhOLPG4k2M53TCds1I_wbszipJ3y8m4vtDCeiQ8QbO2C67Gk-idmaG93yw4nsMdeL1944tchvCJqhCqlOzElyDkG_zcTPSMk_WBrADhROCaEtMsoaEeYX_QWxZzlpud7RBMHXge1ZXE_LelKAPMZ03XEk7lh2sXjT_y_Ozr8MJkBrVk8M797mCS8mrBZCWy2RuAPqQ9eg-4SzhN0MCLhmEF3sSqjXP9lEKpL0Bc9dww'>
 here</a> to install the mock jobs app into your tenant.
 
-<p>Now you're ready to make an API call to fetch jobs. We'll use the familiar curl command.
-</p>
+<blockquote>
+Now you're ready to make an API call to fetch jobs. We'll use the familiar curl command.
+</blockquote>
 
 <p>6) At the command line, type the following (substituting your own app, tenant and secret key):
 

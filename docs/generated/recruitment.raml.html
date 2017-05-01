@@ -1516,7 +1516,7 @@
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
     "key": {
-      "type": "integer"
+      "type": "string"
     },
     "created": {
       "type": "string",
@@ -1539,7 +1539,7 @@
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "key": 100,
+    "key": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
     "created": "2015-11-05T13:15:30Z"
 }</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__viewInstances_byKey__key_"><span class="parent">/applications/byID/{application}/viewInstances/byKey</span>/{key}</a> <span class="methods"><a href="#applications_byID__application__viewInstances_byKey__key__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_applications_byID__application__viewInstances_byKey__key_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__viewInstances_byKey__key__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the previously created view instance.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__viewInstances_byKey__key__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/applications/byID/{application}/viewInstances/byKey</span>/{key}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the previously created view instance.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__viewInstances_byKey__key__get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__viewInstances_byKey__key__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__viewInstances_byKey__key__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>key</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byID__application__viewInstances_byKey__key__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
@@ -4704,6 +4704,15 @@
       "description": "url of an image cached by the engagement hub to represent an engagement&#39;s status or an unstarted engagement type",
       "type": "string",
       "format": "url"
+    },
+    "givenName": {
+       "type": "string"
+    },
+    "familyName": {
+       "type": "string"
+    },
+    "email": {
+       "type": "string"
     }
   },
   "type": "object",
@@ -4714,12 +4723,15 @@
     "engagementType": {
       "type": "integer"
     },
+    "engagementTypeKey": {
+      "$ref": "engagementTypesForApp.json#/definitions/key"
+    },
     "status": {
       "$ref": "#/definitions/status"
     },
     "view": {
-       "type": "integer",
-       "description": "the id of the view that will give more details about the subject of this engagement (name, email address, job ID, etc.)"
+       "type": "string",
+       "description": "the key of the view instance that will give more details about the subject of this engagement (name, email address, job ID, etc.)"
     },
    "passedFlag": {
        "$ref": "#/definitions/passedFlag"
@@ -4732,12 +4744,28 @@
     },
     "onHoldFlag": {
       "$ref": "#/definitions/onHoldFlag"
+    },
+    "raiser": {
+       "type": "object",
+       "properties": {
+           "givenName": {
+              "ref": "#/definitions/givenName"
+           },       
+           "familyName": {
+              "ref": "#/definitions/familyName"
+           },       
+           "email": {
+              "ref": "#/definitions/email"
+           }       
+       },
+       "additionalProperties": false
     }
   },
   "additionalProperties": false,
   "required": [
     "meta",
     "engagementType",
+    "engagementTypeKey",
     "status",
     "view",
     "interactionUris",
@@ -4749,13 +4777,19 @@
     "created": "2015-11-05T13:15:30Z"
   },
   "engagementType": 10022,
+  "engagementTypeKey": "mswordprof",
   "status": "New",
   "onHoldFlag": false,
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null
-  }
+  },
+  "raiser": {
+    "givenName": "Fred",
+    "familyName": "Bloggs",
+    "email": "fred@gmail.com"
+  }  
 }
 </code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id__appDetails"><span class="parent">/engagements/byID/{id}</span>/appDetails</a> <span class="methods"><a href="#engagements_byID__id__appDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_engagements_byID__id__appDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__appDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__appDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/engagements/byID/{id}</span>/appDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__appDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byID__id__appDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__appDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",

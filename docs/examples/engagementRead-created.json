@@ -4,11 +4,17 @@
     "created": "2015-11-05T13:15:30Z"
   },
   "engagementType": 10022,
+  "engagementTypeKey": "mswordprof",
   "status": "New",
   "onHoldFlag": false,
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null
-  }
+  },
+  "raiser": {
+    "givenName": "Fred",
+    "familyName": "Bloggs",
+    "email": "fred@gmail.com"
+  }  
 }

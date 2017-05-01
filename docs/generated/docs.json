@@ -83,7 +83,8 @@
     "tracker": { "$ref": "../schemas/tracker.json" },
     "trackers": { "$ref": "../schemas/trackers.json" },
     "userArea": { "$ref": "../schemas/userArea.json" },
-    "userRead": { "$ref": "../schemas/userRead.json" }
+    "userRead": { "$ref": "../schemas/userRead.json" },
+    "viewMeta": { "$ref": "../schemas/viewMeta.json" }
 
   }
 }

@@ -1512,7 +1512,230 @@
       }
     }
   }
-}</code></pre></div><div class="tab-pane" id="applications_byID__application__items_itemMetas_byName__item__get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_bySourcingApp__consumer___id__sourcerDetails"><span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</a> <span class="methods"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_bySourcingApp__consumer___id__sourcerDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_bySourcingApp__consumer___id__sourcerDetails_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_bySourcingApp__consumer___id__sourcerDetails_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_bySourcingApp__consumer___id__sourcerDetails_get_request"><h3>URI Parameters</h3><ul><li><strong>consumer</strong>: <em>required (string)</em></li><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_bySourcingApp__consumer___id__sourcerDetails_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byPhase"><span class="parent">/applications</span>/byPhase</a> <span class="methods"></span></h4></div><div id="panel_applications_byPhase" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Phases may overlap or be sequential, depending on the customer&#39;s workflow. An application may jump straight to complete, without going through inProgress (e.g. declines are commonly like this, though a tenant who wanted to delay outgoing decline messages would have applications that spent time in inProgress).</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byPhase_interview_inProgress"><span class="parent">/applications/byPhase/interview</span>/inProgress</a> <span class="methods"><a href="#applications_byPhase_interview_inProgress_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byPhase_interview_inProgress" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byPhase_interview_inProgress_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all applications that have reached this status for this phase now, or (if since is specified) after a given date date, AND (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byPhase_interview_inProgress_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byPhase/interview</span>/inProgress</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all applications that have reached this status for this phase now, or (if since is specified) after a given date date, AND (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byPhase_interview_inProgress_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byPhase_interview_inProgress_get_response" data-toggle="tab">Response</a></li><li><a href="#applications_byPhase_interview_inProgress_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byPhase_interview_inProgress_get_request"><h3>Query Parameters</h3><ul><li><strong>job</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular job</p><p><strong>Example</strong>:</p><pre><code>10033433</code></pre></li><li><strong>candidate</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular candidate</p><p><strong>Example</strong>:</p><pre><code>1002443</code></pre></li><li><strong>minID</strong>: <em>(number)</em><p>if present, only applications with id &gt; this value will be returned</p><p><strong>Example</strong>:</p><pre><code>1001</code></pre></li><li><strong>includeAppDetails</strong>: <em>(boolean)</em><p>when true, causes application fields to be included in the response - if false (the default), application ID only will be included</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeJobDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s job to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeJobManagerDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s job&#39;s manager to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeCandidateDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s candidate to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>since</strong>: <em>(date)</em><p><strong>Example</strong>:</p><pre><code>A string such as "2015-11-05T13:15:30Z"</code></pre></li></ul></div><div class="tab-pane" id="applications_byPhase_interview_inProgress_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="applications_byID__application__items_itemMetas_byName__item__get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__viewInstances"><span class="parent">/applications/byID/{application}</span>/viewInstances</a> <span class="methods"></span></h4></div><div id="panel_applications_byID__application__viewInstances" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>A window is a view of a specific application, via a specific view (set of data exposed). e.g. when completing a probity check, and engagement app might be allowed to see candidate name, CV, and work history (the view) for application 1002 (the applicant being tested).</p><p>A view is a curated set of information about an application and its attached objects (job, candidate, etc.). Views rely on security through obscurity - view keys are very sparse.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__viewInstances_byViewType__viewType_"><span class="parent">/applications/byID/{application}/viewInstances/byViewType</span>/{viewType}</a> <span class="methods"><a href="#applications_byID__application__viewInstances_byViewType__viewType__post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_applications_byID__application__viewInstances_byViewType__viewType_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__viewInstances_byViewType__viewType__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Ask the view holding app to create a view instance of the given view type for this application. The response includes the key of the newly created view instance.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__viewInstances_byViewType__viewType__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/applications/byID/{application}/viewInstances/byViewType</span>/{viewType}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Ask the view holding app to create a view instance of the given view type for this application. The response includes the key of the newly created view instance.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__viewInstances_byViewType__viewType__post_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__viewInstances_byViewType__viewType__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__viewInstances_byViewType__viewType__post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>viewType</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byID__application__viewInstances_byViewType__viewType__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "key": {
+      "type": "integer"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the view was created"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "key": {
+      "$ref": "#/definitions/key"
+    },
+    "created": {
+      "$ref": "#/definitions/created"
+    }
+  },
+  "required": [
+    "key",
+    "created"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "key": 100,
+    "created": "2015-11-05T13:15:30Z"
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__viewInstances_byKey__key_"><span class="parent">/applications/byID/{application}/viewInstances/byKey</span>/{key}</a> <span class="methods"><a href="#applications_byID__application__viewInstances_byKey__key__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_applications_byID__application__viewInstances_byKey__key_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__viewInstances_byKey__key__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the previously created view instance.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__viewInstances_byKey__key__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/applications/byID/{application}/viewInstances/byKey</span>/{key}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the previously created view instance.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__viewInstances_byKey__key__get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__viewInstances_byKey__key__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__viewInstances_byKey__key__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>key</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byID__application__viewInstances_byKey__key__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "remuneration": {
+      "type": "object",
+      "description": "See HR/XML OnBoardingDeploymentType",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The monetary value of the object in which the amount is associated"
+        },
+        "rateIntervalCode": {
+          "type": "string",
+          "description": "See HR/XML PayRateIntervalCodeType"
+        },
+        "typeCode": {
+          "type": "string",
+          "description": "A code classifying the type of remuneration (HR/XML)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dutyEntryDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Per- HR-XML, the date the employee or human resource actually begins work or enters on duty"
+    },
+    "hireDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Per- HR-XML, The date on which the associated person was hired."
+    },
+    "onBoardedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the associated person completed onboarding."
+    },
+    "hireDetails": {
+      "type": "object",
+      "properties": {
+        "remuneration": {
+          "$ref": "#/definitions/remuneration"
+        },
+        "dutyEntryDate": {
+          "$ref": "#/definitions/dutyEntryDate"
+        },
+        "hireDate": {
+          "$ref": "#/definitions/hireDate"
+        },
+        "onBoardedDate": {
+          "$ref": "#/definitions/onBoardedDate"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "application": {
+      "$ref": "applicationRead.json"
+    },
+    "job": {
+      "$ref": "jobRead.json"
+    },
+    "candidate": {
+      "$ref": "candidateRead.json"
+    },
+    "job.manager": {
+      "$ref": "userRead.json"
+    },
+    "hireDetails": {
+      "$ref": "#/definitions/hireDetails"
+    }
+  },
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "application": {
+    "items": [
+      {
+        "item": {
+          "name": "coverletter",
+          "type": "file",
+          "value": {
+            "fileName": "fredcv.docx",
+            "size": 3023443,
+            "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "dateUploaded": "2015-11-05T13:15:30Z",
+            "preSignedUri": "https://frodo.com/docs/198714509"
+          }
+        }
+      }
+    ]
+  },
+  "hireDetails": {
+    "hireDate": "2015-11-05T13:15:30Z"
+  },
+  "job": {
+    "code": "TTfg321",
+    "title": "Creative Director",
+    "items": []
+  },
+  "candidate": {
+    "vcard": [
+      "vcard",
+      [
+        [
+          "version",
+          {},
+          "text",
+          "4.0"
+        ],
+        [
+          "n",
+          {},
+          "text",
+          [
+            "Gor4ven",
+            "David",
+            "",
+            "Mr.",
+            ""
+          ]
+        ],
+        [
+          "nickname",
+          {},
+          "text",
+          "David"
+        ],
+        [
+          "tel",
+          {
+            "type": "home"
+          },
+          "text",
+          "+64212094544"
+        ],
+        [
+          "tel",
+          {
+            "type": "cell"
+          },
+          "text",
+          "+64212094544"
+        ],
+        [
+          "adr",
+          {},
+          "text",
+          [
+            "",
+            "",
+            "11 Hoturoa Place, Manurewa",
+            "Auckland",
+            "",
+            "2102",
+            "NZ"
+          ]
+        ],
+        [
+          "email",
+          {
+            "type": "home"
+          },
+          "text",
+          "davededo@gmail.com"
+        ],
+        [
+          "x-socialprofile",
+          {
+            "type": "Facebook"
+          },
+          "uri",
+          "https://www.facebook.com/bgorven"
+        ],
+        [
+          "prodid",
+          {},
+          "text",
+          "ez-vcard 0.9.6"
+        ]
+      ]
+    ],
+    "internalFlag": false,
+    "resumeMeta": {
+      "fileName": "fredcv.docx",
+      "size": 3023443,
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "dateUploaded": "2015-11-05T13:15:30Z",
+      "preSignedUri": "https://frodo.com/docs/198714509"
+    },
+    "items": []
+  },
+  "job.manager": {}
+}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_bySourcingApp__consumer___id__sourcerDetails"><span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</a> <span class="methods"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_bySourcingApp__consumer___id__sourcerDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_bySourcingApp__consumer___id__sourcerDetails_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_bySourcingApp__consumer___id__sourcerDetails_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/bySourcingApp/{consumer}/{id}</span>/sourcerDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a sanitised and basic set of information for a job application, which the consumer is entitled to by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_bySourcingApp__consumer___id__sourcerDetails_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_bySourcingApp__consumer___id__sourcerDetails_get_request"><h3>URI Parameters</h3><ul><li><strong>consumer</strong>: <em>required (string)</em></li><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_bySourcingApp__consumer___id__sourcerDetails_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byPhase"><span class="parent">/applications</span>/byPhase</a> <span class="methods"></span></h4></div><div id="panel_applications_byPhase" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Phases may overlap or be sequential, depending on the customer&#39;s workflow. An application may jump straight to complete, without going through inProgress (e.g. declines are commonly like this, though a tenant who wanted to delay outgoing decline messages would have applications that spent time in inProgress).</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byPhase_interview_inProgress"><span class="parent">/applications/byPhase/interview</span>/inProgress</a> <span class="methods"><a href="#applications_byPhase_interview_inProgress_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byPhase_interview_inProgress" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byPhase_interview_inProgress_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all applications that have reached this status for this phase now, or (if since is specified) after a given date date, AND (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byPhase_interview_inProgress_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byPhase/interview</span>/inProgress</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all applications that have reached this status for this phase now, or (if since is specified) after a given date date, AND (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byPhase_interview_inProgress_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byPhase_interview_inProgress_get_response" data-toggle="tab">Response</a></li><li><a href="#applications_byPhase_interview_inProgress_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byPhase_interview_inProgress_get_request"><h3>Query Parameters</h3><ul><li><strong>job</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular job</p><p><strong>Example</strong>:</p><pre><code>10033433</code></pre></li><li><strong>candidate</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular candidate</p><p><strong>Example</strong>:</p><pre><code>1002443</code></pre></li><li><strong>minID</strong>: <em>(number)</em><p>if present, only applications with id &gt; this value will be returned</p><p><strong>Example</strong>:</p><pre><code>1001</code></pre></li><li><strong>includeAppDetails</strong>: <em>(boolean)</em><p>when true, causes application fields to be included in the response - if false (the default), application ID only will be included</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeJobDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s job to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeJobManagerDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s job&#39;s manager to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeCandidateDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s candidate to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>since</strong>: <em>(date)</em><p><strong>Example</strong>:</p><pre><code>A string such as "2015-11-05T13:15:30Z"</code></pre></li></ul></div><div class="tab-pane" id="applications_byPhase_interview_inProgress_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
 	"items":{ "$ref":"applicationView.json" }
@@ -4494,8 +4717,9 @@
     "status": {
       "$ref": "#/definitions/status"
     },
-    "applicationView": {
-       "$ref": "applicationView.json"
+    "view": {
+       "type": "integer",
+       "description": "the id of the view that will give more details about the subject of this engagement (name, email address, job ID, etc.)"
     },
    "passedFlag": {
        "$ref": "#/definitions/passedFlag"
@@ -4515,7 +4739,7 @@
     "meta",
     "engagementType",
     "status",
-    "applicationView",
+    "view",
     "interactionUris",
     "onHoldFlag"
   ]
@@ -4527,131 +4751,13 @@
   "engagementType": 10022,
   "status": "New",
   "onHoldFlag": false,
-  "applicationView": {
-    "application": {
-      "items": [
-        {
-          "item": {
-            "name": "coverletter",
-            "type": "file",
-            "value": {
-              "fileName": "fredcv.docx",
-              "size": 3023443,
-              "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-              "dateUploaded": "2015-11-05T13:15:30Z",
-              "preSignedUri": "https://frodo.com/docs/198714509"
-            }
-          }
-        }
-      ]
-    },
-    "hireDetails": {
-      "hireDate": "2015-11-05T13:15:30Z"
-    },
-    "job": {
-      "code": "TTfg321",
-      "title": "Creative Director",
-      "items": []
-    },
-    "candidate": {
-          "vcard": [
-      "vcard",
-      [
-        [
-          "version",
-          {},
-          "text",
-          "4.0"
-        ],
-        [
-          "n",
-          {},
-          "text",
-          [
-            "Gor4ven",
-            "David",
-            "",
-            "Mr.",
-            ""
-          ]
-        ],
-        [
-          "nickname",
-          {},
-          "text",
-          "David"
-        ],
-        [
-          "tel",
-          {
-            "type": "home"
-          },
-          "text",
-          "+64212094544"
-        ],
-        [
-          "tel",
-          {
-            "type": "cell"
-          },
-          "text",
-          "+64212094544"
-        ],
-        [
-          "adr",
-          {},
-          "text",
-          [
-            "",
-            "",
-            "11 Hoturoa Place, Manurewa",
-            "Auckland",
-            "",
-            "2102",
-            "NZ"
-          ]
-        ],
-        [
-          "email",
-          {
-            "type": "home"
-          },
-          "text",
-          "davededo@gmail.com"
-        ],
-        [
-          "x-socialprofile",
-          {
-            "type": "Facebook"
-          },
-          "uri",
-          "https://www.facebook.com/bgorven"
-        ],
-        [
-          "prodid",
-          {},
-          "text",
-          "ez-vcard 0.9.6"
-        ]
-      ]
-    ],
-      "internalFlag": false,
-      "resumeMeta": {
-        "fileName": "fredcv.docx",
-        "size": 3023443,
-        "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "dateUploaded": "2015-11-05T13:15:30Z",
-        "preSignedUri": "https://frodo.com/docs/198714509"
-      },
-      "items": []
-    },
-    "job.manager": {}
-  },
+  "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null
   }
-}</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id__appDetails"><span class="parent">/engagements/byID/{id}</span>/appDetails</a> <span class="methods"><a href="#engagements_byID__id__appDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_engagements_byID__id__appDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__appDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__appDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/engagements/byID/{id}</span>/appDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__appDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byID__id__appDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__appDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_engagements_byID__id__appDetails"><span class="parent">/engagements/byID/{id}</span>/appDetails</a> <span class="methods"><a href="#engagements_byID__id__appDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_engagements_byID__id__appDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#engagements_byID__id__appDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="engagements_byID__id__appDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/engagements/byID/{id}</span>/appDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#engagements_byID__id__appDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#engagements_byID__id__appDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="engagements_byID__id__appDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "description": "package of data for an engagement app to update an engagement",

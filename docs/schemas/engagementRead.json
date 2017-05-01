@@ -293,8 +293,9 @@
     "status": {
       "$ref": "#/definitions/status"
     },
-    "applicationView": {
-       "$ref": "applicationView.json"
+    "view": {
+       "type": "integer",
+       "description": "the id of the view that will give more details about the subject of this engagement (name, email address, job ID, etc.)"
     },
    "passedFlag": {
        "$ref": "#/definitions/passedFlag"
@@ -314,7 +315,7 @@
     "meta",
     "engagementType",
     "status",
-    "applicationView",
+    "view",
     "interactionUris",
     "onHoldFlag"
   ]

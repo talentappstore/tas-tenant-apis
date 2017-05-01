@@ -265,6 +265,36 @@ resourceTypes: !include resources.yml
           /byName:
             /{item}:
               type: itemMeta
+      /viewInstances:
+        description: |
+          A window is a view of a specific application, via a specific view (set of data exposed). e.g. when completing a probity check, and engagement app might
+          be allowed to see candidate name, CV, and work history (the view) for application 1002 (the applicant being tested).  
+            
+          A view is a curated set of information about an application and its attached objects (job, candidate, etc.). Views rely on security through obscurity - view keys
+          are very sparse.
+        /byViewType:
+          /{viewType}:
+            post:
+              description: |
+                Ask the view holding app to create a view instance of the given view type for this application. The response includes the key
+                of the newly created view instance.
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/viewMeta.json
+                      example: !include ../examples/viewMeta-simple.json
+        /byKey:
+          /{key}:
+            get:
+              description: |
+                Get the previously created view instance.
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/applicationView.json
+                      example: !include ../examples/applicationView-simple.json
   /bySourcingApp:
     /{consumer}:
       /{id}:

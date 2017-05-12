@@ -1,0 +1,30 @@
+{
+  "application": {
+    "id": 10045434,
+    "source": "seek-camp0",
+    "tracker": null,
+    "formFactor": "mobile",
+    "job": {
+      "id": 3443,
+      "manager": {
+        "id": 455
+      }
+    },
+    "candidate": {
+      "id": 4988
+    },
+    "bucketTransitions": [
+      {
+        "incoming": "T21:33:04.23:22"
+      },
+      {
+        "prescreen": "T21:33:04.23:42"
+      },
+      {
+        "interview": "T21:33:04.29:42"
+      }
+    ],
+    "dateLastUpdated": "T21:33:04.29:42"
+  }
+}
+

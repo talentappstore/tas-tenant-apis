@@ -379,7 +379,38 @@ resourceTypes: !include resources.yml
           /{application}:
             /deltaPings:
               type: applicationPhasePinger
+  /shells:
+    description: |
+      These APIs allow access to skeletal details about job applications, but enough to write data analysis apps such as candidate care, sourcing effectiveness.
+      
+      Results are ordered by, and can be filtered by, dateLastUpdated. If less than 100 Shells are returned in the response, the caller knows he has reached the
+      most recent activity, and can switch to listening to delta pings. If dateLastUpdated parameter is missing, the earliest activities are returned.  
 
+      These API is unusual in that the delta ping version sends the entire object as well.
+
+    /deltaPings:
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          description: inform listeners of new application activity, with all details available in the request body
+            
+          Non-SoT.
+        body:
+          application/json:
+#            schema: !include ../schemas/applicationShell.json
+            example: !include ../examples/applicationShell-simple.json
+
+    get:
+      description: get date stripe of application activities, e.g. for initial replication
+       
+      is: [ applicationObjectFilter ]
+      responses:
+        200:
+          body:
+            application/json:
+#              schema: !include ../schemas/applicationShells.json
+#              example: !include ../examples/applicationShells-simple.json
+    
 
 /appStatus:
   get:

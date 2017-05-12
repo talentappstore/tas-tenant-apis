@@ -32,124 +32,92 @@
 <div id="toc"></div>
 
 
+<h1>Apply gate apps - overview</h1>
 
-<h1>Apply gate apps</h1>
+<p>Customers can use <b>apply gate</b> apps to prevent candidates from applying for selected job(s) until they
+have successfully completed some qualifying/pre-requisite stage. For example:
 
-<p>An apply gate app lets a customer selectively prevent candidates from applying for selected job(s) until they
-have successfully completed some qualifying/pre-requisite stage.
-</p>
-
-<p>Your app acts as a gate - candidates can't apply until your app says so.
-</p>
-
-<p>Examples:
 <ul>
-<li>Ask candidates to agree to a set of non-negotiables before applying, e.g. mandatory skills
+<li>Ask all candidates to agree to a set of non-negotiables before applying, e.g. mandatory skills
 <li>Only allow candidates to apply who are not from countries with draconian data security laws
 <li>Have candidates complete a culture/fit analysis before applying
 </ul>
 </p>
 
 <p>An apply gate app works by suppressing the apply button(s) on a job. Once the customer adds your button to a job,
-the apply buttons no longer appear to the candidate.
+the apply buttons no longer appear to the candidate. This happens via switchgear, which is the app that marshals all of the
+buttons that appear on jobs and elsewhere.
 </p>
 
 <p>Once the candidate has clicked on your button, and then passed your gate - e.g. some kind
 of quiz within your app - your app marks the candidate as having satisfied the gate and redirects them back to the job. The candidate returns
-to the job and now sees the apply button(s) and can apply.
+to the job. Now they can see apply button(s) (since they've satisfied your app's requirements), and they can now apply.
 </p>
 
 <p>Gates can be used for any type of button (print/apply/whatever), but to keep the documentation simple we only talk about apply gates.
 </p>
 
-<h1>Choosing whether to use SSO</h1>
 
-<p>TAS provides an easy way for you to add SSO (single sign on) to your app. If some or all of your app's web pages are SSO protected,
-then candidates must sign in before they can see them. The actual sign in mechanism is dictated by the customer - for example, candidates
-might be able to sign in using Facebook, Google or the corporate SAML IdP. Your app does not need to deal with any of the complexities of
-this. It can just assume that any traffic in to your web pages is from already authenticated candidates, and can grab candidate details
-(first name,)last name, email address) from http request headers.
+<h1>Develop your app</h1>
+
+<h2>Create a tenant</h2>
+
+<p>Go to www.talentappstore.com, sign up and create a tenant (use google auth to avoid a temporary issue with email-based logins).
 </p>
 
-<p>SSO is optional, and you can build an apply gate app without it. But using SSO gives you some advantages:
-<ul>
-<li>Without SSO, canny candidates might fail your test, but then just try again straight away. You could prevent this using cookies, but they might
-try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their ID, so you can
-tell straight away if this is a new or returning candidate.
-<li>In the future APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
-so that a recruiter/hiring manager can view them. Those APIs will require that you have the candidate's identity, which you can only get if your app uses SSO.
-Without this, your app can't attach results (other than a simple "they've passed"). This may or may not be a problem depending on what your app is testing for
-(e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
-</ul>
+<h2>Install x2lb</h2>
 
-
-<h1>Helping the customer to customize your button(s)</h1>
-
-<p>Whatever button(s) your app produces, the customer may want to customize which jobs it appears on. For example:
-
-<ul>
-<li>a fancy share button that lets a candidate share the job to github should only show up on IT jobs.
-<li>a button that lets the candidate self-select in for a retail job by completing a basic job simulation of what its
-like to work in a store should only be displayed on retail jobs.
-</ul>
+<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.eDJsYg.mHkPPYhRiMz1BghClLwPqvposR5_1yxt_C1siWffC8Y045KuqkmF2eX05l4diVRIyUenMvJxiR-xN953PgVMXdpxQAAw2AW1NidDtLaeR0AlhMRVCM0r2UwfSm3d-4yCYYF-Qd6KjsHUXINAp9o7u6lgJV7qYyRRmCzss77P0jjjgll85QwnuKknxEK4qpjXhqv6q_eDORwoR-niQiO4L0dsnyNLumrcyx4n4e743JIQ2QhW1vF7rqwI_5EpWevk8r9YdhMfkRhS1Q6RsAUPyXFcqcvR8LaUoI65lOpjvPsyBE-BLpa2eJllx9OzZNDUuZdNbb2Pg2whXOyIw9DtXQ'>here</a>
+to install the x2lb app. This app is "a testing app for developers to check their actions are working correctly and showing up in SwitchGear and that enabling/disabling them also works."
 </p>
 
-<p>Its crucial that this mapping of buttons to jobs is as easy and automated as possible for customers.
+<p>Currently you may see a 403 error after installing the app. Hit back, sign out and in again, return to your tenant, and you'll see the install was successful.
 </p>
 
-<p>In particular, having defaults such as "this button always and only appears on retail jobs" is vital. Customers do not want to perform per-job setup,
-as a large organization will have many jobs being opened by many people, and having a manual step on each job is a significant source of errors.
-Requiring manual per-job steps also prevents jobs from being copied, or created from templates, or otherwise automatically created.
-</p> 
+<h2>Install switchgear</h2>
 
-<h2>Drag and drop mapping of buttons to jobs</h2>
-
-<p>Fortunately, as long as your app produces a different button for every purpose, you don't need to deal with mapping your button(s) to jobs at all. Other apps (like switchgear)
-handle it by giving the customer a drag and drop user interface that they can use to drag your button(s):
+<p>Browse the app store and install switchgear. Switchgear is an app that manages all of the buttons (apply, share, refer a friend, etc.) from all of the button-producing apps. Typically
+a customer wants to show different combinations of those buttons to different candidates (e.g. internal vs external) on different jobs (e.g. IT jobs vs call centre jobs). This complexity is all
+handled via switchgear. Switchgear gives the customer a drag and drop user interface that they can use to drag button(s):
 <ol>
 <li>in or out at a global level, so that by default your button will appear or not appear on all jobs
 <li>in or out at a job workflow level, so your button will apepar only on jobs that have a specific workflow (e.g. "retail")
 <li>in or out of a specific job
 </ol>
-
-<h2>App-supplied setup pages</h2>
-
-<p>As long as your button doesn't need any additional information, the drag and drop user interface is all the customer needs.
 </p>
 
-<p>However if your app does have some kind of settings, then you may want to use setup pages.
+<h2>Install simpleapply</h2>
+
+<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.c2ltcGxlYXBwbHk.Ih8mCSLZ7Tyw1l-kKXfb4Wrj7A1vNZYEay66_48AQbK_WLaxHJYO8Zvjvjch8EiUnz1TUGoMxKUkYePHn00KPJcTruV67XhMY8rFq4qM0SflJ2xLLaa39GSU_40e9QT9cHU52LnVXqRzz3vwvr0chfhy2A0ULuAvFyTBVSxmyvbM2c-rG0dxrRi44bAVsxcUpOGD5U4T4BEaFTcUaVpTCKjTPyn93SLrJSzu4EQar9xep6NWQK1NmV2LUsoZd5aKJ41d_EEQU7WN7rpEvenARt6ZZcchzedyDjk_Q4_IKwMnwtjKZBFaWmvXdM9rIDPyJBJMMBZWa4gS35SYLpUkDQ'>here</a>
+to install simpleapply.
 </p>
 
-<p>A setup page is a small HTML page
-that your app can present to the user right at the point when they drag and drop your button into the global or workflow areas or onto a specific job.
+<h2>Customize the buttons for a job</h2>
+
+<p>Now return to x2lb and click "open". You'll see a menu that lets you access several test jobs. x2lb is showing you the "recruiter" view" of your jobs - to control whether or not the apply button is displayed,
+click the "Edit" button in the top right corner of the SwitchGear panel displayed within the x2lb app and drag the action to either enabled or disabled. You don't need to do anything - new buttons
+are always displayed by default.
 </p>
 
-<p>For example, lets say your app is an employee referral app. Employees can click your button on a job and then use your user interface to refer the job to their friends. They get a cash reward if they are hired.
+<h2>Install qs8n, and verify the install button appears</h2>
+
+<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.cXM4bg.00-eZV3DRtI_dAtxvgYAhLYLt5yNjzU7V03sZLgRakxFPjvjROKZPNXBROkoon5aK_xjUnF_mR5qNnnbO6tgyf65FDD0Zf0eaOjj0qmZjpzaFcHf3QTEyuiHVhWfeJrSkKOPaXO63X7ZblbWIlgSzY9u6T0emywe1UQqBNCf9pH9UCE5qmYXlrk9Ey1GLpqIqMQnwaapgL8SBCGX_mERO6qpcMT8F2Vt2gT1e2rk2oiF-VoonBh79jkDSKSj7zUQTt1VSUmD9yxX6AZZopaxXauyQLk4FO4-mv9P4OTMbvt0CthLAPsCom-H_aog5GNGMhiiIbHKX8FXv9rXgcqVtw'>here</a>
+to install the qs8n app. This app is "a test candidate site that allows developers to check that their actions are appearing correctly on jobs, and to test any gate behaviour."
 </p>
 
-<p>In this example your app might present two separate setup pages:
-<ol>
-<li>when your button is dragged to the global or workflow areas, you capture the minimum, maximum and default cash reward (number fields)
-<li>when your button is dragged or clicked on for a specific job, you capture the actual cash reward for this job
-</ul>  
-</ol>
+<p>Click open on the qs8n app, and you should go through to a basic careers site, showing several test jobs. You should now see the apply button (from simpleapply) on the jobs.
 </p>
 
-  
-<h1>Sequence of events</h1>
-
-<p>This section gives blow by blow dtails of how your app interacts with other apps and the customer through APIs.
-</p>
-   
-<h2>Tenant installs your app</h2>
-
-<p>The tenant installs your apply gate app. This triggers other apps (such as the coordinating app - e.g. switchgear) to ask
-your app about all the buttons it may possibly ever produce for a candidate to see on a job.
+<h2>Create your app</h2> 
+<p>Now go to https://developer.talentappstore.com. Create a developer account if you don't already have one. Create your new app.  
 </p>
 
-<p>Your apply gate app supports this by producing an API that declares its candidate facing buttons:
+<h2>Produce GET /actions/byCandidate/job/possibles/byApp</h2>
+
+<p>Have your app produce the following API, to tell other apps (specifically switchgear) about its candidate facing buttons, e.g.:
+
 <div class='codeBlock'>
-GET /actions/byCandidate/job/possibles/byApp
+GET /actions/byCandidate/job/possibles/byApp (produce as non-SoT)
 
 Response:
 <div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
@@ -178,49 +146,9 @@ fit analysis, then there's no need to make the candidate complete that for every
 </ul>
 </p>
 
-<h2>Your app vs the coordinating app</h2>
+<h2>Produce GET /actions/byCandidate/../jobs/{job}/byName/{action}/byApp</h2>
 
-<p>The tenant may have a number of button-producing apps like yours installed. They may also want different combinations of those buttons
-shown to different candidates (e.g. internal vs external) on different jobs.
-</p>
-
-<p>This complexity is handled via a coordinating app (such as switchgear)
-that manages rolling buttons from all installed apps up into the set that a candidate sees on any particular job. 
-</p>
-
-<p>For example the customers might use switchgear to apply your button to all jobs, just to sales jobs, or just to a specific job (e.g. for testing).
-</p>
-
-<h2>If your app changes the buttons it produces</h2>
-
-<p>Normally the coordinating app (e.g. switchgear) will call the API to learn about your app's buttons at the time your app is installed. That will work
-fine, as long as your app doesn't change its set of buttons after its been installed.
-</p>
-
-<p>However if your app does add new buttons (or remove or change existing ones) after install, then it should alert other interested apps of that by consuming:
-
-<div class='codeBlock'>
-POST /actions/byCandidate/job/possibles/byApp
-
-Response:
-<div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
-</div>
-</p>
-
-<p>This acts as a hint to switchgear (or any other app that cares) that it should re-scan your possible buttons, since they may have changed.
-</p>
-
-<h2>Candidate views the job</h2>
-
-<p>At runtime, when a candidate views a job, the careers site app asks switchgear for a rollup of all
-candidate-facing buttons (share, print, apply, etc.).
-</p>
-
-<p>Switchgear already knows that your button may possibly produce a button - it now asks whether it actually does for this job and candidate, and if so,
-for the button's precise details (text, color, etc.) 
-</p>
-
-<p>To respond, your app must produce two APIs, one for logged in candidates and one for anonymous ones.
+<p>Now have your app produce two more APIs, one for logged in candidates and one for anonymous ones.
 </p>
 
 <p>In your response, you pass back button details, like text, color, link, etc.
@@ -248,10 +176,130 @@ rather than seeing your web page in an iframe inside a modal.
 </ul>
 </p>
 
-<h2>How gates are applied</h2>
+<h2>Install your app</h2>
+
+<p>Install your app into your tenant.
+</p>
+
+<h2>Verify that the apply button is hidden</h2>
+
+<p>Now return to the qsn8 app and refresh the page for a job. You should now see your button appear, and the apply button disappear (since your app's button is suppressing it).
+</p>
+
+<h2>Complete your app's experience</h2>
+
+<p>Acting as the candidate, click on your button. You should be redirected to the link you passed back in the API call previously.
+</p>
+
+<p>You should now be at your app's web site, where you do your thing whatever that is (e.g. complete an online quiz).
+</p>
+
+<p>If your app uses SSO (maybe to save the candidate's data so they can start the quiz on a mobile
+device and complete it on desktop), then this page will be SSO-protected, and the candidate will be asked to log in.
+</p>
+
+<p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply (has satisfied the gate).
+There are two ways that your app can signal that a candidate has satisfied your gate.
+</p>
+
+<h2>Call satisfy directly (SSO)</h2>
+ 
+<p>If your app uses SSO, and the candidate is signed in, then you can call the satisfy API directly:
+
+<div class='codeBlock'>
+POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
+</div>
+</p>
+
+<h2>Call satisfy indirectly (non-SSO)</h2>
+
+<p>If your app does not use SSO, your app requests a "satisfy link" from switchgear, and then redirects the candidate there:
+
+<div class='codeBlock'>
+GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName}?relayPage=blah&tracker=blah?message=Good+news
+
+Response:
+https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
+</div>
+</p>
+
+<p>In this example:
+<ul>
+<li><b>relayPage</b> should be the same relayPage that was passed in to your button, since that's where we want to lead the candidate back to after
+they've completed the satisfy operation.
+<li><b>message</b> is a message telling the candidate they've completed your process, whatever that is. 
+</ul>
+</p>
+
+<p>The page requires them to authenticate
+using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied and redirects them to the relay page.
+
+
+<div class='codeBlock'>
++---------------
+|
+| Congratulations! You're a savvy dude.
+| [Proceed to job]
+| 
++-----------------
+</div>
+</p>
+
+<h2>Verify the candidate can now apply</h2>
+
+<p>Finally, you should be back at the job, and now the apply button should be visible. It works!
+</p>
+
+
+
+<h1>Choosing whether to use SSO</h1>
+
+<p>One of the first decisions in building tyour app is whether you're going to use SSO.
+</p>
+
+<p>TAS provides an easy way for you to add SSO (single sign on) to your app. If some or all of your app's web pages are SSO protected,
+then candidates must sign in before they can see them. The actual sign in mechanism is dictated by the customer - for example, candidates
+might be able to sign in using Facebook, Google or the corporate SAML IdP. Your app does not need to deal with any of the complexities of
+this. It can just assume that any traffic in to your web pages is from already authenticated candidates, and can grab candidate details
+(first name,)last name, email address) from http request headers.
+</p>
+
+<p>SSO is optional, and you can build an apply gate app without it. But using SSO gives you some advantages:
+<ul>
+<li>Without SSO, canny candidates might fail your test, but then just try again straight away. You could prevent this using cookies, but they might
+try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their ID, so you can
+tell straight away if this is a new or returning candidate.
+<li>In the future APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
+so that a recruiter/hiring manager can view them. Those APIs will require that you have the candidate's identity, which you can only get if your app uses SSO.
+Without this, your app can't attach results (other than a simple "they've passed"). This may or may not be a problem depending on what your app is testing for
+(e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
+</ul>
+
+
+<h1>Changing the buttons your app produces</h2>
+
+<p>Normally the coordinating app (e.g. switchgear) will call the API to learn about your app's buttons at the time your app is installed. That will work
+fine, as long as your app doesn't change its set of buttons after its been installed.
+</p>
+
+<p>However if your app does add new buttons (or remove or change existing ones) after install, then it should alert other interested apps of that by consuming:
+
+<div class='codeBlock'>
+POST /actions/byCandidate/job/possibles/byApp
+
+Response:
+<div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
+</div>
+</p>
+
+<p>This acts as a hint to switchgear (or any other app that cares) that it should re-scan your possible buttons, since they may have changed.
+</p>
+
+
+<h1>How gates are applied</h1>
 
 <p>Although you only need to worry about your own button, it can be useful to understand the bigger picture of how switchgear decides which buttons
-the candiate should see.
+the candidate should see.
 </p>
 
 <p>At the point the job page is displayed, the coordinating app (e.g. switchgear) will decide which buttons to display on it as follows:
@@ -275,77 +323,30 @@ had to get through before they could apply, they would only see each gate after 
 </p>
 
 
-<h2>Candidate completes the pre-apply experience</h2>
-
-<p>The candidate now clicks on your button. They are redirected to the link you passed back in the API call previously.
-</p>
-
-<p>They now arrive at your app's web site, where they do their thing, whatever that is (e.g. complete an online quiz).
-</p>
-
-<p>If your app uses SSO (maybe to save the candidate's data so they can start the quiz on a mobile
-device and complete it on desktop), then your link will be to an SSO-protected page within your app.
-</p>
-
-<p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply.
-</p>
-
-<p>There are two ways that your app can signal that a candidate has satisfied your gate.
-</p>
- 
-<p>If your app uses SSO, you can call the satisfy API directly:
-
-<div class='codeBlock'>
-POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
-</div>
-</p>
-
-<p>If your app does not use SSO, your app requests a "satisfy link" from switchgear, and then redirects the candidate there:
-
-<div class='codeBlock'>
-GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName}?relayPage=blah&tracker=blah?message=Good+news
-
-Response:
-https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
-</div>
-</p>
-
-<p>In this example:
-<ul>
-<li><b>relayPage</b> should be the same relayPage that was passed in to your button, since that's where we want to lead the candidate back to after
-they've completed the satisfy operation.
-<li><b>message</b> is a message telling the candidate they've completed your process, whatever that is. 
-</ul>
-</p>
-
-<h2>Candidate satisfies the gate (non-SSO)</h2>
-
-<p>When your app does not use SSO, you can't make the API call to record the pass directly. Instead, your app requests a satisfy link, then
-redirects the candidate to the satisfy page. The page requires them to authenticate
-using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied and redirects them to the relay page.
-
-
-<div class='codeBlock'>
-+---------------
-|
-| Congratulations! You're a savvy dude.
-| [Proceed to job]
-| 
-+-----------------
-</div>
-</p>
-
-<h2>Candidate applies</h2>
-
-<p>The candidate clicks back to the job, and the apply button is now visible. Candidate applies.
-</p>
-
-
 <h1>Setup page</h1>
 
-<p>If the button requires some per-job or default setup then a setup page can be declared. The tenant will be prompted to complete
+<p>As long as your button doesn't need any additional information, the drag and drop user interface provided by switchgear is all the customer needs.
+</p>
+
+<p>However if your button requires some per-job or default setup then a setup page can be declared. The tenant will be prompted to complete
 setup when the add the button to a job or as a default for a group of jobs.
-</p>  
+</p>
+
+<p>A setup page is a small HTML page that your app can present to the user right at the point when they drag
+and drop your button into the global or workflow areas or onto a specific job.
+</p>
+
+<p>For example, lets say your app is an employee referral app. Employees can click your button on a job and then use your user interface to refer the job to their friends. They get a cash reward if they are hired.
+</p>
+
+<p>In this example your app might present two separate setup pages:
+<ol>
+<li>when your button is dragged to the global or workflow areas, you capture the minimum, maximum and default cash reward (number fields)
+<li>when your button is dragged or clicked on for a specific job, you capture the actual cash reward for this job
+</ul>  
+</ol>
+</p>
+
 
 <h1>General actions</h1>
 
@@ -356,8 +357,6 @@ setup when the add the button to a job or as a default for a group of jobs.
 GET /actions/byCandidate/me/general/byName/{action}/byApp
 GET /actions/byCandidate/anonymous/general/byName/{action}/byApp
 </pre>
-
-
 
 
 

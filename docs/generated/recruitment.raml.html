@@ -2099,7 +2099,28 @@
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
     "key": "screenedin",
-    "label": "Screened in"
+    "label": "Screened in",
+    "type": "inProgress"
+  },
+  {
+    "key": "phscr",
+    "label": "Phone screen",
+    "type": "inProgress"
+  },
+  {
+    "key": "decl",
+    "label": "Declined",
+    "type": "doneUnFilled"
+  },
+  {
+    "key": "hired",
+    "label": "Hired",
+    "type": "doneFilled"
+  },
+  {
+    "key": "exited",
+    "label": "Exited",
+    "type": "doneExFilled"
   }
 ]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_buckets_byKey__key_"><span class="parent">/buckets/byKey</span>/{key}</a> <span class="methods"><a href="#buckets_byKey__key__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_buckets_byKey__key_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#buckets_byKey__key__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="buckets_byKey__key__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/buckets/byKey</span>/{key}</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#buckets_byKey__key__get_request" data-toggle="tab">Request</a></li><li><a href="#buckets_byKey__key__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="buckets_byKey__key__get_request"><h3>URI Parameters</h3><ul><li><strong>key</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="buckets_byKey__key__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
@@ -2110,13 +2131,27 @@
     },
     "key": {
       "type": "string"
+    },
+    "type": {
+      "description": "Buckets have a type. The bucket type can indicate that applications in it are &#39;done&#39;, i.e. at the end of the process, and whether there was a hire, or an exit.",
+      "enum": [
+        "inProgress",
+        "doneFilled",
+        "doneUnFilled",
+        "doneExFilled"
+      ]
     }
   },
-  "required": [ "key", "label" ],
+  "required": [
+    "key",
+    "label",
+    "type"
+  ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>  {
     "key": "screenedin",
-    "label": "Screened in"
+    "label": "Screened in",
+    "type": "inProgress"
   }
 </code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_buckets_byKey__key__deltaPings"><span class="parent">/buckets/byKey/{key}</span>/deltaPings</a> <span class="methods"><a href="#buckets_byKey__key__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_buckets_byKey__key__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#buckets_byKey__key__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>The main ping for any changes to a bucket. Noisy, i.e. other apps need to store previous state to work out what has actually changed.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="buckets_byKey__key__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/buckets/byKey/{key}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>The main ping for any changes to a bucket. Noisy, i.e. other apps need to store previous state to work out what has actually changed.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#buckets_byKey__key__deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#buckets_byKey__key__deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="buckets_byKey__key__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>key</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",

@@ -1,6 +1,27 @@
 [
   {
     "key": "screenedin",
-    "label": "Screened in"
+    "label": "Screened in",
+    "type": "inProgress"
+  },
+  {
+    "key": "phscr",
+    "label": "Phone screen",
+    "type": "inProgress"
+  },
+  {
+    "key": "decl",
+    "label": "Declined",
+    "type": "doneUnFilled"
+  },
+  {
+    "key": "hired",
+    "label": "Hired",
+    "type": "doneFilled"
+  },
+  {
+    "key": "exited",
+    "label": "Exited",
+    "type": "doneExFilled"
   }
 ]

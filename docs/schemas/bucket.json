@@ -7,8 +7,21 @@
     },
     "key": {
       "type": "string"
+    },
+    "type": {
+      "description": "Buckets have a type. The bucket type can indicate that applications in it are 'done', i.e. at the end of the process, and whether there was a hire, or an exit.",
+      "enum": [
+        "inProgress",
+        "doneFilled",
+        "doneUnFilled",
+        "doneExFilled"
+      ]
     }
   },
-  "required": [ "key", "label" ],
+  "required": [
+    "key",
+    "label",
+    "type"
+  ],
   "additionalProperties": false
 }

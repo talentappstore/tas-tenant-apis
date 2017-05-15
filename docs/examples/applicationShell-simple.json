@@ -11,7 +11,9 @@
       }
     },
     "candidate": {
-      "id": 4988
+      "id": 4988,
+      "givenName": "Fred",
+      "familyName": "Bloggs"
     },
     "bucketTransitions": [
       {

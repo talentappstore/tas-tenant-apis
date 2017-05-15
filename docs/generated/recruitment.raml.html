@@ -2035,17 +2035,98 @@
     "vcard": []
   }
 }
-]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there are no applications matching the filters</p></div><div class="tab-pane" id="applications_byPhase_decline_complete_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byPhase_decline_complete_byID__application__deltaPings"><span class="parent">/applications/byPhase/decline/complete/byID/{application}</span>/deltaPings</a> <span class="methods"><a href="#applications_byPhase_decline_complete_byID__application__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byPhase_decline_complete_byID__application__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byPhase_decline_complete_byID__application__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>A ping for when an application enters this stattus for the given phase, i.e. a real time mechanism for other apps to listen for job applications reaching some stage in the recruitment process. There is no request body.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byPhase_decline_complete_byID__application__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byPhase/decline/complete/byID/{application}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>A ping for when an application enters this stattus for the given phase, i.e. a real time mechanism for other apps to listen for job applications reaching some stage in the recruitment process. There is no request body.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byPhase_decline_complete_byID__application__deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_byPhase_decline_complete_byID__application__deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byPhase_decline_complete_byID__application__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byPhase_decline_complete_byID__application__deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_shells"><span class="parent">/applications</span>/shells</a> <span class="methods"><a href="#applications_shells_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_applications_shells" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>These APIs allow access to skeletal details about job applications, but enough to write data analysis apps such as candidate care, sourcing effectiveness.</p><p>Results are ordered by, and can be filtered by, dateLastUpdated. If less than 100 Shells are returned in the response, the caller knows he has reached the most recent activity, and can switch to listening to delta pings. If dateLastUpdated parameter is missing, the earliest activities are returned.</p><p>These API is unusual in that the delta ping version sends the entire object as well.</p></div><div class="list-group"><div onclick="window.location.href = '#applications_shells_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get date stripe of application activities, e.g. for initial replication</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_shells_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/applications</span>/shells</h4></div><div class="modal-body"><div class="alert alert-info"><p>get date stripe of application activities, e.g. for initial replication</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_shells_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_shells_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_shells_get_request"><h3>Query Parameters</h3><ul><li><strong>job</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular job</p><p><strong>Example</strong>:</p><pre><code>10033433</code></pre></li><li><strong>candidate</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular candidate</p><p><strong>Example</strong>:</p><pre><code>1002443</code></pre></li></ul></div><div class="tab-pane" id="applications_shells_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_shells_deltaPings"><span class="parent">/applications/shells</span>/deltaPings</a> <span class="methods"><a href="#applications_shells_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_shells_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_shells_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_shells_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/shells</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_shells_deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_shells_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_shells_deltaPings_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>there are no applications matching the filters</p></div><div class="tab-pane" id="applications_byPhase_decline_complete_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byPhase_decline_complete_byID__application__deltaPings"><span class="parent">/applications/byPhase/decline/complete/byID/{application}</span>/deltaPings</a> <span class="methods"><a href="#applications_byPhase_decline_complete_byID__application__deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byPhase_decline_complete_byID__application__deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byPhase_decline_complete_byID__application__deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>A ping for when an application enters this stattus for the given phase, i.e. a real time mechanism for other apps to listen for job applications reaching some stage in the recruitment process. There is no request body.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byPhase_decline_complete_byID__application__deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byPhase/decline/complete/byID/{application}</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>A ping for when an application enters this stattus for the given phase, i.e. a real time mechanism for other apps to listen for job applications reaching some stage in the recruitment process. There is no request body.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byPhase_decline_complete_byID__application__deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_byPhase_decline_complete_byID__application__deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byPhase_decline_complete_byID__application__deltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byPhase_decline_complete_byID__application__deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_shells"><span class="parent">/applications</span>/shells</a> <span class="methods"><a href="#applications_shells_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_applications_shells" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>These APIs allow access to skeletal details about job applications, but enough to write data analysis apps such as candidate care, sourcing effectiveness.</p><p>Results are ordered by, and can be filtered by, dateLastUpdated. If less than 100 Shells are returned in the response, the caller knows he has reached the most recent activity, and can switch to listening to delta pings. If dateLastUpdated parameter is missing, the earliest activities are returned.</p><p>These API is unusual in that the delta ping version sends the entire object as well.</p></div><div class="list-group"><div onclick="window.location.href = '#applications_shells_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get date stripe of application activities, e.g. for initial replication</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_shells_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/applications</span>/shells</h4></div><div class="modal-body"><div class="alert alert-info"><p>get date stripe of application activities, e.g. for initial replication</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_shells_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_shells_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_shells_get_request"><h3>Query Parameters</h3><ul><li><strong>job</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular job</p><p><strong>Example</strong>:</p><pre><code>10033433</code></pre></li><li><strong>candidate</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular candidate</p><p><strong>Example</strong>:</p><pre><code>1002443</code></pre></li></ul></div><div class="tab-pane" id="applications_shells_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+{
   "application": {
     "id": 10045434,
     "source": "seek-camp0",
     "tracker": null,
     "formFactor": "mobile",
     "job": {
-      "id": 3443,
-      "manager": {
-        "id": 455
+      "id": 3443
+    },
+    "candidate": {
+      "id": 4988,
+      "givenName": "Fred",
+      "familyName": "Flintstone"
+    },
+    "bucketTransitions": [
+      {
+        "incoming": "T21:33:04.23:22"
+      },
+      {
+        "prescreen": "T21:33:04.23:42"
+      },
+      {
+        "interview": "T21:33:04.29:42"
       }
+    ],
+    "dateLastUpdated": "T21:33:04.29:42"
+  }
+},
+{
+  "application": {
+    "id": 10045437,
+    "source": "trademe",
+    "tracker": null,
+    "formFactor": "desktop",
+    "job": {
+      "id": 3443
+    },
+    "candidate": {
+      "id": 4988,
+      "givenName": "Sheila",
+      "familyName": "Jones"
+    },
+    "bucketTransitions": [
+      {
+        "incoming": "T21:33:04.23:22"
+      },
+      {
+        "declined": "T21:33:08.23:22"
+      }
+    ],
+    "dateLastUpdated": "T21:33:04.29:42"
+  }
+},
+{
+  "application": {
+    "id": 10045444,
+    "source": "trademe",
+    "tracker": null,
+    "formFactor": "tablet",
+    "job": {
+      "id": 3443
+    },
+    "candidate": {
+      "id": 4993,
+      "givenName": "Fred",
+      "familyName": "Bloggs"
+    },
+    "bucketTransitions": [
+      {
+        "incoming": "T21:33:04.23:22"
+      },
+      {
+        "prescreen": "T21:33:04.23:42"
+      },
+      {
+        "interview": "T21:33:04.29:42"
+      }
+    ],
+    "dateLastUpdated": "T21:33:04.29:42"
+  }
+}
+
+]
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_shells_deltaPings"><span class="parent">/applications/shells</span>/deltaPings</a> <span class="methods"><a href="#applications_shells_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_shells_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_shells_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_shells_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/shells</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_shells_deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_shells_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_shells_deltaPings_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "application": {
+    "id": 10045434,
+    "source": "seek-camp0",
+    "tracker": null,
+    "formFactor": "mobile",
+    "job": {
+      "id": 3443
     },
     "candidate": {
       "id": 4988,

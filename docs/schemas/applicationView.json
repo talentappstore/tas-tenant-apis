@@ -1,6 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
+    "since": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date-time when the application satisfied the filter (e.g., in a call to GET /applications/at/interview/ever, this would be the date the application first entered the interview phase"
+    },
     "remuneration": {
       "type": "object",
       "description": "See HR/XML OnBoardingDeploymentType",
@@ -56,6 +61,9 @@
   },
   "type": "object",
   "properties": {
+    "since": {
+      "$ref": "#/definitions/since"
+    },
     "application": {
       "$ref": "applicationRead.json"
     },

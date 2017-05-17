@@ -28,7 +28,7 @@
 
 - applicationPhaseNowGetter:
     get:
-      is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
+      is: [ applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
         The 'now' APIs return all applications that:
@@ -54,7 +54,7 @@
 
 - applicationPhaseEverGetter:
     get:
-      is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
+      is: [ applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
         The 'ever' APIs return all applications that:

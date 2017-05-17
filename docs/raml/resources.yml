@@ -1,24 +1,69 @@
 #%RAML 0.8
 
 
-- applicationPhasePinger:
+- applicationPhaseNowPinger:
     post:    
       securedBy: [oauth_2_0]
       description: |
-        A ping for when an application enters this stattus for the given phase, i.e. a real time mechanism for other apps to listen for job applications
-        reaching some stage in the recruitment process. There is no request body.
+        A delta ping will be sent for the 'now' case to all listeners whenever an application:
+        - enters the phase (the delta ping will have the operation "insert")
+        - exits the phase (the delta ping will have the operation "delete")
+      
+        Non-SoT.
+
+      body:
+        application/json:
+          schema: !include ../schemas/deltaPing.json
+          example: !include ../examples/deltaPing-simple.json
+          
+
+- applicationPhaseEverPinger:
+    post:    
+      securedBy: [oauth_2_0]
+      description: |
+        A delta ping will be sent for the "ever" case to all listeners:
+        - the first time (only) that an application enters the phase   
             
         Non-SoT.
 
-- applicationPhaseGetter:
+- applicationPhaseNowGetter:
     get:
       is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
-        Get all applications that have reached this status for this phase now, or (if since is specified) after a given date date, AND (if minID
-        is specified) that have id > a given value (allows paging of results).
-        Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number
-        is returned, the client should fetch again, specifying minID, as there may be more results.
+        The 'now' APIs return all applications that:
+        - are currently in this phase; AND
+        - (if since is specified), that most recently entered this phase after the given date; AND
+        - (if minID is specified), that have id > minID (allows paging of results)
+
+        Results are ordered by ascending application id. A maximum of 100 applications will be returned by
+        a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.
+      queryParameters:
+        since:
+          type: date
+          required: false
+          example: A string such as "2015-11-05T13:15:30Z"
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationViews.json
+              example: !include ../examples/applicationViews-simple.json
+        404:
+          description: there are no applications matching the filters
+
+- applicationPhaseEverGetter:
+    get:
+      is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
+      securedBy: [oauth_2_0]
+      description: |
+        The 'ever' APIs return all applications that:
+        - have ever been in this phase; AND
+        - (if since is specified), that first entered this phase after the given date; AND
+        - (if minID is specified), that have id > minID (allows paging of results)
+
+        Results are ordered by ascending application id. A maximum of 100 applications will be returned by
+        a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.
       queryParameters:
         since:
           type: date

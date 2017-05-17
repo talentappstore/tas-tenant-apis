@@ -1,6 +1,7 @@
 #%RAML 0.8
 
 
+
 - applicationProjector:
     queryParameters:
       includeAppDetails:
@@ -23,7 +24,6 @@
         type: boolean
         required: false
         example: true
-
 
 - applicationPager:
     queryParameters:

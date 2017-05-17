@@ -305,80 +305,93 @@ resourceTypes: !include resources.yml
               Get a sanitised and basic set of information for a job application, which the consumer is entitled to
               by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
 
-  /byPhase:
+  /at:
     description: |
-      Phases may overlap or be sequential, depending on the customer's workflow. An application may jump straight to complete,
-      without going through inProgress (e.g. declines are commonly like this, though a tenant who wanted to delay outgoing
-      decline messages would have applications that spent time in inProgress).
+      These "at" APIs provide access to applications based on the phase of the recruitment process that they are in now, or have
+      ever been in. An application's phase is determined by its bucket (every bucket is linked to a single phase). In these descriptions:
+      - "entering a phase" means that an application has transitioned into a bucket of that phase,
+      from a bucket of some other phase (or from initial creation) - i.e. moving between buckets of the same phase has no effect on these APIs
+      - "exiting a phase" means that an application has transitioned out of a bucket of this phase into a bucket of some other phase.
     
     /interview:
-      /inProgress:
-        type: applicationPhaseGetter
+      /now:
+        type: applicationPhaseNowGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
-      /complete:
-        type: applicationPhaseGetter
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
+              type: applicationPhaseEverPinger
     /offer:
-      /inProgress:
-        type: applicationPhaseGetter
+      /now:
+        type: applicationPhaseNowGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
-      /complete:
-        type: applicationPhaseGetter
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
+              type: applicationPhaseEverPinger
     /hire:
-      description: Phase where the candidate is marked as hired (likely an integration point with core HR system)
-      /inProgress:
-        type: applicationPhaseGetter
+      /now:
+        type: applicationPhaseNowGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
-      /complete:
-        type: applicationPhaseGetter
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
+              type: applicationPhaseEverPinger
     /approval:
       description: Phase where we are internally approving the details of the hire (which may include reviewing interview notes, offer details)
+      /now:
+        type: applicationPhaseNowGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseEverPinger
     /onboard:
-      /inProgress:
-        type: applicationPhaseGetter
+      /now:
+        type: applicationPhaseNowGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
-      /complete:
-        type: applicationPhaseGetter
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
+              type: applicationPhaseEverPinger
     /decline:
-      /inProgress:
-        type: applicationPhaseGetter
+      /now:
+        type: applicationPhaseNowGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
-      /complete:
-        type: applicationPhaseGetter
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
         /byID:
           /{application}:
             /deltaPings:
-              type: applicationPhasePinger
+              type: applicationPhaseEverPinger
   /shells:
     description: |
       These APIs allow access to skeletal details about job applications, but enough to write data analysis apps such as candidate care, sourcing effectiveness.

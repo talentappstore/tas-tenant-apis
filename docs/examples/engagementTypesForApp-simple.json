@@ -1,12 +1,12 @@
 [
   {
     "key": "mswordprof",
-    "title": "MS Word proficiency - basic",
+    "userTitle": "MS Word proficiency - basic",
     "daysToExpire": 365,
     "isPassFail": false,
     "candidateSeesResults": false,
     "canReuse": true,
-    "candidateDescription": "The MS Word proficiency test is an easy, painless way to assess you ability to use this most excellent of products.",
+    "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
     "appCommunicatesDirectlyToCandidate": false,
     "image": "https://www.example.com/image.png"
   }

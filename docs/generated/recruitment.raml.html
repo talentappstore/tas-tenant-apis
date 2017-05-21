@@ -5627,9 +5627,13 @@
       "type": "string",
       "description": "the engagement app&#39;s unique (within that app) and immutable key for this engagement type"
     },
-    "title": {
+    "userTitle": {
       "type": "string",
-      "description": "label for this engagement type"
+      "description": "A user-facing label/title for this engagement type"
+    },
+    "candidateTitle": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by candidates for this engagement type"
     },
     "daysToExpire": {
       "type": "integer",
@@ -5649,7 +5653,11 @@
     },
     "candidateDescription": {
       "type": "string",
-      "description": "A description, worded for the candidate, of the purpose of this engagement. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we&#39;re hiring."
+      "description": "If present, a more specific label/title seen by the candidate, of the purpose of this engagement. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we&#39;re hiring."
+    },
+    "userDescription": {
+      "type": "string",
+      "description": "A description, worded for the user, of the purpose of this engagement. Markdown format. e.g.: Video interview captures a short video from the candidate."
     },
     "appCommunicatesDirectlyToCandidate": {
       "type": "boolean",
@@ -5661,8 +5669,11 @@
         "key": {
           "$ref": "#/definitions/key"
         },
-        "title": {
-          "$ref": "#/definitions/title"
+        "userTitle": {
+          "$ref": "#/definitions/userTitle"
+        },
+        "candidateTitle": {
+          "$ref": "#/definitions/candidateTitle"
         },
         "daysToExpire": {
           "$ref": "#/definitions/daysToExpire"
@@ -5679,6 +5690,9 @@
         "candidateDescription": {
           "$ref": "#/definitions/candidateDescription"
         },
+        "userDescription": {
+          "$ref": "#/definitions/userDescription"
+        },
         "appCommunicatesDirectlyToCandidate": {
           "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
         },
@@ -5688,12 +5702,12 @@
       },
       "required": [
         "key",
-        "title",
+        "userTitle",
         "daysToExpire",
         "isPassFail",
         "candidateSeesResults",
         "canReuse",
-        "candidateDescription",
+        "userDescription",
         "appCommunicatesDirectlyToCandidate",
         "image"
       ]
@@ -5706,12 +5720,12 @@
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
     "key": "mswordprof",
-    "title": "MS Word proficiency - basic",
+    "userTitle": "MS Word proficiency - basic",
     "daysToExpire": 365,
     "isPassFail": false,
     "candidateSeesResults": false,
     "canReuse": true,
-    "candidateDescription": "The MS Word proficiency test is an easy, painless way to assess you ability to use this most excellent of products.",
+    "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
     "appCommunicatesDirectlyToCandidate": false,
     "image": "https://www.example.com/image.png"
   }

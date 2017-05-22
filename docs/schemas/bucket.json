@@ -8,20 +8,26 @@
     "key": {
       "type": "string"
     },
-    "type": {
-      "description": "Buckets have a type. The bucket type can indicate that applications in it are 'done', i.e. at the end of the process, and whether there was a hire, or an exit.",
+    "phase": {
+      "description": "Buckets have a phase, which represents the approximate part of the recruitment process this bucket is for - for example the phase 'interview' might have several buckets (e.g. 'line manager interview', etc.).",
       "enum": [
-        "inProgress",
-        "doneFilled",
-        "doneUnFilled",
-        "doneExFilled"
+        "new",
+        "screening",
+        "interview",
+        "selection",
+        "offer",
+        "approval",
+        "hire",
+        "onboard",
+        "decline",
+        "other"
       ]
     }
   },
   "required": [
     "key",
     "label",
-    "type"
+    "phase"
   ],
   "additionalProperties": false
 }

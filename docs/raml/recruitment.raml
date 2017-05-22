@@ -33,7 +33,7 @@ resourceTypes: !include resources.yml
         type: candidateAppsActions
         /asHtml:
           type: candidateAppsStrip
-          is: [ hasAccountManagerFilter ]
+          is: [ hasPurposeFilter ]
         /byName:
           /{action}:
             /byApp:
@@ -93,7 +93,7 @@ resourceTypes: !include resources.yml
         type: candidateAppsActions
         /asHtml:
           type: candidateAppsStrip
-          is: [ hasAccountManagerFilter ]
+          is: [ hasPurposeFilter ]
         /byName:
           /{action}:
             /byApp:
@@ -313,7 +313,46 @@ resourceTypes: !include resources.yml
       from a bucket of some other phase (or from initial creation) - i.e. moving between buckets of the same phase has no effect on these APIs
       - "exiting a phase" means that an application has transitioned out of a bucket of this phase into a bucket of some other phase.
     
+    /new:
+      /now:
+        type: applicationPhaseNowGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseEverPinger
+    /screening:
+      /now:
+        type: applicationPhaseNowGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseEverPinger
     /interview:
+      /now:
+        type: applicationPhaseNowGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseEverPinger
+    /selection:
       /now:
         type: applicationPhaseNowGetter
         /byID:
@@ -339,7 +378,7 @@ resourceTypes: !include resources.yml
           /{application}:
             /deltaPings:
               type: applicationPhaseEverPinger
-    /hire:
+    /approval:
       /now:
         type: applicationPhaseNowGetter
         /byID:
@@ -352,8 +391,7 @@ resourceTypes: !include resources.yml
           /{application}:
             /deltaPings:
               type: applicationPhaseEverPinger
-    /approval:
-      description: Phase where we are internally approving the details of the hire (which may include reviewing interview notes, offer details)
+    /hire:
       /now:
         type: applicationPhaseNowGetter
         /byID:
@@ -380,6 +418,19 @@ resourceTypes: !include resources.yml
             /deltaPings:
               type: applicationPhaseEverPinger
     /decline:
+      /now:
+        type: applicationPhaseNowGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseNowPinger
+      /ever:
+        type: applicationPhaseEverGetter
+        /byID:
+          /{application}:
+            /deltaPings:
+              type: applicationPhaseEverPinger
+    /other:
       /now:
         type: applicationPhaseNowGetter
         /byID:

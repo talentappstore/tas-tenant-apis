@@ -3,7 +3,7 @@
     "id": 1001,
     "candidate": 1033,
     "job": 82,
-    "bucket": 2,
+    "bucket": "new",
     "tracker": 10044
   },
   "operation": "insert"

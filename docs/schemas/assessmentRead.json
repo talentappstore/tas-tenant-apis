@@ -239,7 +239,7 @@
       }
     },
     "status": {
-      "description": "The current disposition of an engagement",
+      "description": "The current disposition of an assessment",
       "enum": [
         "New",
         "In progress",
@@ -252,7 +252,7 @@
     },
     "onHoldFlag": {
       "type": "boolean",
-      "description": "whether the tenant has placed the engagement on hold"
+      "description": "whether the tenant has placed the assessment on hold"
     },
     "interactionUris": {
       "type": "object",
@@ -260,24 +260,24 @@
         "candidateInteractionUri": {
           "type": ["string", "null"],
           "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the engagement"
+          "description": "when present, a uri that the candidate must follow to complete some part of the "
         },
         "userInteractionUri": {
           "type": ["string", "null"],
           "format": "uri",
-          "description": "when present, a uri that the user (e.g. the recruiter) must follow to complete some part of the engagement"
+          "description": "when present, a uri that the user (e.g. the recruiter) must follow to complete some part of the "
         }
       },
       "additionalProperties": false,
       "required": [ "candidateInteractionUri", "userInteractionUri"]
     },
     "imageWriteUrl": {
-      "description": "url of an image that will be loaded from an engagement app into the engagement hub to represent an engagement's status or an unstarted engagement type",
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment's status or an unstarted assessment type",
       "type": "string",
       "format": "url"
     },
     "imageReadUrl": {
-      "description": "url of an image cached by the engagement hub to represent an engagement's status or an unstarted engagement type",
+      "description": "url of an image cached by the assessment hub to represent an assessment's status or an unstarted assessment type",
       "type": "string",
       "format": "url"
     },
@@ -294,20 +294,20 @@
   "type": "object",
   "properties": {
     "meta": {
-      "$ref": "engagementMeta.json"
+      "$ref": "assessmentMeta.json"
     },
-    "engagementType": {
+    "assessmentType": {
       "type": "integer"
     },
-    "engagementTypeKey": {
-      "$ref": "engagementTypesForApp.json#/definitions/key"
+    "assessmentTypeKey": {
+      "$ref": "assessmentTypesForApp.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"
     },
     "view": {
        "type": "string",
-       "description": "the key of the view instance that will give more details about the subject of this engagement (name, email address, job ID, etc.)"
+       "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
     },
    "passedFlag": {
        "$ref": "#/definitions/passedFlag"
@@ -340,8 +340,8 @@
   "additionalProperties": false,
   "required": [
     "meta",
-    "engagementType",
-    "engagementTypeKey",
+    "assessmentType",
+    "assessmentTypeKey",
     "status",
     "view",
     "interactionUris",

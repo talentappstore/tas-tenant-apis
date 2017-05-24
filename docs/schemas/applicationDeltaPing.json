@@ -16,7 +16,7 @@
           "$ref": "applicationRead.json#/definitions/job"
 	    },
 	    "bucket": {
-          "$ref": "applicationRead.json#/definitions/bucket"
+              "$ref": "bucket.json#/definitions/key"
 	    },
 	    "tracker": {
           "$ref": "applicationRead.json#/definitions/tracker"

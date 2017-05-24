@@ -277,17 +277,17 @@
               schema: !include ../schemas/actionProductionsForApps.json
               example: !include ../examples/actionProductionsForApps-simple.json
 
-- applicationEngagementsStrip:
+- applicationAssessmentsStrip:
     get:
       securedBy: [oauth_2_0]
       is: [ hasRelayPage ]
       description: |
-        Get the html for the strip of engagements (not started, underway or complete), ready to plug in next to a job applicant.
+        Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.
         
         SoT.
              
         The app building the page that embeds this strip must in its head section pull in style sheet,
-        javascript, etc. as obtained via a call to GET /engagements/strips/headHtml.
+        javascript, etc. as obtained via a call to GET /assessments/strips/headHtml.
       queryParameters:
         applications:
           type: integer
@@ -298,8 +298,8 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/engagementStrips.json
-              example: !include ../examples/engagementStrips-simple.json
+              schema: !include ../schemas/assessmentStrips.json
+              example: !include ../examples/assessmentStrips-simple.json
 
 - candidateAppsStrip:
     get:

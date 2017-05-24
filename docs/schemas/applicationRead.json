@@ -11,9 +11,6 @@
     "job": {
       "type": "integer"
     },
-    "bucket": {
-      "type": "integer"
-    },
     "tracker": {
       "type": "integer",
       "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
@@ -30,7 +27,7 @@
       "$ref": "#/definitions/job"
     },
     "bucket": {
-      "$ref": "#/definitions/bucket"
+      "$ref": "bucket.json#/definitions/key"
     },
     "tracker": {
       "$ref": "#/definitions/tracker"

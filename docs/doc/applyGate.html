@@ -62,7 +62,7 @@ to the job. Now they can see apply button(s) (since they've satisfied your app's
 
 <h2>Create a tenant</h2>
 
-<p>Go to www.talentappstore.com, sign up and create a tenant (use google auth to avoid a temporary issue with email-based logins).
+<p>Go to <a href='https://www.talentappstore.com'>www.talentappstore.com</a>, sign up and create a tenant (use google auth to avoid a temporary issue with email-based logins).
 </p>
 
 <h2>Install x2lb</h2>
@@ -124,8 +124,17 @@ Response:
 </div>
 </p>
 
-<p>
-The data that you are passing back in this example is as follows:
+<p>Since your app will be hosted behind tazzy, the actual endpoint within your app should be:
+<div class='codeBlock'>
+/t/{tenant}/tas/devs/tas/actions/byCandidate/job/possibles/byApp
+</div>
+</p>
+
+<p>Now in the developer site, click the "tazzy" section for your app and enter the public web address of your server (tip: ngrok is a useful
+tool for easily exposing an endpoint on your own computer to the internet).   
+</p>
+
+<p>The data that you are passing back in this example is as follows:
 
 <ul>
 <li><b>actionName</b> is the key for your button. Users recognise your button by this as they perform setup, e.g. controlling which
@@ -146,7 +155,21 @@ fit analysis, then there's no need to make the candidate complete that for every
 </ul>
 </p>
 
+
+<h2>Install your app</h2>
+
+<p>Install your app into your tenant.
+</p>
+
+<h2>Test that your API is being produced OK</h2>
+
+<p>
+At this point you might want to check your API is being produced correctly. See _here_ for how to.
+</p>
+
+
 <h2>Produce GET /actions/byCandidate/../jobs/{job}/byName/{action}/byApp</h2>
+
 
 <p>Now have your app produce two more APIs, one for logged in candidates and one for anonymous ones.
 </p>
@@ -171,14 +194,10 @@ example, don't show the button at all if the candidate has already completed you
 <ul>
 <li><b>name</b> corresponds to the actionName from previously.
 <li><b>uri</b> is the link the user will be led to when they click your button. Since <b>behaviour</b> is "redirect", they will be redirected
-rather than seeing your web page in an iframe inside a modal.
+rather than seeing your web page in an iframe inside a modal. In this case we just pass the relayPage through - you should additionally generate a signature for it
+or otherwise prevent anyone from altering the relayPage, to prevent <a href='https://www.owasp.org/index.php/Unvalidated_Redirects_and_Forwards_Cheat_Sheet'>open relay attacks</a>. 
 <li><b>textColor</b> and <b>backgroundColor</b> allow you to customise how the button appears, along with <b>label</b> and <b>disabled</b>. 
 </ul>
-</p>
-
-<h2>Install your app</h2>
-
-<p>Install your app into your tenant.
 </p>
 
 <h2>Verify that the apply button is hidden</h2>
@@ -213,8 +232,14 @@ POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
 
 <h2>Call satisfy indirectly (non-SSO)</h2>
 
-<p>If your app does not use SSO, your app requests a "satisfy link" from switchgear, and then redirects the candidate there:
+<p>If your app does not use SSO, you can use the echo app. Your app requests a "satisfy link" from echo, and then redirects
+the candidate there. Then the echo app signs the candidate in, and does the satisfy. 
 
+<p>Install the <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZWNobw.KRnonFueIGABI-DWVu5Dr6xgsVfOxfL0dTr6bgT_FLx7Pmfz9fDDnwtG-70LFcYS5kgPQvmE3o8fU_ZSFWK0csyTEeMUV1_3plXLjndKOS13noRfDbtAt05V2BGE6Wsp5kqD1XMQWsqW5hKj14qcIvKpqv0igj9xL4w0ASk5_rCDhZ2jVs68ON-1plpqI-jtsrz6341hbCBmTsmtHaxvH_u0jwKb_hs6blTfKSisEHH_qbG05kzCcoC7zeX0xTsNr5NwJwnI8se_FuVF2EPp6sMau8jG-MDq2Wwfg8l7hB2IPdxe7cbFOoWXaim5a0SWrMP50NG8ljsNQT34ZJZ13Q'>echo</a>
+app.
+</p>
+
+<p>Update your app to consume the API (as SoT): 
 <div class='codeBlock'>
 GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName}?relayPage=blah&tracker=blah?message=Good+news
 

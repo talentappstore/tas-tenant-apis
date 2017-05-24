@@ -1,11 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "key": {
+      "type": "string"
+    }
+  },
   "type": "object",
   "properties": {
-    "label": {
-      "type": "string"
-    },
     "key": {
+      "$ref": "#/definitions/key"
+    },
+    "label": {
       "type": "string"
     },
     "phase": {

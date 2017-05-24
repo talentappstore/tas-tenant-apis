@@ -24,7 +24,7 @@ resourceTypes: !include resources.yml
     /me:
       description:
         All APIs beneath here are operating on behalf of the logged in candidate.
-      /engagements:
+      /assessments:
         /general:
           type: candidateAppsActions
         /forApplication:
@@ -83,7 +83,7 @@ resourceTypes: !include resources.yml
             /byApp:
               type: candidateAppAction
     /anonymous:
-      /engagements:
+      /assessments:
         /general:
           type: candidateAppsActions
         /forApplication:
@@ -267,7 +267,7 @@ resourceTypes: !include resources.yml
               type: itemMeta
       /viewInstances:
         description: |
-          A window is a view of a specific application, via a specific view (set of data exposed). e.g. when completing a probity check, and engagement app might
+          A window is a view of a specific application, via a specific view (set of data exposed). e.g. when completing a probity check, and assessment app might
           be allowed to see candidate name, CV, and work history (the view) for application 1002 (the applicant being tested).  
             
           A view is a curated set of information about an application and its attached objects (job, candidate, etc.). Views rely on security through obscurity - view keys
@@ -636,10 +636,10 @@ resourceTypes: !include resources.yml
         is: [ hasRelayPage ]
         description: |
           Get the uri of the home page, a landing page where a logged in candidate can see anything they should know about or should do, e.g.
-          the status of their job application, engagements they still haven't completed, etc. Often produced by an ATS.
+          the status of their job application, assessments they still haven't completed, etc. Often produced by an ATS.
 
           Details of a relayPage can be passed in when the home page was reached as part of some activity. e.g. candidate applies for job and after submission is redirected
-          to the home page, e.g. so they can complete any auto-started engagements. Passing the relayPage of the job (where they clicked Apply) causes navigation
+          to the home page, e.g. so they can complete any auto-started assessments. Passing the relayPage of the job (where they clicked Apply) causes navigation
           link "Back to Creative Director" to be displayed at the top of the candidate home page. 
                     
           SoT. There is only one home page to send the candidate to.
@@ -995,14 +995,14 @@ resourceTypes: !include resources.yml
           securedBy: [oauth_2_0]
           is: [ editSpecFetcher ]
 
-/engagements:
+/assessments:
   /strips:
     /headHtml:
       get:
         description: |
-          Get html head snippet (typically an include of a stylesheet) used to style the html for the engagements strip.
+          Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.
               
-          The app building the page (e.g. applicant list) that embeds engagement strips must insert the results of this API call in its head section.
+          The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.
         responses:
           200:
             body:
@@ -1010,39 +1010,51 @@ resourceTypes: !include resources.yml
                 example: some html pulling in stylesheet, javascript etc.
     /forApplications:
       /asHtml:
-        type: applicationEngagementsStrip
+        type: applicationAssessmentsStrip
   /byID:
     /{id}:
       get:
-        description: get details of this engagement, reflecting changes made by the app and/or the tenant. 
+        description: get details of this assessment, reflecting changes made by the app and/or the tenant. 
         responses:
           200:
             body:
               application/json:
-                schema: !include ../schemas/engagementRead.json
-                example: !include ../examples/engagementRead-created.json
+                schema: !include ../schemas/assessmentRead.json
+                example: !include ../examples/assessmentRead-created.json
+  /byApplication:
+    /{application}:
+      /byassessmentType:
+        /{assessmentType}:
+          get:
+            description: get details of this assessment, reflecting changes made by the app and/or the tenant. 
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/assessmentRead.json
+                    example: !include ../examples/assessmentRead-created.json
       /appDetails:
         patch:
           description: |
-            Consumed by the engagement app to update an existing engagement using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789).
-            Apps may set most details and some statuses for an engagement, but cannot alter the on hold flag.
+            Consumed by the assessment app to update an existing assessment using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789).
+            Apps may set most details and some statuses for an assessment, but cannot alter the on hold flag.
           body:
             application/merge-patch+json:
-              schema: !include ../schemas/engagementWriteByApp.json
-              example: !include ../examples/engagementWriteByApp-completed.json
+              schema: !include ../schemas/assessmentWriteByApp.json
+              example: !include ../examples/assessmentWriteByApp-completed.json
           responses:
             200:
               description: the update was successful
       /tenantDetails:
         patch:
           description: |
-            Consumed by the engagement hub, as a result of some tenant action, to update an existing engagement
+            Consumed by the assessment hub, as a result of some tenant action, to update an existing assessment
             using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789).
-            The tenant cannot alter many details of an engagement other than to change the status or place it on hold.
+            The tenant cannot alter many details of an assessment other than to change the status or place it on hold.
           body:
             application/merge-patch+json:
-              schema: !include ../schemas/engagementWriteByTenant.json
-              example: !include ../examples/engagementWriteByTenant-onhold.json
+              schema: !include ../schemas/assessmentWriteByTenant.json
+              example: !include ../examples/assessmentWriteByTenant-onhold.json
           responses:
             200:
               description: the update was successful
@@ -1050,58 +1062,58 @@ resourceTypes: !include resources.yml
         post:
           securedBy: [oauth_2_0]
           description: |
-            Alerts listeners to a change to an engagement caused by the tenant
+            Alerts listeners to a change to an assessment caused by the tenant
   /byType:
     /{app}:
-      description: the engagement app (owning the engagement type) 
-      /{engagementType}:
+      description: the assessment app (owning the assessment type) 
+      /{assessmentType}:
         /forApplication:
           /{application}:
             post:
               description: |
-                Tenant creates (or reuses) an engagement of the given type, for the given job application,
+                Tenant creates (or reuses) an assessment of the given type, for the given job application,
                 for example upon a candidate applying and being screened in.
               
-                SoT. Typically implemented by the engagement hub.
+                SoT. Typically implemented by the assessment hub.
 
-                There is no request body. The response contains the engagement ID.
+                There is no request body. The response contains the assessment ID.
               
               responses:
                 200:
-                  description: the post was successful, and an existing engagement was reused.
+                  description: the post was successful, and an existing assessment was reused.
                   body:
                     text/plain:
-                      description: details about the reused engagement
-                      schema: !include ../schemas/engagementMeta.json
-                      example: !include ../examples/engagementMeta-simple.json
+                      description: details about the reused assessment
+                      schema: !include ../schemas/assessmentMeta.json
+                      example: !include ../examples/assessmentMeta-simple.json
                 201:
-                  description: the post was successful, and a new engagement was created.
+                  description: the post was successful, and a new assessment was created.
                   body:
                     text/plain:
-                      description: details about the newly created engagement
-                      schema: !include ../schemas/engagementMeta.json
-                      example: !include ../examples/engagementMeta-simple.json
+                      description: details about the newly created assessment
+                      schema: !include ../schemas/assessmentMeta.json
+                      example: !include ../examples/assessmentMeta-simple.json
 
-/engagementTypes:
+/assessmentTypes:
   /forApp:
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get the list of engagement types produced by an engagement app.
+        Get the list of assessment types produced by an assessment app.
         
         Non-SoT.
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/engagementTypesForApp.json
-              example: !include ../examples/engagementTypesForApp-simple.json
+              schema: !include ../schemas/assessmentTypesForApp.json
+              example: !include ../examples/assessmentTypesForApp-simple.json
     /deltaPings:
       post:
         securedBy: [oauth_2_0]
         description: |
-          Consumed by an engagement app to alert any interested parties that the list
-          of engagement types produced by the app has changed.
+          Consumed by an assessment app to alert any interested parties that the list
+          of assessment types produced by the app has changed.
         
           Non-SoT (there may be many listeners).
 

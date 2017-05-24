@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "description": "an engagement strip for a single application",
+  "description": "an assessment strip for a single application",
   "properties": {
     "application": {
       "type": "integer",

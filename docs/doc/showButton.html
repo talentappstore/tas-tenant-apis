@@ -25,39 +25,69 @@
 <link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 
-<title>Apply gate</title>
+<title>Show buttons</title>
 </head>
 <body>
 
 <div id="toc"></div>
 
 
-<h1>Apply gate apps - overview</h1>
+<h1>Buttons - overview</h1>
 
-<p>Customers can use <b>apply gate</b> apps to prevent candidates from applying for selected job(s) until they
-have successfully completed some qualifying/pre-requisite stage. For example:
-
-<ul>
-<li>Ask all candidates to agree to a set of non-negotiables before applying, e.g. mandatory skills
-<li>Only allow candidates to apply who are not from countries with draconian data security laws
-<li>Have candidates complete a culture/fit analysis before applying
-</ul>
+<p>Apps can cause their own candidate-facing buttons to be displayed in various places within other apps. For example, you might
+display a "share" button on the job details page on the carer site. In this case your button might be displayed next to
+other buttons like "apply", "refer a friend", etc.   
 </p>
 
-<p>An apply gate app works by suppressing the apply button(s) on a job. Once the customer adds your button to a job,
-the apply buttons no longer appear to the candidate. This happens via switchgear, which is the app that marshals all of the
-buttons that appear on jobs and elsewhere.
-</p>
+<p>Displaying buttons involves a handful of APIs between your app and others (for example switchgear, which
+is an app provided by Aotal that gives tenants control over the order of buttons, and ways to control which buttons appear on which jobs).
 
-<p>Once the candidate has clicked on your button, and then passed your gate - e.g. some kind
-of quiz within your app - your app marks the candidate as having satisfied the gate and redirects them back to the job. The candidate returns
-to the job. Now they can see apply button(s) (since they've satisfied your app's requirements), and they can now apply.
-</p>
+<p>The key APIs you'll produce and consume are:
 
-<p>Gates can be used for any type of button (print/apply/whatever), but to keep the documentation simple we only talk about apply gates.
-</p>
+<dl>
+
+<dt>GET /actions/byCandidate/me/general/byName/{action}/byApp</dt>
+<dd>Your app should **produce** this API to return an array with an element for every different button that your app might ever provide (i.e., the superset of all of
+your app's possible buttons).</dd>
+
+<dt>POST /actions/byCandidate/job/possibles/byApp/deltaPings</dt>
+<dd>Your app should **consume** this API if it ever changes its set of possible buttons (e.g. maybe you added one in response to a customer's request).
+</dd>
+
+<dt>GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp</dt>
+<dd>Your app should **produce** this API to return details for the given button, **given the logged in candidate and this specific job**. Your app might
+e.g. change the color, label, disabled, etc. of the button, or even hide it entirely (by returning 404).
 
 
+GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp
+</dl>
+
+
+
+ 
+/actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName} GET 
+/actions/byCandidate/anonymous/search GET 
+/actions/byCandidate/anonymous/search/asHtml GET 
+/actions/byCandidate/anonymous/search/byName/{action}/byApp GET 
+/actions/byCandidate/general
+/actions/byCandidate/general/possibles GET 
+/actions/byCandidate/general/possibles/byApp GET 
+/actions/byCandidate/general/possibles/byApp/deltaPings POST 
+/actions/byCandidate/job
+/actions/byCandidate/job/possibles GET 
+/actions/byCandidate/job/possibles/byApp GET 
+/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}
+/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}
+/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}/setupPage GET 
+/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}/setupPage/forWorkflow/{workflow} GET 
+/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}/setupPage/forJob/{job} GET 
+/actions/byCandidate/job/possibles/byApp/deltaPings POST 
+/actions/byCandidate/search
+/actions/byCandidate/search/possibles GET 
+/actions/byCandidate/search/possibles/byApp GET 
+/actions/byCandidate/search/possibles/byApp/deltaPings
+
+ 
 <h1>Develop your app</h1>
 
 <h2>Create a tenant</h2>

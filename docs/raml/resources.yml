@@ -257,7 +257,20 @@
     get:
       securedBy: [oauth_2_0]
       description: |
-        Get an array of all actions that may be produced by a single app. Non-SoT.
+        Your app should produce this API to return an array with an element for every different button that your app might ever provide (i.e., the superset of all of
+        your app's possible buttons).
+        
+        Typically this will be called by a coordinating app at significant times, such as after the tenant is rebooted, or after your app has
+        signalled a change to its buttons by calling the deltaPings API. That coordinating app can then present all possible buttons to some administrator,
+        who can then flip some config switches to dictate which buttons should be shown in different situations.
+        
+        For example, the customer might want to only show a "refer a friend" button for their sales jobs, not their call center jobs.
+
+        This API is for all possible buttons - at runtime, a different API will be called on your app to ask for actual details (color, label, disabled, etc.)
+        of each **actual** button. For example, your app might declare with this API that it produces a "share" button, but then at runtime it might decide
+        not to show the "share" button if it sees that the logged in candidate has exceeded some quota for sharing.
+
+        Non-SoT.
       responses:
         200:
           body:

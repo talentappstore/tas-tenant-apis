@@ -1,29 +1,28 @@
 {
-  "application": {
-    "id": 10045434,
-    "source": "seek-camp0",
-    "tracker": null,
-    "formFactor": "mobile",
-    "job": {
-      "id": 3443
+  "id": 10045434,
+  "source": "seek-camp0",
+  "formFactor": "mobile",
+  "job": {
+    "id": 3443
+  },
+  "candidate": {
+    "id": 4988,
+    "givenName": "Fred",
+    "familyName": "Bloggs"
+  },
+  "bucketMovements": [
+    {
+      "key": "incoming",
+      "landed": "2017-05-29T01:34:30+00:00"
     },
-    "candidate": {
-      "id": 4988,
-      "givenName": "Fred",
-      "familyName": "Bloggs"
+    {
+      "key": "prescreen",
+      "landed": "2017-05-29T01:34:30+00:00"
     },
-    "bucketTransitions": [
-      {
-        "incoming": "T21:33:04.23:22"
-      },
-      {
-        "prescreen": "T21:33:04.23:42"
-      },
-      {
-        "interview": "T21:33:04.29:42"
-      }
-    ],
-    "dateLastUpdated": "T21:33:04.29:42"
-  }
+    {
+      "key": "interview",
+      "landed": "2017-05-29T01:34:30+00:00"
+    }
+  ],
+  "dateLastUpdated": "2017-05-29T01:34:30+00:00"
 }
-

@@ -14,6 +14,8 @@
     "apiTest": { "$ref": "../schemas/apiTest.json" },
     "applicationDeltaPing": { "$ref": "../schemas/applicationDeltaPing.json" },
     "applicationRead": { "$ref": "../schemas/applicationRead.json" },
+    "applicationShell": { "$ref": "../schemas/applicationShell.json" },
+    "applicationShells": { "$ref": "../schemas/applicationShells.json" },
     "applicationView": { "$ref": "../schemas/applicationView.json" },
     "applicationViews": { "$ref": "../schemas/applicationViews.json" },
     "appStatus": { "$ref": "../schemas/appStatus.json" },

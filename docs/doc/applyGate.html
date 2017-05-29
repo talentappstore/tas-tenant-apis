@@ -58,63 +58,19 @@ to the job. Now they can see apply button(s) (since they've satisfied your app's
 </p>
 
 
-<h1>Develop your app</h1>
+<h1>Get your app to produce a button</h1>
 
-<h2>Create a tenant</h2>
-
-<p>Go to <a href='https://www.talentappstore.com'>www.talentappstore.com</a>, sign up and create a tenant (use google auth to avoid a temporary issue with email-based logins).
+<p>Your app will produce one button, which will cause a different button (all apply buttons) to be hidden, so the first step is to complete the steps described in
+<a href="showButton.html">showButton.html</a>.
 </p>
 
-<h2>Install x2lb</h2>
-
-<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.eDJsYg.mHkPPYhRiMz1BghClLwPqvposR5_1yxt_C1siWffC8Y045KuqkmF2eX05l4diVRIyUenMvJxiR-xN953PgVMXdpxQAAw2AW1NidDtLaeR0AlhMRVCM0r2UwfSm3d-4yCYYF-Qd6KjsHUXINAp9o7u6lgJV7qYyRRmCzss77P0jjjgll85QwnuKknxEK4qpjXhqv6q_eDORwoR-niQiO4L0dsnyNLumrcyx4n4e743JIQ2QhW1vF7rqwI_5EpWevk8r9YdhMfkRhS1Q6RsAUPyXFcqcvR8LaUoI65lOpjvPsyBE-BLpa2eJllx9OzZNDUuZdNbb2Pg2whXOyIw9DtXQ'>here</a>
-to install the x2lb app. This app is "a testing app for developers to check their actions are working correctly and showing up in SwitchGear and that enabling/disabling them also works."
+<p>Once you've got your own button appearing to the candidate, return here.
 </p>
+  
 
-<p>Currently you may see a 403 error after installing the app. Hit back, sign out and in again, return to your tenant, and you'll see the install was successful.
-</p>
+<h1>Modify your button to be an apply gate</h1>
 
-<h2>Install switchgear</h2>
-
-<p>Browse the app store and install switchgear. Switchgear is an app that manages all of the buttons (apply, share, refer a friend, etc.) from all of the button-producing apps. Typically
-a customer wants to show different combinations of those buttons to different candidates (e.g. internal vs external) on different jobs (e.g. IT jobs vs call centre jobs). This complexity is all
-handled via switchgear. Switchgear gives the customer a drag and drop user interface that they can use to drag button(s):
-<ol>
-<li>in or out at a global level, so that by default your button will appear or not appear on all jobs
-<li>in or out at a job workflow level, so your button will apepar only on jobs that have a specific workflow (e.g. "retail")
-<li>in or out of a specific job
-</ol>
-</p>
-
-<h2>Install simpleapply</h2>
-
-<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.c2ltcGxlYXBwbHk.Ih8mCSLZ7Tyw1l-kKXfb4Wrj7A1vNZYEay66_48AQbK_WLaxHJYO8Zvjvjch8EiUnz1TUGoMxKUkYePHn00KPJcTruV67XhMY8rFq4qM0SflJ2xLLaa39GSU_40e9QT9cHU52LnVXqRzz3vwvr0chfhy2A0ULuAvFyTBVSxmyvbM2c-rG0dxrRi44bAVsxcUpOGD5U4T4BEaFTcUaVpTCKjTPyn93SLrJSzu4EQar9xep6NWQK1NmV2LUsoZd5aKJ41d_EEQU7WN7rpEvenARt6ZZcchzedyDjk_Q4_IKwMnwtjKZBFaWmvXdM9rIDPyJBJMMBZWa4gS35SYLpUkDQ'>here</a>
-to install simpleapply.
-</p>
-
-<h2>Customize the buttons for a job</h2>
-
-<p><b>Skip this section for now, due to a bug</b>. Now return to x2lb and click "open". You'll see a menu that lets you access several test jobs. x2lb is showing you the "recruiter" view" of your jobs - to control whether or not the apply button is displayed,
-click the "Edit" button in the top right corner of the SwitchGear panel displayed within the x2lb app and drag the action to either enabled or disabled. You don't need to do anything - new buttons
-are always displayed by default.
-</p>
-
-<h2>Install qs8n, and verify the install button appears</h2>
-
-<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.cXM4bg.00-eZV3DRtI_dAtxvgYAhLYLt5yNjzU7V03sZLgRakxFPjvjROKZPNXBROkoon5aK_xjUnF_mR5qNnnbO6tgyf65FDD0Zf0eaOjj0qmZjpzaFcHf3QTEyuiHVhWfeJrSkKOPaXO63X7ZblbWIlgSzY9u6T0emywe1UQqBNCf9pH9UCE5qmYXlrk9Ey1GLpqIqMQnwaapgL8SBCGX_mERO6qpcMT8F2Vt2gT1e2rk2oiF-VoonBh79jkDSKSj7zUQTt1VSUmD9yxX6AZZopaxXauyQLk4FO4-mv9P4OTMbvt0CthLAPsCom-H_aog5GNGMhiiIbHKX8FXv9rXgcqVtw'>here</a>
-to install the qs8n app. This app is "a test candidate site that allows developers to check that their actions are appearing correctly on jobs, and to test any gate behaviour."
-</p>
-
-<p>Click open on the qs8n app, and you should go through to a basic careers site, showing several test jobs. You should now see the apply button (from simpleapply) on the jobs.
-</p>
-
-<h2>Create your app</h2> 
-<p>Now go to https://developer.talentappstore.com. Create a developer account if you don't already have one. Create your new app.  
-</p>
-
-<h2>Produce GET /actions/byCandidate/job/possibles/byApp</h2>
-
-<p>Have your app produce the following API, to tell other apps (specifically switchgear) about its candidate facing buttons, e.g.:
+<p>Adjust the response from the possibles API like this:
 
 <div class='codeBlock'>
 GET /actions/byCandidate/job/possibles/byApp (produce as non-SoT)
@@ -124,36 +80,27 @@ Response:
 </div>
 </p>
 
-<p>Since your app will be hosted behind tazzy, the actual endpoint within your app should be:
-<div class='codeBlock'>
-/t/{tenant}/tas/devs/tas/actions/byCandidate/job/possibles/byApp
-</div>
+<p>For an apply gate  like yours, the <b>semantics</b> section must be present, along with the <b>purpose</b> and the <b>gateBehaviour</b> sections.
+</p>
+<p>The purpose field determines what sort of buttons your apply gate will suppress, e.g. if you set your button's purpose to ""apply then it will hide apply buttons until it is satisfied.
 </p>
 
-<p>Now in the developer site, click the "tazzy" section for your app and enter the public web address of your server (tip: ngrok is a useful
-tool for easily exposing an endpoint on your own computer to the internet).   
-</p>
-
-<p>The data that you are passing back in this example is as follows:
-
-<ul>
-<li><b>actionName</b> is the key for your button. Users recognise your button by this as they perform setup, e.g. controlling which
-jobs your button appears on. It should be unique among all buttons your app produces (if more than one). If you have only one button,
-consider using your company or app name.
-
-<li>The <b>availableToInternals</b> and <b>availableToExternals</b> fields control whether the user is able to present your button to public job seekers
-and/or employees.
-
-<li>In this example, <b>mayRequireSetupFlag</b> is false, meaning your app does not have a setup page. This means, for example, that when
-the tenant says that all of their "sales" jobs should have your button, they don't get to also configure your button at that point (e.g. for a quiz,
-perhaps add some sales-specific questions).
-
-<li>For an apply gate  like yours, the <b>semantics</b> section must be present, along with the <b>purpose</b> and the <b>gateBehaviour</b> sections.
-In this case, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
+<p>In this example, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
 and then later applies for another job, they won't need to re-perform your process. For example, if your button is for a company-side culture
-fit analysis, then there's no need to make the candidate complete that for every job they apply for.
-</ul>
+fit analysis, then there's no need to make the candidate complete it over and over on every job they apply for.
 </p>
+
+<p>After making these changes, open the qs8n app again. The apply button that was previous showing should now be hidden - your app is doing its job.
+</p>
+
+
+
+
+
+
+<h1></h1>
+
+
 
 
 <h2>Install your app</h2>

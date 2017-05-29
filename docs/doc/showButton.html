@@ -48,7 +48,8 @@ is an app provided by Aotal that gives tenants control over the order of buttons
 
 <dt>GET /actions/byCandidate/me/general/byName/{action}/byApp</dt>
 <dd>Your app should **produce** this API to return an array with an element for every different button that your app might ever provide (i.e., the superset of all of
-your app's possible buttons).</dd>
+your app's possible buttons).
+</dd>
 
 <dt>POST /actions/byCandidate/job/possibles/byApp/deltaPings</dt>
 <dd>Your app should **consume** this API if it ever changes its set of possible buttons (e.g. maybe you added one in response to a customer's request).
@@ -57,38 +58,19 @@ your app's possible buttons).</dd>
 <dt>GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp</dt>
 <dd>Your app should **produce** this API to return details for the given button, **given the logged in candidate and this specific job**. Your app might
 e.g. change the color, label, disabled, etc. of the button, or even hide it entirely (by returning 404).
+</dd>
 
+<dt>GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp</dt>
+<dd>As above, but for a logged in candidate.
+</dd>
 
-GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp
 </dl>
 
+<p>There are similar APIs for the other places where candidate-facing buttons can be displayed (global, and search results).
+</p>
 
 
- 
-/actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName} GET 
-/actions/byCandidate/anonymous/search GET 
-/actions/byCandidate/anonymous/search/asHtml GET 
-/actions/byCandidate/anonymous/search/byName/{action}/byApp GET 
-/actions/byCandidate/general
-/actions/byCandidate/general/possibles GET 
-/actions/byCandidate/general/possibles/byApp GET 
-/actions/byCandidate/general/possibles/byApp/deltaPings POST 
-/actions/byCandidate/job
-/actions/byCandidate/job/possibles GET 
-/actions/byCandidate/job/possibles/byApp GET 
-/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}
-/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}
-/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}/setupPage GET 
-/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}/setupPage/forWorkflow/{workflow} GET 
-/actions/byCandidate/job/possibles/byApp/byName/{action}/{uiMode}/{internal}/setupPage/forJob/{job} GET 
-/actions/byCandidate/job/possibles/byApp/deltaPings POST 
-/actions/byCandidate/search
-/actions/byCandidate/search/possibles GET 
-/actions/byCandidate/search/possibles/byApp GET 
-/actions/byCandidate/search/possibles/byApp/deltaPings
-
- 
-<h1>Develop your app</h1>
+<h1>Create your app - setup</h1>
 
 <h2>Create a tenant</h2>
 
@@ -129,16 +111,18 @@ click the "Edit" button in the top right corner of the SwitchGear panel displaye
 are always displayed by default.
 </p>
 
-<h2>Install qs8n, and verify the install button appears</h2>
+<h2>Install qs8n, and verify an apply button appears</h2>
 
 <p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.cXM4bg.00-eZV3DRtI_dAtxvgYAhLYLt5yNjzU7V03sZLgRakxFPjvjROKZPNXBROkoon5aK_xjUnF_mR5qNnnbO6tgyf65FDD0Zf0eaOjj0qmZjpzaFcHf3QTEyuiHVhWfeJrSkKOPaXO63X7ZblbWIlgSzY9u6T0emywe1UQqBNCf9pH9UCE5qmYXlrk9Ey1GLpqIqMQnwaapgL8SBCGX_mERO6qpcMT8F2Vt2gT1e2rk2oiF-VoonBh79jkDSKSj7zUQTt1VSUmD9yxX6AZZopaxXauyQLk4FO4-mv9P4OTMbvt0CthLAPsCom-H_aog5GNGMhiiIbHKX8FXv9rXgcqVtw'>here</a>
 to install the qs8n app. This app is "a test candidate site that allows developers to check that their actions are appearing correctly on jobs, and to test any gate behaviour."
 </p>
 
-<p>Click open on the qs8n app, and you should go through to a basic careers site, showing several test jobs. You should now see the apply button (from simpleapply) on the jobs.
+<p>Click open on the qs8n app, and you should go through to a basic careers site, showing several test jobs. You should now see simpleapply's apply button on the jobs.
 </p>
 
-<h2>Create your app</h2> 
+
+<h1>Create your app</h1>
+ 
 <p>Now go to https://developer.talentappstore.com. Create a developer account if you don't already have one. Create your new app.  
 </p>
 
@@ -150,7 +134,7 @@ to install the qs8n app. This app is "a test candidate site that allows develope
 GET /actions/byCandidate/job/possibles/byApp (produce as non-SoT)
 
 Response:
-<div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
+<div class='clientInclude' data-href='../examples/actionProductions-simple.json'></div>
 </div>
 </p>
 
@@ -178,10 +162,6 @@ and/or employees.
 the tenant says that all of their "sales" jobs should have your button, they don't get to also configure your button at that point (e.g. for a quiz,
 perhaps add some sales-specific questions).
 
-<li>For an apply gate  like yours, the <b>semantics</b> section must be present, along with the <b>purpose</b> and the <b>gateBehaviour</b> sections.
-In this case, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
-and then later applies for another job, they won't need to re-perform your process. For example, if your button is for a company-side culture
-fit analysis, then there's no need to make the candidate complete that for every job they apply for.
 </ul>
 </p>
 
@@ -193,15 +173,16 @@ fit analysis, then there's no need to make the candidate complete that for every
 
 <h2>Test that your API is being produced OK</h2>
 
-<p>
-At this point you might want to check your API is being produced correctly. See _here_ for how to.
-</p>
+<ol>
+<li>Reboot the tenant, checking, e.g. via logging in your app, that your "possibles" API is being called.
+<li>Open switchgear and your button should be visible under job actions.
+</ol>
 
 
 <h2>Produce GET /actions/byCandidate/../jobs/{job}/byName/{action}/byApp</h2>
 
 
-<p>Now have your app produce two more APIs, one for logged in candidates and one for anonymous ones.
+<p>Now that your possibles API is working, have your app produce two more APIs, one for logged in candidates and one for anonymous ones.
 </p>
 
 <p>In your response, you pass back button details, like text, color, link, etc.
@@ -216,7 +197,7 @@ Response:
 </p>
 
 <p>If your app does not use SSO, you'll pass back the same results for both APIs. If you do use SSO, you might respond differently to the /me API - for
-example, don't show the button at all if the candidate has already completed your test.
+example, don't show the button at all if the candidate has already completed your experience.
 </p>
 
 <p>In the response above:
@@ -230,114 +211,15 @@ or otherwise prevent anyone from altering the relayPage, to prevent <a href='htt
 </ul>
 </p>
 
-<h2>Verify that the apply button is hidden</h2>
+<h1>Check your button(s) are showing</h1>
 
-<p>Now return to the qsn8 app and refresh the page for a job. You should now see your button appear, and the apply button disappear (since your app's button is suppressing it).
+<p>From the qs8n app, click open. You should see a job, with your buttons displayed on it.
 </p>
 
-<h2>Complete your app's experience</h2>
+<p>Click on a button, and have your button present some web experience to the user, then redirect them back correctly to the relayPage.
+</p>    
 
-<p>Acting as the candidate, click on your button. You should be redirected to the link you passed back in the API call previously.
-</p>
-
-<p>You should now be at your app's web site, where you do your thing whatever that is (e.g. complete an online quiz).
-</p>
-
-<p>If your app uses SSO (maybe to save the candidate's data so they can start the quiz on a mobile
-device and complete it on desktop), then this page will be SSO-protected, and the candidate will be asked to log in.
-</p>
-
-<p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply (has satisfied the gate).
-There are two ways that your app can signal that a candidate has satisfied your gate.
-</p>
-
-<h2>Call satisfy directly (SSO)</h2>
- 
-<p>If your app uses SSO, and the candidate is signed in, then you can call the satisfy API directly:
-
-<div class='codeBlock'>
-POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
-</div>
-</p>
-
-<h2>Set up candidate SSO!</h2>
-
-<p>TODO - install some candidate idps.
-
-</p>
-
-<h2>Call satisfy indirectly (non-SSO)</h2>
-
-<p>If your app does not use SSO, you can use the echo app. Your app requests a "satisfy link" from echo, and then redirects
-the candidate there. Then the echo app signs the candidate in, and does the satisfy. 
-
-<p>Install the <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZWNobw.KRnonFueIGABI-DWVu5Dr6xgsVfOxfL0dTr6bgT_FLx7Pmfz9fDDnwtG-70LFcYS5kgPQvmE3o8fU_ZSFWK0csyTEeMUV1_3plXLjndKOS13noRfDbtAt05V2BGE6Wsp5kqD1XMQWsqW5hKj14qcIvKpqv0igj9xL4w0ASk5_rCDhZ2jVs68ON-1plpqI-jtsrz6341hbCBmTsmtHaxvH_u0jwKb_hs6blTfKSisEHH_qbG05kzCcoC7zeX0xTsNr5NwJwnI8se_FuVF2EPp6sMau8jG-MDq2Wwfg8l7hB2IPdxe7cbFOoWXaim5a0SWrMP50NG8ljsNQT34ZJZ13Q'>echo</a>
-app.
-</p>
-
-<p>Update your app to consume the API (as SoT): 
-<div class='codeBlock'>
-GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName}?relayPage=blah&tracker=blah?message=Good+news
-
-Response:
-https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
-</div>
-</p>
-
-<p>In this example:
-<ul>
-<li><b>relayPage</b> should be the same relayPage that was passed in to your button, since that's where we want to lead the candidate back to after
-they've completed the satisfy operation.
-<li><b>message</b> is a message telling the candidate they've completed your process, whatever that is. 
-</ul>
-</p>
-
-<p>The page requires them to authenticate
-using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied and redirects them to the relay page.
-
-
-<div class='codeBlock'>
-+---------------
-|
-| Congratulations! You're a savvy dude.
-| [Proceed to job]
-| 
-+-----------------
-</div>
-</p>
-
-<h2>Verify the candidate can now apply</h2>
-
-<p>Finally, you should be back at the job, and now the apply button should be visible. It works!
-</p>
-
-
-
-<h1>Choosing whether to use SSO</h1>
-
-<p>One of the first decisions in building tyour app is whether you're going to use SSO.
-</p>
-
-<p>TAS provides an easy way for you to add SSO (single sign on) to your app. If some or all of your app's web pages are SSO protected,
-then candidates must sign in before they can see them. The actual sign in mechanism is dictated by the customer - for example, candidates
-might be able to sign in using Facebook, Google or the corporate SAML IdP. Your app does not need to deal with any of the complexities of
-this. It can just assume that any traffic in to your web pages is from already authenticated candidates, and can grab candidate details
-(first name,)last name, email address) from http request headers.
-</p>
-
-<p>SSO is optional, and you can build an apply gate app without it. But using SSO gives you some advantages:
-<ul>
-<li>Without SSO, canny candidates might fail your test, but then just try again straight away. You could prevent this using cookies, but they might
-try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their ID, so you can
-tell straight away if this is a new or returning candidate.
-<li>In the future APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
-so that a recruiter/hiring manager can view them. Those APIs will require that you have the candidate's identity, which you can only get if your app uses SSO.
-Without this, your app can't attach results (other than a simple "they've passed"). This may or may not be a problem depending on what your app is testing for
-(e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
-</ul>
-
-
-<h1>Changing the buttons your app produces</h2>
+<h1>Changing the buttons your app produces</h1>
 
 <p>Normally the coordinating app (e.g. switchgear) will call the API to learn about your app's buttons at the time your app is installed. That will work
 fine, as long as your app doesn't change its set of buttons after its been installed.
@@ -355,34 +237,6 @@ Response:
 
 <p>This acts as a hint to switchgear (or any other app that cares) that it should re-scan your possible buttons, since they may have changed.
 </p>
-
-
-<h1>How gates are applied</h1>
-
-<p>Although you only need to worry about your own button, it can be useful to understand the bigger picture of how switchgear decides which buttons
-the candidate should see.
-</p>
-
-<p>At the point the job page is displayed, the coordinating app (e.g. switchgear) will decide which buttons to display on it as follows:
-
-<ol>
-<li>switchgear already knows all the buttons that may possibly be displayed.
-<li>switchgear now fetches the actual details for your button(s) and all other possible buttons for the job.
-<li>Some of those buttons may return 404 indicating they aren't to be displayed.
-<li>switchgear now has a full list (the "displayable list") of all buttons that wish to be displayed.
-<li>Now switchgear selectively removes buttons as follows
-<li>switchgear filters out any displayable buttons that:
-<ul>
-<li>have a purpose (like "apply"); and
-<li>are not gate buttons; and
-<li>where there exists at least one displayable gate button for that purpose which is not yet satisfied (e.g., your button).
-</ul>
-In other words, switchgear won't display any apply buttons if there is at least one apply gate that the candidate hasn't completed.
-<li>Switchgear then filters out all but the first unsatisfied gate button for each purpose. So if there were 10 gates the candidate
-had to get through before they could apply, they would only see each gate after completing the previous one.
-</ol>
-</p>
-
 
 <h1>Setup page</h1>
 
@@ -407,18 +261,6 @@ and drop your button into the global or workflow areas or onto a specific job.
 </ul>  
 </ol>
 </p>
-
-
-<h1>General actions</h1>
-
-<p>As well as adding gates onn job actions, you can also gate general actions (such as registering).
-</p>
-
-<pre>
-GET /actions/byCandidate/me/general/byName/{action}/byApp
-GET /actions/byCandidate/anonymous/general/byName/{action}/byApp
-</pre>
-
 
 
 <script>

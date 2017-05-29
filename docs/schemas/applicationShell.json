@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "tracker": {
+      "type": "integer"
+    },
+    "formFactor": {
+      "enum": [
+        "mobile",
+        "desktop",
+        "tablet",
+        "other"
+      ]
+    },
+    "bucketMovement": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "landed": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "landed"
+      ]
+    },
+    "bucketMovements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/bucketMovement"
+      }
+    },
+    "job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "familyName": {
+          "$ref": "#/definitions/familyName"
+        },
+        "givenName": {
+          "$ref": "#/definitions/givenName"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "familyName",
+        "givenName"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "source": {
+      "$ref": "#/definitions/source"
+    },
+    "tracker": {
+      "$ref": "#/definitions/tracker"
+    },
+    "formFactor": {
+      "$ref": "#/definitions/formFactor"
+    },
+    "job": {
+      "$ref": "#/definitions/job"
+    },
+    "candidate": {
+      "$ref": "#/definitions/candidate"
+    },
+    "dateLastUpdated": {
+      "$ref": "applicationRead.json#/definitions/dateLastUpdated"
+    },
+    "bucketMovements": {
+      "$ref": "#/definitions/bucketMovements"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "source",
+    "formFactor",
+    "job",
+    "candidate",
+    "dateLastUpdated"
+  ]
+}

@@ -1,9 +1,7 @@
 [
-{
-  "application": {
+  {
     "id": 10045434,
     "source": "seek-camp0",
-    "tracker": null,
     "formFactor": "mobile",
     "job": {
       "id": 3443
@@ -13,25 +11,25 @@
       "givenName": "Fred",
       "familyName": "Flintstone"
     },
-    "bucketTransitions": [
+    "bucketMovements": [
       {
-        "incoming": "T21:33:04.23:22"
+        "key": "incoming",
+        "landed": "2017-05-29T01:34:30+00:00"
       },
       {
-        "prescreen": "T21:33:04.23:42"
+        "key": "prescreen",
+        "landed": "2017-05-29T01:34:30+00:00"
       },
       {
-        "interview": "T21:33:04.29:42"
+        "key": "interview",
+        "landed": "2017-05-29T01:34:30+00:00"
       }
     ],
-    "dateLastUpdated": "T21:33:04.29:42"
-  }
-},
-{
-  "application": {
+    "dateLastUpdated": "2017-05-29T01:34:30+00:00"
+  },
+  {
     "id": 10045437,
     "source": "trademe",
-    "tracker": null,
     "formFactor": "desktop",
     "job": {
       "id": 3443
@@ -41,22 +39,25 @@
       "givenName": "Sheila",
       "familyName": "Jones"
     },
-    "bucketTransitions": [
+    "bucketMovements": [
       {
-        "incoming": "T21:33:04.23:22"
+        "key": "incoming",
+        "landed": "2017-05-29T01:34:30+00:00"
       },
       {
-        "declined": "T21:33:08.23:22"
+        "key": "prescreen",
+        "landed": "2017-05-29T01:34:30+00:00"
+      },
+      {
+        "key": "interview",
+        "landed": "2017-05-29T01:34:30+00:00"
       }
     ],
-    "dateLastUpdated": "T21:33:04.29:42"
-  }
-},
-{
-  "application": {
+    "dateLastUpdated": "2017-05-29T01:34:30+00:00"
+  },
+  {
     "id": 10045444,
     "source": "trademe",
-    "tracker": null,
     "formFactor": "tablet",
     "job": {
       "id": 3443
@@ -66,19 +67,20 @@
       "givenName": "Fred",
       "familyName": "Bloggs"
     },
-    "bucketTransitions": [
+    "bucketMovements": [
       {
-        "incoming": "T21:33:04.23:22"
+        "key": "incoming",
+        "landed": "2017-05-29T01:34:30+00:00"
       },
       {
-        "prescreen": "T21:33:04.23:42"
+        "key": "prescreen",
+        "landed": "2017-05-29T01:34:30+00:00"
       },
       {
-        "interview": "T21:33:04.29:42"
+        "key": "interview",
+        "landed": "2017-05-29T01:34:30+00:00"
       }
     ],
-    "dateLastUpdated": "T21:33:04.29:42"
+    "dateLastUpdated": "2017-05-29T01:34:30+00:00"
   }
-}
-
 ]

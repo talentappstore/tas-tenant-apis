@@ -14,6 +14,10 @@
     "tracker": {
       "type": "integer",
       "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
+    },
+    "dateLastUpdated": {
+    	"type": "string",
+    	"format": "date-time"
     }
   },
   "properties": {
@@ -31,6 +35,9 @@
     },
     "tracker": {
       "$ref": "#/definitions/tracker"
+    },
+    "dateLastUpdated": {
+      "$ref": "#/definitions/dateLastUpdated"
     },
     "items": {
       "$ref": "itemPackagesRead.json"

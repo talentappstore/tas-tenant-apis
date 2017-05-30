@@ -44,33 +44,32 @@ is an app provided by Aotal that gives tenants control over the order of buttons
 
 <p>The key APIs you'll produce and consume are:
 
-<dl>
+<ul>
 
-<dt>GET /actions/byCandidate/me/general/byName/{action}/byApp</dt>
-<dd>Your app should **produce** this API to return an array with an element for every different button that your app might ever provide (i.e., the superset of all of
+<li><b>GET /actions/byCandidate/me/general/byName/{action}/byApp</b>
+Your app should <b>produce</b> this API to return an array with an element for every different button that your app might ever provide (i.e., the superset of all of
 your app's possible buttons).
-</dd>
 
-<dt>POST /actions/byCandidate/job/possibles/byApp/deltaPings</dt>
-<dd>Your app should **consume** this API if it ever changes its set of possible buttons (e.g. maybe you added one in response to a customer's request).
-</dd>
+<li><b>POST /actions/byCandidate/job/possibles/byApp/deltaPings</b>
+Your app should <b>consume</b> this API if it ever changes its set of possible buttons (e.g. maybe you added one in response to a customer's request).
 
-<dt>GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp</dt>
-<dd>Your app should **produce** this API to return details for the given button, **given the logged in candidate and this specific job**. Your app might
+<li><b>GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp</b>
+Your app should <b>produce</b> this API to return details for the given button, **given the logged in candidate and this specific job**. Your app might
 e.g. change the color, label, disabled, etc. of the button, or even hide it entirely (by returning 404).
-</dd>
 
-<dt>GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp</dt>
-<dd>As above, but for a logged in candidate.
-</dd>
+<li><b>GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp</b>
+As above, but for a logged in candidate.
 
-</dl>
+</ul>
 
 <p>There are similar APIs for the other places where candidate-facing buttons can be displayed (global, and search results).
 </p>
 
 
 <h1>Create your app - setup</h1>
+
+<p>As the first step of getting your app up and running, lets install some apps, and get the button from the simpleapply app displayed on a page to the candidate.
+</p>
 
 <h2>Create a tenant</h2>
 
@@ -80,7 +79,10 @@ e.g. change the color, label, disabled, etc. of the button, or even hide it enti
 <h2>Install x2lb</h2>
 
 <p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.eDJsYg.mHkPPYhRiMz1BghClLwPqvposR5_1yxt_C1siWffC8Y045KuqkmF2eX05l4diVRIyUenMvJxiR-xN953PgVMXdpxQAAw2AW1NidDtLaeR0AlhMRVCM0r2UwfSm3d-4yCYYF-Qd6KjsHUXINAp9o7u6lgJV7qYyRRmCzss77P0jjjgll85QwnuKknxEK4qpjXhqv6q_eDORwoR-niQiO4L0dsnyNLumrcyx4n4e743JIQ2QhW1vF7rqwI_5EpWevk8r9YdhMfkRhS1Q6RsAUPyXFcqcvR8LaUoI65lOpjvPsyBE-BLpa2eJllx9OzZNDUuZdNbb2Pg2whXOyIw9DtXQ'>here</a>
-to install the x2lb app. This app is "a testing app for developers to check their actions are working correctly and showing up in SwitchGear and that enabling/disabling them also works."
+to install the x2lb app.
+</p>
+
+<p>This app is "a testing app for developers to check their actions are working correctly and showing up in SwitchGear and that enabling/disabling them also works."
 </p>
 
 <p>Currently you may see a 403 error after installing the app. Hit back, sign out and in again, return to your tenant, and you'll see the install was successful.
@@ -88,7 +90,10 @@ to install the x2lb app. This app is "a testing app for developers to check thei
 
 <h2>Install switchgear</h2>
 
-<p>Browse the app store and install switchgear. Switchgear is an app that manages all of the buttons (apply, share, refer a friend, etc.) from all of the button-producing apps. Typically
+<p>Browse the app store and install switchgear.
+</p>
+
+<p>Switchgear is an app that manages all of the buttons (apply, share, refer a friend, etc.) from all of the button-producing apps. Typically
 a customer wants to show different combinations of those buttons to different candidates (e.g. internal vs external) on different jobs (e.g. IT jobs vs call centre jobs). This complexity is all
 handled via switchgear. Switchgear gives the customer a drag and drop user interface that they can use to drag button(s):
 <ol>
@@ -121,9 +126,15 @@ to install the qs8n app. This app is "a test candidate site that allows develope
 </p>
 
 
-<h1>Create your app</h1>
+<h1>Create your app - produce the /possibles API</h1>
+
+<p>Now that we've got one button displayed, we're ready to get your app up and running.
+</p>
  
-<p>Now go to https://developer.talentappstore.com. Create a developer account if you don't already have one. Create your new app.  
+<p>Go to https://developer.talentappstore.com. Create a developer account if you don't already have one.
+</p>
+
+<p>Define your app, giving it a name and shortcode. 
 </p>
 
 <h2>Produce GET /actions/byCandidate/job/possibles/byApp</h2>
@@ -179,11 +190,12 @@ perhaps add some sales-specific questions).
 </ol>
 
 
-<h2>Produce GET /actions/byCandidate/../jobs/{job}/byName/{action}/byApp</h2>
-
+<h1>Create your app - produce remaining APIs</h1>
 
 <p>Now that your possibles API is working, have your app produce two more APIs, one for logged in candidates and one for anonymous ones.
 </p>
+
+<h2>Produce GET /actions/byCandidate/../jobs/{job}/byName/{action}/byApp</h2>
 
 <p>In your response, you pass back button details, like text, color, link, etc.
 
@@ -196,14 +208,35 @@ Response:
 </div>
 </p>
 
-<p>If your app does not use SSO, you'll pass back the same results for both APIs. If you do use SSO, you might respond differently to the /me API - for
-example, don't show the button at all if the candidate has already completed your experience.
+<p>The first form (/me/) is an <b>on-behalf</b> API.
+</p>
+
+<p>Switchgear will call this API when it is displaying your button to a logged in person (i.e. the candidate).
+</p>
+
+<p>As the producer of an on-behalf API, your app gets access to details about the logged-in person, such as their email address, name,
+and a unique identifier for them.
+</p>
+
+<p>You might use that information to customize the details of your button. For example, if your button is an apply button, and the
+candidate already has a job application for this job, you might decide not to show your button at all, or to show it in a
+disabled state.
+</p>
+
+<p>The second form (/anonymous/) is a normal API.
+</p>
+
+<p>As the producer of this API, you don't know anything about the candidate who is looking at the job details page for this job, so you should
+assume they are a public job seeker. 
+</p>
+
+<p>Its up to you to decide whether to treat these two APIs differently in your app, or just return the same response for both.
 </p>
 
 <p>In the response above:
 
 <ul>
-<li><b>name</b> corresponds to the actionName from previously.
+<li><b>name</b> corresponds to the actionName (that you passed back previously from your /possibles API).
 <li><b>uri</b> is the link the user will be led to when they click your button. Since <b>behaviour</b> is "redirect", they will be redirected
 rather than seeing your web page in an iframe inside a modal. In this case we just pass the relayPage through - you should additionally generate a signature for it
 or otherwise prevent anyone from altering the relayPage, to prevent <a href='https://www.owasp.org/index.php/Unvalidated_Redirects_and_Forwards_Cheat_Sheet'>open relay attacks</a>. 
@@ -211,17 +244,20 @@ or otherwise prevent anyone from altering the relayPage, to prevent <a href='htt
 </ul>
 </p>
 
-<h1>Check your button(s) are showing</h1>
+<h2>Check that your button is showing on the jobs page</h2>
 
 <p>From the qs8n app, click open. You should see a job, with your buttons displayed on it.
 </p>
 
-<p>Click on a button, and have your button present some web experience to the user, then redirect them back correctly to the relayPage.
+<p>Click on your button, and you should be redirected to your app's web experience (e.g. applying for a job, completing a quiz, sharing the job, etc.).
+</p>
+
+<p>Once completed, your web experience should redirect the candidate correctly back to the relayPage (i.e. the job details page).
 </p>    
 
-<h1>Changing the buttons your app produces</h1>
+<h1>Advanced - changing the buttons your app produces</h1>
 
-<p>Normally the coordinating app (e.g. switchgear) will call the API to learn about your app's buttons at the time your app is installed. That will work
+<p>The button coordinating app (e.g. switchgear) will call your /possibles API to learn about your app's buttons at the time your app is installed. That will work
 fine, as long as your app doesn't change its set of buttons after its been installed.
 </p>
 
@@ -235,10 +271,10 @@ Response:
 </div>
 </p>
 
-<p>This acts as a hint to switchgear (or any other app that cares) that it should re-scan your possible buttons, since they may have changed.
+<p>This acts as a hint to switchgear (or any other app that cares) that it should call your /possibles API again, since your buttons may have changed.
 </p>
 
-<h1>Setup page</h1>
+<h1>Advanced - adding a setup page</h1>
 
 <p>As long as your button doesn't need any additional information, the drag and drop user interface provided by switchgear is all the customer needs.
 </p>
@@ -251,7 +287,8 @@ setup when the add the button to a job or as a default for a group of jobs.
 and drop your button into the global or workflow areas or onto a specific job.
 </p>
 
-<p>For example, lets say your app is an employee referral app. Employees can click your button on a job and then use your user interface to refer the job to their friends. They get a cash reward if they are hired.
+<p>For example, lets say your app is an employee referral app. Employees can click your button on a job and then use your
+user interface to refer the job to their friends. They get a cash reward if they are hired.
 </p>
 
 <p>In this example your app might present two separate setup pages:

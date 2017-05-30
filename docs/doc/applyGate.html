@@ -34,8 +34,8 @@
 
 <h1>Apply gate apps - overview</h1>
 
-<p>Customers can use <b>apply gate</b> apps to prevent candidates from applying for selected job(s) until they
-have successfully completed some qualifying/pre-requisite stage. For example:
+<p>Customers can use <b>apply gate</b> apps to prevent candidates from applying for jobs until they've successfully completed some
+pre-requisite. For example:
 
 <ul>
 <li>Ask all candidates to agree to a set of non-negotiables before applying, e.g. mandatory skills
@@ -44,31 +44,44 @@ have successfully completed some qualifying/pre-requisite stage. For example:
 </ul>
 </p>
 
-<p>An apply gate app works by suppressing the apply button(s) on a job. Once the customer adds your button to a job,
-the apply buttons no longer appear to the candidate. This happens via switchgear, which is the app that marshals all of the
-buttons that appear on jobs and elsewhere.
+<p>An apply gate app works by suppressing the apply button(s) on a job.
 </p>
 
-<p>Once the candidate has clicked on your button, and then passed your gate - e.g. some kind
-of quiz within your app - your app marks the candidate as having satisfied the gate and redirects them back to the job. The candidate returns
-to the job. Now they can see apply button(s) (since they've satisfied your app's requirements), and they can now apply.
+<p>Once the customer adds your button to a job,
+the apply buttons suddenly are hidden from the candidate (this happens via switchgear, which is the app that marshals all of the
+buttons that appear on jobs and elsewhere).
 </p>
 
-<p>Gates can be used for any type of button (print/apply/whatever), but to keep the documentation simple we only talk about apply gates.
+<p>To apply, the candidate must now click on your button, and then pass your gate - e.g. some kind
+of quiz within your app.
+</p>
+
+<p>Your app then marks the candidate as having satisfied the gate and redirects them back to the job.
+</p>
+
+<p>The candidate can now see apply button(s), and can apply.
+</p>
+
+<p>Gates can actually be used for any type of button (print/apply/whatever), but to keep the documentation simple we only talk about apply gates.
 </p>
 
 
-<h1>Get your app to produce a button</h1>
+<h1>Create your app</h1>
 
-<p>Your app will produce one button, which will cause a different button (all apply buttons) to be hidden, so the first step is to complete the steps described in
-<a href="showButton.html">showButton.html</a>.
+<h2>Produce a button</h2>
+
+<p>Your app will produce one button, which will cause some different buttons (i.e. any apply buttons) to be hidden.
+</p>
+
+<p>The first step then is to complete the steps described in
+<a href="showButton.html">showButton.html</a> for your app.
 </p>
 
 <p>Once you've got your own button appearing to the candidate, return here.
 </p>
   
 
-<h1>Modify your button to be an apply gate</h1>
+<h2>Modify your button to be an apply gate</h2>
 
 <p>Adjust the response from the possibles API like this:
 
@@ -82,7 +95,8 @@ Response:
 
 <p>For an apply gate  like yours, the <b>semantics</b> section must be present, along with the <b>purpose</b> and the <b>gateBehaviour</b> sections.
 </p>
-<p>The purpose field determines what sort of buttons your apply gate will suppress, e.g. if you set your button's purpose to ""apply then it will hide apply buttons until it is satisfied.
+<p>The purpose field determines what sort of buttons your apply gate will suppress, e.g. if you set your button's purpose to "apply",
+then it will hide apply buttons.
 </p>
 
 <p>In this example, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
@@ -90,67 +104,13 @@ and then later applies for another job, they won't need to re-perform your proce
 fit analysis, then there's no need to make the candidate complete it over and over on every job they apply for.
 </p>
 
-<p>After making these changes, open the qs8n app again. The apply button that was previous showing should now be hidden - your app is doing its job.
-</p>
-
-
-
-
-
-
-<h1></h1>
-
-
-
-
-<h2>Install your app</h2>
-
-<p>Install your app into your tenant.
-</p>
-
-<h2>Test that your API is being produced OK</h2>
-
-<p>
-At this point you might want to check your API is being produced correctly. See _here_ for how to.
-</p>
-
-
-<h2>Produce GET /actions/byCandidate/../jobs/{job}/byName/{action}/byApp</h2>
-
-
-<p>Now have your app produce two more APIs, one for logged in candidates and one for anonymous ones.
-</p>
-
-<p>In your response, you pass back button details, like text, color, link, etc.
-
-<div class='codeBlock'>
-GET /actions/byCandidate/me/jobs/{job}/byName/{action}/byApp
-GET /actions/byCandidate/anonymous/jobs/{job}/byName/{action}/byApp
-
-Response:
-<div class='clientInclude' data-href='../examples/action-applyGate.json'></div>
-</div>
-</p>
-
-<p>If your app does not use SSO, you'll pass back the same results for both APIs. If you do use SSO, you might respond differently to the /me API - for
-example, don't show the button at all if the candidate has already completed your test.
-</p>
-
-<p>In the response above:
-
-<ul>
-<li><b>name</b> corresponds to the actionName from previously.
-<li><b>uri</b> is the link the user will be led to when they click your button. Since <b>behaviour</b> is "redirect", they will be redirected
-rather than seeing your web page in an iframe inside a modal. In this case we just pass the relayPage through - you should additionally generate a signature for it
-or otherwise prevent anyone from altering the relayPage, to prevent <a href='https://www.owasp.org/index.php/Unvalidated_Redirects_and_Forwards_Cheat_Sheet'>open relay attacks</a>. 
-<li><b>textColor</b> and <b>backgroundColor</b> allow you to customise how the button appears, along with <b>label</b> and <b>disabled</b>. 
-</ul>
-</p>
 
 <h2>Verify that the apply button is hidden</h2>
 
-<p>Now return to the qsn8 app and refresh the page for a job. You should now see your button appear, and the apply button disappear (since your app's button is suppressing it).
+<p>After making these changes, open the qs8n app again. Your buton should now be showing, but the apply button that was previous showing should
+be hidden - your app is doing its job.
 </p>
+
 
 <h2>Complete your app's experience</h2>
 
@@ -161,7 +121,7 @@ or otherwise prevent anyone from altering the relayPage, to prevent <a href='htt
 </p>
 
 <p>If your app uses SSO (maybe to save the candidate's data so they can start the quiz on a mobile
-device and complete it on desktop), then this page will be SSO-protected, and the candidate will be asked to log in.
+device and complete it on desktop), then your web page will likely be SSO-protected, and the candidate will be asked to log in.
 </p>
 
 <p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply (has satisfied the gate).
@@ -175,12 +135,6 @@ There are two ways that your app can signal that a candidate has satisfied your 
 <div class='codeBlock'>
 POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
 </div>
-</p>
-
-<h2>Set up candidate SSO!</h2>
-
-<p>TODO - install some candidate idps.
-
 </p>
 
 <h2>Call satisfy indirectly (non-SSO)</h2>
@@ -229,52 +183,21 @@ using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediate
 </p>
 
 
-
 <h1>Choosing whether to use SSO</h1>
 
-<p>One of the first decisions in building tyour app is whether you're going to use SSO.
-</p>
-
-<p>TAS provides an easy way for you to add SSO (single sign on) to your app. If some or all of your app's web pages are SSO protected,
-then candidates must sign in before they can see them. The actual sign in mechanism is dictated by the customer - for example, candidates
-might be able to sign in using Facebook, Google or the corporate SAML IdP. Your app does not need to deal with any of the complexities of
-this. It can just assume that any traffic in to your web pages is from already authenticated candidates, and can grab candidate details
-(first name,)last name, email address) from http request headers.
-</p>
-
-<p>SSO is optional, and you can build an apply gate app without it. But using SSO gives you some advantages:
+<p>One of the first decisions in building tyour app is whether you're going to use SSO. SSO is optional, and you can build an
+apply gate app without it. But using SSO gives you some advantages:
 <ul>
 <li>Without SSO, canny candidates might fail your test, but then just try again straight away. You could prevent this using cookies, but they might
-try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their ID, so you can
+try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their identity, so you can
 tell straight away if this is a new or returning candidate.
-<li>In the future APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
+<li>In the future, APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
 so that a recruiter/hiring manager can view them. Those APIs will require that you have the candidate's identity, which you can only get if your app uses SSO.
 Without this, your app can't attach results (other than a simple "they've passed"). This may or may not be a problem depending on what your app is testing for
 (e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
 </ul>
 
-
-<h1>Changing the buttons your app produces</h2>
-
-<p>Normally the coordinating app (e.g. switchgear) will call the API to learn about your app's buttons at the time your app is installed. That will work
-fine, as long as your app doesn't change its set of buttons after its been installed.
-</p>
-
-<p>However if your app does add new buttons (or remove or change existing ones) after install, then it should alert other interested apps of that by consuming:
-
-<div class='codeBlock'>
-POST /actions/byCandidate/job/possibles/byApp
-
-Response:
-<div class='clientInclude' data-href='../examples/actionProductions-applyGate.json'></div>
-</div>
-</p>
-
-<p>This acts as a hint to switchgear (or any other app that cares) that it should re-scan your possible buttons, since they may have changed.
-</p>
-
-
-<h1>How gates are applied</h1>
+<h1>How gates are applied - logic</h1>
 
 <p>Although you only need to worry about your own button, it can be useful to understand the bigger picture of how switchgear decides which buttons
 the candidate should see.
@@ -299,32 +222,6 @@ In other words, switchgear won't display any apply buttons if there is at least 
 had to get through before they could apply, they would only see each gate after completing the previous one.
 </ol>
 </p>
-
-
-<h1>Setup page</h1>
-
-<p>As long as your button doesn't need any additional information, the drag and drop user interface provided by switchgear is all the customer needs.
-</p>
-
-<p>However if your button requires some per-job or default setup then a setup page can be declared. The tenant will be prompted to complete
-setup when the add the button to a job or as a default for a group of jobs.
-</p>
-
-<p>A setup page is a small HTML page that your app can present to the user right at the point when they drag
-and drop your button into the global or workflow areas or onto a specific job.
-</p>
-
-<p>For example, lets say your app is an employee referral app. Employees can click your button on a job and then use your user interface to refer the job to their friends. They get a cash reward if they are hired.
-</p>
-
-<p>In this example your app might present two separate setup pages:
-<ol>
-<li>when your button is dragged to the global or workflow areas, you capture the minimum, maximum and default cash reward (number fields)
-<li>when your button is dragged or clicked on for a specific job, you capture the actual cash reward for this job
-</ul>  
-</ol>
-</p>
-
 
 <h1>General actions</h1>
 

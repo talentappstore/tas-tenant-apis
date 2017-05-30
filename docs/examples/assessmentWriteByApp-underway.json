@@ -2,6 +2,8 @@
   "status": "In progress",
   "interactionUris": {
     "candidateInteractionUri": "https://myapp.com/cgjde764tghdk",
-    "userInteractionUri": null
+    "userInteractionUri": null,
+    "userAttentionRequired": false
+    
   }
 }

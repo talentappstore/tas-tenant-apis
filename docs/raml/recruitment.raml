@@ -467,7 +467,7 @@ resourceTypes: !include resources.yml
     get:
       description: get date stripe of application activities, e.g. for initial replication
        
-      is: [ applicationObjectFilter ]
+      is: [ applicationObjectFilter, applicationPager ]
       responses:
         200:
           body:

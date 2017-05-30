@@ -260,16 +260,20 @@
         "candidateInteractionUri": {
           "type": ["string", "null"],
           "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the "
+          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
         },
         "userInteractionUri": {
-          "type": ["string", "null"],
+          "type": ["string", "null"], 
           "format": "uri",
-          "description": "when present, a uri that the user (e.g. the recruiter) must follow to complete some part of the "
+          "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
+        },
+        "userAttentionRequired": {
+           "type": "boolean",
+           "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
         }
       },
       "additionalProperties": false,
-      "required": [ "candidateInteractionUri", "userInteractionUri"]
+      "required": [ "candidateInteractionUri", "userInteractionUri", "userAttentionRequired" ]
     },
     "imageWriteUrl": {
       "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment's status or an unstarted assessment type",

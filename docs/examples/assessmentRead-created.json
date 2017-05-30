@@ -10,7 +10,8 @@
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
-    "userInteractionUri": null
+    "userInteractionUri": null,
+    "userAttentionRequired": false
   },
   "raiser": {
     "givenName": "Fred",

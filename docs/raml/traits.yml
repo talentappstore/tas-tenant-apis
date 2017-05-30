@@ -32,6 +32,10 @@
         required: false
         example: 1001
         description: if present, only applications with id > this value will be returned 
+      since:
+        type: date
+        required: false
+        example: A string such as "2015-11-05T13:15:30Z". If present, only applications with their significant date > this value will be returned.
 
 - applicationObjectFilter:
     queryParameters:

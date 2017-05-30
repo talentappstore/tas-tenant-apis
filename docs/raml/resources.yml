@@ -38,11 +38,6 @@
 
         Results are ordered by ascending application id. A maximum of 100 applications will be returned by
         a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.
-      queryParameters:
-        since:
-          type: date
-          required: false
-          example: A string such as "2015-11-05T13:15:30Z"
       responses:
         200:
           body:
@@ -64,11 +59,6 @@
 
         Results are ordered by ascending application id. A maximum of 100 applications will be returned by
         a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.
-      queryParameters:
-        since:
-          type: date
-          required: false
-          example: A string such as "2015-11-05T13:15:30Z"
       responses:
         200:
           body:

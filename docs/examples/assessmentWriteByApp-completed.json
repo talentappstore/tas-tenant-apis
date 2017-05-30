@@ -2,7 +2,8 @@
   "status": "Complete",
   "interactionUris": {
     "candidateInteractionUri": null,
-    "userInteractionUri": null
+    "userInteractionUri": null,
+    "userAttentionRequired": false
   },
   "passedFlag": true,
   "image": "https://www.example.com/image.png"

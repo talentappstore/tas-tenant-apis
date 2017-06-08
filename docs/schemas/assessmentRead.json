@@ -125,7 +125,7 @@
           "type": "string"
         },
         "passedFlag": {
-           "$ref": "#/definitions/passedFlag"
+          "$ref": "#/definitions/passedFlag"
         },
         "score": {
           "title": "Score",
@@ -258,22 +258,32 @@
       "type": "object",
       "properties": {
         "candidateInteractionUri": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uri",
           "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
         },
         "userInteractionUri": {
-          "type": ["string", "null"], 
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "uri",
           "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
         },
         "userAttentionRequired": {
-           "type": "boolean",
-           "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
+          "type": "boolean",
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
         }
       },
       "additionalProperties": false,
-      "required": [ "candidateInteractionUri", "userInteractionUri", "userAttentionRequired" ]
+      "required": [
+        "candidateInteractionUri",
+        "userInteractionUri",
+        "userAttentionRequired"
+      ]
     },
     "imageWriteUrl": {
       "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment's status or an unstarted assessment type",
@@ -286,13 +296,39 @@
       "format": "url"
     },
     "givenName": {
-       "type": "string"
+      "type": "string"
     },
     "familyName": {
-       "type": "string"
+      "type": "string"
     },
     "email": {
-       "type": "string"
+      "type": "string"
+    },
+    "launchDocument": {
+      "type": "string",
+      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type's launch UI"
+    },
+    "raiser": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/email"
+        }
+      },
+      "additionalProperties": false
+    },
+    "raisers": {
+      "description": "a list of every user who raised this assessment (i.e., via a linkage). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/raiser"
+      }
     }
   },
   "type": "object",
@@ -310,11 +346,11 @@
       "$ref": "#/definitions/status"
     },
     "view": {
-       "type": "string",
-       "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
+      "type": "string",
+      "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
     },
-   "passedFlag": {
-       "$ref": "#/definitions/passedFlag"
+    "passedFlag": {
+      "$ref": "#/definitions/passedFlag"
     },
     "interactionUris": {
       "$ref": "#/definitions/interactionUris"
@@ -325,20 +361,11 @@
     "onHoldFlag": {
       "$ref": "#/definitions/onHoldFlag"
     },
-    "raiser": {
-       "type": "object",
-       "properties": {
-           "givenName": {
-              "ref": "#/definitions/givenName"
-           },       
-           "familyName": {
-              "ref": "#/definitions/familyName"
-           },       
-           "email": {
-              "ref": "#/definitions/email"
-           }       
-       },
-       "additionalProperties": false
+    "launchDocument": {
+      "$ref": "#/definitions/launchDocument"
+    },
+    "raisers": {
+      "$ref": "#/definitions/raisers"
     }
   },
   "additionalProperties": false,
@@ -349,6 +376,7 @@
     "status",
     "view",
     "interactionUris",
-    "onHoldFlag"
+    "onHoldFlag",
+    "raisers"
   ]
 }

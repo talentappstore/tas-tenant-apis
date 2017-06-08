@@ -70,7 +70,7 @@
 
 - applicationGetter:
     get:
-      is: [ applicationProjector, applicationPager, applicationObjectFilter ]    
+      is: [ applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
         Get all applications that match the parameters and (if minID is specified) that have id > a given value (allows paging of results).

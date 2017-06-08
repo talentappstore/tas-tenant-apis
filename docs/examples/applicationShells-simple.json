@@ -86,7 +86,7 @@
   {
     "id": 10045666,
     "source": "Seek",
-    "formFactor": "Desktop",
+    "formFactor": "desktop",
     "job": {
       "id": 10334355
     },
@@ -114,7 +114,7 @@
   {
     "id": 10045766,
     "source": "Seek",
-    "formFactor": "Desktop",
+    "formFactor": "desktop",
     "job": {
       "id": 10334356
     },

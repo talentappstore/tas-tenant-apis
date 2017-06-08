@@ -1,0 +1,585 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>assessment apps</title>
+</head>
+<body>
+
+
+<h1>Table of contents</h1>
+
+<div id="toc"></div>
+
+
+<h1>Overview</h1>
+
+
+<p>This document is intended to help developers present their HR SaaS product as an <b>assessment app</b> in Talent App Store.
+</p>
+
+<p>An <b>assessment</b> is some interaction relating to a job application at some point during the recruitment process, for example:
+<ul>
+<li>undertaking a skills assessment
+<li>carrying out reference checks
+<li>cultural/fit analysis
+<li>carrying out medical checks or drug tests
+<li>capturing video interview 
+<li>gamification interaction
+<li>probity check
+<li>HR-XML assessment 
+</ul>
+</p>
+
+<p>To complete an assessment, any of these parties might get involved along the way:
+
+<ul>
+<li>the candidate themselves, e.g. an online questionnaire where your app captures data to calculate cultural fit
+<li>a user, e.g. a recruiter specifying which specific pre-employment checks they want
+<li>you, the developer, e.g. you are a fact checking firm that verifies that the details in a candidate's resume are accurate
+<li>some back end code, e.g. computer program that scours social networks and web sites, scraping the online footprints of the candidate
+</ul>
+
+
+<h1>Billing and financials</h1>
+
+<p>As the vendors of the assessmenthub app, Aotal charges you, the developer, for every
+API call to POST /assessments/byID/{id}/appDetails, with a completed assessment. 
+</p>
+
+<p>The cost per completed assessment is <b>$US1.00</b>. There are no charges for partial/incomplete assessments.
+</p>
+
+<p>Like any app in Talent App Store, your app also pays for core API calls,
+as described at <a href='http://developer.talentappstore.com'>http://developer.talentappstore.com</a>. These costs are low.
+</p>
+
+
+
+<h1>See assessments in action</h1>
+
+<p>Lets look at assessments in action by installing some apps (if you're creating a new tenant, you may need to click the first install link twice):
+
+<p>Install the 
+<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZGV2YXNzZXNzbWVudHNpdGU.DpO-ln-crjMiKwMgP2O3RIgFw0KlSJzCxE5r4r9wFQa6yTYbrCQ9KNNOe44oBqtWISvi-hg9uMaE5KW8yXSdO1B0NtW66LPGfDUpx-k-xYETyrIsFgn_mQDMYpuBfkCRubYvxeaMVqPQniict5aUtWfC6t19oWMaQysAzZXrqVKvrVNcf3VT4-FYJqfyvV6YZowzf_4tEA1z9JUbGZhYTnyJgM7qBr9ik_n8gPx52x4eVYTUdwKqVNedB6jzH-eOGGM3tP2vkm3bESTN163N33bGJPXa9yDw-oDCj5oICa6rUMWJN0yv6AK7W2jshHw7mpSFUim0toJ37u73HXBNaQ'>Tiny ATS</a>
+app.
+</p>
+
+<p>Install the
+<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZGV2YXNzZXNzbWVudGh1Yg.fRMuYZ5IMoe-BThmUs_sJtdzpa6VCkhlarJ_fpQrVmn__V_RPG_C_ykLULa0EzK9b-m-HI-DEqM66WgHgK25SMkD0zzxOQfcrqGNDyGpOaXLNoz7rYEGvA_ygpUNNyAmtPkre04l2MNNhovfqc__BkWQMhVEgDjzFVIkUJZ9ES5Lq4Vx5KAgPtz7Y5U50wb_p9x_LZUHMeP8qXTGnhuCu18VfpCdBCb9F2bbFF5fHzOXiYptnnwTfl3BoUdtNQ6kz05fWDqK0BO7UdekB-qIKHPfoSjZ1mDQ_-R5wdjxAcqFUUWAwRqnDAQBMYE8Dsir4BCVdRZdyml4VlGA62QA2A'>Assessment hub</a>
+app.
+</p>
+
+<p>Open the Tiny ATS app. You're looking at the recruiter's view of a demo ATS page, displaying a list of job applications.
+</p>
+
+<p>Create a single application. Use dummy values for all the id fields, and use your own email address.
+</p>
+
+<p>Now install <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZGV2cGlja2V0.dfhr2af5ms_gJcRSgUR-rtnBVNy14_BvYRSZHgIWQeNesY45NE1J9oNlrHEqffnSmEernYqlPu-PkJS7NUQHMbiqNguzWvs7ZnPpk0hCDD7WaBJxKTOOAIZ7Dp4l4NBUAU6mu6Jx2JxM7hFw9pSKgADVq6wbvpCWqj1vv5CTMRQacvt2mkawlmVW5wP7G0FhuqRYQCwqpRZo9uZsZjGB3UDDnoFTHMZaFfhGWfJxhODCxBEC8YQ2tEJkC0prji9XeD9gau8Wa13RVIDYGOiLTpIJK4-V3cI1Jk2Oo9IGtSB93OK7Jep6i6FVVSq5ky517H__LfY4MQhQ6iBg-HZS1w'>Picket</a>, our sample assessment app. The picket assessment measures a candidate's affinity for
+customer service by asking them to choose from several images representing good service.
+
+</ul>
+</p>
+
+<p>Return to the ATS. Now, against the application, you can see the assessment strip - a row of boxes, one for each assessment type.
+</p>
+
+<p>Click on the picket assessment to start it. Whenever assessments pass control to the candidate, the assessment hub
+sends an email to the candidate (this is optional if your product already sends email to the candidate).
+</p>
+
+<p>Click on the email in your inbox, and complete the assessment. 
+</p>
+
+<p>Back at the ATS, click in and see details for the completed assessment, and link off to detailed result pages. 
+ 
+
+<p>Now install  
+<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZGV2YXNzZXNzbWVudGFwcA.ZFQW9w_DKzSROTTM730tbRWiY6IlwE5SiLnbbYIMIFneQlWzdBIjRdbzQdJayLL77cDNvzmonNoroOfF7yvZFrCO00to62zctRPuPuAVAOjlRBuKWL5lkwL-qYrezNCw84uaMlqp3iGd7ijCZgYnvl8-66ssdgfetGDEW7zCHyndhgsK4KnE1278fC7PFqOiWJeNh-zlpZyHnIJx2iYIRpnsveTwVKI82xAVe6dp5QT6XWs2Uny4GPNzGJqO3Bnr06P-2TrkbsUKjakO8x-pmf08_6ifKS37msyZS5L5xJ855gPkKM8SSiokLa9L9p6SmUX2RZOV5DWLvfOuwfX1Kw'>Assessment App (user)</a>.
+app.
+</p> 
+
+<p>Refresh the page in the ATS and see how the new assessments are available immediately.
+</p>
+
+
+<p>Start the assessment. This particular assessment needs setup from the user before it can start, so once started, an icon appears.
+</p>
+
+<p>Click on the icon and complete the setup. Now the assessment app can proceed.
+</p>
+
+
+
+
+<h1>The roles of each app</h1> 
+
+<p>
+<div class='codeBlock'>
+
++----------------------
+|
+|   +-----+         +----------------+
+|   | ats |<------->| assessment app |-+
+|   +-----+         +----------------+ |-+
+|     /\              +----------------+ |
+|      |                +----------------+
+|      |   API calls       |
+|     \/                  \/
+|    +------------------------+
+|    |    assessment hub      |
+|    +------------------------+
+|
++--- (tenant) ---------
+           
+</div>
+</p>
+
+<p><b>Your assessment app</b>. Your app does the hard word of actually conducting the assessment. For example a basic
+numeracy testing assessment might guide the candidate through a series of web pages, each one asking them an
+arithmetic question, and then at the end calculate an overall score for them.
+</p>
+
+<p>The <b>assessment hub</b> app. The hub provides centralized assessment
+management and is separate from any single assessment app. The assessment hub app:
+<ul>
+<li>stores the tenant's installed assessment apps - for example, the "Microsoft Office proficiency assessment app"
+<li>stores a tenant-specific list of assessment types within each assessment
+app - for example "MS Word proficiency - entry level", "MS Excel proficiency - guru"
+<li>provides, via API, strips that the ATS can embed in applicant lists to start/view assessments
+ <li>informs, via API, your assessment app when a new assessment is started
+<li>skips assessment creation when an existing assessment for the candidate is available (reduces per-assessment
+costs and candidate inconvenience)
+<li>provides APIs for your assessment app to fetch and update the state of the assessment object
+<li>stores summary current state of all assessments - status, pass/fail and the status image
+<li>securely mediates assessment app access to specific fields of the candidate/application, and prevents assessment apps
+from probing candidates they are not authorized to access
+<li>provides a UI for the tenant to map assessment types to specific workflows (e.g., that the "sales skills 101"
+assessment type is only available for call center jobs), and to mark assessment types as being auto-started for new job applications
+</ul>
+</p>
+
+<p>The applicant tracking system (ATS) app. The ATS:
+
+<ul>
+<li>holds job applications and displays them as normal
+<li>for each application, fetches assessment strip from assessment hub via API and displays
+<li>Via the assessment strip, the user can start and view assessments directly within the ATS pages.
+</ul>
+</p>
+
+
+
+<h1>API flow to/from your app</h1>
+
+
+<div class='seqDiag' id="seq0">
+
+note right of app: a tenant installs your app
+core->app: POST /tenants
+note right of app: tenant opens your app
+storefront->app: GET /appStatus
+note right of app: hub displays your assessment types
+hub->app: GET /assessmentTypes/forApp
+note right of app: customer starts your assessment
+hub->app: POST /assessments/byApplication/{application}/tenantDeltaPings
+app->hub: GET /assessments/byID/{id}
+app->ats: GET /applications/byID/{application}/viewInstances/byKey/{key}
+app->hub: PATCH /assessments/byApplication/{application}/appDetails
+app->ats: GET /candidates/me/homePage
+
+</div>
+
+
+<h1>Writing your app</h1>
+
+<h2>Resources</h2>
+
+<ul>
+<li><a href='http://developer.talentappstore.com'>Developer documentation</a>, for general information on building TAS apps.
+<li><a href='http://talentappstore.github.io/tas-tenant-apis'>TAS tenant API documentation</a>, for detailed technical information on the
+TAS tenant APIs, including the assessment-related APIs.  
+<li><a href='http://talentappstore.github.io/tas-core-apis'>TAS core documentation</a>, for detailed technical information on the
+TAS core APIs. You probably won't need to spend too much time interacting with the core APIs.  
+</ul>
+
+
+<h2>Handling installs</h2>
+
+ 
+<p>Whenever a tenant clicks "install" on your app, your app is notified via an incoming core API call to
+your <a href='http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post'>POST /tenants</a> endpoint.
+</p>
+
+<p>You should take this opportunity to do any per-customer setup, e.g. inserting into a customers
+table, creating a record in your customer management system, sending a welcome email, etc.
+</p>
+
+<p>In the example below, TAS is informing your app that the tenant acme-sandbox-1 has just installed it.
+</p>
+
+<div class='codeBlock'>
+{
+ "shortCode": "acme-sandbox-1",
+ "name": "Acme sandbox testing site",
+ "contactEmail": "fred@gmail.com",
+ "type": "SANDBOX",
+ "logoUrl": "https://s3-aws.com/786745987969"  
+} 
+</div>
+</p>
+
+<p>TAS supports a try before you buy model where customers you currently don't know can click to install your app and start using it. If your
+app can provide on demand demo accounts, that will make it a much smoother path for all potential customers to try your product.
+</p>
+
+
+<h2>Pointing to your landing page</h2>
+
+<p>Whenever the tenant clicks "open" on your app, they go to your landing page.
+</p>
+
+<p>The storefront gets this by consuming <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a>
+on your app.
+</p>
+
+<p>On your landing page you might display some kind of dashboard, app settings,
+etc. You may choose to protect your landing page with SSO. If so, you can also check for the appropriate role (using admin is most restrictive).
+</p>
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/landingPage-simple.json'></div>
+</div>
+</p>
+
+
+<h2>Describing your app's assessment types</h2>
+
+<p>The hub consumes 
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessmentTypes_forApp_get'>GET /assessmentTypes/forApp</a>
+on your app to ask for your assessment types.
+</p>
+
+<p>Your app should declare at least one assessment type. If you are able to create a meaningful default experience it makes it easier for customers to try before they buy.
+</p>
+
+<p>In this example, your app is declaring that it supports a single assessment type, "MS Word proficiency".
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentTypesForApp-simple.json'></div>
+</div>
+
+<p>Based on these settings, a candidate will only need to complete this assessment once, no matter how many different
+jobs they apply for over the next year. Also, the candidate's results are not visible to the candidate themselves.
+</p>
+
+<p>Apps can use different strategies for their assessment types:
+<ol>
+<li>highly customised assessment types, e.g. each tenant has their own unique set of assessment types, tailored to
+their needs (e.g., "Acme 2018 finance graduate assessment").
+<li>a single, universal assessment type that is the same for all tenants installing the app (e.g. "MS Word proficiency").
+<li>some combination of the above.
+</ol>
+</p>
+
+
+<h2>Listening for incoming assessment requests</h2>
+
+<p>At some point, an assessment for one of your assessment types will actually be started, e.g. when a recruiter selects it from a drop-down menu.
+</p>
+
+<p>That results in an assessment being created in the assessment hub
+(which coordinates assessments across all assessment apps).
+</p>
+
+<p>The assessment hub then notifies your app by consuming your 
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byApplication__application__tenantDeltaPings_post'>POST /assessments/byApplication/{application}/tenantDeltaPings</a>
+endpoint. Your endpoint receives a message like this:
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/deltaPing-simple.json'></div>
+</div>
+</p>
+
+<p>Your app now has control over the lifecycle of the assessment (other than the customer putting it on hold or cancelling it).
+You might do your own system's housekeeping for the new assessment, e.g. creating rows in your own tables, sending messages, etc.
+</p>
+
+
+<h3>Cleaning up PII, dealing with on hold</h3>
+
+<p>Your app may also be informed via <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byApplication__application__tenantDeltaPings_post'>POST /assessments/byApplication/{application}/tenantDeltaPings</a>
+ that an assessment has been deleted (e.g. in response to a privacy response, or to conform to data retention laws).
+</p>
+
+<p>In response, your app should clean up data held its own database relating to the assessment. 
+</p>
+
+<p>Your app may also be informed via this API that an assessment has been updated (e.g. in response to the tenant putting it on hold), in which case your
+app should stop whatever it is doing with the candidate.
+</p>
+
+
+<h2>Getting base assessment details</h2>
+
+<p>Once your app learns that the customer has started an assessment, typically, you'll fetch the details of the assessment by consuming
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__get'>GET /assessments/byID/{id}</a>.
+</p>
+
+
+<h2>Getting the view</h2>
+
+<p>Some assessment apps may need more details about the candidate, such as their CV, address, name, etc., or perhaps secure information such as salary.
+</p>
+
+<p>Your app can get these details from a view. The assessment details you fetched previously included a view key. Pass that in to your call to  
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#applications_byID__application__viewInstances_byKey__key__get'>GET /applications/byID/{application}/viewInstances/byKey/{key}</a>
+
+<p>A view is a json formatted package containing all the data that the customer feels that your assessment app should see. If you need data added to the view,
+you can contact the customer.
+</p>  
+
+<p>The view includes candidate name, address, answers to screening questions, linked data (e.g. resume/CV, cover letter, attached document(s)),
+as well as data items pulled through from the job.
+</p>
+			
+<p>The tenant can attach a different view to each assessment type, exposing just
+enough information for the assessment app to do its work.
+</p>
+
+
+<h2>Updating the assessment</h2>
+
+<p>Having been alerted to a new assessment, and having fetched all details for the assessment, your product can do its thing for the assessment.
+</p>
+
+<p>At each stage of processing, your app should push the assessment's state up into the assessment hub by consuming 
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byApplication__application__appDetails_patch'>PATCH /assessments/byApplication/{application}/appDetails</a>.
+
+<p>The assessment's state includes:
+<ul>
+<li>Status
+<li>Status image
+<li>Interaction Urls
+<li>Pass/fail flag (if applicable)
+</ul>
+
+
+
+<h3>The status image
+</h3>
+
+<p>A key part of building an assessment app is having a great status image.
+</p> 
+
+<p>The status image is important because it lets the user understand the results from your assessment at a glance, without needing to drill
+in (unless they choose to). This is important in the information-dense screens in the ATS, which show many applicants and many assessments on a single page.
+</p>
+
+<p>Users will appreciate an image which is a great visual representation of your assessment:
+
+A video interviewing app could render a video thumbnail.
+A psych assessment could render text with a percentage score, over a solid background in their corporate theme.
+A multi-stage probity test could render a series of checkboxes, with more boxes ticked as the assessment proceeds
+A culture fit test might show a colored graded heat gauge, with the needle pointing to the candidate's score
+A document check app could show a stamp signifying complete       
+
+<p>Status image is an alternate approach to the configuration-heavy traditional data integration used for assessments, 
+where assessment results are sent to the ATS for storage.
+</p>
+ 
+<p>While data integration is possible with TAS, its often not required. By producing a good status image, users can still meaningfully interact with your
+assessment from within the ATS pages without any data integration.
+</p>
+
+<h3>Interaction Urls</h3>
+
+<p>An assessment is a football that can be kicked back and forth between a number of parties before it is completed, all under the control of your app:
+<ol>
+<li>the candidate themselves, e.g. an online questionnaire where the
+candidate provides some data that can be used to calculate
+their cultural fit with the company they are apply for.
+<li>you, the developer - e.g. you are a fact checking firm that verifies that the details in a candidate's resume are accurate.
+<li>a user inside the tenant, e.g. a recruiter providing some details of specific tests they want to order
+<li>no-one, e.g. a fully automated computer program that scours social networks and web sites, scraping the online footprints of the candidate.
+</ol> 
+</p>
+
+<p>Your app controls this kicking around via setting the interactionUrls.
+</p>
+
+<p>There are two interaction URLs - candidate and user. If your app sets candidateInteractionUrl to have a value, and userInteractionUrl not,
+then your app is saying that this assessment is waiting on input from just the candidate - the football has been kicked to the candidate.
+</p>
+
+<p>The assessment hub alerts each of the parties when the football has been kicked to them:
+<ul>
+<li>if candidateInteractionUrl is set, an email is sent to the candidate with the link in it (optional if your app already does this).
+<li>if userInteractionUrl is set, your app's web page is rendered within a popup over the assessment strip, within the ATS pages. Your app
+could request information from the user or present the assessment's results, e.g. attached documents.
+</ul>
+
+<h2>Leading the candidate to your site</h2>
+
+<p>For this example, let's assume that your app does its thing by having the candidate complete an online
+assessment. Below, it updates the assessment's status to indicate its underway, and sets the candidate interaction link. 
+
+<div class='codeBlock'>
+POST /assessments/byID/{}/appDetails
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentWriteByApp-underway.json'></div>
+</div>
+</p>
+
+<p>At some stage the candidate will
+follow this link and arrive at your online assessment.
+</p>
+
+<p>You can optionally protect your web pages with TAS SSO, using principal type of candidate. This protects against the
+link falling into the hands of someone other than the candidate, and means the candidate enjoys a seamless
+experience as they navigate into your app. 
+</p>
+
+<p>If you do use SSO, you should probably perform a sanity check that the candidate who logs in matches the one the assessment is for.  
+</p> 
+</b>
+
+
+<h2>Marking the assessment as complete</h2>
+   
+<p>Once the candidate has completed the online process hosted at your app, your app
+pushes the results, with the updated status.
+</p>
+<p>In this example, the assessment is now complete. It could also have been that the app
+was just posting interim results.
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentWriteByApp-completed.json'></div>
+</div>
+</p>
+
+
+<h2>Reorienting the candidate</h2>
+
+http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#candidates_me_homePage_get
+
+<p>Finally, after your app has done its thing and completed the assessment, it should redirect the candidate's browser to the candidate "home page",
+served by some other app. Their home page might direct them to the next assessment they need to complete, or
+otherwise keep them updated.
+
+<div class='codeBlock'>
+GET /candidates/me/homePage
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/homePage-simple.json'></div>
+</div>
+</p>
+
+
+<h1>Advanced</h1>
+
+<h2>Updating the list of assessment types</h2>
+
+<p>From time to time, your app may introduce new assessment types (perhaps the tenant asks you for
+a new custom assessment type, and you have just delivered it).
+</p>
+
+<p>When this happens, you need to consume
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_post'>POST /assessmentTypes/forApp/deltaPings</a>
+on every app that produces it (which will include at least the assessment hub app).
+</p>
+
+<div class='codeBlock'>
+// get a list of apps that produce the API (i.e. that want be notified about new assessment types)
+GET http://myapp.tazzy.io/core/routes/acme/jobboard/tas/%2fassessmentTypes%2fdeltaPings/false
+
+Response:
+{
+    "producingAppInstalls": [
+        {
+            "appDeveloper": "tas",
+            "app": "assessmenthub",
+            ...
+        },
+        {
+            "appDeveloper": "anydev",
+            "app": "nosyapp",
+            ...
+        }
+    ]
+}
+
+// now notify each app
+POST http://myapp.tazzy.io/apps/assessmenthub/devs/tas/assessmentTypes/deltaPings
+</div>
+</p>
+
+<p>In the future the tazzy proxy will make this easier for you.
+</p>
+
+
+<h2>Recognising on hold</h2>
+
+<p>At any time prior to an assessment being completed, the tenant can place it on hold. Upon this, your assessment app should
+pause any work underway if it can, and wait until the tenant either removes the on hold marking or cancels the assessment altogether.
+</p>
+
+<p>Your app learns about assessments being placed on hold by producing /assessments/byID/{}/tenantDeltaPings (same as for
+learning about new assessments).
+</p> 
+
+
+<h1>Beware unverified tenants</h1>
+
+<p>There is no tenant vetting process in Talent App Store, and anyone can set up a tenant, and install
+publicly listed apps (or any app they have a link for), without any type of approval. Your new
+tenant could be a genuine potential customer, a wandering visitor, or a competitor looking at your product.
+</p>
+
+<p>Your app should plan for malicious tenants (e.g. spammers, malware distributors, dodgy hosting sites).
+We recommend that you set up a limited demo or read-only account for every new tenant. This way you can let
+potential customers try out your product, but without incurring any significant risks or costs.
+</p>
+
+<p><b>Security:</b> If your app has any capacity to send messages (e.g. outgoing emails or SMS messages),
+it is important that you <b>do not enable this</b> for demo accounts (except to the tenant contact email),
+or your app may become a target for spammers and other bad actors. Likewise, if your app allows tenants to host
+content (web pages, images, videos etc.) then you should limit or disable this functionality for demo accounts
+to avoid your app being used to host objectionable, illegal, bandwidth-intensive or copyrighted material.
+</p>
+
+
+			
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

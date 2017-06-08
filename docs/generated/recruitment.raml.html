@@ -1204,7 +1204,7 @@
     "availableToExternals": false,
     "mayRequireSetupFlag": true
   }
-]</code></pre></div><div class="tab-pane" id="actions_byCandidate_search_possibles_byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search_possibles_byApp_deltaPings"><span class="parent">/actions/byCandidate/search/possibles/byApp</span>/deltaPings</a> <span class="methods"><a href="#actions_byCandidate_search_possibles_byApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_search_possibles_byApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_search_possibles_byApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alert any app that cares that the set of actions produced by this app has changed. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_search_possibles_byApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/search/possibles/byApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alert any app that cares that the set of actions produced by this app has changed. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_search_possibles_byApp_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_search_possibles_byApp_deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applications" class="panel-title">/applications</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications"><span class="parent"></span>/applications</a> <span class="methods"><a href="#applications_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all applications that match the parameters and (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/applications</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all applications that match the parameters and (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_get_response" data-toggle="tab">Response</a></li><li><a href="#applications_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_get_request"><h3>Query Parameters</h3><ul><li><strong>job</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular job</p><p><strong>Example</strong>:</p><pre><code>10033433</code></pre></li><li><strong>candidate</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular candidate</p><p><strong>Example</strong>:</p><pre><code>1002443</code></pre></li><li><strong>minID</strong>: <em>(number)</em><p>if present, only applications with id &gt; this value will be returned</p><p><strong>Example</strong>:</p><pre><code>1001</code></pre></li><li><strong>since</strong>: <em>(date)</em><p><strong>Example</strong>:</p><pre><code>A string such as "2015-11-05T13:15:30Z". If present, only applications with their significant date &gt; this value will be returned.</code></pre></li><li><strong>includeAppDetails</strong>: <em>(boolean)</em><p>when true, causes application fields to be included in the response - if false (the default), application ID only will be included</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeJobDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s job to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeJobManagerDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s job&#39;s manager to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>includeCandidateDetails</strong>: <em>(boolean)</em><p>when true, causes the application&#39;s candidate to be included in the response. Default is false.</p><p><strong>Example</strong>:</p><pre><code>true</code></pre></li><li><strong>bucket</strong>: <em>(integer)</em><p>when present, filters to only include applications in this bucket</p><p><strong>Example</strong>:</p><pre><code>1003</code></pre></li></ul></div><div class="tab-pane" id="applications_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]</code></pre></div><div class="tab-pane" id="actions_byCandidate_search_possibles_byApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_search_possibles_byApp_deltaPings"><span class="parent">/actions/byCandidate/search/possibles/byApp</span>/deltaPings</a> <span class="methods"><a href="#actions_byCandidate_search_possibles_byApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_search_possibles_byApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_search_possibles_byApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alert any app that cares that the set of actions produced by this app has changed. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_search_possibles_byApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/search/possibles/byApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alert any app that cares that the set of actions produced by this app has changed. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#actions_byCandidate_search_possibles_byApp_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane" id="actions_byCandidate_search_possibles_byApp_deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="applications" class="panel-title">/applications</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications"><span class="parent"></span>/applications</a> <span class="methods"><a href="#applications_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get all applications that match the parameters and (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/applications</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get all applications that match the parameters and (if minID is specified) that have id &gt; a given value (allows paging of results). Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_get_request" data-toggle="tab">Request</a></li><li><a href="#applications_get_response" data-toggle="tab">Response</a></li><li><a href="#applications_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_get_request"><h3>Query Parameters</h3><ul><li><strong>job</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular job</p><p><strong>Example</strong>:</p><pre><code>10033433</code></pre></li><li><strong>candidate</strong>: <em>(integer)</em><p>when specified, limits to just applications for this particular candidate</p><p><strong>Example</strong>:</p><pre><code>1002443</code></pre></li><li><strong>minID</strong>: <em>(number)</em><p>if present, only applications with id &gt; this value will be returned</p><p><strong>Example</strong>:</p><pre><code>1001</code></pre></li><li><strong>since</strong>: <em>(date)</em><p><strong>Example</strong>:</p><pre><code>A string such as "2015-11-05T13:15:30Z". If present, only applications with their significant date &gt; this value will be returned.</code></pre></li><li><strong>bucket</strong>: <em>(integer)</em><p>when present, filters to only include applications in this bucket</p><p><strong>Example</strong>:</p><pre><code>1003</code></pre></li></ul></div><div class="tab-pane" id="applications_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
 	"items":{ "$ref":"applicationView.json" }
@@ -2671,8 +2671,65 @@
       }
     ],
     "dateLastUpdated": "2017-05-29T01:34:30+00:00"
+  },
+  {
+    "id": 10045666,
+    "source": "Seek",
+    "formFactor": "desktop",
+    "job": {
+      "id": 10334355
+    },
+    "candidate": {
+      "id": 9877,
+      "givenName": "Peter",
+      "familyName": "Parker"
+    },
+    "bucketMovements": [
+      {
+        "key": "incoming",
+        "landed": "2017-05-29T01:34:30+00:00"
+      },
+      {
+        "key": "prescreen",
+        "landed": "2017-05-29T01:34:30+00:00"
+      },
+      {
+        "key": "interview",
+        "landed": "2017-05-29T01:34:30+00:00"
+      }
+    ],
+    "dateLastUpdated": "2017-05-29T01:34:30+00:00"
+  },
+  {
+    "id": 10045766,
+    "source": "Seek",
+    "formFactor": "desktop",
+    "job": {
+      "id": 10334356
+    },
+    "candidate": {
+      "id": 9009,
+      "givenName": "Wally",
+      "familyName": "West"
+    },
+    "bucketMovements": [
+      {
+        "key": "incoming",
+        "landed": "2017-07-22T01:34:30+00:00"
+      },
+      {
+        "key": "prescreen",
+        "landed": "2017-05-23T01:34:30+00:00"
+      },
+      {
+        "key": "interview",
+        "landed": "2017-07-29T01:34:30+00:00"
+      }
+    ],
+    "dateLastUpdated": "2017-07-22T01:34:30+00:00"
   }
-]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_shells_deltaPings"><span class="parent">/applications/shells</span>/deltaPings</a> <span class="methods"><a href="#applications_shells_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_shells_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_shells_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_shells_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/shells</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_shells_deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_shells_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_shells_deltaPings_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_shells_deltaPings"><span class="parent">/applications/shells</span>/deltaPings</a> <span class="methods"><a href="#applications_shells_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_shells_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_shells_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_shells_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/shells</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>description: inform listeners of new application activity, with all details available in the request body</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#applications_shells_deltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#applications_shells_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_shells_deltaPings_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
     "givenName": {
@@ -2841,7 +2898,1033 @@
   "settingsPage": "https://acme.myapp.com/stup",
   "setupRequired": true
 }
-</code></pre></div><div class="tab-pane" id="appStatus_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="buckets" class="panel-title">/buckets</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_buckets"><span class="parent"></span>/buckets</a> <span class="methods"><a href="#buckets_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_buckets" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#buckets_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="buckets_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/buckets</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#buckets_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="buckets_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre></div><div class="tab-pane" id="appStatus_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessments" class="panel-title">/assessments</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_strips_headHtml"><span class="parent">/assessments/strips</span>/headHtml</a> <span class="methods"><a href="#assessments_strips_headHtml_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_strips_headHtml" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_strips_headHtml_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.</p><p>The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_strips_headHtml_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/strips</span>/headHtml</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.</p><p>The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_strips_headHtml_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_strips_headHtml_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>some html pulling in stylesheet, javascript etc.</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_strips_forApplications_asHtml"><span class="parent">/assessments/strips/forApplications</span>/asHtml</a> <span class="methods"><a href="#assessments_strips_forApplications_asHtml_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessments_strips_forApplications_asHtml" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_strips_forApplications_asHtml_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.</p><p>SoT.</p><p>The app building the page that embeds this strip must in its head section pull in style sheet, javascript, etc. as obtained via a call to GET /assessments/strips/headHtml.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_strips_forApplications_asHtml_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessments/strips/forApplications</span>/asHtml</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.</p><p>SoT.</p><p>The app building the page that embeds this strip must in its head section pull in style sheet, javascript, etc. as obtained via a call to GET /assessments/strips/headHtml.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_strips_forApplications_asHtml_get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_strips_forApplications_asHtml_get_response" data-toggle="tab">Response</a></li><li><a href="#assessments_strips_forApplications_asHtml_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_strips_forApplications_asHtml_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>applications</strong>: <em>required (integer)</em><p>A set of application IDs (up to a max of 100) that the strips should be fetched for.</p></li></ul></div><div class="tab-pane" id="assessments_strips_forApplications_asHtml_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "assessmentStrip.json"
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "application": 1,
+    "strip": "&lt;div&gt;blah 0&lt;/div&gt;"
+  },
+  {
+    "application": 22,
+    "strip": "&lt;div&gt;blah&lt;/div&gt;"
+  }
+]</code></pre></div><div class="tab-pane" id="assessments_strips_forApplications_asHtml_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byID__id_"><span class="parent">/assessments/byID</span>/{id}</a> <span class="methods"><a href="#assessments_byID__id__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_byID__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byID__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byID__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/byID</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byID__id__get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byID__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byID__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byID__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "accessPoint": {
+      "type": "object",
+      "description": "Link to an external result.",
+      "properties": {
+        "uri": {
+          "title": "URI",
+          "type": "string",
+          "format": "uri"
+        },
+        "typeCode": {
+          "type": "string",
+          "title": "Type",
+          "enum": [
+            "Individual",
+            "Group"
+          ]
+        }
+      }
+    },
+    "scoreNumeric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "ScoreNumeric"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Percentile",
+            "Raw Score",
+            "Stanine",
+            "Sten",
+            "T-score",
+            "Z-score",
+            "Intelligence Quotient",
+            "Scaled",
+            "Normal Curve",
+            "GPA"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      }
+    },
+    "scoreText": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Scoretext"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Grade Letter"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      }
+    },
+    "score": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Numeric Score",
+            "$ref": "#/definitions/scoreNumeric"
+          },
+          {
+            "title": "Text Score",
+            "$ref": "#/definitions/scoreText"
+          }
+        ]
+      }
+    },
+    "assessedCompetency": {
+      "title": "Assessed Competency",
+      "type": "object",
+      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
+      "properties": {
+        "id": {
+          "title": "Name",
+          "type": "integer"
+        },
+        "proficiencyLevel": {
+          "title": "Proficiency Level",
+          "$ref": "#/definitions/score"
+        }
+      }
+    },
+    "passedFlag": {
+      "title": "Pass?",
+      "type": "boolean"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Result Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "passedFlag": {
+          "$ref": "#/definitions/passedFlag"
+        },
+        "score": {
+          "title": "Score",
+          "$ref": "#/definitions/score"
+        },
+        "comment": {
+          "title": "Comment",
+          "type": "string"
+        },
+        "bandID": {
+          "title": "Band",
+          "type": "string"
+        },
+        "assessedCompetency": {
+          "title": "Assessed Competency",
+          "$ref": "#/definitions/assessedCompetency"
+        }
+      }
+    },
+    "attachmentType": {
+      "title": "Name",
+      "type": "string",
+      "description": "Only one document with this name can be attached to an assessment result."
+    },
+    "attachmentWrite": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileUpload": {
+          "$ref": "fileUpload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileUpload"
+      ]
+    },
+    "attachmentRead": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileDownload": {
+          "$ref": "fileDownload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileDownload"
+      ]
+    },
+    "assessmentDetailWrite": {
+      "properties": {
+        "assessmentOverallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "assessmentDetailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentWrite"
+          }
+        }
+      }
+    },
+    "assessmentDetailRead": {
+      "properties": {
+        "overallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "detailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentRead"
+          }
+        }
+      }
+    },
+    "status": {
+      "description": "The current disposition of an assessment",
+      "enum": [
+        "New",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Expired",
+        "Released",
+        "Error"
+      ]
+    },
+    "onHoldFlag": {
+      "type": "boolean",
+      "description": "whether the tenant has placed the assessment on hold"
+    },
+    "interactionUris": {
+      "type": "object",
+      "properties": {
+        "candidateInteractionUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
+        },
+        "userInteractionUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
+        },
+        "userAttentionRequired": {
+          "type": "boolean",
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "candidateInteractionUri",
+        "userInteractionUri",
+        "userAttentionRequired"
+      ]
+    },
+    "imageWriteUrl": {
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    },
+    "imageReadUrl": {
+      "description": "url of an image cached by the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    },
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "launchDocument": {
+      "type": "string",
+      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type&#39;s launch UI"
+    },
+    "raiser": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/email"
+        }
+      },
+      "additionalProperties": false
+    },
+    "raisers": {
+      "description": "a list of every user who raised this assessment (i.e., via a linkage). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/raiser"
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "assessmentMeta.json"
+    },
+    "assessmentType": {
+      "type": "integer"
+    },
+    "assessmentTypeKey": {
+      "$ref": "assessmentTypesForApp.json#/definitions/key"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "view": {
+      "type": "string",
+      "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
+    },
+    "passedFlag": {
+      "$ref": "#/definitions/passedFlag"
+    },
+    "interactionUris": {
+      "$ref": "#/definitions/interactionUris"
+    },
+    "image": {
+      "$ref": "#/definitions/imageReadUrl"
+    },
+    "onHoldFlag": {
+      "$ref": "#/definitions/onHoldFlag"
+    },
+    "launchDocument": {
+      "$ref": "#/definitions/launchDocument"
+    },
+    "raisers": {
+      "$ref": "#/definitions/raisers"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "assessmentType",
+    "assessmentTypeKey",
+    "status",
+    "view",
+    "interactionUris",
+    "onHoldFlag",
+    "raisers"
+  ]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "meta": {
+    "id": 100,
+    "created": "2015-11-05T13:15:30Z"
+  },
+  "assessmentType": 10022,
+  "assessmentTypeKey": "mswordprof",
+  "status": "New",
+  "onHoldFlag": false,
+  "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
+  "interactionUris": {
+    "candidateInteractionUri": null,
+    "userInteractionUri": null,
+    "userAttentionRequired": false
+  },
+  "launchDocument": "%7B%20%22message%22%3A%20%22hello%20world%22%20%7D",
+  "raisers": [
+	  {
+	    "givenName": "Fred",
+	    "familyName": "Bloggs",
+	    "email": "fred@gmail.com"
+	  }
+  ]  
+}
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__byassessmentType__assessmentType_"><span class="parent">/assessments/byApplication/{application}/byassessmentType</span>/{assessmentType}</a> <span class="methods"><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_byApplication__application__byassessmentType__assessmentType_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__byassessmentType__assessmentType__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__byassessmentType__assessmentType__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/byApplication/{application}/byassessmentType</span>/{assessmentType}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__byassessmentType__assessmentType__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>assessmentType</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byApplication__application__byassessmentType__assessmentType__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "accessPoint": {
+      "type": "object",
+      "description": "Link to an external result.",
+      "properties": {
+        "uri": {
+          "title": "URI",
+          "type": "string",
+          "format": "uri"
+        },
+        "typeCode": {
+          "type": "string",
+          "title": "Type",
+          "enum": [
+            "Individual",
+            "Group"
+          ]
+        }
+      }
+    },
+    "scoreNumeric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "ScoreNumeric"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Percentile",
+            "Raw Score",
+            "Stanine",
+            "Sten",
+            "T-score",
+            "Z-score",
+            "Intelligence Quotient",
+            "Scaled",
+            "Normal Curve",
+            "GPA"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      }
+    },
+    "scoreText": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Scoretext"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Grade Letter"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      }
+    },
+    "score": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Numeric Score",
+            "$ref": "#/definitions/scoreNumeric"
+          },
+          {
+            "title": "Text Score",
+            "$ref": "#/definitions/scoreText"
+          }
+        ]
+      }
+    },
+    "assessedCompetency": {
+      "title": "Assessed Competency",
+      "type": "object",
+      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
+      "properties": {
+        "id": {
+          "title": "Name",
+          "type": "integer"
+        },
+        "proficiencyLevel": {
+          "title": "Proficiency Level",
+          "$ref": "#/definitions/score"
+        }
+      }
+    },
+    "passedFlag": {
+      "title": "Pass?",
+      "type": "boolean"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Result Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "passedFlag": {
+          "$ref": "#/definitions/passedFlag"
+        },
+        "score": {
+          "title": "Score",
+          "$ref": "#/definitions/score"
+        },
+        "comment": {
+          "title": "Comment",
+          "type": "string"
+        },
+        "bandID": {
+          "title": "Band",
+          "type": "string"
+        },
+        "assessedCompetency": {
+          "title": "Assessed Competency",
+          "$ref": "#/definitions/assessedCompetency"
+        }
+      }
+    },
+    "attachmentType": {
+      "title": "Name",
+      "type": "string",
+      "description": "Only one document with this name can be attached to an assessment result."
+    },
+    "attachmentWrite": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileUpload": {
+          "$ref": "fileUpload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileUpload"
+      ]
+    },
+    "attachmentRead": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileDownload": {
+          "$ref": "fileDownload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileDownload"
+      ]
+    },
+    "assessmentDetailWrite": {
+      "properties": {
+        "assessmentOverallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "assessmentDetailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentWrite"
+          }
+        }
+      }
+    },
+    "assessmentDetailRead": {
+      "properties": {
+        "overallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "detailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentRead"
+          }
+        }
+      }
+    },
+    "status": {
+      "description": "The current disposition of an assessment",
+      "enum": [
+        "New",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Expired",
+        "Released",
+        "Error"
+      ]
+    },
+    "onHoldFlag": {
+      "type": "boolean",
+      "description": "whether the tenant has placed the assessment on hold"
+    },
+    "interactionUris": {
+      "type": "object",
+      "properties": {
+        "candidateInteractionUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
+        },
+        "userInteractionUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
+        },
+        "userAttentionRequired": {
+          "type": "boolean",
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "candidateInteractionUri",
+        "userInteractionUri",
+        "userAttentionRequired"
+      ]
+    },
+    "imageWriteUrl": {
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    },
+    "imageReadUrl": {
+      "description": "url of an image cached by the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    },
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "launchDocument": {
+      "type": "string",
+      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type&#39;s launch UI"
+    },
+    "raiser": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/email"
+        }
+      },
+      "additionalProperties": false
+    },
+    "raisers": {
+      "description": "a list of every user who raised this assessment (i.e., via a linkage). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/raiser"
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "assessmentMeta.json"
+    },
+    "assessmentType": {
+      "type": "integer"
+    },
+    "assessmentTypeKey": {
+      "$ref": "assessmentTypesForApp.json#/definitions/key"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "view": {
+      "type": "string",
+      "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
+    },
+    "passedFlag": {
+      "$ref": "#/definitions/passedFlag"
+    },
+    "interactionUris": {
+      "$ref": "#/definitions/interactionUris"
+    },
+    "image": {
+      "$ref": "#/definitions/imageReadUrl"
+    },
+    "onHoldFlag": {
+      "$ref": "#/definitions/onHoldFlag"
+    },
+    "launchDocument": {
+      "$ref": "#/definitions/launchDocument"
+    },
+    "raisers": {
+      "$ref": "#/definitions/raisers"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "assessmentType",
+    "assessmentTypeKey",
+    "status",
+    "view",
+    "interactionUris",
+    "onHoldFlag",
+    "raisers"
+  ]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "meta": {
+    "id": 100,
+    "created": "2015-11-05T13:15:30Z"
+  },
+  "assessmentType": 10022,
+  "assessmentTypeKey": "mswordprof",
+  "status": "New",
+  "onHoldFlag": false,
+  "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
+  "interactionUris": {
+    "candidateInteractionUri": null,
+    "userInteractionUri": null,
+    "userAttentionRequired": false
+  },
+  "launchDocument": "%7B%20%22message%22%3A%20%22hello%20world%22%20%7D",
+  "raisers": [
+	  {
+	    "givenName": "Fred",
+	    "familyName": "Bloggs",
+	    "email": "fred@gmail.com"
+	  }
+  ]  
+}
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__appDetails"><span class="parent">/assessments/byApplication/{application}</span>/appDetails</a> <span class="methods"><a href="#assessments_byApplication__application__appDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_assessments_byApplication__application__appDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__appDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the assessment app to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an assessment, but cannot alter the on hold flag.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__appDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/assessments/byApplication/{application}</span>/appDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the assessment app to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an assessment, but cannot alter the on hold flag.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__appDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__appDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__appDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "package of data for an assessment app to update an assessment",
+  "properties": {
+    "status": {
+      "$ref": "assessmentRead.json#/definitions/status"
+    },
+    "passedFlag": {
+       "$ref": "assessmentRead.json#/definitions/passedFlag"
+    },
+    "interactionUris": {
+      "$ref": "assessmentRead.json#/definitions/interactionUris"
+    },
+    "image": {
+      "$ref": "assessmentRead.json#/definitions/imageWriteUrl"
+    }
+  },
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": "Complete",
+  "interactionUris": {
+    "candidateInteractionUri": null,
+    "userInteractionUri": null,
+    "userAttentionRequired": false
+  },
+  "passedFlag": true,
+  "image": "https://www.example.com/image.png"
+}</code></pre></div><div class="tab-pane" id="assessments_byApplication__application__appDetails_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the update was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__tenantDetails"><span class="parent">/assessments/byApplication/{application}</span>/tenantDetails</a> <span class="methods"><a href="#assessments_byApplication__application__tenantDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_assessments_byApplication__application__tenantDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__tenantDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the assessment hub, as a result of some tenant action, to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The tenant cannot alter many details of an assessment other than to change the status or place it on hold.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__tenantDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/assessments/byApplication/{application}</span>/tenantDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the assessment hub, as a result of some tenant action, to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The tenant cannot alter many details of an assessment other than to change the status or place it on hold.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__tenantDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__tenantDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__tenantDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "package of data for the tenant (e.g. via some trusted app like an ats) to update an assessment",
+  "properties": {
+    "status": {
+      "$ref": "assessmentRead.json#/definitions/status"
+    },
+    "onHoldFlag": {
+      "$ref": "assessmentRead.json#/definitions/onHoldFlag"
+    }
+  },
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "onHoldFlag": true
+}</code></pre></div><div class="tab-pane" id="assessments_byApplication__application__tenantDetails_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the update was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__tenantDeltaPings"><span class="parent">/assessments/byApplication/{application}</span>/tenantDeltaPings</a> <span class="methods"><a href="#assessments_byApplication__application__tenantDeltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessments_byApplication__application__tenantDeltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__tenantDeltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alerts listeners to a change to an assessment caused by the tenant</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__tenantDeltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessments/byApplication/{application}</span>/tenantDeltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alerts listeners to a change to an assessment caused by the tenant</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__tenantDeltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__tenantDeltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__tenantDeltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byApplication__application__tenantDeltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byType__app_"><span class="parent">/assessments/byType</span>/{app}</a> <span class="methods"></span></h4></div><div id="panel_assessments_byType__app_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>the assessment app (owning the assessment type)</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byType__app___assessmentType__forApplication__application_"><span class="parent">/assessments/byType/{app}/{assessmentType}/forApplication</span>/{application}</a> <span class="methods"><a href="#assessments_byType__app___assessmentType__forApplication__application__post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_assessments_byType__app___assessmentType__forApplication__application_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byType__app___assessmentType__forApplication__application__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Tenant creates (or reuses) an assessment of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the assessment hub.</p><p>There is no request body. The response contains the assessment ID.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byType__app___assessmentType__forApplication__application__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/assessments/byType/{app}/{assessmentType}/forApplication</span>/{application}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Tenant creates (or reuses) an assessment of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the assessment hub.</p><p>There is no request body. The response contains the assessment ID.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byType__app___assessmentType__forApplication__application__post_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byType__app___assessmentType__forApplication__application__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byType__app___assessmentType__forApplication__application__post_request"><h3>URI Parameters</h3><ul><li><strong>app</strong>: <em>required (string)</em></li><li><strong>assessmentType</strong>: <em>required (string)</em></li><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byType__app___assessmentType__forApplication__application__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful, and an existing assessment was reused.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "id": {
+      "type": "integer"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the object was created"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "created": {
+      "$ref": "#/definitions/created"
+    }
+  },
+  "required": [
+    "id",
+    "created"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "id": 100,
+    "created": "2015-11-05T13:15:30Z"
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful, and a new assessment was created.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "id": {
+      "type": "integer"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the object was created"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "created": {
+      "$ref": "#/definitions/created"
+    }
+  },
+  "required": [
+    "id",
+    "created"
+  ],
+  "additionalProperties": false
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "id": 100,
+    "created": "2015-11-05T13:15:30Z"
+}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessmentTypes" class="panel-title">/assessmentTypes</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp"><span class="parent">/assessmentTypes</span>/forApp</a> <span class="methods"><a href="#assessmentTypes_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessmentTypes</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "key": {
+      "type": "string",
+      "description": "the assessment app&#39;s unique (within that app) and immutable key for this assessment type"
+    },
+    "userTitle": {
+      "type": "string",
+      "description": "A user-facing label/title for this assessment type"
+    },
+    "candidateTitle": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by candidates for this assessment type"
+    },
+    "daysToExpire": {
+      "type": "integer",
+      "description": "the number of elapsed days before this assessments result is no longer valid - pass 0 to never expire"
+    },
+    "isPassFail": {
+      "type": "boolean",
+      "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
+    },
+    "canReuse": {
+      "type": "boolean",
+      "description": "whether an unexpired assessment result on one job application can be reused when the candidate makes another job application"
+    },
+    "candidateDescription": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we&#39;re hiring."
+    },
+    "userDescription": {
+      "type": "string",
+      "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
+    },
+    "appCommunicatesDirectlyToCandidate": {
+      "type": "boolean",
+      "description": "True if the app communicates directly with the candidate when an assessment is started. In this case the hub will not send the candidate an email message."
+    },
+    "assessmentType": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/key"
+        },
+        "userTitle": {
+          "$ref": "#/definitions/userTitle"
+        },
+        "candidateTitle": {
+          "$ref": "#/definitions/candidateTitle"
+        },
+        "daysToExpire": {
+          "$ref": "#/definitions/daysToExpire"
+        },
+        "canReuse": {
+          "$ref": "#/definitions/canReuse"
+        },
+        "isPassFail": {
+          "$ref": "#/definitions/isPassFail"
+        },
+        "candidateDescription": {
+          "$ref": "#/definitions/candidateDescription"
+        },
+        "userDescription": {
+          "$ref": "#/definitions/userDescription"
+        },
+        "appCommunicatesDirectlyToCandidate": {
+          "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
+        },
+	    "image": {
+	      "$ref": "assessmentRead.json#/definitions/imageWriteUrl"
+	    }
+      },
+      "required": [
+        "key",
+        "userTitle",
+        "daysToExpire",
+        "isPassFail",
+        "canReuse",
+        "userDescription",
+        "appCommunicatesDirectlyToCandidate",
+        "image"
+      ]
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/assessmentType"
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "key": "mswordprof",
+    "userTitle": "MS Word proficiency - basic",
+    "daysToExpire": 365,
+    "isPassFail": false,
+    "canReuse": true,
+    "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
+    "appCommunicatesDirectlyToCandidate": false,
+    "image": "https://www.example.com/image.png"
+  }
+]</code></pre></div><div class="tab-pane" id="assessmentTypes_forApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp_byKey__key__launcher_forApplication__application_"><span class="parent">/assessmentTypes/forApp/byKey/{key}/launcher/forApplication</span>/{application}</a> <span class="methods"><a href="#assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessmentTypes_forApp_byKey__key__launcher_forApplication__application_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the url for the assessment type&#39;s launcher UI. The UI may adapt itself based on job and/or candidate, e.g. to ask less of internal candidates. Or it could ignore the application ID and just present its generic UI.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessmentTypes/forApp/byKey/{key}/launcher/forApplication</span>/{application}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the url for the assessment type&#39;s launcher UI. The UI may adapt itself based on job and/or candidate, e.g. to ask less of internal candidates. Or it could ignore the application ID and just present its generic UI.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get_request" data-toggle="tab">Request</a></li><li><a href="#assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get_request"><h3>URI Parameters</h3><ul><li><strong>key</strong>: <em>required (string)</em></li><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessmentTypes_forApp_byKey__key__launcher_forApplication__application__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the assessment type <strong>does</strong> have a setup UI to present to the user</p><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>https://myapp.com/launch/1003443455.html</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The assessment type <strong>does not</strong> have a setup UI to present to the user in this case</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp_deltaPings"><span class="parent">/assessmentTypes/forApp</span>/deltaPings</a> <span class="methods"><a href="#assessmentTypes_forApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes_forApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumed by an assessment app to alert any interested parties that the list of assessment types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessmentTypes/forApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by an assessment app to alert any interested parties that the list of assessment types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#assessmentTypes_forApp_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane" id="assessmentTypes_forApp_deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="buckets" class="panel-title">/buckets</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_buckets"><span class="parent"></span>/buckets</a> <span class="methods"><a href="#buckets_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_buckets" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#buckets_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="buckets_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/buckets</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#buckets_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="buckets_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type": "array",
 	"items": { "$ref":"bucket.json" }
@@ -5596,980 +6679,7 @@
       "additionalProperties": false
     }
   }
-}</code></pre></div><div class="tab-pane" id="editSpecs_fetches_register_anonymous_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessments" class="panel-title">/assessments</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_strips_headHtml"><span class="parent">/assessments/strips</span>/headHtml</a> <span class="methods"><a href="#assessments_strips_headHtml_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_strips_headHtml" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_strips_headHtml_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.</p><p>The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_strips_headHtml_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/strips</span>/headHtml</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.</p><p>The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_strips_headHtml_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_strips_headHtml_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>some html pulling in stylesheet, javascript etc.</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_strips_forApplications_asHtml"><span class="parent">/assessments/strips/forApplications</span>/asHtml</a> <span class="methods"><a href="#assessments_strips_forApplications_asHtml_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessments_strips_forApplications_asHtml" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_strips_forApplications_asHtml_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.</p><p>SoT.</p><p>The app building the page that embeds this strip must in its head section pull in style sheet, javascript, etc. as obtained via a call to GET /assessments/strips/headHtml.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_strips_forApplications_asHtml_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessments/strips/forApplications</span>/asHtml</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.</p><p>SoT.</p><p>The app building the page that embeds this strip must in its head section pull in style sheet, javascript, etc. as obtained via a call to GET /assessments/strips/headHtml.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_strips_forApplications_asHtml_get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_strips_forApplications_asHtml_get_response" data-toggle="tab">Response</a></li><li><a href="#assessments_strips_forApplications_asHtml_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_strips_forApplications_asHtml_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>applications</strong>: <em>required (integer)</em><p>A set of application IDs (up to a max of 100) that the strips should be fetched for.</p></li></ul></div><div class="tab-pane" id="assessments_strips_forApplications_asHtml_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "array",
-  "items": {
-    "$ref": "assessmentStrip.json"
-  }
-}</code></pre><p><strong>Example</strong>:</p><pre><code>[
-  {
-    "application": 1,
-    "strip": "&lt;div&gt;blah 0&lt;/div&gt;"
-  },
-  {
-    "application": 22,
-    "strip": "&lt;div&gt;blah&lt;/div&gt;"
-  }
-]</code></pre></div><div class="tab-pane" id="assessments_strips_forApplications_asHtml_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byID__id_"><span class="parent">/assessments/byID</span>/{id}</a> <span class="methods"><a href="#assessments_byID__id__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_byID__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byID__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byID__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/byID</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byID__id__get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byID__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byID__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byID__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "accessPoint": {
-      "type": "object",
-      "description": "Link to an external result.",
-      "properties": {
-        "uri": {
-          "title": "URI",
-          "type": "string",
-          "format": "uri"
-        },
-        "typeCode": {
-          "type": "string",
-          "title": "Type",
-          "enum": [
-            "Individual",
-            "Group"
-          ]
-        }
-      }
-    },
-    "scoreNumeric": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "ScoreNumeric"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Percentile",
-            "Raw Score",
-            "Stanine",
-            "Sten",
-            "T-score",
-            "Z-score",
-            "Intelligence Quotient",
-            "Scaled",
-            "Normal Curve",
-            "GPA"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "number"
-        }
-      }
-    },
-    "scoreText": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "Scoretext"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Grade Letter"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "string"
-        }
-      }
-    },
-    "score": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "title": "Numeric Score",
-            "$ref": "#/definitions/scoreNumeric"
-          },
-          {
-            "title": "Text Score",
-            "$ref": "#/definitions/scoreText"
-          }
-        ]
-      }
-    },
-    "assessedCompetency": {
-      "title": "Assessed Competency",
-      "type": "object",
-      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
-      "properties": {
-        "id": {
-          "title": "Name",
-          "type": "integer"
-        },
-        "proficiencyLevel": {
-          "title": "Proficiency Level",
-          "$ref": "#/definitions/score"
-        }
-      }
-    },
-    "passedFlag": {
-      "title": "Pass?",
-      "type": "boolean"
-    },
-    "result": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "Result Name",
-          "type": "string"
-        },
-        "description": {
-          "title": "Description",
-          "type": "string"
-        },
-        "passedFlag": {
-           "$ref": "#/definitions/passedFlag"
-        },
-        "score": {
-          "title": "Score",
-          "$ref": "#/definitions/score"
-        },
-        "comment": {
-          "title": "Comment",
-          "type": "string"
-        },
-        "bandID": {
-          "title": "Band",
-          "type": "string"
-        },
-        "assessedCompetency": {
-          "title": "Assessed Competency",
-          "$ref": "#/definitions/assessedCompetency"
-        }
-      }
-    },
-    "attachmentType": {
-      "title": "Name",
-      "type": "string",
-      "description": "Only one document with this name can be attached to an assessment result."
-    },
-    "attachmentWrite": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileUpload": {
-          "$ref": "fileUpload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileUpload"
-      ]
-    },
-    "attachmentRead": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileDownload": {
-          "$ref": "fileDownload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileDownload"
-      ]
-    },
-    "assessmentDetailWrite": {
-      "properties": {
-        "assessmentOverallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "assessmentDetailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentWrite"
-          }
-        }
-      }
-    },
-    "assessmentDetailRead": {
-      "properties": {
-        "overallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "detailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentRead"
-          }
-        }
-      }
-    },
-    "status": {
-      "description": "The current disposition of an assessment",
-      "enum": [
-        "New",
-        "In progress",
-        "Complete",
-        "Cancelled",
-        "Expired",
-        "Released",
-        "Error"
-      ]
-    },
-    "onHoldFlag": {
-      "type": "boolean",
-      "description": "whether the tenant has placed the assessment on hold"
-    },
-    "interactionUris": {
-      "type": "object",
-      "properties": {
-        "candidateInteractionUri": {
-          "type": ["string", "null"],
-          "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
-        },
-        "userInteractionUri": {
-          "type": ["string", "null"], 
-          "format": "uri",
-          "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
-        },
-        "userAttentionRequired": {
-           "type": "boolean",
-           "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
-        }
-      },
-      "additionalProperties": false,
-      "required": [ "candidateInteractionUri", "userInteractionUri", "userAttentionRequired" ]
-    },
-    "imageWriteUrl": {
-      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
-      "type": "string",
-      "format": "url"
-    },
-    "imageReadUrl": {
-      "description": "url of an image cached by the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
-      "type": "string",
-      "format": "url"
-    },
-    "givenName": {
-       "type": "string"
-    },
-    "familyName": {
-       "type": "string"
-    },
-    "email": {
-       "type": "string"
-    }
-  },
-  "type": "object",
-  "properties": {
-    "meta": {
-      "$ref": "assessmentMeta.json"
-    },
-    "assessmentType": {
-      "type": "integer"
-    },
-    "assessmentTypeKey": {
-      "$ref": "assessmentTypesForApp.json#/definitions/key"
-    },
-    "status": {
-      "$ref": "#/definitions/status"
-    },
-    "view": {
-       "type": "string",
-       "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
-    },
-   "passedFlag": {
-       "$ref": "#/definitions/passedFlag"
-    },
-    "interactionUris": {
-      "$ref": "#/definitions/interactionUris"
-    },
-    "image": {
-      "$ref": "#/definitions/imageReadUrl"
-    },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
-    },
-    "raiser": {
-       "type": "object",
-       "properties": {
-           "givenName": {
-              "ref": "#/definitions/givenName"
-           },       
-           "familyName": {
-              "ref": "#/definitions/familyName"
-           },       
-           "email": {
-              "ref": "#/definitions/email"
-           }       
-       },
-       "additionalProperties": false
-    }
-  },
-  "additionalProperties": false,
-  "required": [
-    "meta",
-    "assessmentType",
-    "assessmentTypeKey",
-    "status",
-    "view",
-    "interactionUris",
-    "onHoldFlag"
-  ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "meta": {
-    "id": 100,
-    "created": "2015-11-05T13:15:30Z"
-  },
-  "assessmentType": 10022,
-  "assessmentTypeKey": "mswordprof",
-  "status": "New",
-  "onHoldFlag": false,
-  "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
-  "interactionUris": {
-    "candidateInteractionUri": null,
-    "userInteractionUri": null,
-    "userAttentionRequired": false
-  },
-  "raiser": {
-    "givenName": "Fred",
-    "familyName": "Bloggs",
-    "email": "fred@gmail.com"
-  }  
-}
-</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__byassessmentType__assessmentType_"><span class="parent">/assessments/byApplication/{application}/byassessmentType</span>/{assessmentType}</a> <span class="methods"><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_byApplication__application__byassessmentType__assessmentType_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__byassessmentType__assessmentType__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__byassessmentType__assessmentType__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/byApplication/{application}/byassessmentType</span>/{assessmentType}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__byassessmentType__assessmentType__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>assessmentType</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byApplication__application__byassessmentType__assessmentType__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "accessPoint": {
-      "type": "object",
-      "description": "Link to an external result.",
-      "properties": {
-        "uri": {
-          "title": "URI",
-          "type": "string",
-          "format": "uri"
-        },
-        "typeCode": {
-          "type": "string",
-          "title": "Type",
-          "enum": [
-            "Individual",
-            "Group"
-          ]
-        }
-      }
-    },
-    "scoreNumeric": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "ScoreNumeric"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Percentile",
-            "Raw Score",
-            "Stanine",
-            "Sten",
-            "T-score",
-            "Z-score",
-            "Intelligence Quotient",
-            "Scaled",
-            "Normal Curve",
-            "GPA"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "number"
-        }
-      }
-    },
-    "scoreText": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "Scoretext"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Grade Letter"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "string"
-        }
-      }
-    },
-    "score": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "title": "Numeric Score",
-            "$ref": "#/definitions/scoreNumeric"
-          },
-          {
-            "title": "Text Score",
-            "$ref": "#/definitions/scoreText"
-          }
-        ]
-      }
-    },
-    "assessedCompetency": {
-      "title": "Assessed Competency",
-      "type": "object",
-      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
-      "properties": {
-        "id": {
-          "title": "Name",
-          "type": "integer"
-        },
-        "proficiencyLevel": {
-          "title": "Proficiency Level",
-          "$ref": "#/definitions/score"
-        }
-      }
-    },
-    "passedFlag": {
-      "title": "Pass?",
-      "type": "boolean"
-    },
-    "result": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "Result Name",
-          "type": "string"
-        },
-        "description": {
-          "title": "Description",
-          "type": "string"
-        },
-        "passedFlag": {
-           "$ref": "#/definitions/passedFlag"
-        },
-        "score": {
-          "title": "Score",
-          "$ref": "#/definitions/score"
-        },
-        "comment": {
-          "title": "Comment",
-          "type": "string"
-        },
-        "bandID": {
-          "title": "Band",
-          "type": "string"
-        },
-        "assessedCompetency": {
-          "title": "Assessed Competency",
-          "$ref": "#/definitions/assessedCompetency"
-        }
-      }
-    },
-    "attachmentType": {
-      "title": "Name",
-      "type": "string",
-      "description": "Only one document with this name can be attached to an assessment result."
-    },
-    "attachmentWrite": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileUpload": {
-          "$ref": "fileUpload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileUpload"
-      ]
-    },
-    "attachmentRead": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileDownload": {
-          "$ref": "fileDownload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileDownload"
-      ]
-    },
-    "assessmentDetailWrite": {
-      "properties": {
-        "assessmentOverallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "assessmentDetailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentWrite"
-          }
-        }
-      }
-    },
-    "assessmentDetailRead": {
-      "properties": {
-        "overallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "detailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentRead"
-          }
-        }
-      }
-    },
-    "status": {
-      "description": "The current disposition of an assessment",
-      "enum": [
-        "New",
-        "In progress",
-        "Complete",
-        "Cancelled",
-        "Expired",
-        "Released",
-        "Error"
-      ]
-    },
-    "onHoldFlag": {
-      "type": "boolean",
-      "description": "whether the tenant has placed the assessment on hold"
-    },
-    "interactionUris": {
-      "type": "object",
-      "properties": {
-        "candidateInteractionUri": {
-          "type": ["string", "null"],
-          "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
-        },
-        "userInteractionUri": {
-          "type": ["string", "null"], 
-          "format": "uri",
-          "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
-        },
-        "userAttentionRequired": {
-           "type": "boolean",
-           "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
-        }
-      },
-      "additionalProperties": false,
-      "required": [ "candidateInteractionUri", "userInteractionUri", "userAttentionRequired" ]
-    },
-    "imageWriteUrl": {
-      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
-      "type": "string",
-      "format": "url"
-    },
-    "imageReadUrl": {
-      "description": "url of an image cached by the assessment hub to represent an assessment&#39;s status or an unstarted assessment type",
-      "type": "string",
-      "format": "url"
-    },
-    "givenName": {
-       "type": "string"
-    },
-    "familyName": {
-       "type": "string"
-    },
-    "email": {
-       "type": "string"
-    }
-  },
-  "type": "object",
-  "properties": {
-    "meta": {
-      "$ref": "assessmentMeta.json"
-    },
-    "assessmentType": {
-      "type": "integer"
-    },
-    "assessmentTypeKey": {
-      "$ref": "assessmentTypesForApp.json#/definitions/key"
-    },
-    "status": {
-      "$ref": "#/definitions/status"
-    },
-    "view": {
-       "type": "string",
-       "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
-    },
-   "passedFlag": {
-       "$ref": "#/definitions/passedFlag"
-    },
-    "interactionUris": {
-      "$ref": "#/definitions/interactionUris"
-    },
-    "image": {
-      "$ref": "#/definitions/imageReadUrl"
-    },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
-    },
-    "raiser": {
-       "type": "object",
-       "properties": {
-           "givenName": {
-              "ref": "#/definitions/givenName"
-           },       
-           "familyName": {
-              "ref": "#/definitions/familyName"
-           },       
-           "email": {
-              "ref": "#/definitions/email"
-           }       
-       },
-       "additionalProperties": false
-    }
-  },
-  "additionalProperties": false,
-  "required": [
-    "meta",
-    "assessmentType",
-    "assessmentTypeKey",
-    "status",
-    "view",
-    "interactionUris",
-    "onHoldFlag"
-  ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "meta": {
-    "id": 100,
-    "created": "2015-11-05T13:15:30Z"
-  },
-  "assessmentType": 10022,
-  "assessmentTypeKey": "mswordprof",
-  "status": "New",
-  "onHoldFlag": false,
-  "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
-  "interactionUris": {
-    "candidateInteractionUri": null,
-    "userInteractionUri": null,
-    "userAttentionRequired": false
-  },
-  "raiser": {
-    "givenName": "Fred",
-    "familyName": "Bloggs",
-    "email": "fred@gmail.com"
-  }  
-}
-</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__appDetails"><span class="parent">/assessments/byApplication/{application}</span>/appDetails</a> <span class="methods"><a href="#assessments_byApplication__application__appDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_assessments_byApplication__application__appDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__appDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the assessment app to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an assessment, but cannot alter the on hold flag.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__appDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/assessments/byApplication/{application}</span>/appDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the assessment app to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). Apps may set most details and some statuses for an assessment, but cannot alter the on hold flag.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__appDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__appDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__appDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "description": "package of data for an assessment app to update an assessment",
-  "properties": {
-    "status": {
-      "$ref": "assessmentRead.json#/definitions/status"
-    },
-    "passedFlag": {
-       "$ref": "assessmentRead.json#/definitions/passedFlag"
-    },
-    "interactionUris": {
-      "$ref": "assessmentRead.json#/definitions/interactionUris"
-    },
-    "image": {
-      "$ref": "assessmentRead.json#/definitions/imageWriteUrl"
-    }
-  },
-  "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "status": "Complete",
-  "interactionUris": {
-    "candidateInteractionUri": null,
-    "userInteractionUri": null,
-    "userAttentionRequired": false
-  },
-  "passedFlag": true,
-  "image": "https://www.example.com/image.png"
-}</code></pre></div><div class="tab-pane" id="assessments_byApplication__application__appDetails_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the update was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__tenantDetails"><span class="parent">/assessments/byApplication/{application}</span>/tenantDetails</a> <span class="methods"><a href="#assessments_byApplication__application__tenantDetails_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_assessments_byApplication__application__tenantDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__tenantDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Consumed by the assessment hub, as a result of some tenant action, to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The tenant cannot alter many details of an assessment other than to change the status or place it on hold.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__tenantDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/assessments/byApplication/{application}</span>/tenantDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by the assessment hub, as a result of some tenant action, to update an existing assessment using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc5789">https://tools.ietf.org/html/rfc5789</a>). The tenant cannot alter many details of an assessment other than to change the status or place it on hold.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__tenantDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__tenantDetails_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__tenantDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "description": "package of data for the tenant (e.g. via some trusted app like an ats) to update an assessment",
-  "properties": {
-    "status": {
-      "$ref": "assessmentRead.json#/definitions/status"
-    },
-    "onHoldFlag": {
-      "$ref": "assessmentRead.json#/definitions/onHoldFlag"
-    }
-  },
-  "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "onHoldFlag": true
-}</code></pre></div><div class="tab-pane" id="assessments_byApplication__application__tenantDetails_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the update was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__tenantDeltaPings"><span class="parent">/assessments/byApplication/{application}</span>/tenantDeltaPings</a> <span class="methods"><a href="#assessments_byApplication__application__tenantDeltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessments_byApplication__application__tenantDeltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__tenantDeltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alerts listeners to a change to an assessment caused by the tenant</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__tenantDeltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessments/byApplication/{application}</span>/tenantDeltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alerts listeners to a change to an assessment caused by the tenant</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__tenantDeltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__tenantDeltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__tenantDeltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byApplication__application__tenantDeltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byType__app_"><span class="parent">/assessments/byType</span>/{app}</a> <span class="methods"></span></h4></div><div id="panel_assessments_byType__app_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>the assessment app (owning the assessment type)</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byType__app___assessmentType__forApplication__application_"><span class="parent">/assessments/byType/{app}/{assessmentType}/forApplication</span>/{application}</a> <span class="methods"><a href="#assessments_byType__app___assessmentType__forApplication__application__post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_assessments_byType__app___assessmentType__forApplication__application_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byType__app___assessmentType__forApplication__application__post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Tenant creates (or reuses) an assessment of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the assessment hub.</p><p>There is no request body. The response contains the assessment ID.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byType__app___assessmentType__forApplication__application__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/assessments/byType/{app}/{assessmentType}/forApplication</span>/{application}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Tenant creates (or reuses) an assessment of the given type, for the given job application, for example upon a candidate applying and being screened in.</p><p>SoT. Typically implemented by the assessment hub.</p><p>There is no request body. The response contains the assessment ID.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byType__app___assessmentType__forApplication__application__post_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byType__app___assessmentType__forApplication__application__post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byType__app___assessmentType__forApplication__application__post_request"><h3>URI Parameters</h3><ul><li><strong>app</strong>: <em>required (string)</em></li><li><strong>assessmentType</strong>: <em>required (string)</em></li><li><strong>application</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byType__app___assessmentType__forApplication__application__post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful, and an existing assessment was reused.</p><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "definitions": {
-    "id": {
-      "type": "integer"
-    },
-    "created": {
-      "type": "string",
-      "format": "date-time",
-      "description": "when the object was created"
-    }
-  },
-  "type": "object",
-  "properties": {
-    "id": {
-      "$ref": "#/definitions/id"
-    },
-    "created": {
-      "$ref": "#/definitions/created"
-    }
-  },
-  "required": [
-    "id",
-    "created"
-  ],
-  "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "id": 100,
-    "created": "2015-11-05T13:15:30Z"
-}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful, and a new assessment was created.</p><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "definitions": {
-    "id": {
-      "type": "integer"
-    },
-    "created": {
-      "type": "string",
-      "format": "date-time",
-      "description": "when the object was created"
-    }
-  },
-  "type": "object",
-  "properties": {
-    "id": {
-      "$ref": "#/definitions/id"
-    },
-    "created": {
-      "$ref": "#/definitions/created"
-    }
-  },
-  "required": [
-    "id",
-    "created"
-  ],
-  "additionalProperties": false
-}</code></pre><p><strong>Example</strong>:</p><pre><code>{
-    "id": 100,
-    "created": "2015-11-05T13:15:30Z"
-}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessmentTypes" class="panel-title">/assessmentTypes</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp"><span class="parent">/assessmentTypes</span>/forApp</a> <span class="methods"><a href="#assessmentTypes_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessmentTypes</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "key": {
-      "type": "string",
-      "description": "the assessment app&#39;s unique (within that app) and immutable key for this assessment type"
-    },
-    "userTitle": {
-      "type": "string",
-      "description": "A user-facing label/title for this assessment type"
-    },
-    "candidateTitle": {
-      "type": "string",
-      "description": "If present, a more specific label/title seen by candidates for this assessment type"
-    },
-    "daysToExpire": {
-      "type": "integer",
-      "description": "the number of elapsed days before this assessments result is no longer valid - pass 0 to never expire"
-    },
-    "isPassFail": {
-      "type": "boolean",
-      "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
-    },
-    "candidateSeesResults": {
-      "type": "boolean",
-      "description": "whether the candidate should have visibility of the results of this assessment, including pass/fail"
-    },
-    "canReuse": {
-      "type": "boolean",
-      "description": "whether an unexpired assessment result on one job application can be reused when the candidate makes another job application"
-    },
-    "candidateDescription": {
-      "type": "string",
-      "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we&#39;re hiring."
-    },
-    "userDescription": {
-      "type": "string",
-      "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
-    },
-    "appCommunicatesDirectlyToCandidate": {
-      "type": "boolean",
-      "description": "True if the app communicates directly with the candidate when an assessment is started. In this case the hub will not send the candidate an email message."
-    },
-    "assessmentType": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "$ref": "#/definitions/key"
-        },
-        "userTitle": {
-          "$ref": "#/definitions/userTitle"
-        },
-        "candidateTitle": {
-          "$ref": "#/definitions/candidateTitle"
-        },
-        "daysToExpire": {
-          "$ref": "#/definitions/daysToExpire"
-        },
-        "isPassFail": {
-          "$ref": "#/definitions/isPassFail"
-        },
-        "candidateSeesResults": {
-          "$ref": "#/definitions/candidateSeesResults"
-        },
-        "canReuse": {
-          "$ref": "#/definitions/canReuse"
-        },
-        "candidateDescription": {
-          "$ref": "#/definitions/candidateDescription"
-        },
-        "userDescription": {
-          "$ref": "#/definitions/userDescription"
-        },
-        "appCommunicatesDirectlyToCandidate": {
-          "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
-        },
-	    "image": {
-	      "$ref": "assessmentRead.json#/definitions/imageWriteUrl"
-	    }
-      },
-      "required": [
-        "key",
-        "userTitle",
-        "daysToExpire",
-        "isPassFail",
-        "candidateSeesResults",
-        "canReuse",
-        "userDescription",
-        "appCommunicatesDirectlyToCandidate",
-        "image"
-      ]
-    }
-  },
-  "type": "array",
-  "items": {
-    "$ref": "#/definitions/assessmentType"
-  }
-}</code></pre><p><strong>Example</strong>:</p><pre><code>[
-  {
-    "key": "mswordprof",
-    "userTitle": "MS Word proficiency - basic",
-    "daysToExpire": 365,
-    "isPassFail": false,
-    "candidateSeesResults": false,
-    "canReuse": true,
-    "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
-    "appCommunicatesDirectlyToCandidate": false,
-    "image": "https://www.example.com/image.png"
-  }
-]</code></pre></div><div class="tab-pane" id="assessmentTypes_forApp_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp_deltaPings"><span class="parent">/assessmentTypes/forApp</span>/deltaPings</a> <span class="methods"><a href="#assessmentTypes_forApp_deltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes_forApp_deltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_deltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumed by an assessment app to alert any interested parties that the list of assessment types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_deltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessmentTypes/forApp</span>/deltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumed by an assessment app to alert any interested parties that the list of assessment types produced by the app has changed.</p><p>Non-SoT (there may be many listeners).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li><a href="#assessmentTypes_forApp_deltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane" id="assessmentTypes_forApp_deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="global" class="panel-title">/global</h3></div><div class="panel-body"><div class="top-resource-description"><p>resources which are global/singletons</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_internalIPMatches_byIP__ip_"><span class="parent">/global/internalIPMatches/byIP</span>/{ip}</a> <span class="methods"><a href="#global_internalIPMatches_byIP__ip__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_global_internalIPMatches_byIP__ip_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_internalIPMatches_byIP__ip__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Return true if the IP passed in falls within one of the ranges known to be internal. Apps can use this to make educated guesses about whether to display, for example, buttons like "employee referral" on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as an indication, and should require the candidate to actually log in and thus be proven an internal before unlocking any actual internal behaviour (e.g. allowing the referral to be made).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_internalIPMatches_byIP__ip__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/global/internalIPMatches/byIP</span>/{ip}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Return true if the IP passed in falls within one of the ranges known to be internal. Apps can use this to make educated guesses about whether to display, for example, buttons like "employee referral" on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as an indication, and should require the candidate to actually log in and thus be proven an internal before unlocking any actual internal behaviour (e.g. allowing the referral to be made).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#global_internalIPMatches_byIP__ip__get_request" data-toggle="tab">Request</a></li><li><a href="#global_internalIPMatches_byIP__ip__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_internalIPMatches_byIP__ip__get_request"><h3>URI Parameters</h3><ul><li><strong>ip</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="global_internalIPMatches_byIP__ip__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_jqueryInclude"><span class="parent">/global</span>/jqueryInclude</a> <span class="methods"><a href="#global_jqueryInclude_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_global_jqueryInclude" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_jqueryInclude_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_jqueryInclude_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/global</span>/jqueryInclude</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#global_jqueryInclude_get_response" data-toggle="tab">Response</a></li><li><a href="#global_jqueryInclude_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_jqueryInclude_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"&gt;&lt;/script&gt;</code></pre></div><div class="tab-pane" id="global_jqueryInclude_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_candidateTAndCs"><span class="parent">/global</span>/candidateTAndCs</a> <span class="methods"><a href="#global_candidateTAndCs_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_global_candidateTAndCs" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_candidateTAndCs_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the url of the terms and conditions that a candidate must accept before creating an account. Any apps that allow candidates to create accounts (such as apply apps) must require the candidate to agree to these.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_candidateTAndCs_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/global</span>/candidateTAndCs</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the url of the terms and conditions that a candidate must accept before creating an account. Any apps that allow candidates to create accounts (such as apply apps) must require the candidate to agree to these.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#global_candidateTAndCs_get_response" data-toggle="tab">Response</a></li><li><a href="#global_candidateTAndCs_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_candidateTAndCs_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>https://example.com/candidate/termsAndConditions.html</code></pre></div><div class="tab-pane" id="global_candidateTAndCs_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="items" class="panel-title">/items</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_items_toCandidate_anonymous_jobs__job_"><span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</a> <span class="methods"><a href="#items_toCandidate_anonymous_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_items_toCandidate_anonymous_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>items held on a job that are visible to candidates, e.g. position description document</p></div><div class="list-group"><div onclick="window.location.href = '#items_toCandidate_anonymous_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="items_toCandidate_anonymous_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#items_toCandidate_anonymous_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#items_toCandidate_anonymous_jobs__job__get_response" data-toggle="tab">Response</a></li><li><a href="#items_toCandidate_anonymous_jobs__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="items_toCandidate_anonymous_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="items_toCandidate_anonymous_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="editSpecs_fetches_register_anonymous_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="global" class="panel-title">/global</h3></div><div class="panel-body"><div class="top-resource-description"><p>resources which are global/singletons</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_internalIPMatches_byIP__ip_"><span class="parent">/global/internalIPMatches/byIP</span>/{ip}</a> <span class="methods"><a href="#global_internalIPMatches_byIP__ip__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_global_internalIPMatches_byIP__ip_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_internalIPMatches_byIP__ip__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Return true if the IP passed in falls within one of the ranges known to be internal. Apps can use this to make educated guesses about whether to display, for example, buttons like "employee referral" on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as an indication, and should require the candidate to actually log in and thus be proven an internal before unlocking any actual internal behaviour (e.g. allowing the referral to be made).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_internalIPMatches_byIP__ip__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/global/internalIPMatches/byIP</span>/{ip}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Return true if the IP passed in falls within one of the ranges known to be internal. Apps can use this to make educated guesses about whether to display, for example, buttons like "employee referral" on jobs, depending on whether the user is on the internal network/VPN. Note apps should use this only as an indication, and should require the candidate to actually log in and thus be proven an internal before unlocking any actual internal behaviour (e.g. allowing the referral to be made).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#global_internalIPMatches_byIP__ip__get_request" data-toggle="tab">Request</a></li><li><a href="#global_internalIPMatches_byIP__ip__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_internalIPMatches_byIP__ip__get_request"><h3>URI Parameters</h3><ul><li><strong>ip</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="global_internalIPMatches_byIP__ip__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_jqueryInclude"><span class="parent">/global</span>/jqueryInclude</a> <span class="methods"><a href="#global_jqueryInclude_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_global_jqueryInclude" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_jqueryInclude_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_jqueryInclude_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/global</span>/jqueryInclude</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a fragment of HTML with a script tag that pulls in the "current" jquery library, so that it is available to any javascript running anywhere in the page. Any page that injects (other than via iframe) HTML from other apps must include this, so that the injected apps can use it. When, from time to time, the jquery version is updated, all apps therefore receive the update at once.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#global_jqueryInclude_get_response" data-toggle="tab">Response</a></li><li><a href="#global_jqueryInclude_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_jqueryInclude_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"&gt;&lt;/script&gt;</code></pre></div><div class="tab-pane" id="global_jqueryInclude_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_global_candidateTAndCs"><span class="parent">/global</span>/candidateTAndCs</a> <span class="methods"><a href="#global_candidateTAndCs_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_global_candidateTAndCs" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#global_candidateTAndCs_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the url of the terms and conditions that a candidate must accept before creating an account. Any apps that allow candidates to create accounts (such as apply apps) must require the candidate to agree to these.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="global_candidateTAndCs_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/global</span>/candidateTAndCs</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the url of the terms and conditions that a candidate must accept before creating an account. Any apps that allow candidates to create accounts (such as apply apps) must require the candidate to agree to these.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#global_candidateTAndCs_get_response" data-toggle="tab">Response</a></li><li><a href="#global_candidateTAndCs_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="global_candidateTAndCs_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>https://example.com/candidate/termsAndConditions.html</code></pre></div><div class="tab-pane" id="global_candidateTAndCs_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="items" class="panel-title">/items</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_items_toCandidate_anonymous_jobs__job_"><span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</a> <span class="methods"><a href="#items_toCandidate_anonymous_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_items_toCandidate_anonymous_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>items held on a job that are visible to candidates, e.g. position description document</p></div><div class="list-group"><div onclick="window.location.href = '#items_toCandidate_anonymous_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="items_toCandidate_anonymous_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/items/toCandidate/anonymous/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get values and (in some scenarios) metadata, for all items</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#items_toCandidate_anonymous_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#items_toCandidate_anonymous_jobs__job__get_response" data-toggle="tab">Response</a></li><li><a href="#items_toCandidate_anonymous_jobs__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="items_toCandidate_anonymous_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>embedMeta</strong>: <em>(boolean)</em><p>Pass true to have schema fragments embedded in the response when fetching items. Less network trips, larger overall message. Defaults to false.</p></li></ul></div><div class="tab-pane" id="items_toCandidate_anonymous_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
 	"$schema":"http://json-schema.org/draft-04/schema#",
 	"type":"array",
 	"items":{ "$ref": "item.json" }
@@ -9074,4 +9184,4 @@ GET /widgets?$top=5
 }</code></pre><p><strong>Example</strong>:</p><pre><code> {
     "operation": "insert"
 }
-</code></pre></div><div class="tab-pane" id="workflows_candidate_byID__id__deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#actions">/actions</a></li><li><a href="#applications">/applications</a></li><li><a href="#appStatus">/appStatus</a></li><li><a href="#buckets">/buckets</a></li><li><a href="#candidates">/candidates</a></li><li><a href="#careerSites">/careerSites</a></li><li><a href="#categories">/categories</a></li><li><a href="#editSpecs">/editSpecs</a></li><li><a href="#assessments">/assessments</a></li><li><a href="#assessmentTypes">/assessmentTypes</a></li><li><a href="#global">/global</a></li><li><a href="#items">/items</a></li><li><a href="#jobBoards">/jobBoards</a></li><li><a href="#jobs">/jobs</a></li><li><a href="#jobSets">/jobSets</a></li><li><a href="#landingPage">/landingPage</a></li><li><a href="#menuedApps">/menuedApps</a></li><li><a href="#panels">/panels</a></li><li><a href="#trackers">/trackers</a></li><li><a href="#recruiters">/recruiters</a></li><li><a href="#socialNetworks">/socialNetworks</a></li><li><a href="#workflows">/workflows</a></li></ul></div></div></div></div></body></html>
+</code></pre></div><div class="tab-pane" id="workflows_candidate_byID__id__deltaPings_post_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#actions">/actions</a></li><li><a href="#applications">/applications</a></li><li><a href="#appStatus">/appStatus</a></li><li><a href="#assessments">/assessments</a></li><li><a href="#assessmentTypes">/assessmentTypes</a></li><li><a href="#buckets">/buckets</a></li><li><a href="#candidates">/candidates</a></li><li><a href="#careerSites">/careerSites</a></li><li><a href="#categories">/categories</a></li><li><a href="#editSpecs">/editSpecs</a></li><li><a href="#global">/global</a></li><li><a href="#items">/items</a></li><li><a href="#jobBoards">/jobBoards</a></li><li><a href="#jobs">/jobs</a></li><li><a href="#jobSets">/jobSets</a></li><li><a href="#landingPage">/landingPage</a></li><li><a href="#menuedApps">/menuedApps</a></li><li><a href="#panels">/panels</a></li><li><a href="#trackers">/trackers</a></li><li><a href="#recruiters">/recruiters</a></li><li><a href="#socialNetworks">/socialNetworks</a></li><li><a href="#workflows">/workflows</a></li></ul></div></div></div></div></body></html>

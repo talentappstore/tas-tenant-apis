@@ -13,9 +13,12 @@
     "userInteractionUri": null,
     "userAttentionRequired": false
   },
-  "raiser": {
-    "givenName": "Fred",
-    "familyName": "Bloggs",
-    "email": "fred@gmail.com"
-  }  
+  "launchDocument": "%7B%20%22message%22%3A%20%22hello%20world%22%20%7D",
+  "raisers": [
+	  {
+	    "givenName": "Fred",
+	    "familyName": "Bloggs",
+	    "email": "fred@gmail.com"
+	  }
+  ]  
 }

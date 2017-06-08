@@ -21,10 +21,6 @@
       "type": "boolean",
       "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
     },
-    "candidateSeesResults": {
-      "type": "boolean",
-      "description": "whether the candidate should have visibility of the results of this assessment, including pass/fail"
-    },
     "canReuse": {
       "type": "boolean",
       "description": "whether an unexpired assessment result on one job application can be reused when the candidate makes another job application"
@@ -56,14 +52,11 @@
         "daysToExpire": {
           "$ref": "#/definitions/daysToExpire"
         },
-        "isPassFail": {
-          "$ref": "#/definitions/isPassFail"
-        },
-        "candidateSeesResults": {
-          "$ref": "#/definitions/candidateSeesResults"
-        },
         "canReuse": {
           "$ref": "#/definitions/canReuse"
+        },
+        "isPassFail": {
+          "$ref": "#/definitions/isPassFail"
         },
         "candidateDescription": {
           "$ref": "#/definitions/candidateDescription"
@@ -83,7 +76,6 @@
         "userTitle",
         "daysToExpire",
         "isPassFail",
-        "candidateSeesResults",
         "canReuse",
         "userDescription",
         "appCommunicatesDirectlyToCandidate",

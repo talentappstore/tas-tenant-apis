@@ -26,18 +26,54 @@
             
         Non-SoT.
 
+- applicationGetter:
+    get:
+      is: [ applicationPager, applicationObjectFilter ]    
+      securedBy: [oauth_2_0]
+      description: |
+        Get all applications that match the parameters and;
+        - (if since is specified), that have dateLastUpdated after the given date; AND
+        - (if minID is specified), that have id > minID
+
+        A maximum of 100 applications will be returned by a single call to the API. If this maximum number
+        is returned, the client should fetch again, specifying both sinceDate and minID, as there may be more results.
+        
+        Results are ordered by sinceDate asc, applicationId asc.
+        
+        sinceDate in this case is the datelastUpdated for the application.
+      queryParameters:
+        bucket:
+          description: when present, filters to only include applications in this bucket
+          type: string
+          required: false
+          example: 1003
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationViews.json
+              example: !include ../examples/applicationViews-simple.json
+        404:
+          description: there are no applications matching the filters
+
+
 - applicationPhaseNowGetter:
     get:
       is: [ applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
-        The 'now' APIs return all applications that:
-        - are currently in this phase; AND
+        The 'now' APIs return all applications:
+        - that are currently in this phase; AND
         - (if since is specified), that most recently entered this phase after the given date; AND
-        - (if minID is specified), that have id > minID (allows paging of results)
+        - (if minID is specified), that have id > minID
 
-        Results are ordered by ascending application id. A maximum of 100 applications will be returned by
-        a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.
+        A maximum of 100 applications will be returned by a single call to the API. If this maximum number
+        is returned, the client should fetch again, specifying both sinceDate and minID, as there may be more results.
+        
+        Results are ordered by sinceDate asc, applicationId asc.
+        
+        sinceDate in this case is the date the application most recently entered the phase.
+        
       responses:
         200:
           body:
@@ -52,13 +88,17 @@
       is: [ applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
-        The 'ever' APIs return all applications that:
-        - have ever been in this phase; AND
+        The 'ever' APIs return all applications:
+        - that have ever been in this phase; AND
         - (if since is specified), that first entered this phase after the given date; AND
-        - (if minID is specified), that have id > minID (allows paging of results)
+        - (if minID is specified), that have id > minID
 
-        Results are ordered by ascending application id. A maximum of 100 applications will be returned by
-        a single call to the API. If this maximum number is returned, the client should fetch again, specifying minID, as there may be more results.
+        A maximum of 100 applications will be returned by a single call to the API. If this maximum number
+        is returned, the client should fetch again, specifying both sinceDate and minID, as there may be more results.
+        
+        Results are ordered by sinceDate asc, applicationId asc.
+        
+        sinceDate in this case is the date the application first entered the phase.
       responses:
         200:
           body:
@@ -68,26 +108,26 @@
         404:
           description: there are no applications matching the filters
 
-- applicationGetter:
+- applicationShellGetter:
     get:
       is: [ applicationPager, applicationObjectFilter ]    
       securedBy: [oauth_2_0]
       description: |
-        Get all applications that match the parameters and (if minID is specified) that have id > a given value (allows paging of results).
-        Results are ordered by ascending application id. A maximum of 100 applications will be returned by a single call to the API. If this maximum number
-        is returned, the client should fetch again, specifying minID, as there may be more results.
-      queryParameters:
-        bucket:
-          description: when present, filters to only include applications in this bucket
-          type: integer
-          required: false
-          example: 1003
+        Get date stripe of application activities, e.g. for initial replication. Returns all applications:
+        - (if since is specified), that have dateLastUpdated after the given date; AND
+        - (if minID is specified), that have id > minID
+
+        A maximum of 100 applications will be returned by a single call to the API. If this maximum number
+        is returned, the client should fetch again, specifying both sinceDate and minID, as there may be more results.
+        
+        Results are ordered by lastUpdateDate asc, applicationId asc.
+        
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/applicationViews.json
-              example: !include ../examples/applicationViews-simple.json
+              schema: !include ../schemas/applicationShells.json
+              example: !include ../examples/applicationShells-simple.json
         404:
           description: there are no applications matching the filters
 

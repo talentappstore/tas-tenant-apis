@@ -1,0 +1,26 @@
+[
+  {
+    "application": 17733,
+    "job": 533,
+    "candidate": {
+      "entityID": "google",
+      "nameID": "g87uigoty96-9h"
+    }
+  },
+  {
+    "application": 17735,
+    "job": 533,
+    "candidate": {
+      "entityID": "facebook",
+      "nameID": "876goiy8689"
+    }
+  },
+  {
+    "application": 17739,
+    "job": 533,
+    "candidate": {
+      "entityID": "email",
+      "nameID": "frano@botica.com"
+    }
+  }
+]

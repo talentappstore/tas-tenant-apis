@@ -323,7 +323,7 @@
 - applicationAssessmentsStrip:
     get:
       securedBy: [oauth_2_0]
-      is: [ hasRelayPage ]
+      is: [ hasRelayPage, applicationStripeGetter ]
       description: |
         Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.
         
@@ -331,12 +331,6 @@
              
         The app building the page that embeds this strip must in its head section pull in style sheet,
         javascript, etc. as obtained via a call to GET /assessments/strips/headHtml.
-      queryParameters:
-        applications:
-          type: integer
-          description: |
-            A set of application IDs (up to a max of 100) that the strips should be fetched for.
-          required: true
       responses:
         200:
           body:

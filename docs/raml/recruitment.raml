@@ -55,25 +55,43 @@ resourceTypes: !include resources.yml
                 securedBy: [oauth_2_0]
                 description: |
                   The name of the action button, belonging to the app that is consuming the API, that should now be marked as satisfied,
-                  for the given job and candidate. If the action is marked as canReuse, then this would also imply that the same
-                  action button is satisfied by all other jobs now and in the future as well.
+                  for the given job and candidate. If the action is marked as canReuse, then that means the same action button is satisfied
+                  by all other jobs now and in the future as well.
+
+                  This API is more constrained than the form that accepts app as a url parameter, as it only allows an app to satisfy
+                  its own buttons.
+                  
+                  The body (if present) is a json document containing similar data to an assessment.
                   
                   SoT.
+                body:
+                  application/json:
+                    schema: !include ../schemas/actionSatisfier.json
+                    example: !include ../examples/actionSatisfier-simple.json
                 responses:
                   200:
+                    description: the update was successful
               /byApp:
                 /{app}:
                   post:
                     securedBy: [oauth_2_0]
                     description: |
                       The name of the action button, belonging to the app that is passed in the URL, that should now be marked as satisfied,
-                      for the given job and candidate. This API is more powerful than the form that does not accept app as a url parameter,
+                      for the given job and candidate.
+                      
+                      This API is more powerful than the form that does not accept app as a url parameter,
                       as it allows any button to be marked as satisfied on any app.
+
+                      The body (if present) is a json document containing similar data to an assessment.
                   
                       SoT.
+                    body:
+                      application/json:
+                        schema: !include ../schemas/actionSatisfier.json
+                        example: !include ../examples/actionSatisfier-simple.json
                     responses:
                       200:
-                
+                        description: the update was successful
       /search:
         type: candidateAppsActions
         /asHtml:
@@ -110,7 +128,7 @@ resourceTypes: !include resources.yml
           /satisfyLink:
             /{actionName}:
               description: |
-                The name of an action button, belonging to the app that is consuming the API, that is to be marked as satisfied by someone following the link
+                The name of an action button, belonging to the app that is consuming the API, that is to be marked as satisfied by someone following the link.
               get:
                 securedBy: [oauth_2_0]
                 is: [trackable, hasRelayPage ]
@@ -121,11 +139,18 @@ resourceTypes: !include resources.yml
                       The message that will be displayed to the user on the linked web page, once they have logged in.
                     example: Congratulations! You can apply for this job now.
                     required: true
+                  results:
+                    type: string
+                    description: |
+                      The results paramater (if present) is a url encoded json document containing similar data as that
+                      an assessment app can set, as per actionSatisfier.json (e.g. image, a url to see the results).
+                      
+                    required: false
                 description: |
                   Obtain a link that a candidate can use to mark themselves as having satisfied the given action button on a job.
                   When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the
                   given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.
-                  
+
                   SoT.
                 responses:
                   200:
@@ -192,7 +217,27 @@ resourceTypes: !include resources.yml
           type: candidateAppPossibleActions
           /deltaPings:
             type: candidateAppPossibleActionsDelta
-
+  /byCandidates:
+    /job:            
+      /{job}:
+        /satisfied:
+          /searches:
+            post:
+              securedBy: [oauth_2_0]
+              description: |
+                Search for all completed actions for a given stripe of candidates, for a single job, in a single API call.
+                
+                The method is a POST solely because the size and number of parameters (i.e. the list of candidates) might get too large for a GET.
+              body:
+                application/json:
+                  schema: !include ../schemas/candidateIdentifiers.json
+                  example: !include ../examples/candidateIdentifiers-simple.json
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/actionSatisfiersWithContext.json
+                      example: !include ../examples/actionSatisfiersWithContext-simple.json
 
 /applications:
   type: applicationGetter
@@ -444,6 +489,19 @@ resourceTypes: !include resources.yml
           /{application}:
             /deltaPings:
               type: applicationPhaseEverPinger
+  /contexts:
+    get:
+      is: [ applicationStripeGetter ]
+      description: |
+        Get candidate details (entityID and nameID) and job details for the given stripe of job applications.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationContexts.json
+              example: !include ../examples/applicationContexts-simple.json
+
+                
   /shells:
     description: |
       These APIs allow access to skeletal details about job applications, but enough to write data analysis apps such as candidate care, sourcing effectiveness.
@@ -698,7 +756,6 @@ resourceTypes: !include resources.yml
           description: the post was successful
         201:
           description: the post was successful
-    
   /me:
     description:
       All APIs beneath here are operating on behalf of the logged in candidate.
@@ -1715,8 +1772,7 @@ resourceTypes: !include resources.yml
           description: |
             Get the ID of the recruiter role holding for ourselves (the currently logged in principal, who must be of principal type 'user',
             session decorated as being a recruiter, with a row in the SoT system for recruiters).
-            Calls by apps, typically immediately after a user authenticates in, to get the id of the recruiter role holding.
-             
+            Calls by apps, typically immediately after a user authenticates in, to get the id of the recruiter role holding,
             since that is the time to perform identity leap. 
           queryParameters:
             email:

@@ -1,0 +1,18 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"description": "the context of each of a stripe of job applications - i,e,. candidate and job details",
+	"properties": {
+		"application": {
+			"$ref": "applicationRead.json#/definitions/id"
+		},
+		"candidate": {
+			"$ref": "candidateIdentifier.json"
+		},
+		"job": {
+			"$ref": "jobRead.json#/definitions/id"
+		}
+	},
+	"required": [ "application", "candidate", "job" ],
+	"additionalProperties": false
+}

@@ -1,6 +1,15 @@
 #%RAML 0.8
 
 
+- applicationStripeGetter:
+    queryParameters:
+      applications:
+        type: integer
+        description: |
+          A set of application IDs (up to a max of 100) that the strips should be fetched for.
+        required: true
+
+
 - applicationPager:
     queryParameters:
       minID:

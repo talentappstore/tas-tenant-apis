@@ -68,7 +68,7 @@
           "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
         },
 	    "image": {
-	      "$ref": "assessmentRead.json#/definitions/imageWriteUrl"
+	      "$ref": "assessmentRead.json#/definitions/imageUrl"
 	    }
       },
       "required": [

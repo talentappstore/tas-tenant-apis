@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "userInteractionUri": {
+      "$ref": "assessmentRead.json#/definitions/userInteractionUri"
+    },
+    "image": {
+      "$ref": "assessmentRead.json#/definitions/imageUrl"
+    },
+    "passedFlag": {
+      "$ref": "assessmentRead.json#/definitions/passedFlag"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "image"
+  ]
+}

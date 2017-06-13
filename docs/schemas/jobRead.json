@@ -1,6 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
+    "id": {
+      "type": "integer"
+    },
     "status": {
       "enum": [
         "active",
@@ -105,7 +108,7 @@
   "type": "object",
   "properties": {
     "id": {
-      "type": "integer"
+      "$ref": "#/definitions/id"
     },
     "status": {
       "$ref": "#/definitions/status"

@@ -254,6 +254,14 @@
       "type": "boolean",
       "description": "whether the tenant has placed the assessment on hold"
     },
+    "userInteractionUri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
+    },
     "interactionUris": {
       "type": "object",
       "properties": {
@@ -266,12 +274,7 @@
           "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
         },
         "userInteractionUri": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "uri",
-          "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) must follow to complete some part of the assessment"
+          "$ref": "#/definitions/userInteractionUri"
         },
         "userAttentionRequired": {
           "type": "boolean",
@@ -285,13 +288,8 @@
         "userAttentionRequired"
       ]
     },
-    "imageWriteUrl": {
+    "imageUrl": {
       "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment's status or an unstarted assessment type",
-      "type": "string",
-      "format": "url"
-    },
-    "imageReadUrl": {
-      "description": "url of an image cached by the assessment hub to represent an assessment's status or an unstarted assessment type",
       "type": "string",
       "format": "url"
     },
@@ -356,7 +354,7 @@
       "$ref": "#/definitions/interactionUris"
     },
     "image": {
-      "$ref": "#/definitions/imageReadUrl"
+      "$ref": "#/definitions/imageUrl"
     },
     "onHoldFlag": {
       "$ref": "#/definitions/onHoldFlag"

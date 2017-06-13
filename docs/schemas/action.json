@@ -1,10 +1,16 @@
 {
 	"$schema": "http://json-schema.org/draft-04/schema#",
+	"definitions": {
+		"name": {
+			"type": "string",
+			"description": "fixed name for this action, containing only lower case alpha, digits and '-' characters, length <= 30"
+		}
+	},
 	"type": "object",
 	"description": "the logical information needed to populate a button/control to initiate the action, excluding style information (which is down to the app rendering the button/control)",
 	"properties": {
 		"name": {
-			"type": "string",
+			"$ref": "#/definitions/name",
 			"description": "fixed name for this action, containing only lower case alpha, digits and '-' characters, length <= 30"
 		},
 		"label": {

@@ -13,7 +13,7 @@
       "$ref": "assessmentRead.json#/definitions/interactionUris"
     },
     "image": {
-      "$ref": "assessmentRead.json#/definitions/imageWriteUrl"
+      "$ref": "assessmentRead.json#/definitions/imageUrl"
     }
   },
   "additionalProperties": false

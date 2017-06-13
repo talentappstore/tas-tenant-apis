@@ -1,0 +1,16 @@
+{
+  "job": 1001,
+  "candidate": {
+    "entityID": "google",
+    "nameID": "876i6tf7946fiuty"
+  },
+  "action": {
+    "actionApp": "bigbutton",
+    "actionName": "share"
+  },
+  "result": {
+    "passedFlag": true,
+    "userInteractionUri": "https://example.com/blah",
+    "image": "https://example.com/images/frog.png"
+  }
+}

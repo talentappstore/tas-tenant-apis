@@ -1,5 +1,9 @@
 {
   "landingPage": "https://acme.myapp.com/kjyi769gukogh",
   "settingsPage": "https://acme.myapp.com/stup",
-  "setupRequired": true
+  "setupRequired": true,
+  "domainsUsed": [
+	  "http://*/myapp.com",
+	  "https://*/myapp.com"
+  ]
 }

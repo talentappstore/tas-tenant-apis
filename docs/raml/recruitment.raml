@@ -980,6 +980,11 @@ resourceTypes: !include resources.yml
           /byName:
             /{item}:
               type: itemMeta
+      /resume:
+        /asDocument:
+          get:
+            securedBy: [oauth_2_0]
+            is: [ document_asStream ]
       /stars:
         /forJobs:
           /{job}:

@@ -70,6 +70,7 @@
     "jobBoard": { "$ref": "../schemas/jobBoard.json" },
     "jobBoardsForApps": { "$ref": "../schemas/jobBoardsForApps.json" },
     "jobBoards": { "$ref": "../schemas/jobBoards.json" },
+    "jobFeedDetails": { "$ref": "../schemas/jobFeedDetails.json" },
     "jobRead": { "$ref": "../schemas/jobRead.json" },
     "jobSearches": { "$ref": "../schemas/jobSearches.json" },
     "jobSetJob": { "$ref": "../schemas/jobSetJob.json" },

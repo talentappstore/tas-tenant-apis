@@ -1513,6 +1513,18 @@ resourceTypes: !include resources.yml
                   application/json:
                     schema: !include ../schemas/candidateWorkflow.json
                     example: !include ../examples/candidateWorkflow-simple.json
+  /feed:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get details of the tenant's job feed (an XML-formatted feed of all public jobs)
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobFeedDetails.json
+              example: !include ../examples/jobFeedDetails-simple.json
+
 /jobSets:
   /uploads:
     post:

@@ -23,6 +23,8 @@
     "applicationShells": { "$ref": "../schemas/applicationShells.json" },
     "applicationView": { "$ref": "../schemas/applicationView.json" },
     "applicationViews": { "$ref": "../schemas/applicationViews.json" },
+    "applicationViewType": { "$ref": "../schemas/applicationViewType.json" },
+    "applicationViewTypes": { "$ref": "../schemas/applicationViewTypes.json" },
     "appStatus": { "$ref": "../schemas/appStatus.json" },
     "assessmentMeta": { "$ref": "../schemas/assessmentMeta.json" },
     "assessmentRead": { "$ref": "../schemas/assessmentRead.json" },

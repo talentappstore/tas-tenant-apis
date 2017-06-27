@@ -1,0 +1,17 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"description": "a package of information about an application, e.g. a list of the items that shoudl be shown",
+	"properties": {
+		"id": {
+			"type": "integer",
+			"description": "id of this view type"
+		},
+		"label": {
+			"type": "string",
+			"description": "a label for the view type"
+		}
+	},
+	"required": [ "id", "label" ],
+	"additionalProperties": false
+}

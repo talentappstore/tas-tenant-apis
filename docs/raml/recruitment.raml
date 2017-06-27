@@ -522,8 +522,16 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/applicationShell.json
             example: !include ../examples/applicationShell-simple.json
-
-    
+  /viewTypes:
+    get:
+      description: |
+        Get a list of all available view types (i.e. pre-defined sets of information about an application)
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationViewTypes.json
+              example: !include ../examples/applicationViewTypes-simple.json
 
 /appStatus:
   get:

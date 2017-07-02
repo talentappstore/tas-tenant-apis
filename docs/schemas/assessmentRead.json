@@ -247,6 +247,7 @@
         "Cancelled",
         "Expired",
         "Released",
+        "Opted out",
         "Error"
       ]
     },

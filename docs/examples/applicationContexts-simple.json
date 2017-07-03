@@ -1,26 +1,29 @@
 [
   {
-    "application": 17733,
-    "job": 533,
-    "candidate": {
-      "entityID": "google",
-      "nameID": "g87uigoty96-9h"
-    }
-  },
-  {
-    "application": 17735,
-    "job": 533,
-    "candidate": {
-      "entityID": "facebook",
-      "nameID": "876goiy8689"
-    }
-  },
-  {
-    "application": 17739,
-    "job": 533,
-    "candidate": {
-      "entityID": "email",
-      "nameID": "frano@botica.com"
-    }
+    "id": 1001,
+    "code": "NDE3211",
+    "title": "Creative Director - Mid-west region",
+    "applications": [
+      {
+        "id": 347653,
+        "bucket": "incoming",
+        "tracker": 87864598,
+        "formFactor": "desktop",
+        "candidate": {
+          "person": {
+            "id": 56,
+            "givenName": "Fred",
+            "familyName": "Bloggs",
+            "email": "fred@gmail.com"
+          },
+          "identifier": {
+            "entityID": "facebook",
+            "nameID": "juytg8975go8tfo"
+          },
+          "internalFlag": false
+        },
+        "dateLastUpdated": "2015-11-05T13:15:30Z"
+      }
+    ]
   }
 ]

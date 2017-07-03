@@ -1,8 +1,10 @@
 {
   "job": 1001,
   "candidate": {
-    "entityID": "google",
-    "nameID": "876i6tf7946fiuty"
+    "identifier": {
+      "entityID": "google",
+      "nameID": "876i6tf7946fiuty"
+    }
   },
   "action": {
     "actionApp": "bigbutton",

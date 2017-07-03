@@ -230,8 +230,8 @@ resourceTypes: !include resources.yml
                 The method is a POST solely because the size and number of parameters (i.e. the list of candidates) might get too large for a GET.
               body:
                 application/json:
-                  schema: !include ../schemas/candidateIdentifiers.json
-                  example: !include ../examples/candidateIdentifiers-simple.json
+                  schema: !include ../schemas/personIdentifiers.json
+                  example: !include ../examples/personIdentifiers-simple.json
               responses:
                 200:
                   body:
@@ -311,36 +311,6 @@ resourceTypes: !include resources.yml
           /byName:
             /{item}:
               type: itemMeta
-      /viewInstances:
-        description: |
-          A window is a view of a specific application, via a specific view (set of data exposed). e.g. when completing a probity check, and assessment app might
-          be allowed to see candidate name, CV, and work history (the view) for application 1002 (the applicant being tested).  
-            
-          A view is a curated set of information about an application and its attached objects (job, candidate, etc.). Views rely on security through obscurity - view keys
-          are very sparse.
-        /byViewType:
-          /{viewType}:
-            post:
-              description: |
-                Ask the view holding app to create a view instance of the given view type for this application. The response includes the key
-                of the newly created view instance.
-              responses:
-                200:
-                  body:
-                    application/json:
-                      schema: !include ../schemas/viewMeta.json
-                      example: !include ../examples/viewMeta-simple.json
-        /byKey:
-          /{key}:
-            get:
-              description: |
-                Get the previously created view instance.
-              responses:
-                200:
-                  body:
-                    application/json:
-                      schema: !include ../schemas/applicationView.json
-                      example: !include ../examples/applicationView-simple.json
   /bySourcingApp:
     /{consumer}:
       /{id}:
@@ -350,150 +320,186 @@ resourceTypes: !include resources.yml
             description: |
               Get a sanitised and basic set of information for a job application, which the consumer is entitled to
               by virtue of sourcing the application (i.e., owning the campaign tracker attached to the application).
-
-  /at:
+  /views:
     description: |
-      These "at" APIs provide access to applications based on the phase of the recruitment process that they are in now, or have
-      ever been in. An application's phase is determined by its bucket (every bucket is linked to a single phase). In these descriptions:
-      - "entering a phase" means that an application has transitioned into a bucket of that phase,
-      from a bucket of some other phase (or from initial creation) - i.e. moving between buckets of the same phase has no effect on these APIs
-      - "exiting a phase" means that an application has transitioned out of a bucket of this phase into a bucket of some other phase.
-    
-    /new:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /screening:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /interview:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /selection:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /offer:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /approval:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /hire:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /onboard:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /decline:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
-    /other:
-      /now:
-        type: applicationPhaseNowGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseNowPinger
-      /ever:
-        type: applicationPhaseEverGetter
-        /byID:
-          /{application}:
-            /deltaPings:
-              type: applicationPhaseEverPinger
+      A view is a curated package of information about an application and its job, candidate, etc.
+      
+      The tenant controls what data appears in a view. This allows them to e.g. only share the minimum amount of data with
+      an app. For example, an onboarding app might need details of the applicant's salary, whereas a survey app might
+      only need to know their email address.
+    /at:
+      description: |
+        These "at" APIs provide access to applications based on the phase of the recruitment process that they are in now, or have
+        ever been in. An application's phase is determined by its bucket (every bucket is linked to a single phase). In these descriptions:
+        - "entering a phase" means that an application has transitioned into a bucket of that phase,
+        from a bucket of some other phase (or from initial creation) - i.e. moving between buckets of the same phase has no effect on these APIs
+        - "exiting a phase" means that an application has transitioned out of a bucket of this phase into a bucket of some other phase.
+      
+      /new:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /screening:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /interview:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /selection:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /offer:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /approval:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /hire:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /onboard:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /decline:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+      /other:
+        /now:
+          type: applicationPhaseNowGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseNowPinger
+        /ever:
+          type: applicationPhaseEverGetter
+          /byID:
+            /{application}:
+              /deltaPings:
+                type: applicationPhaseEverPinger
+    /byID:
+      /{application}:
+        /viewInstances:
+          description: |
+            These APIs allow explicitly creating and accessing view instances.
+          /byViewType:
+            /{viewType}:
+              post:
+                description: |
+                  Ask the view holding app to create a view instance of the given view type for this application. The response includes the key
+                  of the newly created view instance.
+                responses:
+                  200:
+                    body:
+                      application/json:
+                        schema: !include ../schemas/viewMeta.json
+                        example: !include ../examples/viewMeta-simple.json
+          /byKey:
+            /{key}:
+              get:
+                description: |
+                  Get the previously created view instance.
+                responses:
+                  200:
+                    body:
+                      application/json:
+                        schema: !include ../schemas/applicationView.json
+                        example: !include ../examples/applicationView-simple.json
+               
   /contexts:
     get:
       is: [ applicationStripeGetter ]
       description: |
-        Get candidate details (entityID and nameID) and job details for the given stripe of job applications.
+        Get context information (about the job, and candidate) for the given stripe of job applications. The consumer can access any information
+        they like about the applications, as opposed to the "view" APIs.
       responses:
         200:
           body:

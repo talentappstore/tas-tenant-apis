@@ -1,12 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
-    "givenName": {
-      "type": "string"
-    },
-    "familyName": {
-      "type": "string"
-    },
     "source": {
       "type": "string"
     },
@@ -57,24 +51,7 @@
       ]
     },
     "candidate": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "familyName": {
-          "$ref": "#/definitions/familyName"
-        },
-        "givenName": {
-          "$ref": "#/definitions/givenName"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "familyName",
-        "givenName"
-      ]
+      "$ref": "person.json"
     }
   },
   "type": "object",

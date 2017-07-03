@@ -3,11 +3,11 @@
   "definitions": {
     "entityID": {
       "type": "string",
-      "description": "entity ID for the candidate"
+      "description": "entity ID for the principal"
     },
     "nameID": {
       "type": "string",
-      "description": "name ID for the candidate"
+      "description": "name ID for the principal"
     }
   },
   "type": "object",

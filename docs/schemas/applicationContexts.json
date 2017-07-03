@@ -1,5 +1,73 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "array",
-    "items": { "$ref": "applicationContext.json" }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "the context of each of a stripe of job applications - i,e,. candidate and job details",
+  "definitions": {
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "person": {
+          "$ref": "person.json"
+        },
+        "identifier": {
+          "$ref": "personIdentifier.json"
+        },
+        "internalFlag": {
+          "$ref": "candidateDetails.json#/definitions/internalFlag"
+        }
+      },
+      "additionalProperties": false
+    },
+    "application": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "applicationRead.json#/definitions/id"
+        },
+        "bucket": {
+          "$ref": "bucket.json#/definitions/key"
+        },
+        "tracker": {
+          "$ref": "applicationRead.json#/definitions/tracker"
+        },
+        "formFactor": {
+          "$ref": "applicationShell.json#/definitions/formFactor"
+        },
+        "candidate": {
+          "$ref": "#/definitions/candidate"
+        },
+        "dateLastUpdated": {
+          "$ref": "applicationRead.json#/definitions/dateLastUpdated"
+        }
+      },
+      "additionalProperties": false
+    },
+    "applications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/application"
+      }
+    },
+    "job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "jobRead.json#/definitions/id"
+        },
+        "code": {
+          "$ref": "jobRead.json#/definitions/code"
+        },
+        "title": {
+          "$ref": "jobRead.json#/definitions/title"
+        },
+        "applications": {
+          "$ref": "#/definitions/applications"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/job"
+  }
 }

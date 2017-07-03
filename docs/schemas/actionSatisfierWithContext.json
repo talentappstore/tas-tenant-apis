@@ -16,6 +16,14 @@
         "actionApp",
         "actionName"
       ]
+    },
+    "candidate": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "$ref": "personIdentifier.json"
+        }
+      }
     }
   },
   "type": "object",
@@ -24,7 +32,7 @@
       "$ref": "jobRead.json#/definitions/id"
     },
     "candidate": {
-      "$ref": "candidateIdentifier.json"
+      "$ref": "#/definitions/candidate"
     },
     "action": {
       "$ref": "#/definitions/action"

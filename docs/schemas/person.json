@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+        "id": {
+          "type": "integer"
+        },
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "givenName": {
+      "$ref": "#/definitions/givenName"
+    },
+    "familyName": {
+      "$ref": "#/definitions/familyName"
+    },
+    "email": {
+      "$ref": "#/definitions/email"
+    }
+ },
+  "additionalProperties": false
+}

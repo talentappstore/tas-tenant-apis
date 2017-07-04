@@ -241,12 +241,10 @@
     "status": {
       "description": "The current disposition of an assessment",
       "enum": [
-        "New",
+        "Started",
         "In progress",
         "Complete",
         "Cancelled",
-        "Expired",
-        "Released",
         "Opted out",
         "Error"
       ]

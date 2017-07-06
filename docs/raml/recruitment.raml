@@ -446,23 +446,20 @@ resourceTypes: !include resources.yml
             /{application}:
               /deltaPings:
                 type: applicationPhaseEverPinger
-    /byID:
+    /byApplication:
       /{application}:
-        /viewInstances:
-          description: |
-            These APIs allow explicitly creating and accessing view instances.
-          /byViewType:
-            /{viewType}:
-              post:
-                description: |
-                  Ask the view holding app to create a view instance of the given view type for this application. The response includes the key
-                  of the newly created view instance.
-                responses:
-                  200:
-                    body:
-                      application/json:
-                        schema: !include ../schemas/viewMeta.json
-                        example: !include ../examples/viewMeta-simple.json
+        /byViewType:
+          /{viewType}:
+            post:
+              description: |
+                Ask the view holding app to create a view instance of the given view type for this application. The response includes the key
+                of the newly created view instance.
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/viewMeta.json
+                      example: !include ../examples/viewMeta-simple.json
     /byKey:
       /{key}:
         get:

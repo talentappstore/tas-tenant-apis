@@ -337,7 +337,7 @@
       "type": "integer"
     },
     "assessmentTypeKey": {
-      "$ref": "assessmentTypesForApp.json#/definitions/key"
+      "$ref": "assessmentType.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"

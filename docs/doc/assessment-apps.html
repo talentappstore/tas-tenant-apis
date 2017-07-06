@@ -224,7 +224,7 @@ storefront->app: GET /appStatus
 note right of app: hub displays your assessment types
 hub->app: GET /assessmentTypes/forApp
 note right of app: customer starts your assessment
-hub->app: POST /assessments/byApplication/{application}/tenantDeltaPings
+hub->app: POST /assessments/byID/{id}/tenantDeltaPings
 app->hub: GET /assessments/byID/{id}
 app->ats: GET /applications/byID/{application}/viewInstances/byKey/{key}
 app->hub: PATCH /assessments/byApplication/{application}/appDetails
@@ -335,7 +335,7 @@ their needs (e.g., "Acme 2018 finance graduate assessment").
 </p>
 
 <p>The assessment hub then notifies your app by consuming your 
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byApplication__application__tenantDeltaPings_post'>POST /assessments/byApplication/{application}/tenantDeltaPings</a>
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
 endpoint. Your endpoint receives a message like this:
 
 <div class='codeBlock'>

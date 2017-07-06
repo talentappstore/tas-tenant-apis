@@ -1,14 +1,13 @@
 #%RAML 0.8
 
 
-- applicationStripeGetter:
+- applicationStripeFetcher:
     queryParameters:
       applications:
         type: integer
         description: |
-          A set of application IDs (up to a max of 100) that the strips should be fetched for.
-        required: true
-
+          If present, a set of IDs (up to a max of 100) of the applications that should be included.
+        required: false
 
 - applicationPager:
     queryParameters:
@@ -16,21 +15,21 @@
         type: number
         required: false
         example: 1001
-        description: if present, only applications with id > this value will be returned 
+        description: if present, only include applications with id > this value 
       since:
         type: date
         required: false
-        example: A string such as "2015-11-05T13:15:30Z". If present, only applications with their significant date > this value will be returned.
+        description: A date string such as "2015-11-05T13:15:30Z". If present, only applications with their significant date > this value will be returned.
 
 - applicationObjectFilter:
     queryParameters:
       job:
-        description: when specified, limits to just applications for this particular job 
+        description: if present, only include applications for this job 
         type: integer
         required: false
         example: 10033433
       candidate:
-        description: when specified, limits to just applications for this particular candidate 
+        description: if present, only include applications for this candidate 
         type: integer
         required: false
         example: 1002443

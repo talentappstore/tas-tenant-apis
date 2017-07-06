@@ -1,9 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
-        "id": {
-          "type": "integer"
-        },
     "givenName": {
       "type": "string"
     },
@@ -16,9 +13,6 @@
   },
   "type": "object",
   "properties": {
-    "id": {
-      "$ref": "#/definitions/id"
-    },
     "givenName": {
       "$ref": "#/definitions/givenName"
     },
@@ -27,6 +21,12 @@
     },
     "email": {
       "$ref": "#/definitions/email"
+    },
+    "vcard": {
+      "$ref": "jcard.json"
+    },
+    "login": {
+      "$ref": "login.json"
     }
  },
   "additionalProperties": false

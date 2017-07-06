@@ -24,8 +24,8 @@
     "internalFlag": {
       "$ref": "#/definitions/internalFlag"
     },
-    "vcard": {
-      "$ref": "jcard.json"
+    "person": {
+      "$ref": "person.json"
     },
     "resumeMeta": {
       "$ref": "fileDownload.json"

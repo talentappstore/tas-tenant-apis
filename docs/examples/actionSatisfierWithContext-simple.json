@@ -1,7 +1,7 @@
 {
   "job": 1001,
   "candidate": {
-    "identifier": {
+    "login": {
       "entityID": "google",
       "nameID": "876i6tf7946fiuty"
     }

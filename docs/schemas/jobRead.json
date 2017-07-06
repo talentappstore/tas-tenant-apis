@@ -27,10 +27,6 @@
       "type": "string",
       "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
     },
-    "manager": {
-       "type" : "integer",
-       "description": "Manager for this job"
-    },
     "code": {
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
@@ -135,7 +131,10 @@
       "$ref": "#/definitions/country"
     },
     "manager": {
-      "$ref": "#/definitions/manager"
+      "$ref": "manager.json"
+    },
+    "recruiter": {
+      "$ref": "recruiter.json"
     },
     "workflow": {
       "$ref": "#/definitions/workflow"

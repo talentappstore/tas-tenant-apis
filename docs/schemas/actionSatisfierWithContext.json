@@ -20,8 +20,8 @@
     "candidate": {
       "type": "object",
       "properties": {
-        "identifier": {
-          "$ref": "personIdentifier.json"
+        "login": {
+          "$ref": "login.json"
         }
       }
     }

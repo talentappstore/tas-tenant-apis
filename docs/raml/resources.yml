@@ -26,24 +26,29 @@
             
         Non-SoT.
 
-- applicationGetter:
+- applicationMultiGetter:
     get:
-      is: [ applicationPager, applicationObjectFilter ]    
+      is: [ applicationPager, applicationObjectFilter, applicationStripeFetcher ]    
       securedBy: [oauth_2_0]
       description: |
-        Get all applications that match the parameters and;
-        - (if since is specified), that have dateLastUpdated after the given date; AND
-        - (if minID is specified), that have id > minID
+        This API is used to fetch or query details of 1 to 100 job applications in a single call. 
 
-        A maximum of 100 applications will be returned by a single call to the API. If this maximum number
-        is returned, the client should fetch again, specifying both sinceDate and minID, as there may be more results.
+        You should call this API either:
+        - passing the "applications" parameter, to fetch a specific, known set of applications; OR
+        - passing some combination of "bucket", "job", "candidate", "since" and "minID" to query an unknown number of applications, filtered to your requirements
+
+        In the second case, the total number of results may exceed the maximum (100) per API call,
+        so you will need to paginate the results as follows (results are ordered by since asc, application ID asc):
+        - first, call the API passing only your filters (i.e., not the since or minID parameters)
+        - if you get back exactly 100 applications, call the API again, but this time setting since and minID paramaters to the values from the last
+        application in the previous response
+        - repeat the above until less than 100 results are returned (indicating you've fetched the final application)     
+
+        SinceDate is the datelastUpdated for the application.
         
-        Results are ordered by sinceDate asc, applicationId asc.
-        
-        sinceDate in this case is the datelastUpdated for the application.
       queryParameters:
         bucket:
-          description: when present, filters to only include applications in this bucket
+          description: if present, only include applications that are currently in this bucket
           type: string
           required: false
           example: 1003
@@ -51,10 +56,29 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/applicationViews.json
-              example: !include ../examples/applicationViews-simple.json
+              schema: !include ../schemas/applicationsRead.json
+              example: !include ../examples/applicationsRead-simple.json
         404:
           description: there are no applications matching the filters
+
+- applicationStripeGetter:
+    get:
+      is: [ applicationStripeFetcher ]    
+      securedBy: [oauth_2_0]
+      description: |
+        Get all applications identified in the stripe (set of IDs).
+
+        Results are ordered by applicationId asc.
+
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/applicationsRead.json
+              example: !include ../examples/applicationsRead-simple.json
+        404:
+          description: at least one application was not found
+
 
 
 - applicationPhaseNowGetter:
@@ -78,8 +102,8 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/applicationViews.json
-              example: !include ../examples/applicationViews-simple.json
+              schema: !include ../schemas/applicationsRead.json
+              example: !include ../examples/applicationsRead-simple.json
         404:
           description: there are no applications matching the filters
 
@@ -103,31 +127,8 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/applicationViews.json
-              example: !include ../examples/applicationViews-simple.json
-        404:
-          description: there are no applications matching the filters
-
-- applicationShellGetter:
-    get:
-      is: [ applicationPager, applicationObjectFilter ]    
-      securedBy: [oauth_2_0]
-      description: |
-        Get date stripe of application activities, e.g. for initial replication. Returns all applications:
-        - (if since is specified), that have dateLastUpdated after the given date; AND
-        - (if minID is specified), that have id > minID
-
-        A maximum of 100 applications will be returned by a single call to the API. If this maximum number
-        is returned, the client should fetch again, specifying both sinceDate and minID, as there may be more results.
-        
-        Results are ordered by lastUpdateDate asc, applicationId asc.
-        
-      responses:
-        200:
-          body:
-            application/json:
-              schema: !include ../schemas/applicationShells.json
-              example: !include ../examples/applicationShells-simple.json
+              schema: !include ../schemas/applicationsRead.json
+              example: !include ../examples/applicationsRead-simple.json
         404:
           description: there are no applications matching the filters
 
@@ -323,7 +324,7 @@
 - applicationAssessmentsStrip:
     get:
       securedBy: [oauth_2_0]
-      is: [ hasRelayPage, applicationStripeGetter ]
+      is: [ hasRelayPage, applicationStripeFetcher ]
       description: |
         Get the html for the strip of assessments (not started, underway or complete), ready to plug in next to a job applicant.
         

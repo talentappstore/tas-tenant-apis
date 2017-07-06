@@ -321,131 +321,131 @@ resourceTypes: !include resources.yml
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /screening:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /interview:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /selection:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /offer:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /approval:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /hire:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /onboard:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /decline:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
       /other:
         /now:
           type: applicationPhaseNowGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseNowPinger
+              /pushes:
+                type: applicationPhaseNowPusher
         /ever:
           type: applicationPhaseEverGetter
           /byID:
             /{application}:
-              /deltaPings:
-                type: applicationPhaseEverPinger
+              /pushes:
+                type: applicationPhaseEverPusher
     /byApplication:
       /{application}:
         /byViewType:
@@ -509,20 +509,22 @@ resourceTypes: !include resources.yml
 
 /assessments:
   /strips:
-    /headHtml:
-      get:
-        description: |
-          Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.
+    /me:
+      description: These APIs are on behalf, allowing the identity of the user raising the assessment to be available to the hub.
+      /headHtml:
+        get:
+          description: |
+            Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.
               
-          The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.
-        responses:
-          200:
-            body:
-              text/html:
-                example: some html pulling in stylesheet, javascript etc.
-    /forApplications:
-      /asHtml:
-        type: applicationAssessmentsStrip
+            The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.
+          responses:
+            200:
+              body:
+                text/html:
+                  example: some html pulling in stylesheet, javascript etc.
+      /forApplications:
+        /asHtml:
+          type: applicationAssessmentsStrip
   /byApplication:
     /{application}:
       /byassessmentType:

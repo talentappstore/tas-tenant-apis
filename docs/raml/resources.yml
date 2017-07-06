@@ -1,30 +1,37 @@
 #%RAML 0.8
 
 
-- applicationPhaseNowPinger:
+- applicationPhaseNowPusher:
     post:    
       securedBy: [oauth_2_0]
       description: |
-        A delta ping will be sent for the 'now' case to all listeners whenever an application:
-        - enters the phase (the delta ping will have the operation "insert")
-        - exits the phase (the delta ping will have the operation "delete")
+        A request containing a view will be sent for the 'now' case to all listeners whenever an application;
+        - enters the phase
+        
+        An empty request will be sent whenever an application;
+        - exits the phase
       
         Non-SoT.
 
       body:
         application/json:
-          schema: !include ../schemas/deltaPing.json
-          example: !include ../examples/deltaPing-simple.json
+          schema: !include ../schemas/applicationRead.json
+          example: !include ../examples/applicationRead-simple.json
           
 
-- applicationPhaseEverPinger:
+- applicationPhaseEverPusher:
     post:    
       securedBy: [oauth_2_0]
       description: |
-        A delta ping will be sent for the "ever" case to all listeners:
+        A request containing a view will be sent for the "ever" case to all listeners;
         - the first time (only) that an application enters the phase   
             
         Non-SoT.
+
+      body:
+        application/json:
+          schema: !include ../schemas/applicationRead.json
+          example: !include ../examples/applicationRead-simple.json
 
 - applicationMultiGetter:
     get:

@@ -27,7 +27,7 @@
       "properties": {
         "app": {
           "type": "string",
-          "description": "The app that owns these assessment types"
+          "description": "Shortcode for the app that owns these assessment types"
         },
         "assessmentTypesWithID": {
           "$ref": "#/definitions/assessmentTypesWithID"

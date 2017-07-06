@@ -226,8 +226,8 @@ hub->app: GET /assessmentTypes/forApp
 note right of app: customer starts your assessment
 hub->app: POST /assessments/byID/{id}/tenantDeltaPings
 app->hub: GET /assessments/byID/{id}
-app->ats: GET /applications/byID/{application}/viewInstances/byKey/{key}
-app->hub: PATCH /assessments/byApplication/{application}/appDetails
+app->ats: GET /applications/views/byKey/{key}
+app->hub: PATCH /assessments/byID/{id}/appDetails
 app->ats: GET /candidates/me/homePage
 
 </div>
@@ -350,7 +350,7 @@ You might do your own system's housekeeping for the new assessment, e.g. creatin
 
 <h3>Cleaning up PII, dealing with on hold</h3>
 
-<p>Your app may also be informed via <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byApplication__application__tenantDeltaPings_post'>POST /assessments/byApplication/{application}/tenantDeltaPings</a>
+<p>Your app may also be informed via <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
  that an assessment has been deleted (e.g. in response to a privacy response, or to conform to data retention laws).
 </p>
 
@@ -375,7 +375,7 @@ app should stop whatever it is doing with the candidate.
 </p>
 
 <p>Your app can get these details from a view. The assessment details you fetched previously included a view key. Pass that in to your call to  
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#applications_byID__application__viewInstances_byKey__key__get'>GET /applications/byID/{application}/viewInstances/byKey/{key}</a>
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a>
 
 <p>A view is a json formatted package containing all the data that the customer feels that your assessment app should see. If you need data added to the view,
 you can contact the customer.
@@ -385,8 +385,7 @@ you can contact the customer.
 as well as data items pulled through from the job.
 </p>
 			
-<p>The tenant can attach a different view to each assessment type, exposing just
-enough information for the assessment app to do its work.
+<p>The tenant can attach a different view to each assessment type, exposing just enough information for your assessment app to do its work.
 </p>
 
 
@@ -396,7 +395,7 @@ enough information for the assessment app to do its work.
 </p>
 
 <p>At each stage of processing, your app should push the assessment's state up into the assessment hub by consuming 
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byApplication__application__appDetails_patch'>PATCH /assessments/byApplication/{application}/appDetails</a>.
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__appDetails_patch'>PATCH /assessments/byID/{id}/appDetails</a>.
 
 <p>The assessment's state includes:
 <ul>

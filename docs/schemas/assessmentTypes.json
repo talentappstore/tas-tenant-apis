@@ -7,10 +7,14 @@
         "id": {
           "type": "number"
         },
+        "activeFlag": {
+           "type": "boolean"
+        },
         "assessmentType": {
           "$ref": "assessmentType.json"
         }
-      }
+      },
+      "required": [ "id", "activeFlag", "assessmentType" ]
     },
     "assessmentTypesWithID": {
       "type": "array",
@@ -28,7 +32,8 @@
         "assessmentTypesWithID": {
           "$ref": "#/definitions/assessmentTypesWithID"
         }
-      }
+      },
+      "required": [ "app", "assessmentTypesWithID" ]
     }
   },
   "type": "array",

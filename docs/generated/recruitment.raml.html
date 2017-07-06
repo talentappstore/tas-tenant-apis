@@ -5705,7 +5705,7 @@
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "id": 100,
     "created": "2015-11-05T13:15:30Z"
-}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessmentTypes" class="panel-title">/assessmentTypes</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes"><span class="parent"></span>/assessmentTypes</a> <span class="methods"><a href="#assessmentTypes_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of all assessment types produced by all assessment apps.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/assessmentTypes</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of all assessment types produced by all assessment apps.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessmentTypes" class="panel-title">/assessmentTypes</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes"><span class="parent"></span>/assessmentTypes</a> <span class="methods"><a href="#assessmentTypes_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of all assessment types produced by all assessment apps.</p><p>SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/assessmentTypes</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of all assessment types produced by all assessment apps.</p><p>SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "assessmentTypeWithID": {
@@ -5714,10 +5714,14 @@
         "id": {
           "type": "number"
         },
+        "activeFlag": {
+           "type": "boolean"
+        },
         "assessmentType": {
           "$ref": "assessmentType.json"
         }
-      }
+      },
+      "required": [ "id", "activeFlag", "assessmentType" ]
     },
     "assessmentTypesWithID": {
       "type": "array",
@@ -5735,7 +5739,8 @@
         "assessmentTypesWithID": {
           "$ref": "#/definitions/assessmentTypesWithID"
         }
-      }
+      },
+      "required": [ "app", "assessmentTypesWithID" ]
     }
   },
   "type": "array",
@@ -5749,6 +5754,7 @@
     "assessmentTypesWithID": [
       {
         "id": 3002,
+        "activeFlag": true,
         "assessmentType": {
           "key": "mswordprof",
           "userTitle": "MS Word proficiency - basic",

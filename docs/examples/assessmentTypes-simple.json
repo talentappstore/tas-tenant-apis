@@ -4,6 +4,7 @@
     "assessmentTypesWithID": [
       {
         "id": 3002,
+        "activeFlag": true,
         "assessmentType": {
           "key": "mswordprof",
           "userTitle": "MS Word proficiency - basic",

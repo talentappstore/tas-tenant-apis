@@ -619,6 +619,27 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/assessmentTypes.json
             example: !include ../examples/assessmentTypes-simple.json
+  /byID:
+    /{id}:
+      get:
+        securedBy: [oauth_2_0]
+        description: |
+          Get details of a single assessment type, by ID. The response is an array containing a single type. Typically used
+          by the assessment hub's UI when rendering details about assessments about to be created, or that already exist. 
+
+          Even when an assessment type has been deleted (i.e., is no longer passed by the assessment app) it will still
+          be returned by this API, but with activeFlag set to false.  
+                  
+          SoT.
+        responses:
+          200:
+            body:
+              application/json:
+                schema: !include ../schemas/assessmentTypes.json
+                example: !include ../examples/assessmentTypes-simple.json
+          404:
+            description: no assessment type with that ID exists
+      
   /forApp:
     get:
       securedBy: [oauth_2_0]

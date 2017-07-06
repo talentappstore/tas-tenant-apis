@@ -5299,242 +5299,9 @@
 ]</code></pre></div><div class="tab-pane" id="assessments_strips_forApplications_asHtml_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byApplication__application__byassessmentType__assessmentType_"><span class="parent">/assessments/byApplication/{application}/byassessmentType</span>/{assessmentType}</a> <span class="methods"><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_byApplication__application__byassessmentType__assessmentType_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byApplication__application__byassessmentType__assessmentType__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byApplication__application__byassessmentType__assessmentType__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/byApplication/{application}/byassessmentType</span>/{assessmentType}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byApplication__application__byassessmentType__assessmentType__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byApplication__application__byassessmentType__assessmentType__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>assessmentType</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byApplication__application__byassessmentType__assessmentType__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "accessPoint": {
-      "type": "object",
-      "description": "Link to an external result.",
-      "properties": {
-        "uri": {
-          "title": "URI",
-          "type": "string",
-          "format": "uri"
-        },
-        "typeCode": {
-          "type": "string",
-          "title": "Type",
-          "enum": [
-            "Individual",
-            "Group"
-          ]
-        }
-      }
-    },
-    "scoreNumeric": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "ScoreNumeric"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Percentile",
-            "Raw Score",
-            "Stanine",
-            "Sten",
-            "T-score",
-            "Z-score",
-            "Intelligence Quotient",
-            "Scaled",
-            "Normal Curve",
-            "GPA"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "number"
-        }
-      }
-    },
-    "scoreText": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "Scoretext"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Grade Letter"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "string"
-        }
-      }
-    },
-    "score": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "title": "Numeric Score",
-            "$ref": "#/definitions/scoreNumeric"
-          },
-          {
-            "title": "Text Score",
-            "$ref": "#/definitions/scoreText"
-          }
-        ]
-      }
-    },
-    "assessedCompetency": {
-      "title": "Assessed Competency",
-      "type": "object",
-      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
-      "properties": {
-        "id": {
-          "title": "Name",
-          "type": "integer"
-        },
-        "proficiencyLevel": {
-          "title": "Proficiency Level",
-          "$ref": "#/definitions/score"
-        }
-      }
-    },
     "passedFlag": {
       "title": "Pass?",
       "type": "boolean"
-    },
-    "result": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "Result Name",
-          "type": "string"
-        },
-        "description": {
-          "title": "Description",
-          "type": "string"
-        },
-        "passedFlag": {
-          "$ref": "#/definitions/passedFlag"
-        },
-        "score": {
-          "title": "Score",
-          "$ref": "#/definitions/score"
-        },
-        "comment": {
-          "title": "Comment",
-          "type": "string"
-        },
-        "bandID": {
-          "title": "Band",
-          "type": "string"
-        },
-        "assessedCompetency": {
-          "title": "Assessed Competency",
-          "$ref": "#/definitions/assessedCompetency"
-        }
-      }
-    },
-    "attachmentType": {
-      "title": "Name",
-      "type": "string",
-      "description": "Only one document with this name can be attached to an assessment result."
-    },
-    "attachmentWrite": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileUpload": {
-          "$ref": "fileUpload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileUpload"
-      ]
-    },
-    "attachmentRead": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileDownload": {
-          "$ref": "fileDownload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileDownload"
-      ]
-    },
-    "assessmentDetailWrite": {
-      "properties": {
-        "assessmentOverallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "assessmentDetailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentWrite"
-          }
-        }
-      }
-    },
-    "assessmentDetailRead": {
-      "properties": {
-        "overallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "detailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentRead"
-          }
-        }
-      }
     },
     "status": {
       "description": "The current disposition of an assessment",
@@ -5603,26 +5370,11 @@
       "type": "string",
       "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type&#39;s launch UI"
     },
-    "raiser": {
-      "type": "object",
-      "properties": {
-        "givenName": {
-          "$ref": "#/definitions/givenName"
-        },
-        "familyName": {
-          "$ref": "#/definitions/familyName"
-        },
-        "email": {
-          "$ref": "#/definitions/email"
-        }
-      },
-      "additionalProperties": false
-    },
     "raisers": {
-      "description": "a list of every user who raised this assessment (i.e., via a linkage). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
+      "description": "a list of every user who raised this assessment (this may be more than one, i.e. via linkages). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
       "type": "array",
       "items": {
-        "$ref": "#/definitions/raiser"
+        "$ref": "person.json"
       }
     }
   },
@@ -5635,7 +5387,7 @@
       "type": "integer"
     },
     "assessmentTypeKey": {
-      "$ref": "assessmentTypesForApp.json#/definitions/key"
+      "$ref": "assessmentType.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"
@@ -5701,242 +5453,9 @@
 </code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessments_byID__id_"><span class="parent">/assessments/byID</span>/{id}</a> <span class="methods"><a href="#assessments_byID__id__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_assessments_byID__id_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessments_byID__id__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessments_byID__id__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/assessments/byID</span>/{id}</h4></div><div class="modal-body"><div class="alert alert-info"><p>get details of this assessment, reflecting changes made by the app and/or the tenant.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#assessments_byID__id__get_request" data-toggle="tab">Request</a></li><li><a href="#assessments_byID__id__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessments_byID__id__get_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="assessments_byID__id__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "accessPoint": {
-      "type": "object",
-      "description": "Link to an external result.",
-      "properties": {
-        "uri": {
-          "title": "URI",
-          "type": "string",
-          "format": "uri"
-        },
-        "typeCode": {
-          "type": "string",
-          "title": "Type",
-          "enum": [
-            "Individual",
-            "Group"
-          ]
-        }
-      }
-    },
-    "scoreNumeric": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "ScoreNumeric"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Percentile",
-            "Raw Score",
-            "Stanine",
-            "Sten",
-            "T-score",
-            "Z-score",
-            "Intelligence Quotient",
-            "Scaled",
-            "Normal Curve",
-            "GPA"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "number"
-        }
-      }
-    },
-    "scoreText": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "type": "string",
-          "enum": [
-            "Scoretext"
-          ],
-          "options": {
-            "hidden": true
-          }
-        },
-        "type": {
-          "title": "Type",
-          "type": "string",
-          "enum": [
-            "Grade Letter"
-          ]
-        },
-        "value": {
-          "title": "Value",
-          "type": "string"
-        }
-      }
-    },
-    "score": {
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "title": "Numeric Score",
-            "$ref": "#/definitions/scoreNumeric"
-          },
-          {
-            "title": "Text Score",
-            "$ref": "#/definitions/scoreText"
-          }
-        ]
-      }
-    },
-    "assessedCompetency": {
-      "title": "Assessed Competency",
-      "type": "object",
-      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
-      "properties": {
-        "id": {
-          "title": "Name",
-          "type": "integer"
-        },
-        "proficiencyLevel": {
-          "title": "Proficiency Level",
-          "$ref": "#/definitions/score"
-        }
-      }
-    },
     "passedFlag": {
       "title": "Pass?",
       "type": "boolean"
-    },
-    "result": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "title": "Result Name",
-          "type": "string"
-        },
-        "description": {
-          "title": "Description",
-          "type": "string"
-        },
-        "passedFlag": {
-          "$ref": "#/definitions/passedFlag"
-        },
-        "score": {
-          "title": "Score",
-          "$ref": "#/definitions/score"
-        },
-        "comment": {
-          "title": "Comment",
-          "type": "string"
-        },
-        "bandID": {
-          "title": "Band",
-          "type": "string"
-        },
-        "assessedCompetency": {
-          "title": "Assessed Competency",
-          "$ref": "#/definitions/assessedCompetency"
-        }
-      }
-    },
-    "attachmentType": {
-      "title": "Name",
-      "type": "string",
-      "description": "Only one document with this name can be attached to an assessment result."
-    },
-    "attachmentWrite": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileUpload": {
-          "$ref": "fileUpload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileUpload"
-      ]
-    },
-    "attachmentRead": {
-      "type": "object",
-      "properties": {
-        "attachmentType": {
-          "$ref": "#/definitions/attachmentType"
-        },
-        "fileDownload": {
-          "$ref": "fileDownload.json"
-        }
-      },
-      "required": [
-        "attachmentType",
-        "fileDownload"
-      ]
-    },
-    "assessmentDetailWrite": {
-      "properties": {
-        "assessmentOverallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "assessmentDetailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentWrite"
-          }
-        }
-      }
-    },
-    "assessmentDetailRead": {
-      "properties": {
-        "overallResult": {
-          "title": "Overall Result",
-          "$ref": "#/definitions/result"
-        },
-        "detailedResults": {
-          "title": "Result Details",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/result"
-          }
-        },
-        "accessPoints": {
-          "title": "Links",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/accessPoint"
-          }
-        },
-        "attachments": {
-          "title": "Attachments",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/attachmentRead"
-          }
-        }
-      }
     },
     "status": {
       "description": "The current disposition of an assessment",
@@ -6005,26 +5524,11 @@
       "type": "string",
       "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type&#39;s launch UI"
     },
-    "raiser": {
-      "type": "object",
-      "properties": {
-        "givenName": {
-          "$ref": "#/definitions/givenName"
-        },
-        "familyName": {
-          "$ref": "#/definitions/familyName"
-        },
-        "email": {
-          "$ref": "#/definitions/email"
-        }
-      },
-      "additionalProperties": false
-    },
     "raisers": {
-      "description": "a list of every user who raised this assessment (i.e., via a linkage). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
+      "description": "a list of every user who raised this assessment (this may be more than one, i.e. via linkages). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
       "type": "array",
       "items": {
-        "$ref": "#/definitions/raiser"
+        "$ref": "person.json"
       }
     }
   },
@@ -6037,7 +5541,7 @@
       "type": "integer"
     },
     "assessmentTypeKey": {
-      "$ref": "assessmentTypesForApp.json#/definitions/key"
+      "$ref": "assessmentType.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"
@@ -6201,94 +5705,68 @@
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
     "id": 100,
     "created": "2015-11-05T13:15:30Z"
-}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessmentTypes" class="panel-title">/assessmentTypes</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp"><span class="parent">/assessmentTypes</span>/forApp</a> <span class="methods"><a href="#assessmentTypes_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessmentTypes</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="assessmentTypes" class="panel-title">/assessmentTypes</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes"><span class="parent"></span>/assessmentTypes</a> <span class="methods"><a href="#assessmentTypes_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of all assessment types produced by all assessment apps.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/assessmentTypes</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of all assessment types produced by all assessment apps.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "key": {
-      "type": "string",
-      "description": "the assessment app&#39;s unique (within that app) and immutable key for this assessment type"
-    },
-    "userTitle": {
-      "type": "string",
-      "description": "A user-facing label/title for this assessment type"
-    },
-    "candidateTitle": {
-      "type": "string",
-      "description": "If present, a more specific label/title seen by candidates for this assessment type"
-    },
-    "daysToExpire": {
-      "type": "integer",
-      "description": "the number of elapsed days before this assessments result is no longer valid - pass 0 to never expire"
-    },
-    "isPassFail": {
-      "type": "boolean",
-      "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
-    },
-    "canReuse": {
-      "type": "boolean",
-      "description": "whether an unexpired assessment result on one job application can be reused when the candidate makes another job application"
-    },
-    "candidateDescription": {
-      "type": "string",
-      "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we&#39;re hiring."
-    },
-    "userDescription": {
-      "type": "string",
-      "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
-    },
-    "appCommunicatesDirectlyToCandidate": {
-      "type": "boolean",
-      "description": "True if the app communicates directly with the candidate when an assessment is started. In this case the hub will not send the candidate an email message."
-    },
-    "assessmentType": {
+    "assessmentTypeWithID": {
       "type": "object",
       "properties": {
-        "key": {
-          "$ref": "#/definitions/key"
+        "id": {
+          "type": "number"
         },
-        "userTitle": {
-          "$ref": "#/definitions/userTitle"
+        "assessmentType": {
+          "$ref": "assessmentType.json"
+        }
+      }
+    },
+    "assessmentTypesWithID": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assessmentTypeWithID"
+      }
+    },
+    "appTypesWithID": {
+      "type": "object",
+      "properties": {
+        "app": {
+          "type": "string",
+          "description": "The app that owns these assessment types"
         },
-        "candidateTitle": {
-          "$ref": "#/definitions/candidateTitle"
-        },
-        "daysToExpire": {
-          "$ref": "#/definitions/daysToExpire"
-        },
-        "canReuse": {
-          "$ref": "#/definitions/canReuse"
-        },
-        "isPassFail": {
-          "$ref": "#/definitions/isPassFail"
-        },
-        "candidateDescription": {
-          "$ref": "#/definitions/candidateDescription"
-        },
-        "userDescription": {
-          "$ref": "#/definitions/userDescription"
-        },
-        "appCommunicatesDirectlyToCandidate": {
-          "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
-        },
-	    "image": {
-	      "$ref": "assessmentRead.json#/definitions/imageUrl"
-	    }
-      },
-      "required": [
-        "key",
-        "userTitle",
-        "daysToExpire",
-        "isPassFail",
-        "canReuse",
-        "userDescription",
-        "appCommunicatesDirectlyToCandidate",
-        "image"
-      ]
+        "assessmentTypesWithID": {
+          "$ref": "#/definitions/assessmentTypesWithID"
+        }
+      }
     }
   },
   "type": "array",
   "items": {
-    "$ref": "#/definitions/assessmentType"
+    "$ref": "#/definitions/appTypesWithID"
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "app": "bogan",
+    "assessmentTypesWithID": [
+      {
+        "id": 3002,
+        "assessmentType": {
+          "key": "mswordprof",
+          "userTitle": "MS Word proficiency - basic",
+          "daysToExpire": 365,
+          "isPassFail": false,
+          "canReuse": true,
+          "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
+          "appCommunicatesDirectlyToCandidate": false,
+          "image": "https://www.example.com/image.png"
+        }
+      }
+    ]
+  }
+]</code></pre></div><div class="tab-pane" id="assessmentTypes_get_securedby">Secured by oauth_2_0</div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_assessmentTypes_forApp"><span class="parent">/assessmentTypes</span>/forApp</a> <span class="methods"><a href="#assessmentTypes_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_assessmentTypes_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#assessmentTypes_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="assessmentTypes_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/assessmentTypes</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the list of assessment types produced by an assessment app.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0</div><ul class="nav nav-tabs"><li class="active"><a href="#assessmentTypes_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#assessmentTypes_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="assessmentTypes_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "assessmentType.json"
   }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
   {

@@ -607,6 +607,18 @@ resourceTypes: !include resources.yml
                       example: !include ../examples/assessmentMeta-simple.json
 
 /assessmentTypes:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Get the list of all assessment types produced by all assessment apps.
+        
+      Non-SoT.
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/assessmentTypes.json
+            example: !include ../examples/assessmentTypes-simple.json
   /forApp:
     get:
       securedBy: [oauth_2_0]

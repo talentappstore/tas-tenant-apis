@@ -1,11 +1,20 @@
 [
-{
- "developer": "firstcheck",
- "assessmentTypes": [
-	{ "id": 500232,
-	  "name": "Finance mid-level custom pre-screen",
-	  "status": "active"
-    }
-]   
-}
+  {
+    "app": "bogan",
+    "assessmentTypesWithID": [
+      {
+        "id": 3002,
+        "assessmentType": {
+          "key": "mswordprof",
+          "userTitle": "MS Word proficiency - basic",
+          "daysToExpire": 365,
+          "isPassFail": false,
+          "canReuse": true,
+          "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
+          "appCommunicatesDirectlyToCandidate": false,
+          "image": "https://www.example.com/image.png"
+        }
+      }
+    ]
+  }
 ]

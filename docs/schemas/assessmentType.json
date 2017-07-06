@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "key": {
+      "type": "string",
+      "description": "the assessment app's unique (within that app) and immutable key for this assessment type"
+    },
+    "userTitle": {
+      "type": "string",
+      "description": "A user-facing label/title for this assessment type"
+    },
+    "candidateTitle": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by candidates for this assessment type"
+    },
+    "daysToExpire": {
+      "type": "integer",
+      "description": "the number of elapsed days before this assessments result is no longer valid - pass 0 to never expire"
+    },
+    "isPassFail": {
+      "type": "boolean",
+      "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
+    },
+    "canReuse": {
+      "type": "boolean",
+      "description": "whether an unexpired assessment result on one job application can be reused when the candidate makes another job application"
+    },
+    "candidateDescription": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we're hiring."
+    },
+    "userDescription": {
+      "type": "string",
+      "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
+    },
+    "appCommunicatesDirectlyToCandidate": {
+      "type": "boolean",
+      "description": "True if the app communicates directly with the candidate when an assessment is started. In this case the hub will not send the candidate an email message."
+    }
+  },
+  "type": "object",
+  "properties": {
+    "key": {
+      "$ref": "#/definitions/key"
+    },
+    "userTitle": {
+      "$ref": "#/definitions/userTitle"
+    },
+    "candidateTitle": {
+      "$ref": "#/definitions/candidateTitle"
+    },
+    "daysToExpire": {
+      "$ref": "#/definitions/daysToExpire"
+    },
+    "canReuse": {
+      "$ref": "#/definitions/canReuse"
+    },
+    "isPassFail": {
+      "$ref": "#/definitions/isPassFail"
+    },
+    "candidateDescription": {
+      "$ref": "#/definitions/candidateDescription"
+    },
+    "userDescription": {
+      "$ref": "#/definitions/userDescription"
+    },
+    "appCommunicatesDirectlyToCandidate": {
+      "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
+    },
+    "image": {
+      "$ref": "assessmentRead.json#/definitions/imageUrl"
+    }
+  },
+  "required": [
+    "key",
+    "userTitle",
+    "daysToExpire",
+    "isPassFail",
+    "canReuse",
+    "userDescription",
+    "appCommunicatesDirectlyToCandidate",
+    "image"
+  ]
+}

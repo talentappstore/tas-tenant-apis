@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "assessmentTypeWithID": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "assessmentType": {
+          "$ref": "assessmentType.json"
+        }
+      }
+    },
+    "assessmentTypesWithID": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assessmentTypeWithID"
+      }
+    },
+    "appTypesWithID": {
+      "type": "object",
+      "properties": {
+        "app": {
+          "type": "string",
+          "description": "The app that owns these assessment types"
+        },
+        "assessmentTypesWithID": {
+          "$ref": "#/definitions/assessmentTypesWithID"
+        }
+      }
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/appTypesWithID"
+  }
+}

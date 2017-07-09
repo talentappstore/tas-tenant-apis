@@ -1,6 +1,7 @@
 [
   {
-    "app": "bogan",
+    "app": "msassess",
+    "appName": "Microsoft assessment toolbox",
     "assessmentTypesWithID": [
       {
         "id": 3002,

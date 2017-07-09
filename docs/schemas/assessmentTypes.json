@@ -29,11 +29,15 @@
           "type": "string",
           "description": "Shortcode for the app that owns these assessment types"
         },
+        "appName": {
+          "type": "string",
+          "description": "Name for the app that owns these assessment types"
+        },
         "assessmentTypesWithID": {
           "$ref": "#/definitions/assessmentTypesWithID"
         }
       },
-      "required": [ "app", "assessmentTypesWithID" ]
+      "required": [ "app", "appName", "assessmentTypesWithID" ]
     }
   },
   "type": "array",

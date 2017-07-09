@@ -11196,11 +11196,15 @@
           "type": "string",
           "description": "Shortcode for the app that owns these assessment types"
         },
+        "appName": {
+          "type": "string",
+          "description": "Name for the app that owns these assessment types"
+        },
         "assessmentTypesWithID": {
           "$ref": "#/definitions/assessmentTypesWithID"
         }
       },
-      "required": [ "app", "assessmentTypesWithID" ]
+      "required": [ "app", "appName", "assessmentTypesWithID" ]
     }
   },
   "type": "array",
@@ -11210,7 +11214,8 @@
 }
 </code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
-    "app": "bogan",
+    "app": "msassess",
+    "appName": "Microsoft assessment toolbox",
     "assessmentTypesWithID": [
       {
         "id": 3002,
@@ -11259,11 +11264,15 @@
           "type": "string",
           "description": "Shortcode for the app that owns these assessment types"
         },
+        "appName": {
+          "type": "string",
+          "description": "Name for the app that owns these assessment types"
+        },
         "assessmentTypesWithID": {
           "$ref": "#/definitions/assessmentTypesWithID"
         }
       },
-      "required": [ "app", "assessmentTypesWithID" ]
+      "required": [ "app", "appName", "assessmentTypesWithID" ]
     }
   },
   "type": "array",
@@ -11273,7 +11282,8 @@
 }
 </code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
-    "app": "bogan",
+    "app": "msassess",
+    "appName": "Microsoft assessment toolbox",
     "assessmentTypesWithID": [
       {
         "id": 3002,

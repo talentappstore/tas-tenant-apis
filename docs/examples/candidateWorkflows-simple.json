@@ -1,10 +1,12 @@
 [
   {
     "id": 10044,
-    "label": "Customer service - US"
+    "label": "Customer service - US",
+    "buckets": [ "new", "selection", "interview", "hired", "declined" ]
   },
   {
     "id": 10045,
-    "label": "Support office - Australia"
+    "label": "Support office - Australia",
+    "buckets": [ "new", "selection", "interview", "hired", "declined" ]    
   }
 ]

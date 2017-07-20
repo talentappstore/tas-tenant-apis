@@ -1,5 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "buckets": {
+      "type": "array",
+      "description": "an ordered array of the buckets that are part of this workflow",
+      "items": {
+        "$ref": "bucket.json#/definitions/key"
+      }
+    }
+  },
   "type": "object",
   "properties": {
     "label": {
@@ -7,7 +16,15 @@
     },
     "id": {
       "type": "integer"
+    },
+    "buckets": {
+        "$ref": "#/definitions/buckets"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "required": [
+    "label",
+    "id",
+    "buckets"
+  ]
 }

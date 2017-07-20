@@ -1,4 +1,5 @@
   {
     "id": 10044,
-    "label": "Customer service - US"
+    "label": "Customer service - US",
+    "buckets": [ "new", "selection", "interview", "hired", "declined" ]
   }

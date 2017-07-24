@@ -1142,7 +1142,16 @@ resourceTypes: !include resources.yml
                 securedBy: [oauth_2_0]
                 description: acquire all of the child nodes of the acquiree, then delete the acquiree node
 
-
+/time:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Get the current time, in ISO8601 format. This API is only intended for basic app testing, and because of API latency, is not of any practical use.
+    responses:
+      200:
+        body:
+          text/plain:
+            example: 2017-07-24T23:15:42+00:00
 
 /editSpecs:
   description: |

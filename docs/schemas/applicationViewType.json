@@ -10,8 +10,12 @@
 		"label": {
 			"type": "string",
 			"description": "a label for the view type"
+		},
+		"defaultFlag": {
+			"type": "boolean",
+			"description": "true if this view is the default view. At most one view should have this set"
 		}
 	},
-	"required": [ "id", "label" ],
+	"required": [ "id", "label", "defaultFlag" ],
 	"additionalProperties": false
 }

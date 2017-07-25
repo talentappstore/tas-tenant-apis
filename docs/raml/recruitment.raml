@@ -527,7 +527,7 @@ resourceTypes: !include resources.yml
           type: applicationAssessmentsStrip
   /byApplication:
     /{application}:
-      /byassessmentType:
+      /byAssessmentType:
         /{assessmentType}:
           get:
             description: get details of this assessment, reflecting changes made by the app and/or the tenant. 
@@ -1141,17 +1141,6 @@ resourceTypes: !include resources.yml
               post:
                 securedBy: [oauth_2_0]
                 description: acquire all of the child nodes of the acquiree, then delete the acquiree node
-
-/time:
-  get:
-    securedBy: [oauth_2_0]
-    description: |
-      Get the current time, in ISO8601 format. This API is only intended for basic app testing, and because of API latency, is not of any practical use.
-    responses:
-      200:
-        body:
-          text/plain:
-            example: 2017-07-24T23:15:42+00:00
 
 /editSpecs:
   description: |
@@ -1892,7 +1881,18 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/socialNetworks.json
             example: !include ../examples/socialNetworks-simple.json
-    
+
+/time:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Get the current time, in ISO8601 format. This API is only intended for basic app testing, and because of API latency, is unlikely to be of any practical use.
+    responses:
+      200:
+        body:
+          text/plain:
+            example: 2017-07-24T23:15:42+00:00
+
 /workflows:
   /candidate:
     get:

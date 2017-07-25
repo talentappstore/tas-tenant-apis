@@ -1,10 +1,12 @@
 [
 {
    "id": 1002,
-   "label": "basic view, with CV and salary details"
+   "label": "basic view, with CV and salary details",
+   "defaultFlag": false   
 },
 {
    "id": 1003,
-   "label": "short view, email only"
+   "label": "short view, email only",
+   "defaultFlag": true   
 }
 ]

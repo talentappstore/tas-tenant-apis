@@ -249,10 +249,6 @@
         "Error"
       ]
     },
-    "onHoldFlag": {
-      "type": "boolean",
-      "description": "whether the tenant has placed the assessment on hold"
-    },
     "userInteractionUri": {
       "type": [
         "string",
@@ -355,9 +351,6 @@
     "image": {
       "$ref": "#/definitions/imageUrl"
     },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
-    },
     "launchDocument": {
       "$ref": "#/definitions/launchDocument"
     },
@@ -373,7 +366,6 @@
     "status",
     "view",
     "interactionUris",
-    "onHoldFlag",
     "raisers"
   ]
 }

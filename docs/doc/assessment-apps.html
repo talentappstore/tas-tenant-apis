@@ -91,7 +91,7 @@ avoid a temporary issue with email-based logins).
 </p>
 
 <p>Install the 
-<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZGV2YXNzZXNzbWVudHNpdGU.DpO-ln-crjMiKwMgP2O3RIgFw0KlSJzCxE5r4r9wFQa6yTYbrCQ9KNNOe44oBqtWISvi-hg9uMaE5KW8yXSdO1B0NtW66LPGfDUpx-k-xYETyrIsFgn_mQDMYpuBfkCRubYvxeaMVqPQniict5aUtWfC6t19oWMaQysAzZXrqVKvrVNcf3VT4-FYJqfyvV6YZowzf_4tEA1z9JUbGZhYTnyJgM7qBr9ik_n8gPx52x4eVYTUdwKqVNedB6jzH-eOGGM3tP2vkm3bESTN163N33bGJPXa9yDw-oDCj5oICa6rUMWJN0yv6AK7W2jshHw7mpSFUim0toJ37u73HXBNaQ'>Tiny ATS</a>
+<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.dGlueWF0cw.NTOpEPyf_c1HQAp1iHGRmDXQfXq2yVEu7oQ7kziuUzl4Yc7ldVlAmLrPf2LcJkru2idej4_2lNwNTWyHcU4TwzB4TfOtfDJ4w4Cj1cpSJuZtAYv9sAg92lxDg8vuPUZnC11fsqibuMmJTciE3PLdns6agdqIxHSpSoFLI9woIXk2ia9nbCt8Z0OP3Yf_XIJX4VFyhwta7ilHJUc11OkCIU89TZeUYAC9xRbqT7vOPxGCif7HStiANIsMXzkVM4kVkheTSR1LAjAhsc6xujNZIuH8eNMiJGCH6AC4SLCnKPLGdanF8EdkssqhlAmsEMlCA2-hc6zW5d2Up5pounjQzQ'>Tiny ATS</a>
 app.
 </p>
 
@@ -133,7 +133,7 @@ app. This app provides a home page that the candidate can be redirected to after
 </p>
  
 <p>Now install the  
-<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZGV2YXNzZXNzbWVudGFwcA.ZFQW9w_DKzSROTTM730tbRWiY6IlwE5SiLnbbYIMIFneQlWzdBIjRdbzQdJayLL77cDNvzmonNoroOfF7yvZFrCO00to62zctRPuPuAVAOjlRBuKWL5lkwL-qYrezNCw84uaMlqp3iGd7ijCZgYnvl8-66ssdgfetGDEW7zCHyndhgsK4KnE1278fC7PFqOiWJeNh-zlpZyHnIJx2iYIRpnsveTwVKI82xAVe6dp5QT6XWs2Uny4GPNzGJqO3Bnr06P-2TrkbsUKjakO8x-pmf08_6ifKS37msyZS5L5xJ855gPkKM8SSiokLa9L9p6SmUX2RZOV5DWLvfOuwfX1Kw'>Assessment App (user)</a>
+<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.YXNzZXNzbWVudGFwcA.NmtI7U9LknGTnfGblSD1v-YTDIIYtzRBqujo7WN1_vrsMQ3pYFSnFVdaerLAABeJdkJgQByQiJQgsJpEwvUZmDguLS-vaEk5VrQKO207_fYg5-NQCX4fEj21OhjSoVkPxeVvoE5V65EW19T0kN9W-3vqE75dBpVXxPYBSimTx7B773P76o8YljKQYUSqv-QZ_MIdoli4ue6xjl_aXr1bQKW4Gg6PTMkysXEYGCzkSMn2O9E1KIJL8tqSyaSVR0XrkHJxRAMn7jiE8VMoUQKCSPDwJqwyIVCdv4C_VrGdgU-ZffZVEos_sz4KdWrQ_7j1wi4vJmYrXf1j-34sA3CIfA'>Assessment App (user)</a>
 app.
 </p> 
 
@@ -238,16 +238,26 @@ app->ats: GET /candidates/me/homePage
 <h2>Resources</h2>
 
 <ul>
-<li><a href='http://developer.talentappstore.com'>Developer documentation</a>, for general information on building TAS apps.
+
+<li><a href='http://developer.talentappstore.com'>The developer site</a>, for defining your app.
+
+<li><a href='https://github.com/talentappstore/tas-core-apis/wiki'>The wiki</a>, where you can get general information on building TAS apps.
+
+<li><a href='https://github.com/talentappstore/gauge'>A demo assessment app</a>, written in Java/Spring.
+
 <li><a href='http://talentappstore.github.io/tas-tenant-apis'>TAS tenant API documentation</a>, for detailed technical information on the
 TAS tenant APIs, including the assessment-related APIs.  
+
 <li><a href='http://talentappstore.github.io/tas-core-apis'>TAS core documentation</a>, for detailed technical information on the
 TAS core APIs. You probably won't need to spend too much time interacting with the core APIs.  
+
 </ul>
 
 
 <h2>Handling installs</h2>
 
+<p>(You can find a complete walkthrough of the actual steps to get your app handling installs <a href='https://github.com/talentappstore/tas-core-apis/wiki/4c.-Add-your-server,-and-produce-a-core-out-API'>here</a>.)
+</p>
  
 <p>Whenever a tenant clicks "install" on your app, your app is notified via an incoming core API call to
 your <a href='http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post'>POST /tenants</a> endpoint.
@@ -278,6 +288,9 @@ app can provide on demand demo accounts, that will make it a much smoother path 
 
 <h2>Pointing to your landing page</h2>
 
+<p>(You can find a complete walkthrough of the actual steps to get your landing page working app handling installs <a href='https://github.com/talentappstore/tas-core-apis/wiki/4d.-Produce-a-tenant-API'>here</a>.)
+</p>
+
 <p>Whenever the tenant clicks "open" on your app, they go to your landing page.
 </p>
 
@@ -296,6 +309,8 @@ etc. You may choose to protect your landing page with SSO. If so, you can also c
 
 
 <h2>Describing your app's assessment types</h2>
+
+https://github.com/talentappstore/tas-core-apis/wiki/4d.-Produce-a-tenant-API
 
 <p>The hub consumes 
 <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessmentTypes_forApp_get'>GET /assessmentTypes/forApp</a>

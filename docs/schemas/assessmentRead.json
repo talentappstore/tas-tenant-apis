@@ -16,17 +16,13 @@
         "Error"
       ]
     },
-    "onHoldFlag": {
-      "type": "boolean",
-      "description": "whether the tenant has placed the assessment on hold"
-    },
     "userInteractionUri": {
       "type": [
         "string",
         "null"
       ],
       "format": "uri",
-      "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
+      "description": "when present, a uri, with all query parameters urlencoded, of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
     },
     "interactionUris": {
       "type": "object",
@@ -37,7 +33,7 @@
             "null"
           ],
           "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
+          "description": "when present, a uri, with all query parameters urlencoded, that the candidate must follow to complete some part of the assessment"
         },
         "userInteractionUri": {
           "$ref": "#/definitions/userInteractionUri"
@@ -68,10 +64,6 @@
     "email": {
       "type": "string"
     },
-    "launchDocument": {
-      "type": "string",
-      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type's launch UI"
-    },
     "raisers": {
       "description": "a list of every user who raised this assessment (this may be more than one, i.e. via linkages). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
       "type": "array",
@@ -87,9 +79,6 @@
     },
     "assessmentType": {
       "type": "integer"
-    },
-    "assessmentTypeKey": {
-      "$ref": "assessmentType.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"
@@ -107,12 +96,6 @@
     "image": {
       "$ref": "#/definitions/imageUrl"
     },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
-    },
-    "launchDocument": {
-      "$ref": "#/definitions/launchDocument"
-    },
     "raisers": {
       "$ref": "#/definitions/raisers"
     }
@@ -121,11 +104,9 @@
   "required": [
     "meta",
     "assessmentType",
-    "assessmentTypeKey",
     "status",
     "view",
     "interactionUris",
-    "onHoldFlag",
     "raisers"
   ]
 }

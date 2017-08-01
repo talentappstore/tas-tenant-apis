@@ -10776,17 +10776,13 @@
         "Error"
       ]
     },
-    "onHoldFlag": {
-      "type": "boolean",
-      "description": "whether the tenant has placed the assessment on hold"
-    },
     "userInteractionUri": {
       "type": [
         "string",
         "null"
       ],
       "format": "uri",
-      "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
+      "description": "when present, a uri, with all query parameters urlencoded, of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
     },
     "interactionUris": {
       "type": "object",
@@ -10797,7 +10793,7 @@
             "null"
           ],
           "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
+          "description": "when present, a uri, with all query parameters urlencoded, that the candidate must follow to complete some part of the assessment"
         },
         "userInteractionUri": {
           "$ref": "#/definitions/userInteractionUri"
@@ -10828,10 +10824,6 @@
     "email": {
       "type": "string"
     },
-    "launchDocument": {
-      "type": "string",
-      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type&#39;s launch UI"
-    },
     "raisers": {
       "description": "a list of every user who raised this assessment (this may be more than one, i.e. via linkages). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
       "type": "array",
@@ -10847,9 +10839,6 @@
     },
     "assessmentType": {
       "type": "integer"
-    },
-    "assessmentTypeKey": {
-      "$ref": "assessmentType.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"
@@ -10867,12 +10856,6 @@
     "image": {
       "$ref": "#/definitions/imageUrl"
     },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
-    },
-    "launchDocument": {
-      "$ref": "#/definitions/launchDocument"
-    },
     "raisers": {
       "$ref": "#/definitions/raisers"
     }
@@ -10881,11 +10864,9 @@
   "required": [
     "meta",
     "assessmentType",
-    "assessmentTypeKey",
     "status",
     "view",
     "interactionUris",
-    "onHoldFlag",
     "raisers"
   ]
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
@@ -10894,16 +10875,13 @@
     "created": "2015-11-05T13:15:30Z"
   },
   "assessmentType": 10022,
-  "assessmentTypeKey": "mswordprof",
   "status": "Started",
-  "onHoldFlag": false,
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null,
     "userAttentionRequired": false
   },
-  "launchDocument": "%7B%20%22message%22%3A%20%22hello%20world%22%20%7D",
   "raisers": [
 	  {
 	    "givenName": "Fred",
@@ -10988,17 +10966,13 @@
         "Error"
       ]
     },
-    "onHoldFlag": {
-      "type": "boolean",
-      "description": "whether the tenant has placed the assessment on hold"
-    },
     "userInteractionUri": {
       "type": [
         "string",
         "null"
       ],
       "format": "uri",
-      "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
+      "description": "when present, a uri, with all query parameters urlencoded, of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
     },
     "interactionUris": {
       "type": "object",
@@ -11009,7 +10983,7 @@
             "null"
           ],
           "format": "uri",
-          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
+          "description": "when present, a uri, with all query parameters urlencoded, that the candidate must follow to complete some part of the assessment"
         },
         "userInteractionUri": {
           "$ref": "#/definitions/userInteractionUri"
@@ -11040,10 +11014,6 @@
     "email": {
       "type": "string"
     },
-    "launchDocument": {
-      "type": "string",
-      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type&#39;s launch UI"
-    },
     "raisers": {
       "description": "a list of every user who raised this assessment (this may be more than one, i.e. via linkages). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
       "type": "array",
@@ -11059,9 +11029,6 @@
     },
     "assessmentType": {
       "type": "integer"
-    },
-    "assessmentTypeKey": {
-      "$ref": "assessmentType.json#/definitions/key"
     },
     "status": {
       "$ref": "#/definitions/status"
@@ -11079,12 +11046,6 @@
     "image": {
       "$ref": "#/definitions/imageUrl"
     },
-    "onHoldFlag": {
-      "$ref": "#/definitions/onHoldFlag"
-    },
-    "launchDocument": {
-      "$ref": "#/definitions/launchDocument"
-    },
     "raisers": {
       "$ref": "#/definitions/raisers"
     }
@@ -11093,11 +11054,9 @@
   "required": [
     "meta",
     "assessmentType",
-    "assessmentTypeKey",
     "status",
     "view",
     "interactionUris",
-    "onHoldFlag",
     "raisers"
   ]
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
@@ -11106,16 +11065,13 @@
     "created": "2015-11-05T13:15:30Z"
   },
   "assessmentType": 10022,
-  "assessmentTypeKey": "mswordprof",
   "status": "Started",
-  "onHoldFlag": false,
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null,
     "userAttentionRequired": false
   },
-  "launchDocument": "%7B%20%22message%22%3A%20%22hello%20world%22%20%7D",
   "raisers": [
 	  {
 	    "givenName": "Fred",

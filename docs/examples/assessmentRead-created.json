@@ -4,16 +4,13 @@
     "created": "2015-11-05T13:15:30Z"
   },
   "assessmentType": 10022,
-  "assessmentTypeKey": "mswordprof",
   "status": "Started",
-  "onHoldFlag": false,
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null,
     "userAttentionRequired": false
   },
-  "launchDocument": "%7B%20%22message%22%3A%20%22hello%20world%22%20%7D",
   "raisers": [
 	  {
 	    "givenName": "Fred",

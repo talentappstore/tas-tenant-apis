@@ -561,6 +561,32 @@ resourceTypes: !include resources.yml
                     description: details about the newly created assessment
                     schema: !include ../schemas/assessmentMeta.json
                     example: !include ../examples/assessmentMeta-simple.json
+          /me:
+            post:
+              description: |
+                Tenant creates (or reuses) an assessment of the given type, for the given job application,
+                for a logged in user, who will appear in the raisers section of the assessment. This is an
+                on-behalf version of the similar API (without /me).
+              
+                SoT. Typically implemented by the assessment hub.
+
+                There is no request body. The response contains the assessment ID.
+              
+              responses:
+                200:
+                  description: the post was successful, and an existing assessment was reused.
+                  body:
+                    application/json:
+                      description: details about the reused assessment
+                      schema: !include ../schemas/assessmentMeta.json
+                      example: !include ../examples/assessmentMeta-simple.json
+                201:
+                  description: the post was successful, and a new assessment was created.
+                  body:
+                    application/json:
+                      description: details about the newly created assessment
+                      schema: !include ../schemas/assessmentMeta.json
+                      example: !include ../examples/assessmentMeta-simple.json
                     
   /byID:
     /{id}:

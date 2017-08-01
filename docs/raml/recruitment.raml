@@ -589,11 +589,10 @@ resourceTypes: !include resources.yml
           description: |
             Consumed by the assessment hub, as a result of some tenant action, to update an existing assessment
             using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789).
-            The tenant cannot alter many details of an assessment other than to change the status or place it on hold.
+            The tenant cannot alter many details of an assessment other than to change the status.
           body:
             application/merge-patch+json:
               schema: !include ../schemas/assessmentWriteByTenant.json
-              example: !include ../examples/assessmentWriteByTenant-onhold.json
           responses:
             200:
               description: the update was successful

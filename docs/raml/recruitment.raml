@@ -511,20 +511,20 @@ resourceTypes: !include resources.yml
   /strips:
     /me:
       description: These APIs are on behalf, allowing the identity of the user raising the assessment to be available to the hub.
-      /headHtml:
-        get:
-          description: |
-            Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.
-              
-            The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.
-          responses:
-            200:
-              body:
-                text/html:
-                  example: some html pulling in stylesheet, javascript etc.
       /forApplications:
         /asHtml:
           type: applicationAssessmentsStrip
+    /headHtml:
+      get:
+        description: |
+          Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.
+              
+          The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.
+        responses:
+          200:
+            body:
+              text/html:
+                example: some html pulling in stylesheet, javascript etc.
   /byApplication:
     /{application}:
       /byAssessmentType:

@@ -8,7 +8,7 @@
       "type": "string",
       "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
     },
-    "boolean": {
+    "booleanMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -53,7 +53,7 @@
         }
       }
     },
-    "number": {
+    "numberMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -90,7 +90,7 @@
         }
       }
     },
-    "string": {
+    "stringMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -129,7 +129,7 @@
         }
       }
     },
-    "date": {
+    "dateMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -171,7 +171,7 @@
         }
       }
     },
-    "file": {
+    "fileMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -212,7 +212,7 @@
         }
       }
     },
-    "picklist": {
+    "picklistMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -251,7 +251,7 @@
         }
       }
     },
-    "table": {
+    "tableMeta": {
       "type": "object",
       "properties": {
         "type": {
@@ -317,25 +317,25 @@
   "type": "object",
   "oneOf": [
     {
-      "$ref": "#/definitions/boolean"
+      "$ref": "#/definitions/booleanMeta"
     },
     {
-      "$ref": "#/definitions/number"
+      "$ref": "#/definitions/numberMeta"
     },
     {
-      "$ref": "#/definitions/string"
+      "$ref": "#/definitions/stringMeta"
     },
     {
-      "$ref": "#/definitions/date"
+      "$ref": "#/definitions/dateMeta"
     },
     {
-      "$ref": "#/definitions/file"
+      "$ref": "#/definitions/fileMeta"
     },
     {
-      "$ref": "#/definitions/picklist"
+      "$ref": "#/definitions/picklistMeta"
     },
     {
-      "$ref": "#/definitions/table"
+      "$ref": "#/definitions/tableMeta"
     }
   ]
 }

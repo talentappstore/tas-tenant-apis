@@ -46,6 +46,10 @@
             "type": "string",
             "description": "the user visible name for this category"
         },
+        "code": {
+            "type": "string",
+            "description": "a code for this category"
+        },
         "candidateRules": {
             "$ref": "#/definitions/rules"
         },

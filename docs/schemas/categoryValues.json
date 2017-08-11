@@ -14,7 +14,11 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "the user visible name for this category"
+                    "description": "the user visible name for this category value"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "a code for this category value"
                 },
                 "values": {
                     "type": "array",

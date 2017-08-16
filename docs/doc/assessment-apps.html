@@ -245,6 +245,8 @@ app->ats: GET /candidates/me/homePage
 
 <li><a href='https://github.com/talentappstore/gauge'>A demo assessment app</a>, written in Java/Spring.
 
+<li><a href='https://github.com/talentappstore/imageGen'>A demo dynamic image generator for assessment apps</a>, written in node.js.
+
 <li><a href='http://talentappstore.github.io/tas-tenant-apis'>TAS tenant API documentation</a>, for detailed technical information on the
 TAS tenant APIs, including the assessment-related APIs.  
 
@@ -428,23 +430,36 @@ as well as data items pulled through from the job.
 <p>A key part of building an assessment app is having a great status image.
 </p> 
 
-<p>The status image is important because it lets the user understand the results from your assessment at a glance, without needing to drill
+<p>One approach is to generate your images dynamically, e.,g. passing in the candidate's score as a URL parameter. For an
+example of this, see this <a href='https://github.com/talentappstore/imageGen'>demo dynamic image generator for assessment apps</a>, written in node.js.
+</p>
+
+<p>The status image is important as it lets the user understand the results from your assessment at a glance, without needing to drill
 in (unless they choose to). This is important in the information-dense screens in the ATS, which show many applicants and many assessments on a single page.
 </p>
 
 <p>Users will appreciate an image which is a great visual representation of your assessment:
 
-A video interviewing app could render a video thumbnail.
-A psych assessment could render text with a percentage score, over a solid background in their corporate theme.
-A multi-stage probity test could render a series of checkboxes, with more boxes ticked as the assessment proceeds
-A culture fit test might show a colored graded heat gauge, with the needle pointing to the candidate's score
-A document check app could show a stamp signifying complete       
+<ul>
+<li>A video interviewing app could render a video thumbnail.
+<li>A psych assessment could render text with a percentage score, over a solid background in their corporate theme.
+<li>A multi-stage probity test could render a series of checkboxes, with more boxes ticked as the assessment proceeds
+<li>A culture fit test might show a colored graded heat gauge, with the needle pointing to the candidate's score
+<li>A document check app could show a stamp, signifying complete       
+</ul>
+
+<p>The status image should be suitable for displaying at an effective resolution of 52x32. Ideally your image should be 2x this to cater for high
+density displays (Retina Macbooks etc).
+</p>
+
+<p>
+<img src='images/assessment-tile.png' />
+</p>
+
 
 <p>Status image is an alternate approach to the configuration-heavy traditional data integration used for assessments, 
-where assessment results are sent to the ATS for storage.
-</p>
- 
-<p>While data integration is possible with TAS, its often not required. By producing a good status image, users can still meaningfully interact with your
+where assessment results are sent to the ATS for storage. While data integration is possible with TAS, its often not required. By producing a good status
+image, users can still meaningfully interact with your
 assessment from within the ATS pages without any data integration.
 </p>
 

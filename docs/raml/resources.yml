@@ -59,6 +59,13 @@
           type: string
           required: false
           example: 1003
+        interimSparseFlag:
+          description: |
+            If true, indicates that the response should only include a subset of data. This is an interim feature that will be deprecated in the future,
+            when a better mechanism (e.g. GraphQL) is added.  
+          type: boolean
+          required: false
+          example: true
       responses:
         200:
           body:

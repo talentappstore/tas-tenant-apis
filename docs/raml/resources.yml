@@ -56,7 +56,7 @@
       queryParameters:
         bucket:
           description: if present, only include applications that are currently in this bucket
-          type: string
+          type: integer
           required: false
           example: 1003
         interimSparseFlag:

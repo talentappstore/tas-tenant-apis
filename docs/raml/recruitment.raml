@@ -259,14 +259,16 @@ resourceTypes: !include resources.yml
               example: !include ../examples/deltaPing-simple.json
           
       /bucket:
-        /deltaPings:
-          post:
-            securedBy: [oauth_2_0]
-            description: |
-              Consumed by something like an ATS when an application is first created, or has changed bucket. Noise-free, i.e. when fired we
-              know the application has a new bucket.
+        /{bucket}:
+          description: The id of the application's new bucket 
+          /deltaPings:
+            post:
+              securedBy: [oauth_2_0]
+              description: |
+                Consumed by something like an ATS when an application has changed its bucket. Noise-free, i.e. when fired we
+                know the application has changed bucket.
               
-              Non-SoT.
+                Non-SoT.
                
       /bySourcingApp:
         /deltaPings:
@@ -717,8 +719,8 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/buckets.json
             example: !include ../examples/buckets-simple.json
-  /byKey:
-    /{key}:
+  /byID:
+    /{bucket}:
       get:
         responses:
           200:

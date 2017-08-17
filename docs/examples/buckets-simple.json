@@ -1,21 +1,21 @@
 [
   {
-    "key": "screenedin",
+    "id": 1023,
     "label": "Screened in",
     "phase": "new"
   },
   {
-    "key": "phscr",
+    "id": 1024,
     "label": "Phone screen",
     "phase": "screening"
   },
   {
-    "key": "decl",
+    "id": 1025,
     "label": "Declined",
     "phase": "decline"
   },
   {
-    "key": "hired",
+    "id": 1026,
     "label": "Hired",
     "phase": "hire"
   }

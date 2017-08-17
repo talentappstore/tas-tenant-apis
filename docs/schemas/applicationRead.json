@@ -23,8 +23,8 @@
     "bucketMovement": {
       "type": "object",
       "properties": {
-        "key": {
-          "type": "string"
+        "id": {
+          "$ref": "bucket.json#/definitions/id"
         },
         "landed": {
           "type": "string",
@@ -33,7 +33,7 @@
       },
       "additionalProperties": false,
       "required": [
-        "key",
+        "id",
         "landed"
       ]
     },
@@ -128,7 +128,7 @@
       "$ref": "jobRead.json"
     },
     "bucket": {
-      "$ref": "bucket.json#/definitions/key"
+      "$ref": "bucket.json#/definitions/id"
     },
     "tracker": {
       "$ref": "#/definitions/tracker"

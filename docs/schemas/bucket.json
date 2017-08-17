@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
-    "key": {
-      "type": "string"
+    "id": {
+      "type": "integer"
     }
   },
   "type": "object",
   "properties": {
-    "key": {
-      "$ref": "#/definitions/key"
+    "id": {
+      "$ref": "#/definitions/id"
     },
     "label": {
       "type": "string"
@@ -30,7 +30,7 @@
     }
   },
   "required": [
-    "key",
+    "id",
     "label",
     "phase"
   ],

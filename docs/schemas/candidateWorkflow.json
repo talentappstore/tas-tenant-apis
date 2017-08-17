@@ -5,7 +5,7 @@
       "type": "array",
       "description": "an ordered array of the buckets that are part of this workflow",
       "items": {
-        "$ref": "bucket.json#/definitions/key"
+        "$ref": "bucket.json#/definitions/id"
       }
     }
   },

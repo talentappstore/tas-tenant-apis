@@ -374,7 +374,7 @@ You might do your own system's housekeeping for the new assessment, e.g. creatin
 <p>In response, your app should clean up data held its own database relating to the assessment. 
 </p>
 
-<p>Your app may also be informed via this API that an assessment has been updated (e.g. in response to the tenant putting it on hold), in which case your
+<p>(future) Your app may also be informed via this API that an assessment has been updated (e.g. in response to the tenant putting it on hold), in which case your
 app should stop whatever it is doing with the candidate.
 </p>
 
@@ -587,6 +587,9 @@ POST http://myapp.tazzy.io/apps/assessmenthub/devs/tas/assessmentTypes/deltaPing
 
 
 <h2>Recognising on hold</h2>
+
+<p>(Not currently implemented)
+</p>
 
 <p>At any time prior to an assessment being completed, the tenant can place it on hold. Upon this, your assessment app should
 pause any work underway if it can, and wait until the tenant either removes the on hold marking or cancels the assessment altogether.

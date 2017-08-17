@@ -20,15 +20,15 @@
   "formFactor": "mobile",
   "bucketMovements": [
     {
-      "key": "incoming",
+      "id": 10034,
       "landed": "2017-05-29T01:34:30+00:00"
     },
     {
-      "key": "prescreen",
+      "id": 10035,
       "landed": "2017-05-29T01:34:30+00:00"
     },
     {
-      "key": "interview",
+      "id": 10037,
       "landed": "2017-05-29T01:34:30+00:00"
     }
   ],

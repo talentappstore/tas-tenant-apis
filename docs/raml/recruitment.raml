@@ -1355,6 +1355,26 @@ resourceTypes: !include resources.yml
 /jobs:
   description: |
     Position openings aka vacancies, job openings, etc.
+  /feeds:
+    description: Access to publicly visible jobs via XML feeds
+    /full:
+      get:    
+        securedBy: [oauth_2_0]
+        description: |
+          An XML feed of publicly visible jobs, with full descriptions
+        responses:
+          200:
+            body:
+              application/xml:
+    /brief:
+      get:    
+        securedBy: [oauth_2_0]
+        description: |
+          An XML feed of publicly visible jobs, with abbreviated descriptions
+        responses:
+          200:
+            body:
+              application/xml:
   get:    
     securedBy: [oauth_2_0]
     is: [ tasCollection: { orderingProperties: id, filterCapabilities: "id gt 'n', status eq 'n'", maxTop: 20 } ]

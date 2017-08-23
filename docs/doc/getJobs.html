@@ -79,6 +79,9 @@ avoid a temporary issue with email-based logins).
 <p>Install the <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2pvYnM.UtVW9X6u2xMWOZR29UiuiTk-FRBY_38IT9jJn9TPNKCLiFhs5JipjLotgz6Up5-1TelKn0oAbw94eNWi6sLLUwRYHpjs2Tm-iA71Y8NGux2E83_vxxZ00a2ZGRpRZWCsgW9_hBKuETbVJauc8T25NrtCCf62bu5lVOrkpU6cClO0X3nsI31emdmfPLn7gwrR3J6DpDNA9QuNL9oWu2cUpSZM0FmOYzDax2USEBBq8SWkb9FDqi5ty8NmcujMgiaK7-misZD2za45YS_rBDih9ZCVNatpLi-0j8O8aXRX5PsZfveFKvG16ZSdiFm2Ura1gsa9NnJkSTGMLqGHZDBaLQ'>
 mockjobs app</a>.
 
+<p>Install the switchgear app (publicly visible).
+</p>
+
 <p>You've now got some jobs in your tenant. How you proceed now depends on whether you've chosen to integrate via the XML feed, or via individual APIs.
 </p>
 
@@ -106,34 +109,24 @@ For now, please use Google authentication (not an email and password).
 app.
 </p>
 
-<p>Now open the Feed app and click "open" to see the raw feed. Depending your browser, this may render as XML, or you may see a news reader style UI.
-</p> 
-
-<p>Now that your feed is working, and has jobs, your app can start accessing it. The first step is for your app to make an API call to learn the url
-of the feed (i.e. where you were sent upon clicking "open" on the Feed app itself).
-</p>
-
 <p>Open your app in the developer site. Under "APIs", have your app consume
- <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'> GET /jobs/feed</a>.<b>Make sure to consume it as source of truth == true</b>. 
+ <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_feeds_full_get'> GET /jobs/feeds/full</a>. <b>Make sure
+ to consume it as source of truth == true</b>. 
 
 <blockquote>
-Now your "app" (right now that's just you using the familiar curl command ) is ready to make an API call to fetch the url of the feed.
+Now your "app" (right now that's just you using the familiar curl command ) is ready to make an API call to fetch the feed.
 </blockquote>
-
 
 <p>At the command line, type the following (substituting your own app, tenant and secret key):
 
 <div class='codeBlock'>
 # as the app "getjobstest",
 # and acting for tenant "acme",  
-# call the API GET /jobs
+# call the API GET /jobs/feeds/full
 # as defined by the developer "tas"
 
-curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobstest.tazzy.io/t/acme/devs/tas/jobs/feed
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobstest.tazzy.io/t/acme/devs/tas/jobs/feeds/full
 </div>
-</p>
-
-<p>You should get a response containing the url of the feed.
 </p>
 
 <p>Your app can now access the feed itself!

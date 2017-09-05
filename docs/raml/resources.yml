@@ -275,8 +275,8 @@
               example: !include ../examples/action-simple.json
         404:
           description: |
-            The app has chosen not to render any button, even though it possibly could have, i.e. the app knows the action can't be performed,
-            probably because of the object's state.
+            The app has chosen not to render the button. Maybe the object's state prevents the action. Maybe the action is an apply gate and
+            the candidate achieved a pass - 404 is considered the same as a pass.
 
 - candidateAppsActions:
     get:

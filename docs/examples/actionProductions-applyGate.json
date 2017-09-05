@@ -1,14 +1,24 @@
 [
   {
-    "actionName": "qualify",
+    "actionName": "bigapply",
     "availableToInternals": true,
     "availableToExternals": true,
     "mayRequireSetupFlag": false,
     "semantics": {
-      "purpose": "apply",
-      "gateBehaviour": {
-         "canReuseFlag": true 
-      }
+      "purpose": "apply"
+    }
+  },
+  {
+    "actionName": "easyquiz",
+    "availableToInternals": true,
+    "availableToExternals": true,
+    "mayRequireSetupFlag": false,
+    "semantics": {
+      "gateFor": [
+         {
+            "purpose": "apply"
+         }
+      ]
     }
   }
 ]

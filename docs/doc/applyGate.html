@@ -25,7 +25,7 @@
 <link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
 
 
-<title>Apply gate</title>
+<title>Apply gate (new)</title>
 </head>
 <body>
 
@@ -85,19 +85,13 @@ of quiz within your app.
 
 <h1>Install required apps</h1>
 
-<p>You should already have several apps installed from the steps in <a href="showButton.html">showButton.html</a>
-</p>.  
+<p>You should already have several apps installed from the steps in <a href="showButton.html">showButton.html</a>.
+</p>  
 
-<p>If your apply gate does not use SSO, you'll need to install the echo app.
-</p>
-
-<p>
-<a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZWNobw.KRnonFueIGABI-DWVu5Dr6xgsVfOxfL0dTr6bgT_FLx7Pmfz9fDDnwtG-70LFcYS5kgPQvmE3o8fU_ZSFWK0csyTEeMUV1_3plXLjndKOS13noRfDbtAt05V2BGE6Wsp5kqD1XMQWsqW5hKj14qcIvKpqv0igj9xL4w0ASk5_rCDhZ2jVs68ON-1plpqI-jtsrz6341hbCBmTsmtHaxvH_u0jwKb_hs6blTfKSisEHH_qbG05kzCcoC7zeX0xTsNr5NwJwnI8se_FuVF2EPp6sMau8jG-MDq2Wwfg8l7hB2IPdxe7cbFOoWXaim5a0SWrMP50NG8ljsNQT34ZJZ13Q'>
-<img src='https://cdn.talentappstore.com/apps/echo/echo.png' width="100px" height="100px" /></a> The Echo app allows your app to mark its own actions as satisfied without needing SSO.
+<p>Since your app requires SSO, you'll need to install at least one identity app with principal type == candidate (e.g. allow candidates to sign in with Google).
 </p>
 
 <h1>Create your app</h1>
-
 
 <h2>Modify your button to be an apply gate</h2>
 
@@ -111,21 +105,11 @@ Response:
 </div>
 </p>
 
-<p>For an apply gate  like yours, the <b>semantics</b> section must be present, along with the <b>purpose</b> and the <b>gateBehaviour</b> sections.
-</p>
-<p>The purpose field determines what sort of buttons your apply gate will suppress, e.g. if you set your button's purpose to "apply",
-then it will hide apply buttons.
-</p>
-
-<p>In this example, your button has <b>canReuse</b> == true, which means that if a candidate satisfies your app on one job (hence is allowed to apply),
-and then later applies for another job, they won't need to re-perform your process. For example, if your button is for a company-side culture
-fit analysis, then there's no need to make the candidate complete it over and over on every job they apply for.
-</p>
-
+<p>This shows an app producing two buttons - one apply button, and another button that is an apply gate (i.e., can prevent apply buttons from appearing).</p>
 
 <h2>Verify that the apply button is hidden</h2>
 
-<p>After making these changes, open the qs8n app again. Your buton should now be showing, but the apply button that was previous showing should
+<p>After making these changes, open the qs8n app again. Your button should now be showing, but the apply button that was previous showing should
 be hidden - your app is doing its job.
 </p>
 
@@ -138,110 +122,92 @@ be hidden - your app is doing its job.
 <p>You should now be at your app's web site, where you do your thing whatever that is (e.g. complete an online quiz).
 </p>
 
-<p>If your app uses SSO (maybe to save the candidate's data so they can start the quiz on a mobile
-device and complete it on desktop), then your web page will likely be SSO-protected, and the candidate will be asked to log in.
-</p>
-
-<p>At some stage (e.g. after passing the quiz) your apply gate app decides that the candidate should now be allowed to apply (has satisfied the gate).
-There are two ways that your app can signal that a candidate has satisfied your gate.
-</p>
-
-<h2>Call satisfy directly (SSO)</h2>
- 
-<p>If your app uses SSO, and the candidate is signed in, then you can call the satisfy API directly:
-
-<div class='codeBlock'>
-POST /actions/byCandidate/me/jobs/{job}/satisfy/{actionName}
-</div>
-</p>
-
-<h2>Call satisfy indirectly (non-SSO)</h2>
-
-<p>If your app does not use SSO, you can use the echo app. Your app requests a "satisfy link" from echo, and then redirects
-the candidate there. Then the echo app signs the candidate in, and does the satisfy. 
-
-<p>Install the <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.ZWNobw.KRnonFueIGABI-DWVu5Dr6xgsVfOxfL0dTr6bgT_FLx7Pmfz9fDDnwtG-70LFcYS5kgPQvmE3o8fU_ZSFWK0csyTEeMUV1_3plXLjndKOS13noRfDbtAt05V2BGE6Wsp5kqD1XMQWsqW5hKj14qcIvKpqv0igj9xL4w0ASk5_rCDhZ2jVs68ON-1plpqI-jtsrz6341hbCBmTsmtHaxvH_u0jwKb_hs6blTfKSisEHH_qbG05kzCcoC7zeX0xTsNr5NwJwnI8se_FuVF2EPp6sMau8jG-MDq2Wwfg8l7hB2IPdxe7cbFOoWXaim5a0SWrMP50NG8ljsNQT34ZJZ13Q'>echo</a>
-app.
-</p>
-
-<p>Make sure you have at least one candidate identity app installed (so the candidate can log in).
-</p>
-
-<p>Update your app to consume the API (as SoT): 
-<div class='codeBlock'>
-GET /actions/byCandidate/anonymous/jobs/{job}/satisfyLink/{actionName}?relayPage=blah&tracker=blah?message=Good+news
-
-Response:
-https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh
-</div>
-</p>
-
-<p>In this example:
+<p>Here's how we recommend you deal with candidates clicking on your action, where your action is some kind of quiz that saves results against the candidate. This approach makes sure that:
 <ul>
-<li><b>relayPage</b> should be the same relayPage that was passed in to your button, since that's where we want to lead the candidate back to after
-they've completed the satisfy operation.
-<li><b>message</b> is a message telling the candidate they've completed your process, whatever that is. 
+<li>you don't waste candidates time or confuse them by asking them to complete the quiz when they may have an existing result
+<li>candidates can't immediately retake a quiz if they fail
 </ul>
+
+<h3>Put SSO in front of your quiz</h3>
+
+<p>Here, if the candidate is not signed in, you ask them to sign in using SSO before attempting the quiz (otherwise you'll waste their time if you already have a result for them).
+
+<p>Put a SSO-protected web page up. Any page in your app under /t/{tenant} is automatically SSO-protected, and appears on the internet at https://&lt;your app&gt;communityapps.aotal.com.
 </p>
 
-<p>The page requires them to authenticate
-using the normal candidate SSO (Facebook, LinkedIn, email, etc.), then immediately marks the candidate as satisfied and redirects them to the relay page.
-
-
+<p>e.g. if you put up a page at:
 <div class='codeBlock'>
-+---------------
-|
-| Congratulations! You're a savvy dude.
-| [Proceed to job]
-| 
-+-----------------
+/t/{tenant}/quiz/{quiz}
+</div><br />
+that page appears on the internet at:<br />
+<div class='codeBlock'>
+https://&lt;your app&gt;.communityapps.aotal.com/t/{tenant}/quiz/{quiz}
 </div>
+
+<p>You can safely assume that all incoming traffic to that page is for a signed in candidate. You now have access to the candidate's details from the incoming request headers (name, email, image, etc.).
+<p>
+
+<p>Your app can now check if the candidate has a result in your database (keyed by email).
+
+<ul>
+<li>if there is a result, redirect them back to the relay page, but add 
+<a href='http://talentappstore.github.io/tas-tenant-apis/doc/conventions.html#Add_the_isSignedIn_parameter_to_outgoing_links'>
+?isSignedIn=candidate
+</a> to the url, so that the ATS knows they are now signed in. This will eventually cause the ATS to re-fetch all
+buttons, this time for a signed in candidate. You might choose to inject a results page reminding the candidate what their previous result was before the above redirect.  
+<li>if there is no result, redirect the candidate to your quiz.
+</ul>
+
+</ol>
 </p>
 
+
+<p>Once the candidate completes the quiz:
+
+<ol>
+<li>store the result in your database (pass/fail), keyed by email address
+<li>redirect the candidate back to the relay page, but add 
+<a href='http://talentappstore.github.io/tas-tenant-apis/doc/conventions.html#Add_the_isSignedIn_parameter_to_outgoing_links'>
+?isSignedIn=candidate
+</a> to the url, so that the ATS knows they are now signed in
+</ol>
+  
 <h2>Verify the candidate can now apply</h2>
 
 <p>Finally, you should be back at the job, and now the apply button should be visible. It works!
 </p>
 
 
-<h1>Choosing whether to use SSO</h1>
-
-<p>One of the first decisions in building tyour app is whether you're going to use SSO. SSO is optional, and you can build an
-apply gate app without it. But using SSO gives you some advantages:
-<ul>
-<li>Without SSO, canny candidates might fail your test, but then just try again straight away. You could prevent this using cookies, but they might
-try again on a different device (or just clear their cookies). With SSO, you can store the candidate's results keyed with their identity, so you can
-tell straight away if this is a new or returning candidate.
-<li>In the future, APIs will likely allow you to attach results from your test to the candidate's record in another system (e.g. the ATS)
-so that a recruiter/hiring manager can view them. Those APIs will require that you have the candidate's identity, which you can only get if your app uses SSO.
-Without this, your app can't attach results (other than a simple "they've passed"). This may or may not be a problem depending on what your app is testing for
-(e.g if you're just asking the candidate to confirm that they meet some laundry list of pre-requisites, its probably not a problem).  
-</ul>
-
 <h1>How gates are applied - logic</h1>
 
-<p>Although you only need to worry about your own button, it can be useful to understand the bigger picture of how switchgear decides which buttons
-the candidate should see.
+<p>Although you only need to worry about your own button, this describes the big picture for buttons getting shown:
 </p>
 
 <p>At the point the job page is displayed, the coordinating app (e.g. switchgear) will decide which buttons to display on it as follows:
 
 <ol>
-<li>switchgear already knows all the buttons that may possibly be displayed.
-<li>switchgear now fetches the actual details for your button(s) and all other possible buttons for the job.
-<li>Some of those buttons may return 404 indicating they aren't to be displayed.
+<li>switchgear already knows all the buttons that may possibly be displayed (by calling each app's "possibles" API)
+
+<li>switchgear now fetches the actual details for your button(s) and all other possible buttons for the job (some of those buttons may return 404 indicating they aren't to be displayed).
+
 <li>switchgear now has a full list (the "displayable list") of all buttons that wish to be displayed.
-<li>Now switchgear selectively removes buttons as follows
-<li>switchgear filters out any displayable buttons that:
+
+<li>Now switchgear selectively filters out any displayable buttons that:
 <ul>
 <li>have a purpose (like "apply"); and
 <li>are not gate buttons; and
 <li>where there exists at least one displayable gate button for that purpose which is not yet satisfied (e.g., your button).
+<li>a 404 from an apply gate is considered a "pass"
 </ul>
-In other words, switchgear won't display any apply buttons if there is at least one apply gate that the candidate hasn't completed.
-<li>Switchgear then filters out all but the first unsatisfied gate button for each purpose. So if there were 10 gates the candidate
-had to get through before they could apply, they would only see each gate after completing the previous one.
 </ol>
+
+<p>In other words, switchgear won't display any apply buttons if there is at least one apply gate that the candidate hasn't completed.
+</p>
+
+<p>You might want to return 404 for your gate button if the candidate has an existing pass. Then, as soon as your quiz has been completed, they won't see your button again.
+</p>
+
+<p>Don't return 404 if the candidate has an existing fail, as that is the same as returning a pass. In this case your button should display with an appropriate label ("sorry you can't apply") - the candidate needs this to understand why the apply button is being hidden from them.
 </p>
 
 <h1>General actions</h1>

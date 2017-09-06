@@ -9,7 +9,6 @@ install:
   - npm install -g raml2html@3.0.1
 script: tas-des-static/scripts/builddes.sh docs
 after_success:
-  - "[[ $(git log -1 --pretty=%B) = 'generate html on travis' ]] && git commit -am 'generate html on travis'"
+  - "[[ $(git log -1 --pretty=%B) != 'generate html on travis' ]] && git commit -am 'generate html on travis'"
   - "git remote add authorigin https://${ACCESS_TOKEN}@github.com/talentappstore/tas-tenant-apis.git"
-  - "echo ${TRAVIS_PULL_REQUEST}"
   - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && git push authorigin HEAD:${TRAVIS_BRANCH}"

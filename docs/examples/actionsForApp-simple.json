@@ -2,21 +2,23 @@
   "app": "myapp",
   "actions": [
     {
-	"name": "refer",
-      "label": "Refer a friend",
+      "name": "refer",
       "uri": "https://referrals.com/jobs/1022?tracker=106645",
       "behavior": "redirect",
-	"textColor": "dddddd",
-	"backgroundColor": "010203",
+      "type": "button",
+      "label": "Refer a friend",
+      "textColor": "dddddd",
+      "backgroundColor": "010203",
       "disabled": false
     },
     {
-	"name": "share",
-      "label": "Share this job",
+      "name": "share",
       "uri": "https://sharing.com/jobs/1022?tracker=106645",
       "behavior": "modal",
-	"textColor": "dddddd",
-	"backgroundColor": "010203",
+      "type": "button",
+      "label": "Share this job",
+      "textColor": "dddddd",
+      "backgroundColor": "010203",
       "disabled": false
     }
   ]

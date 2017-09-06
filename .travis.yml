@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "8"
+install:
+  - git clone https://github.com/talentappstore/tas-des-static.git tas-des-static
+  - npm install tv4
+  - npm install tv4-formats
+  - npm install ajv@4.11.7
+  - npm install -g raml2html@3.0.1
+script: tas-des-static/scripts/builddes.sh docs
+after_success:
+  - "[[ $(git log -1 --pretty=%B) != 'generate html on travis' ]] && git commit -am 'generate html on travis'"
+  - "git remote add authorigin https://${ACCESS_TOKEN}@github.com/talentappstore/tas-tenant-apis.git"
+  - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && git push authorigin HEAD:${TRAVIS_BRANCH}"

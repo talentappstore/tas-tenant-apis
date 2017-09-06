@@ -2,9 +2,10 @@
   "name": "qualify",
   "uri": "https://acme.myapplygate.com/jobs/1022?relayPage=blah&tracker=106645",
   "behavior": "redirect",
-  "label": "I want in!",
+  "label": "Gate not satisfied",
   "type": "button",
   "textColor": "111111",
   "backgroundColor": "eeeeee",
-  "disabled": false
+  "disabled": false,
+  "gateState": false
 }

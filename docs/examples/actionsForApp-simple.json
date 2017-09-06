@@ -5,25 +5,21 @@
       "name": "refer",
       "uri": "https://referrals.com/jobs/1022?tracker=106645",
       "behavior": "redirect",
-      "display": {
-        "type": "button",
-        "label": "Refer a friend",
-        "textColor": "dddddd",
-        "backgroundColor": "010203",
-        "disabled": false
-      }
+      "type": "button",
+      "label": "Refer a friend",
+      "textColor": "dddddd",
+      "backgroundColor": "010203",
+      "disabled": false
     },
     {
       "name": "share",
       "uri": "https://sharing.com/jobs/1022?tracker=106645",
       "behavior": "modal",
-      "display": {
-        "type": "button",
-        "label": "Share this job",
-        "textColor": "dddddd",
-        "backgroundColor": "010203",
-        "disabled": false
-      }
+      "type": "button",
+      "label": "Share this job",
+      "textColor": "dddddd",
+      "backgroundColor": "010203",
+      "disabled": false
     }
   ]
 }

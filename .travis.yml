@@ -6,7 +6,8 @@ install:
   - npm install tv4
   - npm install tv4-formats
   - npm install ajv@4.11.7
-  - npm install -g raml2html
+  - npm install -g raml2html@3.0.1
 script: tas-des-static/scripts/builddes.sh docs
 after_success:
-  - if ! git diff-index --quiet HEAD --; then git diff; fi
+  - "[[ $(git log -1 --pretty=%B) = 'generate html on travis' ]] && git commit -am 'generate html on travis'"
+  - git push

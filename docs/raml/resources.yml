@@ -265,7 +265,8 @@
         
         The commonly used approach of whitelisting is not useful as there is no common repository of all of the valid
         domains in use by all apps that a tenant may have installed and that may include this action.
-        
+
+        The default type of the action is 'button'. If the type 'image' is used then the 'imageUri' property is used to specify the location of the image.
       is: [ trackable, hasRelayPage ]
       responses:
         200:

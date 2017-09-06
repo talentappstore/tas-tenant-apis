@@ -14,6 +14,8 @@
     "uri": "https://sharing.com/jobs/1022?tracker=106645",
     "behavior": "modal",
     "type": "image",
-    "imageUri": "https://example.com/image.png"
+    "imageUri": "https://example.com/image.png",
+    "label": "Share a link",
+    "disabled": false
   }
 ]

@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "8"
+install:
+  - git clone https://github.com/talentappstore/tas-des-static.git tas-des-static
+  - npm install raml2html
+  - npm install tv4
+  - npm install tv4-formats
+  - npm install ajv@4.11.7
+  - npm install -g raml2html
+script: tas-des-static/scripts/builddes.sh docs
+after_success:
+  - if ! git diff-index --quiet HEAD --; then git diff; fi

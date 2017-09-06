@@ -10,4 +10,5 @@ install:
 script: tas-des-static/scripts/builddes.sh docs
 after_success:
   - "[[ $(git log -1 --pretty=%B) = 'generate html on travis' ]] && git commit -am 'generate html on travis'"
-  - git push
+  - "git remote add authorigin https://${ACCESS_TOKEN}@github.com/talentappstore/tas-tenant-apis.git"
+  - "[[ ${TRAVIS_PULL_REQUEST} == 'false' ]] && git push authorigin HEAD:${TRAVIS_BRANCH}"

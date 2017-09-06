@@ -29,7 +29,7 @@
     "imageUri": {
       "type": "string",
       "format": "uri",
-      "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)",
+      "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
     },
     "label": {
       "type": "string",

@@ -197,21 +197,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -225,6 +245,63 @@
     "gateState": {
       "type": "boolean",
       "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+<<<<<<< HEAD
+=======
+    },
+    "button": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "button"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "a string indicating what the action will do, used as the label on its button/control"
+        },
+        "textColor": {
+          "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "backgroundColor": {
+          "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
+        }
+      }
+    },
+    "display": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/button"
+        },
+        {
+          "$ref": "#/definitions/image"
+        }
+      ]
+>>>>>>> master
     }
   },
   "type": "object",
@@ -237,6 +314,7 @@
     "gateState": {
       "$ref": "#/definitions/gateState"
     },
+<<<<<<< HEAD
     "type": {
       "enum": [
         "image",
@@ -251,6 +329,10 @@
     "label": {
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
+=======
+    "display": {
+      "$ref": "#/definitions/display"
+>>>>>>> master
     },
     "behavior": {
       "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
@@ -263,6 +345,7 @@
       "type": "string",
       "format": "uri",
       "description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+<<<<<<< HEAD
     },
     "textColor": {
       "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
@@ -275,25 +358,43 @@
     "disabled": {
       "type": "boolean",
       "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+=======
+>>>>>>> master
     }
   },
   "required": [
     "name",
+<<<<<<< HEAD
     "label",
     "behavior",
     "uri",
     "disabled"
+=======
+    "behavior",
+    "uri",
+    "display"
+>>>>>>> master
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "name": "refer",
   "behavior": "redirect",
   "uri": "https://referrals.com/jobs/1022?tracker=106645",
+<<<<<<< HEAD
   "type": "button",
   "label": "Refer a friend",
   "textColor": "dddddd",
   "backgroundColor": "010203",
   "disabled": false
+=======
+  "display": {
+    "type": "button",
+    "label": "Refer a friend",
+    "textColor": "dddddd",
+    "backgroundColor": "010203",
+    "disabled": false
+  }
+>>>>>>> master
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render the button. Maybe the object&#39;s state prevents the action. Maybe the action is an apply gate and the candidate achieved a pass - 404 is considered the same as a pass.</p></div><div class="tab-pane" id="actions_byCandidate_me_general_byName__action__byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_me_jobs__job_"><span class="parent">/actions/byCandidate/me/jobs</span>/{job}</a> <span class="methods"><a href="#actions_byCandidate_me_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_me_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_me_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_me_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/me/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_me_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_me_jobs__job__get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_me_jobs__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_me_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_me_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
@@ -308,21 +409,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -332,10 +453,71 @@
     "name": {
       "type": "string",
       "description": "fixed name for this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
+<<<<<<< HEAD
     },
     "gateState": {
       "type": "boolean",
       "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+=======
+    },
+    "gateState": {
+      "type": "boolean",
+      "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+    },
+    "button": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "button"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "a string indicating what the action will do, used as the label on its button/control"
+        },
+        "textColor": {
+          "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "backgroundColor": {
+          "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
+        }
+      }
+    },
+    "display": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/button"
+        },
+        {
+          "$ref": "#/definitions/image"
+        }
+      ]
+>>>>>>> master
     }
   },
   "type": "object",
@@ -348,6 +530,7 @@
     "gateState": {
       "$ref": "#/definitions/gateState"
     },
+<<<<<<< HEAD
     "type": {
       "enum": [
         "image",
@@ -362,6 +545,10 @@
     "label": {
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
+=======
+    "display": {
+      "$ref": "#/definitions/display"
+>>>>>>> master
     },
     "behavior": {
       "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
@@ -374,6 +561,7 @@
       "type": "string",
       "format": "uri",
       "description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+<<<<<<< HEAD
     },
     "textColor": {
       "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
@@ -386,25 +574,43 @@
     "disabled": {
       "type": "boolean",
       "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+=======
+>>>>>>> master
     }
   },
   "required": [
     "name",
+<<<<<<< HEAD
     "label",
     "behavior",
     "uri",
     "disabled"
+=======
+    "behavior",
+    "uri",
+    "display"
+>>>>>>> master
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "name": "refer",
   "behavior": "redirect",
   "uri": "https://referrals.com/jobs/1022?tracker=106645",
+<<<<<<< HEAD
   "type": "button",
   "label": "Refer a friend",
   "textColor": "dddddd",
   "backgroundColor": "010203",
   "disabled": false
+=======
+  "display": {
+    "type": "button",
+    "label": "Refer a friend",
+    "textColor": "dddddd",
+    "backgroundColor": "010203",
+    "disabled": false
+  }
+>>>>>>> master
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render the button. Maybe the object&#39;s state prevents the action. Maybe the action is an apply gate and the candidate achieved a pass - 404 is considered the same as a pass.</p></div><div class="tab-pane" id="actions_byCandidate_me_jobs__job__byName__action__byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_me_search"><span class="parent">/actions/byCandidate/me</span>/search</a> <span class="methods"><a href="#actions_byCandidate_me_search_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_me_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_me_search_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_me_search_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/me</span>/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_me_search_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_me_search_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_me_search_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_me_search_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_me_search_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
@@ -419,21 +625,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -447,6 +673,63 @@
     "gateState": {
       "type": "boolean",
       "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+<<<<<<< HEAD
+=======
+    },
+    "button": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "button"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "a string indicating what the action will do, used as the label on its button/control"
+        },
+        "textColor": {
+          "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "backgroundColor": {
+          "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
+        }
+      }
+    },
+    "display": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/button"
+        },
+        {
+          "$ref": "#/definitions/image"
+        }
+      ]
+>>>>>>> master
     }
   },
   "type": "object",
@@ -459,6 +742,7 @@
     "gateState": {
       "$ref": "#/definitions/gateState"
     },
+<<<<<<< HEAD
     "type": {
       "enum": [
         "image",
@@ -473,6 +757,10 @@
     "label": {
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
+=======
+    "display": {
+      "$ref": "#/definitions/display"
+>>>>>>> master
     },
     "behavior": {
       "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
@@ -485,6 +773,7 @@
       "type": "string",
       "format": "uri",
       "description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+<<<<<<< HEAD
     },
     "textColor": {
       "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
@@ -497,25 +786,43 @@
     "disabled": {
       "type": "boolean",
       "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+=======
+>>>>>>> master
     }
   },
   "required": [
     "name",
+<<<<<<< HEAD
     "label",
     "behavior",
     "uri",
     "disabled"
+=======
+    "behavior",
+    "uri",
+    "display"
+>>>>>>> master
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "name": "refer",
   "behavior": "redirect",
   "uri": "https://referrals.com/jobs/1022?tracker=106645",
+<<<<<<< HEAD
   "type": "button",
   "label": "Refer a friend",
   "textColor": "dddddd",
   "backgroundColor": "010203",
   "disabled": false
+=======
+  "display": {
+    "type": "button",
+    "label": "Refer a friend",
+    "textColor": "dddddd",
+    "backgroundColor": "010203",
+    "disabled": false
+  }
+>>>>>>> master
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render the button. Maybe the object&#39;s state prevents the action. Maybe the action is an apply gate and the candidate achieved a pass - 404 is considered the same as a pass.</p></div><div class="tab-pane" id="actions_byCandidate_me_search_byName__action__byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_assessments_general"><span class="parent">/actions/byCandidate/anonymous/assessments</span>/general</a> <span class="methods"><a href="#actions_byCandidate_anonymous_assessments_general_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_assessments_general" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_assessments_general_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_assessments_general_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/assessments</span>/general</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_assessments_general_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_assessments_general_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_assessments_general_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_assessments_general_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_assessments_general_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
@@ -530,21 +837,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -562,21 +889,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -594,21 +941,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -622,6 +989,63 @@
     "gateState": {
       "type": "boolean",
       "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+<<<<<<< HEAD
+=======
+    },
+    "button": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "button"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "a string indicating what the action will do, used as the label on its button/control"
+        },
+        "textColor": {
+          "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "backgroundColor": {
+          "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
+        }
+      }
+    },
+    "display": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/button"
+        },
+        {
+          "$ref": "#/definitions/image"
+        }
+      ]
+>>>>>>> master
     }
   },
   "type": "object",
@@ -634,6 +1058,7 @@
     "gateState": {
       "$ref": "#/definitions/gateState"
     },
+<<<<<<< HEAD
     "type": {
       "enum": [
         "image",
@@ -648,6 +1073,10 @@
     "label": {
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
+=======
+    "display": {
+      "$ref": "#/definitions/display"
+>>>>>>> master
     },
     "behavior": {
       "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
@@ -660,6 +1089,7 @@
       "type": "string",
       "format": "uri",
       "description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+<<<<<<< HEAD
     },
     "textColor": {
       "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
@@ -672,25 +1102,43 @@
     "disabled": {
       "type": "boolean",
       "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+=======
+>>>>>>> master
     }
   },
   "required": [
     "name",
+<<<<<<< HEAD
     "label",
     "behavior",
     "uri",
     "disabled"
+=======
+    "behavior",
+    "uri",
+    "display"
+>>>>>>> master
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "name": "refer",
   "behavior": "redirect",
   "uri": "https://referrals.com/jobs/1022?tracker=106645",
+<<<<<<< HEAD
   "type": "button",
   "label": "Refer a friend",
   "textColor": "dddddd",
   "backgroundColor": "010203",
   "disabled": false
+=======
+  "display": {
+    "type": "button",
+    "label": "Refer a friend",
+    "textColor": "dddddd",
+    "backgroundColor": "010203",
+    "disabled": false
+  }
+>>>>>>> master
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render the button. Maybe the object&#39;s state prevents the action. Maybe the action is an apply gate and the candidate achieved a pass - 404 is considered the same as a pass.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_general_byName__action__byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_jobs__job_"><span class="parent">/actions/byCandidate/anonymous/jobs</span>/{job}</a> <span class="methods"><a href="#actions_byCandidate_anonymous_jobs__job__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_jobs__job_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_jobs__job__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_jobs__job__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/jobs</span>/{job}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_jobs__job__get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_jobs__job__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
@@ -705,6 +1153,7 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
@@ -733,6 +1182,94 @@
     "gateState": {
       "type": "boolean",
       "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+      },
+      {
+        "name": "share",
+        "uri": "https://sharing.com/jobs/1022?tracker=106645",
+        "behavior": "modal",
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+      }
+    ]
+  }
+]</code></pre></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_jobs__job__asHtml"><span class="parent">/actions/byCandidate/anonymous/jobs/{job}</span>/asHtml</a> <span class="methods"><a href="#actions_byCandidate_anonymous_jobs__job__asHtml_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_jobs__job__asHtml" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_jobs__job__asHtml_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get the html for the strip of buttons, ready to plug into a job details page as viewed by the candidate. SoT.</p><p>The app building the page that embeds this strip must in its head section pull in style sheet, javascript, etc. as obtained via a call to GET /actions/byCandidate/headHtml.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_jobs__job__asHtml_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/jobs/{job}</span>/asHtml</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the html for the strip of buttons, ready to plug into a job details page as viewed by the candidate. SoT.</p><p>The app building the page that embeds this strip must in its head section pull in style sheet, javascript, etc. as obtained via a call to GET /actions/byCandidate/headHtml.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_jobs__job__asHtml_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__asHtml_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__asHtml_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_jobs__job__asHtml_get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__asHtml_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/html</strong></p><p><strong>Example</strong>:</p><pre><code>some html containing a strip of buttons, using only styles from the headHtml call</code></pre></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__asHtml_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_jobs__job__byName__action__byApp"><span class="parent">/actions/byCandidate/anonymous/jobs/{job}/byName/{action}</span>/byApp</a> <span class="methods"><a href="#actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_jobs__job__byName__action__byApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a single, named action from a single app. Non-SoT.</p><p>The producing app might customise the button/control(s), or choose not display it at all e.g.;</p><ul><li>for an apply button, display that a partial (draft) registration is already underway</li><li>gray the register button out if candidate logged in and already registered</li></ul><p><em>Security considerations</em>: If the producing app attaches the incoming relayPage paramater to the button&#39;s link, then it should protect itelf from Open Redirection attacks as described at <a href="https://www.owasp.org/index.php/Testing_for_Client_Side_URL_Redirect_(OTG-CLIENT-004">https://www.owasp.org/index.php/Testing_for_Client_Side_URL_Redirect_(OTG-CLIENT-004</a>).</p><p>One approach would be by:</p><ul><li>attaching an additional digital signature to the link based on the link&#39;s other values, including the relayPage</li><li>verifying when the candidate follows the link that the relayPage has not been tampered with</li></ul><p>Another approach would be not putting the relayPage in the link at all, but instead storing it and putting a key into the link.</p><p>The commonly used approach of whitelisting is not useful as there is no common repository of all of the valid domains in use by all apps that a tenant may have installed and that may include this action.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/jobs/{job}/byName/{action}</span>/byApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a single, named action from a single app. Non-SoT.</p><p>The producing app might customise the button/control(s), or choose not display it at all e.g.;</p><ul><li>for an apply button, display that a partial (draft) registration is already underway</li><li>gray the register button out if candidate logged in and already registered</li></ul><p><em>Security considerations</em>: If the producing app attaches the incoming relayPage paramater to the button&#39;s link, then it should protect itelf from Open Redirection attacks as described at <a href="https://www.owasp.org/index.php/Testing_for_Client_Side_URL_Redirect_(OTG-CLIENT-004">https://www.owasp.org/index.php/Testing_for_Client_Side_URL_Redirect_(OTG-CLIENT-004</a>).</p><p>One approach would be by:</p><ul><li>attaching an additional digital signature to the link based on the link&#39;s other values, including the relayPage</li><li>verifying when the candidate follows the link that the relayPage has not been tampered with</li></ul><p>Another approach would be not putting the relayPage in the link at all, but instead storing it and putting a key into the link.</p><p>The commonly used approach of whitelisting is not useful as there is no common repository of all of the valid domains in use by all apps that a tenant may have installed and that may include this action.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li><li><strong>action</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "name": {
+      "type": "string",
+      "description": "fixed name for this action, containing only lower case alpha, digits and &#39;-&#39; characters, length &lt;= 30"
+    },
+    "gateState": {
+      "type": "boolean",
+      "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+    },
+    "button": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "button"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "a string indicating what the action will do, used as the label on its button/control"
+        },
+        "textColor": {
+          "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "backgroundColor": {
+          "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
+        }
+      }
+    },
+    "display": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/button"
+        },
+        {
+          "$ref": "#/definitions/image"
+        }
+      ]
+>>>>>>> master
     }
   },
   "type": "object",
@@ -745,6 +1282,7 @@
     "gateState": {
       "$ref": "#/definitions/gateState"
     },
+<<<<<<< HEAD
     "type": {
       "enum": [
         "image",
@@ -759,6 +1297,10 @@
     "label": {
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
+=======
+    "display": {
+      "$ref": "#/definitions/display"
+>>>>>>> master
     },
     "behavior": {
       "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
@@ -771,6 +1313,7 @@
       "type": "string",
       "format": "uri",
       "description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+<<<<<<< HEAD
     },
     "textColor": {
       "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
@@ -783,25 +1326,43 @@
     "disabled": {
       "type": "boolean",
       "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+=======
+>>>>>>> master
     }
   },
   "required": [
     "name",
+<<<<<<< HEAD
     "label",
     "behavior",
     "uri",
     "disabled"
+=======
+    "behavior",
+    "uri",
+    "display"
+>>>>>>> master
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "name": "refer",
   "behavior": "redirect",
   "uri": "https://referrals.com/jobs/1022?tracker=106645",
+<<<<<<< HEAD
   "type": "button",
   "label": "Refer a friend",
   "textColor": "dddddd",
   "backgroundColor": "010203",
   "disabled": false
+=======
+  "display": {
+    "type": "button",
+    "label": "Refer a friend",
+    "textColor": "dddddd",
+    "backgroundColor": "010203",
+    "disabled": false
+  }
+>>>>>>> master
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render the button. Maybe the object&#39;s state prevents the action. Maybe the action is an apply gate and the candidate achieved a pass - 404 is considered the same as a pass.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__byName__action__byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName_"><span class="parent">/actions/byCandidate/anonymous/jobs/{job}/satisfyLink</span>/{actionName}</a> <span class="methods"><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The name of an action button, belonging to the app that is consuming the API, that is to be marked as satisfied by someone following the link.</p></div><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Obtain a link that a candidate can use to mark themselves as having satisfied the given action button on a job. When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.</p><p>SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous/jobs/{job}/satisfyLink</span>/{actionName}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Obtain a link that a candidate can use to mark themselves as having satisfied the given action button on a job. When the candidate follows this link, they will be asked to sign in, then marked as having satisfied the pre-reqs for the given purpose (e.g. applying for a job), and then shown the message, along with a link to get back to where they started.</p><p>SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get_request"><h3>URI Parameters</h3><ul><li><strong>job</strong>: <em>required (string)</em></li><li><strong>actionName</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li><li><strong>message</strong>: <em>required (string)</em><p>The message that will be displayed to the user on the linked web page, once they have logged in.</p><p><strong>Example</strong>:</p><pre>Congratulations! You can apply for this job now.</pre></li><li><strong>results</strong>: <em>(string)</em><p>The results paramater (if present) is a url encoded json document containing similar data as that an assessment app can set, as per actionSatisfier.json (e.g. image, a url to see the results).</p></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: text/plain</strong></p><p><strong>Example</strong>:</p><pre><code>https://acme.prequalify.com/jobs/10032?secret=87686kjhkg78587ykjh</code></pre></div><div class="tab-pane" id="actions_byCandidate_anonymous_jobs__job__satisfyLink__actionName__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_anonymous_search"><span class="parent">/actions/byCandidate/anonymous</span>/search</a> <span class="methods"><a href="#actions_byCandidate_anonymous_search_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_anonymous_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_anonymous_search_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_anonymous_search_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/anonymous</span>/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all applicable candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_anonymous_search_get_request" data-toggle="tab">Request</a></li><li><a href="#actions_byCandidate_anonymous_search_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_anonymous_search_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_anonymous_search_get_request"><h3>Query Parameters</h3><ul><li><strong>relayPageURL</strong>: <em>required (string)</em><p>A URL that the user will be redirected to.</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>relayPageLabel</strong>: <em>required (string)</em><p>A label for the URL that the user will be redirected to, e.g. "Creative Director".</p><p><strong>Example</strong>:</p><pre>https://myapp.com/kh87876</pre></li><li><strong>tracker</strong>: <em>(integer)</em><p>The ID of a tracker</p><p><strong>Example</strong>:</p><pre><code>1003423</code></pre></li></ul></div><div class="tab-pane" id="actions_byCandidate_anonymous_search_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "type": "array",
@@ -816,21 +1377,41 @@
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
         "behavior": "redirect",
+<<<<<<< HEAD
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+	        "type": "button",
+          "label": "Refer a friend",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       },
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
         "behavior": "modal",
+<<<<<<< HEAD
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",
         "backgroundColor": "010203",
         "disabled": false
+=======
+        "display": {
+    	    "type": "button",
+          "label": "Share this job",
+          "textColor": "dddddd",
+          "backgroundColor": "010203",
+          "disabled": false
+        }
+>>>>>>> master
       }
     ]
   }
@@ -844,6 +1425,63 @@
     "gateState": {
       "type": "boolean",
       "description": "for actions that are apply gates, true if the gate has been passed for this specific candidate + job, false if it was failed - this field should only be present when there is a result"
+<<<<<<< HEAD
+=======
+    },
+    "button": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "button"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "description": "a string indicating what the action will do, used as the label on its button/control"
+        },
+        "textColor": {
+          "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "backgroundColor": {
+          "description": "the color that the button&#39;s background should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "image"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url of an image to be displayed for this action (i.e. instead of a dynamically set up button)"
+        }
+      }
+    },
+    "display": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/button"
+        },
+        {
+          "$ref": "#/definitions/image"
+        }
+      ]
+>>>>>>> master
     }
   },
   "type": "object",
@@ -856,6 +1494,7 @@
     "gateState": {
       "$ref": "#/definitions/gateState"
     },
+<<<<<<< HEAD
     "type": {
       "enum": [
         "image",
@@ -870,6 +1509,10 @@
     "label": {
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
+=======
+    "display": {
+      "$ref": "#/definitions/display"
+>>>>>>> master
     },
     "behavior": {
       "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
@@ -882,6 +1525,7 @@
       "type": "string",
       "format": "uri",
       "description": "the url that the button/control will redirect the user to when pressed, or use to populate an iframe inside a modal"
+<<<<<<< HEAD
     },
     "textColor": {
       "description": "the color that the button&#39;s text should be rendered in, in 6 character hex format without leading #, e.g. 00ff00",
@@ -894,25 +1538,43 @@
     "disabled": {
       "type": "boolean",
       "description": "true if the button/control should appear disabled, i.e. the action can be seen but not performed"
+=======
+>>>>>>> master
     }
   },
   "required": [
     "name",
+<<<<<<< HEAD
     "label",
     "behavior",
     "uri",
     "disabled"
+=======
+    "behavior",
+    "uri",
+    "display"
+>>>>>>> master
   ],
   "additionalProperties": false
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "name": "refer",
   "behavior": "redirect",
   "uri": "https://referrals.com/jobs/1022?tracker=106645",
+<<<<<<< HEAD
   "type": "button",
   "label": "Refer a friend",
   "textColor": "dddddd",
   "backgroundColor": "010203",
   "disabled": false
+=======
+  "display": {
+    "type": "button",
+    "label": "Refer a friend",
+    "textColor": "dddddd",
+    "backgroundColor": "010203",
+    "disabled": false
+  }
+>>>>>>> master
 }</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>The app has chosen not to render the button. Maybe the object&#39;s state prevents the action. Maybe the action is an apply gate and the candidate achieved a pass - 404 is considered the same as a pass.</p></div><div class="tab-pane" id="actions_byCandidate_anonymous_search_byName__action__byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_general"><span class="parent">/actions/byCandidate</span>/general</a> <span class="methods"></span></h4></div><div id="panel_actions_byCandidate_general" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>General actions seen by candidates are typically embedded in page headers, e.g. "register", "share this entire site", etc.</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_actions_byCandidate_general_possibles"><span class="parent">/actions/byCandidate/general</span>/possibles</a> <span class="methods"><a href="#actions_byCandidate_general_possibles_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_actions_byCandidate_general_possibles" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#actions_byCandidate_general_possibles_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="actions_byCandidate_general_possibles_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/actions/byCandidate/general</span>/possibles</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an array which is a rollup of all possible candidate-facing actions from all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#actions_byCandidate_general_possibles_get_response" data-toggle="tab">Response</a></li><li><a href="#actions_byCandidate_general_possibles_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="actions_byCandidate_general_possibles_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {

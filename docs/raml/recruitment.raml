@@ -691,6 +691,16 @@ resourceTypes: !include resources.yml
         description: the post was successful
       201:
         description: the post was successful
+  patch:
+    description: 
+      This API has the same behaviour as PATCH /candidates/me, except that the call is not on behalf.
+    body:
+      application/merge-patch+json:
+        schema: !include ../schemas/candidateEdit.json
+        example: !include ../examples/candidateEdit-simple.json
+    responses:
+      200:
+        description: the patch was successful
   /unvalidated:
     post:
       description: 
@@ -704,6 +714,16 @@ resourceTypes: !include resources.yml
           description: the post was successful
         201:
           description: the post was successful
+    patch:
+      description: 
+        This API has the same behaviour as PATCH /candidates/me/unvalidated, except that the call is not on behalf.
+      body:
+        application/merge-patch+json:
+          schema: !include ../schemas/candidateEdit.json
+          example: !include ../examples/candidateEdit-simple.json
+      responses:
+        200:
+          description: the patch was successful
   /me:
     description:
       All APIs beneath here are operating on behalf of the logged in candidate.
@@ -744,10 +764,21 @@ resourceTypes: !include resources.yml
           description: the post was successful
         201:
           description: the post was successful
+    patch:
+      securedBy: [oauth_2_0]
+      description: |
+        See description for POST method.
+      body:
+        application/merge-patch+json:
+          schema: !include ../schemas/candidateEdit.json
+          example: !include ../examples/candidateEdit-simple.json
+      responses:
+        200:
+          description: the post/patch was successful
     /unvalidated:
       post:
         description: |
-          This API has the same behaviour as POST /candidates/me, except that the request is not validated - it may be accepted even if the
+          This API has the same behaviour as POST/PATCH /candidates/me, except that the request is not validated - it may be accepted even if the
           request does not conform to the rules of the editSpec, e.g. resume may be missing, even if it is mandatory. However the caller must
           still always pass in a subset of the data defined by the editSpec - this prevents attacks where e.g. the consumer tries
           to write to a random data item.
@@ -760,7 +791,16 @@ resourceTypes: !include resources.yml
             description: the post was successful
           201:
             description: the post was successful
-
+      patch:
+        description: |
+          See description for POST method.
+        body:
+          application/merge-patch+json:
+            schema: !include ../schemas/candidateEdit.json
+            example: !include ../examples/candidateEdit-simple.json
+        responses:
+          200:
+            description: the post was successful
             
     /details:
       get:

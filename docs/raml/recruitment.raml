@@ -701,6 +701,8 @@ resourceTypes: !include resources.yml
     responses:
       200:
         description: the patch was successful
+      201:
+        description: the patch was successful
   /unvalidated:
     post:
       description: 
@@ -723,6 +725,8 @@ resourceTypes: !include resources.yml
           example: !include ../examples/candidateEdit-simple.json
       responses:
         200:
+          description: the patch was successful
+        201:
           description: the patch was successful
   /me:
     description:
@@ -775,6 +779,8 @@ resourceTypes: !include resources.yml
       responses:
         200:
           description: the post/patch was successful
+        201:
+          description: the post/patch was successful
     /unvalidated:
       post:
         description: |
@@ -800,6 +806,8 @@ resourceTypes: !include resources.yml
             example: !include ../examples/candidateEdit-simple.json
         responses:
           200:
+            description: the post was successful
+          201:
             description: the post was successful
             
     /details:

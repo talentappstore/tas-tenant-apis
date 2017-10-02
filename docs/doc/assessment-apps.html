@@ -419,7 +419,8 @@ as well as data items pulled through from the job.
 <ul>
 <li>Status
 <li>Status image
-<li>Interaction Urls
+<li>Candidate interaction uri
+<li>User interaction uri
 <li>Pass/fail flag (if applicable)
 </ul>
 
@@ -460,50 +461,30 @@ density displays (Retina Macbooks etc).
 
 <p>Status image is an alternate approach to the configuration-heavy traditional data integration used for assessments, 
 where assessment results are sent to the ATS for storage. While data integration is possible with TAS, its often not required. By producing a good status
-image, users can still meaningfully interact with your
-assessment from within the ATS pages without any data integration.
+image, users can still meaningfully interact with your assessment from within the ATS pages without any data integration.
 </p>
 
-<h3>Interaction Urls</h3>
+<h3>Candidate interaction uri</h3>
 
-<p>An assessment is a football that can be kicked back and forth between a number of parties before it is completed, all under the control of your app:
-<ol>
-<li>the candidate themselves, e.g. an online questionnaire where the
-candidate provides some data that can be used to calculate
-their cultural fit with the company they are apply for.
-<li>you, the developer - e.g. you are a fact checking firm that verifies that the details in a candidate's resume are accurate.
-<li>a user inside the tenant, e.g. a recruiter providing some details of specific tests they want to order
-<li>no-one, e.g. a fully automated computer program that scours social networks and web sites, scraping the online footprints of the candidate.
-</ol> 
+<p>You should set the candidate interaction uri when you want to link the candidate to something (e.g. to have them complete a quiz).
 </p>
 
-<p>Your app controls this kicking around via setting the interactionUrls.
+<p>If your assessment type was marked as appCommunicatesDirectlyToCandidate == false, then whenever you change the candidate interaction uri (including the first time you set it), the
+hub will send an email to the candidate with the new link in it. If you don't want this (i.e. your app sends its own emails to the candidate), then you should set
+appCommunicatesDirectlyToCandidate to true. This will prevent the candidate also receiving emails from the hub.
 </p>
 
-<p>There are two interaction URLs - candidate and user. If your app sets candidateInteractionUrl to have a value, and userInteractionUrl not,
-then your app is saying that this assessment is waiting on input from just the candidate - the football has been kicked to the candidate.
+<p>Whether your assessment type sets appCommunicatesDirectlyToCandidate to true or false, its still a good idea to set the candidate interaction uri
+if you have a sensible destination for the candidate.
 </p>
-
-<p>The assessment hub alerts each of the parties when the football has been kicked to them:
-<ul>
-<li>if candidateInteractionUrl is set, an email is sent to the candidate with the link in it (optional if your app already does this).
-<li>if userInteractionUrl is set, your app's web page is rendered within a popup over the assessment strip, within the ATS pages. Your app
-could request information from the user or present the assessment's results, e.g. attached documents.
-</ul>
-
-<h2>Leading the candidate to your site</h2>
 
 <p>For this example, let's assume that your app does its thing by having the candidate complete an online
-assessment. Below, it updates the assessment's status to indicate its underway, and sets the candidate interaction link. 
+assessment. Below, it updates the assessment's status to indicate it is underway, and sets the candidate interaction link. 
 
 <div class='codeBlock'>
 POST /assessments/byID/{}/appDetails
 <div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentWriteByApp-underway.json'></div>
 </div>
-</p>
-
-<p>At some stage the candidate will
-follow this link and arrive at your online assessment.
 </p>
 
 <p>You can optionally protect your web pages with TAS SSO, using principal type of candidate. This protects against the
@@ -514,6 +495,43 @@ experience as they navigate into your app.
 <p>If you do use SSO, you should probably perform a sanity check that the candidate who logs in matches the one the assessment is for.  
 </p> 
 </b>
+
+<h3>User interaction uri</h3>
+
+<p>You should set the user interaction uri when you want to display something to the user (i.e. someone looking at a list of applicants, and seeing your assessment there).
+That could be a web page showing:
+<ul>
+<li>The results of your assessment (status == Complete)
+<li>The reason why your assessment couldn't be completed (status == Error)
+<li>Something the user has to do before the assessment can proceed (status == In progress)
+</ul>
+</p>
+
+<p>When userInteractionUrl is set, your app's web page is rendered within an iframe in the popup over the assessment strip (i.e. within the ATS pages).
+</p>
+
+<p>The iframe has a minimum width of 380px by default, and a maximum width of 960px. If no height is supplied the browser will
+default to 150px.
+</p>
+
+<p>To update the dimensions of the iframe displayed in the popup, you just need to do something like this:
+<div class='codeBlock'>
+var messageJson = {
+    action: 'updateIframe',
+    css: {
+        height: document.body.clientHeight + 'px',
+        width: '960px'
+    }
+};
+window.parent.postMessage(messageJson, '*');
+</div>
+
+<p>This technique can only be used to adjust width/height values. Any other CSS passed will be ignored (e.g. border).
+</p>
+
+
+
+<h2>Leading the candidate to your site</h2>
 
 
 <h2>Marking the assessment as complete</h2>

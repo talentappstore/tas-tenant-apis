@@ -1,42 +1,63 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "value": {
-            "type": "object",
-            "definition": "details of a single category value, identified by id",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "whether this node can be selected (i.e. is not disabled)"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "the user visible name for this category value"
-                },
-                "code": {
-                    "type": "string",
-                    "description": "a code for this category value"
-                },
-                "values": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/value"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "available",
-                "name"
-            ]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "location": {
+      "type": "object",
+      "description": "the geographic coordinates of this value, which represents a physical location. This may be present only when (a) the category itself has key of LOCATION, and (b) the value is a leaf (has no children)",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "latitude of this location"
+        },
+        "lng": {
+          "type": "number",
+          "description": "longitude of this location"
         }
+      },
+      "required": [
+        "lat",
+        "lng"
+      ]
     },
-    "type": "array",
-    "items": {
-        "$ref": "#/definitions/value"
+    "value": {
+      "type": "object",
+      "definition": "details of a single category value, identified by id",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "whether this node can be selected (i.e. is not disabled)"
+        },
+        "name": {
+          "type": "string",
+          "description": "the user visible name for this category value"
+        },
+        "code": {
+          "type": "string",
+          "description": "a code for this category value"
+        },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/value"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "available",
+        "name"
+      ]
     }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/value"
+  }
 }

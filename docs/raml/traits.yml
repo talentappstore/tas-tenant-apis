@@ -58,11 +58,17 @@
         description: |
           Deprecated - use the purpose filter instead. When present and true, filters the actions to only include actions that are account managers.
         required: false
-      purpose:
+      includePurposes:
         type: string
         description: |
-          When present, a comma separated list of purposes that acts as a filter of the actions that will be returned. If not present, all actions are returned.
-        example: purpose=createAccount,blah
+          When present, only actions that have one of these purposes will be returned. By default all actions are returned. Must not be combined with excludePurposes.
+        example: includePurposes=createAccount,blah
+        required: false
+      excludePurposes:
+        type: string
+        description: |
+          When present, all actions that do not have one of these purposes will be returned. By default all actions are returned. Must not be combined with includePurposes.
+        example: excludePurposes=createAccount,blah
         required: false
 
 - vcardGetter:

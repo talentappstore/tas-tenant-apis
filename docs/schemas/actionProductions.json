@@ -2,9 +2,10 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "purpose": {
-      "description": "values are: createAccount - this action can create or edit the candidate's account, e.g. it should be offered to them to register or to edit their details. Applies only to general actions. apply - this action can be used to apply for a job. Applies only to job actions",
+      "description": "values are: createAccount - this action can create the candidate's account. Applies only to general actions. apply - this action can apply for a job. Applies only to job actions. editDetails - this action can edit candidate details. Applies only to general actions.",
       "enum": [
         "createAccount",
+        "editDetails",
         "apply"
       ]
     },

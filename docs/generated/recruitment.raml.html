@@ -13452,46 +13452,67 @@
     "mandatory": true
   }
 }</code></pre></div><div class="tab-pane" id="categories_byID__category__post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID</span>/{category}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Delete a category, along with all of its values</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__delete_request" data-toggle="tab">Request</a></li><li><a href="#categories_byID__category__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__delete_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="categories_byID__category__delete_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_categories_byID__category__values"><span class="parent">/categories/byID/{category}</span>/values</a> <span class="methods"><a href="#categories_byID__category__values_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__values_patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#categories_byID__category__values_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_categories_byID__category__values" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#categories_byID__category__values_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get root values and the hierarchy of values beneath</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__values_patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Merge in an array of root values. TODO: what happens when:</p><ul><li>the merge specifies a different location for an existing node?</li></ul></div><div class="clearfix"></div></div><div onclick="window.location.href = '#categories_byID__category__values_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Arbitrarily set or change the root values for this category.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__values_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID/{category}</span>/values</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get root values and the hierarchy of values beneath</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__values_get_request" data-toggle="tab">Request</a></li><li><a href="#categories_byID__category__values_get_response" data-toggle="tab">Response</a></li><li><a href="#categories_byID__category__values_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__values_get_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="categories_byID__category__values_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "value": {
-            "type": "object",
-            "definition": "details of a single category value, identified by id",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "whether this node can be selected (i.e. is not disabled)"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "the user visible name for this category value"
-                },
-                "code": {
-                    "type": "string",
-                    "description": "a code for this category value"
-                },
-                "values": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/value"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "available",
-                "name"
-            ]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "location": {
+      "type": "object",
+      "description": "the geographic coordinates of this value, which represents a physical location. This may be present only when (a) the category itself has key of LOCATION, and (b) the value is a leaf (has no children)",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "latitude of this location"
+        },
+        "lng": {
+          "type": "number",
+          "description": "longitude of this location"
         }
+      },
+      "required": [
+        "lat",
+        "lng"
+      ]
     },
-    "type": "array",
-    "items": {
-        "$ref": "#/definitions/value"
+    "value": {
+      "type": "object",
+      "definition": "details of a single category value, identified by id",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "whether this node can be selected (i.e. is not disabled)"
+        },
+        "name": {
+          "type": "string",
+          "description": "the user visible name for this category value"
+        },
+        "code": {
+          "type": "string",
+          "description": "a code for this category value"
+        },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/value"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "available",
+        "name"
+      ]
     }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/value"
+  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
         "id": 10034,
@@ -13519,46 +13540,67 @@
     }
 ]
 </code></pre></div><div class="tab-pane" id="categories_byID__category__values_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__values_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID/{category}</span>/values</h4></div><div class="modal-body"><div class="alert alert-info"><p>Merge in an array of root values. TODO: what happens when:</p><ul><li>the merge specifies a different location for an existing node?</li></ul></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__values_patch_request" data-toggle="tab">Request</a></li><li><a href="#categories_byID__category__values_patch_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__values_patch_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "value": {
-            "type": "object",
-            "definition": "details of a single category value, identified by id",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "whether this node can be selected (i.e. is not disabled)"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "the user visible name for this category value"
-                },
-                "code": {
-                    "type": "string",
-                    "description": "a code for this category value"
-                },
-                "values": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/value"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "available",
-                "name"
-            ]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "location": {
+      "type": "object",
+      "description": "the geographic coordinates of this value, which represents a physical location. This may be present only when (a) the category itself has key of LOCATION, and (b) the value is a leaf (has no children)",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "latitude of this location"
+        },
+        "lng": {
+          "type": "number",
+          "description": "longitude of this location"
         }
+      },
+      "required": [
+        "lat",
+        "lng"
+      ]
     },
-    "type": "array",
-    "items": {
-        "$ref": "#/definitions/value"
+    "value": {
+      "type": "object",
+      "definition": "details of a single category value, identified by id",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "whether this node can be selected (i.e. is not disabled)"
+        },
+        "name": {
+          "type": "string",
+          "description": "the user visible name for this category value"
+        },
+        "code": {
+          "type": "string",
+          "description": "a code for this category value"
+        },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/value"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "available",
+        "name"
+      ]
     }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/value"
+  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
         "id": 10034,
@@ -13586,46 +13628,67 @@
     }
 ]
 </code></pre></div><div class="tab-pane" id="categories_byID__category__values_patch_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="categories_byID__category__values_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/categories/byID/{category}</span>/values</h4></div><div class="modal-body"><div class="alert alert-info"><p>Arbitrarily set or change the root values for this category.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls that <em>are</em> made on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#categories_byID__category__values_post_request" data-toggle="tab">Request</a></li><li><a href="#categories_byID__category__values_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="categories_byID__category__values_post_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "value": {
-            "type": "object",
-            "definition": "details of a single category value, identified by id",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "available": {
-                    "type": "boolean",
-                    "description": "whether this node can be selected (i.e. is not disabled)"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "the user visible name for this category value"
-                },
-                "code": {
-                    "type": "string",
-                    "description": "a code for this category value"
-                },
-                "values": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/value"
-                    }
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "available",
-                "name"
-            ]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "location": {
+      "type": "object",
+      "description": "the geographic coordinates of this value, which represents a physical location. This may be present only when (a) the category itself has key of LOCATION, and (b) the value is a leaf (has no children)",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "latitude of this location"
+        },
+        "lng": {
+          "type": "number",
+          "description": "longitude of this location"
         }
+      },
+      "required": [
+        "lat",
+        "lng"
+      ]
     },
-    "type": "array",
-    "items": {
-        "$ref": "#/definitions/value"
+    "value": {
+      "type": "object",
+      "definition": "details of a single category value, identified by id",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "boolean",
+          "description": "whether this node can be selected (i.e. is not disabled)"
+        },
+        "name": {
+          "type": "string",
+          "description": "the user visible name for this category value"
+        },
+        "code": {
+          "type": "string",
+          "description": "a code for this category value"
+        },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/value"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "available",
+        "name"
+      ]
     }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/value"
+  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>[
     {
         "id": 10034,

@@ -514,7 +514,7 @@ That could be a web page showing:
 default to 150px.
 </p>
 
-<p>To update the dimensions of the iframe displayed in the popup, you just need to do something like this:
+<p>You can update the dimensions of the iframe displayed in the popup, to make it best fit your content, with something like this:
 <div class='codeBlock'>
 var messageJson = {
     action: 'updateIframe',
@@ -529,7 +529,18 @@ window.parent.postMessage(messageJson, '*');
 <p>This technique can only be used to adjust width/height values. Any other CSS passed will be ignored (e.g. border).
 </p>
 
+<h4>Common problems getting your iframed content to appear</h4>
 
+<p>These problems may cause a blank iframe inside the assessment popup.
+
+<ul>
+<li>Make sure your content is served as https, not http. Otherwise in some browsers you may see errors in the browser such as "Mixed Content: The page at 'blah' wa
+loaded over HTTPS, but requested an insecure resource 'blah'. This request has been blocked; the content must be served over HTTPS."
+<li>Make sure your page does not include the response header X-Frame-Options (e.g. something like X-Frame-Options:SAMEORIGIN). This is a security
+measure designed to stop your page from being framed - but in this case, that's exactly what you want. 
+</ul>
+
+</p>
 
 <h2>Leading the candidate to your site</h2>
 

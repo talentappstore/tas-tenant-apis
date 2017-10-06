@@ -563,6 +563,10 @@ resourceTypes: !include resources.yml
           securedBy: [oauth_2_0]
           description: |
             Alerts listeners to a change to an assessment caused by the tenant
+          body:
+            application/json:
+              schema: !include ../schemas/deltaPing.json
+              example: !include ../examples/deltaPing-simple.json
 
 /assessmentTypes:
   get:

@@ -1057,6 +1057,19 @@ resourceTypes: !include resources.yml
                   body:
                     text/plain:
                       example: https://acme.bigboard.com/jobs/10032-Creative-Director-looking-for-next-challenge
+        /jobSearchLink:
+          get:
+            is: [ jobQueryer ]
+            securedBy: [oauth_2_0]
+            description: |
+              This API is used to generate a link to a page of search results (e.g. all Finance jobs) on a career site.
+
+              See the description of e.g. GET /jobs/all for details of search parameters and pagination techniques.
+            responses:
+              200:
+                body:
+                  text/plain:
+                      
   /primary:
     get:
       securedBy: [oauth_2_0]
@@ -1341,6 +1354,55 @@ resourceTypes: !include resources.yml
 /jobs:
   description: |
     Position openings aka vacancies, job openings, etc.
+
+    Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
+    with individual lines demarcated with \n.
+          
+    Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
+    Note that this prevents the markdown blockquote syntax from being used in a job description.
+    The safe subset rules may be relaxed in the future.
+    
+  /open:
+    type: jobsGetter
+    /byID:
+      /{id}:
+        type: jobGetter
+        /canApply:
+          description: |
+            Resource indicating whether a candidate can apply or not for a given job. An ATS might prevent it
+            if the candidate has already applied, the job might be closed, or there might be more complex rules.
+          /me:
+            get:
+              description: |
+                Find out if the logged in candidate is allowed to apply for this job, and if not why not.
+              is: [ trackable ]
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/canApply.json
+                      example: !include ../examples/canApply-simple.json
+    /externally:
+      type: jobsGetter
+      /byID:
+        /{id}:
+          type: jobGetter
+  /all:
+    type: jobsGetter
+    /byID:
+      /{id}:
+        type: jobGetter
+        patch:
+          description: |
+            Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
+          body:
+            application/merge-patch+json:
+              schema: !include ../schemas/jobWrite.json
+              example: !include ../examples/jobWrite-simple.json
+          responses:
+            200:
+              description: the job was successfully updated
+    
   /feeds:
     description: Access to publicly visible jobs via XML feeds
     /full:
@@ -1365,7 +1427,9 @@ resourceTypes: !include resources.yml
     securedBy: [oauth_2_0]
     is: [ tasCollection: { orderingProperties: id, filterCapabilities: "id gt 'n', status eq 'n'", maxTop: 20 } ]
     description: |
-      Search jobs, returning the candidate-facing information. A POST version of this API provides more searchability.
+      *This API is deprecated in favour of GET /jobs/open, GET /jobs/open/externally or GET /jobs/all and will shortly be removed.*
+      
+      Search jobs, returning the candidate-facing information.
     queryParameters:
       availableInternally:
         type: boolean
@@ -1385,46 +1449,12 @@ resourceTypes: !include resources.yml
           application/json:
             schema: !include ../schemas/jobsRead.json
             example: !include ../examples/jobsRead-simple.json
-  post:
-    description: |
-      Create a job. The id field should not be present in the request.
-    body:
-      application/json:
-        schema: !include ../schemas/jobRead.json
-        example: !include ../examples/jobRead-simple.json
-    responses:
-      201:
-        description: the job was successfully created
-  /searches:
-    post:
-      securedBy: [oauth_2_0]
-      description: |
-        Search jobs, returning the candidate-facing information.
-
-        The method is a POST solely because the size and number of parameters might get too large for a GET.
-      body:
-        application/json:
-          schema: !include ../schemas/jobSearches.json
-          example: !include ../examples/jobSearches-simple.json
-      responses:
-        200:
-          body:
-            application/json:
-              schema: !include ../schemas/jobsRead.json
-              example: !include ../examples/jobsRead-simple.json
   /byID:
     /{job}:
-      description: |
-        APIs to deal with jobs.
-        
-        Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
-        with individual lines demarcated with \n.
-          
-        Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
-        Note that this prevents the markdown blockquote syntax from being used in a job description.
-        The safe subset rules may be relaxed in the future.
       patch:
         description: |
+          *This API is deprecated in favour of PATCH /jobs/all/byID/{} and will shortly be removed.*
+          
           Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
         body:
           application/merge-patch+json:
@@ -1436,6 +1466,8 @@ resourceTypes: !include resources.yml
       get:
         securedBy: [oauth_2_0]
         description: |
+          *This API is deprecated in favour of GET /jobs/open/byID/{}, GET /jobs/open/externally/byID/{} or GET /jobs/all/byID/{} and will shortly be removed.*
+
           Get the candidate-facing information for a specific job opening.
         responses:
           200:
@@ -1444,19 +1476,6 @@ resourceTypes: !include resources.yml
                 schema: !include ../schemas/jobRead.json
                 example: !include ../examples/jobRead-simple.json
       /description:
-        description: |
-          Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
-          with individual lines demarcated with \n.
-          
-          When a description is fetched, the response will always conform to the safe subset.
-          
-          When a description is uploaded, the request must conform to the safe subset, or it will
-          be rejected.
-          
-          Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
-          Note that this prevents the markdown blockquote syntax from being used in a job description.
-          The safe subset rules may be relaxed in the future.
-           
         get:
           securedBy: [oauth_2_0]
           description: |
@@ -1468,28 +1487,19 @@ resourceTypes: !include resources.yml
             200:
               body:
                 text/plain:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            *This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.*
-            
-            Set the job's description. Job descriptions are formatted using the safe subset
-            of [markdown](https://daringfireball.net/projects/markdown/syntax).
-          body:
-            text/plain:
-          responses:
-            200:
-              description: the description was successfully updated
                               
       /deltaPings:
         post:
           securedBy: [oauth_2_0]
           description: |
+            *This API is deprecated and should not be used. *
             Send notification of a change to the candidate-facing details of a job opening.
         /toActive:
           post:
             securedBy: [oauth_2_0]
             description: |
+              *This API is deprecated and should not be used. *
+              
               Send notification of a change to the candidate-facing details of a job opening, specifically
               that the job opening has transitioned to active. Useful to feed something like a push job notification system,
               which does not care about all of the micro delta pings for an opening, just when it becomes newly active.
@@ -1497,6 +1507,8 @@ resourceTypes: !include resources.yml
           post:
             securedBy: [oauth_2_0]
             description: |
+              *This API is deprecated and should not be used. *
+
               See /jobs/{id}/deltaPings.
               
               Send notification of a change to the candidate-facing details of a job opening, specifically
@@ -1504,7 +1516,9 @@ resourceTypes: !include resources.yml
 
       /canApply:
         description: |
-          Resource indicating whether a candidate can apply or not for given job. An ATS might prevent it
+          *This API is deprecated in favour of GET /jobs/open/byID/{}/canApply and will shortly be removed.*
+          
+          Resource indicating whether a candidate can apply or not for a given job. An ATS might prevent it
           if the candidate has already applied, the job might be closed, or there might be more complex rules.
         /me:
           get:
@@ -1532,6 +1546,8 @@ resourceTypes: !include resources.yml
     get:
       securedBy: [oauth_2_0]
       description: |
+        *This API is deprecated in favour of GET /jobs/feeds/full or GET /jobs/feeds/brief and will shortly be removed.*
+        
         Get details of the tenant's job feed (an XML-formatted feed of all public jobs)
       responses:
         200:

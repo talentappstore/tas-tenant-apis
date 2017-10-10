@@ -586,6 +586,8 @@ resourceTypes: !include resources.yml
       get:
         securedBy: [oauth_2_0]
         description: |
+          *This API is deprecated in favour of the key field returned by GET /assessments/byID/{} and will shortly be removed.*
+
           Get details of a single assessment type, by ID. The response is an array containing a single type. Typically used
           by the assessment hub's UI when rendering details about assessments about to be created, or that already exist. 
 

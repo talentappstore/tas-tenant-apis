@@ -80,6 +80,9 @@
     "assessmentType": {
       "type": "integer"
     },
+    "assessmentTypeKey": {
+      "$ref": "assessmentType.json#/definitions/key"
+    },
     "status": {
       "$ref": "#/definitions/status"
     },
@@ -104,6 +107,7 @@
   "required": [
     "meta",
     "assessmentType",
+    "assessmentTypeKey",
     "status",
     "view",
     "interactionUris",

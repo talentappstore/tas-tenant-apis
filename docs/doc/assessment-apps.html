@@ -425,19 +425,128 @@ as well as data items pulled through from the job.
 </ul>
 
 
+<h3>Status</h3>
 
-<h3>The status image
-</h3>
-
-<p>A key part of building an assessment app is having a great status image.
-</p> 
-
-<p>One approach is to generate your images dynamically, e.,g. passing in the candidate's score as a URL parameter. For an
-example of this, see this <a href='https://github.com/talentappstore/imageGen'>demo dynamic image generator for assessment apps</a>, written in node.js.
+<p>An assessment can be in any of these statuses. There are 2 statues that can be set by the hub, and 4 statuses that can be set by your app.
 </p>
 
-<p>The status image is important as it lets the user understand the results from your assessment at a glance, without needing to drill
-in (unless they choose to). This is important in the information-dense screens in the ATS, which show many applicants and many assessments on a single page.
+<p>Some statues are final, i.e. once the assessment is in this state, it will never leave it again.
+</p> 
+
+<p>
+
+<table border=1>
+<thead>
+<tr>
+<td>Status</td>
+<td>Set by</td>
+<td>When</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Started</td>
+<td>Hub</td>
+<td>When the assessment is first started, or when the customer restarts
+an assessment that was in the "Error" state (hopefully after fixing the cause of the error).</td>
+</tr>
+<tr>
+<td>In progress</td>
+<td>App</td>
+<td>When the app learns about the recently started assessment (via incoming API call).</td>
+</tr>
+<tr>
+<td>Cancelled (final)</td>
+<td>Hub</td>
+<td>When the customer wants to halt the assessment (e.g. candidate has been declined).</td>
+</tr>
+<tr>
+<td>Complete (final)</td>
+<td>App</td>
+<td>When the assessment is complete, and the result is available.</td>
+</tr>
+<tr>
+<td>Opted out (final)</td>
+<td>App</td>
+<td>When for some reason (e.g. technical difficulty, refusal) the candidate cannot/will not complete the assessment.</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>App</td>
+<td>When for some reason beyond the power of the app to fix, e.g. missing data fields in the view, the assessment cannot be progressed.</td>
+</tr>
+</tbody>
+</table>
+</p>
+
+<p>Below are some typical scenarios:
+
+<table border=1>
+<thead>
+<tr>
+<td>Scenario</td>
+<td>Status transitions</td>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is completed normally
+</ol>
+</td>
+<td>Started -> In progress -> Complete</td>
+</tr>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is started
+<li>The app detects a problem of some sort, and informs the customer
+<li>Customer corrects the problem and restarts the assessment
+<li>Assessment completes normally
+</ol>
+</td>
+<td>Started -> Error -> Started -> In progress -> Complete</td>
+</tr>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is started
+<li>Candidate opts out half way through
+</ol>
+</td>
+<td>Started -> In progress -> Opted out</td>
+</tr>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is started
+<li>Customer cancels while underway
+</ol>
+</td>
+<td>Started -> In progress -> Cancelled</td>
+</tr>
+
+
+</tbody>
+</table>
+
+
+
+
+<h3>Image</h3>
+
+<p>The assessment's image appears in the assessment strip, which in turn is usually embedded in the ATS alongside the other applicant details (name, email etc.).
+Setting the image is a good way for you to help the user understand the results from your assessment at a glance, without needing to drill
+in (unless they choose to). This is useful in the tightly packed screens in a typical ATS, which show many applicants and many assessments on a single page.
+</p> 
+
+<p>You can simply serve up a static image, or generate your images dynamically, e.,g. passing in the candidate's score as a URL parameter. For an
+example of this, see this <a href='https://github.com/talentappstore/imageGen'>demo dynamic image generator for assessment apps</a>, written in node.js.
 </p>
 
 <p>Users will appreciate an image which is a great visual representation of your assessment:
@@ -458,11 +567,6 @@ density displays (Retina Macbooks etc).
 <img src='images/assessment-tile.png' />
 </p>
 
-
-<p>Status image is an alternate approach to the configuration-heavy traditional data integration used for assessments, 
-where assessment results are sent to the ATS for storage. While data integration is possible with TAS, its often not required. By producing a good status
-image, users can still meaningfully interact with your assessment from within the ATS pages without any data integration.
-</p>
 
 <h3>Candidate interaction uri</h3>
 

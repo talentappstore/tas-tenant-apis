@@ -81,7 +81,6 @@
     "panel": { "$ref": "../schemas/panel.json" },
     "panelsForApps": { "$ref": "../schemas/panelsForApps.json" },
     "person": { "$ref": "../schemas/person.json" },
-    "recruiterFilter": { "$ref": "../schemas/recruiterFilter.json" },
     "recruiter": { "$ref": "../schemas/recruiter.json" },
     "recruiters": { "$ref": "../schemas/recruiters.json" },
     "socialNetworks": { "$ref": "../schemas/socialNetworks.json" },

@@ -1,6 +1,50 @@
 #%RAML 0.8
 
 
+- jobQueryer:
+    queryParameters:
+      categories:
+        type: string
+        description: the categories that jobs must have, expressed as a singly url encoded string conforming to categoriesActual.json. 
+        example: |
+          %5B%7B%22category%22%3A%20100001999%2C%20%22values%22%3A%20%5B100115543%2C100115516%5D%7D%5D
+        required: false
+      keywords:
+        type: string
+        description: keywords that the jobs must have, expressed as a singly url encoded string
+        example: |
+          java%20architect
+        required: false
+      gtPublishDate:
+        type: date
+        description: a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date greater than this will be returned.
+        example: |
+          2015-11-05T13:15:30Z 
+        required: false
+      gtInternalPublishDate:
+        type: date
+        description: a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date greater than this will be returned.
+        example: |
+          2015-11-05T13:15:30Z 
+        required: false
+      gtExternalPublishDate:
+        type: date
+        description: a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date greater than this will be returned.
+        example: |
+          2015-11-05T13:15:30Z 
+        required: false
+      gtID:
+        type: number
+        required: false
+        example: 1001
+        description: if present, only include applications with id > this value 
+      limit:
+        type: number
+        required: false
+        example: 40
+        default: 100
+        description: if present, return a maximum of this many jobs. Maximum of 100. 
+
 - applicationStripeFetcher:
     queryParameters:
       applications:
@@ -19,7 +63,7 @@
       since:
         type: date
         required: false
-        description: A date string such as "2015-11-05T13:15:30Z". If present, only applications with their significant date > this value will be returned.
+        description: A date string in ISO 8601 format such as "2015-11-05T13:15:30Z". If present, only applications with their significant date > this value will be returned.
 
 - applicationObjectFilter:
     queryParameters:

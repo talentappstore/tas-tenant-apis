@@ -1,5 +1,42 @@
 #%RAML 0.8
 
+- jobGetter:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        The GET /jobs/byID/{} APIs return details for a job that matches the relevant API, e.g. must be open.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobRead.json
+              example: !include ../examples/jobRead-simple.json
+
+- jobsGetter:
+    get:
+      is: [ jobQueryer ]
+      securedBy: [oauth_2_0]
+      description: |
+        The GET /jobs APIs return all jobs that:
+
+        - match the relevant API, e.g. all jobs, or just jobs currently available to external candidates  
+        - if a categoryFilter is specified, that match the filter
+        - if keywords are specified, that match the keywords
+        - if one of the filter date parameters (e.g. minPublishDate) is specified, that have that date (a) not null and (b) > given date
+        - if minID is specified, that have id > minID
+
+        Results are ordered by job ID asc. When a filter date is specified, results are ordered by date asc, job ID asc.
+
+        A maximum of [limit] jobs will be returned by a single call to the API. If this maximum number is returned, the client should
+        fetch again, this time filtering by the ID and date from the last fetched job, as there may be more results.
+
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/jobsRead.json
+              example: !include ../examples/jobsRead-simple.json
+
 
 - applicationPhaseNowPusher:
     post:    

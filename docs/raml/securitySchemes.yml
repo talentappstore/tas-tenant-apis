@@ -3,17 +3,17 @@
 
 - hmac:
     description: |
-      HMAC is used to authenticate tenant API calls that *are not* made on behalf of a specific principal (e.g. user)
+      HMAC is used to authenticate core API calls
     type: x-HMAC
     describedBy:
       headers:
         Authorization:
           description: |
-            Used to send a MAC with the message, i.e. not on behalf of any specific principal
+            Used to send a MAC with the message
           type: string
 - oauth_2_0:
         description: |
-            OAuth is used to authenticate tenant API calls that *are* made on behalf of a specific principal (e.g. user)
+            OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)
         type: OAuth 2.0
         describedBy:
             headers:

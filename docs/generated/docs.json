@@ -64,7 +64,6 @@
     "jobBoards": { "$ref": "../schemas/jobBoards.json" },
     "jobFeedDetails": { "$ref": "../schemas/jobFeedDetails.json" },
     "jobRead": { "$ref": "../schemas/jobRead.json" },
-    "jobSearches": { "$ref": "../schemas/jobSearches.json" },
     "jobSetJob": { "$ref": "../schemas/jobSetJob.json" },
     "jobSetJobs": { "$ref": "../schemas/jobSetJobs.json" },
     "jobSet": { "$ref": "../schemas/jobSet.json" },

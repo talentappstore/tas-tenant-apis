@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+
+
+<!-- always required -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<!-- needed for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- needed for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- needed for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!-- always required -->
+<link rel='stylesheet' href='http://talentappstore.github.io/tas-des-static/css/des.css' type='text/css' media='all' />
+
+
+<title>App install</title>
+</head>
+<body>
+
+
+<h1>Table of contents</h1>
+
+<div id="toc"></div>
+
+
+<h1>Overview</h1>
+
+
+<p>This document is intended to help developers manage the install of their app and control the behaviour and appearance of it's
+ panel inside the storefront of Talent App Store.
+</p>
+
+<p>For example in the storefront your app can:
+<ul>
+<li>Link to its launch page (e.g to show a dashboard)
+<li>Show the settings icon
+<li>Link to its settings page (e.g. for account hookup with your platform after the app is installed)
+</ul>
+
+<p>See also:
+<ul>
+<li><a href='http://developer.talentappstore.com'>The developer site</a>, for defining your app.
+<li><a href='https://github.com/talentappstore/tas-core-apis/wiki'>The wiki</a>, where you can get general information on building TAS apps.
+</ul>
+</p>
+
+<h1>The roles of each app</h1> 
+
+<p>
+<div class='codeBlock'>
+
+
+         +----------+
+         | TAS core |
+         +----------+
+             /\
+             | core API calls
+             |
++----------------------
+|            |
+|            \/
+|         +-----+
+|         | app |-+
+|         +-----+ |-+
+|           +-----+ |
+|             +-----+
+|                /\
+|                | tenant API calls
+|                |
+|    +------------------------+
+|    |    storefront app      |
+|    +------------------------+
+|
++--- (tenant) ---------
+           
+</div>
+</p>
+
+<p><b>TAS core.</b> TAS core makes API calls on your app to tell it when it has been installed and uninstalled.
+</p>
+
+<p>The <b>storefront</b> app. The storefront, where tenants can install and uninstall apps, is itself an app.
+</p>
+
+<p>Whenever the storefront shows the user your app's panel, it first calls the GET /appStatus API on your app
+to give it a chance to provide details such as the launch page url, whether the setup required icon should be on, etc.
+</p>
+
+<p><b>Your app</b>. Your app produces the GET /appStatus API.
+
+<h1>API flow to/from your app</h1>
+
+
+<div class='seqDiag' id="seq0">
+
+note right of app: a tenant installs your app
+core->app: POST /tenants
+note right of app: tenant opens your app
+storefront->app: GET /appStatus
+
+</div>
+
+
+<h1>Writing your app</h1>
+
+
+<h2>Handling installs</h2>
+
+<p>(You can find a complete walkthrough of the actual steps to get your app handling installs <a href='https://github.com/talentappstore/tas-core-apis/wiki/4c.-Add-your-server,-and-produce-a-core-out-API'>here</a>.)
+</p>
+ 
+<p>Whenever a tenant clicks "install" on your app, your app is notified via an incoming core API call to
+your <a href='http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post'>POST /tenants</a> endpoint.
+</p>
+
+<p>You should take this opportunity to do any per-customer setup, e.g. inserting into a customers
+table, creating a record in your customer management system, sending a welcome email, etc.
+</p>
+
+<p>In the example below, TAS is informing your app that the tenant acme-sandbox-1 has just installed it.
+</p>
+
+<div class='codeBlock'>
+{
+ "shortCode": "acme-sandbox-1",
+ "name": "Acme sandbox testing site",
+ "contactEmail": "fred@gmail.com",
+ "type": "SANDBOX",
+ "logoUrl": "https://s3-aws.com/786745987969"  
+} 
+</div>
+</p>
+
+<p>TAS supports a try before you buy model where customers you currently don't know can click to install your app and start using it. If your
+app can provide on demand demo accounts, that will make it a much smoother path for all potential customers to try your product.
+</p>
+
+
+<h2>Pointing to your landing page</h2>
+
+<p>(You can find a complete walkthrough of the actual steps to get your landing page working app handling installs <a href='https://github.com/talentappstore/tas-core-apis/wiki/4d.-Produce-a-tenant-API'>here</a>.)
+</p>
+
+<p>Whenever the tenant clicks "open" on your app, they go to your landing page.
+</p>
+
+<p>The storefront gets this by consuming <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a>
+on your app.
+</p>
+
+<p>On your landing page you might display some kind of dashboard, app settings,
+etc. You may choose to protect your landing page with SSO. If so, you can also check for the appropriate role (using admin is most restrictive).
+</p>
+
+<div class='codeBlock'>
+<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/landingPage-simple.json'></div>
+</div>
+</p>
+
+
+<h1>Beware unverified tenants</h1>
+
+<p>There is no tenant vetting process in Talent App Store, and anyone can set up a tenant, and install
+publicly listed apps (or any app they have a link for), without any type of approval. Your new
+tenant could be a genuine potential customer, a wandering visitor, or a competitor looking at your product.
+</p>
+
+<p>Your app should plan for malicious tenants (e.g. spammers, malware distributors, dodgy hosting sites).
+We recommend that you set up a limited demo or read-only account for every new tenant. This way you can let
+potential customers try out your product, but without incurring any significant risks or costs.
+</p>
+
+<p><b>Security:</b> If your app has any capacity to send messages (e.g. outgoing emails or SMS messages),
+it is important that you <b>do not enable this</b> for demo accounts (except to the tenant contact email),
+or your app may become a target for spammers and other bad actors. Likewise, if your app allows tenants to host
+content (web pages, images, videos etc.) then you should limit or disable this functionality for demo accounts
+to avoid your app being used to host objectionable, illegal, bandwidth-intensive or copyrighted material.
+</p>
+
+
+			
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+});
+</script>
+
+
+</body>
+</html>

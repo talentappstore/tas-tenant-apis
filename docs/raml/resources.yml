@@ -17,15 +17,18 @@
       is: [ jobQueryer ]
       securedBy: [oauth_2_0]
       description: |
-        The GET /jobs APIs return all jobs that:
+        The GET /jobs APIs return those jobs that:
 
         - match the relevant API, e.g. all jobs, or just jobs currently available to external candidates  
         - if a categoryFilter is specified, that match the filter
         - if keywords are specified, that match the keywords
-        - if one of the filter date parameters (e.g. minPublishDate) is specified, that have that date (a) not null and (b) > given date
-        - if minID is specified, that have id > minID
+        - if one of the filter date parameters (e.g. gtPublishDate) is specified, that have that date (a) not null and (b) < or > given date
+        - if ltID or gtID is specified, that have id < or > ID
 
-        Results are ordered by job ID asc. When a filter date is specified, results are ordered by date asc, job ID asc.
+        When 
+        When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc) 
+        
+        When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.
 
         A maximum of [limit] jobs will be returned by a single call to the API. If this maximum number is returned, the client should
         fetch again, this time filtering by the ID and date from the last fetched job, as there may be more results.

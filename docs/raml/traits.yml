@@ -15,6 +15,12 @@
         example: |
           java%20architect
         required: false
+      ltPublishDate:
+        type: date
+        description: a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date earlier than this will be returned.
+        example: |
+          2015-11-05T13:15:30Z 
+        required: false
       gtPublishDate:
         type: date
         description: a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date greater than this will be returned.
@@ -33,6 +39,11 @@
         example: |
           2015-11-05T13:15:30Z 
         required: false
+      ltID:
+        type: number
+        required: false
+        example: 1001
+        description: if present, only include applications with id < this value 
       gtID:
         type: number
         required: false

@@ -1,68 +1,71 @@
-[
+{
+  "total": 2,
+  "results": [
     {
-        "id": 10334355,
-            "status": "active",
-        "availability": {
-            "availableInternally": true,
-            "availableExternally": false,
-            "applicationCloseDates": {
-                "closeDate": "2015-11-05T13:15:30Z",
-                "internalCloseDate": "2015-11-05T13:15:30Z",
-                "externalCloseDate": "2015-11-05T13:15:30Z"
-            }
+      "id": 10334355,
+      "status": "active",
+      "availability": {
+        "availableInternally": true,
+        "availableExternally": false,
+        "applicationCloseDates": {
+          "closeDate": "2015-11-05T13:15:30Z",
+          "internalCloseDate": "2015-11-05T13:15:30Z",
+          "externalCloseDate": "2015-11-05T13:15:30Z"
+        }
+      },
+      "code": "1022NH",
+      "title": "Creative Director",
+      "country": "AU",
+      "shortSummary": "An amazing opportunity",
+      "categories": [
+        {
+          "category": 1022,
+          "values": [
+            10024
+          ]
         },
-        "code": "1022NH",
-        "title": "Creative Director",
-        "country": "AU",
-        "shortSummary": "An amazing opportunity",
-        "categories": [
-            {
-                "category": 1022,
-                "values": [
-                    10024
-                ]
-            },
-            {
-                "category": 1026,
-                "values": [
-                    10044,
-                    10025,
-                    10029
-                ]
-            }
-        ]
+        {
+          "category": 1026,
+          "values": [
+            10044,
+            10025,
+            10029
+          ]
+        }
+      ]
     },
     {
-        "id": 10334356,
-            "status": "active",
-        "availability": {
-            "availableInternally": true,
-            "availableExternally": false,
-            "applicationCloseDates": {
-                "closeDate": "2015-11-05T13:15:30Z",
-                "internalCloseDate": "2015-11-05T13:15:30Z",
-                "externalCloseDate": "2015-11-05T13:15:30Z"
-            }
+      "id": 10334356,
+      "status": "active",
+      "availability": {
+        "availableInternally": true,
+        "availableExternally": false,
+        "applicationCloseDates": {
+          "closeDate": "2015-11-05T13:15:30Z",
+          "internalCloseDate": "2015-11-05T13:15:30Z",
+          "externalCloseDate": "2015-11-05T13:15:30Z"
+        }
+      },
+      "code": "1024NH",
+      "title": "Creative Lackey",
+      "country": "US",
+      "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
+      "categories": [
+        {
+          "category": 1022,
+          "values": [
+            10024
+          ]
         },
-        "code": "1024NH",
-        "title": "Creative Lackey",
-        "country": "US",
-        "shortSummary": "An amazing opportunity, unrivalled for enjoyment",
-        "categories": [
-            {
-                "category": 1022,
-                "values": [
-                    10024
-                ]
-            },
-            {
-                "category": 1026,
-                "values": [
-                    10044,
-                    10025,
-                    10029
-                ]
-            }
-        ]
+        {
+          "category": 1026,
+          "values": [
+            10044,
+            10025,
+            10029
+          ]
+        }
+      ]
     }
-]
+  ]
+}

@@ -17,7 +17,12 @@
       {
         "id": 100114648,
         "name": "Melbourne",
-        "available": true
+        "available": true,
+        "location": {
+	        "lat": -2323442334,
+	        "lng": -544387985,
+	        "country": "AU"
+        }
       },
       {
         "id": 100114663,

@@ -1396,7 +1396,10 @@ resourceTypes: !include resources.yml
         type: jobGetter
         patch:
           description: |
-            Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
+            Create or update a job using JSON Merge Patch (https://tools.ietf.org/html/rfc7386).
+            
+            Some fields (e.g. id) cannot be updated.
+            
           body:
             application/merge-patch+json:
               schema: !include ../schemas/jobWrite.json

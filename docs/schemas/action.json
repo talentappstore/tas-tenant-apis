@@ -35,13 +35,6 @@
       "type": "string",
       "description": "a string indicating what the action will do, used as the label on its button/control"
     },
-    "behavior": {
-      "description": "when the button/control is clicked, either the user is redirected to the uri, or a popup renders the uri inside a modal (inside an iframe)",
-      "enum": [
-        "redirect",
-        "modal"
-      ]
-    },
     "uri": {
       "type": "string",
       "format": "uri",
@@ -63,9 +56,8 @@
   "required": [
     "name",
     "label",
-    "behavior",
     "uri",
     "disabled"
   ],
-  "additionalProperties": false
+  "additionalProperties": true
 }

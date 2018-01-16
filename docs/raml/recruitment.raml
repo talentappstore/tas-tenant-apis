@@ -646,10 +646,20 @@ resourceTypes: !include resources.yml
       post:
         securedBy: [oauth_2_0]
         description: |
+          *This API is deprecated in favour of POST /assessmentTypes/forApp/deltaPings/1 and will shortly be removed.*
+          
           Consumed by an assessment app to alert any interested parties that the list
           of assessment types produced by the app has changed.
         
           Non-SoT (there may be many listeners).
+      /1:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Consumed by an assessment app to alert any interested parties that the list
+            of assessment types produced by the app has changed.
+        
+            SoT.
 
 /buckets:
   get:

@@ -1,5 +1,70 @@
 #%RAML 0.8
 
+
+- opLauncher:
+            post:
+              securedBy: [oauth_2_0]
+              description: |
+                SoT.
+
+                Used to start a bulk operation to modify values for a single category.
+      
+                In the "patch" operation, the request includes some additional values that should be merged in from the root.
+                If it all went OK, those new root entries would all be present and identical to the request.
+              body:
+                application/json:
+                  schema: !include ../schemas/categoryValues.json
+                  example: !include ../examples/categoryValues-simple.json
+              responses:
+                201:
+                  description: the launch was successful, and the patch is underway
+                  body:
+                    application/json:
+                      schema: !include ../schemas/categoryValueOperationLaunch.json
+                      example: !include ../examples/categoryValueOperationLaunch-simple.json
+                409:
+                  description: Conflict - the producer has an existing, incomplete upload operation for this tenant  - See response in RFC 7807 format for more details.
+                  body:
+                    application/problem+json:
+
+- usersGetter:
+    get:
+      is: [ userQueryer ]
+      securedBy: [oauth_2_0]
+      description: |
+        The GET /users APIs return those users that:
+
+        - match the relevant API, e.g. all users, or just currently active users.  
+        - if keywords are specified, that match the keywords
+        - if one of the filter date parameters (e.g. gtLastUpdateDate) is specified, that have that date (a) not null and (b) < or > given date
+        - if ltID or gtID is specified, that have id < or > ID
+
+        When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc) 
+        
+        When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.
+
+        A maximum of [limit] users will be returned by a single call to the API. If this maximum number is returned, the client should
+        fetch again, this time filtering by the ID and date from the last fetched user, as there may be more results.
+
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/usersRead.json
+              example: !include ../examples/usersRead-manager.json
+
+- userGetter:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+        Get details for this user.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/userRead.json
+              example: !include ../examples/userRead-simple.json
+
 - jobGetter:
     get:
       securedBy: [oauth_2_0]
@@ -25,7 +90,6 @@
         - if one of the filter date parameters (e.g. gtPublishDate) is specified, that have that date (a) not null and (b) < or > given date
         - if ltID or gtID is specified, that have id < or > ID
 
-        When 
         When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc) 
         
         When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.

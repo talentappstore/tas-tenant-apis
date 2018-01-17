@@ -24,7 +24,7 @@
       "$ref": "jobRead.json#/definitions/country"
     },
     "manager": {
-      "$ref": "manager.json"
+      "$ref": "userRead.json"
     },
     "categories": {
       "$ref": "categoriesActual.json"

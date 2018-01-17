@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "description": "the result of successfully launching a category value bulk operation",
+    "properties": {
+        "operationID": {
+            "type": "integer",
+            "description": "the ID of the successfully launched operation"
+        }
+    },
+    "required": [
+        "operationID"
+    ],
+    "additionalProperties": false
+}

@@ -96,7 +96,11 @@
         },
         "workflow": {
           "type": "integer"
-        }
+        },
+        "dateLastUpdated": {
+		      "type": "string",
+		      "format": "date-time"
+    }
       },
       "additionalProperties": false
     }
@@ -131,10 +135,10 @@
       "$ref": "#/definitions/country"
     },
     "manager": {
-      "$ref": "manager.json"
+      "$ref": "userRead.json"
     },
     "recruiter": {
-      "$ref": "recruiter.json"
+      "$ref": "userRead.json"
     },
     "workflow": {
       "$ref": "#/definitions/workflow"
@@ -144,6 +148,9 @@
     },
     "items": {
        "$ref": "itemPackagesRead.json"
+    },
+    "dateLastUpdated": {
+      "$ref": "#/definitions/dateLastUpdated"    
     }
   },
   "additionalProperties": false

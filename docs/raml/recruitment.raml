@@ -1122,12 +1122,31 @@ resourceTypes: !include resources.yml
                 application/json:
                   schema: !include ../schemas/categoryValues.json
                   example: !include ../examples/categoryValues-simple.json
-          
+        /operations:
+          /patches:
+            type: opLauncher
+          /replaces:
+            type: opLauncher
+          /byID:
+            /{operationID}:
+              description: the ID of a previously launched operation
+              get:
+                securedBy: [oauth_2_0]
+                description: |
+                  Get the status of a previously started patch or replace operation. Normally the producer should keep results around
+                  for some time (i.e. weeks/months) after the operation has completed.
+         
+                  SoT.
+                responses:
+                  200:
+                    description: the category bulk operation completed successfully
+                  404:
+                    description: No operation with the ID is available. Perhaps it has been garbage collected.
+
         patch:
           securedBy: [oauth_2_0]
           description: |
-            Merge in an array of root values. TODO: what happens when:
-            - the merge specifies a different location for an existing node?
+            Merge in an array of root values (and children).
           body:
             application/json:
               schema: !include ../schemas/categoryValues.json
@@ -1136,7 +1155,7 @@ resourceTypes: !include resources.yml
         post:
           securedBy: [oauth_2_0]
           description: |
-             Arbitrarily set or change the root values for this category.
+             Arbitrarily set or change all root (and children) values for this category.
           body:
             application/json:
               schema: !include ../schemas/categoryValues.json
@@ -1364,6 +1383,31 @@ resourceTypes: !include resources.yml
     Note that this prevents the markdown blockquote syntax from being used in a job description.
     The safe subset rules may be relaxed in the future.
     
+  type: jobsGetter
+
+  post:
+    description: |
+      Create a job, using the same content type as for updating (JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789)).
+
+      The id field must not be present in the request body.
+        
+      The server's instance of the newly created resource, including its id, is passed back in the response.
+    body:
+      application/merge-patch+json:
+        schema: !include ../schemas/jobWrite.json
+        example: !include ../examples/jobWrite-create.json
+    responses:
+      200:
+        description: the job was successfully created
+        body:
+          application/merge-patch+json:
+            schema: !include ../schemas/jobRead.json
+            example: !include ../examples/jobRead-simple.json
+      400:
+        description: The request data caused an error. See the response body for more details.
+        body:
+          application/problem+json:
+    
   /open:
     type: jobsGetter
     /byID:
@@ -1389,52 +1433,6 @@ resourceTypes: !include resources.yml
       /byID:
         /{id}:
           type: jobGetter
-  /all:
-    type: jobsGetter
-    post:
-      description: |
-        Create a job, using the same content type as for updating (JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789)).
-        
-        The id field must not be present in the request body.
-        
-        The server's instance of the newly created resource, including its id, is passed back in the response.
-      body:
-        application/merge-patch+json:
-          schema: !include ../schemas/jobWrite.json
-          example: !include ../examples/jobWrite-create.json
-      responses:
-        200:
-          description: the job was successfully created
-          body:
-            application/merge-patch+json:
-              schema: !include ../schemas/jobRead.json
-              example: !include ../examples/jobRead-simple.json
-        400:
-          description: The request data caused an error. See the response body for more details.
-          body:
-            application/problem+json:
-              
-    /byID:
-      /{id}:
-        type: jobGetter
-        patch:
-          description: |
-            Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
-          body:
-            application/merge-patch+json:
-              schema: !include ../schemas/jobWrite.json
-              example: !include ../examples/jobWrite-simple.json
-          responses:
-            200:
-              description: the job was successfully created
-              body:
-                application/merge-patch+json:
-                  schema: !include ../schemas/jobRead.json
-                  example: !include ../examples/jobRead-simple.json
-            400:
-              description: The request data caused an error. See the response body for more details.
-              body:
-                application/problem+json:
   /feeds:
     description: Access to publicly visible jobs via XML feeds
     /full:
@@ -1455,38 +1453,11 @@ resourceTypes: !include resources.yml
           200:
             body:
               application/xml:
-  get:    
-    securedBy: [oauth_2_0]
-    is: [ tasCollection: { orderingProperties: id, filterCapabilities: "id gt 'n', status eq 'n'", maxTop: 20 } ]
-    description: |
-      *This API is deprecated in favour of GET /jobs/open, GET /jobs/open/externally or GET /jobs/all and will shortly be removed.*
-      
-      Search jobs, returning the candidate-facing information.
-    queryParameters:
-      availableInternally:
-        type: boolean
-        description: |
-          Include or exclude jobs that are active and available to internal candidates. Default is false.
-        example: true
-        required: false
-      availableExternally:
-        type: boolean
-        description: |
-          Include or exclude jobs that are active and available to external candidates. Default is true.
-        example: true
-        required: false
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/jobsRead.json
-            example: !include ../examples/jobsRead-simple.json
   /byID:
     /{job}:
+      type: jobGetter
       patch:
         description: |
-          *This API is deprecated in favour of PATCH /jobs/all/byID/{} and will shortly be removed.*
-          
           Update a job using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
         body:
           application/merge-patch+json:
@@ -1494,57 +1465,15 @@ resourceTypes: !include resources.yml
             example: !include ../examples/jobWrite-simple.json
         responses:
           200:
-            description: the job was successfully updated
-      get:
-        securedBy: [oauth_2_0]
-        description: |
-          *This API is deprecated in favour of GET /jobs/open/byID/{}, GET /jobs/open/externally/byID/{} or GET /jobs/all/byID/{} and will shortly be removed.*
-
-          Get the candidate-facing information for a specific job opening.
-        responses:
-          200:
+            description: the job was successfully created
             body:
-              application/json:
+              application/merge-patch+json:
                 schema: !include ../schemas/jobRead.json
                 example: !include ../examples/jobRead-simple.json
-      /description:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            *This API is deprecated in favour of GET /jobs/byID/{} and will shortly be removed.*
-            
-            Get the job's description. Job descriptions are formatted using the safe subset
-            of [markdown](https://daringfireball.net/projects/markdown/syntax). 
-          responses:
-            200:
-              body:
-                text/plain:
-                              
-      /deltaPings:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            *This API is deprecated and should not be used. *
-            Send notification of a change to the candidate-facing details of a job opening.
-        /toActive:
-          post:
-            securedBy: [oauth_2_0]
-            description: |
-              *This API is deprecated and should not be used. *
-              
-              Send notification of a change to the candidate-facing details of a job opening, specifically
-              that the job opening has transitioned to active. Useful to feed something like a push job notification system,
-              which does not care about all of the micro delta pings for an opening, just when it becomes newly active.
-        /toPubliclyActive:
-          post:
-            securedBy: [oauth_2_0]
-            description: |
-              *This API is deprecated and should not be used. *
-
-              See /jobs/{id}/deltaPings.
-              
-              Send notification of a change to the candidate-facing details of a job opening, specifically
-              that the job opening has become newly publicly active (perhaps it was active before but internal).
+          400:
+            description: The request data caused an error. See the response body for more details.
+            body:
+              application/problem+json:
 
       /canApply:
         description: |
@@ -1574,6 +1503,15 @@ resourceTypes: !include resources.yml
                   application/json:
                     schema: !include ../schemas/candidateWorkflow.json
                     example: !include ../examples/candidateWorkflow-simple.json
+  /byWorkflow:
+    /{workflow}:
+      /itemMetas:
+        description: |
+          Metadata for all items relevant to jobs of this workflow, useful e.g. when creating new jobs
+        type: itemMetas
+        /byName:
+          /{item}:
+            type: itemMeta
   /feed:
     get:
       securedBy: [oauth_2_0]
@@ -1832,125 +1770,6 @@ resourceTypes: !include resources.yml
                   schema: !include ../schemas/meta.json
                   example: !include ../examples/meta-simple.json
 
-/recruiters:
-  description: |
-    Recruiters are HR professionals or recruitment specialists who bring talent into the organization.
-    To perform their role, recruiters are trusted with a high degree of access to sensitive information such as salaries,
-    performance management records, etc.
-
-  /byEN:    
-    /{E}:
-      /{N}:
-        get:
-          securedBy: [oauth_2_0]
-          description: |
-            Get the ID of the recruiter role holding for ourselves (the currently logged in principal, who must be of principal type 'user',
-            session decorated as being a recruiter, with a row in the SoT system for recruiters).
-            Calls by apps, typically immediately after a user authenticates in, to get the id of the recruiter role holding,
-            since that is the time to perform identity leap. 
-          queryParameters:
-            email:
-              type: string
-              description: |
-                The verified email address of the logged in recruiter. The endpoint SHOULD use this to identify opportunities for
-                "identity leap", e.g. when someone with an existing user record authenticated by LinkedIn clicks to log in with Google
-                instead, identity leap allows them to switch their {E} and {N} so that henceforth they log in via Google.
-              
-                The endpoint's logic will be something like:
-                - does a user row exist with {E}/{N}?
-                - if so, then return the ID of the user's recruiter role holding if they have one, otherwise http 404
-                - if not, does any user row exist with {E} and {N} being not null, and having the matching email address?
-                - if so, does the existing {E} allow "identity leap away from"? (i.e., is it a non-attribute supplying idp)?
-                
-                There are two classes of idp:
-                - attribute suppliers:
-                   - corporate SSO
-                   - bootstrap idp
-                - non-attribute suppliers:
-                   - backdoor idp (these may have attributes but can inject them via login listening on email match)
-                   - social logins (e.g. Google, LinkedIn)
-                   - email idp
-                   - common SAML (e.g. RealMe)
-                
-                Identity leap is by default not allowed *away* from attribute suppling idps, since leaping away means losing access
-                to the idp-supplied attributes, which may hold vital authorization information. Also, corporate SSO has
-                been put in place for strong security reasons - most corporates would not want it supplanted by other login mechanisms,
-                e.g. login with Google.
-                
-                The only case for turning on "allow identity leap away from" on a corporate idp is probably when that idp is being retired in favour of
-                a new one - a fringe case we aren't going to handle.
-                
-                Leaping *to* attribute supplying idps is powerful - e.g., when the tenant has an existing database of password or Google (or whatever) protected
-                users, and they install a corporate SAML idp, they can disable the existing login methods (which implies TAS needs a disabled flag) and then
-                each user will be forced to switch authentication to the SAML when they next attempt log in.
-                
-                Session decorators should normally decorate based on email address rather than {E}/{N}.
-                
-                This allows the user to swap login mechanisms (e.g. from email to Google) and keep their entitlements.
-                
-                TODO - how, why necessary, step by step.
-                
-                Idp-specific rules can not be applied to non-attribute suppliers. (e.g. can't make *@acme.com an internal when logging
-                in through LinkedIn, but not Google). Instead, rules must be applied either to all non-attribute supplying idps, or
-                to specific attribute supplying idps.
-              
-                TODO: expand on this, considering:
-                - how to broadcast the leap to all apps that have a user database so they can fix their own records for the person
-
-                /m/candidates/byEmail/{email}/identityLeaps:
-              
-                - how/whether to cleanup the email IdP if that is the IdP we are leaping from (similar problem to
-                allowing candidates to delete their own records)
-                - likewise when we leap away from the backdoor idp, we probably can't delete the record, but we need to cleanse it
-                of password information
-              example: fred@acme.com
-              required: false
-            
-      post:
-        securedBy: [oauth_2_0]
-        description: |
-          Self-provision a recruiter row for the logged in user (who must have been session decorated as a recruiter) 
-  post:
-    securedBy: [oauth_2_0]
-    description: |
-      Create a recruiter, along with a user, or designate an existing user as being a recruiter. When creating the user,
-      the identity fields need to be set, typically by:
-      - setting {E} to the email IdP, {N} to their email; OR
-      - setting {E} to corporate IdP, {N} to incoming {N}
-  /byID:
-    /{id}:
-      post:
-        securedBy: [oauth_2_0]
-        description: update an existing recruiter and/or their user ('s vcard)
-      /deltaPings:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            Alert interested apps that recruiter CRUD has happened. e.g. one might send welcome messages
-            to new recruiters.
-            Probably only useful as non-SoT. 
-      /userFace:
-        get:
-          securedBy: [oauth_2_0]
-          description: get the user-facing details for a recruiter (active flag, user ID, org details, etc.)
-      /user:
-        /vcard:
-          get:
-            securedBy: [oauth_2_0]
-            description: |
-              Get contact details of the recruiter's user record user in the form described by rfc7095.
-              Users are people who are more or less inside the organization. Users may be or take on the role
-              of other types such as recruiter.
-              When called as OAuth, the target must be the logged in user, or one of their coRecruiters.
-  /userFaces:            
-    /searches:
-      post:
-        securedBy: [oauth_2_0]
-        description: |
-          Search recruiters, returning user-facing details.
-          When called as OAuth, the logged in recruiter must be passed as a parameter, and the results
-          will include only recruiters that the user can see (maybe they are in the same team, or work for the same organization).
-          The method is a POST solely because the size and number of parameters might get too large for a GET.
 
 /socialNetworks:
   get:
@@ -2005,4 +1824,69 @@ resourceTypes: !include resources.yml
                 schema: !include ../schemas/deltaPing.json
                 example: !include ../examples/deltaPing-simple.json
     
-    
+/users:
+  description: |
+    Users in the system, who may be recruiters or managers.
+
+  type: usersGetter
+  post:
+    description: |
+      Create a user, using the same content type as for updating (JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789)).
+
+      The id field must not be present in the request body.
+        
+      The server's instance of the newly created resource, including its id, is passed back in the response.
+    body:
+      application/merge-patch+json:
+        schema: !include ../schemas/userWrite.json
+        example: !include ../examples/userWrite-simple.json
+    responses:
+      200:
+        description: the user was successfully created
+        body:
+          application/merge-patch+json:
+            schema: !include ../schemas/userRead.json
+            example: !include ../examples/userRead-simpleManager.json
+      400:
+        description: The request data caused an error. See the response body for more details.
+        body:
+          application/problem+json:
+  /byID:
+    /{id}:
+      type: userGetter
+      patch:
+        description: |
+          Update a user using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc5789). The id field must not be present in the request.
+        body:
+          application/merge-patch+json:
+            schema: !include ../schemas/userWrite.json
+            example: !include ../examples/userWrite-simple.json
+        responses:
+          200:
+            description: the user was successfully updated
+            body:
+              application/merge-patch+json:
+                schema: !include ../schemas/userRead.json
+                example: !include ../examples/userRead-simpleManager.json
+          400:
+            description: The request data caused an error. See the response body for more details.
+            body:
+              application/problem+json:
+      
+  /active:
+    type: usersGetter
+    /byID:
+      /{id}:
+        type: userGetter
+    /managers:
+      type: usersGetter
+      /byID:
+        /{id}:
+          type: userGetter
+    /recruiters:
+      type: usersGetter
+      /byID:
+        /{id}:
+          type: userGetter
+  
+      

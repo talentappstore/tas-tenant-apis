@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "activeFlag": {
+    	"type": "boolean"
+    },
+    "recruiterDetail": {
+      "type": "object"
+    },
+    "managerDetail": {
+      "type": "object"
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "activeFlag": {
+    	"$ref": "#/definitions/activeFlag"
+    },
+    "person": {
+      "$ref": "person.json"
+    },
+    "login": {
+      "$ref": "login.json"
+    },
+    "manager": {
+      "$ref": "#/definitions/managerDetail"
+    },
+    "recruiter": {
+      "$ref": "#/definitions/recruiterDetail"
+    },
+    "dateLastUpdated": {
+      "$ref": "jobRead.json#/definitions/dateLastUpdated"    
+    }
+  },
+  "additionalProperties": false
+}

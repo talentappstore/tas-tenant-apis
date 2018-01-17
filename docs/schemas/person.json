@@ -24,9 +24,6 @@
     },
     "vcard": {
       "$ref": "jcard.json"
-    },
-    "login": {
-      "$ref": "login.json"
     }
  },
   "additionalProperties": false

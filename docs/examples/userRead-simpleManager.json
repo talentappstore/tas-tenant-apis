@@ -1,11 +1,8 @@
 {
+"person": {
   "givenName": "Forrest",
   "familyName": "Gump",
   "email": "forrestgump@example.com",
-  "login": {
-     "entityID": "facebook-101",
-     "nameID": "iugy8756gui57f764"
-  },
   "vcard": 
 ["vcard",
   [
@@ -31,5 +28,12 @@
     ["rev", {}, "timestamp", "2008-04-24T19:52:43Z"]
   ]
 ]
+},  
+  "login": {
+     "entityID": "facebook-101",
+     "nameID": "iugy8756gui57f764"
+  },
+   "manager": {
+  }
 }
   

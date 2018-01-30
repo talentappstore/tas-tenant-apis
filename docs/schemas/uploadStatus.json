@@ -1,15 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
-  "description": "the status of a previously launched job set upload",
+  "description": "the status of a previously launched upload",
   "definitions": {
     "failureDetail": {
       "type": "object",
-      "description": "details of why a single job failed the crud operation (create or whatever)",
+      "description": "details of why a single object failed the crud operation (create or whatever)",
       "properties": {
-        "code": {
-          "$ref": "jobRead.json#/definitions/code"
-        },
+	    "code": {
+	      "type": "string",
+	      "description": "A code, e.g. on a job or job ad, that uniquely identifies the object"
+	    },
         "message": {
           "type": "string"
         }
@@ -32,11 +33,11 @@
         },
         "succeeded": {
           "type": "integer",
-          "description": "how many jobs in the set have so far been successfully [operation]"
+          "description": "how many objects in the set have so far been successfully [operation]"
         },
         "failed": {
           "type": "integer",
-          "description": "how many jobs in the set have so far been unsuccessfully [operation]"
+          "description": "how many objects in the set have so far been unsuccessfully [operation]"
         },
         "failedJobDetails": {
           "type": "array",

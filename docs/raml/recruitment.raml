@@ -1428,11 +1428,32 @@ resourceTypes: !include resources.yml
                     application/json:
                       schema: !include ../schemas/canApply.json
                       example: !include ../examples/canApply-simple.json
+
+
+    /uploads:
+      type: jobsUploader
+      /byID:
+        /{uploadID}:
+          description: the ID of a previously launched jobs bulk upload
+          type: uploadStatusGetter
     /externally:
       type: jobsGetter
       /byID:
         /{id}:
           type: jobGetter
+  /template:
+    type: jobsGetter
+    /byID:
+      /{id}:
+        type: jobGetter
+    /uploads:
+      type: jobsUploader
+      /byID:
+        /{uploadID}:
+          description: the ID of a previously launched jobs bulk upload
+          type: uploadStatusGetter
+    
+          
   /feeds:
     description: Access to publicly visible jobs via XML feeds
     /full:
@@ -1527,19 +1548,21 @@ resourceTypes: !include resources.yml
               example: !include ../examples/jobFeedDetails-simple.json
 
 /jobSets:
+  description: |
+    jobAdSets are job advertisements intended for job boards, etc.   
   /uploads:
     post:
       securedBy: [oauth_2_0]
       description: |
         Non-SoT.
 
-        Used to bulk upload active jobs for a tenant to a remote job board. See also APIs to:
+        Used to bulk upload active job ads for a tenant to a remote job board. See also APIs to:
         - GET /jobSets/forBoard/{board}
       
-        The jobSet is assumed to be the definitive set of jobs for the given tenant, i.e. after the call is complete,
-        if it all went OK, the jobs for this tenant at that board will match the jobSet exactly.
+        The jobAdSet represents what the caller wants the job ads for the given tenant to be - after the upload
+        the jobs for this tenant at that board should match the jobAdSet exactly.
   
-        The behavior of the producer is something like:
+        The app producing the API should do something like this:
         - for each job in the jobSet
         - .search for a matching (by code) job in the database, and with status == active 
         - .if the job does not exist, create it (producer might also choose to re-open an old one) 
@@ -1547,45 +1570,30 @@ resourceTypes: !include resources.yml
         - .if the job exists but has different details, update it
         - for each job that exists but was not found in the jobSet for the org, make it not active or delete it     
 
-        Therefore, sending up an empty jobSet effectively deletes or inactivates all jobs for the tenant.
+        Sending up an empty jobSet deletes or inactivates all jobs for the tenant.
   
         The producer may enforce that job codes are unique within a tenant's open jobs at the board.
 
-        The producer's behaviour is not required to be atomic - it is allowed the call could fail
-        after only partially processing the job list, leaving partial changes applied.
+        The producer's behaviour need not be atomic - the call might fail after only partially processing the job list, leaving partial changes applied.
         
       body:
         application/json:
-          schema: !include ../schemas/jobSet.json
-          example: !include ../examples/jobSet-simple.json
+          schema: !include ../schemas/jobAdSet.json
+          example: !include ../examples/jobAdSet-simple.json
       responses:
         201:
           description: the launch was successful, and the upload is underway
           body:
             application/json:
-              schema: !include ../schemas/jobSetUploadLaunch.json
-              example: !include ../examples/jobSetUploadLaunch-simple.json
+              schema: !include ../schemas/uploadLaunch.json
+              example: !include ../examples/uploadLaunch-jobAds.json
         409:
           description: Conflict - the producer has an existing, incomplete upload operation for this tenant  - See response in RFC 7807 format for more details.
           body:
             application/problem+json:
     /{uploadID}:
       description: the ID of a previously launched job set upload
-      get:            
-        securedBy: [oauth_2_0]
-        description: |
-          Get the status of a previously started upload operation. Normally the producer should keep results around for some time (i.e. weeks/months)
-          after the upload has completed.
-         
-          Non-SoT.
-        responses:
-          200:
-            body:
-              application/json:
-                schema: !include ../schemas/jobSetUploadStatus.json
-                example: !include ../examples/jobSetUploadStatus-simple.json
-          404:
-            description: No launch with the ID is available. Perhaps it has been garbage collected.
+      type: uploadStatusGetter
     
   post:
     securedBy: [oauth_2_0]
@@ -1594,7 +1602,7 @@ resourceTypes: !include resources.yml
 
       *This API is deprecated in favour of POST /jobSets/uploads and will shortly be removed.*
             
-      Used to bulk upload active jobs for a tenant to a remote job board. See also APIs to:
+      Used to bulk upload active job ads for a tenant to a remote job board. See also APIs to:
       - GET /jobSets/forBoard/{board}
       
       The jobSet is assumed to be the definitive set of jobs for the given tenant, i.e. after the call is complete,
@@ -1616,8 +1624,8 @@ resourceTypes: !include resources.yml
       after only partially processing the job list, leaving partial changes applied.
     body:
       application/json:
-        schema: !include ../schemas/jobSet.json
-        example: !include ../examples/jobSet-simple.json
+        schema: !include ../schemas/jobAdSet.json
+        example: !include ../examples/jobAdSet-simple.json
     responses:
       200:
         body:
@@ -1637,7 +1645,7 @@ resourceTypes: !include resources.yml
           description: |
             SoT.
           
-            Get the jobset for this board, typically from a mapper type app that tracks which jobs have been posted where. 
+            Get the job ad set for this board, typically from a mapper type app that tracks which jobs have been posted where. 
           responses:
             200:
               body:

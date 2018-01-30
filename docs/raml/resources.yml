@@ -1,6 +1,59 @@
 #%RAML 0.8
 
 
+- uploadStatusGetter:
+          get:            
+            securedBy: [oauth_2_0]
+            description: |
+              Get the status of a previously started upload operation. Normally the producer should keep results around for some time (i.e. weeks/months)
+              after the upload has completed.
+             
+              Non-SoT.
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/uploadStatus.json
+                    example: !include ../examples/uploadStatus-jobAds.json
+              404:
+                description: No launch with the ID is available. Perhaps it has been garbage collected.
+
+
+
+- jobsUploader:
+      post:
+        securedBy: [oauth_2_0]
+        description: |
+          Non-SoT.
+  
+          Used to bulk upload all open jobs for the tenant in one long-running operation.
+        
+          The app producing the API should do something like this:
+          - for each job in the request
+          - .search for a matching (by code) job in the database, and with status == active 
+          - .if the job does not exist, create it (producer might also choose to re-open an old one) 
+          - .if the job already exists and has identical details, leave it
+          - .if the job exists but has different details, update it
+          - for each job that exists but was not found in the upload, make it not active or delete it     
+  
+          The producer's behaviour need not be atomic - the call might fail after only partially processing the job list, leaving partial changes applied.
+          
+        body:
+          application/json:
+            schema: !include ../schemas/jobsUpload.json
+            example: !include ../examples/jobsUpload-simple.json
+        responses:
+          201:
+            description: the launch was successful, and the upload is underway
+            body:
+              application/json:
+                schema: !include ../schemas/uploadLaunch.json
+                example: !include ../examples/uploadLaunch-jobAds.json
+          409:
+            description: Conflict - the producer has an existing, incomplete upload operation for this tenant  - See response in RFC 7807 format for more details.
+            body:
+              application/problem+json:
+
 - opLauncher:
             post:
               securedBy: [oauth_2_0]

@@ -1134,29 +1134,10 @@ resourceTypes: !include resources.yml
           get:
             securedBy: [oauth_2_0]
             description: Get the child values for the given value
-          delete:
-            securedBy: [oauth_2_0]
-            description: delete this node and its child nodes
-          post:
-            securedBy: [oauth_2_0]
-            description: edit details of this node, including its parent
           /values:
             get:
               securedBy: [oauth_2_0]
               description: Get the array of sub-trees attached to this value
-            patch:
-              securedBy: [oauth_2_0]
-              description: Merge in an array of child values
-            post:
-              securedBy: [oauth_2_0]
-              description: |
-                 Arbitrarily set or change the child values for this value. Values are removed from their previous
-                 parent (node or category)
-          /acquires:
-            /{acquiree}:
-              post:
-                securedBy: [oauth_2_0]
-                description: acquire all of the child nodes of the acquiree, then delete the acquiree node
 
 /editSpecs:
   description: |

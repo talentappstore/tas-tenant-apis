@@ -2,7 +2,8 @@
   {
     "id": 100115528,
     "name": "General Management",
-    "available": true
+    "available": true,
+    "externalId": "SAP-10033"
   },
   {
     "id": 100115555,

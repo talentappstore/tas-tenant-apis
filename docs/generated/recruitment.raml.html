@@ -13689,6 +13689,10 @@
         "lng"
       ]
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the category value"
+    },
     "value": {
       "type": "object",
       "definition": "details of a single category value, identified by id",
@@ -13707,6 +13711,9 @@
         "code": {
           "type": "string",
           "description": "a code for this category value"
+        },
+        "externalId": {
+          "$ref": "#/definitions/externalId"
         },
         "location": {
           "$ref": "#/definitions/location"
@@ -16239,6 +16246,9 @@
     "code": {
       "$ref": "jobRead.json#/definitions/code"
     },
+    "externalId": {
+      "$ref": "jobRead.json#/definitions/externalId"
+    },
     "title": {
       "$ref": "jobRead.json#/definitions/title"
     },
@@ -16347,6 +16357,10 @@
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -16442,6 +16456,9 @@
     "code": {
       "$ref": "#/definitions/code"
     },
+    "externalId": {
+      "$ref": "#/definitions/externalId"
+    },
     "title": {
       "$ref": "#/definitions/title"
     },
@@ -16493,6 +16510,7 @@
         }
     },
     "code": "1022NH",
+    "externalId": "SAP-1022",
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
@@ -16638,6 +16656,10 @@
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -16733,6 +16755,9 @@
     "code": {
       "$ref": "#/definitions/code"
     },
+    "externalId": {
+      "$ref": "#/definitions/externalId"
+    },
     "title": {
       "$ref": "#/definitions/title"
     },
@@ -16784,6 +16809,7 @@
         }
     },
     "code": "1022NH",
+    "externalId": "SAP-1022",
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
@@ -17171,6 +17197,10 @@
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -17266,6 +17296,9 @@
     "code": {
       "$ref": "#/definitions/code"
     },
+    "externalId": {
+      "$ref": "#/definitions/externalId"
+    },
     "title": {
       "$ref": "#/definitions/title"
     },
@@ -17317,6 +17350,7 @@
         }
     },
     "code": "1022NH",
+    "externalId": "SAP-1022",
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
@@ -17462,6 +17496,10 @@
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -17557,6 +17595,9 @@
     "code": {
       "$ref": "#/definitions/code"
     },
+    "externalId": {
+      "$ref": "#/definitions/externalId"
+    },
     "title": {
       "$ref": "#/definitions/title"
     },
@@ -17608,6 +17649,7 @@
         }
     },
     "code": "1022NH",
+    "externalId": "SAP-1022",
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
@@ -17880,6 +17922,10 @@
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -17975,6 +18021,9 @@
     "code": {
       "$ref": "#/definitions/code"
     },
+    "externalId": {
+      "$ref": "#/definitions/externalId"
+    },
     "title": {
       "$ref": "#/definitions/title"
     },
@@ -18026,6 +18075,7 @@
         }
     },
     "code": "1022NH",
+    "externalId": "SAP-1022",
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",
@@ -18059,6 +18109,9 @@
     },
     "code": {
       "$ref": "jobRead.json#/definitions/code"
+    },
+    "externalId": {
+      "$ref": "jobRead.json#/definitions/externalId"
     },
     "title": {
       "$ref": "jobRead.json#/definitions/title"
@@ -18129,6 +18182,10 @@
       "type": "string",
       "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -18224,6 +18281,9 @@
     "code": {
       "$ref": "#/definitions/code"
     },
+    "externalId": {
+      "$ref": "#/definitions/externalId"
+    },
     "title": {
       "$ref": "#/definitions/title"
     },
@@ -18275,6 +18335,7 @@
         }
     },
     "code": "1022NH",
+    "externalId": "SAP-1022",
     "title": "Creative Director",
     "shortSummary": "One of the most exciting positions ever offered",
     "country": "AU",

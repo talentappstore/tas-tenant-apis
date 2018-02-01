@@ -11,6 +11,9 @@
     "code": {
       "$ref": "jobRead.json#/definitions/code"
     },
+    "externalId": {
+      "$ref": "jobRead.json#/definitions/externalId"
+    },
     "title": {
       "$ref": "jobRead.json#/definitions/title"
     },

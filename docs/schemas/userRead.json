@@ -5,6 +5,10 @@
     "activeFlag": {
     	"type": "boolean"
     },
+    "org": {
+        "type": "integer",
+        "description": ""
+    },
     "recruiterDetail": {
       "type": "object"
     },
@@ -18,6 +22,9 @@
     },
     "activeFlag": {
     	"$ref": "#/definitions/activeFlag"
+    },
+    "org": {
+    	"$ref": "#/definitions/org"
     },
     "person": {
       "$ref": "person.json"

@@ -35,6 +35,10 @@
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
     },
+    "templateFlag": {
+      "type": "boolean",
+      "description": "true if this job is a template, otherwise false/null/not present"
+    },
     "availability": {
       "type": "object",
       "properties": {
@@ -112,6 +116,9 @@
     },
     "status": {
       "$ref": "#/definitions/status"
+    },
+    "templateFlag": {
+      "$ref": "#/definitions/templateFlag"
     },
     "availability": {
       "$ref": "#/definitions/availability"

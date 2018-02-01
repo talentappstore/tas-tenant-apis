@@ -44,8 +44,8 @@
     "categoriesActual": { "$ref": "../schemas/categoriesActual.json" },
     "categories": { "$ref": "../schemas/categories.json" },
     "category": { "$ref": "../schemas/category.json" },
-    "categoryValueOperationLaunch": { "$ref": "../schemas/categoryValueOperationLaunch.json" },
     "categoryValues": { "$ref": "../schemas/categoryValues.json" },
+    "categoryValuesUpload": { "$ref": "../schemas/categoryValuesUpload.json" },
     "deltaPing": { "$ref": "../schemas/deltaPing.json" },
     "fileDownload": { "$ref": "../schemas/fileDownload.json" },
     "fileUpload": { "$ref": "../schemas/fileUpload.json" },
@@ -89,6 +89,7 @@
     "userRead": { "$ref": "../schemas/userRead.json" },
     "users": { "$ref": "../schemas/users.json" },
     "usersRead": { "$ref": "../schemas/usersRead.json" },
+    "usersUpload": { "$ref": "../schemas/usersUpload.json" },
     "userWrite": { "$ref": "../schemas/userWrite.json" },
     "viewMeta": { "$ref": "../schemas/viewMeta.json" }
 

@@ -55,15 +55,6 @@
       "type": "string",
       "format": "url"
     },
-    "givenName": {
-      "type": "string"
-    },
-    "familyName": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string"
-    },
     "raisers": {
       "description": "a list of every user who raised this assessment (this may be more than one, i.e. via linkages). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
       "type": "array",

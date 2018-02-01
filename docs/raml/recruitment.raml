@@ -1122,44 +1122,13 @@ resourceTypes: !include resources.yml
                 application/json:
                   schema: !include ../schemas/categoryValues.json
                   example: !include ../examples/categoryValues-simple.json
-        /operations:
-          /patches:
-            type: opLauncher
-          /replaces:
-            type: opLauncher
-          /byID:
-            /{operationID}:
-              description: the ID of a previously launched operation
-              get:
-                securedBy: [oauth_2_0]
-                description: |
-                  Get the status of a previously started patch or replace operation. Normally the producer should keep results around
-                  for some time (i.e. weeks/months) after the operation has completed.
-         
-                  SoT.
-                responses:
-                  200:
-                    description: the category bulk operation completed successfully
-                  404:
-                    description: No operation with the ID is available. Perhaps it has been garbage collected.
 
-        patch:
-          securedBy: [oauth_2_0]
-          description: |
-            Merge in an array of root values (and children).
-          body:
-            application/json:
-              schema: !include ../schemas/categoryValues.json
-              example: !include ../examples/categoryValues-simple.json
-          
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-             Arbitrarily set or change all root (and children) values for this category.
-          body:
-            application/json:
-              schema: !include ../schemas/categoryValues.json
-              example: !include ../examples/categoryValues-simple.json
+        /uploads:
+          type: categoryValuesUploader
+          /byID:
+            /{uploadID}:
+              description: the ID of a previously launched category values bulk upload
+              type: uploadStatusGetter
 
         /{id}:
           get:
@@ -1374,7 +1343,7 @@ resourceTypes: !include resources.yml
 
 /jobs:
   description: |
-    Position openings aka vacancies, job openings, etc.
+    These APIs manage position openings (aka vacancies, job openings, etc.) and job templates.
 
     Job descriptions are formatted using a safe subset of [markdown](https://daringfireball.net/projects/markdown/syntax),
     with individual lines demarcated with \n.
@@ -1428,8 +1397,6 @@ resourceTypes: !include resources.yml
                     application/json:
                       schema: !include ../schemas/canApply.json
                       example: !include ../examples/canApply-simple.json
-
-
     /uploads:
       type: jobsUploader
       /byID:
@@ -1880,6 +1847,13 @@ resourceTypes: !include resources.yml
             description: The request data caused an error. See the response body for more details.
             body:
               application/problem+json:
+
+  /uploads:
+    type: usersUploader
+    /byID:
+      /{uploadID}:
+        description: the ID of a previously launched users bulk upload
+        type: uploadStatusGetter
       
   /active:
     type: usersGetter

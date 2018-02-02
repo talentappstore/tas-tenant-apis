@@ -1110,6 +1110,13 @@ resourceTypes: !include resources.yml
       delete:
         securedBy: [oauth_2_0]
         description: Delete a category, along with all of its values
+
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            Sent to alert any listening apps that a change has been made to this category or one or more of its values. The listeners
+            then know to call GET /categories, GET /categories/byID/{}/values to get the latest data.
         
       /values:
         get:

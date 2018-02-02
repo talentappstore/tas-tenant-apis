@@ -11,6 +11,9 @@
     "code": {
       "$ref": "jobRead.json#/definitions/code"
     },
+    "externalId": {
+      "$ref": "jobRead.json#/definitions/externalId"
+    },
     "title": {
       "$ref": "jobRead.json#/definitions/title"
     },
@@ -24,13 +27,22 @@
       "$ref": "jobRead.json#/definitions/country"
     },
     "manager": {
-      "$ref": "manager.json"
+      "$ref": "userRead.json"
     },
     "categories": {
       "$ref": "categoriesActual.json"
     },
     "items": {
        "$ref": "itemsWrite.json"
+    },
+    "description": {
+      "$ref": "jobRead.json#/definitions/description"
+    },
+    "recruiter": {
+      "$ref": "userRead.json"
+    },
+    "workflow": {
+      "$ref": "jobRead.json#/definitions/workflow"
     }
   },
   "additionalProperties": false

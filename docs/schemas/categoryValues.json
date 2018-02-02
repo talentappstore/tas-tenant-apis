@@ -268,6 +268,10 @@
         "lng"
       ]
     },
+    "externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the category value"
+    },
     "value": {
       "type": "object",
       "definition": "details of a single category value, identified by id",
@@ -286,6 +290,9 @@
         "code": {
           "type": "string",
           "description": "a code for this category value"
+        },
+        "externalId": {
+          "$ref": "#/definitions/externalId"
         },
         "location": {
           "$ref": "#/definitions/location"

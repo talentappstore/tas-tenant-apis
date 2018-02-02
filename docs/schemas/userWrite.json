@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+  },
+  "properties": {
+    "activeFlag": {
+    	"$ref": "userRead.json#/definitions/activeFlag"
+    },
+    "org": {
+    	"$ref": "userRead.json#/definitions/org"
+    },
+    "person": {
+      "$ref": "person.json"
+    },
+    "login": {
+      "$ref": "login.json"
+    },
+    "manager": {
+      "oneOf": [
+	    {  "$ref": "userRead.json#/definitions/managerDetail" },
+	    { "type": "null" }
+      ]
+	},    
+    "recruiter": {
+      "oneOf": [
+	    {  "$ref": "userRead.json#/definitions/recruiterDetail" },
+	    { "type": "null" }
+      ]
+	}    
+  },
+  "additionalProperties": false
+}
+
+

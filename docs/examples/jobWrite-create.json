@@ -1,0 +1,44 @@
+{
+  "status": "active",
+  "availability": {
+    "availableInternally": true,
+    "availableExternally": true,
+    "applicationCloseDates": {
+      "closeDate": "2015-11-05T13:15:30Z"
+    }
+  },
+  "code": "1022NH",
+  "title": "Creative Director",
+  "shortSummary": "One in a life time opportunity to work with a bunch of great people that do their job with a passion!",
+  "country": "US",
+  "categories": [
+    {
+      "category": 100001999,
+      "values": [
+        100115552,
+        100115513
+      ]
+    },
+    {
+      "category": 100037613,
+      "values": [
+        100114669,
+        100114660,
+        100114642,
+        100114666
+      ]
+    },
+    {
+      "category": 100015632,
+      "values": [
+        100015637
+      ]
+    },
+    {
+      "category": 100039352,
+      "values": [
+        100039361
+      ]
+    }
+  ]
+}

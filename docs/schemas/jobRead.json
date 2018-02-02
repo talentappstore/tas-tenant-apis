@@ -16,8 +16,8 @@
       "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
     },
     "description": {
-       "type": "string",
-       "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
+      "type": "string",
+      "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
     },
     "company": {
       "type": "string",
@@ -101,16 +101,16 @@
             "closeDate"
           ],
           "additionalProperties": false
-        },
-        "workflow": {
-          "type": "integer"
-        },
-        "dateLastUpdated": {
-		      "type": "string",
-		      "format": "date-time"
-    }
+        }
       },
       "additionalProperties": false
+    },
+    "workflow": {
+      "type": "integer"
+    },
+    "dateLastUpdated": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "type": "object",
@@ -161,10 +161,10 @@
       "$ref": "categoriesActual.json"
     },
     "items": {
-       "$ref": "itemPackagesRead.json"
+      "$ref": "itemPackagesRead.json"
     },
     "dateLastUpdated": {
-      "$ref": "#/definitions/dateLastUpdated"    
+      "$ref": "#/definitions/dateLastUpdated"
     }
   },
   "additionalProperties": false

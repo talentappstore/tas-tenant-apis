@@ -7,8 +7,8 @@
     "activeFlag": {
     	"$ref": "userRead.json#/definitions/activeFlag"
     },
-    "org": {
-    	"$ref": "userRead.json#/definitions/org"
+    "orgs": {
+    	"$ref": "categoriesActual.json#/definitions/categoryActual"
     },
     "person": {
       "$ref": "person.json"

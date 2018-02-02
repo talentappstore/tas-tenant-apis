@@ -87,7 +87,6 @@
     "uploadStatus": { "$ref": "../schemas/uploadStatus.json" },
     "userArea": { "$ref": "../schemas/userArea.json" },
     "userRead": { "$ref": "../schemas/userRead.json" },
-    "users": { "$ref": "../schemas/users.json" },
     "usersRead": { "$ref": "../schemas/usersRead.json" },
     "usersUpload": { "$ref": "../schemas/usersUpload.json" },
     "userWrite": { "$ref": "../schemas/userWrite.json" },

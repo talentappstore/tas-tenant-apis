@@ -271,10 +271,15 @@ on your app to ask for your assessment types.
 <div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentTypesForApp-simple.json'></div>
 </div>
 
-<p>Based on these settings, a candidate will only need to complete this assessment once, no matter how many different
-jobs they apply for over the next year. Also, the candidate's results are not visible to the candidate themselves.
+<p>This example shows a resuable assessment type. When your assessment type is marked as reusable, an assessment result on one job application
+can be reused when the same candidate makes another job application.
 </p>
 
+<p>For example, if the candidate has completed a medical check for one job, and then applies for another
+a few days later, we don't want them to be asked to complete the same check again. In this example, if the candidate completed the previous assessment within
+one year, then that previous result will be reused.
+</p>
+  
 <p>Apps can use different strategies for their assessment types:
 <ol>
 <li>highly customised assessment types, e.g. each tenant has their own unique set of assessment types, tailored to

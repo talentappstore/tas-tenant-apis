@@ -13,17 +13,17 @@
       "type": "string",
       "description": "If present, a more specific label/title seen by candidates for this assessment type"
     },
+    "canReuse": {
+      "type": "boolean",
+      "description": "true if an assessment result on one job application can be reused when the same candidate makes another job application"
+    },
     "daysToExpire": {
       "type": "integer",
-      "description": "the number of elapsed days before this assessments result is no longer valid - pass 0 to never expire"
+      "description": "when canReuse == true, this is the number of elapsed days before the previous assessment's result becomes no longer valid (as measured from the date that assessment was completed) - pass 0 to never expire"
     },
     "isPassFail": {
       "type": "boolean",
       "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
-    },
-    "canReuse": {
-      "type": "boolean",
-      "description": "whether an unexpired assessment result on one job application can be reused when the candidate makes another job application"
     },
     "candidateDescription": {
       "type": "string",

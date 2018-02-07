@@ -3,6 +3,7 @@
   "interactionUris": {
     "candidateInteractionUri": "https://myapp.com/cgjde764tghdk",
     "userInteractionUri": null,
+    "userInteractionMessage": "We're all **go** !",
     "userAttentionRequired": false
     
   }

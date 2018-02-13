@@ -25,14 +25,23 @@
           Non-SoT.
   
           Used to bulk upload all values for a single category for the tenant in one long-running operation.
-        
+
           The app producing the API should do something like this:
-          - map nodes in the request to existing nodes in the database using id and/or external id
-          - any nodes in the request that don't have either id or external id will be created
-          - any existing nodes will be updated if required (e.g. to have a new parent, code, label or active status)
-          - any nodes in the database that were not present in the request will be deleted or inactivated
+          - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nods in the producer's database
+          - if the request node has neither id nor external id then 400 error
+          - if the request node has id, then map to the existing node with the same id (404 if not found)
+            - if the request node also has external id
+              - if the mapped node in the database has null external id, its external id will be updated
+              - if the mapped node in the database has a different external id, throw a 400 error
+          - if the request node has only external id, then map to the existing node with same external id (404 if not found)
+          - in all cases, a node can only be mapped once, otherwise 400 error
+          - now that mapping is complete, producer can do the CRUD work
+          - any unmapped nodes in the request will be created/re-activated
+          - any mapped nodes in the database will be updated if required (e.g. to have a new parent, code, label, active status)
+          - any unmapped nodes in the database will be deleted or inactivated
   
           The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
+          In this case the upload could be re-run once the problem was resolved.
           
         body:
           application/json:

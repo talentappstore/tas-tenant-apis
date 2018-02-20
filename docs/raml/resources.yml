@@ -27,7 +27,7 @@
           Used to bulk upload all values for a single category for the tenant in one long-running operation.
 
           The app producing the API should do something like this:
-          - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nods in the producer's database
+          - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nodes in the producer's database
           - if the request node has neither id nor external id then 400 error
           - if the request node has id, then map to the existing node with the same id (404 if not found)
             - if the request node also has external id

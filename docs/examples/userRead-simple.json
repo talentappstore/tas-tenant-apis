@@ -1,11 +1,8 @@
 {
-  "orgs": {
-    "category": 10032,
-    "values": [
+  "orgs": [
       10034,
       10036
-    ]
-  },
+    ],
   "person": {
     "givenName": "Forrest",
     "familyName": "Gump",

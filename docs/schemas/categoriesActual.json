@@ -1,6 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
+        "values": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
         "categoryActual": {
             "type": "object",
             "properties": {
@@ -8,10 +14,7 @@
                     "type": "integer"
                 },
                 "values": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
+                	"$ref": "#/definitions/values"
                 }
             },
             "additionalProperties": false,

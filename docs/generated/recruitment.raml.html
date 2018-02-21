@@ -10866,6 +10866,13 @@
       "format": "uri",
       "description": "when present, a uri, with all query parameters urlencoded, of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
     },
+    "userInteractionMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "when present, a markdown formatted string that will be displayed to the user in the assessent popup. Any links open inside a new tab/window."
+    },
     "interactionUris": {
       "type": "object",
       "properties": {
@@ -10880,9 +10887,12 @@
         "userInteractionUri": {
           "$ref": "#/definitions/userInteractionUri"
         },
+        "userInteractionMessage": {
+          "$ref": "#/definitions/userInteractionMessage"
+        },
         "userAttentionRequired": {
           "type": "boolean",
-          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when either userInteractionUri or userInteractionUri are non-null."
         }
       },
       "additionalProperties": false,
@@ -11110,6 +11120,13 @@
       "format": "uri",
       "description": "when present, a uri, with all query parameters urlencoded, of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
     },
+    "userInteractionMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "when present, a markdown formatted string that will be displayed to the user in the assessent popup. Any links open inside a new tab/window."
+    },
     "interactionUris": {
       "type": "object",
       "properties": {
@@ -11124,9 +11141,12 @@
         "userInteractionUri": {
           "$ref": "#/definitions/userInteractionUri"
         },
+        "userInteractionMessage": {
+          "$ref": "#/definitions/userInteractionMessage"
+        },
         "userAttentionRequired": {
           "type": "boolean",
-          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when either userInteractionUri or userInteractionUri are non-null."
         }
       },
       "additionalProperties": false,

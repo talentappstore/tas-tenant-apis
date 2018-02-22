@@ -4,6 +4,10 @@
     "id": {
       "type": "integer"
     },
+    "org": {
+      "type": "integer",
+      "description": "the job's org (a value from GET /orgs)"
+    },
     "status": {
       "enum": [
         "active",
@@ -120,6 +124,9 @@
     },
     "status": {
       "$ref": "#/definitions/status"
+    },
+    "org": {
+      "$ref": "#/definitions/org"
     },
     "templateFlag": {
       "$ref": "#/definitions/templateFlag"

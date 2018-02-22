@@ -20,7 +20,7 @@
     	"$ref": "#/definitions/activeFlag"
     },
     "orgs": {
-    	"$ref": "categoriesActual.json#/definitions/categoryActual"
+    	"$ref": "categoriesActual.json#/definitions/values"
     },
     "person": {
       "$ref": "person.json"
@@ -36,6 +36,9 @@
     },
     "dateLastUpdated": {
       "$ref": "jobRead.json#/definitions/dateLastUpdated"    
+    },
+    "items": {
+      "$ref": "itemPackagesRead.json"
     }
   },
   "additionalProperties": false

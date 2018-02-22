@@ -1663,6 +1663,25 @@ resourceTypes: !include resources.yml
           /asHtml:
             type: universalMenuBody
 
+/orgs:
+  get:
+    securedBy: [oauth_2_0]
+    description: |
+      Get root values and the hierarchy of values beneath
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include ../schemas/categoryValues.json
+            example: !include ../examples/categoryValues-simple.json
+  /uploads:
+    type: categoryValuesUploader
+    /byID:
+      /{uploadID}:
+        description: the ID of a previously launched category values bulk upload
+        type: uploadStatusGetter
+
+
 /panels:
   /toUser:
     /me:

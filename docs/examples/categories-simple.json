@@ -1,8 +1,7 @@
 [
   {
     "id": 10022,
-    "key": "ORG",
-    "name": "Organization",
+    "name": "Classification",
     "jobRules": {
       "canMultiSelect": true,
       "leafSelectionOnly": false,

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+<title>Cheat sheet</title>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Talent App Store developer cheatsheet</h1>
+
+<h2>Big picture</h2>
+<img src='images/corevstenant.png' />
+
+<br />
+<br />
+
+<h2>Producing and consuming APIs</h2>
+<table class='table table-bordered'>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col">Producing APIs</th>
+<th scope="col">Consuming APIs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Prefix</th>
+<td><b>Back end server</b> (tazzy tab on your app)<br />
+e.g. https://yourapp.com:8080
+</td>
+<td><b>https://&lt;yourapp&gt;tazzy.io</b></td>
+</tr>
+
+<tr>
+<th scope="row">Authentication</th>
+<td>Check that the incoming <span class='highlight'>tazzy-secret</span> request header matches your app's secret key</td>
+<td>Attach <span class='highlight'>tazzy-secret</span> request header with your app's secret key</td>
+</tr>
+
+<tr>
+<th scope="row">Core APIs<br />
+<small class='hint'>You don't need to declare the core APIs your app produces and consumes</small>
+
+</th>
+<td>
+<span class='highlight'>/tas/core&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post'>POST /tenants</a> --&gt; https://yourapp.com:8080/tas/core/tenants 
+</td>
+<td>
+<span class='highlight'>/core&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-core-apis/generated/coreIn.raml.html#tenants__tenant__get'>GET /tenants/{tenant}</a> --&gt; https://yourapp.tazzy.io/core/tenants/{tenant} 
+</td>
+</tr>
+
+<tr>
+<th scope="row">Tenant APIs<br />(SoT == true)<br />
+<small class='hint'>Remember to declare all tenant APIs your app produces and consumes</small>
+
+</th>
+<td class='uncommon'>
+<span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'>GET /jobs</a> --&gt; https://yourapp.com:8080/t/acme/devs/tas/jobs 
+</td>
+<td>
+<span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'>GET /jobs</a> --&gt; https://yourapp.tazzy.io/t/acme/devs/tas/jobs 
+</td>
+</tr>
+
+<tr>
+<th scope="row">Tenant APIs<br />(SoT == false)</th>
+<td>
+<span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a> --&gt; https://yourapp.com:8080/t/acme/devs/tas/appStatus 
+</td>
+<td class='uncommon'>
+<span class='highlight'>/t/{tenant}/apps/{app}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a> --&gt; https://yourapp.tazzy.io/t/acme/apps/someapp/devs/tas/appStatus 
+</td>
+</tr>
+
+
+<tr>
+<th scope="row">Tenant APIs<br />(on behalf)</th>
+<td>
+As above, but your app also receives the <span class='highlight'>tazzy-saml</span> request header.
+</td>
+<td>
+As above, but your app must pass the <span class='highlight'>tazzy-saml</span> request header (perhaps you got it from an SSO page, or an incoming on behalf call).
+</td>
+</tr>
+
+
+
+
+
+
+</tbody>
+</table>
+
+</div>
+
+
+</body>
+</html>

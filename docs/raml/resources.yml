@@ -24,7 +24,9 @@
         description: |
           Non-SoT.
   
-          Used to bulk upload all values for a single category for the tenant in one long-running operation.
+          Used to bulk upload or update all values for a single category for the tenant in one long-running operation.
+          
+          The data from each category in the request is applied using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc7396).
 
           The app producing the API should do something like this:
           - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nodes in the producer's database
@@ -66,6 +68,8 @@
           Non-SoT.
   
           Used to bulk upload all active users for the tenant in one long-running operation.
+
+          The data from each user in the request is applied using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc7396).
         
           The app producing the API should do something like this:
           - for each user in the request
@@ -99,7 +103,10 @@
         description: |
           Non-SoT.
   
-          Used to bulk upload all open jobs for the tenant in one long-running operation.
+          Used to bulk upload/update jobs for the tenant in one long-running operation.
+
+          The data from each job in the request is applied using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc7396). In particular, if the
+          categories array is present, only those categories that are actually present in the request will be altered. 
         
           The app producing the API should do something like this:
           - for each job in the request

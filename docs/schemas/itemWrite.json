@@ -36,9 +36,6 @@
         "display": {
           "$ref": "itemRead.json#/definitions/display"
         },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
-        },
         "value": {
           "$ref": "fileUpload.json"
         }

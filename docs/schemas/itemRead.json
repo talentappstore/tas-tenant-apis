@@ -39,9 +39,6 @@
         "display": {
           "$ref": "#/definitions/display"
         },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
-        },
         "value": {
           "$ref": "#/definitions/tableRows"
         }
@@ -78,9 +75,6 @@
         },
         "display": {
           "$ref": "#/definitions/display"
-        },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
         },
         "value": {
           "$ref": "#/definitions/pickChoices"
@@ -141,9 +135,6 @@
         "display": {
           "$ref": "#/definitions/display"
         },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
-        },
         "value": {
           "type": "boolean",
           "description": "json representation of a boolean item's current value"
@@ -169,9 +160,6 @@
         },
         "display": {
           "$ref": "#/definitions/display"
-        },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
         },
         "value": {
           "type": "string",
@@ -199,9 +187,6 @@
         "display": {
           "$ref": "#/definitions/display"
         },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
-        },
         "value": {
           "type": "number",
           "description": "json representation of a number item's current value"
@@ -227,9 +212,6 @@
         },
         "display": {
           "$ref": "#/definitions/display"
-        },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
         },
         "value": {
           "type": "string",
@@ -257,9 +239,6 @@
         },
         "display": {
           "$ref": "#/definitions/display"
-        },
-        "meta": {
-          "$ref": "jsonSchemaSchema.json"
         },
         "value": {
           "$ref": "fileDownload.json"

@@ -110,14 +110,99 @@ As above, but your app also receives the <span class='highlight'>tazzy-saml</spa
 As above, but your app must pass the <span class='highlight'>tazzy-saml</span> request header (perhaps you got it from an SSO page, or an incoming on behalf call).
 </td>
 </tr>
+</tbody>
+</table>
 
+<h2>SSO</h2>
 
+<h3>Different protection levels</h3>
 
+<table class='table table-bordered'>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col">Visible to</th>
+<th scope="col"><span class='highlight'>tazzy-saml</span> request header</th>
+<th scope="col">Example</th>
+</tr>
+</thead>
+<tbody>
 
+<tr>
+<th scope="row">Secured</th>
+<td>Signed in visitors only
+</td>
+<td>Always present
+</td>
+<td>url: /t/acme/index.html</td>
+</tr>
 
+<tr>
+<th scope="row">Whitelisted</th>
+<td>Anyone</td>
+<td>Present if the user has <b>recently visited a secured page</b>.
+Useful for e.g. career site pages that are visible to anyone, but show extra information to signed in candidates.
+</td>
+<td>url: /t/acme/index.html<br />
+whitelist: /index.html</td>
+</tr>
+
+<tr>
+<th scope="row">Anonymous</th>
+<td>Anyone</td>
+<td>Not present.
+</td>
+<td>url: /index.html<br />
+url: /static/code.js<br />
+url: /tenants/acme/index.html
+</td>
+</tr>
+
+</table>
+
+<h3>Whitelisting syntax</h3>
+
+<p>Enter your whitelisting rules against your app in the developer site, using the following rules:
+<ul>
+<li>? matches one character
+<li>matches zero or more characters
+<li>** matches zero or more directories in a path
+</ul>
+
+<p>Examples:
+<ul>
+<li>/index.html - matches /t/{tenant}/index.html only
+<li>/public/* - matches all resources in the /t/{tenant}/public directory
+<li>/public/*.jsp - matches all .jsp files in the /t/{tenant}/public directory
+<li>/public/**/*.jsp - matches all .jsp files in the /t/{tenant}/public directory or any subdirectory thereof
+<li>/public/t?st.jsp - matches /t/{tenant}/public/test.jsp but also /t/{tenant}/public/tast.jsp or /t/{tenant}/public/txst.jsp
+<li>/ - matches the home page, e.g. /t/{tenant}
+<li>/**/* - matches everything under /t/{tenant} (negates SSO entirely, so not useful)
+</ul>
 
 </tbody>
 </table>
+
+<h3>Accessing details of signed in user</h3>
+
+
+<pre><code>
+GET /core/tenants/assertions/byKey/<span class='highlight'>tazzy-saml</span>/json
+
+Response:
+{
+    "nameID": "frank@ibm.com",
+    "entityID": "some other SAML info",
+    "tas.personal.givenName": "Fred",
+    "tas.personal.familyName": "Bloggs",
+    "tas.personal.email": "fredbloggs@gmail.com",
+    "tas.roles": [
+        "internal"
+    ]
+}
+</code></pre>
+
+
 
 </div>
 

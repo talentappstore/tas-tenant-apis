@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Pricing and commercials</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+<h1>Contents</h1>
+<div id="toc">
+</div>
+
+
+<p>One of the first things to achieve when building an app is producing APIs - i.e. getting the endpoints in your server hit
+correctly by other apps and by TAS itself, e.g.:
+<ul>
+<li>to learn about new customers (i.e. tenants that have installed your app)
+<li>to control your app's launch page and setup icon
+</ul> 
+
+<p>To get started, create an app, and install it into a new tenant.
+</p>
+
+<p>At this point, you've only flipped a few bits on TAS's servers. Your app doesn't have any code - its purely virtual.
+</p>
+ 
+<p>Let's now get some code working. A good place to start is to produce the core out API
+<a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post">POST /tenants/{tenant}</a>.
+The TAS core (i.e. TAS itself) calls this API on your app whenever a tenant installs it. Its a good point for you to, e.g. insert
+a row into your customer table, end an email to your sales team, etc.
+</p>
+
+<p>First, create an actual API endpoint in your code. See the <a href="cheatsheet.html">Programming guide</a> for details of producing a core-out API.
+</p>
+  
+<p>In this case the API you want to produce is POST /tenants/{tenant}, so your endpoint should live at /tas/core/tenants.
+Here's an example in Java/Spring (but you can build your app in any language/framework that you want):
+
+<pre>
+<code>
+	@RequestMapping(value = "/tas/core/tenants", method = RequestMethod.POST)
+	public void createTenant(@PathVariable String tenant, @RequestBody String body, @RequestHeader("tazzy-secret") String secret) {
+		logger.info("in POST /tenants for tenant " + tenant + " with payload " + body );
+		if (! secret.equals(SECRET)) throw new UnauthorizedException(); // check incoming tazzy-secret
+	}
+</code>
+</pre>	
+
+<p>Note the check that the incoming tazzy-secret key matches the secret key of your app (you can find your app's secret key on the developer site).
+Its critical that you always perform this check, for all incoming traffic. Failing to do so would allow an attacker to call your APIs directly,
+bypassing all TAS security.
+</p>
+
+<p>Now spin up your code. In this case, we'll assume your app is running on port 8080.
+</p> 
+
+<p>If you want, you can now check locally that your endpoint is working using a command like curl (in other words, you're making the
+same call that TAS core will when your app is fully wired in):
+
+<pre>
+<code>
+curl \
+--request POST \
+--header "Content-Type:application/json" \
+--header "tazzy-secret: YOURAPPSSECRETKEY" \
+--data '{ "hello": "world" }' \
+"http://localhost:8080/tas/core/tenants" 
+</code>
+</pre>	
+
+<p>You should see a log message from your own code telling you that your endpoint has been hit. Once you've achieved this, you're ready to move on.
+</p>
+
+<p>When your app is live, your endpoint will receive a legitimate payload like this: LINK. In the example above, we just sent a dummy payload.
+</p> 
+
+
+<h1>Publish your endpoint</h1>
+
+<p>Next, for anyone else to call your endpoint, it needs to be reachable on the internet (If you're working on an internet-connected server, then you can skip this step).
+</p>
+
+<p>If you're working on your own laptop, then most likely your networking will not allow incoming traffic to reach it. In these examples,
+we'll use the popular tool ngrok as a way around this. ngrok creates a publicly visible tunnel that reaches in to your own machine. (Using ngrok
+is a pragmatic way to get up and running quickly, but its not great security or a long term solution - sooner or later you'll need to host your
+app on a proper, internet-connected server).
+</p>
+
+<p>Download and start up ngrok like this:
+
+<pre><code>
+./ngrok http 8080
+</code></pre>
+</p>
+
+<p>ngrok should start up, and display something like the following, showing you the public addresses of your two tunnels (one each for http and https):
+
+<pre><code>
+Forwarding                    http://02b4aeca.ngrok.io -> localhost:8080                                                                           
+Forwarding                    https://02b4aeca.ngrok.io -> localhost:8080                                                                          
+</code></pre>
+
+<p>Once again, if you want, you can check the connectivity by calling your API with curl, but this time using the public, internet-facing address, e.g.:
+<pre><code>
+curl \
+--request POST \
+--header "Content-Type:application/json" \
+--header "tazzy-secret: YOURAPPSSECRETKEY" \
+--data '{ "hello": "world" }' \
+"https://02b4aeca.ngrok.io/tas/core/tenants" 
+</code></pre>
+</p>
+
+<p>Again, you should see a log message telling you that your endpoint has been hit. Once you've achieved this, you're ready to move on.
+</p>
+
+<h1>Specify your server details on your app</h1>
+
+<p>Now that your app's server is up and running on the internet, you need to update your app's definition so that TAS knows where it is.
+</p>
+
+<p>Open your app in the developer site, and click "tazzy". Your server is the upstream, so enter its address
+(in this example, https://02b4aeca.ngrok.io) into the "back end server" field, and save your changes.
+</p>
+
+<h1>Test it</h1>
+
+<p>You should have full connectivity now, so now return to your tenant, uninstall your app, and then install it again.
+</p>
+
+<p>If your API is working OK, then you should see a log message each time a tenant installs your app.
+</p>
+
+<p>Congratulations! You've produced a core-out API.
+</p>
+
+<p>Now, let's produce a tenant API call, in this case to show your app's setup screen.
+</p>
+
+<h1>Producing the GET /appStatus API - overview</h1>
+
+<p>A common requirement for a setup screen is that, when a user installs your app, you want to connect the tenant in
+TAS to a customer/tenant/organization in your own system. A common way to do this is to ask the user to log in to your
+system, and then join the dots behind the scenes so that you know which of your customers the TAS tenant "aardvark" (for example) corresponds to.
+</p>
+
+<p>The user experience will be:
+<ol>
+<li>The user clicks and installs your app.
+<li>The app renders your app with a red "setup required" icon displayed.
+<li>The user clicks on the setup icon, and is led to a web page in your app. Embedded in the link is the TAS tenant.
+<li>The user logs in to your system, which then records the link between that user's organization in your system and the TAS tenant that was passed across in the link.
+</ol>
+</p>
+
+<p>To break this down, the first thing you need to do is to cause the setup icon to be displayed on top of your app
+in the storefront. As with most things TAS, this happens via an API call (to the
+<a href="http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get">GET /appStatus</a> API in this case).
+</p>
+
+<p>You might expect this to be a core API call, but since the storefront itself is an app, this is a tenant API call (i.e., the storefont app is
+the consumer and your app is the producer).
+</p>
+
+<p>The storefront app regularly tries to call GET /appStatus on every installed app. To cause the setup icon to be displayed,
+you just need to need to produce this API, and return a response with details of your setup screen.
+</p>
+
+
+<h1>Create your endpoint</h1>
+
+<p>First, create the actual API endpoint in your code.  See the <a href="cheatsheet.html">Programming guide</a> for details of producing a tenant API.
+</p>
+
+<p>So your endpoint should be:
+
+<pre><code>
+/t/{tenant}/tas/devs/tas/appStatus
+</code></pre>
+</p>
+
+<p>Here's an example in Java/Spring (but you can build your app in any language/framework that you want):
+
+<pre><code>
+	@RequestMapping(value = "/t/{tenant}/tas/devs/tas/appStatus", method = RequestMethod.GET)
+	public void createTenant(@PathVariable String tenant, @RequestHeader("tazzy-secret") String secret) {
+		if (! secret.equals(SECRET)) throw new UnauthorizedException(); // check incoming tazzy-secret
+		
+		.. now return a JSON object for the app status, e.g. setup required etc. 
+	}
+</code></pre>
+
+<p>Now spin up your code. In this case, we'll assume your app is running on port 8080.
+</p> 
+
+<p>If you want, you can now check locally that your endpoint is working using a command like curl (in other words,
+you're making the same call that TAS core will when your app is fully wired in):
+<pre><code>
+curl \
+--request POST \
+--header "Content-Type:application/json" \
+--header "tazzy-secret: YOURAPPSSECRETKEY" \
+--data '{ "hello": "world" }' \
+"http://localhost:8080/t/acme/tas/devs/tas/appStatus" 
+</code></pre>
+</p>
+
+<p>You should see a log message from your own code telling you that your endpoint has been hit. Once you've achieved this, you're ready to move on.
+</p>
+
+<h1>Publish your endpoint</h1>
+
+<p>Previously, we made your endpoint reachable on the internet, possibly with ngrok. You also updated your app's definition to enter this public address.
+</p>  
+
+<h1>Test it</h1>
+
+<p>You should have full connectivity now, so now return to your tenant, open the storefront, and open your app. You should now see the
+effect of the data you passed back to this API call. For example, if you provided a url, then the "Open" button should appear on your
+app, linked to the url you specified.
+</p>
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

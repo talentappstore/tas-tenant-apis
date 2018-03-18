@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+]>
+<svg version="1.0" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" viewBox="0 0 55 55" enable-background="new 0 0 55 55" xml:space="preserve">
+<circle fill-rule="evenodd" clip-rule="evenodd" fill="#FAFAFA" cx="27.5" cy="27.5" r="27.5"/>
+<path fill="#FED600" d="M15.9,12c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8S12,18,12,15.9C12,13.8,13.8,12,15.9,12z"/>
+<path fill="#F06392" d="M15.9,23.8c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8S12,29.7,12,27.6C12,25.5,13.8,23.8,15.9,23.8z"/>
+<path fill="#71CDDD" d="M15.9,35.6c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8S12,41.5,12,39.4C12,37.3,13.8,35.6,15.9,35.6z"/>
+<path fill="#A0A8D5" d="M27.6,12c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8c-2.1,0-3.9-1.7-3.9-3.8C23.8,13.8,25.5,12,27.6,12z"
+	/>
+<path fill="#FBAA19" d="M27.6,23.8c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8c-2.1,0-3.9-1.7-3.9-3.8
+	C23.8,25.5,25.5,23.8,27.6,23.8z"/>
+<path fill="#D41F26" d="M27.6,35.6c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8c-2.1,0-3.9-1.7-3.9-3.8
+	C23.8,37.3,25.5,35.6,27.6,35.6z"/>
+<path fill="#8EC73F" d="M39.4,12c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8s-3.9-1.7-3.9-3.8C35.5,13.8,37.2,12,39.4,12z"/>
+<path fill="#3D82C4" d="M39.4,23.8c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8s-3.9-1.7-3.9-3.8C35.5,25.5,37.2,23.8,39.4,23.8z"
+	/>
+<path fill="#5CBC6B" d="M39.4,35.6c2.1,0,3.9,1.7,3.9,3.8c0,2.1-1.7,3.8-3.9,3.8s-3.9-1.7-3.9-3.8C35.5,37.3,37.2,35.6,39.4,35.6z"
+	/>
+</svg>

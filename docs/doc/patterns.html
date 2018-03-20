@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Conventions</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+        <!-- Sidebar as per https://github.com/blackrockdigital/startbootstrap-simple-sidebar-->
+       <div id="sidebar-wrapper">
+             <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="home.html">Home</a></li>
+                <li><a href="goals.html">Goals & non-goals</a></li>
+                <li><a href="concepts.html">Concepts</a></li>
+                <li><a href="peertopeer.html">Peer to peer API platform</a></li>
+                <li><a href="cheatsheet.html">Programming guide</a></li>
+                <li><a href="tazzy.html">Tazzy</a></li>
+				<li>API reference
+					<ul>
+					<li><a href="../generated/recruitment.raml.html">Tenant APIs (by Aotal)</a>
+					<li><a href="../generated/index.html">Schemas and doc.</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreIn.raml.html">Core-in APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html">Core-out APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/">Schemas and doc.</a>
+					</ul>
+                <li><a href="commercials.html">Commercials and pricing</a></li>
+                <li><a href="helloworld.html">Hello world</a></li>
+                <li><a href="sandboxapps.html">Installing sandbox apps</a></li>
+                <li>Recipes
+                <ul>
+                    <li><a href="install.html">App install and setup</a></li>
+                    <li><a href="buttons.html">Career site buttons</a></li>
+                    <li><a href="applyGate.html">Apply gates</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="careerSite.html">Career sites</a></li>
+                    <li><a href="careerSite.html">Candidate surveys</a></li>
+                    <li><a href="applyRegister.html">Apply for jobs and register</a></li>
+                    <li><a href="newHires.html">New hires, payroll and onboarding</a></li>
+                    <li><a href="getJobs.html">Job distribution/ job boards</a></li>
+                    <li><a href="trackers.html">Trackers</a></li>
+                    <li><a href="patterns.html">Patterns</a></li>
+                </ul>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+<h1>Contents</h1>
+<div id="toc">
+</div>
+
+
+<p>There are some common patterns you may see when working with some of Aotal's tenant APIs.</p>
+
+
+<h1>Application views</h1>
+
+<h2>About views</h2>
+
+<p>Many of Aotal's tenant APIs present information about job applications in the form of an <b>application view</b>. For example:
+<ul>
+<li>Assessment apps consume <a href='../generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a> to get details of the job application and its candidate, job, etc.
+<li>Onboarding apps can either consume <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_get'>GET /applications/views/at/onboard/now</a>
+to get details of recent applications that have reached the onboarding stage, or can produce
+<a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post'>POST /applications/views/at/onboard/now/byID/{application}/pushes</a>
+to get a view pushed to them in real time as soon as a candidate reaches the onboarding stage.
+<li>Similar APIs exist for lerning about hired, declined, screened etc. candidates.
+</ul>
+</p>
+
+<p>In all of these cases, the API passes your app a view. A view is a json formatted package containing all the data <b>that the customer has specified that your app should see</b>.
+</p>
+
+<p>Views are used to give your app just the information that it needs, and only that information.
+</p>  
+
+<p>If you need data added to the view, contact the customer. The customer has access to setup screens in other apps (such as the assessment hub and/or the ATS) that
+let them control which fields appear in the view, and possibly also rename individual fields to match your expectations.
+</p>
+
+<h2>Information available in a view</h2>
+
+<p>A view can hold (at the discretion of the customer) information about any of the following objects:
+<ul>
+<li>the application itself
+<li>the candidate
+<li>the job
+<li>the job's recruiter
+<li>the job's hiring manager
+</ul>
+</p>
+
+<p>Each of these objects can have within it two types of data:
+<ul>
+<li>system fields (always presented in the same way, e.g. the job's recruiter's first name).
+<li>custom fields (user-defined fields, potentially different for every tenant, and that appear in the view within one of the items array)
+</ul>
+
+
+<h2>Making sure the view contains the data your app needs</h2>
+
+<p>Since the contents of a view is completely under the control of the customer, a view may potentially be packed with information or virtually empty.  
+</p>
+
+<p>Your app however will likely need some minimum set of certain fields to be present in the view. Typically you'll do the following when building your app:
+
+<ol>
+<li>Decide what fields your app needs in the view. For example if you are writing an onboarding app, then hire date will probably be mandatory for you.
+
+<li>For the custom fields that you need, choose a name for each one (e.g. HIREDATE), using only upper or lower case characters, - sign and digits only, < 30 characters. You don't need to decide on a name for system fields, as they always appear as named json elements in the view.
+
+<li>Document your required system and custom fields, either in your app's description or somewhere that is linked to. This information will be required by the customer to set up the view. <b>Guiding the customer to set up the view correctly is likely to be one of the most critical parts of successfully onboarding new customers who install your app</b>.  
+<li>Now code your app. Somewhere in your code, you'll pull the required fields out of the incoming view. For the system fields, you'll simply grab them from the relevant fixed json structure (e.g. recruiter email, name). For the custom fields, you should find them in the items array.
+<li>For custom data fields to do with the job application (as opposed to the job, or the job's recruiter or manager) it is important in the previous step to look for your items (e.g. HIREDATE) <b>in both the application and the candidate-scoped items arrays</b>. That's because different ATS's and even different customer setups within the same ATS may decide to store hire date (for example) as an attribute of either the job application or the candidate. So you need to cater for both of these cases.
+<li>In your code, if you don't find the fields you need in the view, then cause an error. How you do this depends on the API you are interacting with - for an assessmnt app, you would PATCH the assessment to be in Error status. You should also display clearly to the user why the error occurred - i.e. what specific fields you couldn't find in the view, so that the customer can correct the situation. 
+</ol>
+</p>
+
+
+<h1>Error handling in tenant APIs</h1>
+
+<h2>http status codes</h2>
+
+<p>Where possible, when indicating errors, API producers should document and use existing, meaningful http error codes.
+</p>
+
+<p>For example, <b>409 Conflict</b> could be returned if a consumer tried to create object "foo" but such object already exists.
+</p>
+
+<p>If there is no suitable code, APIs should just use 400 or 500 as appropriate - we don't currently define new http status codes.
+</p>
+
+<h2>application/problem+json responses</h2>
+
+<p>In addition to the status code, APIs responding with errors (other than self-explanatory ones such as 404) should also return
+a body of type application/problem+json as per Problem Details for HTTP APIs.
+</p>
+
+<p>The application/problem+json format uses the "type" field (a URI) to identify the type of error.
+</p>
+
+<p>For predictable error cases (e.g. create a job application fails because the job is closed), the API documentation
+should specify actual values for type. At TAS, we start our types with http://constants.talentappstore.com/httpProblems/.
+For example:   
+<pre><code>
+/applications:
+  post:
+    responses:
+      200:
+      500:
+        body:
+          application/problem+json:
+            schema: !include ../schemas/applicationProblem.json
+            description: |
+              The app producing the API should return one of the following values in the type field where appropriate:
+              - http://constants.talentappstore.com/httpProblems/jobClosed - the job is closed 
+              - http://constants.talentappstore.com/httpproblems/tooLate - its after midnight 
+</code></pre>
+</p>
+
+<p>Apps may also throw errors with undocumented values for type (obviously the consumer won't be able to take any specific action in this case).
+</p>
+
+
+<h1>URLs for complex resources</h1>
+
+<p>We try and follow something like this pattern for urls of complex resources.
+</p>
+
+<pre>
+Class - broad family for the resource, e.g. buttons
+Who - principal type who can view the resource + actual viewer, e.g., me, anonymous, byID/{id}
+Where - significant location, e.g. general, /jobs/{job} - possibly implied by who  
+What - specific resource type, e.g. possibles, meta, omitted where obvious
+Which - further filtering (over location), e.g. byName/{name}, byApp
+
+e.g.: /items/toCandidate/me/jobs/{job}/itemMetas/byName/{item}
+
+Class - /items
+Who - /toCandidate/me
+Where - /jobs/{job}
+What - /itemMetas
+Which - /byName/{item}
+</pre>
+
+
+<h1>SSO conventions</h1>
+
+<p>This section has some conventions that most apps that use SSO should follow.
+</p>
+
+<h2>Add the isSignedIn parameter to outgoing links</h2>
+
+<p>Some apps have pages that work both when the user is signed in, and when they are not.
+</p>
+
+<p>For example a career site may have a job landing page like:
+
+<pre><code>
+https://acme.careersiteapp.com/jobs/100
+</code></pre>
+</p>
+
+<p>When the user <b>is not</b> signed in, the page displays an apply button.
+</p>
+
+<p>When the user <b>is</b> signed in, the apply button changes to "You've already applied". The page also detects that they are an employee, and a
+"refer a friend" button appears.
+</p>
+
+<p>A problem occurs when the user follows a link from one app, where they are signed in, to another app, where they are not signed in (but could be instantly
+thanks to SSO). For example:
+<ol>
+<li>The candidate surfs to the careers site, then into a specific job, then clicks apply. They are redirected to the apply app.
+<li>They authenticate and apply.
+<li>Finally they click back to the careers site app. The career site app does not know that they are signed in, so it cannot display its
+contents intelligently (e.g., displaying "you've already applied" instead of an apply button).
+</ol> 
+</p>
+
+<p>One solution to the above would be for the career site to always ask everyone to log in before viewing the page,
+but that would be a barrier for non-signed in users, and cause SEO problems.
+</p>
+
+<p>So to handle this we follow this convention:
+
+<blockquote>
+<b>Whenever an app emits a link which it believes is to another app, and there is a signed in user, it appends the "isSignedIn" hint to it.</b>
+</blockquote>
+
+The hint indicates to the destination app that the user is most likely already signed in, so it is probably OK to ask them to authenticate since we have
+good reason to believe the process will be instant and invisible (thanks to SSO).
+</p>
+
+<p>In the example above, when the apply app links the user back to the job on the career site via acme.careersiteapp.com/jobs/100, it appends the isSignedIn hint as follows:
+<pre><code>
+https://acme.careersiteapp.com/jobs/100?isSignedIn=candidate
+</code></pre>
+<p>
+
+
+<h2>Add a filter to handle the isSignedIn parameter on incoming traffic</h2>
+
+<p>Apps that use SSO should incorporates a isSignedIn filter, which behaves as follows:
+<pre><code>
+for all requests with the isSignedIn query parameter
+   if the parameter's value == the principal type for this app
+      // the user is likely signed in
+      force the user to authenticate before visiting the page (with the isSignedIn parameter stripped off)
+</code></pre>
+</p>
+
+<h1>Replication</h1>
+
+<p>Replication is a pattern that allows one or more <b>replication secondary</b> apps to maintain a real-time copy
+of the master data held on a single <b>replication primary</b> app.</p>
+
+<p>For example:
+<ul>
+<li>the replication primary app might be an ATS that produces an API like <b>GET /jobs</b>
+<li>the replication secondary app might be a job board that wants to maintain its own local database of jobs, kept in synch with the jobs held on the ATS  
+</ul>
+
+<p>You shouldn't use replication unless you need to. In the example above, the job board might be able to simply call <b>GET /jobs</b> each time a
+candidate visited the site. However sometimes replication is required.</p>
+
+<p>The TAS core itself is unaware of the concept of replication. Replication is simply tenant API calls between apps as far as TAS is concerned. Your app can approach
+replication in any way it wants - there is no need for it to follow this pattern. However if it does, your app will be more likely to interoperate with other apps.</p>  
+
+<h2>Features</h2>
+
+<p>The replication pattern described here:
+
+<ul>
+<li>Is real-time (non-polling)
+<li>Supports partial replication - the secondary can choose to maintain a subset of the instances of the master records (e.g., only jobs that are currently open) 
+or a subset of the properties on the instances (e.g. only the job's title, and not its description or attached documents).
+<li>Relies on a bulk load phase, where immediately after install, the secondary gradually loads up all of the master data that already exists at the primary. The pattern
+is best suited to a single-threaded implementation.
+</ul> 
+
+
+<h2>Overview</h2>
+
+<p>Following the standard replication pattern, the ATS and job board apps in the example above would work together as below:
+
+<ul>
+<li>A tenant has already installed the ATS app (the primary)
+<li>The tenant installs the job board app (the secondary)
+<li>The job board app starts its bulk loading phase
+<li>The job board repeatedly calls GET /jobs/{} until it has loaded all of the existing jobs from the ATS
+<li>Since the bulk load phase might take hours, or days (not likely for jobs - but possible for other resources), the job board keeps track of the most recently loaded job in a persistent store (such as the repstate app), so that it can pick up and continue the bulk load phase if the tenant is disrupted, or the app itself is restarted
+<li>Eventually the job board's bulk load phase is complete
+<li>The job board now listens for incoming alerts about changes to the master set of jobs  
+<li>At some point, a new job is created inside the ATS
+<li>The ATS sends a "ping" to the job board to alert it of the new data
+<li>Unless the ping is for a delete, the job board calls GET /jobs/{} to fetch the new/updated data, and updates its local database
+</ul>
+
+
+
+<h2>Example API flow</h2>
+
+<p>Below is a detailed message sequence diagram showing the API flows between replication primary and secondary and TAS.</p>
+
+<p>In this example, the replication primary is an ATS holding the master set of candidates, and the replication secondary is a new
+candidate search app called "ferret".</p>
+
+<p>This example also shows the use of the repstate app, which acts as a persistent store for the secondary's state during the bulk load phase.</p>
+
+<div class='seqDiag' id="repexample">
+
+participant ats
+participant ferret
+participant repstate
+participant TAS
+
+note left of TAS: tenant acme installs the ferret app
+TAS->ferret: POST /tenants/acme
+note left of ferret: ferret knows it is a replication\nsecondary for candidates,\ninitializes the replication state store
+ferret->repstate: POST /repstates/ferret/tas/%2Fcandidates\n{"loading"":true,lastLoaded:null}
+note left of ferret: ferret asks for id of first candidate
+ferret->ats: GET /candidates?$orderby=id&$select=id&$top=1
+note right of ats: ats says 10234
+note left of ferret: ferret calls its own onPing() method\nwhich fetches full details from the primary
+ferret->ats: GET /candidates/10234?$select=resume
+note right of ats: ats passes back resume
+ferret->repstate: POST /repstates/ferret/tas/%2Fcandidates\n{"loading"":true,lastLoaded:10234}
+
+note left of ferret: ferret asks for id of next candidate
+ferret->ats: GET /candidates?$orderby=id&$select=id&$top=1&$filter=id gt 10234
+note right of ats: ats says 10235
+ferret->ats: GET /candidates/10235?$select=resume
+note right of ats: ats passes back resume
+ferret->repstate: POST /repstates/ferret/tas/%2Fcandidates\n{"loading"":true,lastLoaded:10235}
+
+note right of ats: ..time passes..
+
+note right of ats: a database trigger fires in the ats,\nreflecting that a new candidate has been created
+note right of ats: this is the first time that ats\nhas tried to broadcast\nto this API for tenant acme,\nso asks TAS who produces that API
+ats->TAS: GET /tenants/acme/routes/ats/tas/%2Fm%2Fcandidates%2F%7BcandidateID%7D%2FdeltaPings
+note left of TAS: TAS says:\n"items": [{"producer": "ferret",\n"location": "https://acme.ferret.com/"},..]
+note right of ats: ats now sends message to say\nthat a new candidate has been created
+ats->ferret: POST /m/candidates/29046/deltaPings\n{"operation": "insert"}
+note right of ferret: to decide whether to ignore the ping,\nferret needs to know the current\nstate of the replication secondary.\nIt could have this in memory or it\nit may be easier for the API handler\nto fetch it from the replication\nstatus store.
+ferret->repstate: GET /repstates/ferret/tas/%2Fcandidates\n{"loading"":true,lastLoaded:10235}
+note left of ferret: ferret onPing()\nif (!loading || id <= lastID) absorbPing();\nignores the ping
+
+note left of ferret: ferret asks for id of next candidate
+ferret->ats: GET /candidates?$orderby=id&$select=id&$top=1&$filter=id gt 10235
+note right of ats: ats says 404 error
+note left of ferret: replication bulk load is complete
+ferret->repstate: POST /repstates/ferret/tas/%2Fcandidates\n{"loading"":false,lastLoaded:null}
+</div>
+
+
+<h2>APIs required for replication</h2>
+
+<p>As seen above, for a given types of master data (e.g. jobs), replication requires the following APIs:
+
+<ul>
+<li>Produced by the primary and consumed by the secondary
+<ul>
+<li>Get a master record by its "primary key", e.g. <b>GET /jobs/{jobID}</b><br />
+<li>Get the master record with the first/lowest primary key value, e.g. <b>GET /jobs?$orderby=id&$top=1</b><br />
+<li>Get the master record with the next primary key value, e.g.: <b>GET /jobs?$filter=id gt 100&$orderby=id&$top=1</b><br />
+</ul>
+<li>Produced by the secondary and consumed by the primary
+<ul>
+<li>Alert secondaries of a change to a master record, e.g. <b>POST /jobs/{jobID}/deltaPings</b>.<br />
+(The primary must queue pings in the event of any secondary being unavailable, until it becomes available again - it
+might use something like a <a href='./broadcast.html'>broadcast service</a> to achieve this). 
+</ul>
+</ul>
+
+<h2>Primary key properties</h2>
+
+The primary key used by the primary must:
+<ul>
+<li>be immutable
+<li>be of either integer or aphanumeric type
+<li>use consistent sorting [specify], so that the secondary can do key comparisons client-side
+</ul>
+
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

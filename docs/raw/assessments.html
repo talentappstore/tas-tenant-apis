@@ -54,7 +54,7 @@ color: #666666;
             <div class="container-fluid">
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
                 <br /><br />
-<h1>Building an assessment app</h1>
+
 <div id="toc">
 </div>
 
@@ -274,15 +274,17 @@ might show the "setup required" icon and a settings page to facilitate this.
 <h3>Example</h3>
 
 <pre><code>
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentTypesForApp-simple.json'></div>
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_get'>GET /assessmentTypes/forApp</a>
+
+Response:
+<div class='clientInclude' data-href='../examples/assessmentTypesForApp-simple.json'></div>
 </code></pre>
 
 <p>In this example, your app is declaring that it supports a single assessment type, "MS Word proficiency".
 
 <h3>Detail</h3>
 
-<p>Immediately after your app is installed, the assessment hub, a separate app, consumes  
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessmentTypes_forApp_get'>GET /assessmentTypes/forApp</a>
+<p>Immediately after your app is installed, the assessment hub, a separate app, consumes GET /assessmentTypes/forApp
 on your app to ask for your assessment types.
 </p>
 
@@ -291,7 +293,7 @@ on your app to ask for your assessment types.
 
 <p>Otherwise, if your app requires setup (e.g. you need to set up an account for the customer) before it can meaningfully offer any assessment types, then you should return
 an empty set of assessment types. Then, later on when your app's setup is complete, tell the assessment hub that you have new assessment types by consuming
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>. In
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>. In
 response the hub will consume GET /assessmentTypes/forApp on our app.
 </p>
 
@@ -329,7 +331,10 @@ one year, then that previous result will be reused.
 <h3>Example</h3>
 
 <pre><code>
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/deltaPing-simple.json'></div>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+
+Request:
+<div class='clientInclude' data-href='../examples/deltaPing-simple.json'></div>
 </code></pre>
 </p>
 
@@ -342,8 +347,7 @@ dropping into a specific bucket.
 <p>This results in an assessment being created in the assessment hub.
 </p>
 
-<p>The assessment hub then notifies your app by consuming your 
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+<p>The assessment hub then notifies your app by consuming your POST /assessments/byID/{id}/tenantDeltaPings
 endpoint. Your endpoint receives a message like this:
 
 
@@ -359,7 +363,7 @@ database, then this is a new assessment, otherwise it is an update to an existin
 
 <h3>Updates or deletes to existing assessments (future)</h3>
 
-<p>In the future, your app may be informed via <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+<p>In the future, your app may be informed via <a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
  that an assessment has been deleted (e.g. in response to a privacy response, or to conform to data retention laws). In response, your app should clean up data held its own database relating to the assessment. 
 </p>
 
@@ -373,17 +377,17 @@ app should stop whatever it is doing with the candidate.
 <h3>Example</h3>
 
 <pre><code>
-GET /assessments/byID/{id}
+<a href='../generated/recruitment.raml.html#assessments_byID__id__get'>GET /assessments/byID/{id}</a>
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentRead-created.json'></div>
+<div class='clientInclude' data-href='../examples/assessmentRead-created.json'></div>
 </code></pre>
 </p>
 
 <h3>Detail</h3>
 
 <p>Once your app learns that the customer has started an assessment, typically, you'll fetch the details of the assessment by consuming
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__get'>GET /assessments/byID/{id}</a>.
+GET /assessments/byID/{id}.
 </p>
 
 <p>The data you get back is mainly about the assessment itself (e.g. who raised it, if anyone), rather than the candidate. An important part of the response is the
@@ -395,10 +399,10 @@ view key. You use the view key in the next step to fetch data about the candidat
 <h3>Example</h3>
 
 <p><pre><code>
-GET /applications/views/byKey/{key}
+<a href='../generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a>
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/applicationRead-simple.json'></div>
+<div class='clientInclude' data-href='../examples/applicationRead-simple.json'></div>
 </code></pre>
 </p>
 
@@ -406,26 +410,41 @@ Response:
 <h3>Detail</h3>
 
 <p>Many assessment apps will need specific details about the candidate, such as their CV, address, name, etc., and maybe more secure information such as salary, or customer-specific
-information such as "Suitability for warehouse roles".
+information such as "Suitability for warehouse roles". Your app gets these details from an <b>application view</b>.
+</p> 
+
+<p>You can learn about views <a href='patterns.html#Application_views'>here</a>.
 </p>
 
-<p>Your app gets these details from a view. The assessment details you fetched previously included a view key - pass that in to your call to  
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a>
+<p>The assessment details that you fetched previously included a view key - pass that in to your call to 
+GET /applications/views/byKey/{key} to fetch the correct view for this assessment.
 
-<p>A view is a json formatted package containing all the data <b>that the customer has specified</b> that your assessment app should see. If you need data added to the view,
-contact the customer. The customer has access to setup screens in the assessment hub and/or the ATS that let them:
-<ul>
-<li>Create, update and delete view types
-<li>Add and remove fields to the view type
-<li>Possibly rename the fields (to meet your needs)
-<li>Map a view type to each of your assessment types 
-</ul>
-</p>  
-
-<p>Since the customer has complete control over the actual data you see in the view when your assessment is started, you need to be very clear in your documentation
+ <p>Since the customer has complete control over the actual data you see in the view when your assessment is started, you need to be very clear in your documentation
 what data you require. For example, you might say in your app's description that you need job ID, candidate first name, last name and email, and recruiter email.   
 </p>
 
+<h3>Missing candidate information</h3>
+
+<p>To do its work, your assessment may need information sourced from the candidate.
+</p>
+
+<p>For some information, such as first name and last name, you can reasonably expect to find that inside the view. Its unlikely that the customer would 
+run a recruitment process that didn't involve having the candidate's name.
+</p>
+
+<p>For other information, such as the candidate's date of birth, the information might or might not have been captured in the recruitment process.
+You'll probably need to talk to the customer to establish whether the information is available in the view or not 
+</p>
+
+<p>For this kind of information, you can choose to either:
+<ol>
+<li>Put the assessment into the Error status, explaining to the customer what information is missing. Then the customer must somehow
+capture the information and then restart the assessment. Once they've done that, you'll see another incoming call to POST /assessments/byID/{id}/tenantDeltaPings.
+While this is easiest for you, it may be hard for the customer, as they may have to alter the setup of their site, change their existing processes etc., to capture the data.
+<li>Capture the information yourself directly from the candidate, e.g. by sending them a link to an online form where they fill in the information.
+This is easier for the customer, and makes your app much more "on demand". However the information you capture remains private to your app, and can't be reused elsewhere in the recruitment process. 
+</ol> 
+</p>
 
 
 <h2>Consume PATCH /assessments/byID/{id}/appDetails</h2>
@@ -433,10 +452,10 @@ what data you require. For example, you might say in your app's description that
 <h3>Example</h3>
 
 <p><pre><code>
-POST /assessments/byID/{}/appDetails
+<a href='../generated/recruitment.raml.html#assessments_byID__id__appDetails_patch'>PATCH /assessments/byID/{id}/appDetails</a>
 
 Request:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentWriteByApp-underway.json'></div>
+<div class='clientInclude' data-href='../examples/assessmentWriteByApp-underway.json'></div>
 </code></pre>
 </p>
 
@@ -450,7 +469,7 @@ to point to an online assessment.
 </p>
 
 <p>At each stage of processing, your app should push the assessment's state up into the assessment hub by consuming 
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessments_byID__id__appDetails_patch'>PATCH /assessments/byID/{id}/appDetails</a>.
+POST /assessments/byID/{}/appDetails.
 
 <p>The assessment's state includes:
 <ul>
@@ -581,11 +600,9 @@ pushes the results, with the updated status.
 was just posting interim results.
 
 <pre><code>
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentWriteByApp-completed.json'></div>
+<div class='clientInclude' data-href='../examples/assessmentWriteByApp-completed.json'></div>
 </code></pre>
 </p>
-
-
 
 
 
@@ -638,7 +655,7 @@ assessment. Below, it updates the assessment's status to indicate it is underway
 
 <pre><code>
 POST /assessments/byID/{}/appDetails
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/assessmentWriteByApp-underway.json'></div>
+<div class='clientInclude' data-href='../examples/assessmentWriteByApp-underway.json'></div>
 </code></pre>
 </p>
 
@@ -718,10 +735,10 @@ measure designed to stop your page from being framed - but in this case, that's 
 
 <p>
 <pre><code>
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#candidates_me_homePage_get'>GET /candidates/me/homePage</a>
+<a href='../generated/recruitment.raml.html#candidates_me_homePage_get'>GET /candidates/me/homePage</a>
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/homePage-simple.json'></div>
+<div class='clientInclude' data-href='../examples/homePage-simple.json'></div>
 </code></pre>
 </p>
 
@@ -733,17 +750,26 @@ otherwise keep them updated.
 
 <h2>Consume POST /assessmentTypes/forApp/deltaPings/1</h2>
 
+<h2>Example</h2>
+
+<p>
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>
+</code></pre>
+</p>
+
+
 <p>From time to time, your app may introduce new assessment types, e.g.:
 <ul>
 <li>After install, you've now completed the onboarding process for the new customer, so you can now make their assessment types available
 <li>the tenant asks you for a new custom assessment type, and you have just delivered it
 </p>
 
-<p>When this happens, you need to consume
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>.
+<p>When this happens, you need to consume POST /assessmentTypes/forApp/deltaPings/1.
 </p>
 
-<p>This API is produced by the assessment hub. The assessment hub will in turn consume GET /asessmentTypes/forApp on your app, to load the newly updated set of assessment types.
+<p>This API is produced by the assessment hub. The assessment hub will then consume GET /asessmentTypes/forApp on your app,
+to load your newly updated set of assessment types.
 </p>
 
 

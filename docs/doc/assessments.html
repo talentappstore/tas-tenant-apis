@@ -97,7 +97,7 @@ color: #666666;
 
 <h1>Overview</h1>
 
-<p>This document is intended to help developers present their HR SaaS product as an <b>assessment app</b> in Talent App Store.
+<p>This recipe describes building an <b>assessment app</b> in Talent App Store.
 </p>
 
 <p>An <b>assessment</b> is some interaction relating to a job application at some point during the recruitment process, for example:
@@ -145,40 +145,24 @@ as described at <a href='http://developer.talentappstore.com'>http://developer.t
 </p>
 
 
+<h1>Set up</h1>
 
-<h1>Demo</h1>
-
-<p>Lets look at assessments in action by installing some apps (if you're creating a new tenant, you may need to click the
-first install link twice). You can start in an incognito window for these steps.
+<p>Lets look at assessments in action by installing some apps.
 </p>
 
-<p>Go to <a href='https://www.talentappstore.com'>www.talentappstore.com</a>, sign up and click at top right to
-create a tenant (don't use email login to avoid a temporary issue).
-</p>
-
-<p>Follow the steps below. When installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
+<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
 can be found publicly listed (find them with "Browse apps").
 </p>
 
 <h2>Install apps and prepare test data</h2>
 
+<p>First, follow <a href='sandboxapps.html#Setup_to_create_a_job_application'>these instructions</a> to install Agile ATS and create a job application. Then:
+
 <ol>
-<li>Install <b><a href="sandboxapps.html">Agile ATS</a></b> (when the 403 error occurs, click back, sign out and sign in again)
-<li>Install the same <b>identity app</b> that is already installed in the tenant, but this time for principal type of candidate
-<li>Install <b><a href="sandboxapps.html">Agile Career Site</a></b>
-<li>Install <b>Assessment hub</b>
-<li>Install <b>Switchgear</b>
-<li>Install <b>Tracker</b>
-<li>Install <b>SimpleApply</b> (not working - for now, install <b><a href="sandboxapps.html">Agile Apply</a></b>)
-<li>Click to open Agile ATS
-<li>Create a job (leave all the date fields blank, complete all other fields, make it visible externally)
-<li>On the job details page, you'll see the embedded SwitchGear panel. Click "Edit" and drag the SimpleApply button onto the job.
-<li>Click to open Agile careers
-<li>Browse in to your job, click the Apply button, and complete the application process
-<li>Return to Agile ATS and view the incoming job application (in the Incoming bucket)
+<li>Return to Agile ATS and you should see the incoming job application (in the Incoming bucket)
 <li>There are no assessments showing in the assessment strip, so lets add one.
 <li>Install the <b><a href="sandboxapps.html">Picket</a></b> assessment app. The picket assessment measures a candidate's ability to deliver
- ustomer service by asking them to choose from several images representing good service.
+customer service by asking them to choose from several images representing good service.
 <li>Install the <b><a href="sandboxapps.html">Assessment app (user)</a></b> assessment app.
 <li>Click refresh on the job application. Now, against the application, you should see the assessment strip display 3 boxes, one
 for each assessment type (the picket assessment has one type, the other assessment app has 2).

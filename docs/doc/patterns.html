@@ -141,6 +141,25 @@ let them control which fields appear in the view, and possibly also rename indiv
 <li>custom fields (user-defined fields, potentially different for every tenant, and that appear in the view within one of the items array)
 </ul>
 
+<h3>Example view</h3>
+
+<p>
+<pre><code>
+<a href='../generated/recruitment.raml.html#applications_views_at_hire_now_byID__application__pushes_post'>POST /applications/views/at/hire/now/byID/{application}/pushes</a>
+
+Request:
+<div class='clientInclude' data-href='../examples/applicationRead-basicView.json'></div>
+</code></pre>
+</p>
+
+<p>In this example view:
+<ul>
+<li>The application itself has a single item (custom field) for HIREDATE
+<li>The candidate's names, email address and resume are all included (system fields)
+<li>There are no custom fields visible on the candidate
+<li>The job's recruiter's email is included (system field) 
+</ul>
+</p>
 
 <h2>Making sure the view contains the data your app needs</h2>
 

@@ -363,7 +363,7 @@
           body:
             application/json:
               schema: !include ../schemas/applicationsRead.json
-              example: !include ../examples/applicationsRead-basicView.json
+              example: !include ../examples/applicationsRead-simple.json
         404:
           description: there are no applications matching the filters
 
@@ -388,7 +388,7 @@
           body:
             application/json:
               schema: !include ../schemas/applicationsRead.json
-              example: !include ../examples/applicationsRead-basicView.json
+              example: !include ../examples/applicationsRead-simple.json
         404:
           description: there are no applications matching the filters
 

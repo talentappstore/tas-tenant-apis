@@ -98,7 +98,7 @@ color: #666666;
 
 
 
-<h2>Creating and installing your app</h2>
+<h1>Creating and installing your app</h1>
 
 
 <table class='table table-bordered'>
@@ -241,7 +241,13 @@ e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitm
 As above, but your app also receives the <span class='highlight'>tazzy-saml</span> request header.
 </td>
 <td>
-As above, but your app must pass the <span class='highlight'>tazzy-saml</span> request header (perhaps you got it from an SSO page, or an incoming on behalf call).
+As above, and:
+<ul>
+<li>From within an SSO-protected web page:
+Set the outgoing <span class='highlight'>tazzy-saml</span> request header from the same incoming header.
+<li>While producing an on-behalf API:
+Set the outgoing <span class='highlight'>Authorization</span> request header from the same incoming header.
+</ul>
 </td>
 </tr>
 </tbody>
@@ -328,7 +334,20 @@ url: /tenants/acme/index.html
 
 <h3>Accessing details of signed in user</h3>
 
+<p>When inside an SSO-protected web page, the tazzy-saml header is present (see above).
+</p>
 
+<p>When producing an on-behalf API:
+<ol>
+<li>Parse the Authorization header, which will look like "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsic2FtbEtleSI6IjEyMzQifSwiY29ucyI6eyJjYSI6ImNvbnN1bWluZ2FwcCJ9fQ.Trb1qXNcn1ytWxXLpHFufK2DxdNRWyBDYMb2mQHCrwc", where the content after Bearer is a jwt
+<li>From this extract the body (between dots - in the example above, eyJzdWIiOnsic2FtbEtleSI6IjEyMzQifSwiY29ucyI6eyJjYSI6ImNvbnN1bWluZ2FwcCJ9fQ)
+<li>There is no real need to check the signature, since this traffic came in from tazzy and can be trusted.
+<li>Convert the body from base 64, then parse it - it will be in <a href='http://talentappstore.github.io/tas-core-apis/schemas/tokenJwt.json'>this form</a>.
+<li>Finally, access the .sub.samlKey property of that object. This is the tazzy-saml value that you need.
+</ol> 
+
+
+ 
 <pre><code>
 GET /core/tenants/assertions/byKey/<span class='highlight'>tazzy-saml</span>/json
 

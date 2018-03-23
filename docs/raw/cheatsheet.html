@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Developer cheat sheet</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container">
+<!--              <div class="container-fluid">  -->
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+
+
+<h1>Creating and installing your app</h1>
+
+
+<table class='table table-bordered'>
+<thead>
+<tr>
+<th scope="col">Creating an app</th>
+<th scope="col">Installing an app</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+<ol>
+<li>Create an account at <a href="https://developer.talentappstore,com">https://developer.talentappstore,com</a>, then
+create a <b>developer</b>.
+
+<li>Now define your <b>app</b>, and the <b>tenant APIs</b> (API calls between apps) that it produces and consumes.
+
+<li>If your app has SSO-protected web pages, also specify your app's <b>principal type</b> (user or candidate).
+
+<li>Write your code, start up your server and make it available on the internet, then point to it via your app's <b>back end server</b>.
+
+<li>For custom integrations and special use cases, you can also define your own tenant APIs, and use them in your apps.
+
+</ol>
+ 
+</td>
+<td>
+<ol>
+<li>Create an account at <a href="https://www.talentappstore,com">https://www.talentappstore,com</a>, then create a <b>tenant</b>.
+<li>Install <b>identity apps</b> as required (extra ways for users or candidates to sign in).
+<li>Ask the developer for an <b>install token</b> for their app, then enter the token to install the app.
+</ol>
+</td>
+</tr>
+</tbody>
+</table>
+ 
+
+
+<h1>Big picture</h1>
+<img src='../images/corevstenant.png' />
+
+<br />
+<br />
+
+<h1>Coding your app - producing and consuming APIs</h1>
+
+<p>TAS supports two types of API - core and tenant. Mostly, writing an app involves using tenant APIs, with core APIs handled by the tazzy network proxy working on your app's behalf.
+
+<p>Tenant APIs are the familiar, business-oriented APIs seen in HR platforms. For example, a career site app might call GET /jobs
+to get a list of open jobs (maybe from the Applicant Tracking System). Tenant APIs have some additional concepts:
+<ul>
+<li>Source of truth
+	<ul>
+	<li>true - the API is only produced by a single app, e.g. GET /jobs
+	<li>false - many apps can produce the API (i.e. event model), e.g. POST /applications/views/at/onboard/now
+	</ul> 
+<li>On behalf - a signed in user's identity is required to consume the API, e.g. POST /candidates/me
+</ul>
+</p>
+
+<p>Core APIs are housekeeping APIs that make tenant APIs possible. For example the TAS core will make a core API call into your app whenever a tenant installs it.
+</p>
+
+<p style='color:red'><b>Important:</b> Your app must always check that the incoming <span class='highlight'>tazzy-secret</span> request header
+on all incoming traffic matches your app's secret key. A failed match may indicate someone is trying to hack your app.
+</p>
+
+<table class='table table-bordered'>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col">Producing APIs</th>
+<th scope="col">Consuming APIs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Prefix</th>
+<td><b>Back end server</b> (tazzy tab on your app)<br />
+e.g. https://yourapp.com:8080
+</td>
+<td><b>https://&lt;yourapp&gt;tazzy.io</b></td>
+</tr>
+
+<tr>
+<th scope="row">Authentication</th>
+<td>Check that the incoming <span class='highlight'>tazzy-secret</span> request header matches your app's secret key</td>
+<td>Attach <span class='highlight'>tazzy-secret</span> request header with your app's secret key</td>
+</tr>
+
+<tr>
+<th scope="row">Core APIs<br />
+<small class='hint'>You don't need to declare the core APIs your app produces and consumes</small>
+
+</th>
+<td>
+<span class='highlight'>/tas/core&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post'>POST /tenants</a> --&gt; https://yourapp.com:8080/tas/core/tenants 
+</td>
+<td>
+<span class='highlight'>/core&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-core-apis/generated/coreIn.raml.html#tenants__tenant__get'>GET /tenants/{tenant}</a> --&gt; https://yourapp.tazzy.io/core/tenants/{tenant} 
+</td>
+</tr>
+
+<tr>
+<th scope="row">Tenant APIs<br />(SoT == true)<br />
+<small class='hint'>Remember to declare all tenant APIs your app produces and consumes</small>
+
+</th>
+<td class='uncommon'>
+<span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'>GET /jobs</a> --&gt; https://yourapp.com:8080/t/acme/devs/tas/jobs 
+</td>
+<td>
+<span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'>GET /jobs</a> --&gt; https://yourapp.tazzy.io/t/acme/devs/tas/jobs 
+</td>
+</tr>
+
+<tr>
+<th scope="row">Tenant APIs<br />(SoT == false)</th>
+<td>
+<span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a> --&gt; https://yourapp.com:8080/t/acme/devs/tas/appStatus 
+</td>
+<td class='uncommon'>
+<span class='highlight'>/t/{tenant}/apps/{app}/devs/{developer}&lt;api&gt;</span><br /><br />
+e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a> --&gt; https://yourapp.tazzy.io/t/acme/apps/someapp/devs/tas/appStatus 
+</td>
+</tr>
+
+
+<tr>
+<th scope="row">Tenant APIs<br />(on behalf)</th>
+<td>
+As above, but your app also receives the <span class='highlight'>tazzy-saml</span> request header.
+</td>
+<td>
+As above, and:
+<ul>
+<li>From within an SSO-protected web page:
+Set the outgoing <span class='highlight'>tazzy-saml</span> request header from the same incoming header.
+<li>While producing an on-behalf API:
+Set the outgoing <span class='highlight'>Authorization</span> request header from the same incoming header.
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h1>Coding your app - SSO</h1>
+
+<p>To protect web resources (e.g. pages) in your app with the customer's SSO (i.e. so that only authorized users or candidates can see them):
+<ol>
+<li>Give your app a principal type (user or candidate)
+<li>Put your pages at an endpoint like <span class='highlight'>/t/{tenant}/</span><resource>, e.g. /t/{tenant}/index.html
+<li>Now your page is available at <b>https://<span class='highlight'>yourapp</span>.communityapps.talentappstore.com/t/{tenant}/...</b>
+<li>Provide a sign out link that points to /t/{tenant}/saml/logout.
+<li>Remember to lock down access to the page from your own domain (if publicly visible), or visitors will be able to bypass SSO!
+</ol>
+
+<p>Choose a suitable protection level for each page in your app.
+</p>
+
+<table class='table table-bordered'>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col">Visible to</th>
+<th scope="col"><span class='highlight'>tazzy-saml</span> request header</th>
+<th scope="col">Example</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<th scope="row">Secured</th>
+<td>Signed in visitors only
+</td>
+<td>Always present
+</td>
+<td>url: /t/acme/index.html</td>
+</tr>
+
+<tr>
+<th scope="row">Whitelisted</th>
+<td>Anyone</td>
+<td>Present if the user has <b>recently visited a secured page</b>.
+Useful for e.g. career site pages that are visible to anyone, but show extra information to signed in candidates.
+</td>
+<td>url: /t/acme/index.html<br />
+whitelist: /index.html</td>
+</tr>
+
+<tr>
+<th scope="row">Anonymous</th>
+<td>Anyone</td>
+<td>Not present.
+</td>
+<td>url: /index.html<br />
+url: /static/code.js<br />
+url: /tenants/acme/index.html
+</td>
+</tr>
+
+</table>
+
+<h3>Whitelisting syntax</h3>
+
+<p>Enter your whitelisting rules against your app in the developer site, using the following rules:
+<ul>
+<li>? matches one character
+<li>matches zero or more characters
+<li>** matches zero or more directories in a path
+</ul>
+
+<p>Examples:
+<ul>
+<li>/index.html - matches /t/{tenant}/index.html only
+<li>/public/* - matches all resources in the /t/{tenant}/public directory
+<li>/public/*.jsp - matches all .jsp files in the /t/{tenant}/public directory
+<li>/public/**/*.jsp - matches all .jsp files in the /t/{tenant}/public directory or any subdirectory thereof
+<li>/public/t?st.jsp - matches /t/{tenant}/public/test.jsp but also /t/{tenant}/public/tast.jsp or /t/{tenant}/public/txst.jsp
+<li>/ - matches the home page, e.g. /t/{tenant}
+<li>/**/* - matches everything under /t/{tenant} (negates SSO entirely, so not useful)
+</ul>
+
+</tbody>
+</table>
+
+<h3>Accessing details of signed in user</h3>
+
+<p>When inside an SSO-protected web page, the tazzy-saml header is present (see above).
+</p>
+
+<p>When producing an on-behalf API:
+<ol>
+<li>Parse the Authorization header, which will look like "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOnsic2FtbEtleSI6IjEyMzQifSwiY29ucyI6eyJjYSI6ImNvbnN1bWluZ2FwcCJ9fQ.Trb1qXNcn1ytWxXLpHFufK2DxdNRWyBDYMb2mQHCrwc", where the content after Bearer is a jwt
+<li>From this extract the body (between dots - in the example above, eyJzdWIiOnsic2FtbEtleSI6IjEyMzQifSwiY29ucyI6eyJjYSI6ImNvbnN1bWluZ2FwcCJ9fQ)
+<li>There is no real need to check the signature, since this traffic came in from tazzy and can be trusted.
+<li>Convert the body from base 64, then parse it - it will be in <a href='http://talentappstore.github.io/tas-core-apis/schemas/tokenJwt.json'>this form</a>.
+<li>Finally, access the .sub.samlKey property of that object. This is the tazzy-saml value that you need.
+</ol> 
+
+
+ 
+<pre><code>
+GET /core/tenants/assertions/byKey/<span class='highlight'>tazzy-saml</span>/json
+
+Response:
+{
+    "nameID": "frank@ibm.com",
+    "entityID": "some other SAML info",
+    "tas.personal.givenName": "Fred",
+    "tas.personal.familyName": "Bloggs",
+    "tas.personal.email": "fredbloggs@gmail.com",
+    "tas.roles": [
+        "internal"
+    ]
+}
+</code></pre>
+ 
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

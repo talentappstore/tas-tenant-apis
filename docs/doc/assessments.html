@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Assessments</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+        <!-- Sidebar as per https://github.com/blackrockdigital/startbootstrap-simple-sidebar-->
+       <div id="sidebar-wrapper">
+             <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="home.html">Home</a></li>
+                <li><a href="goals.html">Goals & non-goals</a></li>
+                <li><a href="concepts.html">Concepts</a></li>
+                <li><a href="peertopeer.html">Peer to peer API platform</a></li>
+                <li><a href="cheatsheet.html">Programming guide</a></li>
+                <li><a href="tazzy.html">Tazzy</a></li>
+				<li>API reference
+					<ul>
+					<li><a href="../generated/recruitment.raml.html">Tenant APIs (by Aotal)</a>
+					<li><a href="../generated/index.html">Schemas and doc.</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreIn.raml.html">Core-in APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html">Core-out APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/">Schemas and doc.</a>
+					</ul>
+                <li><a href="commercials.html">Commercials and pricing</a></li>
+                <li><a href="helloworld.html">Hello world</a></li>
+                <li><a href="sandboxapps.html">Installing sandbox apps</a></li>
+                <li>Recipes
+                <ul>
+                    <li><a href="install.html">App install and setup</a></li>
+                    <li><a href="buttons.html">Career site buttons</a></li>
+                    <li><a href="applyGate.html">Apply gates</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="careerSite.html">Career sites</a></li>
+                    <li><a href="careerSite.html">Candidate surveys</a></li>
+                    <li><a href="applyRegister.html">Apply for jobs and register</a></li>
+                    <li><a href="newHires.html">New hires, payroll and onboarding</a></li>
+                    <li><a href="getJobs.html">Job distribution/ job boards</a></li>
+                    <li><a href="trackers.html">Trackers</a></li>
+                    <li><a href="patterns.html">Patterns</a></li>
+                </ul>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Overview</h1>
+
+<p>This recipe describes building an <b>assessment app</b> in Talent App Store.
+</p>
+
+<p>An <b>assessment</b> is some interaction relating to a job application at some point during the recruitment process, for example:
+<ul>
+<li>undertaking a skills assessment
+<li>carrying out reference checks
+<li>cultural/fit analysis
+<li>carrying out medical checks or drug tests
+<li>capturing video interview 
+<li>gamification interaction
+<li>probity check
+<li>HR-XML assessment 
+</ul>
+</p>
+
+<p>To complete an assessment, any of these parties might get involved along the way:
+
+<ul>
+<li>the candidate themselves, e.g. an online questionnaire where your app captures data to calculate cultural fit
+<li>a user, e.g. a recruiter specifying which specific pre-employment checks they want
+<li>you, the developer, e.g. you are a fact checking firm that verifies that the details in a candidate's resume are accurate
+<li>some back end code, e.g. computer program that scours social networks and web sites, scraping the online footprints of the candidate
+</ul>
+
+<p>See also:
+<ul>
+<li><a href='https://github.com/talentappstore/gauge'>A demo assessment app</a>, written in Java/Spring.
+<li><a href='https://github.com/talentappstore/imageGen'>A demo dynamic image generator for assessment apps</a>, written in node.js.
+</ul>
+</p>
+
+<h1>Commercials</h1>
+
+<p>As the vendors of the assessmenthub app, Aotal charges you, the developer, for every
+API call to POST /assessments/byID/{id}/appDetails, with a completed assessment. 
+</p>
+
+<p>Fees will be based on either an agreed % of your total subscription fees to customers, or an agreed % of your fees per completed assessment,
+and will be designed to fit in with your existing fee model. The minimum fee per completed assessment will be $US1.00.
+There are no charges for partial/incomplete assessments.
+</p>
+
+<p>As for any app in Talent App Store, your app also pays for core API calls,
+as described at <a href='http://developer.talentappstore.com'>http://developer.talentappstore.com</a>. These costs are low.
+</p>
+
+
+<h1>Set up</h1>
+
+<p>Lets look at assessments in action by installing some apps.
+</p>
+
+<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
+can be found publicly listed (find them with "Browse apps").
+</p>
+
+<h2>Install apps and prepare test data</h2>
+
+<p>First, follow <a href='sandboxapps.html#Setup_to_create_a_job_application'>these instructions</a> to install Agile ATS and create a job application. Then:
+
+<ol>
+<li>Return to Agile ATS and you should see the incoming job application (in the Incoming bucket)
+<li>There are no assessments showing in the assessment strip, so lets add one.
+<li>Install the <b><a href="sandboxapps.html">Picket</a></b> assessment app. The picket assessment measures a candidate's ability to deliver
+customer service by asking them to choose from several images representing good service.
+<li>Install the <b><a href="sandboxapps.html">Assessment app (user)</a></b> assessment app.
+<li>Click refresh on the job application. Now, against the application, you should see the assessment strip display 3 boxes, one
+for each assessment type (the picket assessment has one type, the other assessment app has 2).
+</ol>
+
+<h2>Assessment with email to candidate</h2>
+
+<ol>
+<li>Click on the picket assessment to start it. Note the picket image now has a dashed border, indicating the assessment is underway.
+<li>You should have received an email with a link to start the assessment. Complete the assessment.
+<li>Return to the ATS and refresh the page. The assessment should now be shown with a solid border, showing it is complete.
+</ol>
+
+<h2>Assessment that auto-completes, with feedback to user</h2>
+
+<ol>
+<li>Click on the credit card icon to start that assessment.
+<li>The assessment completes instantly.
+<li>Clicking on the assessment shows a panel with the candidate's credit score.
+</ol>
+
+<h2>Assessment that needs user input before completing</h2>
+
+<ol>
+<li>Click on the police hat icon
+<li>The assessment auto-starts, but does not complete (border remains dashed) - a triangle icon indicates the user needs to do something
+<li>Clicking on the assessment shows a panel for the user's input (i.e. which specific checks are required)
+<li>After providing the data, the assessment completes, and results are now available
+</ol>
+
+
+<h1>The roles of each app</h1> 
+
+<p>
+
+<pre><code>
++----------------------
+|
+|   +-----+         +----------------+
+|   | ats |<------->| assessment app |-+
+|   +-----+         +----------------+ |-+
+|     /\              +----------------+ |
+|      |                +----------------+
+|      |                  /\
+|      |                   |
+|     \/                  \/
+|    +------------------------+
+|    |    assessment hub      |
+|    +------------------------+
+|
++--- (tenant) ---------
+</code></pre>
+</p>
+
+<p><b>Your assessment app</b>. Your app does the hard word of actually conducting the assessment. For example a basic
+numeracy testing assessment might guide the candidate through a series of web pages, each one asking them an
+arithmetic question, and then at the end calculate an overall score for them and update the assessment's status in the hub to complete.
+</p>
+
+<h3>The assessment hub</h3>
+
+<p>The <b>assessment hub</b> app provides centralized assessment
+management and is separate from any single assessment app. The assessment hub app:
+<ul>
+<li>stores the tenant's installed assessment apps - for example, the "Microsoft Office proficiency assessment app"
+<li>stores a tenant-specific list of assessment types within each assessment
+app - for example "MS Word proficiency - entry level", "MS Excel proficiency - guru"
+<li>provides, via API, strips that the ATS can embed in applicant lists to start/view assessments
+ <li>informs, via API, your assessment app when a new assessment is started
+<li>skips assessment creation when an existing assessment for the candidate is available (reduces per-assessment
+costs and candidate inconvenience)
+<li>provides APIs for your assessment app to fetch and update the state of the assessment object
+<li>stores summary current state of all assessments - status, pass/fail and the status image
+<li>securely mediates assessment app access to specific fields of the candidate/application, and prevents assessment apps
+from probing candidates they are not authorized to access
+<li>provides a UI for the tenant to map assessment types to specific workflows (e.g., that the "sales skills 101"
+assessment type is only available for call center jobs), and to mark assessment types as being auto-started for new job applications
+</ul>
+</p>
+
+<p>The applicant tracking system (ATS) app. The ATS:
+
+<ul>
+<li>holds job applications and displays them as normal
+<li>for each application, fetches assessment strip from assessment hub via API and displays
+<li>via the assessment strip, the user can start and view assessments directly within the ATS pages.
+</ul>
+</p>
+
+
+
+<h1>API flow to/from your app</h1>
+
+
+<div class='seqDiag' id="seq0">
+
+note right of app: a tenant installs your app
+core->app: POST /tenants
+note right of app: tenant opens your app
+storefront->app: GET /appStatus
+note right of app: hub displays your assessment types
+hub->app: GET /assessmentTypes/forApp
+note right of app: customer starts your assessment
+hub->app: POST /assessments/byID/{id}/tenantDeltaPings
+app->hub: GET /assessments/byID/{id}
+app->ats: GET /applications/views/byKey/{key}
+app->hub: PATCH /assessments/byID/{id}/appDetails
+app->ats: GET /candidates/me/homePage
+
+</div>
+
+
+<h1>Implementing the APIs</h1>
+
+<h2>Produce POST /tenants</h2>
+
+<p>The first API call incoming to your app is to tell you that a tenant has installed it.
+</p>
+
+<p>Typically you might handle this API call by inserting into your customer table, sending an email to customer support team, etc. You
+might show the "setup required" icon and a settings page to facilitate this.
+</p>
+  
+<p>See <a href='./install.html'>installing and controlling setup and launch pages</a> for more.
+</p>
+
+<h2>Produce GET /assessmentTypes/forApp</h2>
+
+<h3>Example</h3>
+
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_get'>GET /assessmentTypes/forApp</a>
+
+Response:
+<div class='clientInclude' data-href='../examples/assessmentTypesForApp-simple.json'></div>
+</code></pre>
+
+<p>In this example, your app is declaring that it supports a single assessment type, "MS Word proficiency".
+
+<h3>Detail</h3>
+
+<p>Immediately after your app is installed, the assessment hub, a separate app, consumes GET /assessmentTypes/forApp
+on your app to ask for your assessment types.
+</p>
+
+<p>If your app is completely "on demand" then you are ready to immediately return the list fo assessment types for this tenant.
+</p>
+
+<p>Otherwise, if your app requires setup (e.g. you need to set up an account for the customer) before it can meaningfully offer any assessment types, then you should return
+an empty set of assessment types. Then, later on when your app's setup is complete, tell the assessment hub that you have new assessment types by consuming
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>. In
+response the hub will consume GET /assessmentTypes/forApp on our app.
+</p>
+
+
+
+<h3>How many assessment types?</h3>
+
+<p>Apps can use different strategies for their assessment types:
+<ol>
+<li>highly customised assessment types, e.g. each tenant has their own unique set of assessment types, tailored to
+their needs (e.g., "Acme 2018 finance graduate assessment").
+<li>a single, universal assessment type that is the same for all tenants installing the app (e.g. "MS Word proficiency").
+<li>some combination of the above.
+</ol>
+</p>
+
+<h3>Making assessments reusable</h3>
+
+<p>This example shows a reusable assessment type. When your assessment type is marked as reusable, an assessment result on one job application
+is reused when the same candidate makes another job application within "daysExpired" - i.e the candidate only completes the assessment once. 
+</p>
+
+<p>For example, if the candidate has completed a medical check for one job, and then applies for another
+a few days later, we don't want them to be asked to complete the same check again. In this example, the assessment is reusable, and if the candidate completed the previous assessment within
+one year, then that previous result will be reused.
+</p>
+
+<p>Most assessment types should be reusable. Before deciding that your assessment type should not be reusable, ask yourself
+"if a candidate completes my assessment and then a few minutes later they apply for another, identical job, does it make sense for them to complete the assessment again?".
+</p>
+
+
+<h2>Produce POST /assessments/byID/{id}/tenantDeltaPings</h2>
+
+<h3>Example</h3>
+
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+
+Request:
+<div class='clientInclude' data-href='../examples/deltaPing-simple.json'></div>
+</code></pre>
+</p>
+
+<h3>Detail</h3>
+
+<p>At some point, an assessment for one of your assessment types will actually be started, e.g. when a recruiter selects it from a drop-down menu, or when it is automatically started as a result of a candidate
+dropping into a specific bucket.
+</p>
+
+<p>This results in an assessment being created in the assessment hub.
+</p>
+
+<p>The assessment hub then notifies your app by consuming your POST /assessments/byID/{id}/tenantDeltaPings
+endpoint.
+
+
+<h3>Learning about new assessments</h3>
+
+<p>Note that although the API doc. specifies a request body, currently no body is sent. You should assume that if the assessment does not already exist in your own
+database, then this is a new assessment, otherwise it is an update to an existing assessment.  
+</p>
+
+<p>You might do your own system's housekeeping for the new assessment, e.g. creating rows in your own tables, sending messages, etc.
+</p>
+
+
+<h3>Updates or deletes to existing assessments (future)</h3>
+
+<p>In the future, your app may be informed via <a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+ that an assessment has been deleted (e.g. in response to a privacy response, or to conform to data retention laws). In response, your app should clean up data held its own database relating to the assessment. 
+</p>
+
+<p>Also in the future, your app may be informed that an assessment has been updated (e.g. in response to the tenant putting it on hold), in which case your
+app should stop whatever it is doing with the candidate.
+</p>
+
+
+<h2>Consume GET /assessments/byID/{id}</h2>
+
+<h3>Example</h3>
+
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__get'>GET /assessments/byID/{id}</a>
+
+Response:
+<div class='clientInclude' data-href='../examples/assessmentRead-created.json'></div>
+</code></pre>
+</p>
+
+<h3>Detail</h3>
+
+<p>Once your app learns that the customer has started an assessment, typically, you'll fetch the details of the assessment by consuming
+GET /assessments/byID/{id}.
+</p>
+
+<p>The data you get back is mainly about the assessment itself (e.g. who raised it, if anyone), rather than the candidate. An important part of the response is the
+view key. You use the view key in the next step to fetch data about the candidate (enail, phone number, name etc.).
+
+
+<h2>Consume GET /applications/views/byKey/{key}</h2>
+
+<h3>Example</h3>
+
+<p><pre><code>
+<a href='../generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a>
+
+Response:
+<div class='clientInclude' data-href='../examples/applicationRead-simple.json'></div>
+</code></pre>
+</p>
+
+
+<h3>Detail</h3>
+
+<p>Many assessment apps will need specific details about the candidate, such as their CV, address, name, etc., and maybe more secure information such as salary, or customer-specific
+information such as "Suitability for warehouse roles". Your app gets these details from an <b>application view</b>.
+</p> 
+
+<p>You can learn about views <a href='patterns.html#Application_views'>here</a>.
+</p>
+
+<p>The assessment details that you fetched previously included a view key - pass that in to your call to 
+GET /applications/views/byKey/{key} to fetch the correct view for this assessment.
+
+ <p>Since the customer has complete control over the actual data you see in the view when your assessment is started, you need to be very clear in your documentation
+what data you require. For example, you might say in your app's description that you need job ID, candidate first name, last name and email, and recruiter email.   
+</p>
+
+<h3>Missing candidate information</h3>
+
+<p>To do its work, your assessment may need information sourced from the candidate.
+</p>
+
+<p>For some information, such as first name and last name, you can reasonably expect to find that inside the view. Its unlikely that the customer would 
+run a recruitment process that didn't involve having the candidate's name.
+</p>
+
+<p>For other information, such as the candidate's date of birth, the information might or might not have been captured in the recruitment process.
+You'll probably need to talk to the customer to establish whether the information is available in the view or not 
+</p>
+
+<p>For this kind of information, you can choose to either:
+<ol>
+<li>Put the assessment into the Error status, explaining to the customer what information is missing. Then the customer must somehow
+capture the information and then restart the assessment. Once they've done that, you'll see another incoming call to POST /assessments/byID/{id}/tenantDeltaPings.
+While this is easiest for you, it may be hard for the customer, as they may have to alter the setup of their site, change their existing processes etc., to capture the data.
+<li>Capture the information yourself directly from the candidate, e.g. by sending them a link to an online form where they fill in the information.
+This is easier for the customer, and makes your app much more "on demand". However the information you capture remains private to your app, and can't be reused elsewhere in the recruitment process. 
+</ol> 
+</p>
+
+
+<h2>Consume PATCH /assessments/byID/{id}/appDetails</h2>
+
+<h3>Example</h3>
+
+<p><pre><code>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__appDetails_patch'>PATCH /assessments/byID/{id}/appDetails</a>
+
+Request:
+<div class='clientInclude' data-href='../examples/assessmentWriteByApp-underway.json'></div>
+</code></pre>
+</p>
+
+<p>In this example, your app updates the assessment's status to indicate it is underway, and sets the candidate interaction link
+to point to an online assessment. 
+</p>
+
+<h3>Detail</h3>
+
+<p>Having been alerted to a new assessment, and having fetched all details for the assessment, your product can do its thing for the assessment.
+</p>
+
+<p>At each stage of processing, your app should push the assessment's state up into the assessment hub by consuming 
+POST /assessments/byID/{}/appDetails.
+
+<p>The assessment's state includes:
+<ul>
+<li>Status
+<li>Status image
+<li>Candidate interaction uri
+<li>User interaction uri
+<li>Pass/fail flag (if applicable)
+</ul>
+</p>
+
+<h4>Status</h4>
+
+<p>An assessment can be in any of these statuses. There are 2 statues that can be set by the hub, and 4 statuses that can be set by your app.
+</p>
+
+<p>Some statues are final, i.e. once the assessment is in this state, it will never leave it again.
+</p> 
+
+<p>
+
+<table border=1">
+<thead>
+<tr>
+<td>Status</td>
+<td>Set by</td>
+<td>When</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Started</td>
+<td>Hub</td>
+<td>When the assessment is first started, or when the customer restarts
+an assessment that was in the "Error" state (hopefully after fixing the cause of the error).</td>
+</tr>
+<tr>
+<td>In progress</td>
+<td>App</td>
+<td>When the app learns about the recently started assessment (via incoming API call).</td>
+</tr>
+<tr>
+<td>Cancelled (final)</td>
+<td>Hub</td>
+<td>When the customer wants to halt the assessment (e.g. candidate has been declined).</td>
+</tr>
+<tr>
+<td>Complete (final)</td>
+<td>App</td>
+<td>When the assessment is complete, and the result is available.</td>
+</tr>
+<tr>
+<td>Opted out (final)</td>
+<td>App</td>
+<td>When for some reason (e.g. technical difficulty, refusal) the candidate cannot/will not complete the assessment.</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>App</td>
+<td>When for some reason beyond the power of the app to fix, e.g. missing data fields in the view, the assessment cannot be progressed.</td>
+</tr>
+</tbody>
+</table>
+</p>
+
+<p>Below are some typical scenarios:
+
+<table border=1>
+<thead>
+<tr>
+<td>Scenario</td>
+<td>Status transitions</td>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is completed normally
+</ol>
+</td>
+<td>Started -> In progress -> Complete</td>
+</tr>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is started
+<li>The app detects a problem of some sort, and informs the customer
+<li>Customer corrects the problem and restarts the assessment
+<li>Assessment completes normally
+</ol>
+</td>
+<td>Started -> Error -> Started -> In progress -> Complete</td>
+</tr>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is started
+<li>Candidate opts out half way through
+</ol>
+</td>
+<td>Started -> In progress -> Opted out</td>
+</tr>
+
+<tr>
+<td>
+<ol>
+<li>Assessment is started
+<li>Customer cancels while underway
+</ol>
+</td>
+<td>Started -> In progress -> Cancelled</td>
+</tr>
+
+</tbody>
+</table>
+</p>
+
+   
+<p>Once the candidate has completed the online process hosted at your app, your app
+pushes the results, with the updated status.
+</p>
+
+<p>In this example, the assessment is now complete. It could also have been that the app
+was just posting interim results.
+
+<pre><code>
+<div class='clientInclude' data-href='../examples/assessmentWriteByApp-completed.json'></div>
+</code></pre>
+</p>
+
+
+
+<h4>Image</h4>
+
+<p>The assessment's image appears in the assessment strip, which in turn is usually embedded in the ATS alongside the other applicant details (name, email etc.).
+Setting the image is a good way for you to help the user understand the results from your assessment at a glance, without needing to drill
+in (unless they choose to). This is useful in the tightly packed screens in a typical ATS, which show many applicants and many assessments on a single page.
+</p> 
+
+<p>You can simply serve up a static image, or generate your images dynamically, e.,g. passing in the candidate's score as a URL parameter. For an
+example of this, see this <a href='https://github.com/talentappstore/imageGen'>demo dynamic image generator for assessment apps</a>, written in node.js.
+</p>
+
+<p>Users will appreciate an image which is a great visual representation of your assessment:
+
+<ul>
+<li>A video interviewing app could render a video thumbnail.
+<li>A psych assessment could render text with a percentage score, over a solid background in their corporate theme.
+<li>A multi-stage probity test could render a series of checkboxes, with more boxes ticked as the assessment proceeds
+<li>A culture fit test might show a colored graded heat gauge, with the needle pointing to the candidate's score
+<li>A document check app could show a stamp, signifying complete       
+</ul>
+
+<p>The status image should be suitable for displaying at an effective resolution of 52x32. Ideally your image should be 2x this to cater for high
+density displays (Retina Macbooks etc).
+</p>
+
+<p>
+<img src='../images/assessment-tile.png' />
+</p>
+
+
+<h4>Candidate interaction uri</h4>
+
+<p>You should set the candidate interaction uri when you want to link the candidate to something (e.g. to have them complete a quiz).
+</p>
+
+<p>If your assessment type was marked as appCommunicatesDirectlyToCandidate == false, then whenever you change the candidate interaction uri (including the first time you set it), the
+hub will send an email to the candidate with the new link in it. If you don't want this (i.e. your app sends its own emails to the candidate), then you should set
+appCommunicatesDirectlyToCandidate to true. This will prevent the candidate also receiving emails from the hub.
+</p>
+
+<p>Whether your assessment type sets appCommunicatesDirectlyToCandidate to true or false, its still a good idea to set the candidate interaction uri
+if you have a sensible destination for the candidate.
+</p>
+
+<p>For this example, let's assume that your app does its thing by having the candidate complete an online
+assessment. Below, it updates the assessment's status to indicate it is underway, and sets the candidate interaction link. 
+
+<pre><code>
+POST /assessments/byID/{}/appDetails
+<div class='clientInclude' data-href='../examples/assessmentWriteByApp-underway.json'></div>
+</code></pre>
+</p>
+
+<p>You can optionally protect your web pages with TAS SSO, using principal type of candidate. This protects against the
+link falling into the hands of someone other than the candidate, and means the candidate enjoys a seamless
+experience as they navigate into your app. 
+</p>
+
+<p>If you do use SSO, you should probably perform a sanity check that the candidate who logs in matches the one the assessment is for.  
+</p> 
+</b>
+
+<h4>userInteractionMessage</h4>
+
+<p>You should set the user interaction uri and/or message when you want to convey or display something to the user (i.e. someone looking at a list of applicants, and seeing your assessment there).
+</p>
+
+<p><b>Note:</b> this functionality is not yet live in the assessment hub. Stay tuned.
+</p>
+
+<p>The message is an easy and quick way to display an error message, a link to your ractual results (e.g. in pdf format), or just a short message about the assessment.
+</p>
+
+<p>The message is treated as markdown format, and you can include links (these will open in a new tab/window).
+</p>
+
+<h4>userInteractionUri</h4>
+
+<p>The uri allows you to provide a complete web page. This might show:
+<ul>
+<li>The results of your assessment (status == Complete)
+<li>The reason why your assessment couldn't be completed (status == Error)
+<li>Something the user has to do before the assessment can proceed (status == In progress)
+</ul>
+</p>
+
+<p>When userInteractionUrl is set, your app's web page is rendered within an iframe in the popup over the assessment strip (i.e. within the ATS pages).
+</p>
+
+<p>The iframe has a minimum width of 380px by default, and a maximum width of 960px. If no height is supplied the browser will
+default to 150px.
+</p>
+
+<p>You can update the dimensions of the iframe displayed in the popup, to make it best fit your content, with something like this:
+
+<pre><code>
+var messageJson = {
+    action: 'updateIframe',
+    css: {
+        height: document.body.clientHeight + 'px',
+        width: '960px'
+    }
+};
+window.parent.postMessage(messageJson, '*');
+</code></pre>
+
+
+<p>This technique can only be used to adjust width/height values. Any other CSS passed will be ignored (e.g. border).
+</p>
+
+<h5>Common problems getting your iframed content to appear</h5>
+
+<p>The following problems may cause a blank iframe inside the assessment popup.
+
+<ul>
+<li>Make sure your content is served as https, not http. Otherwise in some browsers you may see errors in the browser such as "Mixed Content: The page at 'blah' wa
+loaded over HTTPS, but requested an insecure resource 'blah'. This request has been blocked; the content must be served over HTTPS."
+<li>Make sure your page does not include the response header X-Frame-Options (e.g. something like X-Frame-Options:SAMEORIGIN). This is a security
+measure designed to stop your page from being framed - but in this case, that's exactly what you want. 
+</ul>
+</p>
+
+
+<h2>Consume GET /candidates/me/homePage</h2>
+
+<h3>Example</h3>
+
+<p>
+<pre><code>
+<a href='../generated/recruitment.raml.html#candidates_me_homePage_get'>GET /candidates/me/homePage</a>
+
+Response:
+<div class='clientInclude' data-href='../examples/homePage-simple.json'></div>
+</code></pre>
+</p>
+
+
+<p>Finally, after your app has done its thing and completed the assessment, it should redirect the candidate's browser to the candidate "home page",
+served by some other app. Their home page might direct them to the next assessment they need to complete, or
+otherwise keep them updated.
+
+
+<h2>Consume POST /assessmentTypes/forApp/deltaPings/1</h2>
+
+<h2>Example</h2>
+
+<p>
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>
+</code></pre>
+</p>
+
+
+<p>From time to time, your app may introduce new assessment types, e.g.:
+<ul>
+<li>After install, you've now completed the onboarding process for the new customer, so you can now make their assessment types available
+<li>the tenant asks you for a new custom assessment type, and you have just delivered it
+</p>
+
+<p>When this happens, you need to consume POST /assessmentTypes/forApp/deltaPings/1.
+</p>
+
+<p>This API is produced by the assessment hub. The assessment hub will then consume GET /asessmentTypes/forApp on your app,
+to load your newly updated set of assessment types.
+</p>
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Apply and register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Scenario</h1>
+
+<p>This scenario involves these apps:
+<ol>
+<li>jobly, a simple ATS that renders the opening details page with an "apply now" button embedded in it
+<li>simpleapply, an app that provides the "apply now" user interface, and pushes the job application into the ATS
+<li>tracker, an app that provides the TAS tracker functionality
+</ol>
+</p>
+
+<p>In this scenario, a candidate:
+<ol>
+<li>visits the tenant's corporate careers site hosted by jobly to look at a specific opening
+<li>clicks apply now
+<li>is sent to the simpleapply app
+<li>logs in using Google
+<li>completes a job application   
+</ol>
+</p>
+
+<p>Other scenarios that are also handled by simpleapply, but not covered in this doc:
+<ol>
+<li>Candidate "registers" interest (does not apply for any specific job), possibly for a given category (e.g. Marketing)
+<li>Candidate views their "existing data" (e.g. their resume, profile) using simpleapply, but within some larger container that lets also navigate to:
+<ul>
+<li>their in progress job applications
+<li>their draft job applications (held by simpleapply)
+</ul>
+<li>Candidate applies for a shopping cart of jobs in one operation
+<li>candidate clicks on a job they have already have a draft for
+<li>candidate clicks to apply for a job that has a gating job 
+</ol>
+</p> 
+
+
+<h1>Jobly (ATS) renders the job details page</h1>
+
+<h2>Create a tracker</h2>
+
+<p>In this scenario, jobly, the ATS, has its own particular system for
+candidate source tracking which involves passing both candidateSource and deviceType parameters.</p>
+
+<p>In this example, the candidate has reached the job by clicking on the link below (within a Facebook post), and the ATS has detected
+that the candidate is using a mobile device:</p>
+
+<pre><code>
+https://acme.jobboard.com/openings/7622?candidateSource=facebook
+</code></pre>
+</p>
+
+<p>The TAS tenant APIs use a different convention for source tracking, called tracker.
+
+<p>If jobly was tracker-aware, the URL would have looked more like this (and jobly would not have needed to
+create the campaign tracker:</p>
+
+<pre><code>
+https://acme.jobboard.com/openings/7622?tracker=73947484
+</code></pre>
+</p>
+
+<p>However the ATS is not tracker-aware, so it needs to create a campaign tracker that will embed candidateSource and deviceType.
+<pre><code>
+POST /trackers/root
+<div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
+
+Response: 201
+Location: 763019932
+</code></pre>
+</p>
+
+<h2>Embed the apply now button</h2>
+
+<p>With the tracker set up, the ATS (jobly) is ready to render the job details page.
+</p>
+
+<p>As part of that, the ATS asks all interested apps whether they have a candidate-facing button
+(e.g. an apply button, join talent pool button, social sharing tool, view counter, etc.)
+that they would like to inject into the job details page.</p>
+
+<p>Since the candidate is not logged in, jobly calls the not-on-behalf version of the API to do this:</p>
+<pre><code>
+/buttons/candidates/jobs/{job}/all/anonymous?tracker=763019932
+
+Response:
+</code></pre>
+</p>
+
+<p>Since the candidate is not logged in, the apply button(s) can't say (for example), "You've already applied".
+Instead, the panel shows whatever is appropriate for a completely unknown candidate, which is to allow apply.</p>
+</p>
+
+<p>If the candidate was logged in, jobly would use the on-behalf version in stead:
+<pre><code>
+/buttons/candidates/jobs/{job}/all/me?tracker=763019932
+
+Response:
+</code></pre>
+</p>
+
+
+<h1>Candidate clicks apply</h1>
+
+<p>The entire job details page, and the apply button within it, are now rendered, so the candidate sees the "apply now" button at
+the bottom of the job description.
+</p>
+
+<p>Note how the apps that generated the individual button links derived the loggedIn query parameter value from
+whether the button was generated from an on-behalf API call (logged in candidate) or for an anonymous candidate.
+</p>
+     
+<pre><code>
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=false
+</code></pre>
+</p>
+
+<p>The candidate clicks on the simpleapply link and is directed to the apply form.
+</p>
+
+<h1>Apply form</h1>
+
+<p>Candidate is now at:
+<pre><code>
+https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622?loggedIn=false
+</code></pre>
+</p>
+
+<p>simpleapply renders its apply form slightly differently depending on whether a candidate is logged in or not.
+An anonymous visitor can't complete the form but can only view it. An anonymous visitor also sees the login disco panel
+embedded at the top of the page.</p>
+
+<p>simpleapply has the loggedIn filter described in <a href='conventions.html'>conventions.html</a>, but the filter doesn't fire
+since loggedIn = false.
+</p>
+
+<p>The page is white listed in the proxy's SSO settings.</p>
+
+<p>simpleapply checks for the tazzy-saml header. Even though this page is white listed, its possible the candidate did log in previously
+somewhere else on simpleapply. In this example, the header is not present.
+</p>
+
+<h2>Render for non-logged in candidate</h2>
+
+<p>simpleapply's goal is to show as much as possible of the apply "form" to the
+candidate, so that they can assess how much work it will be, and hopefully be
+enticed by simpleapply's support for cloud storage (dropbox etc.) for resumes,
+mobile-friendly UI, ease of login via social networks, etc.
+</p>
+
+<p>At the top of this "not logged in" page is an iframe displaying a panel of login controls courtesy of the TAS
+identity system as per <a href='conventions.html'>conventions.html</a>.
+</p>
+
+
+<h2>simpleapply fetches edit spec for non-logged in candidate</h2>
+
+<p>In this example the candidate is not yet logged in, simpleapply can't check for role==internal
+on the TAS session - instead it can only show those questions that an external candidate would need to answer.
+If the job is internal only, simpleapply would show no details at all, and would only offer the candidate a way
+to log in (so they could prove they were internal).
+</p>
+
+<p>Deciding what to display to the candidate may involve complex logic, which
+does not belong inside simpleapply, but is more likely in the ATS.</p>
+
+<p>simpleapply asks for an <b>edit spec</b> for applying to this job by an anonymous candidate.  
+
+
+<pre><code>
+POST /editSpecs/fetches/apply/7622/anonymous
+
+
+Request:
+<div class='clientInclude' data-href='../examples/intent-apply.json'></div>
+</code></pre>
+</p>
+
+<p>The response includes all the information needed to render the apply form to an
+anonymous candidate (we look in more detail later).</p>
+
+<p>We want them to see how easy the process was, but so that no-one can actually apply until they are logged in,
+simpleapply renders the form with all fields disabled.  
+</p>
+
+
+<h1>Candidate logs in to simpleapply</h1>
+
+<p>The candidate sees the apply form, and decides that they are prepared to invest
+their time in applying, so logs in using Google (within the iframe-ed panel).
+</p>
+
+<p>TAS redirects the user (still inside the iframe) back to:
+<pre><code>
+https://acme.simpleapply.com/secure/redirectFor/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</code></pre>
+</p>
+
+<p>That resource is now served up, since SSO now allows the request through. It is not a web page but instead responds with a http 302 redirect.
+The user is redirected to the logged in page, i.e.:
+<pre><code>
+https://acme.simpleapply.com/secure/jobs/7622?tracker=763019932&relayPage=acme.jobly.com/jobs/7622
+</code></pre>
+</p>
+
+<p>The redirect happens to the outer page, not the iframe - so now the user's browser address bar has the above in it,
+and the candidate is looking at the logged in page.
+</p>
+
+<p>Now the candidate has logged in, their roles are available (e.g. role == internal).</p> 
+
+<p>Simpleapply re-renders its page, now knowing who the candidate is.
+</p>
+
+<h1>Simpleapply renders its page (candidate logged in)</h1>
+
+<h2>Re-fetch the edit spec</h2>
+
+<h3>Absorb the candidate's existing information into the intent</h3>
+
+<p>Now that the candidate has logged in, simpleapply is ready to re-fetch the application form,
+this time for real (e.g. maybe now jobly knows who the candidate is, it can detect they've been black-listed and prevent the apply altogether).</p>
+
+<h3>Design decision - replace vs. merge of the candidate's categories</h3>
+
+<p>The <b>POST /candidates/me</b> API, which simpleapply will
+eventually use to push the edit into the jobly ATS, supports two modes for setting the candidate's categories.
+<dl>
+
+<dt>merge</dt><dd>The category values in the request are merged with any existing values on the
+candidate. Suitable for one-click or offline scenarios, e.g. "enter your email here to hear about new finance jobs", where the
+UI never had a chance to query the candidate's existing data, and does not want to overwrite it.</dd>
+
+<dt>replace</dt><dd>The category values in the request completely replace any existing values on the candidate. Suitable for
+online scenarios, like a conventional apply form, where the candidate logs in and the UI has a chance to present all of their
+new and existing categories to them for tailoring.</dd>
+</dl>
+
+<p>Simpleapply uses <b>replace</b> semantics. Read the rest of this section for more details or skip on.</p> 
+
+<p>TODO: make clearer.</p>
+
+<p>At the moment, the intent contains no categories, just the job that the candidate wants
+to apply to. When we get the edit spec back from jobly
+we might find some categories in there that were implied by the job for example the
+job "Co-pilot long-haul, Pacific" might imply expertise == pilot, which might in turn unlock some
+data entry fields to do with being a pilot.</p>
+
+<p>However simpleapply now wants to merge in any existing category values that <b>the candidate already
+has</b> (assuming they have a row in the ATS).</p>
+
+<p>For example the candidate might have previously profiled themselves as expertise == CEO.</p>
+
+<p>Simpleapply's philosophy is to encourage candidates to keep their profiles accurate, so in this
+case it wants to add CEO to the intent.</p>
+
+<p>This may result in the apply form containing information relevant
+to CEO, possibly confusing the candidate who thought they were applying to be a pilot,
+and has forgot that they had partially profiled themselves as CEO. On the other hand, it may encourage them
+to unprofile themselves as CEO, keeping the database cleaner.
+</p>
+
+<p>In summary, simpleapply uses the philosophy of presenting to the candidate their entire category selections,
+allowing them to make changes, and then completely overwriting (with semantics == replace) the categories
+on their candidate record.<p>
+
+<p>Another philosophy would be for simpleapply to only present the categories related
+to the job the candidate was applying to, ignoring any other stuff lurking on their
+candidate record, and then use semantics == merge when applying the changes to the
+candidate record (via POST /candidates). The advantage to this is that the candidate only has to
+provide valid data for the job they are applying to, and does not have to clean up their record as a whole.</p>
+
+<h3>Fetching the candidate's existing information into the intent</h3>
+ 
+<p>Since simpleapply is going to use replace semantics for the candidate's categories, it now needs to
+create a merged set of the candidate's existing category values and the category values indicated in the edit spec.
+
+<pre><code>
+POST /candidates/me/categories/merges
+
+Response:
+<div class='clientInclude' data-href='../examples/categoriesActual-simple.json'></div>
+</code></pre>
+</p>
+
+<p>If the API returns 404, the candidate does not already exist. Simpleapply just uses the values from the edit spec in this case.
+
+<p>Now:
+<ol>
+<li>The candidate has logged in
+<li>We've created an intent which indicates
+<ul>
+<li>what categories they want to end up with, i.e. the sum of what they already had and any new ones
+<li>the job they want to apply for
+</li>
+</ol>
+
+<p>Simpleapply again fetches the edit spec, this time using the new intent, and the on-behalf API</p>
+
+<pre><code>
+POST /editSpecs/fetches/apply/7622/me
+
+Request:
+<div class='clientInclude' data-href='../examples/intent-applyPlusExistingCats.json'></div>
+
+Response:
+<div class='clientInclude' data-href='../examples/candidateEditSpec-apply.json'></div>
+</code></pre>
+</p>
+
+
+<h3>How the ATS builds the edit spec</h3>
+
+<p>To build the edit spec, the ATS (jobly) will use data from:
+<ul>
+<li>the sub field of the OAuth token passed to the edit spec fetch. This provides access to the candidate's role(s), e.g. whether they are internal
+<li>the ATS database - e.g. whether the candidate has been made redundant within the last 2 years, or failed a drug test during a previous recruitment process,
+and hence cannot apply at all
+</ul>
+
+<p>Note that the amended intent may indicate that, even though the candidate wishes to apply for some given job, the ATS
+may have other plans for them and may have amended their intent(in this case
+the message should explain to the candidate what and why). For example:</p>
+
+<ul>
+<li>candidate applying for pilot jobs must also select a category value for pilot
+<li>candidates applying to some specific customer service job must first apply to a customer service talent pool role
+</ul>
+
+
+</div> 
+</p>
+
+<h3>Fetch the required engagements</h3>
+
+TODO.
+
+<p>Great! Now simpleapply has the details it needs to begin building its UI.</p>
+
+
+
+<h2>Set up UI</h2>
+
+<p>Simpleapply creates the UI that it will display to the candidate.</p>
+
+<p>To populate the UI, simpleapply will merge data in from:
+<ul>
+<li>the edit spec (it has default values for some fields, and also contains the category values)
+<li>from any existing draft for the job being applied for
+<li>from the existing candidate record if there is one (but not its category values)
+</ul>
+
+<p>Simpleapply uses a merge strategy that prevents an old draft from overwriting candidate details. E.g. candidate
+starts to apply for A, saves as a draft with empty personal details, then moves on and applies to B with
+completed personal details, then returns to apply for A. We don't want the empty personal details on the draft for A
+to overwrite the filled in details on the candidate record.
+</p>
+
+<h3>Display the message</h3>
+
+<p>At the top of the page, simpleapply displays the message (if any) in the style suggested. In a situation where the job is internal only,
+and the candidate is not internal, there might be nothing displayed but the message. In other situations there might be no message at all.</p> 
+
+<h3>Set up input fields and controls</h3>
+
+<p>Simpleapply now uses the information from the candidateModel and applicationModel sections to set up the UI - i.e. when
+applying for a job, these are more or less the application form.</p>
+
+<h3>vcard</h3>
+
+<p>Simpleapply gets existing vcard values:
+<pre><code>
+GET /candidates/me/vcard
+
+Request:
+<div class='clientInclude' data-href='../examples/categoriesActual-simple.json'></div>
+</code></pre>
+</p>
+
+
+<h3>Populate default values</h3>
+
+<p>The inputModel also includes some default values, e.g. for individual fields in the items
+section(s). These should be loaded into the input controls.</p> 
+
+<h3>Populate category controls</h3>
+
+<p>Since categories may be large (e.g. a definitive list of every county in the US) it's up to simpleapply to decide
+how to fetch all possible values so the user can select. For small categories, simpleapply might fetch the entire
+category. For larger ones, it might use ajax calls to only fetch values as, say, the user clicks to expand a node in the hierarchy.
+</p>
+
+<pre><code>
+Get list of all categories ..
+GET /categories
+
+.. and its tree of nodes
+GET /categories/10033/values
+</code></pre>
+</p>
+
+
+<h2>Fetch previously entered data</h2>
+
+<p>Once the UI has been laid out, simpleapply next needs to load the fields with any existing data (this only
+applies when there is an existing candidate record). Specifically:
+
+<ul>
+<li>the amended intent provides the full set of category values
+<li>in the case of existing candidates, the fine-grained candidate APIs (e.g. GET /candidates/{}/resume) provide access to the
+data already held in the ATS
+<li>Some data is also available on the TAS session from the idp and/or login listeners. For example if the candidate has
+logged in using Facebook, then their name and image may be available on the TAS session.
+</li>
+</ul>
+
+
+The classes of items as per above are:
+personal details (vcard)
+job alert (notifications) flag
+categories
+etc..
+
+
+<h4>Load existing resume</h4>
+
+<p>Simpleapply fetches details of the candidate's existing resume (not the stream itself which might be enormous)
+
+TODO
+
+<pre><code>
+GET /candidates/me/resume/meta
+
+Response:
+<div class='clientInclude' data-href='../examples/fileDownload-simple.json'></div>
+</code></pre>
+</p>
+
+<p>Simpleapply also displays a link which the candidate can click through on to open their existing resume document. 
+
+TODO
+
+<pre><code>
+GET /candidates/me/resume/asStream
+</code></pre>
+</p>
+
+<h4>Load details of existing applications</h4>
+
+<p>If the candidate already has a record in the database, Simpleapply now loads up any
+previously entered candidate data for the job application(s).</p>    
+
+<p>Normally candidates are applying from scratch, so there is no previous data, and then once
+they have applied, they cannot go back and change any application data.</p>
+
+<p>But its possible that the candidate has previously submitted this application. This could happen if:
+<ul>
+<li>they submitted it through some thin, offline client, and now we are
+asking them to go back and re-submit with more information
+<li>the application is to some kind of talent pool/continuous opening,
+and they have sat out some stand-down period and are now able to re-apply.
+</ul>
+</p>
+
+<pre><code>
+GET /applications/byCandidate/{candidateID}/byOpening/{openingID}
+
+Response:
+902533
+
+GET /applications/902533/items
+</code></pre>
+</p>
+
+<h3>Using data from the TAS session</h3>
+
+TODO: clarify that simpleapply can access name, image, email off of the SAML assertion using the new helper API.
+
+Pre-populate fields in the UberApply form 
+
+
+
+<h1>Candidate fills out apply form</h1>
+
+<p>simpleapply now renders the page to the candidate, who can start editing, selecting and generally completing the form.</p> 
+
+<h2>Candidate uploads a new resume</h2>
+
+<p>The candidate wants to replace their existing resume, so uploads a new document which simpleapply stores somewhere, perhaps
+in a temporary file.</p>   
+
+<h2>Save draft</h2>
+
+<p>simpleapply includes split-level draft functionality. This prevents candidate details being overwritten.
+</p>
+
+<pre>
+A single draft is held for candidate details, keyed by E/N
+A single draft per job being applied for, keyed by E/N/J
+On successful submission
+   Of apply
+      Candidate and job level drafts are deleted
+   Of register
+      Candidate level draft is deleted
+</pre>
+
+<p>The ATS (jobly) is unaware of any draft functionality, simpleapply only pushes completed edits to it.</p> 
+
+
+<h2>Candidate edits categories</h2>
+
+<p>While the candidate is using simpleapply, they may change their categories.</p>
+
+<p>If they do, then simpleapply must re-fetch the edit spec, since a change in categories may
+result in knock on changes in the amended intent, and in the input model (e.g. a candidate who
+adds expertise == pilot must now answer additional questions).</p>
+
+<p>This may be quite involved for simpleapply, as it needs to temporarily
+preserve any data from the fields (perhaps using its own draft functionality), rebuild the UI
+using the new edit spec, then reapply that data.</p> 
+
+
+<h2>More candidate interactions with the apply form</h2>
+
+<pre>
+TODO: flesh out 
+candidate clicks to view an existing (exists back on their candidate record) document attachment/CV 
+
+candidate clicks to view a newly added (only present in draft) document attachment/CV
+ 
+candidate deletes an existing answer (a no longer required one? any one?)
+
+candidate deletes an existing document attachment/CV
+
+candidate deletes a newly added document attachment/CV
+
+candidate completes their application (draft gets deleted)
+
+candidate deletes a draft application
+
+candidate deletes their entire profile (maybe another app?)
+</pre>
+
+
+
+
+<h1>Candidate submits application</h1>
+
+<h2>Render the "Next steps" page</h2>
+
+<p>We need to show the candidate the engagements they are going to have to complete. This means first actually instantiating them if they haven't been already.
+</p>
+
+<p>Eager creating - this creates the engagements even if the candidate just popped in to see how arduous it will be and browses away - in that case these 
+will get cleaned up by the engagement hub's reaper. The reaper daemon reaps unfinalized engagements after 6 weeks (leaves time for
+candidate to return to a draft application from earlier).
+
+<pre><code>
+Request:
+POST /candidates/me/engagements/forJobs/instantiates
+-- intent
+[ "jobs": .. ]
+
+Response:
+[
+  {
+    "engagement": 10022,
+    "linkages": [ 13005, 13006 ]
+  }
+]
+</code></pre>
+</p>
+
+<p>Render the engagement's name
+
+<pre><code>
+GET /candidates/me/engagements/{e}/candidate
+{
+   "engagementID":
+   "entityID":
+   "nameID":
+   "firstName":
+   "lastName":
+   "email":
+}
+</code></pre>
+</p>
+
+<p>Render each engagement into the page, passing the current page in as the relay page. Rather than iframeing, which would stop engagements
+rendering outside their area (e.g. large pop-up menus), we inject Javascript. More security risk. Better usability.
+</p>
+
+<p>
+<pre><code>
+GET /candidates/me/engagements/{e}/candidateView?size=medium&relayPage=[this page]
+
+Response:
+application/javascript
+</code></pre>
+</p>
+
+<p>Once the page is served, candidate sees panels for each engagement, along with tick or cross if the engagement has both "isPassFail" and "candidateSeesFail" true. 
+<pre><code>
+GET /candidates/me/engagements/{e}/engagementType
+{
+   "isPassFail":
+   "candidateSeesFail":
+}   
+</code></pre>
+</p>
+
+<p>ATS tells engagement hub to finalize the engagement linkages that need to be completed by this candidate given the job(s) they are applying for.
+</p>
+
+<p>The hub will bail if any one of the engagements is not complete.
+
+<pre><code>
+POST /candidates/me/engagements/forJobs/finalizes
+POST /candidates/me/engagements/forTalentPool/{tp}/finalizes
+</code></pre>
+</p>
+
+
+<h1>Finalize engagements</h1>
+
+<p>
+<pre>
+TODO:
+
+Attach the engamenents to their job applications or talent pool memberships.
+
+The ATS handles this under POST /candidates.
+
+Most of the work is delegated to the engagement hub.
+
+After this all the engagements are finalized (hold application ID).
+
+Job board tells .. present 
+Job board tells .. prepare 
+
+
+ATS tells engagement hub to finalize the engagement linkages that need to be completed by this candidate given the job(s) they are applying for.
+
+POST /candidates/me/engagements/forJobs/finalizes
+POST /candidates/me/engagements/forTalentPool/{tp}/finalizes
+Request:
+[ 12, 14 ]
+
+Each of these can be mapped back to the underlying engagement.  
+ 
+Response:
+
+The result is an ordered list of engagement.
+   
+engagement hub creates a bunch of engagements as a result of this list.
+
+The results are a set of engagement types.
+
+An engagement type may be tailored to a specific job. In that case the 
+
+Those types can make use of the intent to
+
+</pre>
+</p>
+
+
+<p>Once the candidate has finally completed their work and pressed submit, the completed edit (i.e., job application in
+this example]) is sent to the ATS (jobly).
+</p>
+
+<pre><code>
+POST /candidates
+
+Response:
+<div class='clientInclude' data-href='../examples/candidateEdit-simple.json'></div>
+</code></pre>
+</p>
+
+<h2>ATS processes the event</h2>
+
+TODO: clean up any existing messages. 
+
+<p>The ATS processes the event. This may result in creating a new candidate or updating an existing one.
+</p>
+
+<h2>Processing the tracker</h2>
+
+<p>The ATS fetches the chain of trackers, starting from the one passed across to POST /candidates.</p>
+
+<pre><code>
+GET /trackers/763019932/chain
+
+Response:
+<div class='clientInclude' data-href='../examples/trackers-legacyATS.json'></div>
+</code></pre>
+</p>
+
+<p>Now the ATS applies its custom logic to cope with its own source conventions.</p>
+
+<p>In the case of jobly, it wants two pieces of metadata about the application:
+<ol>
+<li>candidateSource
+<li>deviceClass
+</ol>
+
+<p>The ATS first looks to see if these were passed in, and if not it establishes them from the information in the trackers.</p>
+
+<pre><code>
+TODO: cleanup
+
+// see if candidateSource was passed in
+candidateSource = destinationTracker.meta.candidateSource;
+if (candidateSource == null)
+   // source was not passed in, so derive it from the visit tracker's fields
+   candidateSource = extractCandidateSource(visitTracker.landingURI);
+ 
+// likewise for device class
+deviceClass = destinationTracker.meta.deviceClass;
+if (deviceClass == null)
+   // deviceClass was not passed in, so derive it from the user agent
+   // this ATS might use a user agent database to resolve down to mobile == true or false for example
+   deviceClass = extractDeviceClass(visitTracker.userAgent)
+</code></pre>
+
+ 
+<h1>Candidate is redirected back to job details page</h1>
+
+<p>Based on the http result from the event post, simpleapply then displays the "Successful" page.</p>
+
+<p>A button on that page links the user back to the relay page (i.e the
+original job details page in this example of applying for a job).</p>
+
+<p>User is now back at the job details page.</p>
+
+TODO:
+
+The recruiter views the underway/ completed/ finalized/ engagements for a candidate.
+
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

@@ -22,17 +22,24 @@
       post:
         securedBy: [oauth_2_0]
         description: |
-          Non-SoT.
-  
-          Used to bulk upload all values for a single category for the tenant in one long-running operation.
+          Used to bulk upload or update all values for a single category for the tenant in one long-running operation.
+          
+          This API is intended for use both for a UI in the producer app to maintain its own database (by consuming its own API), or alternatively for
+          some other app acting as the master to regularly push its data down into the producer.    
+          
+          The data from each category in the request is applied using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc7396).
 
+          The APIs expect external ID to be immutable.
+          
           The app producing the API should do something like this:
           - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nodes in the producer's database
-          - if the request node has neither id nor external id then 400 error
+          - if the request node has neither id nor external id then it cannot be mapped
           - if the request node has id, then map to the existing node with the same id (404 if not found)
             - if the request node also has external id
               - if the mapped node in the database has null external id, its external id will be updated
               - if the mapped node in the database has a different external id, throw a 400 error
+            - else (the request node does not have external id)
+              - if the mapped node in the database has external id, throw a 400 error
           - if the request node has only external id, then map to the existing node with same external id (404 if not found)
           - in all cases, a node can only be mapped once, otherwise 400 error
           - now that mapping is complete, producer can do the CRUD work
@@ -42,7 +49,9 @@
   
           The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
           In this case the upload could be re-run once the problem was resolved.
-          
+
+          Non-SoT.
+  
         body:
           application/json:
             schema: !include ../schemas/categoryValuesUpload.json
@@ -63,19 +72,35 @@
       post:
         securedBy: [oauth_2_0]
         description: |
-          Non-SoT.
-  
-          Used to bulk upload all active users for the tenant in one long-running operation.
-        
+          Used to bulk upload or update users for the tenant in one long-running operation.
+          
+          This API is intended for use both for a UI in the producer app to maintain its own database (by consuming its own API), or alternatively for
+          some other app acting as the master to regularly push its data down into the producer.    
+          
+          The data from each user in the request is applied using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc7396).
+
+          The APIs expect external ID to be immutable.
+          
           The app producing the API should do something like this:
-          - for each user in the request
-          - .search for a matching active user in the database 
-          - .if the user does not exist, create it (producer might also choose to reactivate an old one) 
-          - .if the user already exists and has identical details, leave it
-          - .if the user exists but has different details, update it
-          - for each user that exists but was not found in the upload, make inactive     
+          - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nodes in the producer's database
+          - if the request node has neither id nor external id then it cannot be mapped
+          - if the request node has id, then map to the existing node with the same id (404 if not found)
+            - if the request node also has external id
+              - if the mapped node in the database has null external id, its external id will be updated
+              - if the mapped node in the database has a different external id, throw a 400 error
+            - else (the request node does not have external id)
+              - if the mapped node in the database has external id, throw a 400 error
+          - if the request node has only external id, then map to the existing node with same external id (404 if not found)
+          - in all cases, a node can only be mapped once, otherwise 400 error
+          - now that mapping is complete, producer can do the CRUD work
+          - any unmapped nodes in the request will be created/re-activated
+          - any mapped nodes in the database will be updated if required (e.g. to have new details, active status)
+          - any unmapped nodes in the database will be deleted or inactivated
   
-          The producer's behaviour need not be atomic - the call might fail after only partially processing the job list, leaving partial changes applied.
+          The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
+          In this case the upload could be re-run once the problem was resolved.
+
+          Non-SoT.
           
         body:
           application/json:
@@ -97,20 +122,36 @@
       post:
         securedBy: [oauth_2_0]
         description: |
-          Non-SoT.
-  
-          Used to bulk upload all open jobs for the tenant in one long-running operation.
-        
-          The app producing the API should do something like this:
-          - for each job in the request
-          - .search for a matching (by code) job in the database, and with status == active 
-          - .if the job does not exist, create it (producer might also choose to re-open an old one) 
-          - .if the job already exists and has identical details, leave it
-          - .if the job exists but has different details, update it
-          - for each job that exists but was not found in the upload, make it not active or delete it     
-  
-          The producer's behaviour need not be atomic - the call might fail after only partially processing the job list, leaving partial changes applied.
+          Used to bulk upload or update jobs for the tenant in one long-running operation.
           
+          This API is intended for use both for a UI in the producer app to maintain its own database (by consuming its own API), or alternatively for
+          some other app acting as the master to regularly push its data down into the producer.    
+          
+          The data from each job in the request is applied using JSON Merge Patch semantics (https://tools.ietf.org/html/rfc7396). In particular, if the
+          categories array is present, only those categories that are actually present in the request will be altered. 
+
+          The APIs expect external ID to be immutable.
+          
+          The app producing the API should do something like this:
+          - start with an empty "mapping table" that stores mappings from incoming nodes in the request to existing nodes in the producer's database
+          - if the request node has neither id nor external id then it cannot be mapped
+          - if the request node has id, then map to the existing node with the same id (404 if not found)
+            - if the request node also has external id
+              - if the mapped node in the database has null external id, its external id will be updated
+              - if the mapped node in the database has a different external id, throw a 400 error
+            - else (the request node does not have external id)
+              - if the mapped node in the database has external id, throw a 400 error
+          - if the request node has only external id, then map to the existing node with same external id (404 if not found)
+          - in all cases, a node can only be mapped once, otherwise 400 error
+          - now that mapping is complete, producer can do the CRUD work
+          - any unmapped nodes in the request will be created/re-activated
+          - any mapped nodes in the database will be updated if required (e.g. to have new details, active status)
+          - any unmapped nodes in the database will be deleted or inactivated
+  
+          The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
+          In this case the upload could be re-run once the problem was resolved.
+
+          Non-SoT.
         body:
           application/json:
             schema: !include ../schemas/jobsUpload.json
@@ -221,7 +262,7 @@
       body:
         application/json:
           schema: !include ../schemas/applicationRead.json
-          example: !include ../examples/applicationRead-simple.json
+          example: !include ../examples/applicationRead-basicView.json
           
 
 - applicationPhaseEverPusher:
@@ -236,7 +277,7 @@
       body:
         application/json:
           schema: !include ../schemas/applicationRead.json
-          example: !include ../examples/applicationRead-simple.json
+          example: !include ../examples/applicationRead-basicView.json
 
 - applicationMultiGetter:
     get:

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>New hires</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Overview</h1>
+
+<p>This recipe describes building a <b>new hires app</b> (e.g. <b>onboarding</b> or <b>payroll</b>) in Talent App Store.
+</p>
+
+<p>New hires is a label for a class of app that learns about job applications that have transitioned into a new "phase" such as Hired, using either the
+batch oriented pull APIs, or the more real time push APIs.
+</p>
+
+<p>Both models rely heavily on application views. You'll need a good understanding of views to build your app.  
+You can learn about views <a href='patterns.html#Application_views'>here</a>.
+</p>
+
+
+<p>In this example, your app uses the push model:
+
+<ol>
+<li>Your app produces the push API <a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post'>POST /applications/views/at/onboard/now/byID/{application}/pushes</a>.    
+<li>Fred applies for a job, resulting in a job application
+<li>The recruitment team moves the application into the "shortlist" phase and evaluates Fred's suitability
+<li>Eventually the team decides to hire Fred, and moves the application into the "onboard" phase.
+<li>Immediately, the applicant tracking system (ATS) notifies your app by consuming
+<a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post'>POST /applications/views/at/onboard/now/byID/{application}/pushes</a>
+on it.
+<li>The request body includes a view - a formatted json object containing all the data your app needs about the job application, the candidate, the job, and other
+resources such as the job's manager and recruiter. 
+</ol>
+</p>
+
+<p>In this example, your app uses the pull model:
+
+<ol>
+<li>Your app consumes the pull API <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_get'>GET /applications/views/at/onboard/now</a>.
+<li>Fred applies for a job, resulting in a job application
+<li>The recruitment team moves the application into the "shortlist" phase and evaluates Fred's suitability
+<li>Eventually the team decides to hire Fred, and moves the application into the "onboard" phase.
+<li>On the hour, your app starts its scheduled pull of the latest candidates to be onboarded.
+<li>Your app consumes GET  /applications/views/at/onboard/now, filtering to only get new onboarders since the previous upload
+<li>The response includes a view for every new onboarder
+<li>Once complete, your app stores the date of this upload, so it can be used as a filter when the upload next runs. 
+</ol>
+</p>
+
+<h2>Available phases</h2>
+
+
+
+<h1>Set up</h1>
+
+<p>Lets look at the push APIs in action by installing some apps.
+</p>
+
+<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
+can be found publicly listed (find them with "Browse apps").
+</p>
+
+<h2>Install apps and prepare test data</h2>
+
+<p>
+<ol>
+<li>First, follow <a href='sandboxapps.html#Setup_to_create_a_job_application'>these instructions</a> to install Agile ATS and create a job application.
+<li>Return to Agile ATS and you should see the incoming job application (in the Incoming bucket).
+<li>Install the <b><a href="sandboxapps.html">Agile Alerts</a></b> app. This is a test app that listens to the push APIs, and emails the view to you.
+<li>Open and sign into Agile Alerts, and enable notifications for "Hire". 
+</ol>
+</p>
+
+<p>In the following steps, we'll complete the setup to get a view, containing a new custom data field, pushed to the Agile alerts when a a new hire is made.
+</p>
+ 
+<h2>Capture data into a custom field when a new hire is made</h2>
+
+<p>
+<ol>
+<li>Click to Settings -> Custom Fields -> Candidate -> User Provided.
+<li>Create a date field with the title "Date hired", and key "DATEHIRED".
+<li>On the same page, click the Workflow mappings tab.
+<li>Check the box to map your new field to the Hired bucket - i.e. you are saying that when a new hire is made the field should be provided.  
+</ol>
+</p>
+
+<h2>Add your custom field to the default view</h2>
+
+<p>
+<ol>
+<li>Click to Setting -> Views and edit the default view.
+<li>Under candidate, you'll see your Date hired field - check to add it to the default view.
+</ol>
+</p>
+
+<h2>Map the default view to the new hires event, for the test app</h2>
+
+<p>
+<ol>
+<li>Click to Settings -> Pushes. We want the default view to be pushed to the Agile alerts app whenever a new hire is made, so create a new push with these details:
+<ul>
+<li>A name (anything)
+<li>The app (Agile alerts in this case)
+<li>The view to be used (default)
+<li>The phase (Hire)
+</ul>
+</ol>
+
+<h2>Make the new hire</h2>
+
+<p>Now that setup is complete:
+
+<ol>
+<li>go back to Agile ATS, and click to move your job application to the Hired bucket.
+<li>You'll see your new field - enter a date in it and complete the move.
+</ol>
+</p>
+
+<p>You're done! Now check your email (including your spam folder) and you should see an email from the Agile alerts app, with the contents of the default view, including your custom field.
+</p> 
+
+
+<h1>API flow to/from your app</h1>
+
+<div class='seqDiag' id="seq0">
+
+note right of app: a tenant installs your app
+core->app: POST /tenants
+note right of app: tenant opens your app
+storefront->app: GET /appStatus
+note right of app: ATS tells you about a new hire (or onboard, etc.)
+ats->app: POST /applications/views/at/hire/now/byID/{application}/pushes
+
+</div>
+
+
+<h1>Implementing the APIs</h1>
+
+<h2>Produce POST /tenants</h2>
+
+<p>The first API call incoming to your app is to tell you that a tenant has installed it.
+</p>
+
+<p>Typically you might handle this API call by inserting into your customer table, sending an email to customer support team, etc. You
+might show the "setup required" icon and a settings page to facilitate this.
+</p>
+  
+<p>See <a href='./install.html'>installing and controlling setup and launch pages</a> for more.
+</p>
+
+<h2>Produce POST /applications/views/at/hire/now/byID/{application}/pushes</h2>
+
+<h3>Example</h3>
+
+<pre><code>
+<a href='../generated/recruitment.raml.html#applications_views_at_hire_now_byID__application__pushes_post'>POST /applications/views/at/hire/now/byID/{application}/pushes</a>
+
+Request:
+<div class='clientInclude' data-href='../examples/applicationRead-basicView.json'></div>
+</code></pre>
+
+<p>Each incoming POST to your app's endpoint contains a <a href='patterns.html#Application_views'>view</a>, with details about the new hire.
+</p>
+
+<p>The view is customised by the customer to include only the fields that you need for the integration.
+</p>
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Trackers</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+        <!-- Sidebar as per https://github.com/blackrockdigital/startbootstrap-simple-sidebar-->
+       <div id="sidebar-wrapper">
+             <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="home.html">Home</a></li>
+                <li><a href="goals.html">Goals & non-goals</a></li>
+                <li><a href="concepts.html">Concepts</a></li>
+                <li><a href="peertopeer.html">Peer to peer API platform</a></li>
+                <li><a href="cheatsheet.html">Programming guide</a></li>
+                <li><a href="tazzy.html">Tazzy</a></li>
+				<li>API reference
+					<ul>
+					<li><a href="../generated/recruitment.raml.html">Tenant APIs (by Aotal)</a>
+					<li><a href="../generated/index.html">Schemas and doc.</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreIn.raml.html">Core-in APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html">Core-out APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/">Schemas and doc.</a>
+					</ul>
+                <li><a href="commercials.html">Commercials and pricing</a></li>
+                <li><a href="helloworld.html">Hello world</a></li>
+                <li><a href="sandboxapps.html">Installing sandbox apps</a></li>
+                <li>Recipes
+                <ul>
+                    <li><a href="install.html">App install and setup</a></li>
+                    <li><a href="buttons.html">Career site buttons</a></li>
+                    <li><a href="applyGate.html">Apply gates</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="careerSite.html">Career sites</a></li>
+                    <li><a href="careerSite.html">Candidate surveys</a></li>
+                    <li><a href="applyRegister.html">Apply for jobs and register</a></li>
+                    <li><a href="newHires.html">New hires, payroll and onboarding</a></li>
+                    <li><a href="getJobs.html">Job distribution/ job boards</a></li>
+                    <li><a href="trackers.html">Trackers</a></li>
+                    <li><a href="patterns.html">Patterns</a></li>
+                </ul>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Overview</h1>
+
+<p>The source tracking APIs (/trackers) defined by TAS are for a candidate source tracking system based on fractional attribution.
+</p>
+
+<p>With fractional attribution, an end result (such as someone applying for a job) can be mapped back to
+a whole chain of user interactions such as social sharing, emailing links, etc. This provides more detailed sourcing information than
+just tracking the last click that led the candidate to apply for the job.
+</p>
+
+<p>There are two types of trackers:
+<ul>
+<li><b>Session trackers</b>, representing a unique candidate visit to a web site. Any candidate-facing web site (like a careers site, microsite, etc.)
+that is tracker aware should create session trackers when candidates use the site.  
+<li><b>Campaign trackers</b>, representing a known starting point, such as an automated email alert or a job board posting.
+</ul>
+</p>
+
+<p>Trackers are organized into trees. The path from any single leaf to the trunk of the tree represents the
+chain of sourcing events that led to a candidate outcome (like applying for a job).
+</p>
+
+<h1>Session trackers</h1>
+
+<p>Any candidate-facing web site (like a careers site, microsite, etc.)
+that is tracker aware should maintain session trackers when candidates use the site. This means:
+<ul>
+<li>Creating a session tracker for each new unique visit by a candidate
+<li>Connecting that tracker back to any tracker passed in as a url parameter
+</ul>
+
+<p>For example, when a candidate first follows a link like this to a page in a job board/careers site:
+<pre><code>
+https://acme.supersite.com/marketing.html?tracker=1234
+</code></pre>
+</p>
+
+<p>..then the job board should create a session tracker and attach it to the tracker 1234. The resulting tracker tree will be like this:
+<pre><code>
+1234
++-- 1287 (session tracker)
+</code></pre>
+</p>
+
+<p>After this, the job board should attach the session tracker to all links that it emits, even for internal navigation around the
+site itself. For example, the candidate above might search for jobs at the site, and then click through to a specific job using a link like this:
+<pre><code>
+https://acme.supersite.com/job=23&tracker=1287
+</code></pre>
+</p>
+
+<p>Now the candidate might share the job via email using the browser's native share button. They email the job to a friend. The friend
+clicks through to the job. Because the friend represents a new unique visit, a new session tracker is created by the job board, linking back
+to tracker 1287. Now the tracker tree looks like this:
+<pre><code>
+1234
++-- 1287 (session tracker)
+    +-- 1344 (session tracker)
+</code></pre>
+</p>
+
+<p>If the friend now goes on to apply for the job, then the tracker will be passed into the applicant tracking system (ATS), giving it
+a deep insight into how the candidate came to hear about this job.
+</p>
+
+<h2>Sample logic for maintaining session trackers</h2> 
+
+<p>The following example (in Java) shows one approach to maintaining session trackers.
+</p> 
+
+<p>This algorithm:
+<ul>
+<li>handles the case where the app does not add the tracker parameter to its own internal links (though ideally apps should).
+<li>optimises to avoid some unnecessary (not not harmful) calls to POST /trackers, but only remembers the most recent incoming tracker.
+This means, for example, that if the candidate has bookmarked a couple of links to the site, each with
+different values for the tracker url parameter, and then they pound those links repeatedly and alternately,
+then the app will repeatedly call POST /trackers (though this won't cause an explosion of trackers as existing ones
+will just be re-used).
+</ul>
+
+<pre><code>
+// get details of tracker (if any) passed in as a url parameter 
+Integer trackerParam = httpRequest.getParms("tracker");
+
+// get details of existing session tracker (if any) and its parent (if any) 
+HttpSession session = httpRequest.getSession(true);
+Integer sessionTracker = session.getAttribute("sessionTracker");
+Integer parentTracker = session.getAttribute("parentTracker");
+
+// we test if session tracker missing or mismatched with an incoming tracker param - if so, potentially need to create a new one.
+// there are two ways to do this, based on whether the app emits the tracker parameter on all its internal links (which might still
+// end up getting shared - so it should) or not.
+//
+// conditional when the app does emit tracker on all links
+if (sessionTracker == null || ! Objects.equals(parentTracker, trackerParam)) {
+// conditional when the app does not emit tracker on all links
+// if (sessionTracker == null || (trackerParam != null && (parentTracker == null || parentTracker != trackerParam)) {
+  // prepare a request body for use with either create tracker API call
+  String request =
+  {
+    "kind": "sessionCreation",
+    "ip": httpRequest.getIP(),
+    "Accept-Language": httpRequest..,
+    "userAgent": httpRequest..
+  }
+  if (trackerParam == null) {
+    // create a session tracker with no parent
+    POST /trackers/root
+      Request: <- request
+      Location: -> trackerID
+    session.setAttribute("sessionTracker", trackerID);
+    session.removeAttribute("parentTracker");
+  } else {
+    // create a session tracker chained to the incoming tracker
+    POST /trackers/byID/9022/trackers
+      Request: <- request
+      Location: -> trackerID
+    session.setAttribute("sessionTracker", trackerID);
+    session.setAttribute("parentTracker", parentTracker);
+  }
+}    
+
+// from here on, we will add (or replace) the sessionTracker parm on any trackerized links we emit, e.g. "?tracker=9023" 
+// one tiny problem is that the current URL (i.e. this entry page) has the original (if any) tracker param on it.
+// That creates a problem in that if this page contained a non-TAS social sharing plugin (one that just referenced the current page rather
+// than having tracker param passed into it), this new session tracker would not be seen by it. The solution is
+// to try and force navigation to any new page as quickly as possible - the new page's links will contain the proper tracker param.
+</code></pre>
+</p>
+
+<h2>Web site analytics considerations for session trackers</h2>
+
+<p>Attaching the tracker parameter to all URLs that your site emits can affect your web site analytics. You may want to
+instruct analytics code to ignore the tracker parameter - for Google, see https://support.google.com/analytics/answer/1010249?hl=en.
+
+<h2>Web site search engine optimization (SEO) considerations for session trackers</h2>
+
+<p>Attaching the tracker parameter to all URLs that your site emits can affect your web site's SEO. You may want to
+instruct search engines to ignore the tracker parameter - for Google, use Webmaster tools.
+
+
+<h1>Scenarios</h1>
+
+<h2>Scenario 1 - a legacy ATS uses tracker to pass through legacy source tracking information</h2>
+
+<h3>Candidate arrives at the job details page on the legacy ATS, via a legacy link</h3>
+
+<p>The legacy ATS maintains candidateSource and device values in its session for incoming candidates.
+</p>    
+
+<p>A candidate arrives at:
+
+<pre><code>
+acme/legacyats.com/jobs/Creative-Director-GR4022?candidateSource=facebook
+</code></pre>
+</p>
+
+<p>The legacy ATS knows it will be handing off the apply process to some other microservices.</p>
+
+<p>This means the apply process is out of the legacy ATS's control. But eventually the legacy ATS will regain control, when the apply app calls
+POST /candidates to push the candidate and job application in.
+</p>
+
+<p>Therefore the legacy ATS needs to pack its legacy detail into a tracker, and pass that tracker in to the
+apply app, relying on the apply app eventually passing that tracker back in again.</p>
+
+<h3>ATS creates a session tracker</h3>
+
+<p>Like any good candidate-facing app, the legacy ATS maintains a session tracker, as per the logic above.
+</p>
+
+<p>In this case the ATS also embeds the legacy sourcing data in the userArea field: 
+<pre><code>
+</code></pre>
+<div class='codeBlock'>
+POST /trackers
+<div class='clientInclude' data-href='../examples/tracker-createLegacySourceTracker.json'></div>
+Response:
+Location: 16044
+</div>
+</p>
+
+<p>Not shown, but legacy ATS passes this tracker ID in as a URL parameter to the apply app in its job details page.  
+
+<h3>Candidate clicks to apply at the simpleapply microservice</h3>
+
+<p>ATS renders job details page. In it, a deep link like this leads to simpleapply:
+<pre><code>
+acme.simpleapply.com/jobs/16670?tracker=16044
+</code></pre>
+</p>
+ 
+<p>Simpleapply is tracker-aware and so creates a session tracker for the candidate (16045) and chains it to the existing tracker.
+</p>
+
+<p>Once the candidate has completed the application, simpleapply passes that tracker (16045) back into the ATS via the
+POST /candidates API call.
+</p>
+
+<h3>The ATS produces the API POST /candidates</h3>
+
+<p>The legacy ATS uses the following logic to extract its legacy source details from the incoming tracker:
+
+<pre>
+The ATS searches up the tracker chain until it reaches a tracker with a "legacyATS" field in the userArea
+
+if found
+	use that for source details
+		
+else
+	the ATS attempts to manufacture its own source details from the immediately incoming tracker. It can only do a very limited job.
+	1) the ATS searches up the tracker chain until it reaches any session tracker
+		device = derive from user-agent as per existing ATS behaviour
+	2) The legacy ATS starts again and searches up the tracker chain until it reaches either:
+		a session tracker with a "sessionCreation.referer" value that matches one of the rows in its own table of media
+		a campaign tracker with a "campaign.referrer" value that matches one of the rows in its own table of media
+		a campaign tracker with a "campaign.referrer" value that matches one of the rows in its own table of media
+		if found
+			candidateSource = the media 
+</pre>
+
+<p>A sample chain is shown here though it doesn't yet show the data discussed above.
+
+<pre><code>
+GET /trackers/16045/chain
+Response:
+<div class='clientInclude' data-href='../examples/trackers-legacyATS.json'></div>
+</code></pre>
+</p>
+
+<h2>Scenario 2 - a job is advertised on a job board</h2>
+
+<p>A root campaign tracker is created:
+
+<pre><code>
+POST /trackers/root
+<div class='clientInclude' data-href='../examples/tracker-createLinkoutTracker.json'></div>
+Response:
+Location: 9022
+</code></pre>
+</p>
+
+
+
+<h2>Scenario #2a - a job is advertised in a print publication. Someone searches by code at the careers site and then applies</h2>
+
+<h2>Scenario #3 - a job is emailed to a candidate who shares it with another candidate</h2>
+
+<h3>An automated alert for a new job is emailed to a candidate</h3>
+
+<p>A root tracker is obtained by the mailout app:
+
+<pre><code>
+POST /trackers/root
+<div class='clientInclude' data-href='../examples/tracker-createMailoutTracker.json'></div>
+Response:
+Location: 9022
+</code></pre>
+</p>
+
+<p>The outgoing email has a link like this:
+<pre><code>
+&lt;a href="/jobs/1004532?tracker=9022&gt;Creative director&lt;/a&gt;
+</code></pre>
+</p>
+
+<h3>That candidate visits the careers site app to view the job</h3>
+
+<p>The careers site is tracker-aware so creates a new session tracker.
+</p>
+
+<h3>Not interested themselves, candidates clicks to share the job details page on Facebook</h3>
+
+<p>The careers site may force navigation to a new page, so that any sharing plugins which rely on current URL have
+access to the up to date session tracker (see comments above).
+</p>
+
+<p>One way is to hide the sharing plugins when the job details page is being generated for a new session, and instead
+show a button "Enable sharing" that just navigates to the current page - after navigation the page will not be being
+generated for a new session, so the sharing plugins will show as they should.
+</p>
+
+<h3>The candidate uses Facebook share button which shares the current URL</h3>
+
+<h3>A friend sees their Facebook post and clicks through to view the job</h3>
+
+<p>The friend clicks through to the target page at /jobs/1004532?tracker=9023.
+</p>
+
+<p>The same logic as above fires, and the careersite app creates a new session tracker (9024), and attaches
+it to all links it emits.
+</p>
+  
+<h3>The friend is not interested in that job, but while browsing the careers site they find another job they are interested in</h3>
+
+<p>This job is at /jobs/26?tracker=9024
+</p>
+	
+<h3>Leaving for work, they do not have time to apply, so they share the link with themselves via email</h3>
+
+<p>they use sharing via email to send the link to themselves</p>
+	
+<h3>On their way to work on the bus, they open the email and return to the careers site on their mobile phone</h3>
+
+<p>they click through to the target page at /jobs/26?tracker=9024
+</p>
+
+<p>the same logic as above fires, and another new session tracker (9025) is created and used for all links.
+</p>  
+
+<h3>They complete an application for the job</h3>
+
+<ul>
+<li>the tenant has set up simpleapply to handle job applications
+<li>the candidate goes to acme.simpleapply.com/jobs/26?tracker=9025
+<li>simpleapply is tracker aware as well, so another new session tracker is created (9026)
+<li>simpleapply passes the application to the ATS, along with tracker=9026
+</ul>
+
+<h2>Scenario #4 - a job is shared via employee referral to a candidate who applies</h2>
+
+<h3>The employee referral system (refly) has a list of open jobs along with their apply links (via GET /jobs API)</h3>
+
+<p>refly creates a new campaign tracker that will hold its own specific details, in this case that
+referral has been made by Fred.
+</p>
+
+<pre><code>
+POST /trackers
+<div class='clientInclude' data-href='../examples/tracker-createEmployeeReferralTracker.json'></div>
+Response:
+Location: 9041
+</code></pre>
+</p>
+
+<p>refly now facilitates getting that link in front of candidate(s):
+
+<pre><code>
+&lt;a href="/jobs/1004532?tracker=9041&gt;
+</code></pre>
+</p>
+
+<h3>The candidate clicks on the link and arrives at the careers site</h3>
+
+<p>As previously, a new session tracker (9046) is created by the careers site and chained to the
+existing tracker.
+</p>
+
+<pre><code>
+POST /trackers/byID/9041/trackers
+Request
+.. create session tracker
+Response:
+Location: 9046
+</code></pre>
+</p>
+	
+<h3>The candidate applies at simpleapply</h3>
+
+<p>The tracker is passed into POST /candidates with the job application.
+</p>
+
+<p>The ATS producing POST /candidates now notifies the agent insight app that some change
+has happened to an application (i.e. creation in this case):
+
+<pre><code>
+POST /applications/66022/deltaPings
+</code></pre>
+</p>
+
+<p>agent insight gets the application's tracker 
+<pre><code>
+GET /applications/byID/66022/tracker
+Response:
+Location: 9046
+</code></pre>
+</p>
+
+<p>agent insight now asks for every installed app that had some part in sourcing this application - i.e. that
+created a tracker upstream from 9046
+
+<pre><code>
+GET /trackers/byID/9046/chain
+Response:
+<div class='clientInclude' data-href='../examples/trackers-simple.json'></div>
+</code></pre>
+</p>
+
+<p>agent insight now uses the list of sourcing apps to alert each of the tracker owners
+that an application they have sourced has changed. Theoretically a sourcing app may appear
+multiple times in the chain:
+
+<pre><code>
+POST /applications/bySourcingApp/acme/supersoft/refly/66022/deltaPings
+{
+	"operation": "insert",
+	"trackers": [ 9041 ]
+}
+</code></pre>
+</p>
+
+<p>refly asks for specific information about the application. Agent insight internally re-creates the chain of trackers and
+verifies that refly is allowed to ask for this application before responding
+
+<pre><code>
+GET /applications/bySourcingApp/acme/supersoft/refly/66022/sourcerDetails
+Response:
+{
+	"sourcerBucket": "interview",
+	"trackers": [ 9041 ]
+}
+</code></pre>
+</p>
+
+<p>refly now has all the information it needs about the application that it had a part in sourcing
+</p>
+
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

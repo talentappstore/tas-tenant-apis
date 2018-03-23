@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "item": {
+        "name": "HIREDATE",
+        "type": "date",
+        "value": "2015-11-05T13:15:30Z"
+      }
+    }
+  ],
+  "candidate": {
+    "person": {
+      "givenName": "Fred",
+      "familyName": "Bloggs",
+      "email": "fred@gmail.com"
+    },
+    "resumeMeta": {
+      "fileName": "fredcv.docx",
+      "size": 3023443,
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "dateUploaded": "2015-11-05T13:15:30Z",
+      "preSignedUri": "https://frodo.com/docs/198714509"
+    },
+    "items": []
+  },
+  "job": {
+    "code": "TTfg321",
+    "title": "Creative Director",
+    "items": [],
+    "recruiter": {
+      "person": {
+        "email": "frano@gmail.com"
+      }
+    }
+  }
+}
+

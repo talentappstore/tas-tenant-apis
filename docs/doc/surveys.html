@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Surveys</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+        <!-- Sidebar as per https://github.com/blackrockdigital/startbootstrap-simple-sidebar-->
+       <div id="sidebar-wrapper">
+             <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="home.html">Home</a></li>
+                <li><a href="goals.html">Goals & non-goals</a></li>
+                <li><a href="concepts.html">Concepts</a></li>
+                <li><a href="peertopeer.html">Peer to peer API platform</a></li>
+                <li><a href="cheatsheet.html">Programming guide</a></li>
+                <li><a href="tazzy.html">Tazzy</a></li>
+				<li>API reference
+					<ul>
+					<li><a href="../generated/recruitment.raml.html">Tenant APIs (by Aotal)</a>
+					<li><a href="../generated/index.html">Schemas and doc.</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreIn.raml.html">Core-in APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html">Core-out APIs</a>
+					<li><a href="http://talentappstore.github.io/tas-core-apis/">Schemas and doc.</a>
+					</ul>
+                <li><a href="commercials.html">Commercials and pricing</a></li>
+                <li><a href="helloworld.html">Hello world</a></li>
+                <li><a href="sandboxapps.html">Installing sandbox apps</a></li>
+                <li>Recipes
+                <ul>
+                    <li><a href="install.html">App install and setup</a></li>
+                    <li><a href="buttons.html">Career site buttons</a></li>
+                    <li><a href="applyGate.html">Apply gates</a></li>
+                    <li><a href="assessments.html">Assessments</a></li>
+                    <li><a href="careerSite.html">Career sites</a></li>
+                    <li><a href="careerSite.html">Candidate surveys</a></li>
+                    <li><a href="applyRegister.html">Apply for jobs and register</a></li>
+                    <li><a href="newHires.html">New hires, payroll and onboarding</a></li>
+                    <li><a href="getJobs.html">Job distribution/ job boards</a></li>
+                    <li><a href="trackers.html">Trackers</a></li>
+                    <li><a href="patterns.html">Patterns</a></li>
+                </ul>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Survey applicants app</h1>
+
+<p>Here's a quick walk through of what's required to write a survey app in Talent App store - e.g. an app that sends a survey to applicants
+who have been unsuccessful in order to understand candidate care levels.
+</p>
+
+
+<h1>About TAS</h1>
+
+<p>Writing an app may sound intimidating, but its not. You're not actually creating a downloadable app that the customer runs themselves.
+Instead you're just producing and consuming RESTful APIs on your own servers - in a way that looks like an app to the customer.
+</p>
+
+<p>For example, when a customer clicks install on your app in Talent App Store, you'll receive an
+incoming API call to your own server telling you that you have a new customer.
+From this point you can start making API calls to fetch data for that customer.
+</p>
+
+<p>All your app's code runs on your own servers, and we (Aotal) don't perform any review or testing of your code, nor do we need
+any IP rights to it. Also the APIs you will use are all open source, so you're free to use them in any way you see fit. And of course you
+can write and host your app using whatever tools and technologies you already use.
+</p> 
+
+<p>For more about TAS, see <a href='http://www.talentappstore.com'>http://www.talentappstore.com</a>.
+
+
+<h1>Steps</h1>
+
+<p>Here are the typical steps you would go through to build this app.
+</p>
+
+<h2>Define your data gathering strategy</h2>
+
+<p>Your survey will be triggered by an applicant being marked as unsuccessful in their application for a job. There are two ways you can learn about unsuccessful applicants:
+<dl>
+<dt>Pull (polling)</dt>
+<dd>
+<p>You periodically (e.g. once an hour, overnight) call the API GET /applications/byPhase/decline/complete, passing in a date. The response includes
+all applications that have been declined since that date - typically the date you pass in will be the date of the previous poll operation.
+</p>
+<p>This approach is not real time, but that's probably not a concern for this kind of app - you may want to allow some time for the candidate
+to absorb the fact that they've been unsuccessful before approaching them.
+</p>
+<dt>Push (delta ping)</dt>
+<dd>
+<p>You produce the API GET /applications/byPhase/decline/complete, which is called in real time each time a candidate is declined.
+</p>
+<p>This approach requires high availability of your app. If your app is down at the point when a candidate is declined, you'll miss the message, and
+you would have to use GET /applications/byPhase/decline/complete when your app came back up again.
+</p>
+</dd> 
+</dl>
+</p>
+<p>In this example, we'll use the pull approach.
+</p> 
+
+<h2>Create your app and fetch declined candidates</h2>
+
+<p>1) Create a developer account at developer.talentappstore.com.
+</p>
+
+<p>2) Define your app, giving it a name, logo etc. Make a note of your app's secret key - you'll need this later. Don't share this with anyone.
+Finally, define the APIs that your app consumes - in this case,
+<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#applications_byPhase_decline_complete_get'>GET /applications/byPhase/decline/complete</a> (make sure you specify source of truth == true):
+</p>
+
+<p>Later on, you'll write some code and then attach your actual servers. But for now, lets install your app and start making some API calls from the command line.
+In Talent App Store, your app can't do much at all until its installed by a tenant. So to develop and test your app, and make API calls, you'll need a tenant of your own (its free to create one).
+</p>
+
+<p>3) Back at the app, in the developer site, click the install link.
+</p>   
+
+<p>4) You'll be guided to create an account at www.talentappstore.com. Create a tenant, and finally install your app into your new tenant.
+You'll see a couple of other apps pre-installed for you.
+</p>
+
+<p>Next, for your app to consume this API, some other app needs to produce it. In a production tenant, that app might be an applicant tracking system (ATS).
+Since installing an ATS and getting test data into it can be something of a big deal, we (Aotal) provide a simple test app that produces the APIs you're
+going to use and is pre-loaded with test data.
+</p>
+
+<p>5) Click <a href='blah'>
+here</a> to install the mock applications app into your tenant.
+
+<p>Now you're ready to make an API call to fetch declined applications. We'll use the familiar curl command.
+</p>
+
+<p>6) At the command line, type the following (substituting your own app, tenant and secret key):
+
+<pre><code>
+# as the app "myapp",
+# and acting for tenant "acme",  
+# call the API GET /applications/byPhase/decline/complete
+# fetching declined applications in the last week
+# including application, job and candidate details  
+# as defined by the developer "tas"
+
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" \
+https://myapp.tazzy.io/t/acme/devs/tas/applications/byPhase/decline/complete?since=2017-04-01T00:00:00+00:00&includeAppDetails=true&includeCandidateDetails=true&includeJobDetails=true
+</code></pre>
+</p>
+
+<p>You should see a list of applications come back, ordered by ID. If not, check the preceding steps. If you get an empty
+set back, you might need to scan further back in time to find some valid test data.  If you're stuck, you can ask for help on the forums
+linked to the developer site.
+</p>
+
+<h3>Paging through the result set</h3>
+
+<p>In a live system you'll see a lot of data. The API only returns a maximum of 100 applications each time you call it, so if you do see that many
+applications in the response, call the API again, this time passing in the minID parameter set to the ID of the last application in the previous response.
+Keep doing this until you've fetched all the applications.
+</p> 
+
+<h3>Next result set</h3>
+
+<p>The next time your app pulls declines, you'll pass in a new value for the since parameter - most likely the point in time of your previous run. Again,
+page through the results, 100 at a time, until you've fetched all the declines.  
+</p>    
+
+<h2>Decode each job's category values</h2>
+
+<p>If you need to correlate your surveys in some way to some characteristic of each application's job (e.g. department), you'll likely do that using the job's categories.
+</p>
+
+<p>If you look closely at each job's details, you'll see that the job's category values (e.g. its location) are identified by ids.
+To obtain the mapping from those ids into actual values (e.g. 2013 == Auckland), you'll need to call two more APIs.
+</p>
+
+<p>The GET /categories API gives you the list of categories - e.g., that this tenant has categorized their jobs by location and by expertise.
+</p>
+
+<p>The GET /categories/byID/{}/values API gives you all of the values for any single category - e.g., all the locations that this tenant has set up.
+</p>
+
+<p>You should cache the results of these APIs so that you don't need to make the API calls to often, or your app might be throttled.  
+</p>
+
+<p>7) At the developer site, update your app so that it consumes these APIs (again, as source of truth).
+<ul>
+<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_get'>GET /categories</a>
+<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_byID__category__values_get'>GET /categories/byID/{}/values</a>
+</ul>
+</p>
+
+<p>To test this out, you can call these APIs using curl as above, e.g.:
+<pre><code>
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://getjobstest.tazzy.io/devs/tas/categories
+</code></pre>
+</p>
+
+<p>One of the categories returned above was 100001999, so to get the values for this category, call:
+<pre><code>
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" -H 'tazzy-tenant: acme' https://mockjobstest.tazzy.io/devs/tas/categories/byID/100001999/values
+</code></pre>
+</p>
+
+<h2>Multiple applications</h2>
+
+<p>Its possible (and normal) for a candidate to apply to multiple jobs, and therefore to be declined multiple times. Also, a candidate could be declined for
+multiple jobs within a very short period of time (e.g. if all the applications were waiting on a single drug test result). You may want to apply some
+policy in your app that considers this.
+</p>
+
+<h2>Internal candidates</h2>
+
+<p>Some candidates are internal, i.e. already employed by the customer. If you want to treat internals differently, you can identify them
+via the candidate details that are passed back.
+</p> 
+
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

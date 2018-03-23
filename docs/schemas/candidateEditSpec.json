@@ -85,7 +85,7 @@
           "description": "the job application these rules apply to"
         },
         "itemsRule": {
-          "$ref": "itemPackagesRead.json"
+          "$ref": "itemMetas.json"
         }
       },
       "additionalProperties": false
@@ -104,7 +104,7 @@
           "$ref": "#/definitions/vCardRule"
         },
         "itemsRule": {
-          "$ref": "itemPackagesRead.json"
+          "$ref": "itemMetas.json"
         }
       },
       "required": [

@@ -12,7 +12,7 @@
             "description": "Details about the series of api tests completed. Also includes any exceptions"
         },
         "tests": {
-            "$ref": "#/definitions/apiTest"
+            "$ref": "apiTest.json"
         },
         "runTime": {
             "type": "integer",

@@ -5,7 +5,6 @@
       {
         "name": "refer",
         "uri": "https://referrals.com/jobs/1022?tracker=106645",
-        "behavior": "redirect",
         "type": "button",
         "label": "Refer a friend",
         "textColor": "dddddd",
@@ -15,7 +14,6 @@
       {
         "name": "share",
         "uri": "https://sharing.com/jobs/1022?tracker=106645",
-        "behavior": "modal",
         "type": "button",
         "label": "Share this job",
         "textColor": "dddddd",

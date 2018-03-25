@@ -23,7 +23,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "presentation": {
           "enum": [
@@ -68,7 +68,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "precision": {
           "type": "integer"
@@ -105,7 +105,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "format": {
           "enum": [
@@ -144,7 +144,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "showTime": {
           "type": "boolean",
@@ -186,7 +186,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "purpose": {
             "enum": [
@@ -227,7 +227,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "nullLabel": {
           "type": "string",
@@ -266,7 +266,7 @@
           "$ref": "#/definitions/title"
         },
         "instructions": {
-          "$ref": "itemRead.json#/definitions/instructions"
+          "$ref": "#/definitions/instructions"
         },
         "minRows": {
           "type": "integer"

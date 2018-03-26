@@ -1,0 +1,30 @@
+{
+    "type": "picklist",
+    "name": "preferred-transport-10044",
+    "title": "Preferred transport",
+    "instructions": "Tell us how you'ld like to get to work",
+    "nullLabel": "Choose your transport mode",
+    "minChoices": 1,
+    "maxChoices": 1,
+    "presentation": "showOne",
+    "choices": [
+      {
+        "name": "Plane",
+        "isDefault": false
+      },
+      {
+        "name": "Land",
+        "isDefault": false,
+        "choices": [
+          {
+            "name": "Car",
+            "isDefault": false
+          },
+          {
+            "name": "Bike",
+            "isDefault": false
+          }
+        ]
+      }
+    ]
+}

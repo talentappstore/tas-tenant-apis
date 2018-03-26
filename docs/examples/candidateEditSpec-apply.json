@@ -36,89 +36,56 @@
       ],
       "message": "Providing a resume is great, but if you don't have one, just leave us a video recording instead"
     },
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "nursingCert": {
-          "type": "object",
-          "title": "C1 nursing certificate",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/pdf"
-          },
-          "description": "Please scan and attach your C1 as pdf",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "additionalProperties": false
-    }
+    "itemsRule": [
+		  {
+		    "type": "picklist",
+		    "name": "preferred-transport-10044",
+		    "title": "Preferred transport",
+		    "instructions": "Tell us how you'ld like to get to work",
+		    "nullLabel": "Choose your transport mode",
+		    "minChoices": 1,
+		    "maxChoices": 1,
+		    "presentation": "showOne",
+		    "choices": [
+		      {
+		        "name": "Plane",
+		        "isDefault": false
+		      },
+		      {
+		        "name": "Land",
+		        "isDefault": false,
+		        "choices": [
+		          {
+		            "name": "Car",
+		            "isDefault": false
+		          },
+		          {
+		            "name": "Bike",
+		            "isDefault": false
+		          }
+		        ]
+		      }
+		    ]
+		  }    
+    ]
   },
   "applicationModel": {
     "job": 356347,
-    "itemsRule": {
-      "$schema": "http://json-schema.org/draft-04/hyper-schema#",
-      "type": "object",
-      "properties": {
-        "coverLetter": {
-          "type": "object",
-          "format": "tas-fileUpload",
-          "access": "candidateOwned",
-          "options": {
-            "accept": "image/png,text/html"
-          },
-          "description": "Please upload a cover letter. The shorter the better",
-          "properties": {
-            "data": {
-              "type": "string",
-              "media": {
-                "binaryEncoding": "base64"
-              }
-            },
-            "fileName": {
-              "type": "string"
-            },
-            "via": {
-              "type": "string"
-            }
-          }
-        },
-        "favoriteColor": {
-          "type": "string",
-          "access": "eeo",
-          "title": "Favorite color",
-          "description": "Tell us your favorite color. Our advanced hiring algorithm uses it.",
-          "default": "blue",
-          "minLength": 1
-        },
-        "letters": {
-          "type": "integer",
-          "title": "Letters",
-          "access": "eeo",
-          "description": "How many letters are in this sentence?",
-          "minimum": 0,
-          "maximum": 20
-        }
-      },
-      "required": [
-        "favoriteColor",
-        "letters"
-      ],
-      "additionalProperties": false
-    }
-  }
+    "itemsRule": [		  {
+		    "type": "file",
+		    "name": "cover-letter-1002",
+		    "title": "Cover letter",
+		    "instructions": "Please upload a cover letter.",
+		    "purpose": "document",
+		    "accept": [
+		      "application/pdf",
+		      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+		      "application/msword",
+		      "application/rtf"
+		    ],
+		    "maxSize": 1000000
+		  }
+    ]
+    
+ }
 }

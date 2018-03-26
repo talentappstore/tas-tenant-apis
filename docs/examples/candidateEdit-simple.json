@@ -1,48 +1,51 @@
 {
-    "candidateData": {
-        "vcard": [
-            {
-                "vcardStuff": "yet to be defined"
-            }
-        ],
-        "resume": {
-            "fileName": "fredcv.docx",
-            "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
-            "via": "dropbox.com"
-        },
-        "jobNotifications": true,
-        "categoriesPatch": {
-            "op": "replace",
-            "patchItems": [
-                {
-                    "category": 10032,
-                    "values": [
-                        1009,
-                        1010,
-                        10344
-                    ]
-                },
-                {
-                    "category": 10055,
-                    "values": [
-                        1085
-                    ]
-                }
-            ]
-        },
-        "items": {
-            "worstColor": "blue"
-        }
+  "candidateData": {
+    "vcard": [
+      {
+        "vcardStuff": "yet to be defined"
+      }
+    ],
+    "resume": {
+      "fileName": "fredcv.docx",
+      "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
+      "via": "dropbox.com"
     },
-    "applicationData": {
-        "job": 23,
-        "items": {
-            "coverLetter": {
-                "data": "ku(6gKjbhUYg78686VjthvfgEYcfUgv87VFYTR09098lkjgvf",
-                "fileName": "fred.doc",
-                "via": "dropbox.com"
-            },
-            "favoriteColor": "red"
+    "jobNotifications": true,
+    "categoriesPatch": {
+      "op": "replace",
+      "patchItems": [
+        {
+          "category": 10032,
+          "values": [
+            1009,
+            1010,
+            10344
+          ]
+        },
+        {
+          "category": 10055,
+          "values": [
+            1085
+          ]
         }
-    }
+      ]
+    },
+    "items": [
+      {
+        "name": "blah",
+        "type": "boolean",
+        "value": true
+      }
+    ]
+  },
+  "applicationData": {
+    "job": 23,
+    "items": [
+      {
+        "name": "blah",
+        "type": "boolean",
+        "value": true
+      }
+    ]
+  }
 }

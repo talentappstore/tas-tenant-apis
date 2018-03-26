@@ -224,8 +224,14 @@ Set the outgoing <span class='highlight'>Authorization</span> request header fro
 <li>Give your app a principal type (user or candidate)
 <li>Put your pages at an endpoint like <span class='highlight'>/t/{tenant}/</span><resource>, e.g. /t/{tenant}/index.html
 <li>Now your page is available at <b>https://<span class='highlight'>yourapp</span>.communityapps.talentappstore.com/t/{tenant}/...</b>
-<li>Provide a sign out link that points to /t/{tenant}/saml/logout.
 <li>Remember to lock down access to the page from your own domain (if publicly visible), or visitors will be able to bypass SSO!
+</ol>
+</p>
+
+<p>Add sign out support:
+<ol>
+<li>Provide a sign out link that leads to <span class='highlight'>/t/{tenant}/saml/logout</span>.
+<li>Add a "signed out" page at <span class='highlight'>/t/{tenant}/tas/logout</span> (signing out will redirect user to here).
 </ol>
 
 <p>Choose a suitable protection level for each page in your app.

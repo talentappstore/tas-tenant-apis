@@ -231,7 +231,7 @@
         },
         "nullLabel": {
           "type": "string",
-          "description": "if present,  and presntation == showOne, then a pseudo-choice will be injected"
+          "description": "if present,  and presentation == showOne, then a pseudo-choice will be injected"
         },
         "minChoices": {
           "type": "integer"
@@ -247,7 +247,7 @@
           "description": "showOne is only usable when maxChoices == 1"
         },
         "choices": {
-          "$ref": "#/definitions/picklistChoice"
+          "$ref": "#/definitions/picklistChoices"
         }
       }
     },
@@ -286,30 +286,26 @@
       },
       "description": "a series of itemMetas, each representing a column within the table"
     },
-    "subItems": {
+    "picklistChoices": {
       "type": "array",
       "items": {
-        "$ref": "#"
+        "$ref": "#/definitions/picklistChoice"
       },
-      "description": "a bunch of items that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
+      "description": "a bunch of choices that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
     },
     "picklistChoice": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "description": "an immutable key for this choice"
-        },
-        "label": {
-          "type": "string",
-          "description": "how the user sees this choice"
+          "description": "this choice - ideally immutable"
         },
         "isDefault": {
           "type": "boolean",
           "description": "will always be compatible with minChoices, maxChoices"
         },
-        "subItems": {
-          "$ref": "#/definitions/subItems"
+        "choices": {
+          "$ref": "#/definitions/picklistChoices"
         }
       }
     }

@@ -36,9 +36,6 @@
         "name": {
           "$ref": "#/definitions/name"
         },
-        "display": {
-          "$ref": "#/definitions/display"
-        },
         "value": {
           "$ref": "#/definitions/tableRows"
         }
@@ -72,9 +69,6 @@
         },
         "name": {
           "$ref": "#/definitions/name"
-        },
-        "display": {
-          "$ref": "#/definitions/display"
         },
         "value": {
           "$ref": "#/definitions/pickChoices"
@@ -117,10 +111,6 @@
       "type": "string",
       "description": "name of the item"
     },
-    "display": {
-      "type": "string",
-      "description": "the value - including any subitems - rendered as an HTML fragment, e.g. suitable for embedding in a table cell, encoded using url encoding"
-    },
     "booleanItem": {
       "type": "object",
       "properties": {
@@ -131,9 +121,6 @@
         },
         "name": {
           "$ref": "#/definitions/name"
-        },
-        "display": {
-          "$ref": "#/definitions/display"
         },
         "value": {
           "type": "boolean",
@@ -158,9 +145,6 @@
         "name": {
           "$ref": "#/definitions/name"
         },
-        "display": {
-          "$ref": "#/definitions/display"
-        },
         "value": {
           "type": "string",
           "description": "json representation of a string item's current value"
@@ -183,9 +167,6 @@
         },
         "name": {
           "$ref": "#/definitions/name"
-        },
-        "display": {
-          "$ref": "#/definitions/display"
         },
         "value": {
           "type": "number",
@@ -210,9 +191,6 @@
         "name": {
           "$ref": "#/definitions/name"
         },
-        "display": {
-          "$ref": "#/definitions/display"
-        },
         "value": {
           "type": "string",
           "format": "date-time",
@@ -236,9 +214,6 @@
         },
         "name": {
           "$ref": "#/definitions/name"
-        },
-        "display": {
-          "$ref": "#/definitions/display"
         },
         "value": {
           "$ref": "fileDownload.json"

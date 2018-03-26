@@ -213,12 +213,12 @@ resourceTypes: !include resources.yml
               application (i.e., that owns the campaign tracker attached to the application).
       /items:
         description: all items held on an application
-        type: items
+        type: itemPackagesRead
         get:
           is: [ offerEmbedMeta ] 
         /byName:
           /{item}:
-            type: item
+            type: itemPackageRead
             get:
               is: [ offerEmbedMeta ]
         /itemMetas:
@@ -978,12 +978,12 @@ resourceTypes: !include resources.yml
     /{candidate}:
       /items:
         description: all items held on a candidate
-        type: items
+        type: itemPackagesRead
         get:
           is: [ offerEmbedMeta ] 
         /byName:
           /{item}:
-            type: item
+            type: itemPackageRead
             get:
               is: [ offerEmbedMeta ]
         /itemMetas:
@@ -1243,12 +1243,12 @@ resourceTypes: !include resources.yml
       /jobs:
         /{job}:
           description: items held on a job that are visible to candidates, e.g. position description document
-          type: items
+          type: itemPackagesRead
           get:
             is: [ offerEmbedMeta ] 
           /byName:
             /{item}:
-              type: item
+              type: itemPackageRead
               get:
                 is: [ offerEmbedMeta ]
           /itemMetas:
@@ -1260,12 +1260,12 @@ resourceTypes: !include resources.yml
                 type: itemMeta
     /me:
       description: candidate-visible items held on the candidate themselves, e.g. their own answers when applying for jobs
-      type: items
+      type: itemPackagesRead
       get:
         is: [ offerEmbedMeta ] 
       /byName:
         /{item}:
-          type: item
+          type: itemPackageRead
           get:
             is: [ offerEmbedMeta ]
       /itemMetas:
@@ -1277,12 +1277,12 @@ resourceTypes: !include resources.yml
             type: itemMeta
       /forJob:
         /{job}:
-          type: items
+          type: itemPackagesRead
           get:
             is: [ offerEmbedMeta ] 
           /byName:
             /{item}:
-              type: item
+              type: itemPackageRead
               get:
                 is: [ offerEmbedMeta ]
           /itemMetas:
@@ -1295,12 +1295,12 @@ resourceTypes: !include resources.yml
       /jobs:
         /{job}:
           description: items held on a job that are visible to candidates, e.g. position description document
-          type: items
+          type: itemPackagesRead
           get:
             is: [ offerEmbedMeta ] 
           /byName:
             /{item}:
-              type: item
+              type: itemPackageRead
               get:
                 is: [ offerEmbedMeta ]
           /itemMetas:

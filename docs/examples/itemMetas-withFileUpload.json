@@ -1,0 +1,46 @@
+[
+  {
+    "type": "file",
+    "name": "cover-letter-1002",
+    "title": "Cover letter",
+    "instructions": "Please upload a cover letter.",
+    "purpose": "document",
+    "accept": [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
+      "application/rtf"
+    ],
+    "maxSize": 1000000
+  },
+  {
+    "type": "picklist",
+    "name": "preferred-transport-10044",
+    "title": "Preferred transport",
+    "instructions": "Tell us how you'ld like to get to work",
+    "nullLabel": "Choose your transport mode",
+    "minChoices": 1,
+    "maxChoices": 1,
+    "presentation": "showOne",
+    "choices": [
+      {
+        "name": "Plane",
+        "isDefault": false
+      },
+      {
+        "name": "Land",
+        "isDefault": false,
+        "choices": [
+          {
+            "name": "Car",
+            "isDefault": false
+          },
+          {
+            "name": "Bike",
+            "isDefault": false
+          }
+        ]
+      }
+    ]
+  }
+]

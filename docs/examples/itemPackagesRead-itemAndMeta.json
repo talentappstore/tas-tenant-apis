@@ -1,0 +1,30 @@
+[
+{
+  "item": {
+    "type": "file",
+    "name": "cover letter",
+    "value": {
+      "fileName": "fredcv.docx",
+      "size": 3023443,
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "dateUploaded": "2015-11-05T13:15:30Z",
+      "preSignedUri": "https://frodo.com/docs/198714509",
+      "via": "dropbox.com"
+    }
+  },
+  "meta": {
+    "type": "file",
+    "name": "cover-letter-1002",
+    "title": "Cover letter",
+    "instructions": "Please upload a cover letter.",
+    "purpose": "document",
+    "accept": [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
+      "application/rtf"
+    ],
+    "maxSize": 1000000
+  }
+}
+]

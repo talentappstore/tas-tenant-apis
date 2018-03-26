@@ -623,8 +623,8 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/items.json
-              example: !include ../examples/items-metaWithFileUpload.json
+              schema: !include ../schemas/itemMetas.json
+              example: !include ../examples/itemMetas-withFileUpload.json
 
 - itemMeta:
     get:
@@ -634,10 +634,10 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/item.json
-              example: !include ../examples/item-metaWithFileUpload.json
+              schema: !include ../schemas/itemMeta.json
+              example: !include ../examples/itemMeta-withFileUpload.json
 
-- items:
+- itemPackagesRead:
     get:
       securedBy: [oauth_2_0]
       description: Get values and (in some scenarios) metadata, for all items
@@ -645,10 +645,10 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/items.json
-              example: !include ../examples/items-values.json
+              schema: !include ../schemas/itemPackagesRead.json
+              example: !include ../examples/itemPackagesRead-itemAndMeta.json
       
-- item:
+- itemPackageRead:
     get:
       securedBy: [oauth_2_0]
       description: Get value and (in some scenarios), metadata for a specific item
@@ -656,8 +656,8 @@
         200:
           body:
             application/json:
-              schema: !include ../schemas/item.json
-              example: !include ../examples/item-value.json
+              schema: !include ../schemas/itemPackageRead.json
+              example: !include ../examples/itemPackageRead-itemAndMeta.json
 
 - catsget:
     get:

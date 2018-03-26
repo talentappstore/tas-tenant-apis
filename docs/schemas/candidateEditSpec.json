@@ -59,20 +59,21 @@
           "description": "a simple way to hint that key vcard fields (first name, last name, email address) are mandatory - probably will get replaced by more fine-grained scheme in the future",
           "type": "boolean"
         },
-"showPrefixField": {
-	  "description": "a simple way to hint that key vcard title field should be displayed",
+        "showPrefixField": {
+          "description": "a simple way to hint that key vcard title field should be displayed",
           "type": "boolean"
         },
         "allowedPrefixes": {
-	  "type": "array",
+          "type": "array",
           "description": "the allowable titles from the ATS. E.g.: [ Mr., Mrs., Ms., Dr. ]",
-	  "items": {
+          "items": {
             "type": "string"
-           }
-        }        
+          }
+        }
       },
       "required": [
-        "someMandatory", "showPrefixField"
+        "someMandatory",
+        "showPrefixField"
       ],
       "additionalProperties": false
     },
@@ -95,7 +96,7 @@
       "additionalProperties": false,
       "properties": {
         "requiredCategoryValues": {
-            "$ref": "categoriesActual.json"
+          "$ref": "categoriesActual.json"
         },
         "resumeRule": {
           "$ref": "#/definitions/resumeRule"

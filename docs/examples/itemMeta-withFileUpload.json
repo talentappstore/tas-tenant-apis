@@ -1,0 +1,14 @@
+  {
+    "type": "file",
+    "name": "cover-letter-1002",
+    "title": "Cover letter",
+    "instructions": "Please upload a cover letter.",
+    "purpose": "document",
+    "accept": [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
+      "application/rtf"
+    ],
+    "maxSize": 1000000
+  }

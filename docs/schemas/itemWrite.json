@@ -33,9 +33,6 @@
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
-        "display": {
-          "$ref": "itemRead.json#/definitions/display"
-        },
         "value": {
           "$ref": "fileUpload.json"
         }

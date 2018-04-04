@@ -164,16 +164,23 @@
 
 - vcardGetter:
     securedBy: [oauth_2_0]
-    description: get candidate contact details, in the form described by rfc7095
+    description: |
+      *This API is deprecated in favour of GET /candidates/me and will shortly be removed.*
+      
+      Get candidate contact details, in the form described by rfc7095
     responses:
       200:
-        description: response contains candidate contact details, in the form described by rfc7095
+        description: |
+          Response contains candidate contact details, in the form described by rfc7095
         body:
           application/json:
 
 - resumeMetaGetter:
     securedBy: [oauth_2_0]
-    description: get metadata about the candidate's resume (size, filename, etc.)
+    description: |
+      *This API is deprecated in favour of GET /candidates/me and will shortly be removed.*
+      
+      Get metadata about the candidate's resume (size, filename, etc.)
     responses:
       200:
         body:

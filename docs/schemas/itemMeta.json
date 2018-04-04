@@ -8,6 +8,28 @@
       "type": "string",
       "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
     },
+    "sectionMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/instructions"
+        },
+        "subMetas": {
+          "$ref": "itemMetas.json"
+        }
+      }
+    },
     "booleanMeta": {
       "type": "object",
       "properties": {
@@ -189,12 +211,12 @@
           "$ref": "#/definitions/instructions"
         },
         "purpose": {
-            "enum": [
-              "audio",
-              "document",
-              "image",
-              "video"
-            ]
+          "enum": [
+            "audio",
+            "document",
+            "image",
+            "video"
+          ]
         },
         "accept": {
           "type": "array",
@@ -312,6 +334,9 @@
   },
   "type": "object",
   "oneOf": [
+    {
+      "$ref": "#/definitions/sectionMeta"
+    },
     {
       "$ref": "#/definitions/booleanMeta"
     },

@@ -124,21 +124,17 @@ storefront->app: GET /appStatus
 </div>
 
 
-<h1>Writing your app</h1>
+<h1>Implementing the APIs</h1>
 
-<h2>Handling installs</h2>
+<h2>Produce POST /tenants</h2>
 
-<p>(You can find a complete walkthrough of the actual steps to get your app handling installs <a href='https://github.com/talentappstore/tas-core-apis/wiki/4c.-Add-your-server,-and-produce-a-core-out-API'>here</a>.)
-</p>
- 
 <p>Whenever a tenant clicks "install" on your app, your app is notified via an incoming core API call to
 your <a href='http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post'>POST /tenants</a> endpoint.
 </p>
 
-<p>You should take this opportunity to do any per-customer setup, e.g. inserting into a customers
-table, creating a record in your customer management system, sending a welcome email, etc.
+<p>(You can find a complete walkthrough of the steps to connect your server <a href='helloworld.html'>here</a>.)
 </p>
-
+ 
 <p>In the example below, TAS is informing your app that the tenant acme-sandbox-1 has just installed it.
 
 <pre>
@@ -154,33 +150,65 @@ table, creating a record in your customer management system, sending a welcome e
 </pre>
 </p>
 
+<p>How you handle the incoming API call depends on your app.
+</p>
+
+<p>In rare circumstances, you can send a response that will cause the install to fail. This can be useful if your app
+is truely private, and you only want known tenants to ever install it.
+</p>
+
+<p>However normally you should not do this, but instead respond with 200 to let the install succeed. Even if you have mandatory steps at your end, such as account hookup/creation in your own system,
+you should still let the install proceed, and then show the settings icon. The user can click on the settings icon to complete your mandatory steps.
+</p>
+
+<p>If your app is truely on demand, you can now do any per-customer setup, e.g. inserting into a customers
+table, creating a record in your customer management system, sending a welcome email, etc.
+</p>
+
 <p>TAS supports a try before you buy model where customers you currently don't know can click to install your app and start using it. If your
 app can provide on demand demo accounts, that will make it a much smoother path for all potential customers to try your product.
 </p>
 
 
-<h2>Pointing to your landing page</h2>
-
-<p>(You can find a complete walkthrough of the actual steps to get your landing page working app handling installs <a href='https://github.com/talentappstore/tas-core-apis/wiki/4d.-Produce-a-tenant-API'>here</a>.)
-</p>
-
-<p>Whenever the tenant clicks "open" on your app, they go to your landing page.
-</p>
-
-<p>The storefront gets this by consuming <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a>
-on your app.
-</p>
-
-<p>On your landing page you might display some kind of dashboard, app settings,
-etc. You may choose to protect your landing page with SSO. If so, you can also check for the appropriate role (using admin is most restrictive).
-</p>
+<h2>Produce GET /appStatus</h2>
 
 <pre>
 <code>
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/landingPage-simple.json'></div>
+<a href='../generated/recruitment.raml.html#appStatus_get'>GET /appStatus</a>
+
+Response:
+<div class='clientInclude' data-href='../examples/appStatus-simple.json'></div>
 </code>
 </pre>
 
+<p>As the user browses around the storefront, clicking "My apps", etc., from time to time the panels of installed apps will come into view.
+</p>
+
+<p>Each time your app's panel comes into view, the storefront gives you a chance to customise its appearance by calling GET /appStatus on your app. In your response, 
+you can cause a "Setup required" icon to appear, or "Open" or "Settings" buttons to lead to web pages within your app.
+</p>
+
+<h3>Domains used</h3>
+
+<p>The domainsUsed field allows you to communicate to the customer what urls your app will be using. Some customers may use this to e.g. whitelist
+the sites in a corporate internet gateway.
+</p>
+
+<h1>Strategies for onboarding new customers</h1>
+
+<p>Your app may need some setup or admin action itself before a new customer can really start using your app - for example, maybe you
+need an account in your platform.
+</p>
+ 
+<p>The best approach is to let the app install succeed, and then light up the "setup required" icon. Then the user visually understands that something
+needs to be done to your app, and when they click in and on the "settings" button, they'll be led to your web page, where you could:
+<ul>
+<li>Ask them to log into your system (embed the tenant shortcode in your link). Once the user logs in, you have joined the dots between
+the install app in TAS and the account on your own platform. 
+<li>Ask them to enter some special code/key, which you generate for an account in your platform.
+</ul>
+
+<p>Once the user has completed the account hookup, change your response to GET /appStatus to stop returning setupRequired.  
 
 
 <h1>Beware unverified tenants</h1>

@@ -747,6 +747,16 @@ resourceTypes: !include resources.yml
   /me:
     description:
       All APIs beneath here are operating on behalf of the logged in candidate.
+    get:
+      description: |
+        Get the signed in candidate's details
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/candidateRead.json
+              example: !include ../examples/candidateRead-simple.json
+      
     post:
       securedBy: [oauth_2_0]
       description: |
@@ -830,6 +840,8 @@ resourceTypes: !include resources.yml
       get:
         securedBy: [oauth_2_0]
         description: |
+          *This API is deprecated in favour of GET /candidates/me and will shortly be removed.*
+        
           Get general information about the candidate including notifications (subscribe y/n)
         responses:
           200:
@@ -859,6 +871,8 @@ resourceTypes: !include resources.yml
 
     /id:
       description: |
+        *This API is deprecated in favour of GET /candidates/me and will shortly be removed.*
+        
         The ID of the candidate.
       get:
         securedBy: [oauth_2_0]
@@ -888,7 +902,10 @@ resourceTypes: !include resources.yml
     /categories:
       get:
         securedBy: [oauth_2_0]
-        description: get the categories for this candidate
+        description: |
+          *This API is deprecated in favour of GET /candidates/me and will shortly be removed.*
+        
+          Get the categories for this candidate
         responses:
           200:
             body:
@@ -963,7 +980,7 @@ resourceTypes: !include resources.yml
             description: a tracker, as passed in to the edit
     /social:
       /{network}:
-        /vcard:
+        /candidate:
           get:
             is: [ vcardGetter, socialGetter ]
         /resume:
@@ -974,6 +991,15 @@ resourceTypes: !include resources.yml
             get:
               securedBy: [oauth_2_0]
               is: [ document_asStream, socialGetter ]
+
+    /items:
+      /forJob:
+        /{job}:
+          description: all application-scoped items held for when a candidate applies to a job
+          type: itemPackagesRead
+          get:
+            is: [ offerEmbedMeta ] 
+              
   /byID:
     /{candidate}:
       /items:
@@ -1239,77 +1265,14 @@ resourceTypes: !include resources.yml
 
 /items:
   /toCandidate:
-    /anonymous:
-      /jobs:
-        /{job}:
-          description: items held on a job that are visible to candidates, e.g. position description document
-          type: itemPackagesRead
-          get:
-            is: [ offerEmbedMeta ] 
-          /byName:
-            /{item}:
-              type: itemPackageRead
-              get:
-                is: [ offerEmbedMeta ]
-          /itemMetas:
-            description: |
-              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-            type: itemMetas
-            /byName:
-              /{item}:
-                type: itemMeta
     /me:
-      description: candidate-visible items held on the candidate themselves, e.g. their own answers when applying for jobs
+      description: |
+        *This API is deprecated in favour of GET /candidates/me and will shortly be removed.*
+        
+        Candidate-visible items held on the candidate themselves, e.g. their own answers when applying for jobs
       type: itemPackagesRead
       get:
         is: [ offerEmbedMeta ] 
-      /byName:
-        /{item}:
-          type: itemPackageRead
-          get:
-            is: [ offerEmbedMeta ]
-      /itemMetas:
-        description: |
-          Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-        type: itemMetas
-        /byName:
-          /{item}:
-            type: itemMeta
-      /forJob:
-        /{job}:
-          type: itemPackagesRead
-          get:
-            is: [ offerEmbedMeta ] 
-          /byName:
-            /{item}:
-              type: itemPackageRead
-              get:
-                is: [ offerEmbedMeta ]
-          /itemMetas:
-            description: |
-              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-            type: itemMetas
-            /byName:
-              /{item}:
-                type: itemMeta
-      /jobs:
-        /{job}:
-          description: items held on a job that are visible to candidates, e.g. position description document
-          type: itemPackagesRead
-          get:
-            is: [ offerEmbedMeta ] 
-          /byName:
-            /{item}:
-              type: itemPackageRead
-              get:
-                is: [ offerEmbedMeta ]
-          /itemMetas:
-            description: |
-              Metadata for candidate-scoped items visible to the candidate - includes candidateOwned, internalShared and eeo (not internalOwned)
-            type: itemMetas
-            /byName:
-              /{item}:
-                type: itemMeta
 
 /jobBoards:
   description: |

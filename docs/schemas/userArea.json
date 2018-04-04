@@ -1,5 +1,0 @@
-{
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "array",
-    "description": "An array of user-defined data items for this object"
-}

@@ -100,14 +100,39 @@ color: #666666;
 <p>This recipe describes building a <b>new hires app</b> (e.g. <b>onboarding</b> or <b>payroll</b>) in Talent App Store.
 </p>
 
-<p>New hires is a label for a class of app that learns about job applications that have transitioned into a new "phase" such as Hired, using either the
-batch oriented pull APIs, or the more real time push APIs.
+<p>New hires apps learn about job applications that have transitioned into a new "phase" such as Hired, using the
+batch oriented pull APIs, and optionally the more real time push APIs.
 </p>
 
 <p>Both models rely heavily on application views. You'll need a good understanding of views to build your app.  
 You can learn about views <a href='patterns.html#Application_views'>here</a>.
 </p>
 
+<h2>Pulling events</h2>
+
+<p>In this example, your app uses the pull model to maintain its set of recent new hires:
+
+<ol>
+<li>Your app consumes the pull API <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_get'>GET /applications/views/at/onboard/now</a>.
+<li>A new hire is made:
+<ol>
+<li>Fred applies for a job, resulting in a job application
+<li>The recruitment team moves the application into the "shortlist" phase and evaluates Fred's suitability
+<li>Eventually the team decides to hire Fred, and moves the application into the "onboard" phase.
+</ol>
+</li>
+<li>On the hour, your app starts its scheduled pull of the latest candidates to be onboarded.
+<li>Your app consumes GET  /applications/views/at/onboard/now
+<ol>
+<li>Filtering to only get new onboarders since the previous upload
+<li>The response includes a view for every new onboarder
+</ol>
+</li>
+<li>Once complete, your app stores the date of this upload, so it can be used as a filter when the upload next runs. 
+</ol>
+</p>
+
+<h2>Using incoming push events</h2>
 
 <p>In this example, your app uses the push model:
 
@@ -124,19 +149,16 @@ resources such as the job's manager and recruiter.
 </ol>
 </p>
 
-<p>In this example, your app uses the pull model:
-
-<ol>
-<li>Your app consumes the pull API <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_get'>GET /applications/views/at/onboard/now</a>.
-<li>Fred applies for a job, resulting in a job application
-<li>The recruitment team moves the application into the "shortlist" phase and evaluates Fred's suitability
-<li>Eventually the team decides to hire Fred, and moves the application into the "onboard" phase.
-<li>On the hour, your app starts its scheduled pull of the latest candidates to be onboarded.
-<li>Your app consumes GET  /applications/views/at/onboard/now, filtering to only get new onboarders since the previous upload
-<li>The response includes a view for every new onboarder
-<li>Once complete, your app stores the date of this upload, so it can be used as a filter when the upload next runs. 
-</ol>
+<p>You can use push events alone for integration if you want. However if your system is down, or an API call is lost on the internet, then you may miss out on a new hire.
 </p>
+
+<p>This is not a good thing, as it can be quite a hassle for someone at the customer or the ATS support team to remedy the situation.
+</p>
+
+ <p>Even when using push, its good practice therefore to always pull events, just to pick up on any that you may have missed the push event for.
+ </p> 
+ 
+
 
 <h2>Available phases</h2>
 

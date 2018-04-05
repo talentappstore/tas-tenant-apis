@@ -100,6 +100,14 @@
           If present, a set of IDs (up to a max of 100) of the applications that should be included.
         required: false
 
+- jobStripeFetcher:
+    queryParameters:
+      jobs:
+        type: integer
+        description: |
+          If present, a set of IDs (up to a max of 100) of the jobs that should be included.
+        required: false
+
 - applicationPager:
     queryParameters:
       minID:

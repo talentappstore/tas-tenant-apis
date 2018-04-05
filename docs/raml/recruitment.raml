@@ -1082,6 +1082,22 @@ resourceTypes: !include resources.yml
               example: !include ../examples/careerSites-simple.json
     /byID:
       /{site}:
+        /jobLinks:
+          get:
+            is: [ jobStripeFetcher, trackable ]    
+            securedBy: [oauth_2_0]
+            description: |
+              Convenience API to generate links to a set of jobs at a given career site.
+              
+              Non-SoT.
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/jobLinks.json
+                    example: !include ../examples/jobLinks-simple.json
+
+
         /jobLink:
           /{job}:
             get:

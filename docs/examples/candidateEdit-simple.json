@@ -1,38 +1,46 @@
 {
   "candidateData": {
-    "vcard": [
-      {
-        "vcardStuff": "yet to be defined"
-      }
-    ],
+    "notifications": true,
+    "internalFlag": true,
+    "person": {
+      "givenName": "Fred",
+      "familyName": "Bloggs",
+      "email": "fred@gmail.com"
+    },
     "resume": {
       "fileName": "fredcv.docx",
       "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
       "via": "dropbox.com"
     },
-    "jobNotifications": true,
-    "categoriesPatch": {
-      "op": "replace",
-      "patchItems": [
-        {
-          "category": 10032,
-          "values": [
-            1009,
-            1010,
-            10344
-          ]
-        },
-        {
-          "category": 10055,
-          "values": [
-            1085
-          ]
-        }
-      ]
-    },
+    "categories": [
+      {
+        "category": 10032,
+        "values": [
+          1009,
+          1010,
+          10344
+        ]
+      },
+      {
+        "category": 10055,
+        "values": [
+          1085
+        ]
+      }
+    ],
     "items": [
       {
         "name": "blah",
+        "type": "boolean",
+        "value": true
+      },
+      {
+        "name": "birthdate",
+        "type": "date",
+        "value": "2015-11-05T13:15:30Z"
+      },
+      {
+        "name": "keenworkerflag",
         "type": "boolean",
         "value": true
       }
@@ -40,12 +48,14 @@
   },
   "applicationData": {
     "job": 23,
-    "items": [
-      {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      }
-    ]
+    "applicationWrite": {
+      "items": [
+        {
+          "name": "blah",
+          "type": "boolean",
+          "value": true
+        }
+      ]
+    }
   }
 }

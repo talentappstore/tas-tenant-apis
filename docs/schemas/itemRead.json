@@ -88,24 +88,8 @@
       }
     },
     "pickChoice": {
-      "type": "object",
-      "properties": {
-        "choice": {
-          "type": "string",
-          "description": "the name of a choice that the user selected"
-        },
-        "subItems": {
-          "type": "array",
-          "items": {
-            "$ref": "#"
-          },
-          "description": "items unlocked based on a picklist choice"
-        }
-      },
-      "required": [
-        "choice"
-      ],
-      "additionalProperties": false
+      "type": "string",
+      "description": "the name of a choice that the user selected"
     },
     "name": {
       "type": "string",

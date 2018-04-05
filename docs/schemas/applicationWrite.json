@@ -5,13 +5,13 @@
   },
   "properties": {
     "source": {
-      "$ref": "applicationread.json#/definitions/source"
+      "$ref": "applicationRead.json#/definitions/source"
     },
     "formFactor": {
-      "$ref": "applicationread.json#/definitions/formFactor"
+      "$ref": "applicationRead.json#/definitions/formFactor"
     },
     "tracker": {
-      "$ref": "applicationread.json#/definitions/tracker"
+      "$ref": "applicationRead.json#/definitions/tracker"
     },
     "items": {
       "$ref": "itemsWrite.json"

@@ -1082,14 +1082,32 @@ resourceTypes: !include resources.yml
               example: !include ../examples/careerSites-simple.json
     /byID:
       /{site}:
+        /jobLinks:
+          get:
+            is: [ jobStripeFetcher, trackable ]    
+            securedBy: [oauth_2_0]
+            description: |
+              Convenience API to generate links to a set of jobs at a given career site.
+              
+              Non-SoT.
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/jobLinks.json
+                    example: !include ../examples/jobLinks-simple.json
+
         /jobLink:
           /{job}:
             get:
               securedBy: [oauth_2_0]
               is: [trackable ]
               description: |
-                Convenience API to generate a link to a specific job at a given career site. The consumer could also have generated the URL using the
-                details from GET /careerSites/forApp to achieve the same effect. Non-SoT.
+                *This API is deprecated in favour of GET /careerSites/forApp/byID/{site}/jobLinks and will shortly be removed.*
+                
+                Convenience API to generate a link to a specific job at a given career site. 
+
+                Non-SoT.
               responses:
                 200:
                   body:
@@ -1129,6 +1147,15 @@ resourceTypes: !include resources.yml
   description: |
     Tenant-defined hierarchical structures used in talent management to categorize job openings, candidates
     and others. Includes details of inactivated nodes.
+
+  /deltaPings:
+    post:
+      securedBy: [oauth_2_0]
+      description: |
+        The main ping for any changes to the categories. Useful e.g. to replicate categories into a database without polling.  
+          
+        Non-SoT.
+    
   type: catsget
     
   /byID:
@@ -1312,7 +1339,7 @@ resourceTypes: !include resources.yml
     Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed.
     Note that this prevents the markdown blockquote syntax from being used in a job description.
     The safe subset rules may be relaxed in the future.
-    
+
   type: jobsGetter
 
   post:
@@ -1365,6 +1392,13 @@ resourceTypes: !include resources.yml
           description: the ID of a previously launched jobs bulk upload
           type: uploadStatusGetter
     /externally:
+      /deltaPings:
+        post:
+          securedBy: [oauth_2_0]
+          description: |
+            The main ping for any changes to the open jobs. Useful e.g. to replicate open jobs into a database without polling.  
+          
+            Non-SoT.
       type: jobsGetter
       /byID:
         /{id}:

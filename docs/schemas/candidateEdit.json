@@ -1,48 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "categoriesPatchOp": {
-            "enum": [
-                "add",
-                "replace"
-            ]
-        },
-        "categoriesPatch": {
-            "type": "object",
-            "properties": {
-                "patchItems": {
-                    "$ref": "categoriesActual.json"
-                },
-                "op": {
-                    "$ref": "#/definitions/categoriesPatchOp"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "op",
-                "patchItems"
-            ]
-        },
         "candidateData": {
-            "type": "object",
-            "properties": {
-                "vcard": {
-                    "$ref": "jcard.json"
-                },
-                "resume": {
-                    "$ref": "fileUpload.json"
-                },
-                "jobNotifications": {
-                    "type": "boolean"
-                },
-                "categoriesPatch": {
-                    "$ref": "#/definitions/categoriesPatch"
-                },
-                "items": {
-                  "$ref": "itemsWrite.json"
-                }
-            },
-            "additionalProperties": false
+            "$ref": "candidateWrite.json"
         },
         "applicationData": {
             "type": "object",
@@ -50,8 +10,8 @@
                 "job": {
                     "type": "integer"
                 },
-                "items": {
-                    "$ref": "itemsWrite.json"
+                "applicationWrite": {
+                    "$ref": "applicationWrite.json"
                 }
             },
             "additionalProperties": false

@@ -1684,6 +1684,19 @@
         ]
       }
     ]
+  },
+  {
+    "type": "section",
+    "name": "section-header-1033",
+    "title": "Transport questions",
+    "subMetas": [
+      {
+        "type": "boolean",
+        "name": "bike-rider-003",
+        "title": "Bike rider?",
+        "instructions": "Be honest. But remember, we want healthy employees."
+      }
+    ]
   }
 ]</code></pre></div><div class="tab-pane" id="applications_byID__application__items_itemMetas_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_applications_byID__application__items_itemMetas_byName__item_"><span class="parent">/applications/byID/{application}/items/itemMetas/byName</span>/{item}</a> <span class="methods"><a href="#applications_byID__application__items_itemMetas_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_applications_byID__application__items_itemMetas_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#applications_byID__application__items_itemMetas_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="applications_byID__application__items_itemMetas_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/applications/byID/{application}/items/itemMetas/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#applications_byID__application__items_itemMetas_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#applications_byID__application__items_itemMetas_byName__item__get_response" data-toggle="tab">Response</a></li><li><a href="#applications_byID__application__items_itemMetas_byName__item__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="applications_byID__application__items_itemMetas_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>application</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="applications_byID__application__items_itemMetas_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "definitions": {
@@ -1694,6 +1707,28 @@
     "instructions": {
       "type": "string",
       "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
+    },
+    "sectionMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/instructions"
+        },
+        "subMetas": {
+          "$ref": "itemMetas.json"
+        }
+      }
     },
     "booleanMeta": {
       "type": "object",
@@ -1876,12 +1911,12 @@
           "$ref": "#/definitions/instructions"
         },
         "purpose": {
-            "enum": [
-              "audio",
-              "document",
-              "image",
-              "video"
-            ]
+          "enum": [
+            "audio",
+            "document",
+            "image",
+            "video"
+          ]
         },
         "accept": {
           "type": "array",
@@ -1999,6 +2034,9 @@
   },
   "type": "object",
   "oneOf": [
+    {
+      "$ref": "#/definitions/sectionMeta"
+    },
     {
       "$ref": "#/definitions/booleanMeta"
     },
@@ -11107,6 +11145,19 @@
         ]
       }
     ]
+  },
+  {
+    "type": "section",
+    "name": "section-header-1033",
+    "title": "Transport questions",
+    "subMetas": [
+      {
+        "type": "boolean",
+        "name": "bike-rider-003",
+        "title": "Bike rider?",
+        "instructions": "Be honest. But remember, we want healthy employees."
+      }
+    ]
   }
 ]</code></pre></div><div class="tab-pane" id="candidates_byID__candidate__items_itemMetas_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_byID__candidate__items_itemMetas_byName__item_"><span class="parent">/candidates/byID/{candidate}/items/itemMetas/byName</span>/{item}</a> <span class="methods"><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_byID__candidate__items_itemMetas_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_byID__candidate__items_itemMetas_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_byID__candidate__items_itemMetas_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/byID/{candidate}/items/itemMetas/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get_response" data-toggle="tab">Response</a></li><li><a href="#candidates_byID__candidate__items_itemMetas_byName__item__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_byID__candidate__items_itemMetas_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>candidate</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates_byID__candidate__items_itemMetas_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "definitions": {
@@ -11117,6 +11168,28 @@
     "instructions": {
       "type": "string",
       "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
+    },
+    "sectionMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/instructions"
+        },
+        "subMetas": {
+          "$ref": "itemMetas.json"
+        }
+      }
     },
     "booleanMeta": {
       "type": "object",
@@ -11299,12 +11372,12 @@
           "$ref": "#/definitions/instructions"
         },
         "purpose": {
-            "enum": [
-              "audio",
-              "document",
-              "image",
-              "video"
-            ]
+          "enum": [
+            "audio",
+            "document",
+            "image",
+            "video"
+          ]
         },
         "accept": {
           "type": "array",
@@ -11422,6 +11495,9 @@
   },
   "type": "object",
   "oneOf": [
+    {
+      "$ref": "#/definitions/sectionMeta"
+    },
     {
       "$ref": "#/definitions/booleanMeta"
     },
@@ -15894,6 +15970,19 @@
         ]
       }
     ]
+  },
+  {
+    "type": "section",
+    "name": "section-header-1033",
+    "title": "Transport questions",
+    "subMetas": [
+      {
+        "type": "boolean",
+        "name": "bike-rider-003",
+        "title": "Bike rider?",
+        "instructions": "Be honest. But remember, we want healthy employees."
+      }
+    ]
   }
 ]</code></pre></div><div class="tab-pane" id="jobs_byWorkflow__workflow__itemMetas_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs_byWorkflow__workflow__itemMetas_byName__item_"><span class="parent">/jobs/byWorkflow/{workflow}/itemMetas/byName</span>/{item}</a> <span class="methods"><a href="#jobs_byWorkflow__workflow__itemMetas_byName__item__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobs_byWorkflow__workflow__itemMetas_byName__item_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_byWorkflow__workflow__itemMetas_byName__item__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get metadata for a specific item</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_byWorkflow__workflow__itemMetas_byName__item__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobs/byWorkflow/{workflow}/itemMetas/byName</span>/{item}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get metadata for a specific item</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_byWorkflow__workflow__itemMetas_byName__item__get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_byWorkflow__workflow__itemMetas_byName__item__get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_byWorkflow__workflow__itemMetas_byName__item__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_byWorkflow__workflow__itemMetas_byName__item__get_request"><h3>URI Parameters</h3><ul><li><strong>workflow</strong>: <em>required (string)</em></li><li><strong>item</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobs_byWorkflow__workflow__itemMetas_byName__item__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "definitions": {
@@ -15904,6 +15993,28 @@
     "instructions": {
       "type": "string",
       "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
+    },
+    "sectionMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/instructions"
+        },
+        "subMetas": {
+          "$ref": "itemMetas.json"
+        }
+      }
     },
     "booleanMeta": {
       "type": "object",
@@ -16086,12 +16197,12 @@
           "$ref": "#/definitions/instructions"
         },
         "purpose": {
-            "enum": [
-              "audio",
-              "document",
-              "image",
-              "video"
-            ]
+          "enum": [
+            "audio",
+            "document",
+            "image",
+            "video"
+          ]
         },
         "accept": {
           "type": "array",
@@ -16209,6 +16320,9 @@
   },
   "type": "object",
   "oneOf": [
+    {
+      "$ref": "#/definitions/sectionMeta"
+    },
     {
       "$ref": "#/definitions/booleanMeta"
     },

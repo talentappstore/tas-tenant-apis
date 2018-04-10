@@ -42,5 +42,18 @@
         ]
       }
     ]
+  },
+  {
+    "type": "section",
+    "name": "section-header-1033",
+    "title": "Transport questions",
+    "subMetas": [
+      {
+        "type": "boolean",
+        "name": "bike-rider-003",
+        "title": "Bike rider?",
+        "instructions": "Be honest. But remember, we want healthy employees."
+      }
+    ]
   }
 ]

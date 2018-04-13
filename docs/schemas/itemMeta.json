@@ -2,11 +2,11 @@
   "definitions": {
     "title": {
       "type": "string",
-      "description": "a short label for this item, e.g. 'Date of birth'"
+      "description": "a short, markdown-formatted label for this item, e.g. 'Date of birth'"
     },
     "instructions": {
       "type": "string",
-      "description": "instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
+      "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
     },
     "sectionMeta": {
       "type": "object",
@@ -322,12 +322,19 @@
           "type": "string",
           "description": "this choice - ideally immutable"
         },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
         "isDefault": {
           "type": "boolean",
           "description": "will always be compatible with minChoices, maxChoices"
         },
-        "choices": {
-          "$ref": "#/definitions/picklistChoices"
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          },
+          "description": "items unlocked based on a picklist choice"
         }
       }
     }

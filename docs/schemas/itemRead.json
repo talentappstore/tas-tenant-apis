@@ -18,6 +18,9 @@
       "$ref": "#/definitions/fileItem"
     },
     {
+      "$ref": "#/definitions/cascadeItem"
+    },
+    {
       "$ref": "#/definitions/picklistItem"
     },
     {
@@ -25,6 +28,38 @@
     }
   ],
   "definitions": {
+   "picklistItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "$ref": "#/definitions/pickChoices"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "pickChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/pickChoice"
+      }
+    },
+    "pickChoice": {
+      "type": "string",
+      "description": "the name of a choice that the user selected"
+    },
     "tableItem": {
       "type": "object",
       "properties": {
@@ -59,19 +94,19 @@
         "$ref": "#"
       }
     },
-    "picklistItem": {
+    "cascadeItem": {
       "type": "object",
       "properties": {
         "type": {
           "enum": [
-            "picklist"
+            "cascade"
           ]
         },
         "name": {
           "$ref": "#/definitions/name"
         },
         "value": {
-          "$ref": "#/definitions/pickChoices"
+          "$ref": "#/definitions/cascadeChoices"
         }
       },
       "additionalProperties": false,
@@ -81,13 +116,13 @@
         "value"
       ]
     },
-    "pickChoices": {
+    "cascadeChoices": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/pickChoice"
+        "$ref": "#/definitions/cascadeChoice"
       }
     },
-    "pickChoice": {
+    "cascadeChoice": {
       "type": "object",
       "properties": {
         "choice": {
@@ -99,7 +134,7 @@
           "items": {
             "$ref": "#"
           },
-          "description": "items unlocked based on a picklist choice"
+          "description": "items unlocked based on a cascade choice"
         }
       },
       "required": [

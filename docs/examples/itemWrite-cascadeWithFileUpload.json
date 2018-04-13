@@ -1,0 +1,20 @@
+{
+  "name": "fred",
+  "type": "cascade",
+  "value": [
+    {
+      "choice": "coverup",
+      "subItems": [
+        {
+          "name": "coverletter",
+          "type": "file",
+          "value": {
+            "fileName": "fredcv.docx",
+            "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
+            "via": "dropbox.com"
+          }
+        }
+      ]
+    }
+  ]
+}

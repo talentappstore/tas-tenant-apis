@@ -234,6 +234,41 @@
         }
       }
     },
+    "tableMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "itemRead.json#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/instructions"
+        },
+        "minRows": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "columns": {
+          "$ref": "#/definitions/columns"
+        }
+      }
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
+      },
+      "description": "a series of itemMetas, each representing a column within the table"
+    },
     "picklistMeta": {
       "type": "object",
       "properties": {
@@ -273,12 +308,35 @@
         }
       }
     },
-    "tableMeta": {
+   "picklistChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/picklistChoice"
+      },
+      "description": "a bunch of choices that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
+    },
+    "picklistChoice": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "this choice - ideally immutable"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "will always be compatible with minChoices, maxChoices"
+        },
+        "choices": {
+          "$ref": "#/definitions/picklistChoices"
+        }
+      }
+    },
+    "cascadeMeta": {
       "type": "object",
       "properties": {
         "type": {
           "enum": [
-            "table"
+            "cascade"
           ]
         },
         "name": {
@@ -290,32 +348,36 @@
         "instructions": {
           "$ref": "#/definitions/instructions"
         },
-        "minRows": {
+        "nullLabel": {
+          "type": "string",
+          "description": "if present,  and presentation == showOne, then a pseudo-choice will be injected"
+        },
+        "minChoices": {
           "type": "integer"
         },
-        "maxRows": {
+        "maxChoices": {
           "type": "integer"
         },
-        "columns": {
-          "$ref": "#/definitions/columns"
+        "presentation": {
+          "enum": [
+            "showOne",
+            "showAll"
+          ],
+          "description": "showOne is only usable when maxChoices == 1"
+        },
+        "choices": {
+          "$ref": "#/definitions/cascadeChoices"
         }
       }
     },
-    "columns": {
+    "cascadeChoices": {
       "type": "array",
       "items": {
-        "$ref": "#"
+        "$ref": "#/definitions/cascadeChoice"
       },
-      "description": "a series of itemMetas, each representing a column within the table"
+      "description": "a bunch of items that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
     },
-    "picklistChoices": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/picklistChoice"
-      },
-      "description": "a bunch of choices that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
-    },
-    "picklistChoice": {
+    "cascadeChoice": {
       "type": "object",
       "properties": {
         "name": {
@@ -334,7 +396,7 @@
           "items": {
             "$ref": "#"
           },
-          "description": "items unlocked based on a picklist choice"
+          "description": "items unlocked based on a choice"
         }
       }
     }
@@ -361,6 +423,9 @@
     },
     {
       "$ref": "#/definitions/picklistMeta"
+    },
+    {
+      "$ref": "#/definitions/cascadeMeta"
     },
     {
       "$ref": "#/definitions/tableMeta"

@@ -20,7 +20,7 @@
                 "image/png",
                 "image/jpeg",
                 "image/gif",
-                "text/html"
+                "text/html",
                 "audio/x-mpeg-3",
                 "video/x-msvideo",
                 "video/mp4"

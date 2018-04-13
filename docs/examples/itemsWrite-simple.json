@@ -25,8 +25,8 @@
     }
   },
   {
-    "name": "mypicks",
-    "type": "picklist",
+    "name": "mycascade",
+    "type": "cascade",
     "value": [
       {
         "choice": "choice1"

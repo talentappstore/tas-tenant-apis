@@ -263,6 +263,14 @@
           application/rtf:
           text/plain:
 
+- badrequest:
+    responses:
+      400:
+        description: The consumer made a bad request. See response in RFC 7807 format for more details.
+        body:
+          application/problem+json:
+
+
 - tasItem:
     queryParameters:
      $select:

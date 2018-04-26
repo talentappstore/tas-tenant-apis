@@ -696,6 +696,7 @@ resourceTypes: !include resources.yml
     Candidates are people who are in the tenant's talent world, perhaps stored in their ATS.
     Maybe they applied for an opening, registered in the database, were imported from some other system, etc.
   post:
+    is: [ badrequest ]
     description: 
       This API has the same behaviour as POST /candidates/me, except that the call is not on behalf.
     body:
@@ -708,6 +709,7 @@ resourceTypes: !include resources.yml
       201:
         description: the post was successful
   patch:
+    is: [ badrequest ]
     description: 
       This API has the same behaviour as PATCH /candidates/me, except that the call is not on behalf.
     body:
@@ -721,6 +723,7 @@ resourceTypes: !include resources.yml
         description: the patch was successful
   /unvalidated:
     post:
+      is: [ badrequest ]
       description: 
         This API has the same behaviour as POST /candidates/me/unvalidated, except that the call is not on behalf.
       body:
@@ -733,6 +736,7 @@ resourceTypes: !include resources.yml
         201:
           description: the post was successful
     patch:
+      is: [ badrequest ]
       description: 
         This API has the same behaviour as PATCH /candidates/me/unvalidated, except that the call is not on behalf.
       body:
@@ -759,6 +763,7 @@ resourceTypes: !include resources.yml
       
     post:
       securedBy: [oauth_2_0]
+      is: [ badrequest ]
       description: |
         Create a candidate possibly including job applications, via an edit operation, prepared to conform to an edit spec.
         
@@ -796,6 +801,7 @@ resourceTypes: !include resources.yml
           description: the post was successful
     patch:
       securedBy: [oauth_2_0]
+      is: [ badrequest ]
       description: |
         See description for POST method.
       body:
@@ -809,6 +815,7 @@ resourceTypes: !include resources.yml
           description: the post/patch was successful
     /unvalidated:
       post:
+        is: [ badrequest ]
         description: |
           This API has the same behaviour as POST/PATCH /candidates/me, except that the request is not validated - it may be accepted even if the
           request does not conform to the rules of the editSpec, e.g. resume may be missing, even if it is mandatory. However the caller must
@@ -824,6 +831,7 @@ resourceTypes: !include resources.yml
           201:
             description: the post was successful
       patch:
+        is: [ badrequest ]
         description: |
           See description for POST method.
         body:

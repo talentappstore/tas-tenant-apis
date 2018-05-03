@@ -30,11 +30,6 @@
     ],
     "items": [
       {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
         "name": "birthdate",
         "type": "date",
         "value": "2015-11-05T13:15:30Z"

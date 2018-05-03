@@ -39,6 +39,10 @@
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
     },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -139,6 +143,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"

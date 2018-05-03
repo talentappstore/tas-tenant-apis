@@ -9832,7 +9832,7 @@
 }</code></pre><p><strong>Example</strong>:</p><pre><code> {
     "operation": "insert"
 }
-</code></pre></div><div class="tab-pane" id="buckets_byID__bucket__deltaPings_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="candidates" class="panel-title">/candidates</h3></div><div class="panel-body"><div class="top-resource-description"><p>Candidates are people who are in the tenant&#39;s talent world, perhaps stored in their ATS. Maybe they applied for an opening, registered in the database, were imported from some other system, etc.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates"><span class="parent"></span>/candidates</a> <span class="methods"><a href="#candidates_post"><span class="badge badge_post">post</span></a> <a href="#candidates_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_candidates" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>This API has the same behaviour as POST /candidates/me, except that the call is not on behalf.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#candidates_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>This API has the same behaviour as PATCH /candidates/me, except that the call is not on behalf.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/candidates</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as POST /candidates/me, except that the call is not on behalf.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre></div><div class="tab-pane" id="buckets_byID__bucket__deltaPings_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="candidates" class="panel-title">/candidates</h3></div><div class="panel-body"><div class="top-resource-description"><p>Candidates are people who are in the tenant&#39;s talent world, perhaps stored in their ATS. Maybe they applied for an opening, registered in the database, were imported from some other system, etc.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates"><span class="parent"></span>/candidates</a> <span class="methods"><a href="#candidates_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_candidates" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>This API has the same behaviour as POST /candidates/me, except that the call is not on behalf.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/candidates</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as POST /candidates/me, except that the call is not on behalf.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "candidateData": {
@@ -9897,11 +9897,6 @@
     ],
     "items": [
       {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
         "name": "birthdate",
         "type": "date",
         "value": "2015-11-05T13:15:30Z"
@@ -9925,7 +9920,7 @@
       ]
     }
   }
-}</code></pre></div><div class="tab-pane" id="candidates_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent"></span>/candidates</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as PATCH /candidates/me, except that the call is not on behalf.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_patch_request" data-toggle="tab">Request</a></li><li><a href="#candidates_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_patch_request"><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="candidates_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_unvalidated"><span class="parent">/candidates</span>/unvalidated</a> <span class="methods"><a href="#candidates_unvalidated_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_candidates_unvalidated" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_unvalidated_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>This API has the same behaviour as POST /candidates/me/unvalidated, except that the call is not on behalf.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_unvalidated_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/candidates</span>/unvalidated</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as POST /candidates/me/unvalidated, except that the call is not on behalf.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_unvalidated_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_unvalidated_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_unvalidated_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "candidateData": {
@@ -9990,11 +9985,6 @@
     ],
     "items": [
       {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
         "name": "birthdate",
         "type": "date",
         "value": "2015-11-05T13:15:30Z"
@@ -10018,193 +10008,7 @@
       ]
     }
   }
-}</code></pre></div><div class="tab-pane" id="candidates_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the patch was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the patch was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_unvalidated"><span class="parent">/candidates</span>/unvalidated</a> <span class="methods"><a href="#candidates_unvalidated_post"><span class="badge badge_post">post</span></a> <a href="#candidates_unvalidated_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_candidates_unvalidated" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_unvalidated_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>This API has the same behaviour as POST /candidates/me/unvalidated, except that the call is not on behalf.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#candidates_unvalidated_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>This API has the same behaviour as PATCH /candidates/me/unvalidated, except that the call is not on behalf.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_unvalidated_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/candidates</span>/unvalidated</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as POST /candidates/me/unvalidated, except that the call is not on behalf.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_unvalidated_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_unvalidated_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_unvalidated_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "candidateData": {
-            "$ref": "candidateWrite.json"
-        },
-        "applicationData": {
-            "type": "object",
-            "properties": {
-                "job": {
-                    "type": "integer"
-                },
-                "applicationWrite": {
-                    "$ref": "applicationWrite.json"
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "type": "object",
-    "properties": {
-        "tracker": {
-            "type": "integer"
-        },
-        "candidateData": {
-            "$ref": "#/definitions/candidateData"
-        },
-        "applicationData": {
-            "$ref": "#/definitions/applicationData"
-        }
-    },
-    "additionalProperties": false
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "candidateData": {
-    "notifications": true,
-    "internalFlag": true,
-    "person": {
-      "givenName": "Fred",
-      "familyName": "Bloggs",
-      "email": "fred@gmail.com"
-    },
-    "resume": {
-      "fileName": "fredcv.docx",
-      "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
-      "via": "dropbox.com"
-    },
-    "categories": [
-      {
-        "category": 10032,
-        "values": [
-          1009,
-          1010,
-          10344
-        ]
-      },
-      {
-        "category": 10055,
-        "values": [
-          1085
-        ]
-      }
-    ],
-    "items": [
-      {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
-        "name": "birthdate",
-        "type": "date",
-        "value": "2015-11-05T13:15:30Z"
-      },
-      {
-        "name": "keenworkerflag",
-        "type": "boolean",
-        "value": true
-      }
-    ]
-  },
-  "applicationData": {
-    "job": 23,
-    "applicationWrite": {
-      "items": [
-        {
-          "name": "blah",
-          "type": "boolean",
-          "value": true
-        }
-      ]
-    }
-  }
-}</code></pre></div><div class="tab-pane" id="candidates_unvalidated_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_unvalidated_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/candidates</span>/unvalidated</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as PATCH /candidates/me/unvalidated, except that the call is not on behalf.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_unvalidated_patch_request" data-toggle="tab">Request</a></li><li><a href="#candidates_unvalidated_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_unvalidated_patch_request"><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "candidateData": {
-            "$ref": "candidateWrite.json"
-        },
-        "applicationData": {
-            "type": "object",
-            "properties": {
-                "job": {
-                    "type": "integer"
-                },
-                "applicationWrite": {
-                    "$ref": "applicationWrite.json"
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "type": "object",
-    "properties": {
-        "tracker": {
-            "type": "integer"
-        },
-        "candidateData": {
-            "$ref": "#/definitions/candidateData"
-        },
-        "applicationData": {
-            "$ref": "#/definitions/applicationData"
-        }
-    },
-    "additionalProperties": false
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "candidateData": {
-    "notifications": true,
-    "internalFlag": true,
-    "person": {
-      "givenName": "Fred",
-      "familyName": "Bloggs",
-      "email": "fred@gmail.com"
-    },
-    "resume": {
-      "fileName": "fredcv.docx",
-      "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
-      "via": "dropbox.com"
-    },
-    "categories": [
-      {
-        "category": 10032,
-        "values": [
-          1009,
-          1010,
-          10344
-        ]
-      },
-      {
-        "category": 10055,
-        "values": [
-          1085
-        ]
-      }
-    ],
-    "items": [
-      {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
-        "name": "birthdate",
-        "type": "date",
-        "value": "2015-11-05T13:15:30Z"
-      },
-      {
-        "name": "keenworkerflag",
-        "type": "boolean",
-        "value": true
-      }
-    ]
-  },
-  "applicationData": {
-    "job": 23,
-    "applicationWrite": {
-      "items": [
-        {
-          "name": "blah",
-          "type": "boolean",
-          "value": true
-        }
-      ]
-    }
-  }
-}</code></pre></div><div class="tab-pane" id="candidates_unvalidated_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the patch was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the patch was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me"><span class="parent">/candidates</span>/me</a> <span class="methods"><a href="#candidates_me_get"><span class="badge badge_get">get</span></a> <a href="#candidates_me_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#candidates_me_patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>All APIs beneath here are operating on behalf of the logged in candidate.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_me_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the signed in candidate&#39;s details</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#candidates_me_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>The candidate APIs are used to create or update a candidate and optionally some job applications for them.</p><p>The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience.</p><p><strong>Scenario</strong></p><p>Before calling this API, the client (an apply app) will probably have fetched an edit spec (i.e. an application form) from the ATS.</p><p>The edit spec tells the apply app what fields can be provided, and which of them are mandatory. The apply app then likely uses this to show a UI to the candidate.</p><p>When the candidate has completed the application form and clicked submit, the UI uses one of these candidate APIs to push the candidate data and job applications into the ATS.</p><p><strong>Specific notes</strong></p><p>Candidate type is not passed - instead the ATS identifies candidate type (e.g. internal) by looking for the "internal" role in the incoming OAuth token.</p><p>If the apply app passes a resume element, then any existing resume will be replaced by the contents of the resume field. If the resume field is present but null, any existing resume will be removed.</p><p>Within the person object, some information - e,g, email - is duplicated; it appears both as a first class field, and also within the vcard.</p><p>When the apply app uses the POST and PATCH APIs to set the underlying value for these duplicated fields, either the first class field or the vcard or both can be used, and the underlying value will be set to whichever is not null. If both are null, the underlying value will be set to null. If both are not null and they clash, an error will be thrown.</p><p>This same behaviour applies when setting firstName and the other first class fields on the person object.</p><p>When the request fro the apply app includes an application, the ATS should check that the job is active. No check is needed of the "open to internal" rules on the job vs. the candidate&#39;s actual type - the API may be being used to support sending special candidate direct links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).</p><p>The ATS must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p><strong>Validation</strong></p><p>The ATS (app producing the API) must not blindly apply the incoming data. Instead it must first generate an editSpec for the candidate, and then assert that:</p><ul><li>the incoming data is a subset of what the editSpec allows/requires; this prevents attacks where e.g. the consumer tries to write to a random data item.</li><li>the incoming data conforms to the rules in the editSpec; e.g. whether a resume or some data items are mandatory (the /unvalidated versions of this API don&#39;t perform this check).</li></ul></div><div class="clearfix"></div></div><div onclick="window.location.href = '#candidates_me_patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>See description for POST method.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the signed in candidate&#39;s details</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="candidates_unvalidated_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me"><span class="parent">/candidates</span>/me</a> <span class="methods"><a href="#candidates_me_get"><span class="badge badge_get">get</span></a> <a href="#candidates_me_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>All APIs beneath here are operating on behalf of the logged in candidate.</p></div><div class="list-group"><div onclick="window.location.href = '#candidates_me_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the signed in candidate&#39;s details</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#candidates_me_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p><strong>Overview</strong></p><p>These "apply APIs" are used by an apply app to create or update a candidate in the ATS (depending on whether one exists with a matching email), and optionally create a job application.</p><p>There are 4 versions of the apply APIs:</p><ul><li>POST /candidates</li><li>POST /candidates/unvalidated</li><li>POST /candidates/me</li><li>POST /candidates/me/unvalidated</li></ul><p>The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience. They require that the candidate is signed in via SSO.</p><p>The non-/unvalidated versions of these APIs are also preferred whenever possible. The /unvalidated versions should be used only if its not possible to answer all of the customer&#39;s mandatory questions.</p><p><strong>Preparing to call the APIs</strong></p><p>Before calling this API, the apply app will usually make an API call to fetch the edit spec (i.e. details of the application form) from the ATS.</p><p>The apply app uses this to build up an application form and show it to the candidate.</p><p>Once the candidate has completed the application form, the apply app uses one of these apply APIs to push the candidate data and job applications into the ATS.</p><p><strong>Update semantics</strong></p><p>When updating, merge patch semantics are used (<a href="https://tools.ietf.org/html/rfc7386">https://tools.ietf.org/html/rfc7386</a>). For example;</p><ul><li>if resume is present in the request, it will be set</li><li>if present and null, any existing resume will be cleared</li><li>if not present, any existing resume will be left unchanged</li></ul><p><strong>Internal candidates</strong></p><p>The API calls can set or update the candidate&#39;s internalFlag (i.e. indicating they are an employee).</p><p>The /me versions of the APIs do this by checking for the "internal" role in the incoming SAML assertion. If present, the candidate will be set to have internalFlag = true. If not present, false. The internal flag should not be present in API the request - a 400 error will be thrown if it is.</p><p>For the non-/me versions of the APIs, the ATS should just examine the candidate&#39;s internal flag in the request.</p><ul><li>if present and true then the candidate is set to internalFlag == true</li><li>if present and true then the candidate is set to internalFlag == false</li><li>if not present, then when creating, the internalFLag will be set to false, and when updating no change will be made</li></ul><p><strong>Fields duplicated in the vcard</strong></p><p>Within the person object, some fields - e,g, email, first name, last name - are duplicated, i.e. they appear both as a first class field, and also within the vcard. In the API request, either can be used to set the underlying value;</p><ul><li>The underlying value will be set to whichever is not null</li><li>If both are null, the underlying value will be set to null</li><li>If both are not null and they clash, a 400 error will be thrown</li></ul><p><strong>Category values</strong></p><p>When the API request contains the categories object, and there is a category present (e.g. Location), then the the candidate will be updated to exactly match the category values.</p><p>Any categories not passed in will not be changed on the candidate.</p><p><strong>Checking eligibility to apply</strong></p><p>When the API request includes an job application, the ATS should check that the job is active, AND that one of the following is true;</p><ul><li>if the job is "open to externals", that the candidate is external</li><li>if the job is "open to internals", that the candidate is internal</li><li>if neither, that a tracker chain was passed in that has a campaign tracker for this job and with correctly matching access code</li></ul><p>If the job is not active or none of the above are true, then the API will return 400 and no changes will be made.</p><p><strong>File checks</strong></p><p>The ATS must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p><strong>Validation</strong></p><p>The ATS (app producing the API) must not blindly apply the incoming data. Instead it must itself first generate an editSpec for the candidate, and then check that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where e.g. the apply app tries to write to a random item. This checking must happen in both the normal and the /unvalidated forms of the APIs.</p><p>The ATS must also check that the apply app has passed the resume (if mandatory) and any mandatory data items. The /unvalidated versions of the APIs don&#39;t perform these mandatory checks.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the signed in candidate&#39;s details</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "notifications": {
@@ -10337,7 +10141,7 @@
     "preSignedUri": "https://frodo.com/docs/198714509"
   },
   "items": []
-}</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>The candidate APIs are used to create or update a candidate and optionally some job applications for them.</p><p>The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience.</p><p><strong>Scenario</strong></p><p>Before calling this API, the client (an apply app) will probably have fetched an edit spec (i.e. an application form) from the ATS.</p><p>The edit spec tells the apply app what fields can be provided, and which of them are mandatory. The apply app then likely uses this to show a UI to the candidate.</p><p>When the candidate has completed the application form and clicked submit, the UI uses one of these candidate APIs to push the candidate data and job applications into the ATS.</p><p><strong>Specific notes</strong></p><p>Candidate type is not passed - instead the ATS identifies candidate type (e.g. internal) by looking for the "internal" role in the incoming OAuth token.</p><p>If the apply app passes a resume element, then any existing resume will be replaced by the contents of the resume field. If the resume field is present but null, any existing resume will be removed.</p><p>Within the person object, some information - e,g, email - is duplicated; it appears both as a first class field, and also within the vcard.</p><p>When the apply app uses the POST and PATCH APIs to set the underlying value for these duplicated fields, either the first class field or the vcard or both can be used, and the underlying value will be set to whichever is not null. If both are null, the underlying value will be set to null. If both are not null and they clash, an error will be thrown.</p><p>This same behaviour applies when setting firstName and the other first class fields on the person object.</p><p>When the request fro the apply app includes an application, the ATS should check that the job is active. No check is needed of the "open to internal" rules on the job vs. the candidate&#39;s actual type - the API may be being used to support sending special candidate direct links for them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).</p><p>The ATS must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p><strong>Validation</strong></p><p>The ATS (app producing the API) must not blindly apply the incoming data. Instead it must first generate an editSpec for the candidate, and then assert that:</p><ul><li>the incoming data is a subset of what the editSpec allows/requires; this prevents attacks where e.g. the consumer tries to write to a random data item.</li><li>the incoming data conforms to the rules in the editSpec; e.g. whether a resume or some data items are mandatory (the /unvalidated versions of this API don&#39;t perform this check).</li></ul></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_post_response" data-toggle="tab">Response</a></li><li><a href="#candidates_me_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p><strong>Overview</strong></p><p>These "apply APIs" are used by an apply app to create or update a candidate in the ATS (depending on whether one exists with a matching email), and optionally create a job application.</p><p>There are 4 versions of the apply APIs:</p><ul><li>POST /candidates</li><li>POST /candidates/unvalidated</li><li>POST /candidates/me</li><li>POST /candidates/me/unvalidated</li></ul><p>The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience. They require that the candidate is signed in via SSO.</p><p>The non-/unvalidated versions of these APIs are also preferred whenever possible. The /unvalidated versions should be used only if its not possible to answer all of the customer&#39;s mandatory questions.</p><p><strong>Preparing to call the APIs</strong></p><p>Before calling this API, the apply app will usually make an API call to fetch the edit spec (i.e. details of the application form) from the ATS.</p><p>The apply app uses this to build up an application form and show it to the candidate.</p><p>Once the candidate has completed the application form, the apply app uses one of these apply APIs to push the candidate data and job applications into the ATS.</p><p><strong>Update semantics</strong></p><p>When updating, merge patch semantics are used (<a href="https://tools.ietf.org/html/rfc7386">https://tools.ietf.org/html/rfc7386</a>). For example;</p><ul><li>if resume is present in the request, it will be set</li><li>if present and null, any existing resume will be cleared</li><li>if not present, any existing resume will be left unchanged</li></ul><p><strong>Internal candidates</strong></p><p>The API calls can set or update the candidate&#39;s internalFlag (i.e. indicating they are an employee).</p><p>The /me versions of the APIs do this by checking for the "internal" role in the incoming SAML assertion. If present, the candidate will be set to have internalFlag = true. If not present, false. The internal flag should not be present in API the request - a 400 error will be thrown if it is.</p><p>For the non-/me versions of the APIs, the ATS should just examine the candidate&#39;s internal flag in the request.</p><ul><li>if present and true then the candidate is set to internalFlag == true</li><li>if present and true then the candidate is set to internalFlag == false</li><li>if not present, then when creating, the internalFLag will be set to false, and when updating no change will be made</li></ul><p><strong>Fields duplicated in the vcard</strong></p><p>Within the person object, some fields - e,g, email, first name, last name - are duplicated, i.e. they appear both as a first class field, and also within the vcard. In the API request, either can be used to set the underlying value;</p><ul><li>The underlying value will be set to whichever is not null</li><li>If both are null, the underlying value will be set to null</li><li>If both are not null and they clash, a 400 error will be thrown</li></ul><p><strong>Category values</strong></p><p>When the API request contains the categories object, and there is a category present (e.g. Location), then the the candidate will be updated to exactly match the category values.</p><p>Any categories not passed in will not be changed on the candidate.</p><p><strong>Checking eligibility to apply</strong></p><p>When the API request includes an job application, the ATS should check that the job is active, AND that one of the following is true;</p><ul><li>if the job is "open to externals", that the candidate is external</li><li>if the job is "open to internals", that the candidate is internal</li><li>if neither, that a tracker chain was passed in that has a campaign tracker for this job and with correctly matching access code</li></ul><p>If the job is not active or none of the above are true, then the API will return 400 and no changes will be made.</p><p><strong>File checks</strong></p><p>The ATS must run all uploaded files through OWASP security tests:</p><ul><li>extension matches actual file type</li><li>virus check</li><li>etc.</li></ul><p><strong>Validation</strong></p><p>The ATS (app producing the API) must not blindly apply the incoming data. Instead it must itself first generate an editSpec for the candidate, and then check that the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where e.g. the apply app tries to write to a random item. This checking must happen in both the normal and the /unvalidated forms of the APIs.</p><p>The ATS must also check that the apply app has passed the resume (if mandatory) and any mandatory data items. The /unvalidated versions of the APIs don&#39;t perform these mandatory checks.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_post_response" data-toggle="tab">Response</a></li><li><a href="#candidates_me_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "candidateData": {
@@ -10402,11 +10206,6 @@
     ],
     "items": [
       {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
         "name": "birthdate",
         "type": "date",
         "value": "2015-11-05T13:15:30Z"
@@ -10430,7 +10229,7 @@
       ]
     }
   }
-}</code></pre></div><div class="tab-pane" id="candidates_me_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div><div class="tab-pane" id="candidates_me_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates</span>/me</h4></div><div class="modal-body"><div class="alert alert-info"><p>See description for POST method.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_patch_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_patch_response" data-toggle="tab">Response</a></li><li><a href="#candidates_me_patch_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_patch_request"><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="candidates_me_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div><div class="tab-pane" id="candidates_me_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_unvalidated"><span class="parent">/candidates/me</span>/unvalidated</a> <span class="methods"><a href="#candidates_me_unvalidated_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_candidates_me_unvalidated" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_unvalidated_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>This API has the same behaviour as POST /candidates/me, except that mandatory items may be missing.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_unvalidated_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/candidates/me</span>/unvalidated</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as POST /candidates/me, except that mandatory items may be missing.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_unvalidated_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_unvalidated_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_unvalidated_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "candidateData": {
@@ -10495,11 +10294,6 @@
     ],
     "items": [
       {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
         "name": "birthdate",
         "type": "date",
         "value": "2015-11-05T13:15:30Z"
@@ -10523,193 +10317,7 @@
       ]
     }
   }
-}</code></pre></div><div class="tab-pane" id="candidates_me_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post/patch was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post/patch was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div><div class="tab-pane" id="candidates_me_patch_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_unvalidated"><span class="parent">/candidates/me</span>/unvalidated</a> <span class="methods"><a href="#candidates_me_unvalidated_post"><span class="badge badge_post">post</span></a> <a href="#candidates_me_unvalidated_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_candidates_me_unvalidated" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_unvalidated_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>This API has the same behaviour as POST/PATCH /candidates/me, except that the request is not validated - it may be accepted even if the request does not conform to the rules of the editSpec, e.g. resume may be missing, even if it is mandatory. However the caller must still always pass in a subset of the data defined by the editSpec - this prevents attacks where e.g. the consumer tries to write to a random data item.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#candidates_me_unvalidated_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>See description for POST method.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_unvalidated_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/candidates/me</span>/unvalidated</h4></div><div class="modal-body"><div class="alert alert-info"><p>This API has the same behaviour as POST/PATCH /candidates/me, except that the request is not validated - it may be accepted even if the request does not conform to the rules of the editSpec, e.g. resume may be missing, even if it is mandatory. However the caller must still always pass in a subset of the data defined by the editSpec - this prevents attacks where e.g. the consumer tries to write to a random data item.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_unvalidated_post_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_unvalidated_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_unvalidated_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "candidateData": {
-            "$ref": "candidateWrite.json"
-        },
-        "applicationData": {
-            "type": "object",
-            "properties": {
-                "job": {
-                    "type": "integer"
-                },
-                "applicationWrite": {
-                    "$ref": "applicationWrite.json"
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "type": "object",
-    "properties": {
-        "tracker": {
-            "type": "integer"
-        },
-        "candidateData": {
-            "$ref": "#/definitions/candidateData"
-        },
-        "applicationData": {
-            "$ref": "#/definitions/applicationData"
-        }
-    },
-    "additionalProperties": false
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "candidateData": {
-    "notifications": true,
-    "internalFlag": true,
-    "person": {
-      "givenName": "Fred",
-      "familyName": "Bloggs",
-      "email": "fred@gmail.com"
-    },
-    "resume": {
-      "fileName": "fredcv.docx",
-      "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
-      "via": "dropbox.com"
-    },
-    "categories": [
-      {
-        "category": 10032,
-        "values": [
-          1009,
-          1010,
-          10344
-        ]
-      },
-      {
-        "category": 10055,
-        "values": [
-          1085
-        ]
-      }
-    ],
-    "items": [
-      {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
-        "name": "birthdate",
-        "type": "date",
-        "value": "2015-11-05T13:15:30Z"
-      },
-      {
-        "name": "keenworkerflag",
-        "type": "boolean",
-        "value": true
-      }
-    ]
-  },
-  "applicationData": {
-    "job": 23,
-    "applicationWrite": {
-      "items": [
-        {
-          "name": "blah",
-          "type": "boolean",
-          "value": true
-        }
-      ]
-    }
-  }
-}</code></pre></div><div class="tab-pane" id="candidates_me_unvalidated_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_unvalidated_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/candidates/me</span>/unvalidated</h4></div><div class="modal-body"><div class="alert alert-info"><p>See description for POST method.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_unvalidated_patch_request" data-toggle="tab">Request</a></li><li><a href="#candidates_me_unvalidated_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_unvalidated_patch_request"><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "definitions": {
-        "candidateData": {
-            "$ref": "candidateWrite.json"
-        },
-        "applicationData": {
-            "type": "object",
-            "properties": {
-                "job": {
-                    "type": "integer"
-                },
-                "applicationWrite": {
-                    "$ref": "applicationWrite.json"
-                }
-            },
-            "additionalProperties": false
-        }
-    },
-    "type": "object",
-    "properties": {
-        "tracker": {
-            "type": "integer"
-        },
-        "candidateData": {
-            "$ref": "#/definitions/candidateData"
-        },
-        "applicationData": {
-            "$ref": "#/definitions/applicationData"
-        }
-    },
-    "additionalProperties": false
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "candidateData": {
-    "notifications": true,
-    "internalFlag": true,
-    "person": {
-      "givenName": "Fred",
-      "familyName": "Bloggs",
-      "email": "fred@gmail.com"
-    },
-    "resume": {
-      "fileName": "fredcv.docx",
-      "data": "utg765f876hilf76fg6gutg765f876hilf76fg6gutg765f876hilf76fg6g",
-      "via": "dropbox.com"
-    },
-    "categories": [
-      {
-        "category": 10032,
-        "values": [
-          1009,
-          1010,
-          10344
-        ]
-      },
-      {
-        "category": 10055,
-        "values": [
-          1085
-        ]
-      }
-    ],
-    "items": [
-      {
-        "name": "blah",
-        "type": "boolean",
-        "value": true
-      },
-      {
-        "name": "birthdate",
-        "type": "date",
-        "value": "2015-11-05T13:15:30Z"
-      },
-      {
-        "name": "keenworkerflag",
-        "type": "boolean",
-        "value": true
-      }
-    ]
-  },
-  "applicationData": {
-    "job": 23,
-    "applicationWrite": {
-      "items": [
-        {
-          "name": "blah",
-          "type": "boolean",
-          "value": true
-        }
-      ]
-    }
-  }
-}</code></pre></div><div class="tab-pane" id="candidates_me_unvalidated_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_details"><span class="parent">/candidates/me</span>/details</a> <span class="methods"><a href="#candidates_me_details_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_details" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_details_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p><em>This API is deprecated in favour of GET /candidates/me and will shortly be removed.</em></p><p>Get general information about the candidate including notifications (subscribe y/n)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_details_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me</span>/details</h4></div><div class="modal-body"><div class="alert alert-info"><p><em>This API is deprecated in favour of GET /candidates/me and will shortly be removed.</em></p><p>Get general information about the candidate including notifications (subscribe y/n)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_details_get_response" data-toggle="tab">Response</a></li><li><a href="#candidates_me_details_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_details_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="candidates_me_unvalidated_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>the post was successful</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates_me_details"><span class="parent">/candidates/me</span>/details</a> <span class="methods"><a href="#candidates_me_details_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_candidates_me_details" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_me_details_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p><em>This API is deprecated in favour of GET /candidates/me and will shortly be removed.</em></p><p>Get general information about the candidate including notifications (subscribe y/n)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_me_details_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/candidates/me</span>/details</h4></div><div class="modal-body"><div class="alert alert-info"><p><em>This API is deprecated in favour of GET /candidates/me and will shortly be removed.</em></p><p>Get general information about the candidate including notifications (subscribe y/n)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_me_details_get_response" data-toggle="tab">Response</a></li><li><a href="#candidates_me_details_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_me_details_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
     "notifications": {
@@ -13862,6 +13470,9 @@
     "externalId": {
       "$ref": "jobRead.json#/definitions/externalId"
     },
+    "accessCode": {
+      "$ref": "jobRead.json#/definitions/accessCode"
+    },
     "title": {
       "$ref": "jobRead.json#/definitions/title"
     },
@@ -13978,6 +13589,10 @@
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
     },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -14078,6 +13693,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"
@@ -14285,6 +13903,10 @@
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
     },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -14385,6 +14007,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"
@@ -14834,6 +14459,10 @@
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
     },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -14934,6 +14563,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"
@@ -15141,6 +14773,10 @@
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
     },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -15241,6 +14877,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"
@@ -15575,6 +15214,10 @@
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
     },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+    },
     "title": {
       "type": "string",
       "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
@@ -15675,6 +15318,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"
@@ -15766,6 +15412,9 @@
     "externalId": {
       "$ref": "jobRead.json#/definitions/externalId"
     },
+    "accessCode": {
+      "$ref": "jobRead.json#/definitions/accessCode"
+    },
     "title": {
       "$ref": "jobRead.json#/definitions/title"
     },
@@ -15842,6 +15491,10 @@
     "externalId": {
       "type": "string",
       "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
+    "accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
     },
     "title": {
       "type": "string",
@@ -15943,6 +15596,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "accessCode": {
+      "$ref": "#/definitions/accessCode"
     },
     "title": {
       "$ref": "#/definitions/title"
@@ -17721,8 +17377,7 @@
                   "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind == link out" 
                 },
                 "accessCode": {
-                  "type": "string",
-                  "description": "a code that, if it matches the current code on the job, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+                  "$ref": "jobRead.json#/definitions/accessCode"
                 }
                 
             },
@@ -17901,8 +17556,7 @@
                   "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind == link out" 
                 },
                 "accessCode": {
-                  "type": "string",
-                  "description": "a code that, if it matches the current code on the job, allows the holder to view and apply for the job even if it would otherwise be not visible to them" 
+                  "$ref": "jobRead.json#/definitions/accessCode"
                 }
                 
             },

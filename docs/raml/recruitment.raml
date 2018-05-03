@@ -708,19 +708,6 @@ resourceTypes: !include resources.yml
         description: the post was successful
       201:
         description: the post was successful
-  patch:
-    is: [ badrequest ]
-    description: 
-      This API has the same behaviour as PATCH /candidates/me, except that the call is not on behalf.
-    body:
-      application/merge-patch+json:
-        schema: !include ../schemas/candidateEdit.json
-        example: !include ../examples/candidateEdit-simple.json
-    responses:
-      200:
-        description: the patch was successful
-      201:
-        description: the patch was successful
   /unvalidated:
     post:
       is: [ badrequest ]
@@ -735,19 +722,6 @@ resourceTypes: !include resources.yml
           description: the post was successful
         201:
           description: the post was successful
-    patch:
-      is: [ badrequest ]
-      description: 
-        This API has the same behaviour as PATCH /candidates/me/unvalidated, except that the call is not on behalf.
-      body:
-        application/merge-patch+json:
-          schema: !include ../schemas/candidateEdit.json
-          example: !include ../examples/candidateEdit-simple.json
-      responses:
-        200:
-          description: the patch was successful
-        201:
-          description: the patch was successful
   /me:
     description:
       All APIs beneath here are operating on behalf of the logged in candidate.
@@ -765,50 +739,97 @@ resourceTypes: !include resources.yml
       securedBy: [oauth_2_0]
       is: [ badrequest ]
       description: |
-        The candidate APIs are used to create or update a candidate and optionally some job applications for them.
+        **Overview**
+      
+        These "apply APIs" are used by an apply app to create or update a candidate in the ATS (depending on whether one exists with a matching email),
+        and optionally create a job application.
 
-        The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience.
-        
-        **Scenario**
-        
-        Before calling this API, the client (an apply app) will probably have fetched an edit spec (i.e. an application form) from the ATS.
-        
-        The edit spec tells the apply app what fields can be provided, and which of them are mandatory. The apply app then likely uses this to show a UI to the candidate.
-        
-        When the candidate has completed the application form and clicked submit, the UI uses one of these candidate APIs to push the candidate data and
-        job applications into the ATS.
+        There are 4 versions of the apply APIs:
 
-        ** Specific notes **
-                
-        Candidate type is not passed - instead the ATS identifies candidate type (e.g. internal) by looking for the "internal" role in the incoming OAuth token.
-    
-        If the apply app passes a resume element, then any existing resume will be replaced by the contents of the resume field. If the resume field is present but
-        null, any existing resume will be removed.
+        - POST /candidates
+        - POST /candidates/unvalidated
+        - POST /candidates/me
+        - POST /candidates/me/unvalidated
 
-        Within the person object, some information - e,g, email - is duplicated; it appears both as a first class field, and also within the vcard.
-        
-        When the apply app uses the POST and PATCH APIs to set the underlying value for these duplicated fields, either the first class field or the vcard or both can be used, and the
-        underlying value will be set to whichever is not null. If both are null, the underlying value will be set to null. If both are not null and they
-        clash, an error will be thrown.
-        
-        This same behaviour applies when setting firstName and the other first class fields on the person object.
+        The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience. They require that the candidate is signed in via SSO.
 
-        When the request fro the apply app includes an application, the ATS should check that the job is active. No check is needed of the "open to internal" rules
-        on the job vs. the candidate's actual type - the API may be being used to support sending special candidate direct links for
-        them to apply (e.g. after an opening has closed, or to allow a special external applicant through to an internal-only opening).
+        The non-/unvalidated versions of these APIs are also preferred whenever possible. The /unvalidated versions should be used only if its not possible to answer
+        all of the customer's mandatory questions.
 
+
+        **Preparing to call the APIs**
+
+        Before calling this API, the apply app will usually make an API call to fetch the edit spec (i.e. details of the application form) from the ATS.
+
+        The apply app uses this to build up an application form and show it to the candidate.
+
+        Once the candidate has completed the application form, the apply app uses one of these apply APIs to push the candidate data and job applications into the ATS.
+
+
+        **Update semantics**
+
+        When updating, merge patch semantics are used (https://tools.ietf.org/html/rfc7386). For example;
+        - if resume is present in the request, it will be set
+        - if present and null, any existing resume will be cleared
+        - if not present, any existing resume will be left unchanged
+
+
+        **Internal candidates**
+
+        The API calls can set or update the candidate's internalFlag (i.e. indicating they are an employee).
+
+        The /me versions of the APIs do this by checking for the "internal" role in the incoming SAML assertion. If present, the
+        candidate will be set to have internalFlag = true. If not present, false. The internal flag should not be present in API the request - a 400 error will be thrown if it is.
+
+        For the non-/me versions of the APIs, the ATS should just examine the candidate's internal flag in the request.
+        - if present and true then the candidate is set to internalFlag == true
+        - if present and true then the candidate is set to internalFlag == false
+        - if not present, then when creating, the internalFLag will be set to false, and when updating no change will be made
+
+
+        **Fields duplicated in the vcard**
+
+        Within the person object, some fields - e,g, email, first name, last name - are duplicated, i.e. they appear both as a first class field, and also within the vcard. In the
+        API request, either can be used to set the underlying value;
+        - The underlying value will be set to whichever is not null
+        - If both are null, the underlying value will be set to null
+        - If both are not null and they clash, a 400 error will be thrown
+
+
+        **Category values**
+
+        When the API request contains the categories object, and there is a category present (e.g. Location), then the the candidate will be updated to exactly match the category values.
+
+        Any categories not passed in will not be changed on the candidate.
+
+
+        **Checking eligibility to apply**
+
+        When the API request includes an job application, the ATS should check that the job is active, AND that one of the following is true;
+
+        - if the job is "open to externals", that the candidate is external
+        - if the job is "open to internals", that the candidate is internal
+        - if neither, that a tracker chain was passed in that has a campaign tracker for this job and with correctly matching access code
+
+        If the job is not active or none of the above are true, then the API will return 400 and no changes will be made.
+
+
+        **File checks**
+  
         The ATS must run all uploaded files through OWASP security tests:
         - extension matches actual file type
         - virus check
         - etc.
 
-        ** Validation **
-        
-        The ATS (app producing the API) must not blindly apply the incoming data. Instead it must first generate an editSpec
-        for the candidate, and then assert that:
-        - the incoming data is a subset of what the editSpec allows/requires; this prevents attacks where e.g. the consumer tries to write to a random data item.
-        - the incoming data conforms to the rules in the editSpec; e.g. whether a resume or some data items are mandatory (the /unvalidated versions of this API don't
-        perform this check). 
+
+        **Validation**
+
+        The ATS (app producing the API) must not blindly apply the incoming data. Instead it must itself first generate an editSpec for the candidate, and then check that
+        the incoming data is a subset of what the editSpec allows/requires. This prevents attacks where e.g. the apply app tries to write to a random item. This checking must happen
+        in both the normal and the /unvalidated forms of the APIs.
+
+        The ATS must also check that the apply app has passed the resume (if mandatory) and any mandatory data items. The /unvalidated versions of the
+        APIs don't perform these mandatory checks.
 
       body:
         application/json:
@@ -819,43 +840,13 @@ resourceTypes: !include resources.yml
           description: the post was successful
         201:
           description: the post was successful
-    patch:
-      securedBy: [oauth_2_0]
-      is: [ badrequest ]
-      description: |
-        See description for POST method.
-      body:
-        application/merge-patch+json:
-          schema: !include ../schemas/candidateEdit.json
-          example: !include ../examples/candidateEdit-simple.json
-      responses:
-        200:
-          description: the post/patch was successful
-        201:
-          description: the post/patch was successful
     /unvalidated:
       post:
         is: [ badrequest ]
         description: |
-          This API has the same behaviour as POST/PATCH /candidates/me, except that the request is not validated - it may be accepted even if the
-          request does not conform to the rules of the editSpec, e.g. resume may be missing, even if it is mandatory. However the caller must
-          still always pass in a subset of the data defined by the editSpec - this prevents attacks where e.g. the consumer tries
-          to write to a random data item.
+          This API has the same behaviour as POST /candidates/me, except that mandatory items may be missing.
         body:
           application/json:
-            schema: !include ../schemas/candidateEdit.json
-            example: !include ../examples/candidateEdit-simple.json
-        responses:
-          200:
-            description: the post was successful
-          201:
-            description: the post was successful
-      patch:
-        is: [ badrequest ]
-        description: |
-          See description for POST method.
-        body:
-          application/merge-patch+json:
             schema: !include ../schemas/candidateEdit.json
             example: !include ../examples/candidateEdit-simple.json
         responses:

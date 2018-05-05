@@ -739,6 +739,7 @@ resourceTypes: !include resources.yml
       securedBy: [oauth_2_0]
       is: [ badrequest ]
       description: |
+      
         **Overview**
       
         These "apply APIs" are used by an apply app to create or update a candidate in the ATS (depending on whether one exists with a matching email),
@@ -756,7 +757,6 @@ resourceTypes: !include resources.yml
         The non-/unvalidated versions of these APIs are also preferred whenever possible. The /unvalidated versions should be used only if its not possible to answer
         all of the customer's mandatory questions.
 
-
         **Preparing to call the APIs**
 
         Before calling this API, the apply app will usually make an API call to fetch the edit spec (i.e. details of the application form) from the ATS.
@@ -765,14 +765,12 @@ resourceTypes: !include resources.yml
 
         Once the candidate has completed the application form, the apply app uses one of these apply APIs to push the candidate data and job applications into the ATS.
 
-
         **Update semantics**
 
         When updating, merge patch semantics are used (https://tools.ietf.org/html/rfc7386). For example;
         - if resume is present in the request, it will be set
         - if present and null, any existing resume will be cleared
         - if not present, any existing resume will be left unchanged
-
 
         **Internal candidates**
 
@@ -786,7 +784,6 @@ resourceTypes: !include resources.yml
         - if present and true then the candidate is set to internalFlag == false
         - if not present, then when creating, the internalFLag will be set to false, and when updating no change will be made
 
-
         **Fields duplicated in the vcard**
 
         Within the person object, some fields - e,g, email, first name, last name - are duplicated, i.e. they appear both as a first class field, and also within the vcard. In the
@@ -795,13 +792,11 @@ resourceTypes: !include resources.yml
         - If both are null, the underlying value will be set to null
         - If both are not null and they clash, a 400 error will be thrown
 
-
         **Category values**
 
         When the API request contains the categories object, and there is a category present (e.g. Location), then the the candidate will be updated to exactly match the category values.
 
         Any categories not passed in will not be changed on the candidate.
-
 
         **Checking eligibility to apply**
 
@@ -813,14 +808,12 @@ resourceTypes: !include resources.yml
 
         If the job is not active or none of the above are true, then the API will return 400 and no changes will be made.
 
-
         **File checks**
   
         The ATS must run all uploaded files through OWASP security tests:
         - extension matches actual file type
         - virus check
         - etc.
-
 
         **Validation**
 
@@ -1230,17 +1223,91 @@ resourceTypes: !include resources.yml
 
 /editSpecs:
   description: |
-    When making major changes to a candidate's data during a register or apply process, changes to data such as vcard, eeo items, candidate items,
-    categories, etc., must obey certain rules. Those rules are contained in an edit spec. Classic case is a job application form.
-    See <a href="../doc/candidateEditSpec-notes.html">detailed information on edit specs</a>.
+    **Overview**
 
-    An edit spec may be for:
-    - a known, logged in candidate, who may or may not have an existing row in the candidates table. When the candidate is known, the edit spec might
-    for example include special questions for an internal candidate or one who found the job via employee referral.
-    - an unknown, anonymous candidate. Such an edit spec is safe to display to the public (or 403 Forbidden if the intent contains an internal-only job)
+    The "editspec APIs" allow an apply app to ask the ATS for details of the data the candidate can/must provide - e.g. the job application form
+    when applying for a job.
+    
+    An editSpec can specify for example;
+    - whether a resume can be provided, and whether it is mandatory
+    - a message to be displayed to the candidate
+    - a set of user-defined fields for the candidate
+    - a set of user-defined fields that the candidate can/must provide that are specific to the job being applied for
 
-    The editSpec returned by these APIs can only ever contain candidate and eeo items
-    in its itemsRule and any job itemsRules.  
+    Later, once the apply app has presented this application form to the candidate, and they have completed it, the apply app can push the candidate
+    and job application(s) and related data into the ATS via POST /candidates.
+
+    **Versions of the API**
+
+    There are 4 versions of the editSpecs APIs:
+
+    - POST /editSpecs/fetches/register/me 
+    - POST /editSpecs/fetches/apply/{job}/me 
+    - POST /editSpecs/fetches/register/anonymous
+    - POST /editSpecs/fetches/apply/{job}/anonymous 
+
+    The register versions of the API are for use when the app intends to create or update the candidate, without job applications.  
+
+    The apply versions are for use when the app intends to also create job applications.  
+
+    The /me (on behalf) versions of these APIs are strongly preferred for security and the best candidate experience. They require that
+    the candidate is signed in via SSO. With the /me APIs, the application form that a candidate sees can be customised for who they are.
+    e.g. an internal candidate might be asked "have you told your manager you're applying for other positions?".
+
+    The non-/me versions can be used when no candidate is signed in. This could be e.g.:
+    - because the apply app does not use SSO (batch, import, email gateway etc.)
+    - to deal with first time visitors to the career site who click "apply" (we may want to show them what
+    the apply experience could be like, without making them sign in at this stage).
+
+
+    **The intent - category values**
+
+    The apply app can use an **intent** to send category values that hint to the ATS what sort of candidate is about to register, so it can serve
+    up a sensible register form.
+
+    e.g. an employer runs a recruitment campaign to drive pilots to their careers site. These potential employees land on a pilot-specific landing page,
+    featuring a button "Sign up for pilot careers". When the potential pilot clicks on the button, they will see the register form within the apply app.
+
+    That register form should be customised for pilots - e.g., welcome content for pilots, ask for details of their flight hours on different types of aircraft, etc.
+
+    When it calls the editSpecs API, the apply app makes this happen by passing an intent like this saying "give me the registration form for pilot";
+
+    Expertise->Pilot
+
+    At another example customer, a supermarket opening a new store buys some Facebook advertising in the region. The ads drive candidates to a specific
+    landing page. When the candidate clicks to join, the apply app passes an intent like this to the editSpecs API:
+
+    Location->Lincoln Nebraska
+    Expertise->Retail
+ 
+    Using this intent, the ATS can now customise the register form - e.g.
+    - pre-set the location to Lincoln
+    - display content related to Lincoln, Nebraska
+    - display tax-, employment-related or EEO questions specific to Lincoln, Nebraska, and also to Retail roles
+
+    Intents are mainly useful for the register APIs. When passed to the apply APIs, the ATS can use both the job being applied
+    for, and the intent, to customise the application form.
+
+
+    **The tracker**
+
+    If the apply app has access to a tracker, it should pass it into the editSpec API (and later, the apply API).
+
+    The tracker can allow the ATS to customise the form. For example when the a candidate was referred via the new employee referral program,
+    the employer can ask additional/less questions.  
+
+
+    **Accessing the editSpec for invisible jobs**
+
+    When the job is not visible to the candidate (e.g. internal only jobs), the editSpecs API call will fail.
+
+    The exception is when a tracker chain is passed to the API that contains the job access code.
+
+    Usually trackers like this are created by the employer to allow only selected candidates to apply, e.g. 
+    allowing only selected employees to apply for a job in a redundancy situation, allowing a late candidate to apply after the job
+    even once it has been closed.
+
+    An apply app could also create a tracker like this in order to access the application form for a job which is not visible.
 
     Always produced as SoT.
      

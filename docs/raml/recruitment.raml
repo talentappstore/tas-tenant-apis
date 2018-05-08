@@ -1478,17 +1478,19 @@ resourceTypes: !include resources.yml
           description: the ID of a previously launched jobs bulk upload
           type: uploadStatusGetter
     /externally:
-      /deltaPings:
-        post:
-          securedBy: [oauth_2_0]
-          description: |
-            The main ping for any changes to the open jobs. Useful e.g. to replicate open jobs into a database without polling.  
-          
-            Non-SoT.
       type: jobsGetter
       /byID:
         /{id}:
           type: jobGetter
+          /deltaPings:
+            post:
+              securedBy: [oauth_2_0]
+              description: |
+                This API is consumed by the ATS some time after changes have been made to a job that was or is publicly visible.
+                
+                In response, the producer (e.g. a job aggregator) will typically re-pull just this specific job, or all jobs.
+                
+                Non-SoT.
   /template:
     type: jobsGetter
     /byID:

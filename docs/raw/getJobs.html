@@ -59,93 +59,170 @@ color: #666666;
 </div>
 
 
-<h1>Get jobs app</h1>
+<h1>Overview</h1>
 
-<p>Here's a quick walk through of what's required to write a sourcing app in Talent App store - i.e. an app that:
+<p>This recipe describes building an <b>sourcing app</b> in Talent App store - i.e. an app that:
 <ol>
-<li>pulls jobs from a customer's site
-<li>creates a links for each job that a candidate can click on to reach the customer's career site (and eventually apply)
+<li>pulls jobs from an upstream ATS
+<li>creates a links for each job that a candidate can click on to reach the tenant's career site (and eventually apply)
 <li>embeds tracking information into each link, so that when candidates click through from your site, the tenant knows they came via you
 </ol>
+
+<h2>Pulling the jobs</h2>
 
 <p>There are two approaches you can use:
 <ol>
 <li>Use the tenant's <b>job feed</b> (an XML document containing details for all open jobs)
-<li>Use <b>individual APIs</b>, such as GET /jobs, GET /categories, etc. 
+<li>Use <b>individual APIs</b>, such as GET /jobs, GET /categories, etc. This gives you more control but requires more code. 
 </ol>
 </p>
 
-<h1>About TAS</h1>
 
-<p>Writing an app may sound intimidating, but its not. You're not actually creating a downloadable app that the customer runs themselves.
-Instead you're just producing and consuming RESTful APIs on your own servers - in a way that looks like an app to the customer.
+<h2>When to pull jobs</h2>
+
+<p>Your app should not poll either the feed or the GET /jobs API to look for changes to the jobs. Instead, it should
+sign up for real-time notifications of changes by producing the POST /jobs/byID/{}/deltaPings API. Then your app will receive an
+incoming API call whenever a job is changed at the source.
 </p>
 
-<p>For example, when a customer clicks install on your app in Talent App Store, you'll receive an incoming API call to your own server telling you that you have a new customer.
-From this point you can start making API calls to fetch jobs for that customer.
+<p>In response your app might:
+<ul>
+<li>if using the GET /jobs API, call GET /jobs/byID/{id} to re-fetch just the changed job.
+<li>if using the feed API, then call GET /jobs/feed/full to re-fetch the feed.
+</ul> 
+
+<p>Note: don't pull the feed too agressively. e.g. queue the fetches to avoid overloading the upstream app.
+</p>
+ 
+
+<h1>Set up</h1>
+
+<p>Let's start by installing some apps and entering some test data.
 </p>
 
-<p>All your app's code runs on your own servers, and we (Aotal) don't perform any review or testing of your code, nor do we need
-any IP rights to it. Also the APIs you will use are all open source, so you're free to use them in any way you see fit. And of course you
-can write and host your app using whatever tools and technologies you already use.
-</p> 
-
-<p>For more about TAS, see <a href='http://www.talentappstore.com'>http://www.talentappstore.com</a>.
-
-<h1>Create your app - get some jobs</h1>
-
-
-<p>To start with, you will need a source of jobs. Lets start by installing some apps (if you're creating a new tenant,
-you may need to click the first install link twice).
+<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
+can be found publicly listed (find them with "Browse apps").
 </p>
 
-<p>Go to <a href='https://www.talentappstore.com'>www.talentappstore.com</a>, sign up and create a tenant (use google auth to
-avoid a temporary issue with email-based logins).
+<h2>Install apps and prepare test data</h2>
+
+<p>First, follow the first few steps (up to and including creating a job) of <a href='sandboxapps.html#Setup_to_create_a_job_application'>these instructions</a>.
 </p>
 
-<p>Install the <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2pvYnM.UtVW9X6u2xMWOZR29UiuiTk-FRBY_38IT9jJn9TPNKCLiFhs5JipjLotgz6Up5-1TelKn0oAbw94eNWi6sLLUwRYHpjs2Tm-iA71Y8NGux2E83_vxxZ00a2ZGRpRZWCsgW9_hBKuETbVJauc8T25NrtCCf62bu5lVOrkpU6cClO0X3nsI31emdmfPLn7gwrR3J6DpDNA9QuNL9oWu2cUpSZM0FmOYzDax2USEBBq8SWkb9FDqi5ty8NmcujMgiaK7-misZD2za45YS_rBDih9ZCVNatpLi-0j8O8aXRX5PsZfveFKvG16ZSdiFm2Ura1gsa9NnJkSTGMLqGHZDBaLQ'>
-mockjobs app</a>.
-
-<p>Install the switchgear app (publicly visible).
+<p>Create some more jobs, so that you have useful test data.
 </p>
 
-<p>You've now got some jobs in your tenant. How you proceed now depends on whether you've chosen to integrate via the XML feed, or via individual APIs.
+<p>Now install the Feed app ("Browse apps").
 </p>
 
-<p>Either way, you'll need your own app before we go much further.
+<p>Finally, to see the XML feed on a web page, install the Agile feed viewer app, using this install token:
+<pre>
+<code>
+eyJhbGciOiJSUzUxMiJ9.YWdpbGVmZWVkdmlld2Vy.dP2CZUOGIeS9QAaDtaUTxeugYY8jaGS2Bm9dXrm7EYKV7rlFCHixtWdIrrXC7Q6pGUBWwi_Ilupk6zy6zmd0uDtkJyW_WCSwF8XWg2oQI9tdGx6-r85wk2D6V2OFV-iP4MHIubgd7TxZLbweIyeUP2cEjOcJtghcIuCcD6UpXHn0gIopUBau1mCK9dp8ss1o8i6VkZod4HkTJTvrSWUySl3q6WHCCroZ4oSOhNHSZjIIkHKJZjrZZk0u-0LSKQ1IT6UCoDHXZa7qOBjegpnN9B8z7OrBTuge_jfMwBVJBGs8nAzlx5UhjSw87pv4xMfsR5Ddc87yXC_a9BqcteS6Zw
+</code>
+</pre>
+
+<p>From the storefront, click to the feed viewer app and you should be able to see the XML feed.   
+
+
+<h1>API flow to/from your app</h1>
+
+
+<h2>Installing your app</h2>
+
+<div class='seqDiag' id="seq0">
+
+note right of app: a tenant installs your app
+core->app: POST /tenants
+</div>
+
+
+<h2>Fetching jobs with the feed APIs</h2>
+
+<div class='seqDiag' id="seq1">
+note right of app: your app learns that some job may have changed
+ats->app: POST /jobs/open/externally/byID/{}/deltaPings
+
+note right of app: your app fetches all publicly visible jobs
+app->feed: GET /jobs/feeds/full
+</div>
+
+
+<h2>Fetching jobs with the GET /jobs APIs</h2>
+
+<div class='seqDiag' id="seq2">
+
+note right of app: your app fetches details of each category and its values
+app->ats: GET /categories
+app->ats: GET /categories/{}/values
+app->ats: GET /categories/{}/values
+
+note right of app: your app fetches each stripe of open jobs (max 100 per stripe)
+app->ats: GET /jobs/open/externally
+app->ats: GET /jobs/open/externally
+
+note right of app: your app builds a tracker for each job, with itself as the source
+app->tracker: POST /trackers
+note right of app: your app asks which is the primary careers site
+app->switchgear: GET /careerSites/primary
+
+note right of app: your app gets links to the jobs at the careers site
+app->careersite: GET /careerSites/forApp/byID/{site}/jobLinks
+
+
+note right of app: your app learns that a job may have changed
+ats->app: GET /jobs/open/externally/byID/{}/deltaPings
+
+</div>
+
+
+
+<h1>Implementing the APIs</h1>
+
+<h2>Produce POST /tenants</h2>
+
+<p>The first API call incoming to your app is to tell you that a tenant has installed it.
 </p>
 
-<p>Create a developer account at <a href='https://developer.talentappstore.com'>developer.talentappstore.com</a>.
-For now, please use Google authentication (not an email and password).
+<p>Typically you might handle this API call by inserting into your customer table, sending an email to customer support team, etc. You
+might show the "setup required" icon and a settings page to facilitate this.
+</p>
+  
+<p>See <a href='./install.html'>installing and controlling setup and launch pages</a> for more.
 </p>
 
-<p>At the developer site, define your app:
+
+<h2>POST /jobs/open/externally/byID/{id}/deltaPings</h2>
+
+<h3>Example</h3>
+
+<pre><code>
+<a href='../generated/recruitment.raml.html#jobs_open_externally_byID__id__deltaPings_post'>POST /jobs/open/externally/byID/{id}/deltaPings</a>
+
+</code></pre>
+
+<p>Your app produces this API to learn about changes to jobs, so it can re-fetch them. 
+</p>
+
+<p>To produce a tenant API like this (see the <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/doc/cheatsheet.html'>programming guide</a>):
 <ol>
-<li>Give it a name and shortcode
-<li>Make a note of your app's secret key - you'll need this later. Don't share this with anyone.
+<li>At <a href='https://developer.talentappstore.com'>developer.talentappstore.com</a>, make your app produce this API (as non-SoT)
+<li>Create an endpoint in your server at /t/{tenant}/devs/tas/jobs/open/externally/byID/{id}/deltaPings
+<li>On the "tazzy" tab of your app, set the back end server to point to your server on the internet
 </ol>
+
+<p>Your endpoint will now be hit every time a change is made to an upstream job (e.g. recruiter in the ATS marks the job as closed).
 </p>
 
+<p>In response you can fetch just the changed job, or, if you are using the feed APIs, all jobs. 
 
-<h1>Create your app - XML feed</h1>
 
-<p>To integrate via XML feed, you'll need access to a feed (as usual, some other app produces it).
+<h2>GET /jobs/feeds/full</h2>
+
+<p>When using the feed APIs, you fetch all of the upstream jobs as XML in one API call.
 </p>
 
-<p>Install the <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.cnNzZmVlZA.KpuLLV6W44Vb7x_D0vb2Eh2OB3M5A2Mg1eifQk7HRebCansKtBE1mlPj_Vqyjf18qufUryR4PTVMmBOMtWDG2dhVyk0wfnGa64WFeIV2_kpXks_O-otzUk54gaXgMPDekd2kZod6rvn-N2f6-YcVxMWKPylSXfW3z4SNialFWUbhunCdXwIrgfC8y4KxlCfcfs5xyp2gyKKtpqYF_wnVVfU9V5JYlq2evTQQRJFRNbun1QQq_Dd_fBbpM-9AMzatCtY1F8qCHpk4vBws-5iCRhwxm_fZF3hyC4t3wSTNcMD2bNXufDKHrMlgjvGGk6VIp02F5KFBlHCWXygO58vbPQ'>Feed</a>
-app.
-</p>
-
-<p>Open your app in the developer site. Under "APIs", have your app consume
- <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_feeds_full_get'> GET /jobs/feeds/full</a>. <b>Make sure
- to consume it as source of truth == true</b>. 
-
-<blockquote>
-Now your "app" (right now that's just you using the familiar curl command ) is ready to make an API call to fetch the feed.
-</blockquote>
-
-<p>At the command line, type the following (substituting your own app, tenant and secret key):
-
+<p>e.g. (first have your app consume the API):
 <pre><code>
 # as the app "getjobstest",
 # and acting for tenant "acme",  
@@ -156,26 +233,13 @@ curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobs
 </code></pre>
 </p>
 
-<p>Your app can now access the feed itself!
-</p>
-  
 
-<h1>Create your app - individual API calls</h1>
+<h2>GET /jobs</h2>
 
-<p>If you want to access jobs using individual API calls, read on.
+<p>Instead of the feed, you can also access jobs using individual API calls.
 </p>
 
-<h2>Fetch jobs</h2>
-
-<p>The first API is to fetch the site's available jobs. Open your app in the developer site, and under "APIs", have your app consume
- <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get'> GET /jobs</a>.<b>Make sure to consume it as source of truth == true</b>. 
-</p>
-
-<blockquote>
-Now you're ready to make an API call to fetch jobs. We'll use the familiar curl command.
-</blockquote>
-
-<p>At the command line, type the following (substituting your own app, tenant and secret key):
+<p>Have your app consume GET /jobs. Then fetch the first 100 open jobs: 
 
 <pre><code>
 # as the app "getjobstest",
@@ -187,17 +251,14 @@ curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobs
 </code></pre>
 </p>
 
-<p>You should see a list of jobs come back. If not, check the preceding steps. If you're stuck, feel free to ask for help on the forums linked to the developer site.
-</p>
 
-<p>IMPORTANT: the list of jobs you fetched has all jobs, including internal-only jobs. It would be a serious security exposure to display internal jobs to external candidates,
-so be very careful to filter jobs based on who is using your system.
+<p>You should see a list of jobs come back.
 </p>
 
 
 <h2>Decode each job's category values</h2>
 
-<p>If you look closely at each job, you'll see that the job's category values (e.g. its location) are identified by ids.
+<p>On each returned job, you'll see that the job's category values (e.g. its location) are identified by ids.
 To obtain the mapping from those ids into actual values (e.g. 2013 == Auckland), you'll need to call two more APIs.
 </p>
 
@@ -207,21 +268,10 @@ To obtain the mapping from those ids into actual values (e.g. 2013 == Auckland),
 <p>The GET /categories/byID/{}/values API gives you all of the values for any single category - e.g., all the locations that this tenant has set up.
 </p>
 
-<p>You should cache the results of these APIs so that you don't need to make the API calls to often, or your app might be throttled.  
+<p>You should cache the results of these APIs so that you don't need to make the API calls too often, or your app might be throttled.  
 </p>
 
-<p>At the developer site, update your app so that it consumes these APIs (again, as source of truth).
-<ul>
-<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_get'>GET /categories</a>
-<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_byID__category__values_get'>GET /categories/byID/{}/values</a>
-</ul>
-</p>
-
-<p>Now click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2NhdGVnb3JpZXM.BceGGii8R3lkJSIq6pEMq3GFZNgnyRcOEotVe9naJgdtHi66h66igqHWAimAo6AEsgJU27L9UfPJySn_4Y-VuT9MQsqMR5PuSZcLz3mbhiy1zK2yCX5xDdocRcFlIZ-Sk573mBzDO1d0xQoErNtFphtkttpD_ocx-aPD_m1w7fchBoDFLAY37vuqDofmtbquMGujdvBfRR43PWo465984B6JA5HJ9HY11gkFPO_Z4vyCcm2n6LpG8F7fuIJznoexrAt5q1d15buNYUDFHnLbzb_y88NmXxiSWjMpinPIZ4EY6zgeemuro4anE8f-K2_VaSmNzYzddhRfLeShSvzMSg'>here </a>
-to install the mockcategories app. This provides some test values for the categories APIs. 
-</p>
-
-<p>To test this out, you can call these APIs using curl as above, e.g.:
+<p>e.g.:
 <pre><code>
 curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobstest.tazzy.io/t/acme/devs/tas/categories
 </code></pre>
@@ -229,7 +279,7 @@ curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobs
 
 <p>One of the categories returned above was 100001999, so to get the values for this category, call:
 <pre><code>
-curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://mockjobstest.tazzy.io/t/acme/devs/tas/categories/byID/100001999/values
+curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobstest.tazzy.io/t/acme/devs/tas/categories/byID/100001999/values
 </code></pre>
 </p>
 
@@ -240,24 +290,18 @@ curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://mockjob
 One of these will be marked as the default - your app learns which by calling an API.
 </p>
 
-<p>First, click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.bW9ja2NhdGVnb3JpZXM.SCj2xnKz-YOCh80Bg6EDPwBPzw2m99o2PX2ERYCyQ_5UOjpB1BVf7mrhi2PzIwZMRjN8dwMM3y9PlMH0YEWUoKHK5w0-FwtxPLKK1OhwimIb5ouZ8N_yDiKDA9ADmtf7L043UyaFAESoCG4oUzC94T3rzfA3ldxHd-ixXgI4QlB6BuANbHS8em1j1zsexmdfRqMziwbKrK0UyJ49kf8SC95UAIR3SgNGuD2A9w3KF2XKJwbLQgm4vj8_TFHl3hweLPqUpO2uRI16Ogc0ksYhmYfb0bQJurRkJIR1fkqGUFTfueoXrUWUi-SEEZDvwKkBQdb-nW8nJDm_MjiHv9PSkA'>here</a> 
-to install the "mock career site" app. This app can display jobs in a basic way.
+<h2>GET /careerSites/primary</h2>
+
+<p>Your app consumes this API to learn which career site is the primary.
 </p>
 
-<p>Now install the switchgear app (you'll find this in the store). Switchgear is a kind of coordinating app that, among other things, lets the customer choose which of their career sites will be the primary.
+<h2>GET /careerSites/forApp/byID/{site}/jobLinks</h2>
+
+<p>The <a href='http://devdocs.talentappstore.com/generated/recruitment.raml.html#panel_careerSites_forApp_byID__site__jobLinks'>/careerSites/forApp/byID/{site}/jobLinks</a> API
+lets you fetch the links for an array of jobs in a single API call.
 </p>
 
-<p>Now click on the switchgear icon, then click "Open". You're at the switchgear landing page. You should see your career site listed - mark it as the primary.
-</p>
-
-<p>Now edit your app to consume the
-<a href='GET /careerSites/primary'>http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#careerSites_primary_get</a>
-API (as source of truth) to learn which career site is the primary (in this case it will be the mock career site).
-</p>
-
-<p>You can now consume the 
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#panel_careerSites_forApp_byID__site__jobLink__job_'>GET /careerSites/forApp/byID/{site}/jobLink/{job}</a>
-API to ask the primary career site to build you a link for each specific job. Again, you should cache the results to this API call, e.g. against the job's ID.
+<p>Pass in the array of jobs that you want links for as parameters. Cache the results to minimise API traffic.
 </p>
 
 <h2>Add your own trackers</h2>
@@ -265,7 +309,8 @@ API to ask the primary career site to build you a link for each specific job. Ag
 <p>(This step is optional).
 </p>
 
-<p>Great! You've extracted a list of jobs, and for each one, you've built a link that the candidate can click on within your site, that will lead them to the job on the primary careers site.
+<p>So far you have extracted a list of jobs, and for each one, you've built a link that the
+candidate can click on to lead them to the job (on the primary careers site).
 </p>
 
 <p>When the candidate reaches the primary career site, their browser will add your site (in the referer http header), so there's a fair chance that any candidate job applications made via
@@ -283,33 +328,7 @@ Trackers get passed through to any job applications resulting from clicking on y
 you could embed in the tracker the details of the person who shared the job. Then, when someone is hired after applying using that shared link, you could pay the referrer a bounty.
 </p>
 
-<p>In this case we'll just create a very simple tracker for each job with no embedded information.
-</p>
-
-<p>At the developer site, update your app so that it consumes the
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#trackers_post'>POST /trackers</a>
-API (again, as source of truth).
-</p>
-
-<p>From your storefront, install the tracker app.
-</p>
-
-<p>From the command line, create a tracker with details of your site in it:
-
-<pre><code>
-# as the app "getjobstest",
-# and acting for tenant "acme",  
-# call the API GET /jobs
-# as defined by the developer "tas"
-
-curl -H "tazzy-secret: gjKUy7Y7Ehy0KgE32" http://jobboard.tazzy.io/t/acme/devs/tas/jobs/1001
-</code></pre>
-</p>     
-
-<p>The response to your API call contains a tracker ID which you can now attach to the career site link. Note that if you
-call the tracker API again you'll get the same tracker back - but you should cache the results of this API call rather than repeatedly calling the API at an excessive rate.
-</p>
-
+<p>Learn more about trackers <a href='trackers.html'>here</a>.
 
 
                 

@@ -74,7 +74,7 @@ color: #666666;
                     <li><a href="applyGate.html">Apply gates</a></li>
                     <li><a href="assessments.html">Assessments</a></li>
                     <li><a href="careerSite.html">Career sites</a></li>
-                    <li><a href="careerSite.html">Candidate surveys</a></li>
+                    <li><a href="surveys.html">Candidate surveys</a></li>
                     <li><a href="applyRegister.html">Apply for jobs and register</a></li>
                     <li><a href="newHires.html">New hires, payroll and onboarding</a></li>
                     <li><a href="getJobs.html">Job distribution/ job boards</a></li>
@@ -272,7 +272,7 @@ curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobs
 
 <h2>GET /jobs</h2>
 
-<p>If you want to access jobs using individual API calls, read on.
+<p>Instead of the feed, you can also access jobs using individual API calls.
 </p>
 
 <p>Have your app consume GET /jobs. Then fetch the first 100 open jobs: 
@@ -294,7 +294,7 @@ curl -H "tazzy-secret: V83s9zScl1BKc2pl9pO4ELEtVNarzVkJYaTsU1a9" https://getjobs
 
 <h2>Decode each job's category values</h2>
 
-<p>If you look closely at each job, you'll see that the job's category values (e.g. its location) are identified by ids.
+<p>On each returned job, you'll see that the job's category values (e.g. its location) are identified by ids.
 To obtain the mapping from those ids into actual values (e.g. 2013 == Auckland), you'll need to call two more APIs.
 </p>
 

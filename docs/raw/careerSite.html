@@ -101,7 +101,7 @@ apps may want to generate links to, then it must declare some details about that
 GET /careerSites/forApp
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/careerSites-simple.json'></div>
+<div class='clientInclude' data-href='../examples/careerSites-simple.json'></div>
 </code></pre>
 </p>
 
@@ -120,7 +120,7 @@ Response:
 GET /actions/byCandidate/anonymous/general
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/actionsForApps-simple.json'></div>
+<div class='clientInclude' data-href='../examples/actionsForApps-simple.json'></div>
 </code></pre>
 </p>
 
@@ -156,7 +156,7 @@ to log in, which should happen invisibly, and can then (for example) see interna
 GET /jobs/byID/{job}
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/jobRead-simple.json'></div>
+<div class='clientInclude' data-href='../examples/jobRead-simple.json'></div>
 
 GET /jobs/byID/{job}/description
 </code></pre>
@@ -193,28 +193,13 @@ GET /jobs/byID/{job}/description
 <p>The job's description is in safe markdown and needs to be converted to HTML before display.
 </p>
 
-<p>Your site should also retrieve all of the job-related values (position description documents, etc.) and render (perhaps in a table):
-
-<pre><code>
-GET /items/toCandidate/anonymous/jobs/{job}
-
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/items-values.json'></div>
-</code></pre>
-</p>
-
-<p>or if the candidate is logged in:
-
-<pre><code>
-GET /items/toCandidate/me/jobs/{job}
-</code></pre>
-</p>
 
 <p>Your site should retrieve details of all of the job-related actions (apply button, share button, etc.) and render them:
 
 <pre><code>
 GET /actions/byCandidate/anonymous/jobs/{job}
 
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/actionsForApps-simple.json'></div>
+<div class='clientInclude' data-href='../examples/actionsForApps-simple.json'></div>
 </code></pre>
 </p>
 
@@ -245,12 +230,12 @@ Keywords:  [______]
 GET /categories
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/categories-simple.json'></div>
+<div class='clientInclude' data-href='../examples/categories-simple.json'></div>
 
 GET /categories/byID/{category}/values
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/categoryValues-simple.json'></div>
+<div class='clientInclude' data-href='../examples/categoryValues-simple.json'></div>
 </code></pre>
 </p>
 
@@ -264,7 +249,7 @@ GET /jobs
 POST /jobs/searches
 
 Response:
-<div class='clientInclude' data-href='http://talentappstore.github.io/tas-tenant-apis/examples/jobsRead-simple.json'></div>
+<div class='clientInclude' data-href='../examples/jobsRead-simple.json'></div>
 </code></pre>
 </p>
 

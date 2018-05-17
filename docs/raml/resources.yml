@@ -1,5 +1,17 @@
 #%RAML 0.8
 
+- uploadStatusPinger:
+          post:            
+            securedBy: [oauth_2_0]
+            description: |
+              Alert listeners that a previously started upload operation has completed. Normally the producer should keep results around for some time (i.e. weeks/months)
+              after the upload has completed.
+             
+              Non-SoT.
+            body:
+              application/json:
+                schema: !include ../schemas/uploadStatus.json
+                example: !include ../examples/uploadStatus-jobAds.json
 
 - uploadStatusGetter:
           get:            
@@ -8,7 +20,7 @@
               Get the status of a previously started upload operation. Normally the producer should keep results around for some time (i.e. weeks/months)
               after the upload has completed.
              
-              Non-SoT.
+              SoT.
             responses:
               200:
                 body:
@@ -50,7 +62,7 @@
           The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
           In this case the upload could be re-run once the problem was resolved.
 
-          Non-SoT.
+          SoT.
   
         body:
           application/json:
@@ -100,7 +112,7 @@
           The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
           In this case the upload could be re-run once the problem was resolved.
 
-          Non-SoT.
+          SoT.
           
         body:
           application/json:
@@ -151,7 +163,7 @@
           The producer's behaviour need not be atomic - the call might fail after only partially processing the values, leaving partial changes applied.
           In this case the upload could be re-run once the problem was resolved.
 
-          Non-SoT.
+          SoT.
         body:
           application/json:
             schema: !include ../schemas/jobsUpload.json

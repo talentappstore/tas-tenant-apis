@@ -1211,6 +1211,8 @@ resourceTypes: !include resources.yml
             /{uploadID}:
               description: the ID of a previously launched category values bulk upload
               type: uploadStatusGetter
+              /deltaPings:
+                type: uploadStatusPinger
 
         /{id}:
           get:
@@ -1477,6 +1479,8 @@ resourceTypes: !include resources.yml
         /{uploadID}:
           description: the ID of a previously launched jobs bulk upload
           type: uploadStatusGetter
+          /deltaPings:
+            type: uploadStatusPinger
     /externally:
       type: jobsGetter
       /byID:
@@ -1502,6 +1506,8 @@ resourceTypes: !include resources.yml
         /{uploadID}:
           description: the ID of a previously launched jobs bulk upload
           type: uploadStatusGetter
+          /deltaPings:
+            type: uploadStatusPinger
     
           
   /feeds:
@@ -1644,6 +1650,8 @@ resourceTypes: !include resources.yml
     /{uploadID}:
       description: the ID of a previously launched job set upload
       type: uploadStatusGetter
+      /deltaPings:
+        type: uploadStatusPinger
     
   post:
     securedBy: [oauth_2_0]
@@ -1765,7 +1773,8 @@ resourceTypes: !include resources.yml
       /{uploadID}:
         description: the ID of a previously launched category values bulk upload
         type: uploadStatusGetter
-
+        /deltaPings:
+          type: uploadStatusPinger
 
 /panels:
   /toUser:
@@ -1956,6 +1965,8 @@ resourceTypes: !include resources.yml
       /{uploadID}:
         description: the ID of a previously launched users bulk upload
         type: uploadStatusGetter
+        /deltaPings:
+          type: uploadStatusPinger
       
   /active:
     type: usersGetter

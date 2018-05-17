@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Data migration</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Overview</h1>
+
+<p>The data migration APIs are used to export and import categories, jobs and users between tenants.
+</p>
+
+
+<h1>Set up</h1>
+
+<p>Lets look at assessments in action by installing some apps.
+</p>
+
+<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
+can be found publicly listed (find them with "Browse apps").
+</p>
+
+<h2>Install apps and prepare test data</h2>
+
+
+<h1>The roles of each app</h1> 
+
+
+<p><b>The ATS</b>:
+<ul>
+<li>is the source of truth for the data objects: categories, jobs and users
+<li>provides low level API access to CRUD the data objects
+<li>notifies replicating apps of changes to the data objects via delta pings
+<li>maintains a journal of remaps (i.e. delete of one CV and transfer of all associated data objects to another)
+<li>deleted CVs can still be accessed by id (and may include a remap CV) 
+</ul>
+</p>
+
+<p><b>The Uploader app</b>:
+<ul>
+<li>provides high level upload-style APIs for the data objects
+</ul>
+</p>
+
+<p><b>The Category Editor app</b>:
+<ul>
+<li>is a cool modern drag and drop editing interface for category values
+<li>users can delete a CV, first transferring all its data objects to another
+</ul>
+</p>
+
+
+<h1>API flow to/from your app</h1>
+
+
+<h2>Upload app</h2>
+
+<p>The upload app provides a bulk way to synch up CVs. One downside of this API is that it
+does not support remapping, so its best suited to an initial load of the CVs.
+
+<div class='seqDiag' id="seq0">
+
+note right of someapp: some app fires in an upload
+someapp->uploader: POST /categories/byID/{}/uploads
+
+note right of uploader: uploader fetches current\nCVs from ats
+uploader->ats: GET /categories/byID/{}/values
+
+note right of uploader: uploader uses discrete APIs\nto modify CVs in ats to match
+uploader->ats: DELETE /categories/byID/{}/values/byID/{}
+
+note right of ats: ats notifies replicating apps
+ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+
+uploader->ats: POST /categories/byID/{}/values/byID/{}
+
+ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+
+</div>
+
+
+<h2>Category manager UI</h2>
+
+<p>An app to manage category values pushes changes into the ATS.</p> 
+
+<div class='seqDiag' id="seq1">
+
+note right of catman: user creates a new CV
+catman->ats: POST /categories/byID/{}/values
+
+note right of ats: ats notifies replicating apps
+ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+
+note right of catman: user drags takapuna onto northshore\ni.e. delete + remap of a CV
+catman->ats: DELETE /categories/byID/{}/values/takapuna?remap=northshore
+
+note right of ats: ats updates jobs,\ncandidates, users
+ats->careersite: POST /jobs/byID/{}/deltaPings
+ats->careersite: POST /jobs/byID/{}/deltaPings
+ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+
+</div>
+
+
+<h2>Synching a target tenant to a source tenant</h2>
+
+<p>An app provides a UI to synch one tenant's ATS from another tenant. The API flows shows span two tenants.
+</p>
+
+<div class='seqDiag' id="seq2">
+
+note right of syncher: synch categories
+syncher->sourceats: GET /categories
+syncher->targetats: GET /categories
+syncher->targetats: DELETE /categories/byID/{}
+syncher->targetats: POST /categories
+
+note right of syncher: synch category values
+syncher->sourceats: GET /categories/byID/{}/values
+syncher->targetats: POST /categories/byID/{}/values
+syncher->targetats: POST /categories/byID/{}/values
+
+</div>
+
+
+<h2>Career site is installed and tracks CV changes</h2>
+
+<p>The careers site maintains its own replicated copy of the tenant's categories and category values.
+</p>
+
+<div class='seqDiag' id="seq3">
+
+note right of careersite: app is installed, initial load 
+careersite->ats: GET /categories
+careersite->ats: GET /categories/byID/{}/values
+careersite->ats: GET /categories/byID/{}/values
+
+note left of ats: the ATS alerts replicating\napps of changed or deleted CVs
+ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+
+note right of careersite: the replicator grabs CV's new state\nor delete remap info
+careersite->ats: GET /categories/byID/{}/values/{}
+
+note right of careersite: replicators maintain cursor of\nlast delete
+
+
+</div>
+
+<h2>Career site comes back up after restart</h2>
+
+<p>While the app was asleep, there may have been changes made to the CVs. To make sure it is up to date, the app fetches the latest entries from the journal of
+remaps.
+</p>
+
+<div class='seqDiag' id="seq4">
+
+note right of careersite: check for missed deletes (with remap info) since checked
+careersite->ats: GET /categories/byID/{}/values/remapped?seqGt=22
+
+note right of careersite: and fetch the current state of the CVs
+careersite->ats: GET /categories/byID/{}/values/remapped?seqGt=22
+
+</div>
+
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

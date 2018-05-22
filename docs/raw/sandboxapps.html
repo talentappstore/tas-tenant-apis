@@ -68,12 +68,35 @@ border: solid 1px gray;
 <p>The sandbox apps allow you to develop your app without needing access to a full ATS.
 </p>
 
-<p>Because the sandbox apps are private, you need to install them from an install token. This page lists the sandbox apps with their tokens.
-You don't normally need to install all of the apps below - each recipe will list the actual apps you need. 
-</p>
-
 <p>To install the sandbox apps you require, start by going to <a href='https://www.talentappstore.com'>www.talentappstore.com</a>, sign up and
 click at top right to create a tenant (use google auth to avoid a temporary issue with email-based logins).
+</p>
+
+
+<h1>Setup to create a job application</h1>
+
+<p>Follow the steps below. When installing apps, the apps that have links are unpublished sandbox apps that you install via their install token (see above). The other apps
+can be found publicly listed (find them with "Browse apps" from within your tenant). You can start in an incognito window for these steps.
+
+<ol>
+<li>If you don't already have an account, sign in to <a href='https://www.talentappstore.com'>www.talentappstore.com</a> and create one (don't use email
+authentication for now).
+<li>Create a tenant, then sign in to the tenant.
+<LI>(optional) If you want other people to be able to sign in to your tenant as users, then edit the regex on the installed identity app's "restrict sign ins from" section 
+<li>Install <b><a href="sandboxapps.html">Developer ATS</a></b> (when the 403 error occurs, click back, sign out and sign in again)
+<li>Install the same <b>identity app</b> that is already installed in the tenant, but this time for principal type of candidate
+<li>Install <b><a href="sandboxapps.html">Developer Career Site</a></b>
+<li>Install <b>Assessment hub</b>
+<li>Install <b>Switchgear</b>
+<li>Install <b>Tracker</b>
+<li>Install an install app, e.g. <b>SimpleApply</b> or <b><a href="sandboxapps.html">Developer Apply</a></b>
+<li>Click to open Developer ATS
+<li>Create a job (leave all the date fields blank, complete all other fields, make it visible externally)
+<li>On the job details page, you'll see the embedded SwitchGear panel. Click "Edit" and drag the apply onto the job.
+<li>Click to open Developer Careers
+<li>Browse in to your job, click the Apply button, and complete the application process
+<li>Return to Developer ATS and you should see the incoming job application (in the Incoming bucket)
+</ol>
 </p>
 
 <h1>Sandbox apps - install tokens</h1>
@@ -132,31 +155,6 @@ click at top right to create a tenant (use google auth to avoid a temporary issu
 
 </p>
 
-<h1>Setup to create a job application</h1>
-
-<p>Follow the steps below. When installing apps, the apps that have links are unpublished sandbox apps that you install via their install token (see above). The other apps
-can be found publicly listed (find them with "Browse apps" from within your tenant). You can start in an incognito window for these steps.
-
-<ol>
-<li>If you don't already have an account, sign in to <a href='https://www.talentappstore.com'>www.talentappstore.com</a> and create one (don't use email
-authentication for now).
-<li>Create a tenant, then sign in to the tenant.
-<LI>(optional) If you want other people to be able to sign in to your tenant as users, then edit the regex on the installed identity app's "restrict sign ins from" section 
-<li>Install <b><a href="sandboxapps.html">Developer ATS</a></b> (when the 403 error occurs, click back, sign out and sign in again)
-<li>Install the same <b>identity app</b> that is already installed in the tenant, but this time for principal type of candidate
-<li>Install <b><a href="sandboxapps.html">Developer Career Site</a></b>
-<li>Install <b>Assessment hub</b>
-<li>Install <b>Switchgear</b>
-<li>Install <b>Tracker</b>
-<li>Install an install app, e.g. <b>SimpleApply</b> or <b><a href="sandboxapps.html">Developer Apply</a></b>
-<li>Click to open Developer ATS
-<li>Create a job (leave all the date fields blank, complete all other fields, make it visible externally)
-<li>On the job details page, you'll see the embedded SwitchGear panel. Click "Edit" and drag the apply onto the job.
-<li>Click to open Developer Careers
-<li>Browse in to your job, click the Apply button, and complete the application process
-<li>Return to Developer ATS and you should see the incoming job application (in the Incoming bucket)
-</ol>
-</p>
 
                 
             </div>

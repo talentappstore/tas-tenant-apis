@@ -1,12 +1,13 @@
 {
+  "id": 8754598,
   "started": "2015-11-05T13:15:30Z",
-  "status": "underway",
+  "status": "Underway",
   "results": [
     {
-      "operation": "created",
+      "operation": "Created",
       "succeeded": 1,
       "failed": 1,
-      "failedJobDetails": [
+      "failureDetails": [
         {
           "code": "AZDH55",
           "message": "missing value for location"
@@ -14,12 +15,12 @@
       ]
     },
     {
-      "operation": "updated",
+      "operation": "Updated",
       "succeeded": 0,
       "failed": 0
     },
     {
-      "operation": "closed",
+      "operation": "Closed",
       "succeeded": 0,
       "failed": 0
     }

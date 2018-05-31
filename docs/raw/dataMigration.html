@@ -65,17 +65,6 @@ color: #666666;
 </p>
 
 
-<h1>Set up</h1>
-
-<p>Lets look at assessments in action by installing some apps.
-</p>
-
-<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
-can be found publicly listed (find them with "Browse apps").
-</p>
-
-<h2>Install apps and prepare test data</h2>
-
 
 <h1>The roles of each app</h1> 
 
@@ -92,87 +81,92 @@ can be found publicly listed (find them with "Browse apps").
 
 <p><b>The Uploader app</b>:
 <ul>
-<li>provides high level upload-style APIs for the data objects
+<li>provides high level, long-running upload-style APIs for the data objects (e.g. pass the entire list of all active users in one API call)
+
 </ul>
 </p>
 
 <p><b>The Category Editor app</b>:
 <ul>
-<li>is a cool modern drag and drop editing interface for category values
-<li>users can delete a CV, first transferring all its data objects to another
+<li>is a drag and drop editing interface for category values
+<li>users can delete a CV, and also first transfer all its data objects (jobs etc.) to another CV
 </ul>
 </p>
 
 
 <h1>API flow to/from your app</h1>
 
-
-<h2>Upload app</h2>
-
-<p>The upload app provides a bulk way to synch up CVs. One downside of this API is that it
-does not support remapping, so its best suited to an initial load of the CVs.
-
-<div class='seqDiag' id="seq0">
-
-note right of someapp: some app fires in an upload
-someapp->uploader: POST /categories/byID/{}/uploads
-
-note right of uploader: uploader fetches current\nCVs from ats
-uploader->ats: GET /categories/byID/{}/values
-
-note right of uploader: uploader uses discrete APIs\nto modify CVs in ats to match
-uploader->ats: DELETE /categories/byID/{}/values/byID/{}
-
-note right of ats: ats notifies replicating apps
-ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
-
-uploader->ats: POST /categories/byID/{}/values/byID/{}
-
-ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
-
-</div>
-
-
 <h2>Category manager UI</h2>
 
-<p>An app to manage category values pushes changes into the ATS.</p> 
+<p>This section shows the API flow when using the category manager to edit values of a category in the ATS - e.g. removing the "Data Sciences" in favour of "IT".</p> 
+
+<p>Changes like these may affect objects such as jobs in the ATS, e.g. in this example, all jobs that were previously Data Sciences will now need to be re-categorised as IT.
+</p>
+
+<p>Since it is the source of truth for jobs, the ATS also informs other apps that care that jobs have been updated.
+</p>
+
+<p>As the master record holder for categories themselves, the ATS also informs any other apps that care that category values have changed.
+</p>
+
+<p>Apps that care would include e.g. a career site app might have its own employee testimonials objects where Jake says how great it is to work in the Data Sciences team at Acme.
+</p>
+
+<p>That testimonial would be pinned to the career site's own copy of the Data Sciences category value (within the IT category). By listening to updates from the ATS,
+the career site is able to transfer Jake's testimonial from Data Sciences to IT.    
 
 <div class='seqDiag' id="seq1">
 
 note right of catman: user creates a new CV
 catman->ats: POST /categories/byID/{}/values
+note right of catman: {"name": "Birkenhead"}  
 
 note right of ats: ats notifies replicating apps
-ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+ats->careersite: POST /categories/byID/{}/values/byID/{}/deltaPings
 
-note right of catman: user drags takapuna onto northshore\ni.e. delete + remap of a CV
-catman->ats: DELETE /categories/byID/{}/values/takapuna?remap=northshore
+note right of catman: user drags Takapuna (1001) onto North Shore (1003)\ni.e. inactivate + remap of a CV
+catman->ats: POST /categories/byID/{}/values
+note right of catman: {"id": 1001, "available": false, "remappedTo": 1003}  
 
-note right of ats: ats updates jobs,\ncandidates, users
+note right of ats: ats updates jobs,candidates, users, etc.\nand informs downstream apps of the changes
 ats->careersite: POST /jobs/byID/{}/deltaPings
 ats->careersite: POST /jobs/byID/{}/deltaPings
-ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+
+note right of ats: ats informs downstream apps of the\nchanges to the category values themselves
+ats->careersite: POST /categories/byID/{}/values/byID/1001/deltaPings
 
 </div>
 
 
-<h2>Synching a target tenant to a source tenant</h2>
 
-<p>An app provides a UI to synch one tenant's ATS from another tenant. The API flows shows span two tenants.
-</p>
 
-<div class='seqDiag' id="seq2">
 
-note right of syncher: synch categories
-syncher->sourceats: GET /categories
-syncher->targetats: GET /categories
-syncher->targetats: DELETE /categories/byID/{}
-syncher->targetats: POST /categories
+<h2>Upload app</h2>
 
-note right of syncher: synch category values
-syncher->sourceats: GET /categories/byID/{}/values
-syncher->targetats: POST /categories/byID/{}/values
-syncher->targetats: POST /categories/byID/{}/values
+<p>The upload app provides a bulk way to synch up category values.
+
+<div class='seqDiag' id="seq0">
+
+note right of someapp: some app fires in an upload
+someapp->uploader: POST /categories/byID/{}/values/uploads
+
+note right of uploader: uploader fetches current\nCVs from ats
+uploader->ats: GET /categories/byID/{}/values
+
+note right of uploader: uploader uses discrete APIs\nto insert, update or inactive\nCVs in the ats to match
+
+uploader->ats: POST /categories/byID/{}/values (create)
+note right of uploader: {"name": "Newtown"}  
+
+uploader->ats: POST /categories/byID/{}/values (update)
+note right of uploader: {"id": 20045, "name": "Brooklyn"}  
+
+uploader->ats: POST /categories/byID/{}/values (inactivate)
+note right of uploader: {"id": 87544, "available": false}  
+
+note right of ats: ats notifies replicating apps\nof changes
+ats->careersite: POST /categories/byID/{}/values/byID/{}/deltaPings
+
 
 </div>
 
@@ -190,10 +184,10 @@ careersite->ats: GET /categories/byID/{}/values
 careersite->ats: GET /categories/byID/{}/values
 
 note left of ats: the ATS alerts replicating\napps of changed or deleted CVs
-ats->careersite: POST /categories/byID/{}/values/{}/deltaPings
+ats->careersite: POST /categories/byID/{}/values/byID/{}/deltaPings
 
-note right of careersite: the replicator grabs CV's new state\nor delete remap info
-careersite->ats: GET /categories/byID/{}/values/{}
+note right of careersite: the replicator grabs CV's new state,\nincluding remap info
+careersite->ats: GET /categories/byID/{}/values/byID/{}
 
 note right of careersite: replicators maintain cursor of\nlast delete
 
@@ -202,8 +196,14 @@ note right of careersite: replicators maintain cursor of\nlast delete
 
 <h2>Career site comes back up after restart</h2>
 
-<p>While the app was asleep, there may have been changes made to the CVs. To make sure it is up to date, the app fetches the latest entries from the journal of
-remaps.
+<p>While the app was asleep, there may have been changes made to the CVs.
+</p>
+
+<p>Its not enough to just call GET /categories/byID/{}values, since that only returns values that are available. Other values may have been made unavailable
+while we were down, and they may have remap info that we need to know about to transfer our objects across from the inactivated CV.
+</p>
+
+<p>Another API is used to fetch the latest entries from the journal of remaps.
 </p>
 
 <div class='seqDiag' id="seq4">
@@ -215,8 +215,6 @@ note right of careersite: and fetch the current state of the CVs
 careersite->ats: GET /categories/byID/{}/values/remapped?seqGt=22
 
 </div>
-
-
 
                 
             </div>

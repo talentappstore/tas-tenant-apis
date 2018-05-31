@@ -26,9 +26,9 @@
       "properties": {
         "operation": {
           "enum": [
-            "created",
-            "updated",
-            "closed"
+            "Created",
+            "Updated",
+            "Closed"
           ]
         },
         "succeeded": {
@@ -39,7 +39,7 @@
           "type": "integer",
           "description": "how many objects in the set have so far been unsuccessfully [operation]"
         },
-        "failedJobDetails": {
+        "failureDetails": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/failureDetail"
@@ -61,16 +61,20 @@
     }
   },
   "properties": {
+    "id": {
+      "description": "id of the upload operation",
+      "type": "integer"
+    },
     "started": {
       "type": "string",
       "format": "date-time"
     },
     "status": {
       "enum": [
-        "queued",
-        "underway",
-        "complete",
-        "error"
+        "Queued",
+        "Underway",
+        "Complete",
+        "Error"
       ]
     },
     "results": {
@@ -78,6 +82,7 @@
     }
   },
   "required": [
+    "id",
     "started",
     "status",
     "results"

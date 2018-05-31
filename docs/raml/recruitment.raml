@@ -1197,14 +1197,25 @@ resourceTypes: !include resources.yml
         get:
           securedBy: [oauth_2_0]
           description: |
-             Get root values and the hierarchy of values beneath
+             Get root values and the hierarchy of values beneath. Only available nodes are returned.
           responses:
             200:
               body:
                 application/json:
                   schema: !include ../schemas/categoryValues.json
                   example: !include ../examples/categoryValues-simple.json
-
+        post:
+          securedBy: [oauth_2_0]
+          description: create or update a single category value. See notes for POST /categories/byID/{}/uploads.
+          body:
+            application/json:
+              schema: !include ../schemas/categoryValue.json
+              example: !include ../examples/categoryValue-simple.json
+              
+        /remapped:
+          get:
+            description: get unavailable and remapped nodes, using a cursor model
+          
         /uploads:
           type: categoryValuesUploader
           /byID:
@@ -1214,14 +1225,24 @@ resourceTypes: !include resources.yml
               /deltaPings:
                 type: uploadStatusPinger
 
-        /{id}:
-          get:
-            securedBy: [oauth_2_0]
-            description: Get the child values for the given value
-          /values:
+        /byID:
+          /{id}:
             get:
               securedBy: [oauth_2_0]
-              description: Get the array of sub-trees attached to this value
+              description: get a single category value, even if it is unavailable (i.e. unlike GET /categories/byID/{}/values) 
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/categoryValue.json
+                      example: !include ../examples/categoryValue-simple.json
+                404:
+
+            
+            /deltaPings:
+              post:
+                securedBy: [oauth_2_0]
+                description: Tell any app that cares that a category value has changed
 
 /editSpecs:
   description: |

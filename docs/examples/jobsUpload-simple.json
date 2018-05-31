@@ -1,5 +1,6 @@
 {
   "testFlag": true,
+  "allInclusiveFlag": false,
   "jobs": {
     "total": 2,
     "results": [

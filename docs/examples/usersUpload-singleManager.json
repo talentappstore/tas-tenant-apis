@@ -1,5 +1,6 @@
 {
   "testFlag": false,
+  "allInclusiveFlag": false,
   "users": {
     "total": 1,
     "results": [

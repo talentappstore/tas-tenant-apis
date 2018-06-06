@@ -1206,7 +1206,193 @@ resourceTypes: !include resources.yml
                   example: !include ../examples/categoryValues-simple.json
         post:
           securedBy: [oauth_2_0]
-          description: create or update a single category value. See notes for POST /categories/byID/{}/uploads.
+          description: |
+            Create or update a single category value. The category value must not contain the values element.
+
+            Data integrity rules for category values
+            ==========
+            The following rules must be enforced by apps (e.g. ATS) that are the source of truth for the category and org APIs:
+  
+            - No parent child loops can exist (e.g. setting the parent of a node to one of its own grandchildren would not be allowed)
+            - Inactive values must always be at the root (no parent), and cannot have children (i.e. they must not be in a hierarchy)
+            - The remappedTo field can only be set (non-null) at the same time a node is inactivated.
+            - At the time that remappedTo is set, it must refer to an active node.
+            - External ID (unless null) must be unique among all values in a single category (active or not), immutable and never reused.
+  
+            Example operations
+            ======
+            This test data is used throughout.
+            
+            ````
+            [
+              {
+                "id": 10034,
+                "externalID": "a100",
+                "parent": null,
+                "name": "Wellington",
+                "available": false
+              },
+              {
+                "id": 10032,
+                "externalID": "a101",
+                "parent": null,
+                "name": "Auckland",
+                "available": true,
+                "values": [
+                  {
+                    "id": 10036,
+                    "externalID": "a104",
+                    "parent": 10032,
+                    "name": "North Shore",
+                    "available": true,
+                    "values": [
+                      {
+                        "id": 10037,
+                        "externalID": "a105",
+                        "parent": 10036,
+                        "name": "Takapuna",
+                        "available": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+            ````
+  
+            The request body for the atomic API (POST /categories/byID/{}/values) must only pass a single node. 
+            
+            This is a valid request to POST /categories/byID/{}/values, and will change the name as well as reparenting the node:
+            
+            ````
+              {
+                "id": 10037,
+                "parent": 10032,
+                "name": "Takapuna/Milford"
+              }
+            ````
+            
+            Create vs update
+            ----
+            The POST operation can create nodes, or can update them as identified by id or external id. There is no delete (just updating the available flag to false).
+            
+            This request will create a new root node, also named Takapuna:
+            
+            ````
+              {
+                "name": "Takapuna"
+              }
+            
+            ````
+            
+            This will create a new node called Albany, also under the North Shore parent:
+            
+            ````
+              {
+                "name": "Albany",
+                "parent": 10036
+              }
+            ````
+            
+            
+            id and external id
+            ----
+            If id is present, then an exactly matching node must exist. If the request also includes external id, that must match too.  
+            
+            Either of these are a valid request to update the name of the Takapuna node:
+            
+            POST /categories/byID/{}/values   
+            
+            ````
+              {
+                "id": 10037,
+                "name": "Takapuna/Milford"
+              }
+            ````
+            
+            ````
+              {
+                "id": 10037,
+                "externalID": "a105",
+                "name": "Takapuna/Milford"
+              }
+            ````
+            
+            This would give an error, since external id does not match.
+            
+            ````
+              {
+                "id": 10037,
+                "externalID": "a106",
+                "name": "Takapuna/Milford"
+              }
+            ````
+             
+            If only external id is present, then if that matches an existing node, that will be an update, otherwise it will be a create.    
+             
+            e.g. this is a valid request to update the name of the Takapuna node.
+            
+            ````
+              {
+                "externalID": "a105",
+                "name": "Takapuna/Milford"
+              }
+            ````
+            
+            This will create a new node named Takapuna (since there is no existing node a1055).
+            
+            ````
+              {
+                "externalID": "a1055",
+                "name": "Takapuna/Milford"
+              }
+            ````
+            
+            
+            Available flag
+            ----
+            The available flag indicates whether a node can be used going forward - e.g. setting a node to unavailable will
+            prevent it being used for new jobs. However old jobs may still use the category value, even if it is unavailable (see remapping). 
+            
+            By default, available is set to true for new nodes, e.g. this request will create a new, available root node:
+            
+            ````
+              {
+                "name": "Singapore"
+              }
+            ````
+  
+            
+            Remapping nodes
+            ----
+            When a node is made unavailable, it can be remapped at the same time. This is a hint to apps that anything attached to that node (e.g. jobs)
+            should be transferred across to the remap node.
+             
+            For example, this request retires the Takapuna location, and will cause Takapuna jobs to be transferred to North Shore:   
+            
+            ````
+              {
+                "id": 10037,
+                "available": false,
+                "remappedTo": 1036
+              }
+            ````
+            
+            The remappedTo field can only be set at the same time as the node itself is made unavailable (i.e. in the same request). 
+  
+  
+            Race conditions
+            -----------
+            Wen doing a rapid series of atomic operations on category values, e.g. test scripts, apps should think carefully about race conditions in downstream
+            apps that are replicating the category.
+            
+            For example, your app:
+            - makes node 100 unavailable, and at the same time remaps it to node 102
+            - a downstream app learns about this via POST /categories/byID/{}/values/byID/{}/deltaPings
+            - the downstream app starts transferring its attached objects from 100 to 102
+            - in the meantime, your app has already made 102 inactive and remapped to e.g. 103.
+
+
           body:
             application/json:
               schema: !include ../schemas/categoryValue.json
@@ -1238,11 +1424,14 @@ resourceTypes: !include resources.yml
                       example: !include ../examples/categoryValue-simple.json
                 404:
 
-            
             /deltaPings:
               post:
                 securedBy: [oauth_2_0]
-                description: Tell any app that cares that a category value has changed
+                description: Tell any app that cares that a category value has changed. The node's new state is sent in the request.
+                body:
+                  application/json:
+                    schema: !include ../schemas/categoryValue.json
+                    example: !include ../examples/categoryValue-simple.json
 
 /editSpecs:
   description: |
@@ -1479,6 +1668,16 @@ resourceTypes: !include resources.yml
     /byID:
       /{id}:
         type: jobGetter
+        /deltaPings:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              This API is consumed by the ATS some time after changes have been made to a job that was or is open.
+                
+              In response, the producer (e.g. a job aggregator) will typically re-pull just this specific job, or all jobs.
+              
+              Non-SoT.
+        
         /canApply:
           description: |
             Resource indicating whether a candidate can apply or not for a given job. An ATS might prevent it
@@ -1778,24 +1977,52 @@ resourceTypes: !include resources.yml
             type: universalMenuBody
 
 /orgs:
-  get:
-    securedBy: [oauth_2_0]
-    description: |
-      Get root values and the hierarchy of values beneath
-    responses:
-      200:
-        body:
-          application/json:
-            schema: !include ../schemas/categoryValues.json
-            example: !include ../examples/categoryValues-simple.json
-  /uploads:
-    type: categoryValuesUploader
+  description: orgs have the same semantics as a category, but are internal only (not visible to candidates)
+  /values:
+    get:
+      securedBy: [oauth_2_0]
+      description: |
+         Get root values and the hierarchy of values beneath. Only available nodes are returned.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/categoryValues.json
+              example: !include ../examples/categoryValues-simple.json
+    post:
+      securedBy: [oauth_2_0]
+      description: create or update a single category value. See notes for POST /categories/byID/{}/uploads. The category value must not contain the values element.
+      body:
+        application/json:
+          schema: !include ../schemas/categoryValue.json
+          example: !include ../examples/categoryValue-simple.json
+    /remapped:
+      get:
+        description: get unavailable and remapped nodes, using a cursor model
+    /uploads:
+      type: categoryValuesUploader
+      /byID:
+        /{uploadID}:
+          description: the ID of a previously launched category values bulk upload
+          type: uploadStatusGetter
+          /deltaPings:
+            type: uploadStatusPinger
     /byID:
-      /{uploadID}:
-        description: the ID of a previously launched category values bulk upload
-        type: uploadStatusGetter
+      /{id}:
+        get:
+          securedBy: [oauth_2_0]
+          description: get a single category value, even if it is unavailable (i.e. unlike GET /categories/byID/{}/values) 
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: !include ../schemas/categoryValue.json
+                  example: !include ../examples/categoryValue-simple.json
+            404:
         /deltaPings:
-          type: uploadStatusPinger
+          post:
+            securedBy: [oauth_2_0]
+            description: Tell any app that cares that a category value has changed
 
 /panels:
   /toUser:

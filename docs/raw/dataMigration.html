@@ -129,8 +129,8 @@ catman->ats: POST /categories/byID/{}/values
 note right of catman: {"id": 1001, "available": false, "remappedTo": 1003}  
 
 note right of ats: ats updates jobs,candidates, users, etc.\nand informs downstream apps of the changes
-ats->careersite: POST /jobs/byID/{}/deltaPings
-ats->careersite: POST /jobs/byID/{}/deltaPings
+ats->careersite: POST /jobs/open/byID/{}/deltaPings
+ats->careersite: POST /jobs/open/externally/byID/{}/deltaPings
 
 note right of ats: ats informs downstream apps of the\nchanges to the category values themselves
 ats->careersite: POST /categories/byID/{}/values/byID/1001/deltaPings

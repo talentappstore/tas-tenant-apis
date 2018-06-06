@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "details of a single category value",
   "definitions": {
     "location": {
       "type": "object",
@@ -282,6 +281,8 @@
       "description": "The id of the value which took over from this node, when this node was permanently inactivated"
     }
   },
+  "type": "object",
+  "description": "details of a single category value",
   "properties": {
     "id": {
       "type": "integer"

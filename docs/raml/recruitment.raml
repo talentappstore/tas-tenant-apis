@@ -1196,6 +1196,7 @@ resourceTypes: !include resources.yml
       /values:
         get:
           securedBy: [oauth_2_0]
+          is: [ badrequest ]
           description: |
              Get root values and the hierarchy of values beneath. Only available nodes are returned.
           responses:
@@ -1211,14 +1212,17 @@ resourceTypes: !include resources.yml
 
             Data integrity rules for category values
             ==========
-            The following rules must be enforced by apps (e.g. ATS) that are the source of truth for the category and org APIs:
+            400 must be thrown if the consumer violates any of these:
   
             - No parent child loops can exist (e.g. setting the parent of a node to one of its own grandchildren would not be allowed)
             - Inactive values must always be at the root (no parent), and cannot have children (i.e. they must not be in a hierarchy)
             - The remappedTo field can only be set (non-null) at the same time a node is inactivated.
             - At the time that remappedTo is set, it must refer to an active node.
             - External ID (unless null) must be unique among all values in a single category (active or not), immutable and never reused.
-  
+
+            When a node is inactivated, all apps must remove all references to it. e.g. when the tenant inactivates (deffectively deletes) the IT node,
+            a careers site app would unhook and maybe delete its IT testimonials.      
+
             Example operations
             ======
             This test data is used throughout.
@@ -1415,7 +1419,7 @@ resourceTypes: !include resources.yml
           /{id}:
             get:
               securedBy: [oauth_2_0]
-              description: get a single category value, even if it is unavailable (i.e. unlike GET /categories/byID/{}/values) 
+              description: get a single category node, even if it is unavailable (i.e. unlike GET /categories/byID/{}/values) 
               responses:
                 200:
                   body:
@@ -1427,11 +1431,50 @@ resourceTypes: !include resources.yml
             /deltaPings:
               post:
                 securedBy: [oauth_2_0]
-                description: Tell any app that cares that a category value has changed. The node's new state is sent in the request.
+                description: Tell any app that cares that a category node has changed. The node's new state is sent in the request.
                 body:
                   application/json:
                     schema: !include ../schemas/categoryValue.json
                     example: !include ../examples/categoryValue-simple.json
+
+            /changeImpact:
+              post:
+                securedBy: [oauth_2_0]
+                description: |
+                  Tell apps that care that a category node is about to be changed. The node's new state is sent in the request.
+                  
+                  Each producer can pass back a markdown document rendering to a user what would happen if this change went ahead.
+                  e.g. "10 jobs would be deleted - click _here_ to learn more.
+                    
+                body:
+                  application/json:
+                    schema: !include ../schemas/categoryValue.json
+                    example: !include ../examples/categoryValue-simple.json
+                responses:
+                  200:
+                    body:
+                      application/json:
+                        schema: !include ../schemas/categoryRelatedData.json
+                        example: !include ../examples/categoryRelatedData-change.json
+                  404:
+                    description: no data available
+
+            /summary:
+              get:
+                securedBy: [oauth_2_0]
+                description: |
+                  Ask any apps that care about category nodes what information they are holding relating to this node.
+                  
+                  Each producer can pass back a markdown document rendering to a user, e.g. an ATS might say "_10_ jobs, _287_ candidates"
+                responses:
+                  200:
+                    body:
+                      application/json:
+                        schema: !include ../schemas/categoryRelatedData.json
+                        example: !include ../examples/categoryRelatedData-summary.json
+                  404:
+                    description: no data available
+
 
 /editSpecs:
   description: |

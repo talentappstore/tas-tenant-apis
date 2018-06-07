@@ -117,6 +117,12 @@ the career site is able to transfer Jake's testimonial from Data Sciences to IT.
 
 <div class='seqDiag' id="seq1">
 
+note right of catman: user clicks on an existing node\nto learn more
+
+note right of catman: catman asks apps what they\nhaveto share
+catman->ats: POST /categories/byID/{}/values/byID/{}/summary
+catman->careersite: POST /categories/byID/{}/values/byID/{}/summary
+
 note right of catman: user creates a new CV
 catman->ats: POST /categories/byID/{}/values
 note right of catman: {"name": "Birkenhead"}  
@@ -125,6 +131,12 @@ note right of ats: ats notifies replicating apps
 ats->careersite: POST /categories/byID/{}/values/byID/{}/deltaPings
 
 note right of catman: user drags Takapuna (1001) onto North Shore (1003)\ni.e. inactivate + remap of a CV
+
+note right of catman: catman asks apps what they\nthink of the change
+catman->ats: POST /categories/byID/{}/values/byID/{}/changeImpact
+catman->careersite: POST /categories/byID/{}/values/byID/{}/changeImpact
+
+note right of catman: catman performs the change
 catman->ats: POST /categories/byID/{}/values
 note right of catman: {"id": 1001, "available": false, "remappedTo": 1003}  
 

@@ -1,20 +1,14 @@
 [
   {
     "app": "topboardsllc",
-    "jobBoards": [
-      {
-        "id": 12,
+    "jobBoard": {
         "label": "Super grads"
-      }
-    ]
+     }
   },
   {
     "app": "bigboards",
-    "jobBoards": [
-      {
-        "id": 12,
+    "jobBoard":  {
         "label": "Top people"
       }
-    ]
   }
 ]

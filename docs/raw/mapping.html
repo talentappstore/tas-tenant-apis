@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Category mapping</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>App responsibilities</h1>
+
+<h2>The board</h2>
+
+<ul>
+<li>Offer up your categories and their nodes (e.g. location, classification for Seek), so the mapper and UI can access them
+<li>Offer up a UI (user-SSO protected) to set the fields (description, title, upload video, etc.)
+<li>Store the data from the UI above, for a posting ID (single job may be posted multiple times) 
+<li>Periodically (e.g. when there are new postings) push the postings into the mothership
+</ul>
+
+
+<li>Periodically (e.g. every 6 hours) scan for closed jobs where you may have missed the delta pings
+
+
+<h1>API flow</h1>
+
+
+<div class='seqDiag' id="seq0">
+
+note right of mapper: user opens app
+
+note right of mapper: mapper enumerates boards
+
+mapper->board: GET /boards/forApp
+mapper->board2: GET /boards/forApp
+
+note right of mapper: mapper gets all nodes\nfrom tenant
+mapper->board: GET /categories
+mapper->board: GET /categories/byID/{}
+mapper->board: GET /categories/byID/{}/values
+
+note right of mapper: user starts mapping\nfor first board
+
+note right of mapper: mapper gets all nodes from board
+mapper->board: GET /jobBoards/forApp/categories
+mapper->board: GET /jobBoards/forApp/categories/byID/{}
+mapper->board: GET /jobBoards/forApp/categories/byID/{}/values
+
+note right of mapper: user maps categories
+
+note right of mapper: user maps nodes
+
+
+</div>
+
+
+<h2>User clicks in the job panel to post the job to a job board for first time</h2>
+
+<div class='seqDiag' id="seq1">
+
+note right of poster: poster grabs common details:
+note right of poster: get title, description
+poster->ats: GET /jobs/byID/{}
+
+note right of poster: get category drop down values
+poster->board: GET /jobBoards/forApp/categories
+poster->board: GET /jobBoards/forApp/categories/byID/{}
+poster->board: GET /jobBoards/forApp/categories/byID/{}/values
+
+note right of poster: get mappings (to set defaults)
+poster->mapper: POST /jobBoards/forApp/{app}/mappings 
+
+note right of poster: poster creates a draft posting object\nwith values as above
+
+note right of poster: get link to board's\niframe-ed posting UI
+poster->board: GET /jobBoards/forApp/postingUI/byID/{posting}
+
+note right of poster: UI can now be shown. User edits,\nclicks save. Client-side message\nsignals board UI to save\nit's own values.
+
+note left of board: board saves its own\nvalues against the posting
+board->poster: PATCH /jobBoards/postings/byID/{}/boardDetails 
+
+note right of poster: poster signals that postings\nhave changed (should this be "tenantDeltaPings"?)
+poster->board: POST /jobBoards/postings/byID/{}/deltaPings
+
+note right of poster: poster updates mothership
+poster->mothership: send postings across in bulk or individually
+
+
+
+note left of ats: job closes on ATS
+ 
+ats->poster: /jobs/open/externally/byID/{id}/deltaPings
+
+</div>
+
+
+<h2>User clicks to take down a posting</h2>
+
+
+                
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

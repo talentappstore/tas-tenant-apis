@@ -14712,62 +14712,314 @@
 ]</code></pre></div><div class="tab-pane" id="items_toCandidate_me_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="jobBoards" class="panel-title">/jobBoards</h3></div><div class="panel-body"><div class="top-resource-description"><p>Job boards are external sites that a tenant may post their jobs to, as opposed to career sites, which are web portals showing jobs that exist inside the tenant.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards"><span class="parent"></span>/jobBoards</a> <span class="methods"><a href="#jobBoards_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>A rollup of the details of all job boards produced by all apps. SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/jobBoards</h4></div><div class="modal-body"><div class="alert alert-info"><p>A rollup of the details of all job boards produced by all apps. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "definitions": {
-    "jobBoardsForApp": {
+    "jobBoardForApp": {
       "type": "object",
       "properties": {
         "app": {
           "type": "string",
-          "description": "the app that is hosting these job boards"
+          "description": "the app that is hosting this job board"
         },
-        "jobBoards": {
-          "$ref": "jobBoards.json"
+        "jobBoard": {
+          "$ref": "jobBoard.json"
         }
       },
       "additionalProperties": false,
       "required": [
         "app",
-        "jobBoards"
+        "jobBoard"
       ]
     }
   },
   "type": "array",
   "items": {
-    "$ref": "#/definitions/jobBoardsForApp"
+    "$ref": "#/definitions/jobBoardForApp"
   },
-  "description": "An array of job boards rolled up across all producing apps"
+  "description": "An array of job boards with the apps that producing them"
 }
+
 </code></pre><p><strong>Example</strong>:</p><pre><code>[
   {
     "app": "topboardsllc",
-    "jobBoards": [
-      {
-        "id": 12,
+    "jobBoard": {
         "label": "Super grads"
-      }
-    ]
+     }
   },
   {
     "app": "bigboards",
-    "jobBoards": [
-      {
-        "id": 12,
+    "jobBoard":  {
         "label": "Top people"
       }
-    ]
   }
-]</code></pre></div><div class="tab-pane" id="jobBoards_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp"><span class="parent">/jobBoards</span>/forApp</a> <span class="methods"><a href="#jobBoards_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Descriptions of one or more job boards hosted by a specific app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Descriptions of one or more job boards hosted by a specific app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+]</code></pre></div><div class="tab-pane" id="jobBoards_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp"><span class="parent">/jobBoards</span>/forApp</a> <span class="methods"><a href="#jobBoards_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Descriptions of a single job board hosted by a specific app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Descriptions of a single job board hosted by a specific app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "label for this job board, e.g. Super grads"
+    }
+  },
+  "required": [
+    "label"
+  ]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>  {
+    "label": "Super grads"
+  }</code></pre></div><div class="tab-pane" id="jobBoards_forApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_categories"><span class="parent">/jobBoards/forApp</span>/categories</a> <span class="methods"><a href="#jobBoards_forApp_categories_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobBoards_forApp_categories_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_categories" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Job board--defined hierarchical structures used in talent management to categorize job openings, candidates and others.</p></div><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_categories_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Fetch list of categories</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobBoards_forApp_categories_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a single category (without any values)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_categories_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/categories</h4></div><div class="modal-body"><div class="alert alert-info"><p>Fetch list of categories</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_categories_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_categories_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_categories_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "category.json"
+    }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 10022,
+    "name": "Classification",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  },
+  {
+    "id": 10032,
+    "key": "LOCATION",
+    "name": "Location",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  },
+  {
+    "id": 10034,
+    "name": "Nursing specialization",
+    "jobRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "mandatory": true
+    },
+    "candidateRules": {
+      "canMultiSelect": true,
+      "leafSelectionOnly": false,
+      "message": "Please choose carefully",
+      "mandatory": true
+    }
+  }
+]</code></pre></div><div class="tab-pane" id="jobBoards_forApp_categories_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_categories_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/categories</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a single category (without any values)</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_categories_post_request" data-toggle="tab">Request</a></li><li><a href="#jobBoards_forApp_categories_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_categories_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "details of a a single category, identified by id or key (if a well-known category)",
+    "definitions": {
+        "rules": {
+            "type": "object",
+            "properties": {
+                "canMultiSelect": {
+                    "type": "boolean",
+                    "description": "true if an object can have multiple values for this category"
+                },
+                "leafSelectionOnly": {
+                    "type": "boolean",
+                    "description": "true if an object can have only leaf selections for this category"
+                },
+                "mandatory": {
+		          "description": "whether a value for the category is mandatory",
+		          "type": "boolean"
+		        },
+	            "message": {
+	              	"type": "string",
+	              	"description": "a message to help the candidate/user when entering values for the category - e.g. &#39;tell us the top 4 stores you really want to work at&#39;"
+	            }
+            },
+            "additionalProperties": false,
+            "required": [
+              	"mandatory",
+                "canMultiSelect",
+                "leafSelectionOnly"
+            ]
+        }
+    },
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "key": {
+            "enum": [
+                "LOCATION"
+            ],
+            "description": "used to identify categories that are well-known, i.e. agreed on by all apps. User-defined categories don&#39;t have a key"
+        },
+        "name": {
+            "type": "string",
+            "description": "the user visible name for this category"
+        },
+        "code": {
+            "type": "string",
+            "description": "a code for this category"
+        },
+        "candidateRules": {
+            "$ref": "#/definitions/rules"
+        },
+        "jobRules": {
+            "$ref": "#/definitions/rules"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "id",
+        "name",
+        "jobRules",
+        "candidateRules"
+    ]
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "id": 10032,
+  "key": "LOCATION",
+  "name": "Location",
+  "jobRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "mandatory": true
+  },
+  "candidateRules": {
+    "canMultiSelect": true,
+    "leafSelectionOnly": false,
+    "message": "Please choose carefully",
+    "mandatory": true
+  }
+}</code></pre></div><div class="tab-pane" id="jobBoards_forApp_categories_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_categories_byID__category_"><span class="parent">/jobBoards/forApp/categories/byID</span>/{category}</a> <span class="methods"></span></h4></div><div id="panel_jobBoards_forApp_categories_byID__category_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>category ID</p></div><div class="list-group"></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_categories_byID__category__values"><span class="parent">/jobBoards/forApp/categories/byID/{category}</span>/values</a> <span class="methods"><a href="#jobBoards_forApp_categories_byID__category__values_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_categories_byID__category__values" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_categories_byID__category__values_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get root values and the hierarchy of values beneath. Only available nodes are returned.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_categories_byID__category__values_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp/categories/byID/{category}</span>/values</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get root values and the hierarchy of values beneath. Only available nodes are returned.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_categories_byID__category__values_get_request" data-toggle="tab">Request</a></li><li><a href="#jobBoards_forApp_categories_byID__category__values_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_categories_byID__category__values_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_categories_byID__category__values_get_request"><h3>URI Parameters</h3><ul><li><strong>category</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobBoards_forApp_categories_byID__category__values_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
   "items": {
-    "$ref": "jobBoard.json"
+    "$ref": "categoryValue.json"
   }
-}
-</code></pre><p><strong>Example</strong>:</p><pre><code>[
-  {
-    "id": 12,
-    "label": "Super grads"
-  }
-]</code></pre></div><div class="tab-pane" id="jobBoards_forApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="jobs" class="panel-title">/jobs</h3></div><div class="panel-body"><div class="top-resource-description"><p>These APIs manage position openings (aka vacancies, job openings, etc.) and job templates.</p><p>Job descriptions are formatted using a safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>, with individual lines demarcated with \n.</p><p>Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed. Note that this prevents the markdown blockquote syntax from being used in a job description. The safe subset rules may be relaxed in the future.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs"><span class="parent"></span>/jobs</a> <span class="methods"><a href="#jobs_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobs_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_jobs" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>The GET /jobs APIs return those jobs that:</p><ul><li>match the relevant API, e.g. all jobs, or just jobs currently available to external candidates</li><li>if a categoryFilter is specified, that match the filter</li><li>if keywords are specified, that match the keywords</li><li>if one of the filter date parameters (e.g. gtPublishDate) is specified, that have that date (a) not null and (b) &lt; or &gt; given date</li><li>if ltID or gtID is specified, that have id &lt; or &gt; ID</li></ul><p>When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc)</p><p>When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.</p><p>A maximum of [limit] jobs will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, this time filtering by the ID and date from the last fetched job, as there may be more results.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Create a job, using the same content type as for updating (JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>)).</p><p>The id field must not be present in the request body.</p><p>The server&#39;s instance of the newly created resource, including its id, is passed back in the response.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/jobs</h4></div><div class="modal-body"><div class="alert alert-info"><p>The GET /jobs APIs return those jobs that:</p><ul><li>match the relevant API, e.g. all jobs, or just jobs currently available to external candidates</li><li>if a categoryFilter is specified, that match the filter</li><li>if keywords are specified, that match the keywords</li><li>if one of the filter date parameters (e.g. gtPublishDate) is specified, that have that date (a) not null and (b) &lt; or &gt; given date</li><li>if ltID or gtID is specified, that have id &lt; or &gt; ID</li></ul><p>When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc)</p><p>When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.</p><p>A maximum of [limit] jobs will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, this time filtering by the ID and date from the last fetched job, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_get_request"><h3>Query Parameters</h3><ul><li><strong>categories</strong>: <em>(string)</em><p>the categories that jobs must have, expressed as a singly url encoded string conforming to categoriesActual.json.</p><p><strong>Example</strong>:</p><pre>%5B%7B%22category%22%3A%20100001999%2C%20%22values%22%3A%20%5B100115543%2C100115516%5D%7D%5D
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+    {
+        "id": 10034,
+        "name": "Wellington",
+        "available": true
+    },
+    {
+        "id": 10032,
+        "name": "Auckland",
+        "available": true,
+        "values": [
+            {
+                "id": 10036,
+                "name": "North Shore",
+		        "available": true,
+                "values": [
+                    {
+                        "id": 10037,
+                        "name": "Takapuna",
+				        "available": true
+                    }
+                ]
+            }
+        ]
+    }
+]
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>The consumer made a bad request. See response in RFC 7807 format for more details.</p><h3>Body</h3><p><strong>Type: application/problem+json</strong></p></div><div class="tab-pane" id="jobBoards_forApp_categories_byID__category__values_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_categories__app__mappings"><span class="parent">/jobBoards/forApp/categories/{app}</span>/mappings</a> <span class="methods"><a href="#jobBoards_forApp_categories__app__mappings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_categories__app__mappings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_categories__app__mappings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Consumer can pass in a set of categories (the tenant&#39;s, e.g. for a job) and then get back a set of job-board specific categories and values that are a mapping from the request.</p><p>SoT, produced by a mapping app.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_categories__app__mappings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp/categories/{app}</span>/mappings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Consumer can pass in a set of categories (the tenant&#39;s, e.g. for a job) and then get back a set of job-board specific categories and values that are a mapping from the request.</p><p>SoT, produced by a mapping app.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_categories__app__mappings_post_request" data-toggle="tab">Request</a></li><li><a href="#jobBoards_forApp_categories__app__mappings_post_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_categories__app__mappings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_categories__app__mappings_post_request"><h3>URI Parameters</h3><ul><li><strong>app</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "values": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "categoryActual": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "integer"
+                },
+                "values": {
+                	"$ref": "#/definitions/values"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "category",
+                "values"
+            ]
+        }
+    },
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/categoryActual"
+    }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+    {
+        "category": 10032,
+        "values": [
+            10034,
+            10036
+        ]
+    },
+    {
+        "category": 10055,
+        "values": [
+            1085
+        ]
+    }
+]
+</code></pre></div><div class="tab-pane" id="jobBoards_forApp_categories__app__mappings_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>success</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "values": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "categoryActual": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "integer"
+                },
+                "values": {
+                	"$ref": "#/definitions/values"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "category",
+                "values"
+            ]
+        }
+    },
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/categoryActual"
+    }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>[
+    {
+        "category": 10032,
+        "values": [
+            10034,
+            10036
+        ]
+    },
+    {
+        "category": 10055,
+        "values": [
+            1085
+        ]
+    }
+]
+</code></pre></div><div class="tab-pane" id="jobBoards_forApp_categories__app__mappings_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="jobs" class="panel-title">/jobs</h3></div><div class="panel-body"><div class="top-resource-description"><p>These APIs manage position openings (aka vacancies, job openings, etc.) and job templates.</p><p>Job descriptions are formatted using a safe subset of <a href="https://daringfireball.net/projects/markdown/syntax">markdown</a>, with individual lines demarcated with \n.</p><p>Currently, "safe subset" simply means that angle brackets (&lt; or &gt;) are not allowed. Note that this prevents the markdown blockquote syntax from being used in a job description. The safe subset rules may be relaxed in the future.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobs"><span class="parent"></span>/jobs</a> <span class="methods"><a href="#jobs_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobs_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_jobs" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobs_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>The GET /jobs APIs return those jobs that:</p><ul><li>match the relevant API, e.g. all jobs, or just jobs currently available to external candidates</li><li>if a categoryFilter is specified, that match the filter</li><li>if keywords are specified, that match the keywords</li><li>if one of the filter date parameters (e.g. gtPublishDate) is specified, that have that date (a) not null and (b) &lt; or &gt; given date</li><li>if ltID or gtID is specified, that have id &lt; or &gt; ID</li></ul><p>When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc)</p><p>When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.</p><p>A maximum of [limit] jobs will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, this time filtering by the ID and date from the last fetched job, as there may be more results.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobs_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Create a job, using the same content type as for updating (JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>)).</p><p>The id field must not be present in the request body.</p><p>The server&#39;s instance of the newly created resource, including its id, is passed back in the response.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobs_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/jobs</h4></div><div class="modal-body"><div class="alert alert-info"><p>The GET /jobs APIs return those jobs that:</p><ul><li>match the relevant API, e.g. all jobs, or just jobs currently available to external candidates</li><li>if a categoryFilter is specified, that match the filter</li><li>if keywords are specified, that match the keywords</li><li>if one of the filter date parameters (e.g. gtPublishDate) is specified, that have that date (a) not null and (b) &lt; or &gt; given date</li><li>if ltID or gtID is specified, that have id &lt; or &gt; ID</li></ul><p>When no filter date is specified, results are ordered by job ID asc (if ltID is specified, by job ID desc)</p><p>When a filter date (i.e., gtXDate or ltXDate) is specified, results are ordered by that date (asc or desc), and then by job ID asc or desc as above.</p><p>A maximum of [limit] jobs will be returned by a single call to the API. If this maximum number is returned, the client should fetch again, this time filtering by the ID and date from the last fetched job, as there may be more results.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobs_get_request" data-toggle="tab">Request</a></li><li><a href="#jobs_get_response" data-toggle="tab">Response</a></li><li><a href="#jobs_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobs_get_request"><h3>Query Parameters</h3><ul><li><strong>categories</strong>: <em>(string)</em><p>the categories that jobs must have, expressed as a singly url encoded string conforming to categoriesActual.json.</p><p><strong>Example</strong>:</p><pre>%5B%7B%22category%22%3A%20100001999%2C%20%22values%22%3A%20%5B100115543%2C100115516%5D%7D%5D
 </pre></li><li><strong>keywords</strong>: <em>(string)</em><p>keywords that the jobs must have, expressed as a singly url encoded string</p><p><strong>Example</strong>:</p><pre>java%20architect
 </pre></li><li><strong>ltPublishDate</strong>: <em>(date)</em><p>a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date earlier than this will be returned.</p><p><strong>Example</strong>:</p><pre><code>2015-11-05T13:15:30Z 
 </code></pre></li><li><strong>gtPublishDate</strong>: <em>(date)</em><p>a date, in ISO 8601 format, used to filter jobs (must not be combined with any other date filters). Only jobs with a date greater than this will be returned.</p><p><strong>Example</strong>:</p><pre><code>2015-11-05T13:15:30Z 

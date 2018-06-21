@@ -1661,15 +1661,54 @@ resourceTypes: !include resources.yml
     get:
       securedBy: [oauth_2_0]
       description: |
-        Descriptions of one or more job boards hosted by a specific app. Non-SoT.
+        Descriptions of a single job board hosted by a specific app. Non-SoT.
       responses:
         200:
           body:
             application/json:
-              schema: !include ../schemas/jobBoards.json
-              example: !include ../examples/jobBoards-simple.json
-
-
+              schema: !include ../schemas/jobBoard.json
+              example: !include ../examples/jobBoard-simple.json
+    /categories:
+      description: |
+        Job board--defined hierarchical structures used in talent management to categorize job openings, candidates
+        and others.
+      type: catsget
+      /byID:
+        /{category}:
+          description: category ID 
+          /values:
+            get:
+              securedBy: [oauth_2_0]
+              is: [ badrequest ]
+              description: |
+                 Get root values and the hierarchy of values beneath. Only available nodes are returned.
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/categoryValues.json
+                      example: !include ../examples/categoryValues-simple.json
+      /{app}:
+        /mappings:
+          post:
+            securedBy: [oauth_2_0]
+            description: |
+              Consumer can pass in a set of categories (the tenant's, e.g. for a job) and then get back a set of job-board
+              specific categories and values that are a mapping from the request.
+              
+              SoT, produced by a mapping app.
+            body:
+              application/json:
+                schema: !include ../schemas/categoriesActual.json
+                example: !include ../examples/categoriesActual-simple.json
+            responses:
+              200:
+                description: success
+                body:
+                  application/json:
+                    schema: !include ../schemas/categoriesActual.json
+                    example: !include ../examples/categoriesActual-simple.json
+                  
 /jobs:
   description: |
     These APIs manage position openings (aka vacancies, job openings, etc.) and job templates.

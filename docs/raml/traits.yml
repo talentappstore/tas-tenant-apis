@@ -225,7 +225,10 @@
         type: boolean
         description: |
           Pass true to have schema fragments embedded in the response when fetching items.
+          
           Less network trips, larger overall message. Defaults to false.
+          
+          The client might set this to true for first API call, then cache the metas and pass false from then on.
         required: false
 
 

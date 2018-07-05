@@ -1,5 +1,9 @@
 Unversioned
 ===========
+
+Change (non-breaking) - added optional field "embedMeta" to allow fetching item metadata at same time as results. Affects:
+	GET /applications
+	
 Change (non-breaking) - added optional field "sequence" to categoryValue.json for ordering of nodes. Affects:
 	POST /categories/byID/{}/values
 	GET /categories/byID/{}/values/remapped
@@ -12,6 +16,7 @@ Change (non-breaking) - added optional field "sequence" to categoryValue.json fo
 	GET /orgs/values
 	POST /categories/byID/{category}/values/uploads
 	POST /orgs/values/uploads
+	
 New API
 	PATCH /applications/byID/{}
 

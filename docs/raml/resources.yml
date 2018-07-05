@@ -290,7 +290,7 @@
 
 - applicationMultiGetter:
     get:
-      is: [ applicationPager, applicationObjectFilter, applicationStripeFetcher ]    
+      is: [ applicationPager, applicationObjectFilter, applicationStripeFetcher, offerEmbedMeta ]    
       securedBy: [oauth_2_0]
       description: |
         This API is used to fetch or query details of 1 to 100 job applications in a single call. 

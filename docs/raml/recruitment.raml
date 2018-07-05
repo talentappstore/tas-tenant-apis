@@ -178,7 +178,18 @@ resourceTypes: !include resources.yml
 
   /byID:
     /{application}:
-                
+
+      patch:
+        description: |
+          Consumed by an app, e.g. an ATS front end, to update an application, e.g. move it to a new bucket.
+        body:
+          application/merge-patch+json:
+            schema: !include ../schemas/applicationPatch.json
+            example: !include ../examples/applicationPatch-simple.json
+        responses:
+          200:
+            description: the update was successful
+                      
       /deltaPings:
         post:
           securedBy: [oauth_2_0]

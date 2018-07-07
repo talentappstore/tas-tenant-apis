@@ -472,6 +472,26 @@ resourceTypes: !include resources.yml
             body:
               text/html:
                 example: some html pulling in stylesheet, javascript etc.
+    /byAssessmentType:
+      /{assessmentType}:
+        /forApplications:
+          /fetches:
+            post:
+              securedBy: [oauth_2_0]
+              description: |
+                An app such as an ATS calls this on an app such as the assessment hub to convert a set of application IDs into a set of assessment IDs.
+                
+                If there are no assessments the result is 200 with an empty array.
+              body:
+                application/json:
+                  schema: !include ../schemas/ids.json
+                  example: !include ../examples/ids-simple.json
+              responses:
+                200:
+                  body:
+                    application/json:
+                      schema: !include ../schemas/ids.json
+                      example: !include ../examples/ids-simple.json
   /byApplication:
     /{application}:
       /byAssessmentType:
@@ -578,6 +598,21 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/deltaPing.json
               example: !include ../examples/deltaPing-simple.json
+  /sorts:
+    post:
+      securedBy: [oauth_2_0]
+      description: |
+        An app such as the assessment hub calls this on the assessment app owning these assessments to have them sorted.
+      body:
+        application/json:
+          schema: !include ../schemas/ids.json
+          example: !include ../examples/ids-simple.json
+      responses:
+        200:
+          body:
+            application/json:
+              schema: !include ../schemas/ids.json
+              example: !include ../examples/ids-simple.json
 
 /assessmentTypes:
   get:

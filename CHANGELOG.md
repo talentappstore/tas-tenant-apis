@@ -1,6 +1,10 @@
 Unversioned
 ===========
 
+New APIs
+    POST /assessments/strips/byAssessmentType/{assessmentType}/forApplications/fetches
+    POST /assessments/sorts
+    
 Change (non-breaking) - added optional field "embedMeta" to allow fetching item metadata at same time as results. Affects:
 	GET /applications
 	

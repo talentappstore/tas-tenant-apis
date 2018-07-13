@@ -479,7 +479,7 @@ resourceTypes: !include resources.yml
             post:
               securedBy: [oauth_2_0]
               description: |
-                An app such as an ATS calls this on an app such as the assessment hub to convert a set of application IDs into a set of assessment IDs.
+                An app such as an ATS calls this on an app such as the assessment hub to convert a set of application IDs into a sorted set.
                 
                 If there are no assessments the result is 200 with an empty array.
               body:
@@ -490,8 +490,8 @@ resourceTypes: !include resources.yml
                 200:
                   body:
                     application/json:
-                      schema: !include ../schemas/ids.json
-                      example: !include ../examples/ids-simple.json
+                      schema: !include ../schemas/assessmentsSort.json
+                      example: !include ../examples/assessmentsSort-simple.json
   /byApplication:
     /{application}:
       /byAssessmentType:
@@ -602,7 +602,7 @@ resourceTypes: !include resources.yml
     post:
       securedBy: [oauth_2_0]
       description: |
-        An app such as the assessment hub calls this on the assessment app owning these assessments to have them sorted.
+        An app such as the assessment hub calls this on the assessment app that owns these assessments, to have them sorted.
       body:
         application/json:
           schema: !include ../schemas/ids.json
@@ -611,8 +611,8 @@ resourceTypes: !include resources.yml
         200:
           body:
             application/json:
-              schema: !include ../schemas/ids.json
-              example: !include ../examples/ids-simple.json
+              schema: !include ../schemas/assessmentsSort.json
+              example: !include ../examples/assessmentsSort-fromApp.json
 
 /assessmentTypes:
   get:

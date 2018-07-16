@@ -687,6 +687,36 @@ resourceTypes: !include resources.yml
                   404:
                     description: |
                       The assessment type **does not** have a setup UI to present to the user in this case
+
+  /sorts:
+    /byAssessmentType:
+      /{type}:
+        /forApp:
+          post:
+            body:
+              application/json:
+                schema: !include ../schemas/assessmentSortResponse.json
+            description: |
+              The endpoint where the list of application ids will be posted for sorting.  Usually, the application that manages the assessments for the users
+              will use this. ie. ATS
+
+            responses:
+              200:
+                description: the sorted application ids
+
+    /byAssessmentIds:
+      /{type}:
+        /forApp:
+          post:
+            body:
+              application/json:
+                schema: !include ../schemas/assessmentSortResponse.json
+            description: |
+              The vendor's endpoint (producer) which will do the actual sorting based on the assessment ids payload.
+
+            responses:
+              200:
+                description: the sorted assessment ids
                   
     /deltaPings:
       post:

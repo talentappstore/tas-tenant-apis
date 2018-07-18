@@ -13,6 +13,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -301,6 +305,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"

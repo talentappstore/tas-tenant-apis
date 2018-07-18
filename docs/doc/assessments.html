@@ -272,6 +272,9 @@ app->ats: GET /applications/views/byKey/{key}
 app->hub: PATCH /assessments/byID/{id}/appDetails
 app->ats: GET /candidates/me/homePage
 
+note right of ats: the user clicks to sort multiple\napplicants based on their assessment results
+hub->app: POST /assessments/sorts
+
 </div>
 
 
@@ -300,21 +303,44 @@ Response:
 <div class='clientInclude' data-href='../examples/assessmentTypesForApp-simple.json'></div>
 </code></pre>
 
-<p>In this example, your app is declaring that it supports a single assessment type, "MS Word proficiency".
-
 <h3>Detail</h3>
+
+<h4>Returning your assessment types</h4>
 
 <p>Immediately after your app is installed, the assessment hub, a separate app, consumes GET /assessmentTypes/forApp
 on your app to ask for your assessment types.
 </p>
 
-<p>If your app is completely "on demand" then you are ready to immediately return the list fo assessment types for this tenant.
+<p>In this example, your app is declaring that it supports a single assessment type, "MS Word proficiency".
+
+
+<h4>Details that can be passed about each assessment type</h4>
+
+<p>See the assessment type <a href='../schemas/assessmentType.json'>schema</a> for a detailed description of every property
+you can pass for your assessment types.
+</p>
+
+<p>In this example:
+  
+<ul>
+<li>Assessment results can be reused within 365 days. So if a candidate completes the assessment for one job, and then applies for
+another within this time, they won't be asked to complete the assessment again.
+<li>The assessment results are sortable within the user's UI. So your app must be prepared to respond to POST /assessments/sorts.
+</ul> 
+
+
+<h4>If your app needs setup</h4>
+
+<p>If your app is completely "on demand" then it will be ready to return its assessment types immediately after the app is installed.
 </p>
 
 <p>Otherwise, if your app requires setup (e.g. you need to set up an account for the customer) before it can meaningfully offer any assessment types, then you should return
-an empty set of assessment types. Then, later on when your app's setup is complete, tell the assessment hub that you have new assessment types by consuming
+an empty set of assessment types.
+</p>
+
+<p>Then, later on when your app's setup is complete, tell the assessment hub that you have new assessment types by consuming
 <a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>. In
-response the hub will consume GET /assessmentTypes/forApp on our app.
+response the hub will consume GET /assessmentTypes/forApp on your app.
 </p>
 
 
@@ -767,8 +793,6 @@ otherwise keep them updated.
 
 <h2>Consume POST /assessmentTypes/forApp/deltaPings/1</h2>
 
-<h2>Example</h2>
-
 <p>
 <pre><code>
 <a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>
@@ -780,6 +804,7 @@ otherwise keep them updated.
 <ul>
 <li>After install, you've now completed the onboarding process for the new customer, so you can now make their assessment types available
 <li>the tenant asks you for a new custom assessment type, and you have just delivered it
+</ul>
 </p>
 
 <p>When this happens, you need to consume POST /assessmentTypes/forApp/deltaPings/1.
@@ -787,6 +812,51 @@ otherwise keep them updated.
 
 <p>This API is produced by the assessment hub. The assessment hub will then consume GET /asessmentTypes/forApp on your app,
 to load your newly updated set of assessment types.
+</p>
+
+
+<h2>Produce POST /assessments/sorts</h2>
+
+<p>
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessments_sorts_post'>POST /assessments/sorts</a>
+</code></pre>
+</p>
+
+<p><b>Note: sorting is not yet implemented within the assessment hub, however you can implement this API now to future-proof your app.</b>
+
+<p>When your app's assessment results are sortable (i.e. you've said so in your assessment type), then your app
+may receive incoming API requests whenever the user clicks in their UI to sort their job applicants.
+</p>
+
+<p>For example, your assessment gives applicants a score of 0 - 100 based on a quiz result. The user clicks to sort
+applicants by your results. An API call is made to the POST /assessments/sorts endpoint in your app.
+</p>
+
+<p>In the request, your app receives an unsorted array of assessment IDs, all of which will be for the same assessment type, e.g.:
+
+
+<pre><code>
+<a href='../generated/recruitment.raml.html#assessments_sorts_post'>POST /assessments/sorts</a>
+
+Request:
+<div class='clientInclude' data-href='../examples/ids-assessments.json'></div>
+</code></pre>
+
+<p>Your app can now sort the assessments, and return the sorted set, e.g.:
+
+<pre><code>
+Response:
+<div class='clientInclude' data-href='../examples/assessmentsSort-fromApp.json'></div>
+</code></pre>
+
+
+<p>In this example response from your API:
+<ul>
+<li>one of the assessments was not completed (has no result), so it is returned that in the <b>unsortable</b> array.
+<li>two of the assessments have exactly the same sort value, so they are returned within a single sort result
+<li>the other assessments have a unique sort value, so they each have their own sort result
+</ul>  
 </p>
 
 

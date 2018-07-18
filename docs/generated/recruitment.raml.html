@@ -9677,7 +9677,7 @@
     },
     "description": "An array of ids for anything"
 }
-</code></pre><p><strong>Example</strong>:</p><pre><code>[ 1,2,3,4 ]
+</code></pre><p><strong>Example</strong>:</p><pre><code>[ 1023,1046,1077,1122,1343,1022 ]
 </code></pre></div><div class="tab-pane" id="assessments_sorts_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
@@ -9718,18 +9718,21 @@
   }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
   "unsortable": [
-    { "assessment": 22001, "assessmentStatus": "Error" }
+    { "assessment": 1023, "assessmentStatus": "Error" }
   ],
   "sorted": [
     [
-      { "assessment": 22003, "assessmentStatus": "Complete" },
-      { "assessment": 22008, "assessmentStatus": "Complete" }
+      { "assessment": 1046, "assessmentStatus": "Complete" },
+      { "assessment": 1122, "assessmentStatus": "Complete" }
     ],
     [
-      { "assessment": 22012, "assessmentStatus": "Complete" }
+      { "assessment": 1022, "assessmentStatus": "Complete" }
     ],
     [
-      { "assessment": 22014, "assessmentStatus": "Complete" }
+      { "assessment": 1077, "assessmentStatus": "Complete" }
+    ],
+    [
+      { "assessment": 1343, "assessmentStatus": "Complete" }
     ]
   ]
 }
@@ -9793,6 +9796,7 @@
           "userTitle": "MS Word proficiency - basic",
           "daysToExpire": 365,
           "isPassFail": false,
+          "sortable": true,
           "canReuse": true,
           "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
           "appCommunicatesDirectlyToCandidate": false,
@@ -9861,6 +9865,7 @@
           "userTitle": "MS Word proficiency - basic",
           "daysToExpire": 365,
           "isPassFail": false,
+          "sortable": true,
           "canReuse": true,
           "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
           "appCommunicatesDirectlyToCandidate": false,
@@ -9881,6 +9886,7 @@
     "userTitle": "MS Word proficiency - basic",
     "daysToExpire": 365,
     "isPassFail": false,
+    "sortable": true,
     "canReuse": true,
     "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
     "appCommunicatesDirectlyToCandidate": false,
@@ -11991,6 +11997,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -12279,6 +12289,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"
@@ -12869,6 +12882,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -13157,6 +13174,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"
@@ -13194,6 +13214,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -13482,6 +13506,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"
@@ -13519,6 +13546,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -13807,6 +13838,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"
@@ -19004,6 +19038,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -19292,6 +19330,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"
@@ -19882,6 +19923,10 @@
           "type": "number",
           "description": "longitude of this location"
         },
+        "sequence": {
+          "type": "number",
+          "description": "the sequence of this node (i.e. its order within its siblings)"
+        },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
@@ -20170,6 +20215,9 @@
     },
     "externalId": {
       "$ref": "#/definitions/externalId"
+    },
+    "sequence": {
+      "$ref": "#/definitions/sequence"
     },
     "parent": {
       "$ref": "#/definitions/parent"

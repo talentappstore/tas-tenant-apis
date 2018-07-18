@@ -129,35 +129,29 @@ As above, but for a logged in candidate.
 </p>
 
 
-<h1>Create your app - setup</h1>
+<h1>Set up</h1>
 
-<p>As the first step of getting your app up and running, lets install some apps, and get the button from the simpleapply app displayed on a page to the candidate.
+<p>Lets prepare by installing some sandbox apps.
 </p>
 
-<h2>Create a tenant</h2>
-
-<p>Go to <a href='https://www.talentappstore.com'>www.talentappstore.com</a>, sign up and create a tenant (use google auth to avoid a temporary issue with email-based logins).
+<p>Note: when installing apps, the apps that have links are sandbox apps that you install via their install token - the other apps
+can be found publicly listed (find them with "Browse apps").
 </p>
 
-<h2>Install x2lb</h2>
+<h2>Install apps and prepare test data</h2>
 
-<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.eDJsYg.mHkPPYhRiMz1BghClLwPqvposR5_1yxt_C1siWffC8Y045KuqkmF2eX05l4diVRIyUenMvJxiR-xN953PgVMXdpxQAAw2AW1NidDtLaeR0AlhMRVCM0r2UwfSm3d-4yCYYF-Qd6KjsHUXINAp9o7u6lgJV7qYyRRmCzss77P0jjjgll85QwnuKknxEK4qpjXhqv6q_eDORwoR-niQiO4L0dsnyNLumrcyx4n4e743JIQ2QhW1vF7rqwI_5EpWevk8r9YdhMfkRhS1Q6RsAUPyXFcqcvR8LaUoI65lOpjvPsyBE-BLpa2eJllx9OzZNDUuZdNbb2Pg2whXOyIw9DtXQ'>here</a>
-to install the x2lb app.
+<p>Follow <a href='sandboxapps.html#Setup_to_create_a_job_application'>these instructions</a> to install Developer ATS. The apply button
+will be showing and you can click on it to create a job application.
+
+
+<h2>Use switchgear to control buttons</h2>
+
+<p>One of the apps you installed previously was Switchgear. Switchgear is an app that manages all of the buttons (apply, share, refer a friend, etc.)
+from all of the button-producing apps.
 </p>
 
-<p>This app is "a testing app for developers to check their actions are working correctly and showing up in SwitchGear and that enabling/disabling them also works."
-</p>
-
-<p>Currently you may see a 403 error after installing the app. Hit back, sign out and in again, return to your tenant, and you'll see the install was successful.
-</p>
-
-<h2>Install switchgear</h2>
-
-<p>Browse the app store and install switchgear.
-</p>
-
-<p>Switchgear is an app that manages all of the buttons (apply, share, refer a friend, etc.) from all of the button-producing apps. Typically
-a customer wants to show different combinations of those buttons to different candidates (e.g. internal vs external) on different jobs (e.g. IT jobs vs call centre jobs). This complexity is all
+<p>Typically a customer wants to show different combinations of those buttons to different candidates (e.g. internal vs external) on different
+jobs (e.g. IT jobs vs call centre jobs). This complexity is all
 handled via switchgear. Switchgear gives the customer a drag and drop user interface that they can use to drag button(s):
 <ol>
 <li>in or out at a global level, so that by default your button will appear or not appear on all jobs
@@ -166,41 +160,12 @@ handled via switchgear. Switchgear gives the customer a drag and drop user inter
 </ol>
 </p>
 
-<h2>Install simpleapply</h2>
-
-<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.c2ltcGxlYXBwbHk.Ih8mCSLZ7Tyw1l-kKXfb4Wrj7A1vNZYEay66_48AQbK_WLaxHJYO8Zvjvjch8EiUnz1TUGoMxKUkYePHn00KPJcTruV67XhMY8rFq4qM0SflJ2xLLaa39GSU_40e9QT9cHU52LnVXqRzz3vwvr0chfhy2A0ULuAvFyTBVSxmyvbM2c-rG0dxrRi44bAVsxcUpOGD5U4T4BEaFTcUaVpTCKjTPyn93SLrJSzu4EQar9xep6NWQK1NmV2LUsoZd5aKJ41d_EEQU7WN7rpEvenARt6ZZcchzedyDjk_Q4_IKwMnwtjKZBFaWmvXdM9rIDPyJBJMMBZWa4gS35SYLpUkDQ'>here</a>
-to install simpleapply.
-</p>
-
-<h2>Customize the buttons for a job</h2>
-
-<p><b>Skip this section for now, due to a bug</b>. Now return to x2lb and click "open". You'll see a menu that lets you access several test jobs. x2lb is showing you the "recruiter" view" of your jobs - to control whether or not the apply button is displayed,
-click the "Edit" button in the top right corner of the SwitchGear panel displayed within the x2lb app and drag the action to either enabled or disabled. You don't need to do anything - new buttons
-are always displayed by default.
-</p>
-
-<h2>Install qs8n, and verify an apply button appears</h2>
-
-<p>Click <a href='https://www.talentappstore.com/account/installLink?token=eyJhbGciOiJSUzUxMiJ9.cXM4bg.00-eZV3DRtI_dAtxvgYAhLYLt5yNjzU7V03sZLgRakxFPjvjROKZPNXBROkoon5aK_xjUnF_mR5qNnnbO6tgyf65FDD0Zf0eaOjj0qmZjpzaFcHf3QTEyuiHVhWfeJrSkKOPaXO63X7ZblbWIlgSzY9u6T0emywe1UQqBNCf9pH9UCE5qmYXlrk9Ey1GLpqIqMQnwaapgL8SBCGX_mERO6qpcMT8F2Vt2gT1e2rk2oiF-VoonBh79jkDSKSj7zUQTt1VSUmD9yxX6AZZopaxXauyQLk4FO4-mv9P4OTMbvt0CthLAPsCom-H_aog5GNGMhiiIbHKX8FXv9rXgcqVtw'>here</a>
-to install the qs8n app. This app is "a test candidate site that allows developers to check that their actions are appearing correctly on jobs, and to test any gate behaviour."
-</p>
-
-<p>Click open on the qs8n app, and you should go through to a basic careers site, showing several test jobs. You should now see simpleapply's apply button on the jobs.
-</p>
-
-<p>Remember to install at least one identity app for candidates to log in with before you try actually applying.
-</p>
-
-
 <h1>Create your app - produce the /possibles API</h1>
 
-<p>Now that we've got one button displayed, we're ready to get your app up and running.
-</p>
- 
-<p>Go to https://developer.talentappstore.com. Create a developer account if you don't already have one.
-</p>
-
-<p>Define your app, giving it a name and shortcode. 
+<p>Now that we've got the sandbox apps installed, we're ready to get your app up and running.
+<ul>
+<li>Go to https://developer.talentappstore.com. Create a developer account if you don't already have one.
+<li>Define your app, giving it a name and shortcode.
 </p>
 
 <h2>Produce GET /actions/byCandidate/job/possibles/byApp</h2>
@@ -215,19 +180,6 @@ Response:
 <div class='clientInclude' data-href='../examples/actionProductions-simple.json'></div>
 </code>
 </pre>
-</p>
-
-<p>Since your app will be hosted behind tazzy, the actual endpoint within your app should be:
-
-<pre>
-<code>
-/t/{tenant}/tas/devs/tas/actions/byCandidate/job/possibles/byApp
-</code>
-</pre>
-</p>
-
-<p>Now in the developer site, click the "tazzy" section for your app and enter the public web address of your server (tip: ngrok is a useful
-tool for easily exposing an endpoint on your own computer to the internet).   
 </p>
 
 <p>The data that you are passing back in this example is as follows:
@@ -319,7 +271,7 @@ or otherwise prevent anyone from altering the relayPage, to prevent <a href='htt
 
 <h2>Check that your button is showing on the jobs page</h2>
 
-<p>From the qs8n app, click open. You should see a job, with your buttons displayed on it.
+<p>Click into the Developer Careers app. You should see a job, with your buttons displayed on it.
 </p>
 
 <p>Click on your button, and you should be redirected to your app's web experience (e.g. applying for a job, completing a quiz, sharing the job, etc.).
@@ -373,6 +325,7 @@ user interface to refer the job to their friends. They get a cash reward if they
 </ul>  
 </ol>
 </p>
+
 
                 
             </div>

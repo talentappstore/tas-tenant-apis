@@ -25,6 +25,10 @@
       "type": "boolean",
       "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
     },
+    "sortable": {
+      "type": "boolean",
+      "description": "whether assessment results can be sorted - if so, an API on the assessment app is called, passing an array of existing assessment IDs, so the app can return them in sorted order. Defaults to false if not present"
+    },
     "candidateDescription": {
       "type": "string",
       "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we're hiring."
@@ -57,6 +61,9 @@
     },
     "isPassFail": {
       "$ref": "#/definitions/isPassFail"
+    },
+    "sortable": {
+      "$ref": "#/definitions/sortable"
     },
     "candidateDescription": {
       "$ref": "#/definitions/candidateDescription"

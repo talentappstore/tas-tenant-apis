@@ -27,27 +27,32 @@
       {
         "id": 100114663,
         "name": "Perth",
-        "available": true
+        "available": true,
+        "sequence": 0.1
       },
       {
         "id": 100114660,
         "name": "Queensland",
-        "available": true
+        "available": true,
+        "sequence": 0.11
       },
       {
         "id": 100114645,
         "name": "NSW",
-        "available": true
+        "available": true,
+        "sequence": 0.12
       },
       {
         "id": 100114669,
         "name": "Adelaide",
-        "available": true
+        "available": true,
+        "sequence": 0.2
       },
       {
         "id": 100114642,
         "name": "Sydney",
-        "available": true
+        "available": true,
+        "sequence": 10
       },
       {
         "id": 100114657,

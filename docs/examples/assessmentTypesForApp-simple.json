@@ -4,6 +4,7 @@
     "userTitle": "MS Word proficiency - basic",
     "daysToExpire": 365,
     "isPassFail": false,
+    "sortable": true,
     "canReuse": true,
     "userDescription": "The MS Word proficiency test is an easy, painless way to assess ability to use this most excellent of products.",
     "appCommunicatesDirectlyToCandidate": false,

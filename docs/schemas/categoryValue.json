@@ -1,6 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
+    "sequence": {
+      "type": "number",
+      "description": "the sequence of this node (i.e. its order within its siblings)"
+    },
     "location": {
       "type": "object",
       "description": "the geographic coordinates of this value, which represents a physical location. This may be present only when (a) the category itself has key of LOCATION, and (b) the value is a leaf (has no children)",
@@ -12,10 +16,6 @@
         "lng": {
           "type": "number",
           "description": "longitude of this location"
-        },
-        "sequence": {
-          "type": "number",
-          "description": "the sequence of this node (i.e. its order within its siblings)"
         },
         "country": {
           "description": "country, in ISO 3166-1 alpha-2 form",

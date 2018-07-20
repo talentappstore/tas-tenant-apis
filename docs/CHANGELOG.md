@@ -1,5 +1,8 @@
 Latest
 ======
+
+2.01
+====
 Change (non-breaking) - added optional field "sortable" to assessment types, allowing assessment apps to indicate that their results can be sorted. Affects:
     GET /assessmentTypes/forApp
     GET /assessmentTypes 

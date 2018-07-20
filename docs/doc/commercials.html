@@ -27,6 +27,8 @@
 <!-- for table of contents -->
 <script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
 
+<!--  manage the versions dropdown, always using the very latest -->
+<script type="text/javascript" src='http://devdocs.talentappstore.com/versions.js'></script>
 
 <style>
 span.highlight {
@@ -47,9 +49,19 @@ color: #666666;
 <body>
     <div id="wrapper" class="toggled">
 
+
+
         <!-- Sidebar as per https://github.com/blackrockdigital/startbootstrap-simple-sidebar-->
        <div id="sidebar-wrapper">
+       
              <ul class="sidebar-nav">
+				<li>
+				<span style='color:white'>Version:</span>
+				<select id='versionList'>
+				</select>
+				<a href='../CHANGELOG.md'>Change log</a>
+				</li>
+             
                 <li class="sidebar-brand"><a href="home.html">Home</a></li>
                 <li><a href="goals.html">Goals & non-goals</a></li>
                 <li><a href="concepts.html">Concepts</a></li>
@@ -139,7 +151,8 @@ $(document).ready(function() {
 	renderTOC();
 
 	// needs to come after renderTOC
-    $("#menu-toggle").click(function(e) {
+	detectVersion();
+	$("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });

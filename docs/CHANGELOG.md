@@ -1,7 +1,5 @@
-Unversioned
-===========
-
-
+Latest
+======
 Change (non-breaking) - added optional field "sortable" to assessment types, allowing assessment apps to indicate that their results can be sorted. Affects:
     GET /assessmentTypes/forApp
     GET /assessmentTypes 
@@ -28,8 +26,4 @@ Change (non-breaking) - added optional field "sequence" to categoryValue.json fo
 	
 New API
 	PATCH /applications/byID/{}
-
-2.01
-====
-First published version
 

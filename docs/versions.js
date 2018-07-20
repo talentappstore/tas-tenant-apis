@@ -2,18 +2,15 @@ var versions = [2.01];
 
 function detectVersion() {
 	
+	// see if the path starts with /v/version, otherwise assume we are at Latest 
 	var version = 'Latest';
-	
-	// look for a specific version in the url - if present, it will be a number, immediately before the /docs/ path element 
 	var paths = window.location.pathname.split('/');
-	var docsIndex = paths.indexOf('docs');
-	if (docsIndex > 1) {
-		var versionStr = paths[docsIndex - 1];
-		if (versionStr.typeof == 'number') {
-//			console.log('versionStr is a number ' + versionStr);
-			version = versionStr;
-		}
-	}
+	if (paths[1] == "v")
+		version = parseFloat(paths[2]);
+	
+	console.log('paths[2].typeof is ' + paths[2].typeof);
+	console.log('paths[2] is ' + paths[2]);
+	console.log('version is ' + version);
 	
 	// populate dropdown with all versions, select current one
 	var dropDown = document.getElementById("versionList");

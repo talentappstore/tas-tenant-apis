@@ -446,14 +446,35 @@
     get:
       securedBy: [oauth_2_0]
       description: |
-        API to get a link to a page hosted by the action's app that the user can use to to set up defaults or values
-        for this action - for example, to set the referral amount or limits if the button is for an employee referral program.
-        For actions relating to jobs, the setup page can be used to set defaults (at either the global or workflow level) or values
-        (at the job level).
-
-        When this page has done its thing, it should signal the containing window via a postMessage call, passing one of the verbs "ok" or "cancel".
+        API to get a link to a page hosted by your app that the user can use to to set up defaults or values
+        for this action (button).
         
-        Non-SoT, on-behalf (principal == user).
+        For example if your app is an employee referral program app, and the button is "refer to a friend", then the setup page,
+        when attaching the button to a job, could be used to set the referral amount.
+        
+        Communicating from your setup page back to the container
+        ---
+        When the user drags your button (e.g. in switchgear) onto a job, they will see your setup page, iframed within the page.
+
+        Your setup page should display a UI to capture any data you need from the user, and also the OK and Cancel buttons.
+
+        Once the user has provided enough data in your page, then you can light up your OK button. When the user clicks OK, you signal to the container like this:
+
+        ````
+        Window.parent.postMessage({"action": "closePanel", "verb": "ok"});
+        ````
+
+        If they clicked cancel in your page, then pass "cancel" instead as the verb. 
+
+        Once you signal OK, the "attach button" operation will be completed. If you signal cancel, the operation will be cancelled and the button won't be attached.
+
+        Setting default values
+        -------- 
+        For actions relating to jobs like this, a setup page can also be used to set defaults (at either the global or workflow level).
+
+
+        This API is non-SoT, on-behalf (principal == user).
+
         
       responses:
         200:

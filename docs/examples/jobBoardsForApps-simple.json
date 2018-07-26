@@ -2,13 +2,31 @@
   {
     "app": "topboardsllc",
     "jobBoard": {
-        "label": "Super grads"
-     }
+      "label": "Super grads",
+      "domain": "www.supergrads.com",
+      "defaultAdDuration": 30,
+      "commonFieldsList": [
+        "title",
+        "description",
+        "ref",
+        "recruiter name"
+      ],
+      "defaultLegacySourceCode": "SUPERGRADS",
+      "defaultSetupErrorMessage": "At least one template must be created"
+    }
   },
   {
     "app": "bigboards",
-    "jobBoard":  {
-        "label": "Top people"
-      }
+    "jobBoard": {
+      "label": "Top people",
+      "domain": "www.toppeople.com",
+      "defaultAdDuration": 30,
+      "commonFieldsList": [
+        "title",
+        "description",
+        "ref"
+      ],
+      "defaultLegacySourceCode": "TOPPEOPLE"
+    }
   }
 ]

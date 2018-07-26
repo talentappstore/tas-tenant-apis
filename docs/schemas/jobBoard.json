@@ -5,9 +5,46 @@
     "label": {
       "type": "string",
       "description": "label for this job board, e.g. Super grads"
+    },
+    "domain": {
+      "type": "string",
+      "description": "e.g. www.jobboard.com - used for source tracking"
+    },
+    "defaultAdDuration": {
+      "type": "integer",
+      "description": "how many days do ads remain up on the site, e.g. 30"
+    },
+    "commonFieldsList": {
+      "description": "the common fields that the job board wants to use",
+      "type": "array",
+      "items": {
+        "enum": [
+          "title",
+          "description",
+          "ref",
+          "recruiter name",
+          "recruiter email",
+          "recruiter team",
+          "contact person name",
+          "contact person email",
+          "application email"
+        ]
+      }
+    },
+    "defaultLegacySourceCode": {
+      "type": "string",
+      "description": "a default for legacy source code when this board is installed, e.g. SEEK."
+    },
+    "defaultSetupErrorMessage": {
+      "type": "string",
+      "description": "a default value for the installed board's setup error message. If not null, setup required will light up on the app for all new installs."
     }
   },
   "required": [
-    "label"
+    "label",
+    "domain",
+    "defaultAdDuration",
+    "commonFieldsList",
+    "defaultLegacySourceCode"
   ]
 }

@@ -1,5 +1,14 @@
 Latest
 ======
+New APIs
+	PATCH /jobBoards/forApp/status
+	GET /jobBoards/forApp/status.
+	GET /jobBoards/forApp/postingUI/byID/{posting}
+	PATCH /postings/byID/{id}/appDetails
+	
+Change (non-breaking) - added additional fields to job boards. Affects:
+	GET /jobBoards/forApp
+
 
 2.01
 ====

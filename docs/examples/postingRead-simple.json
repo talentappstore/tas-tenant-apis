@@ -1,0 +1,25 @@
+{
+    "id": 100,
+    "status": "open",
+    "linkout": "https://blah.com/job/10033",
+    "title": "CEO",
+    "code": "GR5022",
+    "description": "This is an exciting position.",
+    "categories": [
+        {
+            "category": 1022,
+            "values": [
+                10024
+            ]
+        },
+        {
+            "category": 1026,
+            "values": [
+                10044,
+                10025,
+                10029
+            ]
+        }
+    ],
+    "customFieldsJson": "json goes here"
+}

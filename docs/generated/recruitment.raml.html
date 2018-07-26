@@ -14926,14 +14926,32 @@
   {
     "app": "topboardsllc",
     "jobBoard": {
-        "label": "Super grads"
-     }
+      "label": "Super grads",
+      "domain": "www.supergrads.com",
+      "defaultAdDuration": 30,
+      "commonFieldsList": [
+        "title",
+        "description",
+        "ref",
+        "recruiter name"
+      ],
+      "defaultLegacySourceCode": "SUPERGRADS",
+      "defaultSetupErrorMessage": "At least one template must be created"
+    }
   },
   {
     "app": "bigboards",
-    "jobBoard":  {
-        "label": "Top people"
-      }
+    "jobBoard": {
+      "label": "Top people",
+      "domain": "www.toppeople.com",
+      "defaultAdDuration": 30,
+      "commonFieldsList": [
+        "title",
+        "description",
+        "ref"
+      ],
+      "defaultLegacySourceCode": "TOPPEOPLE"
+    }
   }
 ]</code></pre></div><div class="tab-pane" id="jobBoards_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp"><span class="parent">/jobBoards</span>/forApp</a> <span class="methods"><a href="#jobBoards_forApp_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Descriptions of a single job board hosted by a specific app. Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards</span>/forApp</h4></div><div class="modal-body"><div class="alert alert-info"><p>Descriptions of a single job board hosted by a specific app. Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
@@ -14942,14 +14960,96 @@
     "label": {
       "type": "string",
       "description": "label for this job board, e.g. Super grads"
+    },
+    "domain": {
+      "type": "string",
+      "description": "e.g. www.jobboard.com - used for source tracking"
+    },
+    "defaultAdDuration": {
+      "type": "integer",
+      "description": "how many days do ads remain up on the site, e.g. 30"
+    },
+    "commonFieldsList": {
+      "description": "the common fields that the job board wants to use",
+      "type": "array",
+      "items": {
+        "enum": [
+          "title",
+          "description",
+          "ref",
+          "recruiter name",
+          "recruiter email",
+          "recruiter team",
+          "contact person name",
+          "contact person email",
+          "application email"
+        ]
+      }
+    },
+    "defaultLegacySourceCode": {
+      "type": "string",
+      "description": "a default for legacy source code when this board is installed, e.g. SEEK."
+    },
+    "defaultSetupErrorMessage": {
+      "type": "string",
+      "description": "a default value for the installed board&#39;s setup error message. If not null, setup required will light up on the app for all new installs."
     }
   },
   "required": [
-    "label"
+    "label",
+    "domain",
+    "defaultAdDuration",
+    "commonFieldsList",
+    "defaultLegacySourceCode"
   ]
 }</code></pre><p><strong>Example</strong>:</p><pre><code>  {
-    "label": "Super grads"
-  }</code></pre></div><div class="tab-pane" id="jobBoards_forApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_categories"><span class="parent">/jobBoards/forApp</span>/categories</a> <span class="methods"><a href="#jobBoards_forApp_categories_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobBoards_forApp_categories_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_categories" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Job board--defined hierarchical structures used in talent management to categorize job openings, candidates and others.</p></div><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_categories_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Fetch list of categories</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobBoards_forApp_categories_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a single category (without any values)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_categories_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/categories</h4></div><div class="modal-body"><div class="alert alert-info"><p>Fetch list of categories</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_categories_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_categories_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_categories_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "label": "Super grads",
+    "domain": "www.supergrads.com",
+    "defaultAdDuration": 30,
+    "commonFieldsList": [ "title", "description", "ref", "recruiter name" ],
+    "defaultLegacySourceCode": "SUPERGRADS",
+    "defaultSetupErrorMessage": "At least one template must be created"
+  }
+  </code></pre></div><div class="tab-pane" id="jobBoards_forApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_postingUI_byID__posting_"><span class="parent">/jobBoards/forApp/postingUI/byID</span>/{posting}</a> <span class="methods"><a href="#jobBoards_forApp_postingUI_byID__posting__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_postingUI_byID__posting_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_postingUI_byID__posting__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>If a board has any board-specific fields (such as an advertiser template, or a video) on its postings, then the board can produce this API to have its web page to be injected into the posting form.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_postingUI_byID__posting__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp/postingUI/byID</span>/{posting}</h4></div><div class="modal-body"><div class="alert alert-info"><p>If a board has any board-specific fields (such as an advertiser template, or a video) on its postings, then the board can produce this API to have its web page to be injected into the posting form.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_postingUI_byID__posting__get_request" data-toggle="tab">Request</a></li><li><a href="#jobBoards_forApp_postingUI_byID__posting__get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_postingUI_byID__posting__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_postingUI_byID__posting__get_request"><h3>URI Parameters</h3><ul><li><strong>posting</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobBoards_forApp_postingUI_byID__posting__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "postingUI": {
+      "type": "string",
+      "format": "uri",
+      "description": "link to a web page that will be iframed-ed into the hub&#39;s posting form, and captures board-specific fields. The page should pack the data into json"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "postingUI": {
+      "$ref": "#/definitions/postingUI"
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "postingUI": "https://www.example.com/capture/1022.html"
+}</code></pre></div><div class="tab-pane" id="jobBoards_forApp_postingUI_byID__posting__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_status"><span class="parent">/jobBoards/forApp</span>/status</a> <span class="methods"><a href="#jobBoards_forApp_status_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobBoards_forApp_status_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_jobBoards_forApp_status" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_status_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobBoards_forApp_status_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p><p>Using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_status_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/status</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_status_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_status_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_status_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "setupErrorMessage": {
+      "type": "string",
+      "description": "a string indicating there is a setup error on the board"
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "setupErrorMessage": "there must be at least one template"
+}</code></pre></div><div class="tab-pane" id="jobBoards_forApp_status_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_status_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch</span> <span class="parent">/jobBoards/forApp</span>/status</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p><p>Using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_status_patch_request" data-toggle="tab">Request</a></li><li><a href="#jobBoards_forApp_status_patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_status_patch_request"><h3>Body</h3><p><strong>Type: application/merge-patch+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "setupErrorMessage": {
+      "type": "string",
+      "description": "a string indicating there is a setup error on the board"
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "setupErrorMessage": "there must be at least one template"
+}</code></pre></div><div class="tab-pane" id="jobBoards_forApp_status_patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the patch was successful</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_categories"><span class="parent">/jobBoards/forApp</span>/categories</a> <span class="methods"><a href="#jobBoards_forApp_categories_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobBoards_forApp_categories_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_categories" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Job board--defined hierarchical structures used in talent management to categorize job openings, candidates and others.</p></div><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_categories_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Fetch list of categories</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobBoards_forApp_categories_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a single category (without any values)</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_categories_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/categories</h4></div><div class="modal-body"><div class="alert alert-info"><p>Fetch list of categories</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_categories_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_categories_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_categories_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "array",
     "items": {
@@ -20320,7 +20420,158 @@
         "uri": "https://buttonmapper.com"
       }
 
-</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>the app has no panel to provide</p></div><div class="tab-pane" id="panels_toCandidate_me_home_byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="trackers" class="panel-title">/trackers</h3></div><div class="panel-body"><div class="top-resource-description"><p>A tracker represents a single sourcing event (social sharing, automated job alert, etc.).</p><p>Trackers are organized into trees. The path from a single leaf to the trunk of the tree represents the chain of sourcing events, for example that led a candidate to apply. Each tracker can append meta information (e.g. the employee making an employee referral) to the chain.</p><p>Trackers can be passed by id into tracker-aware APIs such as POST /candidates.</p><p>The producers of APIs that create trackers must:</p><ul><li>attach the consuming tenant and consuming app (from the incoming OAuth token) onto the tracker itself, so that later access to the tracker can be restricted to the app that created it</li><li>reuse rather than create trackers when one exists with identical:<ul><li>details (e.g. for a session tracker, the user&#39;s IP)</li><li>consumer</li><li>parent tracker</li></ul></li></ul></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_trackers"><span class="parent"></span>/trackers</a> <span class="methods"><a href="#trackers_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_trackers" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#trackers_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a root tracker (one with no parent).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="trackers_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/trackers</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a root tracker (one with no parent).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#trackers_post_request" data-toggle="tab">Request</a></li><li><a href="#trackers_post_response" data-toggle="tab">Response</a></li><li><a href="#trackers_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="trackers_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>the app has no panel to provide</p></div><div class="tab-pane" id="panels_toCandidate_me_home_byApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="postings" class="panel-title">/postings</h3></div><div class="panel-body"><div class="top-resource-description"><p>Postings to job boards for individual jobs</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_postings_byID__id__appDetails"><span class="parent">/postings/byID/{id}</span>/appDetails</a> <span class="methods"><a href="#postings_byID__id__appDetails_patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_postings_byID__id__appDetails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#postings_byID__id__appDetails_patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update data on the posting that is set by the app, rather than the hub. Currently this is only the preview link.</p><p>The posting must belong to the API consumer (i.e. the job board app).</p><p>SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="postings_byID__id__appDetails_patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/postings/byID/{id}</span>/appDetails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update data on the posting that is set by the app, rather than the hub. Currently this is only the preview link.</p><p>The posting must belong to the API consumer (i.e. the job board app).</p><p>SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#postings_byID__id__appDetails_patch_request" data-toggle="tab">Request</a></li><li><a href="#postings_byID__id__appDetails_patch_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="postings_byID__id__appDetails_patch_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "previewLink": {
+      "$ref": "postingRead.json#/definitions/previewLink"
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "previewLink": "https://bigjobs.com/job/03322"
+}</code></pre></div><div class="tab-pane" id="postings_byID__id__appDetails_patch_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_postings_byID__id__tenantDeltaPings"><span class="parent">/postings/byID/{id}</span>/tenantDeltaPings</a> <span class="methods"><a href="#postings_byID__id__tenantDeltaPings_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_postings_byID__id__tenantDeltaPings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#postings_byID__id__tenantDeltaPings_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Alerts job board apps that a posting has been created, or the tenant- or app-supplied fields on the posting (i.e. not the preview link) have been updated. The entire posting object is passed in the API request.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="postings_byID__id__tenantDeltaPings_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/postings/byID/{id}</span>/tenantDeltaPings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Alerts job board apps that a posting has been created, or the tenant- or app-supplied fields on the posting (i.e. not the preview link) have been updated. The entire posting object is passed in the API request.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#postings_byID__id__tenantDeltaPings_post_request" data-toggle="tab">Request</a></li><li><a href="#postings_byID__id__tenantDeltaPings_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="postings_byID__id__tenantDeltaPings_post_request"><h3>URI Parameters</h3><ul><li><strong>id</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "id": {
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "open",
+        "closed"
+      ]
+    },
+    "statusMessage": {
+      "type": "string",
+      "description": "e.g. listing expired, job closed, error - missing blah,  etc."
+    },
+    "scheduledCloseDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the posting should be closed by the hub."
+    },
+    "actualCloseDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the posting in the hub actually was closed"
+    },
+    "linkout": {
+      "type": "string",
+      "format": "uri",
+      "description": "link to the job on the career site with source tracking attached"
+    },
+    "recruiterName": {
+      "type": "string"
+    },
+    "recruiterEmail": {
+      "type": "string"
+    },
+    "recruiterTeam": {
+      "type": "string"
+    },
+    "contactPersonName": {
+      "type": "string"
+    },
+    "contactPersonEmail": {
+      "type": "string"
+    },
+    "applicationEmail": {
+      "type": "string"
+    },
+    "customFieldsJson": {
+      "type": "string",
+      "description": "e.g. advertiser profile, template, premium features, video"
+    },
+    "previewLink": {
+      "type": "string",
+      "format": "uri",
+      "description": "link to the posting on the job board"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "statusMessage": {
+      "$ref": "#/definitions/statusMessage"
+    },
+    "scheduledCloseDate": {
+      "$ref": "#/definitions/scheduledCloseDate"
+    },
+    "actualCloseDate": {
+      "$ref": "#/definitions/actualCloseDate"
+    },
+    "linkout": {
+      "$ref": "#/definitions/linkout"
+    },
+    "recruiterName": {
+      "$ref": "#/definitions/recruiterName"
+    },
+    "recruiterEmail": {
+      "$ref": "#/definitions/recruiterEmail"
+    },
+    "recruiterTeam": {
+      "$ref": "#/definitions/recruiterTeam"
+    },
+    "contactPersonName": {
+      "$ref": "#/definitions/contactPersonName"
+    },
+    "contactPersonEmail": {
+      "$ref": "#/definitions/contactPersonEmail"
+    },
+    "applicationEmail": {
+      "$ref": "#/definitions/applicationEmail"
+    },
+    "customFieldsJson": {
+      "$ref": "#/definitions/customFieldsJson"
+    },
+    "title": {
+      "$ref": "jobRead.json#/definitions/title"
+    },
+    "code": {
+      "$ref": "jobRead.json#/definitions/code"
+    },
+    "description": {
+      "$ref": "jobRead.json#/definitions/description"
+    },
+    "categories": {
+      "$ref": "categoriesActual.json"
+    },
+    "previewLink": {
+      "$ref": "postingRead.json#/definitions/previewLink"
+    }
+  }
+}</code></pre><p><strong>Example</strong>:</p><pre><code>{
+    "id": 100,
+    "status": "open",
+    "linkout": "https://blah.com/job/10033",
+    "title": "CEO",
+    "code": "GR5022",
+    "description": "This is an exciting position.",
+    "categories": [
+        {
+            "category": 1022,
+            "values": [
+                10024
+            ]
+        },
+        {
+            "category": 1026,
+            "values": [
+                10044,
+                10025,
+                10029
+            ]
+        }
+    ],
+    "customFieldsJson": "json goes here"
+}</code></pre></div><div class="tab-pane" id="postings_byID__id__tenantDeltaPings_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="trackers" class="panel-title">/trackers</h3></div><div class="panel-body"><div class="top-resource-description"><p>A tracker represents a single sourcing event (social sharing, automated job alert, etc.).</p><p>Trackers are organized into trees. The path from a single leaf to the trunk of the tree represents the chain of sourcing events, for example that led a candidate to apply. Each tracker can append meta information (e.g. the employee making an employee referral) to the chain.</p><p>Trackers can be passed by id into tracker-aware APIs such as POST /candidates.</p><p>The producers of APIs that create trackers must:</p><ul><li>attach the consuming tenant and consuming app (from the incoming OAuth token) onto the tracker itself, so that later access to the tracker can be restricted to the app that created it</li><li>reuse rather than create trackers when one exists with identical:<ul><li>details (e.g. for a session tracker, the user&#39;s IP)</li><li>consumer</li><li>parent tracker</li></ul></li></ul></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_trackers"><span class="parent"></span>/trackers</a> <span class="methods"><a href="#trackers_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_trackers" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#trackers_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a root tracker (one with no parent).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="trackers_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/trackers</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a root tracker (one with no parent).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#trackers_post_request" data-toggle="tab">Request</a></li><li><a href="#trackers_post_response" data-toggle="tab">Response</a></li><li><a href="#trackers_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="trackers_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {
         "sessionCreation": {
@@ -22524,4 +22775,4 @@
     "entityID": "facebook-101",
     "nameID": "iugy8756gui57f764"
   }
-}</code></pre></div><div class="tab-pane" id="users_active_recruiters_byID__id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#actions">/actions</a></li><li><a href="#applications">/applications</a></li><li><a href="#appStatus">/appStatus</a></li><li><a href="#assessments">/assessments</a></li><li><a href="#assessmentTypes">/assessmentTypes</a></li><li><a href="#buckets">/buckets</a></li><li><a href="#candidates">/candidates</a></li><li><a href="#careerSites">/careerSites</a></li><li><a href="#categories">/categories</a></li><li><a href="#editSpecs">/editSpecs</a></li><li><a href="#global">/global</a></li><li><a href="#items">/items</a></li><li><a href="#jobBoards">/jobBoards</a></li><li><a href="#jobs">/jobs</a></li><li><a href="#jobSets">/jobSets</a></li><li><a href="#landingPage">/landingPage</a></li><li><a href="#menuedApps">/menuedApps</a></li><li><a href="#orgs">/orgs</a></li><li><a href="#panels">/panels</a></li><li><a href="#trackers">/trackers</a></li><li><a href="#socialNetworks">/socialNetworks</a></li><li><a href="#time">/time</a></li><li><a href="#workflows">/workflows</a></li><li><a href="#users">/users</a></li></ul></div></div></div></div></body></html>
+}</code></pre></div><div class="tab-pane" id="users_active_recruiters_byID__id__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#actions">/actions</a></li><li><a href="#applications">/applications</a></li><li><a href="#appStatus">/appStatus</a></li><li><a href="#assessments">/assessments</a></li><li><a href="#assessmentTypes">/assessmentTypes</a></li><li><a href="#buckets">/buckets</a></li><li><a href="#candidates">/candidates</a></li><li><a href="#careerSites">/careerSites</a></li><li><a href="#categories">/categories</a></li><li><a href="#editSpecs">/editSpecs</a></li><li><a href="#global">/global</a></li><li><a href="#items">/items</a></li><li><a href="#jobBoards">/jobBoards</a></li><li><a href="#jobs">/jobs</a></li><li><a href="#jobSets">/jobSets</a></li><li><a href="#landingPage">/landingPage</a></li><li><a href="#menuedApps">/menuedApps</a></li><li><a href="#orgs">/orgs</a></li><li><a href="#panels">/panels</a></li><li><a href="#postings">/postings</a></li><li><a href="#trackers">/trackers</a></li><li><a href="#socialNetworks">/socialNetworks</a></li><li><a href="#time">/time</a></li><li><a href="#workflows">/workflows</a></li><li><a href="#users">/users</a></li></ul></div></div></div></div></body></html>

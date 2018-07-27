@@ -1,6 +1,7 @@
 Latest
 ======
 New APIs
+	GET /assessmentTypes/me/forJob/byID/{job}   
 	PATCH /jobBoards/forApp/status
 	GET /jobBoards/forApp/status.
 	GET /jobBoards/forApp/postingUI/byID/{posting}

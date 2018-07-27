@@ -465,6 +465,16 @@ resourceTypes: !include resources.yml
           Get html head snippet (typically an include of a stylesheet) used to style the html for the assessments strip.
               
           The app building the page (e.g. applicant list) that embeds assessment strips must insert the results of this API call in its head section.
+          
+          The head HTML API pulls in a function initializeSearchWidget() that the ATS can call, passing a single object with these fields:
+          - HTMLElement sortWidget (an empty DOM element that the hub will put the sort control widget in)
+          - Number currentSort (indicates the assessment type currently being sorted on, so the sort control can render itself)
+          - Boolean currentSortAsc (is the current sort asc or desc?)
+          - Number job (the job the ATS is displaying applicants for)
+          - Function callback (callback function that the hub will use to notify the ATS when a sort is requested). The callback takes params:
+              - Number assessmentType (to sort by)
+              - Boolean sortAsc (whether to sort asc or desc)
+          
         responses:
           200:
             body:
@@ -704,6 +714,26 @@ resourceTypes: !include resources.yml
             of assessment types produced by the app has changed.
         
             SoT.
+  /me:
+    /forJob:
+      /byID:
+        /{job}:
+          get:
+            queryParameters:
+              bucket:
+                description: only include assessment types that are visible to the user for applicants in the given bucket
+                type: integer
+                required: true
+                example: 1003
+            description: |
+              Get the list of assessment types that are visible to this user, for applicants for this job and in this bucket. This can be used e.g. to populate a
+              sorting widget - in it the user could click on a sortable assessment type to sort the applicants.
+            responses:
+              200:
+                body:
+                  application/json:
+                    schema: !include ../schemas/assessmentTypeVisibles.json
+                    example: !include ../examples/assessmentTypeVisibles-simple.json
 
 /buckets:
   get:

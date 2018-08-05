@@ -10,6 +10,7 @@ New APIs
 Change (non-breaking) - added additional fields to job boards. Affects:
 	GET /jobBoards/forApp
 
+Change (non-breaking) - make PII fields consistent in person.json
 
 2.01
 ====

@@ -9,6 +9,10 @@
     },
     "email": {
       "type": "string"
+    },
+    "image": {
+      "type": "string",
+      "format": "uri"
     }
   },
   "type": "object",
@@ -21,6 +25,9 @@
     },
     "email": {
       "$ref": "#/definitions/email"
+    },
+    "image": {
+      "$ref": "#/definitions/image"
     },
     "vcard": {
       "$ref": "jcard.json"

@@ -36,10 +36,6 @@
     "userDescription": {
       "type": "string",
       "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
-    },
-    "appCommunicatesDirectlyToCandidate": {
-      "type": "boolean",
-      "description": "True if the app communicates directly with the candidate when an assessment is started. In this case the hub will not send the candidate an email message."
     }
   },
   "type": "object",
@@ -71,9 +67,6 @@
     "userDescription": {
       "$ref": "#/definitions/userDescription"
     },
-    "appCommunicatesDirectlyToCandidate": {
-      "$ref": "#/definitions/appCommunicatesDirectlyToCandidate"
-    },
     "image": {
       "$ref": "assessmentRead.json#/definitions/imageUrl"
     }
@@ -85,7 +78,6 @@
     "isPassFail",
     "canReuse",
     "userDescription",
-    "appCommunicatesDirectlyToCandidate",
     "image"
   ]
 }

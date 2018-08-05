@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
 	<title>Assessments</title>
 
     <!-- Bootstrap core CSS -->
@@ -650,25 +649,11 @@ density displays (Retina Macbooks etc).
 
 <h4>Candidate interaction uri</h4>
 
-<p>You should set the candidate interaction uri when you want to link the candidate to something (e.g. to have them complete a quiz).
+<p>Previously the assessment hub could send an email to the candidate on behalf of your app, which could include the candidate interaction url.
 </p>
 
-<p>If your assessment type was marked as appCommunicatesDirectlyToCandidate == false, then whenever you change the candidate interaction uri (including the first time you set it), the
-hub will send an email to the candidate with the new link in it. If you don't want this (i.e. your app sends its own emails to the candidate), then you should set
-appCommunicatesDirectlyToCandidate to true. This will prevent the candidate also receiving emails from the hub.
-</p>
-
-<p>Whether your assessment type sets appCommunicatesDirectlyToCandidate to true or false, its still a good idea to set the candidate interaction uri
-if you have a sensible destination for the candidate.
-</p>
-
-<p>For this example, let's assume that your app does its thing by having the candidate complete an online
-assessment. Below, it updates the assessment's status to indicate it is underway, and sets the candidate interaction link. 
-
-<pre><code>
-POST /assessments/byID/{}/appDetails
-<div class='clientInclude' data-href='../examples/assessmentWriteByApp-underway.json'></div>
-</code></pre>
+<p>This functionality has been deprecated, but you might still want to set the candidate interaction url (to e.g. the url for your quiz),
+as in the future there may be a UI that allows the candidate to reorient themselves from e.,g. within the ATS, and find their way back to you assessment.
 </p>
 
 <p>You can optionally protect your web pages with TAS SSO, using principal type of candidate. This protects against the

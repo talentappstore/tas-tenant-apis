@@ -12,6 +12,10 @@ Change (non-breaking) - added additional fields to job boards. Affects:
 
 Change (non-breaking) - make PII fields consistent in person.json
 
+Change (breaking) - remove appCommunicatesDirectlyToCandidate from assessmentType.json. Affects:
+	GET /assessmentTypes
+	GET /assessmentTypes/byID/{}
+
 2.01
 ====
 Change (non-breaking) - added optional field "sortable" to assessment types, allowing assessment apps to indicate that their results can be sorted. Affects:

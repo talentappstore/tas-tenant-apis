@@ -149,7 +149,7 @@ just track the latest versions) - or if you just want to err on the side of safe
 
 <p>For example your app might declare that it supports:
 <ul>
-<li>versions 1.2 to 2.3 for the APIs from the developer "tas"
+<li>versions 1.02 to 2.13 for the APIs from the developer "tas"
 <li>a different version range for some other developer's APIs 
 </ul>
 </p>
@@ -168,12 +168,12 @@ can read it and manually set the version when they consume APIs produced by your
 <p>For example, for the APIs from the developer "tas", the header might look like this:
 
 <pre><code>
-Content-Type: application/vnd.talentappstore.tas-tenant-apis+json;version=2.1
+Content-Type: application/vnd.talentappstore.tas-tenant-apis+json;version=2.01
 </code></pre>
 </p>
 
 
-<p>This tells your app that the consumer wants the behaviour of version 2.1.
+<p>This tells your app that the consumer wants the behaviour of version 2.01.
 </p>
 
 <p>If no version is passed, your app should use its latest behaviour (whatever version that is at).
@@ -192,9 +192,9 @@ Content-Type: application/vnd.talentappstore.tas-tenant-apis+json;version=2.1
 
 <ol>
 <li>your app is consuming the GET /jobs API (from the developer "tas")
-<li>your app supports versions 1.2 to 2.2 for the APIs from developer tas
+<li>your app supports versions 1.02 to 2.22 for the APIs from developer tas
 <li>the tenant has installed the Big Red ATS app, which produces that API
-<li>the Big Red ATS app supports versions 1.1 to 2.1 for the APIs from developer tas
+<li>the Big Red ATS app supports versions 1.01 to 2.05 for the APIs from developer tas
 </ol>
 </p>
 
@@ -213,7 +213,7 @@ Content-Type: application/vnd.talentappstore.tas-tenant-apis+json;version=2.1
             "tenant": "acme",
             "app": "bigredats",
             ...
-            "maxCommonVersion": "2.1"
+            "maxCommonVersion": "2.05"
         },
         ...
     ]
@@ -223,8 +223,8 @@ Content-Type: application/vnd.talentappstore.tas-tenant-apis+json;version=2.1
 
 <p>Now, when your app consumes the GET /jobs API, you can:
 <ul>
-<li>set up the correct request data for version 2.1
-<li>consume the API, passing across the ContentType header, with a version of 2.1.
+<li>set up the correct request data for version 2.05
+<li>consume the API, passing across the ContentType header, with a version of 2.05.
 </ul>
 </p>
 

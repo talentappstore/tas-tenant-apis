@@ -30,28 +30,6 @@
       "format": "uri",
       "description": "link to the job on the career site with source tracking attached"
     },
-    "recruiterName": {
-      "type": "string"
-    },
-    "recruiterEmail": {
-      "type": "string"
-    },
-    "recruiterTeam": {
-      "type": "string"
-    },
-    "contactPersonName": {
-      "type": "string"
-    },
-    "contactPersonEmail": {
-      "type": "string"
-    },
-    "applicationEmail": {
-      "type": "string"
-    },
-    "customFieldsJson": {
-      "type": "string",
-      "description": "e.g. advertiser profile, template, premium features, video"
-    },
     "previewLink": {
       "type": "string",
       "format": "uri",
@@ -78,35 +56,8 @@
     "linkout": {
       "$ref": "#/definitions/linkout"
     },
-    "recruiterName": {
-      "$ref": "#/definitions/recruiterName"
-    },
-    "recruiterEmail": {
-      "$ref": "#/definitions/recruiterEmail"
-    },
-    "recruiterTeam": {
-      "$ref": "#/definitions/recruiterTeam"
-    },
-    "contactPersonName": {
-      "$ref": "#/definitions/contactPersonName"
-    },
-    "contactPersonEmail": {
-      "$ref": "#/definitions/contactPersonEmail"
-    },
-    "applicationEmail": {
-      "$ref": "#/definitions/applicationEmail"
-    },
-    "customFieldsJson": {
-      "$ref": "#/definitions/customFieldsJson"
-    },
-    "title": {
-      "$ref": "jobRead.json#/definitions/title"
-    },
-    "code": {
-      "$ref": "jobRead.json#/definitions/code"
-    },
-    "description": {
-      "$ref": "jobRead.json#/definitions/description"
+    "fieldValues": {
+      "$ref": "itemsRead.json"
     },
     "categories": {
       "$ref": "categoriesActual.json"

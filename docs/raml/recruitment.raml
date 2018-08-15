@@ -1744,22 +1744,6 @@ resourceTypes: !include resources.yml
             application/json:
               schema: !include ../schemas/jobBoard.json
               example: !include ../examples/jobBoard-simple.json
-    /postingUI:
-      /byID:
-        /{posting}:
-          get:
-            securedBy: [oauth_2_0]
-            description: |
-              If a board has any board-specific fields (such as an advertiser template, or a video) on its postings,
-              then the board can produce this API to have its web page to be injected into the posting form.
-              
-              Non-SoT.
-            responses:
-              200:
-                body:
-                  application/json:
-                    schema: !include ../schemas/postingUI.json
-                    example: !include ../examples/postingUI-simple.json
                       
     /status:
       get:

@@ -1,0 +1,28 @@
+{
+  "definitions": {
+    "title": {
+      "type": "string",
+      "description": "The heading that appears above the group of fields"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "Instruction text for the group of fields. Appears beneath the heading"
+    }
+  },
+  "type": "object",
+  "description": "A group of fields that will be displayed on the posting form for the board",
+  "properties": {
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "postingFieldMeta.json"
+      }
+    },
+    "title": {
+      "$ref": "#/definitions/title"
+    },
+    "instructions": {
+      "$ref": "#/definitions/instructions"
+    }
+  }
+}

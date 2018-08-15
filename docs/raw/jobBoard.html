@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<title>Building a job board app</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+<!-- for sequence diagrams -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+
+<!-- for includes -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+
+<!-- for table of contents -->
+<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+
+<!--  manage the versions dropdown, always using the very latest -->
+<script type="text/javascript" src='http://devdocs.talentappstore.com/versions.js'></script>
+
+<style>
+span.highlight {
+background-color: #ffff99;
+padding: 6px;
+border: dashed #ff6666 1px;
+}
+td.uncommon {
+background-color: #cccccc;
+}
+small.hint {
+color: #666666;
+}
+</style>
+
+
+</head>
+<body>
+    <div id="wrapper" class="toggled">
+
+<p><b>SIDEBARGOESHERE</b></p>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                <br /><br />
+
+<div id="toc">
+</div>
+
+
+<h1>Overview</h1>
+
+<p>See also <a href="postings.html">the job board hub</a>.
+</p>
+
+<p>Building a job board app in Talent App Store is simple, and a basic integration requires
+only 3 APIs, as the job board hub does most of the heavy lifting.
+</p>
+
+<p>Once your job board app is installed at a tenant, it will appear as a posting
+destination inside the job board hub.
+</p>
+
+<p>The hub provides all the UI through which users post jobs to job boards and manage their postings.
+</p>
+
+<p>The job board hub provides a posting form UI that the user uses to post a specific job in the ATS to a job board (i.e. create
+a posting). The same job in the ATS can be posted to multiple job boards, or posted multiple times to a single job board
+(e.g. with slightly different locations each time).
+</p>
+
+<p>The hub dynamically modifies the posting form so that it contains the fields that your job board app requires for a posting,
+so your app doesn't need job posting UI of its own - the hub provides it.
+</p>
+
+<p>Once the user completes the posting form, your app is alerted of the new posting via an API call, so that it can finally
+upload the posting into your own back end.
+</p>  
+
+<p>This guide steps you through each of the APIs your job board app will use. 
+
+
+<h1>APIs</h1>
+
+<h2>Publish your board's details</h2>
+
+<p>The job board hub looks after all of a tenant's installed job boards, and stores details for each board such as
+its name, the fields it requires on the posting form, how long postings remain on the board for, etc.
+</p>
+
+<p>So that the hub can learn about these details about your board, your app must
+publish its details by producing <a href='../generated/recruitment.raml.html#jobBoards_forApp_get'>GET /jobBoards/forApp</a>.
+</p>
+
+<p>The hub calls this API on your app when it is installed at a tenant, and every time a tenant with your app installed is rebooted.
+</p>
+
+<p>Via this API, you pass back all the details about your job board:
+<ul>
+<li>your job board's name
+<li>its domain (e.g. www.jobboard.com - used for source tracking by the job board hub to create trackers when it creates links to your board)
+<li>default ad duration (how long do ads remain up on your site, e.g. 30d)
+<li>fields list (what fields appear on your board's posting form - e.g. job title, recruiter email, minimum salary)
+<li>default legacy source code (e.g. source=BIGJOBS)
+<li>a default value for the installed board's setup error message. If not null, setup required will light up on the app for all new installs.  
+</ul>
+
+<p>In the example below, the job board has 4 fields on its posting form, arranged into a single group:
+<ul>
+<li>A field for "title" which defaults to the job's title in the ATS.
+<li>A similar field for "description".
+<li>A field for "advertiser profile". The board has its own admin screens and database for this field,
+and no default is available from the ATS.
+<li>The categories field. This causes your board's categories (e.g. Location, Job type) to be displayed in the posting form, with defaults
+provided by the category mapping app.
+</ul>
+
+<p>The hub tries to present sensible defaults for fields:
+<ol>
+<li>from the job or its recruiter or manager in the ATS (when the defaultFrom field is present on the field)
+<li>from any existing postings on the same job that have items with a matching name.
+</ol>
+</p>  
+
+<p>When the recruiter submits the posting form, the job board hub will store values for all of the board's fields on the posting object.
+</p>
+ 
+
+<pre><code>
+<div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
+</code></pre>
+
+
+
+<h2>Publish the board's categories and their values</h2>
+
+<p>This step is optional. A board may have no categories at all.</p>
+
+<p>If your job board categorises its jobs by e.g. location, classification/expertise etc. then it
+should publish these categories by producing <a href='../generated/recruitment.raml.html#jobBoards_forApp_categories_get'>GET /jobBoards/forApp/categories</a>
+and
+<a href='../generated/recruitment.raml.html#jobBoards_forApp_categories_byID__category__values_get'>GET /jobBoards/forApp/categories/byID/{category}/values</a>.
+</p>
+
+<p>These APIs are called by the hub and the category mapper apps.
+</p>
+
+
+<h2>Keeping the board's back end updated</h2>
+
+<p>The job board hub maintains its own state of all of the tenant's job board postings, i.e. whether they are open or closed,
+what values were used, the date posted, etc.
+</p>
+
+<p>Whenever the state of a posting in the hub changes (e.g. a posting reaches its expiry date and is automatically closed), the hub
+will alert the relevant job board app. The job board app is then responsible for uploading the new state into its own back end.
+</p>
+
+<p>To play its part, your job board app must produce
+<a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#postings_byID__id__tenantDeltaPings_post'>POST /postings/byID/{id}/tenantDeltaPings</a>
+to be alerted when its own postings are changed.
+</p> 
+
+<p>How the board does this synchronizing is up to the board. Some boards use bulk upload APIs where the client always sends up all open postings. Others have web
+services to modify individual postings. Some might use ftp, csv, etc. The board might do it instantly, or every  hour.
+</p>
+
+<p>There are 4 scenarios that will cause a job board app to receive a delta ping alerting of a change to posting state:  
+<ul>
+
+<li>a posting is created by the user via the the user clicking the hub's UI
+<li>or edited (e.g. description is changed)   
+
+<li>A posting has been closed (because of job closed or posting closed or posting expired):
+<ol>
+<li>close date has been set (is non null)
+<li>status == closed
+<li>status message == e.g. Expired  
+</ol>
+
+<li>A posting has been re-opened:
+<ol>
+<li>close date has been set to null
+<li>status now == open 
+</ol>
+</ul>
+
+
+<h2>Producing GET /appStatus (optional)</h2>
+
+<p>This step is optional. Your board might never need any setup (i.e. completely on demand).
+</p>
+
+<p>The job board hub stores a "setup error message" against each of a tenant's installed job boards.
+</p>
+
+<p>When that field is non-null, this indicates that the board is broken - i.e. requires some setup.
+</p>
+
+<p>The job board hub needs this information so that it can display the board's broken-ness in its UI - for example,
+a user can't create new postings for a board that is broken.
+</p>
+
+<p>When GET /appStatus is called on your job board app, it should pull its own value for "setup error message"
+(by calling <a href='../generated/recruitment.raml.html#jobBoards_forApp_status_get'>GET /jobBoards/forApp/status</a>)
+and use that to light up (or not) the setup required icon on the app itself.
+
+<p>A typical scenario for setting the "setup error message" field would be when your job board app detected bad credentials
+while calling its own upload APIs. Then your app would set the setup error message via
+<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_patch'>PATCH /jobBoards/forApp/status</a>.
+</p>
+
+<p>Another way that "setup error message" can be set is by default on new installs of your app.
+</p>
+
+<p>In other words, if your app is always broken when first installed (because you need the user
+to click to the setup page and enter credentials, advertiser details, etc.) then you should reflect that
+by passing back a default setup error message in your response to GET /jobBoards/forApp:
+
+<pre><code>
+"defaultSetupErrorMessage": "At least one template must be created"
+</code></pre>
+
+<p>When you do this, your board is effectively marked as broken by default for all new
+installs. The user sees this in your app's panel, and is guided to your setup page to fix the situation.
+</p>
+
+
+<h2>Producing a setup page (optional)</h2>
+
+<p>This step is optional. Your board might be able to start working with no additional information.
+</p>
+
+<p>You may need a setup page to capture required information for new installs, e.g. API tokens, advertiser codes, etc.
+</p>
+ 
+<p>Your job board app passes back a link to its setup page in its response to
+<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_get'>GET /jobBoards/forApp/status</a>.
+This allows the user to click on the link in the store, and reach the setup page.
+</p>
+
+<p>When the user views the setup page, they should normally see any existing setup problems highlighted.
+</p>
+
+<p>To do this your job board app should call
+<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_get'>GET /jobBoards/forApp/status</a> to fetch its own setup error message
+(e.g "credentials have been denied"). The setup error message can then be displayed at the top of the setup page
+so that the user knows what needs to be fixed before the board can start working.
+</p>
+
+<p>Once the user has entered all required data into the setup page, the settings page should update the
+board's status to say things are good to go by calling
+<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_patch'>PATCH /jobBoards/forApp/status</a>
+and nulling out the setup error message.
+</p>
+
+
+<h2>Synchronising after sleep (optional)</h2>
+
+<p>This step is optional. A highly available board may rely on always capturing delta pings.</p>
+
+<p>When the job board app starts up after maintenance, it should pull all of its own open postings from the hub,
+and use that to call its own upload APIs to synchronise its back end.
+</p>
+
+<p>This will handle for any activity (new postings, expired postings) that may have happened on the hub while the app was asleep.
+</p>
+
+
+<h2>Synchronising of preview link (optional)</h2>
+
+<p>This step is optional. Some boards won't provide a preview link.</p>
+
+<p>Some boards will be able to provide a preview link where the recruiter can see the job on the board itself.
+</p>
+
+<p>When a preview link is available, e.g. when the board's upload APIs are called, the board
+can update the posting within the hub by calling
+<a href='../generated/recruitment.raml.html#postings_byID__id__appDetails_patch'>PATCH /postings/byID/{id}/appDetails</a>.
+</p>
+
+
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+	renderSequenceDiagrams();
+	renderClientIncludes();
+	renderTOC();
+
+	// needs to come after renderTOC
+	detectVersion();
+	$("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+</script>
+</body>
+</html>

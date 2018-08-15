@@ -16,6 +16,16 @@ Change (breaking) - remove appCommunicatesDirectlyToCandidate from assessmentTyp
 	GET /assessmentTypes
 	GET /assessmentTypes/byID/{}
 
+Add schemas
+	postingFieldMeta.json
+	postingFieldMetaGroup.json
+	postingFieldMetaGroups.json
+
+Change (breaking) - remove commonFields from job board object and replace with fields array. Affects:
+	GET /jobBoards
+	GET /jobBoards/forApp
+
+
 2.01
 ====
 Change (non-breaking) - added optional field "sortable" to assessment types, allowing assessment apps to indicate that their results can be sorted. Affects:

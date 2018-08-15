@@ -2,9 +2,28 @@
     "id": 100,
     "status": "open",
     "linkout": "https://blah.com/job/10033",
-    "title": "CEO",
-    "code": "GR5022",
-    "description": "This is an exciting position.",
+    "fieldValues": [
+		{
+			"name": "advertiser-profile",
+			"type": "picklist",
+			"value": [ "Accounting" ]
+		},
+		{
+		    "name": "job-title",
+		    "type": "string",
+		    "value": "Creative Director"
+		},
+		{
+		    "name": "job-description",
+		    "type": "string",
+		    "value": "This is the greatest job. Check out the opportunitie.."
+		},
+		{
+		    "name": "min-salary",
+		    "type": "number",
+		    "value": 45000
+		}
+    ],
     "categories": [
         {
             "category": 1022,
@@ -20,6 +39,5 @@
                 10029
             ]
         }
-    ],
-    "customFieldsJson": "json goes here"
+    ]
 }

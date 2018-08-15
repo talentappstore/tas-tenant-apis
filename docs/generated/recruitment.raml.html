@@ -14939,11 +14939,72 @@
       "label": "Super grads",
       "domain": "www.supergrads.com",
       "defaultAdDuration": 30,
-      "commonFieldsList": [
-        "title",
-        "description",
-        "ref",
-        "recruiter name"
+      "fields": [
+        {
+          "title": "Basic details",
+          "instructions": "Please fill in all fields carefully for a great posting",
+          "fields": [
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "picklist",
+                "name": "advertiser-profile",
+                "title": "Advertiser profile",
+                "instructions": "This controls the branding of your job posting",
+                "nullLabel": "Choose an advertiser",
+                "minChoices": 1,
+                "maxChoices": 1,
+                "presentation": "showOne",
+                "choices": [
+                  {
+                    "name": "Accounting",
+                    "isDefault": false
+                  },
+                  {
+                    "name": "Growth team",
+                    "isDefault": false
+                  }
+                ]
+              },
+              "showInHeaders": true
+            },
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "string",
+                "name": "job-title",
+                "title": "Job Title",
+                "instructions": "The job&#39;s title"
+              },
+              "defaultFrom": "$.title",
+              "showInHeaders": true
+            },
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "string",
+                "name": "job-description",
+                "title": "Job Description",
+                "instructions": "The job&#39;s description. See _blah_ for formatting hints"
+              },
+              "defaultFrom": "$.description",
+              "showInHeaders": false
+            },
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "number",
+                "name": "min-salary",
+                "title": "Minimum salary",
+                "instructions": "Enter a lower salary for the posting. This is used to match to candidates."
+              },
+              "showInHeaders": false
+            },
+            {
+              "type": "categoriesField"
+            }
+          ]
+        }
       ],
       "defaultLegacySourceCode": "SUPERGRADS",
       "defaultSetupErrorMessage": "At least one template must be created"
@@ -14955,10 +15016,72 @@
       "label": "Top people",
       "domain": "www.toppeople.com",
       "defaultAdDuration": 30,
-      "commonFieldsList": [
-        "title",
-        "description",
-        "ref"
+      "fields": [
+        {
+          "title": "Basic details",
+          "instructions": "Please fill in all fields carefully for a great posting",
+          "fields": [
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "picklist",
+                "name": "advertiser-profile",
+                "title": "Advertiser profile",
+                "instructions": "This controls the branding of your job posting",
+                "nullLabel": "Choose an advertiser",
+                "minChoices": 1,
+                "maxChoices": 1,
+                "presentation": "showOne",
+                "choices": [
+                  {
+                    "name": "Accounting",
+                    "isDefault": false
+                  },
+                  {
+                    "name": "Growth team",
+                    "isDefault": false
+                  }
+                ]
+              },
+              "showInHeaders": true
+            },
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "string",
+                "name": "job-title",
+                "title": "Job Title",
+                "instructions": "The job&#39;s title"
+              },
+              "defaultFrom": "$.title",
+              "showInHeaders": true
+            },
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "string",
+                "name": "job-description",
+                "title": "Job Description",
+                "instructions": "The job&#39;s description. See _blah_ for formatting hints"
+              },
+              "defaultFrom": "$.description",
+              "showInHeaders": false
+            },
+            {
+              "type": "generalField",
+              "itemMeta": {
+                "type": "number",
+                "name": "min-salary",
+                "title": "Minimum salary",
+                "instructions": "Enter a lower salary for the posting. This is used to match to candidates."
+              },
+              "showInHeaders": false
+            },
+            {
+              "type": "categoriesField"
+            }
+          ]
+        }
       ],
       "defaultLegacySourceCode": "TOPPEOPLE"
     }
@@ -14979,22 +15102,8 @@
       "type": "integer",
       "description": "how many days do ads remain up on the site, e.g. 30"
     },
-    "commonFieldsList": {
-      "description": "the common fields that the job board wants to use",
-      "type": "array",
-      "items": {
-        "enum": [
-          "title",
-          "description",
-          "ref",
-          "recruiter name",
-          "recruiter email",
-          "recruiter team",
-          "contact person name",
-          "contact person email",
-          "application email"
-        ]
-      }
+    "fields": {
+      	"$ref": "postingFieldMetaGroups.json"
     },
     "defaultLegacySourceCode": {
       "type": "string",
@@ -15009,35 +15118,83 @@
     "label",
     "domain",
     "defaultAdDuration",
-    "commonFieldsList",
+    "fields",
     "defaultLegacySourceCode"
   ]
-}</code></pre><p><strong>Example</strong>:</p><pre><code>  {
-    "label": "Super grads",
-    "domain": "www.supergrads.com",
-    "defaultAdDuration": 30,
-    "commonFieldsList": [ "title", "description", "ref", "recruiter name" ],
-    "defaultLegacySourceCode": "SUPERGRADS",
-    "defaultSetupErrorMessage": "At least one template must be created"
-  }
-  </code></pre></div><div class="tab-pane" id="jobBoards_forApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_postingUI_byID__posting_"><span class="parent">/jobBoards/forApp/postingUI/byID</span>/{posting}</a> <span class="methods"><a href="#jobBoards_forApp_postingUI_byID__posting__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_jobBoards_forApp_postingUI_byID__posting_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_postingUI_byID__posting__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>If a board has any board-specific fields (such as an advertiser template, or a video) on its postings, then the board can produce this API to have its web page to be injected into the posting form.</p><p>Non-SoT.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_postingUI_byID__posting__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp/postingUI/byID</span>/{posting}</h4></div><div class="modal-body"><div class="alert alert-info"><p>If a board has any board-specific fields (such as an advertiser template, or a video) on its postings, then the board can produce this API to have its web page to be injected into the posting form.</p><p>Non-SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_postingUI_byID__posting__get_request" data-toggle="tab">Request</a></li><li><a href="#jobBoards_forApp_postingUI_byID__posting__get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_postingUI_byID__posting__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_postingUI_byID__posting__get_request"><h3>URI Parameters</h3><ul><li><strong>posting</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="jobBoards_forApp_postingUI_byID__posting__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "definitions": {
-    "postingUI": {
-      "type": "string",
-      "format": "uri",
-      "description": "link to a web page that will be iframed-ed into the hub&#39;s posting form, and captures board-specific fields. The page should pack the data into json"
-    }
-  },
-  "type": "object",
-  "properties": {
-    "postingUI": {
-      "$ref": "#/definitions/postingUI"
-    }
-  }
 }</code></pre><p><strong>Example</strong>:</p><pre><code>{
-  "postingUI": "https://www.example.com/capture/1022.html"
-}</code></pre></div><div class="tab-pane" id="jobBoards_forApp_postingUI_byID__posting__get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_status"><span class="parent">/jobBoards/forApp</span>/status</a> <span class="methods"><a href="#jobBoards_forApp_status_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobBoards_forApp_status_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_jobBoards_forApp_status" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_status_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobBoards_forApp_status_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p><p>Using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_status_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/status</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_status_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_status_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_status_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "label": "Super grads",
+  "domain": "www.supergrads.com",
+  "defaultAdDuration": 30,
+  "defaultLegacySourceCode": "SUPERGRADS",
+  "defaultSetupErrorMessage": "At least one template must be created",
+  "fields": [
+    {
+      "title": "Basic details",
+      "instructions": "Please fill in all fields carefully for a great posting",
+      "fields": [
+        {
+          "type": "generalField",
+          "itemMeta": {
+            "type": "picklist",
+            "name": "advertiser-profile",
+            "title": "Advertiser profile",
+            "instructions": "This controls the branding of your job posting",
+            "nullLabel": "Choose an advertiser",
+            "minChoices": 1,
+            "maxChoices": 1,
+            "presentation": "showOne",
+            "choices": [
+              {
+                "name": "Accounting",
+                "isDefault": false
+              },
+              {
+                "name": "Growth team",
+                "isDefault": false
+              }
+            ]
+          },
+          "showInHeaders": true
+        },
+        {
+          "type": "generalField",
+          "itemMeta": {
+            "type": "string",
+            "name": "job-title",
+            "title": "Job Title",
+            "instructions": "The job&#39;s title"
+          },
+          "defaultFrom": "$.title",
+          "showInHeaders": true
+        },
+        {
+          "type": "generalField",
+          "itemMeta": {
+            "type": "string",
+            "name": "job-description",
+            "title": "Job Description",
+            "instructions": "The job&#39;s description. See _blah_ for formatting hints"
+          },
+          "defaultFrom": "$.description",
+          "showInHeaders": false
+        },
+        {
+          "type": "generalField",
+          "itemMeta": {
+            "type": "number",
+            "name": "min-salary",
+            "title": "Minimum salary",
+            "instructions": "Enter a lower salary for the posting. This is used to match to candidates."
+          },
+          "showInHeaders": false
+        },
+        {
+          "type": "categoriesField"
+        }
+      ]
+    }
+  ]
+}</code></pre></div><div class="tab-pane" id="jobBoards_forApp_get_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_jobBoards_forApp_status"><span class="parent">/jobBoards/forApp</span>/status</a> <span class="methods"><a href="#jobBoards_forApp_status_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#jobBoards_forApp_status_patch"><span class="badge badge_patch">patch</span></a></span></h4></div><div id="panel_jobBoards_forApp_status" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#jobBoards_forApp_status_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#jobBoards_forApp_status_patch'" class="list-group-item"><span class="badge badge_patch">patch</span><div class="method_description"><p>Update an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p><p>Using JSON Merge Patch semantics (<a href="https://tools.ietf.org/html/rfc7396">https://tools.ietf.org/html/rfc7396</a>).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="jobBoards_forApp_status_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/jobBoards/forApp</span>/status</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get an installed job board&#39;s own status as held in the hub, e.g. its setup error message. SoT.</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#jobBoards_forApp_status_get_response" data-toggle="tab">Response</a></li><li><a href="#jobBoards_forApp_status_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="jobBoards_forApp_status_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
   "properties": {
@@ -20472,28 +20629,6 @@
       "format": "uri",
       "description": "link to the job on the career site with source tracking attached"
     },
-    "recruiterName": {
-      "type": "string"
-    },
-    "recruiterEmail": {
-      "type": "string"
-    },
-    "recruiterTeam": {
-      "type": "string"
-    },
-    "contactPersonName": {
-      "type": "string"
-    },
-    "contactPersonEmail": {
-      "type": "string"
-    },
-    "applicationEmail": {
-      "type": "string"
-    },
-    "customFieldsJson": {
-      "type": "string",
-      "description": "e.g. advertiser profile, template, premium features, video"
-    },
     "previewLink": {
       "type": "string",
       "format": "uri",
@@ -20520,35 +20655,8 @@
     "linkout": {
       "$ref": "#/definitions/linkout"
     },
-    "recruiterName": {
-      "$ref": "#/definitions/recruiterName"
-    },
-    "recruiterEmail": {
-      "$ref": "#/definitions/recruiterEmail"
-    },
-    "recruiterTeam": {
-      "$ref": "#/definitions/recruiterTeam"
-    },
-    "contactPersonName": {
-      "$ref": "#/definitions/contactPersonName"
-    },
-    "contactPersonEmail": {
-      "$ref": "#/definitions/contactPersonEmail"
-    },
-    "applicationEmail": {
-      "$ref": "#/definitions/applicationEmail"
-    },
-    "customFieldsJson": {
-      "$ref": "#/definitions/customFieldsJson"
-    },
-    "title": {
-      "$ref": "jobRead.json#/definitions/title"
-    },
-    "code": {
-      "$ref": "jobRead.json#/definitions/code"
-    },
-    "description": {
-      "$ref": "jobRead.json#/definitions/description"
+    "fieldValues": {
+      "$ref": "itemsRead.json"
     },
     "categories": {
       "$ref": "categoriesActual.json"
@@ -20561,9 +20669,28 @@
     "id": 100,
     "status": "open",
     "linkout": "https://blah.com/job/10033",
-    "title": "CEO",
-    "code": "GR5022",
-    "description": "This is an exciting position.",
+    "fieldValues": [
+		{
+			"name": "advertiser-profile",
+			"type": "picklist",
+			"value": [ "Accounting" ]
+		},
+		{
+		    "name": "job-title",
+		    "type": "string",
+		    "value": "Creative Director"
+		},
+		{
+		    "name": "job-description",
+		    "type": "string",
+		    "value": "This is the greatest job. Check out the opportunitie.."
+		},
+		{
+		    "name": "min-salary",
+		    "type": "number",
+		    "value": 45000
+		}
+    ],
     "categories": [
         {
             "category": 1022,
@@ -20579,8 +20706,7 @@
                 10029
             ]
         }
-    ],
-    "customFieldsJson": "json goes here"
+    ]
 }</code></pre></div><div class="tab-pane" id="postings_byID__id__tenantDeltaPings_post_securedby"><h1>Secured by oauth_2_0</h1><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>(string)</em><p>Used to send a valid OAuth 2 access token. Do not use with the "access_token" query string parameter.</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>Bad or expired token. To fix, you should re-authenticate the user.</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won&#39;t help here.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="trackers" class="panel-title">/trackers</h3></div><div class="panel-body"><div class="top-resource-description"><p>A tracker represents a single sourcing event (social sharing, automated job alert, etc.).</p><p>Trackers are organized into trees. The path from a single leaf to the trunk of the tree represents the chain of sourcing events, for example that led a candidate to apply. Each tracker can append meta information (e.g. the employee making an employee referral) to the chain.</p><p>Trackers can be passed by id into tracker-aware APIs such as POST /candidates.</p><p>The producers of APIs that create trackers must:</p><ul><li>attach the consuming tenant and consuming app (from the incoming OAuth token) onto the tracker itself, so that later access to the tracker can be restricted to the app that created it</li><li>reuse rather than create trackers when one exists with identical:<ul><li>details (e.g. for a session tracker, the user&#39;s IP)</li><li>consumer</li><li>parent tracker</li></ul></li></ul></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_trackers"><span class="parent"></span>/trackers</a> <span class="methods"><a href="#trackers_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_trackers" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#trackers_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Create a root tracker (one with no parent).</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="trackers_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/trackers</h4></div><div class="modal-body"><div class="alert alert-info"><p>Create a root tracker (one with no parent).</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>oauth_2_0</b><p>OAuth is used to authenticate tenant API calls. Tenant API calls may be on behalf of a specific principal (e.g. user)</p></div><ul class="nav nav-tabs"><li class="active"><a href="#trackers_post_request" data-toggle="tab">Request</a></li><li><a href="#trackers_post_response" data-toggle="tab">Response</a></li><li><a href="#trackers_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="trackers_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
     "$schema": "http://json-schema.org/draft-04/schema",
     "definitions": {

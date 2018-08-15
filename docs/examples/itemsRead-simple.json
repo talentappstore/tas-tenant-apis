@@ -28,20 +28,6 @@
   {
     "name": "mypicks",
     "type": "picklist",
-    "value": [
-      {
-        "choice": "choice1"
-      },
-      {
-        "choice": "choice2",
-        "subItems": [
-          {
-            "name": "myreason",
-            "type": "string",
-            "value": "just because"
-          }
-        ]
-      }
-    ]
+    "value": [ "option a", "option b" ]
   }
 ]

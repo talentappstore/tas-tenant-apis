@@ -1,0 +1,45 @@
+{
+  "definitions": {
+    "generalField": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "generalField"
+          ]
+        },
+        "defaultFrom": {
+	        "type": "string",
+	        "description": "a JSONPath style selector of a field from a job-scoped view, e.g. $.recruiter.person.email"
+        },
+        "showInHeaders": {
+        	"type": "boolean",
+        	"description": "causes the field to be displayed in column headers when postings are shown inside the job board hub"
+       	},
+        "itemMeta": {
+          "$ref": "itemMeta.json"
+        }
+      }
+    },
+    "catgeoriesField": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "categoriesField"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "description": "A field that the job board hub should capture for a job board. Where the itemMeta's name matches one from another job board, the hub will offer data off that posting as defaul",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/generalField"
+    },
+    {
+      "$ref": "#/definitions/catgeoriesField"
+    }
+  ]
+}

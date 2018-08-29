@@ -16,6 +16,12 @@ Change (breaking) - remove appCommunicatesDirectlyToCandidate from assessmentTyp
 	GET /assessmentTypes
 	GET /assessmentTypes/byID/{}
 
+Change (non-breaking) - add notificationRule to candidateEditSpec.json. Affects:
+    POST /editSpecs/fetches/apply/{job}/me
+    POST /editSpecs/fetches/apply/{job}/anonymous
+    POST /editSpecs/fetches/register/me
+    POST /editSpecs/fetches/register/anonymous
+
 Add schemas
 	postingFieldMeta.json
 	postingFieldMetaGroup.json

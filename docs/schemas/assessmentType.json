@@ -19,7 +19,11 @@
     },
     "daysToExpire": {
       "type": "integer",
-      "description": "when canReuse == true, this is the number of elapsed days before the previous assessment's result becomes no longer valid (as measured from the date that assessment was completed) - pass 0 to never expire"
+      "description": "when canReuse == true, this is the default number of elapsed days before the previous assessment's result becomes no longer valid (as measured from the date that assessment was completed) - pass 0 to never expire"
+    },
+    "daysToExpireIsFixed": {
+      "type": "boolean",
+      "description": "when canReuse == true, this determines whether users are allowed to override daysToExpire when configuring an assessment"
     },
     "isPassFail": {
       "type": "boolean",
@@ -51,6 +55,9 @@
     },
     "daysToExpire": {
       "$ref": "#/definitions/daysToExpire"
+    },
+    "daysToExpireIsFixed": {
+      "$ref": "#/definitions/daysToExpireIsFixed"
     },
     "canReuse": {
       "$ref": "#/definitions/canReuse"

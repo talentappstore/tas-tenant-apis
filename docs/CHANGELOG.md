@@ -12,6 +12,10 @@ Change (non-breaking) - added additional fields to job boards. Affects:
 
 Change (non-breaking) - make PII fields consistent in person.json
 
+Change (non-breaking) - add daysToExpireIsFixed to assessmentType.json. Affects:
+    GET /assessmentTypes
+    GET /assessmentTypes/forApp
+
 Change (breaking) - remove appCommunicatesDirectlyToCandidate from assessmentType.json. Affects:
 	GET /assessmentTypes
 	GET /assessmentTypes/byID/{}

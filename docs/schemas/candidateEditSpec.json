@@ -142,6 +142,9 @@
     "candidateMessage": {
       "$ref": "#/definitions/candidateMessage"
     },
+    "notificationRule": {
+      "$ref": "#/definitions/notificationRule"
+    },
     "candidateModel": {
       "$ref": "#/definitions/candidateModel"
     },

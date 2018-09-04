@@ -52,6 +52,24 @@
         "accept"
       ]
     },
+    "notificationRule": {
+      "type": "object",
+      "properties": {
+        "visible": {
+          "description": "is the candidate offered job notifications",
+          "type": "boolean"
+        },
+        "selectedByDefault": {
+          "description": "sets the initial state of job notifications for new candidates",
+          "type": "boolean"
+        },
+        "message": {
+          "description": "a message describing the job notification behavior that the candidate can expect",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "vCardRule": {
       "type": "object",
       "properties": {

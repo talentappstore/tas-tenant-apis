@@ -5,6 +5,9 @@
         "tracker": {
             "type": "integer"
         },
+        "notification": {
+            "type": "boolean"
+        },
         "categories": {
             "$ref": "categoriesActual.json"
         }

@@ -1,20 +1,30 @@
-Latest
-======
+2.02
+====
 New APIs
 	GET /assessmentTypes/me/forJob/byID/{job}   
 	PATCH /jobBoards/forApp/status
 	GET /jobBoards/forApp/status.
 	GET /jobBoards/forApp/postingUI/byID/{posting}
 	PATCH /postings/byID/{id}/appDetails
-	
+
 Change (non-breaking) - added additional fields to job boards. Affects:
 	GET /jobBoards/forApp
 
 Change (non-breaking) - make PII fields consistent in person.json
 
+Change (non-breaking) - add daysToExpireIsFixed to assessmentType.json. Affects:
+    GET /assessmentTypes
+    GET /assessmentTypes/forApp
+
 Change (breaking) - remove appCommunicatesDirectlyToCandidate from assessmentType.json. Affects:
 	GET /assessmentTypes
 	GET /assessmentTypes/byID/{}
+
+Change (non-breaking) - add notificationRule to candidateEditSpec.json, and notification to intent.json. Affects:
+    POST /editSpecs/fetches/apply/{job}/me
+    POST /editSpecs/fetches/apply/{job}/anonymous
+    POST /editSpecs/fetches/register/me
+    POST /editSpecs/fetches/register/anonymous
 
 Add schemas
 	postingFieldMeta.json
@@ -25,7 +35,6 @@ Change (breaking) - remove commonFields from job board object and replace with f
 	GET /jobBoards
 	GET /jobBoards/forApp
 
-
 2.01
 ====
 Change (non-breaking) - added optional field "sortable" to assessment types, allowing assessment apps to indicate that their results can be sorted. Affects:
@@ -35,10 +44,10 @@ Change (non-breaking) - added optional field "sortable" to assessment types, all
 New APIs
     POST /assessments/strips/byAssessmentType/{assessmentType}/forApplications/fetches
     POST /assessments/sorts
-    
+
 Change (non-breaking) - added optional field "embedMeta" to allow fetching item metadata at same time as results. Affects:
 	GET /applications
-	
+
 Change (non-breaking) - added optional field "sequence" to categoryValue.json for ordering of nodes. Affects:
 	POST /categories/byID/{}/values
 	GET /categories/byID/{}/values/remapped
@@ -51,7 +60,6 @@ Change (non-breaking) - added optional field "sequence" to categoryValue.json fo
 	GET /orgs/values
 	POST /categories/byID/{category}/values/uploads
 	POST /orgs/values/uploads
-	
+
 New API
 	PATCH /applications/byID/{}
-

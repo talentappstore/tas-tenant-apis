@@ -1,4 +1,4 @@
-var versions = [2.01];
+var versions = ['2.02', '2.01'];
 
 function detectVersion() {
 	

@@ -92,7 +92,6 @@
     "isPassFail",
     "canReuse",
     "userDescription",
-    "appCommunicatesDirectlyToCandidate",
     "image"
   ]
 }

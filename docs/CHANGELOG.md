@@ -16,7 +16,7 @@ Change (non-breaking) - add daysToExpireIsFixed to assessmentType.json. Affects:
     GET /assessmentTypes
     GET /assessmentTypes/forApp
 
-Change (breaking) - remove appCommunicatesDirectlyToCandidate from assessmentType.json. Affects:
+Change (non-breaking) - deprecate appCommunicatesDirectlyToCandidate from assessmentType.json. Affects:
 	GET /assessmentTypes
 	GET /assessmentTypes/byID/{}
 

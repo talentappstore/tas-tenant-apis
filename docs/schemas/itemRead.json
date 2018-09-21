@@ -188,8 +188,7 @@
       "additionalProperties": false,
       "required": [
         "type",
-        "name",
-        "value"
+        "name"
       ]
     },
     "numberItem": {

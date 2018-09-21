@@ -65,8 +65,6 @@
     "additionalProperties": false,
     "required": [
         "fileName",
-        "size",
-        "mediaType",
         "preSignedUri"
     ]
 }

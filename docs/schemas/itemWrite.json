@@ -75,28 +75,8 @@
     "cascadeChoices": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/cascadeChoice"
+        "$ref": "itemRead.json#/definitions/cascadeChoice"
       }
-    },
-    "cascadeChoice": {
-      "type": "object",
-      "properties": {
-        "choice": {
-          "type": "string",
-          "description": "the name of a choice that the user selected"
-        },
-        "subItems": {
-          "type": "array",
-          "items": {
-            "$ref": "#"
-          },
-          "description": "items unlocked based on a cascade choice"
-        }
-      },
-      "required": [
-        "choice"
-      ],
-      "additionalProperties": false
     },
     "picklistItem": {
       "type": "object",
@@ -155,13 +135,7 @@
     "tableRows": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/tableRow"
-      }
-    },
-    "tableRow": {
-      "type": "array",
-      "items": {
-        "$ref": "#"
+        "$ref": "itemRead.json#/definitions/tableRow"
       }
     }
   }

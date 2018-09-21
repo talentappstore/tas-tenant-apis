@@ -91,7 +91,7 @@
     "tableRow": {
       "type": "array",
       "items": {
-        "$ref": "#"
+        "$ref": "itemRead.json"
       }
     },
     "cascadeItem": {
@@ -132,7 +132,7 @@
         "subItems": {
           "type": "array",
           "items": {
-            "$ref": "#"
+            "$ref": "itemRead.json"
           },
           "description": "items unlocked based on a cascade choice"
         }
@@ -188,7 +188,8 @@
       "additionalProperties": false,
       "required": [
         "type",
-        "name"
+        "name",
+        "value"
       ]
     },
     "numberItem": {

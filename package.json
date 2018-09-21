@@ -1,0 +1,22 @@
+{
+  "name": "tas-tenant-apis",
+  "version": "1.0.0",
+  "description": "Talent App Store ======= [Talent App Store](http://www.talentappstore.com) is an open platform for integrating multi-tenanted HR microservices (apps).",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talentappstore/tas-tenant-apis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/talentappstore/tas-tenant-apis/issues"
+  },
+  "homepage": "https://github.com/talentappstore/tas-tenant-apis#readme"
+}

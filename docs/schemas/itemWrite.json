@@ -88,7 +88,7 @@
         "subItems": {
           "type": "array",
           "items": {
-            "$ref": "#"
+            "$ref": "itemWrite.json"
           },
           "description": "items unlocked based on a cascade choice"
         }
@@ -161,7 +161,7 @@
     "tableRow": {
       "type": "array",
       "items": {
-        "$ref": "#"
+        "$ref": "itemWrite.json"
       }
     }
   }

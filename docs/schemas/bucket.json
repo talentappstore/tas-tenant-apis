@@ -34,5 +34,5 @@
     "label",
     "phase"
   ],
-  "additionalProperties": false
+  "additionalProperties": true
 }

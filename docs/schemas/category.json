@@ -56,7 +56,6 @@
             "$ref": "#/definitions/rules"
         }
     },
-    "additionalProperties": true,
     "required": [
         "id",
         "name",

@@ -135,7 +135,13 @@
     "tableRows": {
       "type": "array",
       "items": {
-        "$ref": "itemRead.json#/definitions/tableRow"
+        "$ref": "#/definitions/tableRow"
+      }
+    },
+    "tableRow": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
       }
     }
   }

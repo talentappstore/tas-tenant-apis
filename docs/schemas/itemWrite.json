@@ -161,7 +161,7 @@
     "tableRow": {
       "type": "array",
       "items": {
-        "$ref": "itemwrite.json"
+        "$ref": "itemWrite.json"
       }
     }
   }

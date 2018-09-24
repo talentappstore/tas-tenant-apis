@@ -31,7 +31,6 @@
   },
   "required": [
     "id",
-    "label",
-    "phase"
+    "label"
   ]
 }

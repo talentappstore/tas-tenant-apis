@@ -151,6 +151,9 @@
     },
     "applicationModel": {
       "$ref": "#/definitions/applicationModel"
+    },
+    "categories": {
+      "$ref": "categories.json"
     }
   }
 }

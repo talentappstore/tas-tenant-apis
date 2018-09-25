@@ -54,6 +54,9 @@
         },
         "jobRules": {
             "$ref": "#/definitions/rules"
+        },
+        "values": {
+            "$ref": "categoryValues.json"
         }
     },
     "required": [

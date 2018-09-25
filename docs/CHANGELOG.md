@@ -1,3 +1,14 @@
+2.03
+====
+Changes intended to improve  generated from schemas by code generation tools
+ - allow additional properties on category and bucket
+ - add titles to schemas
+ - make 'phase' property of bucket.json optional
+
+Change (non-breaking) - add categories to candidateEditSpec.json, and add values to category.json. Affects:
+    GET /editSpecs (apps consuming this API should use the returned categories, rather than separately calling /categories)
+    GET /categories (apps consuming this should use the returned values, rather than separately calling /categories/byID/{category}/values)     
+
 2.02
 ====
 New APIs

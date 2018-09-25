@@ -1,5 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "jobsUpload",
     "type": "object",
     "properties": {
         "testFlag": {

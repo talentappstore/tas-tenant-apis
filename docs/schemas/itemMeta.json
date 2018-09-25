@@ -1,4 +1,5 @@
 {
+  "title": "itemMeta",
   "definitions": {
     "title": {
       "type": "string",
@@ -9,6 +10,7 @@
       "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
     },
     "sectionMeta": {
+      "title": "sectionMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -31,6 +33,7 @@
       }
     },
     "booleanMeta": {
+      "title": "booleanMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -76,6 +79,7 @@
       }
     },
     "numberMeta": {
+      "title": "numberMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -113,6 +117,7 @@
       }
     },
     "stringMeta": {
+      "title": "stringMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -152,6 +157,7 @@
       }
     },
     "dateMeta": {
+      "title": "dateMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -194,6 +200,7 @@
       }
     },
     "fileMeta": {
+      "title": "fileMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -235,6 +242,7 @@
       }
     },
     "tableMeta": {
+      "title": "tableMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -263,6 +271,7 @@
       }
     },
     "columns": {
+      "title": "columns",
       "type": "array",
       "items": {
         "$ref": "#"
@@ -270,6 +279,7 @@
       "description": "a series of itemMetas, each representing a column within the table"
     },
     "picklistMeta": {
+      "title": "picklistMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -309,6 +319,7 @@
       }
     },
    "picklistChoices": {
+      "title": "picklistChoices",
       "type": "array",
       "items": {
         "$ref": "#/definitions/picklistChoice"
@@ -316,6 +327,7 @@
       "description": "a bunch of choices that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
     },
     "picklistChoice": {
+      "title": "picklistChoice",
       "type": "object",
       "properties": {
         "name": {
@@ -332,6 +344,7 @@
       }
     },
     "cascadeMeta": {
+      "title": "cascadeMeta",
       "type": "object",
       "properties": {
         "type": {
@@ -371,6 +384,7 @@
       }
     },
     "cascadeChoices": {
+      "title": "cascadeChoices",
       "type": "array",
       "items": {
         "$ref": "#/definitions/cascadeChoice"
@@ -378,6 +392,7 @@
       "description": "a bunch of items that are 'unlocked' due to the user selecting their enclosing choice within the picklist"
     },
     "cascadeChoice": {
+      "title": "cascadeChoice",
       "type": "object",
       "properties": {
         "name": {

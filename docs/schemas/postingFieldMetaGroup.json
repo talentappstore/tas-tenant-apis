@@ -1,4 +1,5 @@
 {
+  "title": "postingFieldMetaGroup",
   "definitions": {
     "title": {
       "type": "string",

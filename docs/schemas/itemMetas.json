@@ -1,5 +1,6 @@
 {
-	"$schema":"http://json-schema.org/draft-04/schema#",
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "title": "itemMetas",
 	"type":"array",
 	"items":{ "$ref": "itemMeta.json" }
 }

@@ -1,5 +1,4 @@
 {
-  "title": "itemMeta",
   "definitions": {
     "title": {
       "type": "string",
@@ -318,7 +317,7 @@
         }
       }
     },
-   "picklistChoices": {
+    "picklistChoices": {
       "title": "picklistChoices",
       "type": "array",
       "items": {

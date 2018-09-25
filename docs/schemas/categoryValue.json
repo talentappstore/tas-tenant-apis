@@ -19,6 +19,7 @@
           "description": "longitude of this location"
         },
         "country": {
+          "title": "country",
           "description": "country, in ISO 3166-1 alpha-2 form",
           "enum": [
             "AC",

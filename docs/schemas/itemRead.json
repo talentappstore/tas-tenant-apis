@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "itemRead",
   "type": "object",
   "oneOf": [
     {
@@ -30,6 +29,7 @@
   ],
   "definitions": {
    "picklistItem": {
+      "title": "picklistItem",
       "type": "object",
       "properties": {
         "type": {
@@ -52,16 +52,19 @@
       ]
     },
     "pickChoices": {
+      "title": "pickChoices",
       "type": "array",
       "items": {
         "$ref": "#/definitions/pickChoice"
       }
     },
     "pickChoice": {
+      "title": "pickChoice",
       "type": "string",
       "description": "the name of a choice that the user selected"
     },
     "tableItem": {
+      "title": "tableItem",
       "type": "object",
       "properties": {
         "type": {
@@ -84,18 +87,21 @@
       ]
     },
     "tableRows": {
+      "title": "tableRows",
       "type": "array",
       "items": {
         "$ref": "#/definitions/tableRow"
       }
     },
     "tableRow": {
+      "title": "tableRow",
       "type": "array",
       "items": {
         "$ref": "itemRead.json"
       }
     },
     "cascadeItem": {
+      "title": "cascadeItem",
       "type": "object",
       "properties": {
         "type": {
@@ -118,12 +124,14 @@
       ]
     },
     "cascadeChoices": {
+      "title": "cascadeChoices",
       "type": "array",
       "items": {
         "$ref": "#/definitions/cascadeChoice"
       }
     },
     "cascadeChoice": {
+      "title": "cascadeChoice",
       "type": "object",
       "properties": {
         "choice": {
@@ -144,10 +152,12 @@
       "additionalProperties": false
     },
     "name": {
+      "title": "name",
       "type": "string",
       "description": "name of the item"
     },
     "booleanItem": {
+      "title": "booleanItem",
       "type": "object",
       "properties": {
         "type": {
@@ -171,6 +181,7 @@
       ]
     },
     "stringItem": {
+      "title": "stringItem",
       "type": "object",
       "properties": {
         "type": {
@@ -193,6 +204,7 @@
       ]
     },
     "numberItem": {
+      "title": "numberItem",
       "type": "object",
       "properties": {
         "type": {
@@ -216,6 +228,7 @@
       ]
     },
     "dateItem": {
+      "title": "dateItem",
       "type": "object",
       "properties": {
         "type": {
@@ -240,6 +253,7 @@
       ]
     },
     "fileItem": {
+      "title": "fileItem",
       "type": "object",
       "properties": {
         "type": {

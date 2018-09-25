@@ -1,5 +1,4 @@
 {
-  "title": "postingFieldMeta",
   "definitions": {
     "generalField": {
       "type": "object",

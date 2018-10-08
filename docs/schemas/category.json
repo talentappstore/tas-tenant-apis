@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
+    "title": "category",
     "description": "details of a a single category, identified by id or key (if a well-known category)",
     "definitions": {
         "rules": {

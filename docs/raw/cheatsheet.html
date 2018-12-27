@@ -94,10 +94,11 @@ create a <b>developer</b>.
  
 </td>
 <td>
+    <p><b><u>Note:</u></b> The purpose of this exercise is to help you understand what the customer journey would look like.</p>
 <ol>
-<li>Create an account at <a href="https://www.talentappstore.com" target="_blank">https://www.talentappstore.com</a>, then create a <b>tenant</b>.
-<li>Install <b>identity apps</b> as required (extra ways for users or candidates to sign in).
-<li>Ask the developer for an <b>install token</b> for their app, then enter the token to install the app.
+    <li>Create an account at <a href="https://www.talentappstore.com" target="_blank">https://www.talentappstore.com</a>, then create a <b>tenant</b>.</li>
+    <li>Install <b>identity apps</b> as required (extra ways for users or candidates to sign in).</li>
+    <li>Ask the developer for an <b>install token</b> for their app, then enter the token to install the app.</li>
 </ol>
 </td>
 </tr>
@@ -180,11 +181,18 @@ e.g. <a href='http://talentappstore.github.io/tas-core-apis/generated/coreIn.ram
 </th>
 <td class='uncommon'>
 <span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
-e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get' target="_blank">GET /jobs</a> --&gt; https://yourapp.com:8080/t/acme/devs/tas/jobs
+e.g. <a href='../generated/recruitment.raml.html#jobs_get' target="_blank">GET /jobs</a> --&gt; https://yourapp.com:8080/t/acme/devs/tas/jobs
+
 </td>
 <td>
 <span class='highlight'>/t/{tenant}/devs/{developer}&lt;api&gt;</span><br /><br />
-e.g. <a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#jobs_get' target="_blank">GET /jobs</a> --&gt; https://yourapp.tazzy.io/t/acme/devs/tas/jobs
+e.g. <a href='../generated/recruitment.raml.html#jobs_get' target="_blank">GET /jobs</a> --&gt; https://yourapp.tazzy.io/t/acme/devs/tas/jobs
+    <br /><br /><ul>
+        <li><b>yourapp</b> --&gt; your apps shortcode.</li>
+        <li><b>{tenant}</b> --&gt; customers tenant shortcode.</li>
+        <li><b>{developer}</b> --&gt; the shortcode for the developer that has created the API you wish to use.</li>
+        <li><b>&lt;api&gt;</b> --&gt; the API you wish to use e.g. /jobs.</li>
+    </ul>
 </td>
 </tr>
 

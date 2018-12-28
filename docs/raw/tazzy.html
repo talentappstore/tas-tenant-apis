@@ -61,13 +61,12 @@ color: #666666;
 </div>
 
 
-<h1>Connecting your app to tazzy and the internet</h1>
+<h1>Connecting your app to Tazzy and the internet</h1>
 
-<p>You connect your app to the internet by placing it behind the tazzy network proxy, a service provided by TAS.
+<p>You connect your app to the internet by placing it behind the Tazzy network proxy, a service provided by TAS.
 </p>
 
-<p>To connect tazzy to your app, you need to set the "back end server" field for your app to point at your server's public internet address.
-</p>
+<p>To connect Tazzy to your app, you need to set the <b>"Back end server"</b> field for your app to point at your server's public internet address.</p>
 
 <h1>Traffic flows to/from your app
 </h1>
@@ -152,10 +151,10 @@ the simplest of apps, you'll need to mount API endpoints in your server, and all
 
 <h1>About Tazzy</h1>
 
-<p>Once your app is sitting behind tazzy, all incoming API and SSO traffic passes through tazzy, as does all outgoing API traffic.
+<p>Once your app is sitting behind Tazzy, all incoming API and SSO traffic passes through Tazzy, as does all outgoing API traffic.
 </p>
 
-<p>Since tazzy works at the network level, instead of libraries/SDKs, you can build your app in any language/framework.
+<p>Since Tazzy works at the network level, instead of libraries/SDKs, you can build your app in any language/framework.
 </p>
 
 <p>Tazzy deals with:
@@ -209,20 +208,20 @@ the simplest of apps, you'll need to mount API endpoints in your server, and all
 </code>
 </pre>
 
-<p>Note: while developing your app, it can be convenient to run your server code on your personal machine and then use a tool like ngrok to expose it to the internet.
+<p><b>Note:</b> while developing your app, it can be convenient to run your server code on your personal machine and then use a tool like ngrok to expose it to the internet.
 </p>
 
-<h1>Securing your app's traffic to tazzy</h1>
+<h1>Securing your app's traffic to Tazzy</h1>
 
-<p>While tazzy handles all HMAC, OAuth and SAML on behalf of your app, the path between your app and tazzy should still be verified. To do this:
+<p>While Tazzy handles all HMAC, OAuth and SAML on behalf of your app, the path between your app and Tazzy should still be verified. To do this:
 <ul>
 <li><b>Incoming traffic:</b> Check that the incoming tazzy-secret request header matches the secret key of your app (you can find your app's secret key on the developer site), and reject all traffic that does not match.
 <li><b>Outgoing traffic:</b> Attach the tazzy-secret request header with the secret key of your app.
 </ul>
 
-<h1>Hosting tazzy yourself</h1>
+<h1>Hosting Tazzy yourself</h1>
 
-<p>In future Aotal plans to enable you to host the tazzy system within your own network. For now, your app must use the community tazzy, and the app settings pages in the developer site reflect this.
+<p>In future Aotal plans to enable you to host the Tazzy system within your own network. For now, your app must use the community Tazzy, and the app settings pages in the developer site reflect this.
 </p>
 
 <h1>API paths</h1>

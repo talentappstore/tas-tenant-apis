@@ -60,7 +60,7 @@ color: #666666;
 <div id="toc">
 </div>
 
-
+<h1>Getting started</h1>
 <p>One of the first things to achieve when building an app is producing APIs - i.e. getting the endpoints in your server hit
 correctly by other apps and by TAS itself, e.g.:
 <ul>
@@ -75,9 +75,9 @@ correctly by other apps and by TAS itself, e.g.:
 </p>
  
 <p>Let's now get some code working. A good place to start is to produce the core out API
-<a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post">POST /tenants/{tenant}</a>.
+<a href="http://talentappstore.github.io/tas-core-apis/generated/coreOut.raml.html#tenants_post" target="_blank">POST /tenants/{tenant}</a>.
 The TAS core (i.e. TAS itself) calls this API on your app whenever a tenant installs it. Its a good point for you to, e.g. insert
-a row into your customer table, end an email to your sales team, etc.
+a row into your customer table, send an email to your sales team, etc.
 </p>
 
 <p>First, create an actual API endpoint in your code. See the <a href="cheatsheet.html">Programming guide</a> for details of producing a core-out API.
@@ -96,7 +96,7 @@ Here's an example in Java/Spring (but you can build your app in any language/fra
 </code>
 </pre>	
 
-<p>Note the check that the incoming tazzy-secret key matches the secret key of your app (you can find your app's secret key on the developer site).
+<p>Check that the incoming tazzy-secret key matches the secret key of your app (you can find your app's secret key on the developer site).
 Its critical that you always perform this check, for all incoming traffic. Failing to do so would allow an attacker to call your APIs directly,
 bypassing all TAS security.
 </p>
@@ -121,7 +121,7 @@ curl \
 <p>You should see a log message from your own code telling you that your endpoint has been hit. Once you've achieved this, you're ready to move on.
 </p>
 
-<p>When your app is live, your endpoint will receive a legitimate payload like this: LINK. In the example above, we just sent a dummy payload.
+<p>When your app is live, your endpoint will receive a legitimate payload. In the example above, we just sent a dummy payload.
 </p> 
 
 
@@ -169,8 +169,8 @@ curl \
 <p>Now that your app's server is up and running on the internet, you need to update your app's definition so that TAS knows where it is.
 </p>
 
-<p>Open your app in the developer site, and click "tazzy". Your server is the upstream, so enter its address
-(in this example, https://02b4aeca.ngrok.io) into the "back end server" field, and save your changes.
+<p>Open your app in the developer site, and click "Tazzy". Your server is the upstream, so enter its address
+(in this example, https://02b4aeca.ngrok.io) into the "Back end server" field, and save your changes.
 </p>
 
 <h1>Test it</h1>
@@ -197,15 +197,15 @@ system, and then join the dots behind the scenes so that you know which of your 
 <p>The user experience will be:
 <ol>
 <li>The user clicks and installs your app.
-<li>The app renders your app with a red "setup required" icon displayed.
-<li>The user clicks on the setup icon, and is led to a web page in your app. Embedded in the link is the TAS tenant.
+<li>The app renders your app with a red "setup required" button displayed.
+<li>The user clicks on the "setup required" button, and is led to a web page in your app. Embedded in the link is the TAS tenant.
 <li>The user logs in to your system, which then records the link between that user's organization in your system and the TAS tenant that was passed across in the link.
 </ol>
 </p>
 
 <p>To break this down, the first thing you need to do is to cause the setup icon to be displayed on top of your app
 in the storefront. As with most things TAS, this happens via an API call (to the
-<a href="http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#appStatus_get">GET /appStatus</a> API in this case).
+<a href="../generated/recruitment.raml.html#appStatus_get" target="_blank">GET /appStatus</a> API in this case).
 </p>
 
 <p>You might expect this to be a core API call, but since the storefront itself is an app, this is a tenant API call (i.e., the storefont app is
@@ -213,7 +213,7 @@ the consumer and your app is the producer).
 </p>
 
 <p>The storefront app regularly tries to call GET /appStatus on every installed app. To cause the setup icon to be displayed,
-you just need to need to produce this API, and return a response with details of your setup screen.
+you just need to produce this API, and return a response with details of your setup screen.
 </p>
 
 

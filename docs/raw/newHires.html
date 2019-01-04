@@ -79,7 +79,7 @@ You can learn about views <a href='patterns.html#Application_views'>here</a>.
 <p>In this example, your app uses the pull model to maintain its set of recent new hires:
 
 <ol>
-<li>Your app consumes the pull API <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_get'>GET /applications/views/at/onboard/now</a>.
+<li>Your app consumes the pull API <a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_get' target="_blank">GET /applications/views/at/onboard/now</a>.
 <li>A new hire is made:
 <ol>
 <li>Fred applies for a job, resulting in a job application
@@ -103,12 +103,12 @@ You can learn about views <a href='patterns.html#Application_views'>here</a>.
 <p>In this example, your app uses the push model:
 
 <ol>
-<li>Your app produces the push API <a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post'>POST /applications/views/at/onboard/now/byID/{application}/pushes</a>.    
+<li>Your app produces the push API <a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post' target="_blank">POST /applications/views/at/onboard/now/byID/{application}/pushes</a>.
 <li>Fred applies for a job, resulting in a job application
 <li>The recruitment team moves the application into the "shortlist" phase and evaluates Fred's suitability
 <li>Eventually the team decides to hire Fred, and moves the application into the "onboard" phase.
 <li>Immediately, the applicant tracking system (ATS) notifies your app by consuming
-<a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post'>POST /applications/views/at/onboard/now/byID/{application}/pushes</a>
+<a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post' target="_blank">POST /applications/views/at/onboard/now/byID/{application}/pushes</a>
 on it.
 <li>The request body includes a view - a formatted json object containing all the data your app needs about the job application, the candidate, the job, and other
 resources such as the job's manager and recruiter. 
@@ -145,7 +145,7 @@ can be found publicly listed (find them with "Browse apps").
 <ol>
 <li>First, follow <a href='sandboxapps.html#Setup_to_create_a_job_application'>these instructions</a> to install Developer ATS and create a job application.
 <li>Return to Developer ATS and you should see the incoming job application (in the Incoming bucket).
-<li>Install the <b><a href="sandboxapps.html">Developer Alerts</a></b> app. This is a test app that listens to the push APIs, and emails the view to you.
+<li>Install the <b>Developer Alerts</b> app. This is a test app that listens to the push APIs, and emails the view to you.
 <li>Open and sign into Developer Alerts, and enable notifications for "Hire". 
 </ol>
 </p>
@@ -233,13 +233,13 @@ might show the "setup required" icon and a settings page to facilitate this.
 <h3>Example</h3>
 
 <pre><code>
-<a href='../generated/recruitment.raml.html#applications_views_at_hire_now_byID__application__pushes_post'>POST /applications/views/at/hire/now/byID/{application}/pushes</a>
+<a href='../generated/recruitment.raml.html#applications_views_at_hire_now_byID__application__pushes_post' target="_blank">POST /applications/views/at/hire/now/byID/{application}/pushes</a>
 
 Request:
 <div class='clientInclude' data-href='../examples/applicationRead-basicView.json'></div>
 </code></pre>
 
-<p>Each incoming POST to your app's endpoint contains a <a href='patterns.html#Application_views'>view</a>, with details about the new hire.
+<p>Each incoming POST to your app's endpoint contains a <a href='patterns.html#Application_views' target="_blank">view</a>, with details about the new hire.
 </p>
 
 <p>The view is customised by the customer to include only the fields that you need for the integration.

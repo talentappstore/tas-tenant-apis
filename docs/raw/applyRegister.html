@@ -65,29 +65,29 @@ color: #666666;
 
 <p>This scenario involves these apps:
 <ol>
-<li>jobly, a simple ATS that renders the opening details page with an "apply now" button embedded in it
-<li>simpleapply, an app that provides the "apply now" user interface, and pushes the job application into the ATS
-<li>tracker, an app that provides the TAS tracker functionality
+<li>Developer Career Site, a simple ATS that renders the opening details page with an "apply now" button embedded in it
+<li>Simple Apply, an app that provides the "apply now" user interface, and pushes the job application into the ATS
+<li>Tracker, an app that provides the TAS tracker functionality
 </ol>
 </p>
 
 <p>In this scenario, a candidate:
 <ol>
-<li>visits the tenant's corporate careers site hosted by jobly to look at a specific opening
-<li>clicks apply now
-<li>is sent to the simpleapply app
-<li>logs in using Google
-<li>completes a job application   
+<li>Visits the tenant's corporate careers site hosted by jobly to look at a specific opening
+<li>Clicks apply now
+<li>Is sent to the Simple Apply app
+<li>Logs in using Google
+<li>Completes a job application
 </ol>
 </p>
 
-<p>Other scenarios that are also handled by simpleapply, but not covered in this doc:
+<p>Other scenarios that are also handled by Simple Apply, but not covered in this doc:
 <ol>
 <li>Candidate "registers" interest (does not apply for any specific job), possibly for a given category (e.g. Marketing)
-<li>Candidate views their "existing data" (e.g. their resume, profile) using simpleapply, but within some larger container that lets also navigate to:
+<li>Candidate views their "existing data" (e.g. their resume, profile) using Simple Apply, but within some larger container that lets also navigate to:
 <ul>
 <li>their in progress job applications
-<li>their draft job applications (held by simpleapply)
+<li>their draft job applications (held by Simple Apply)
 </ul>
 <li>Candidate applies for a shopping cart of jobs in one operation
 <li>candidate clicks on a job they have already have a draft for
@@ -176,7 +176,7 @@ https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.co
 </code></pre>
 </p>
 
-<p>The candidate clicks on the simpleapply link and is directed to the apply form.
+<p>The candidate clicks on the Simple Apply link and is directed to the apply form.
 </p>
 
 <h1>Apply form</h1>
@@ -187,25 +187,25 @@ https://acme.simpleapply.com/jobs/7622?tracker=763019932&relayPage=acme.jobly.co
 </code></pre>
 </p>
 
-<p>simpleapply renders its apply form slightly differently depending on whether a candidate is logged in or not.
+<p>Simple Apply renders its apply form slightly differently depending on whether a candidate is logged in or not.
 An anonymous visitor can't complete the form but can only view it. An anonymous visitor also sees the login disco panel
 embedded at the top of the page.</p>
 
-<p>simpleapply has the loggedIn filter described in <a href='conventions.html'>conventions.html</a>, but the filter doesn't fire
+<p>Simple Apply has the loggedIn filter described in <a href='conventions.html'>conventions.html</a>, but the filter doesn't fire
 since loggedIn = false.
 </p>
 
 <p>The page is white listed in the proxy's SSO settings.</p>
 
-<p>simpleapply checks for the tazzy-saml header. Even though this page is white listed, its possible the candidate did log in previously
-somewhere else on simpleapply. In this example, the header is not present.
+<p>Simple Apply checks for the tazzy-saml header. Even though this page is white listed, its possible the candidate did log in previously
+somewhere else on Simple Apply. In this example, the header is not present.
 </p>
 
 <h2>Render for non-logged in candidate</h2>
 
-<p>simpleapply's goal is to show as much as possible of the apply "form" to the
+<p>Simple Apply's goal is to show as much as possible of the apply "form" to the
 candidate, so that they can assess how much work it will be, and hopefully be
-enticed by simpleapply's support for cloud storage (dropbox etc.) for resumes,
+enticed by Simple Apply's support for cloud storage (dropbox etc.) for resumes,
 mobile-friendly UI, ease of login via social networks, etc.
 </p>
 
@@ -214,18 +214,18 @@ identity system as per <a href='conventions.html'>conventions.html</a>.
 </p>
 
 
-<h2>simpleapply fetches edit spec for non-logged in candidate</h2>
+<h2>Simple Apply fetches edit spec for non-logged in candidate</h2>
 
-<p>In this example the candidate is not yet logged in, simpleapply can't check for role==internal
+<p>In this example the candidate is not yet logged in, Simple Apply can't check for role==internal
 on the TAS session - instead it can only show those questions that an external candidate would need to answer.
-If the job is internal only, simpleapply would show no details at all, and would only offer the candidate a way
+If the job is internal only, Simple Apply would show no details at all, and would only offer the candidate a way
 to log in (so they could prove they were internal).
 </p>
 
 <p>Deciding what to display to the candidate may involve complex logic, which
-does not belong inside simpleapply, but is more likely in the ATS.</p>
+does not belong inside Simple Apply, but is more likely in the ATS.</p>
 
-<p>simpleapply asks for an <b>edit spec</b> for applying to this job by an anonymous candidate.  
+<p>Simple Apply asks for an <b>edit spec</b> for applying to this job by an anonymous candidate.
 
 
 <pre><code>
@@ -241,11 +241,11 @@ Request:
 anonymous candidate (we look in more detail later).</p>
 
 <p>We want them to see how easy the process was, but so that no-one can actually apply until they are logged in,
-simpleapply renders the form with all fields disabled.  
+Simple Apply renders the form with all fields disabled.
 </p>
 
 
-<h1>Candidate logs in to simpleapply</h1>
+<h1>Candidate logs in to Simple Apply</h1>
 
 <p>The candidate sees the apply form, and decides that they are prepared to invest
 their time in applying, so logs in using Google (within the iframe-ed panel).
@@ -270,21 +270,21 @@ and the candidate is looking at the logged in page.
 
 <p>Now the candidate has logged in, their roles are available (e.g. role == internal).</p> 
 
-<p>Simpleapply re-renders its page, now knowing who the candidate is.
+<p>Simple Apply re-renders its page, now knowing who the candidate is.
 </p>
 
-<h1>Simpleapply renders its page (candidate logged in)</h1>
+<h1>Simple Apply renders its page (candidate logged in)</h1>
 
 <h2>Re-fetch the edit spec</h2>
 
 <h3>Absorb the candidate's existing information into the intent</h3>
 
-<p>Now that the candidate has logged in, simpleapply is ready to re-fetch the application form,
+<p>Now that the candidate has logged in, Simple Apply is ready to re-fetch the application form,
 this time for real (e.g. maybe now jobly knows who the candidate is, it can detect they've been black-listed and prevent the apply altogether).</p>
 
 <h3>Design decision - replace vs. merge of the candidate's categories</h3>
 
-<p>The <b>POST /candidates/me</b> API, which simpleapply will
+<p>The <b>POST /candidates/me</b> API, which Simple Apply will
 eventually use to push the edit into the jobly ATS, supports two modes for setting the candidate's categories.
 <dl>
 
@@ -297,7 +297,7 @@ online scenarios, like a conventional apply form, where the candidate logs in an
 new and existing categories to them for tailoring.</dd>
 </dl>
 
-<p>Simpleapply uses <b>replace</b> semantics. Read the rest of this section for more details or skip on.</p> 
+<p>Simple Apply uses <b>replace</b> semantics. Read the rest of this section for more details or skip on.</p>
 
 <p>TODO: make clearer.</p>
 
@@ -307,12 +307,12 @@ we might find some categories in there that were implied by the job for example 
 job "Co-pilot long-haul, Pacific" might imply expertise == pilot, which might in turn unlock some
 data entry fields to do with being a pilot.</p>
 
-<p>However simpleapply now wants to merge in any existing category values that <b>the candidate already
+<p>However Simple Apply now wants to merge in any existing category values that <b>the candidate already
 has</b> (assuming they have a row in the ATS).</p>
 
 <p>For example the candidate might have previously profiled themselves as expertise == CEO.</p>
 
-<p>Simpleapply's philosophy is to encourage candidates to keep their profiles accurate, so in this
+<p>Simple Apply's philosophy is to encourage candidates to keep their profiles accurate, so in this
 case it wants to add CEO to the intent.</p>
 
 <p>This may result in the apply form containing information relevant
@@ -321,11 +321,11 @@ and has forgot that they had partially profiled themselves as CEO. On the other 
 to unprofile themselves as CEO, keeping the database cleaner.
 </p>
 
-<p>In summary, simpleapply uses the philosophy of presenting to the candidate their entire category selections,
+<p>In summary, Simple Apply uses the philosophy of presenting to the candidate their entire category selections,
 allowing them to make changes, and then completely overwriting (with semantics == replace) the categories
 on their candidate record.<p>
 
-<p>Another philosophy would be for simpleapply to only present the categories related
+<p>Another philosophy would be for Simple Apply to only present the categories related
 to the job the candidate was applying to, ignoring any other stuff lurking on their
 candidate record, and then use semantics == merge when applying the changes to the
 candidate record (via POST /candidates). The advantage to this is that the candidate only has to
@@ -333,7 +333,7 @@ provide valid data for the job they are applying to, and does not have to clean 
 
 <h3>Fetching the candidate's existing information into the intent</h3>
  
-<p>Since simpleapply is going to use replace semantics for the candidate's categories, it now needs to
+<p>Since Simple Apply is going to use replace semantics for the candidate's categories, it now needs to
 create a merged set of the candidate's existing category values and the category values indicated in the edit spec.
 
 <pre><code>
@@ -344,7 +344,7 @@ Response:
 </code></pre>
 </p>
 
-<p>If the API returns 404, the candidate does not already exist. Simpleapply just uses the values from the edit spec in this case.
+<p>If the API returns 404, the candidate does not already exist. Simple Apply just uses the values from the edit spec in this case.
 
 <p>Now:
 <ol>
@@ -356,7 +356,7 @@ Response:
 </li>
 </ol>
 
-<p>Simpleapply again fetches the edit spec, this time using the new intent, and the on-behalf API</p>
+<p>Simple Apply again fetches the edit spec, this time using the new intent, and the on-behalf API</p>
 
 <pre><code>
 POST /editSpecs/fetches/apply/7622/me
@@ -396,22 +396,22 @@ the message should explain to the candidate what and why). For example:</p>
 
 TODO.
 
-<p>Great! Now simpleapply has the details it needs to begin building its UI.</p>
+<p>Great! Now Simple Apply has the details it needs to begin building its UI.</p>
 
 
 
 <h2>Set up UI</h2>
 
-<p>Simpleapply creates the UI that it will display to the candidate.</p>
+<p>Simple Apply creates the UI that it will display to the candidate.</p>
 
-<p>To populate the UI, simpleapply will merge data in from:
+<p>To populate the UI, Simple Apply will merge data in from:
 <ul>
 <li>the edit spec (it has default values for some fields, and also contains the category values)
 <li>from any existing draft for the job being applied for
 <li>from the existing candidate record if there is one (but not its category values)
 </ul>
 
-<p>Simpleapply uses a merge strategy that prevents an old draft from overwriting candidate details. E.g. candidate
+<p>Simple Apply uses a merge strategy that prevents an old draft from overwriting candidate details. E.g. candidate
 starts to apply for A, saves as a draft with empty personal details, then moves on and applies to B with
 completed personal details, then returns to apply for A. We don't want the empty personal details on the draft for A
 to overwrite the filled in details on the candidate record.
@@ -419,17 +419,17 @@ to overwrite the filled in details on the candidate record.
 
 <h3>Display the message</h3>
 
-<p>At the top of the page, simpleapply displays the message (if any) in the style suggested. In a situation where the job is internal only,
+<p>At the top of the page, Simple Apply displays the message (if any) in the style suggested. In a situation where the job is internal only,
 and the candidate is not internal, there might be nothing displayed but the message. In other situations there might be no message at all.</p> 
 
 <h3>Set up input fields and controls</h3>
 
-<p>Simpleapply now uses the information from the candidateModel and applicationModel sections to set up the UI - i.e. when
+<p>Simple Apply now uses the information from the candidateModel and applicationModel sections to set up the UI - i.e. when
 applying for a job, these are more or less the application form.</p>
 
 <h3>vcard</h3>
 
-<p>Simpleapply gets existing vcard values:
+<p>Simple Apply gets existing vcard values:
 <pre><code>
 GET /candidates/me/vcard
 
@@ -446,8 +446,8 @@ section(s). These should be loaded into the input controls.</p>
 
 <h3>Populate category controls</h3>
 
-<p>Since categories may be large (e.g. a definitive list of every county in the US) it's up to simpleapply to decide
-how to fetch all possible values so the user can select. For small categories, simpleapply might fetch the entire
+<p>Since categories may be large (e.g. a definitive list of every county in the US) it's up to Simple Apply to decide
+how to fetch all possible values so the user can select. For small categories, Simple Apply might fetch the entire
 category. For larger ones, it might use ajax calls to only fetch values as, say, the user clicks to expand a node in the hierarchy.
 </p>
 
@@ -463,7 +463,7 @@ GET /categories/10033/values
 
 <h2>Fetch previously entered data</h2>
 
-<p>Once the UI has been laid out, simpleapply next needs to load the fields with any existing data (this only
+<p>Once the UI has been laid out, Simple Apply next needs to load the fields with any existing data (this only
 applies when there is an existing candidate record). Specifically:
 
 <ul>
@@ -485,7 +485,7 @@ etc..
 
 <h4>Load existing resume</h4>
 
-<p>Simpleapply fetches details of the candidate's existing resume (not the stream itself which might be enormous)
+<p>Simple Apply fetches details of the candidate's existing resume (not the stream itself which might be enormous)
 
 TODO
 
@@ -497,7 +497,7 @@ Response:
 </code></pre>
 </p>
 
-<p>Simpleapply also displays a link which the candidate can click through on to open their existing resume document. 
+<p>Simple Apply also displays a link which the candidate can click through on to open their existing resume document.
 
 TODO
 
@@ -508,7 +508,7 @@ GET /candidates/me/resume/asStream
 
 <h4>Load details of existing applications</h4>
 
-<p>If the candidate already has a record in the database, Simpleapply now loads up any
+<p>If the candidate already has a record in the database, Simple Apply now loads up any
 previously entered candidate data for the job application(s).</p>    
 
 <p>Normally candidates are applying from scratch, so there is no previous data, and then once
@@ -535,7 +535,7 @@ GET /applications/902533/items
 
 <h3>Using data from the TAS session</h3>
 
-TODO: clarify that simpleapply can access name, image, email off of the SAML assertion using the new helper API.
+TODO: clarify that Simple Apply can access name, image, email off of the SAML assertion using the new helper API.
 
 Pre-populate fields in the UberApply form 
 
@@ -543,16 +543,16 @@ Pre-populate fields in the UberApply form
 
 <h1>Candidate fills out apply form</h1>
 
-<p>simpleapply now renders the page to the candidate, who can start editing, selecting and generally completing the form.</p> 
+<p>Simple Apply now renders the page to the candidate, who can start editing, selecting and generally completing the form.</p>
 
 <h2>Candidate uploads a new resume</h2>
 
-<p>The candidate wants to replace their existing resume, so uploads a new document which simpleapply stores somewhere, perhaps
+<p>The candidate wants to replace their existing resume, so uploads a new document which Simple Apply stores somewhere, perhaps
 in a temporary file.</p>   
 
 <h2>Save draft</h2>
 
-<p>simpleapply includes split-level draft functionality. This prevents candidate details being overwritten.
+<p>Simple Apply includes split-level draft functionality. This prevents candidate details being overwritten.
 </p>
 
 <pre>
@@ -565,18 +565,18 @@ On successful submission
       Candidate level draft is deleted
 </pre>
 
-<p>The ATS (jobly) is unaware of any draft functionality, simpleapply only pushes completed edits to it.</p> 
+<p>The ATS (jobly) is unaware of any draft functionality, Simple Apply only pushes completed edits to it.</p>
 
 
 <h2>Candidate edits categories</h2>
 
-<p>While the candidate is using simpleapply, they may change their categories.</p>
+<p>While the candidate is using Simple Apply, they may change their categories.</p>
 
-<p>If they do, then simpleapply must re-fetch the edit spec, since a change in categories may
+<p>If they do, then Simple Apply must re-fetch the edit spec, since a change in categories may
 result in knock on changes in the amended intent, and in the input model (e.g. a candidate who
 adds expertise == pilot must now answer additional questions).</p>
 
-<p>This may be quite involved for simpleapply, as it needs to temporarily
+<p>This may be quite involved for Simple Apply, as it needs to temporarily
 preserve any data from the fields (perhaps using its own draft functionality), rebuild the UI
 using the new edit spec, then reapply that data.</p> 
 
@@ -786,7 +786,7 @@ if (deviceClass == null)
  
 <h1>Candidate is redirected back to job details page</h1>
 
-<p>Based on the http result from the event post, simpleapply then displays the "Successful" page.</p>
+<p>Based on the http result from the event post, Simple Apply then displays the "Successful" page.</p>
 
 <p>A button on that page links the user back to the relay page (i.e the
 original job details page in this example of applying for a job).</p>

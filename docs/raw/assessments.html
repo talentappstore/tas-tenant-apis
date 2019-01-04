@@ -89,8 +89,8 @@ color: #666666;
 
 <p>See also:
 <ul>
-<li><a href='https://github.com/talentappstore/gauge'>A demo assessment app</a>, written in Java/Spring.
-<li><a href='https://github.com/talentappstore/imageGen'>A demo dynamic image generator for assessment apps</a>, written in node.js.
+<li><a href='https://github.com/talentappstore/gauge' target="_blank">A demo assessment app</a>, written in Java/Spring.
+<li><a href='https://github.com/talentappstore/imageGen' target="_blank">A demo dynamic image generator for assessment apps</a>, written in node.js.
 </ul>
 </p>
 
@@ -106,7 +106,7 @@ There are no charges for partial/incomplete assessments.
 </p>
 
 <p>As for any app in Talent App Store, your app also pays for core API calls,
-as described at <a href='http://developer.talentappstore.com'>http://developer.talentappstore.com</a>. These costs are low.
+as described in <a href='../doc/commercials.html'>"Commercials and pricing"</a>. These costs are low.
 </p>
 
 
@@ -126,9 +126,9 @@ can be found publicly listed (find them with "Browse apps").
 <ol>
 <li>Return to Developer ATS and you should see the incoming job application (in the Incoming bucket)
 <li>There are no assessments showing in the assessment strip, so lets add one.
-<li>Install the <b><a href="sandboxapps.html">Picket</a></b> assessment app. The picket assessment measures a candidate's ability to deliver
+<li>Install the <b>Picket</b> assessment app. The picket assessment measures a candidate's ability to deliver
 customer service by asking them to choose from several images representing good service.
-<li>Install the <b><a href="sandboxapps.html">Assessment app (user)</a></b> assessment app.
+<li>Install the <b>Assessment app (user)</b> assessment app.
 <li>Click refresh on the job application. Now, against the application, you should see the assessment strip display 3 boxes, one
 for each assessment type (the picket assessment has one type, the other assessment app has 2).
 </ol>
@@ -262,7 +262,7 @@ might show the "setup required" icon and a settings page to facilitate this.
 <h3>Example</h3>
 
 <pre><code>
-<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_get'>GET /assessmentTypes/forApp</a>
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_get' target="_blank">GET /assessmentTypes/forApp</a>
 
 Response:
 <div class='clientInclude' data-href='../examples/assessmentTypesForApp-simple.json'></div>
@@ -281,7 +281,7 @@ on your app to ask for your assessment types.
 
 <h4>Details that can be passed about each assessment type</h4>
 
-<p>See the assessment type <a href='../schemas/assessmentType.json'>schema</a> for a detailed description of every property
+<p>See the assessment type <a href='../schemas/assessmentType.json' target="_blank">schema</a> for a detailed description of every property
 you can pass for your assessment types.
 </p>
 
@@ -304,7 +304,7 @@ an empty set of assessment types.
 </p>
 
 <p>Then, later on when your app's setup is complete, tell the assessment hub that you have new assessment types by consuming
-<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>. In
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post' target="_blank">POST /assessmentTypes/forApp/deltaPings/1</a>. In
 response the hub will consume GET /assessmentTypes/forApp on your app.
 </p>
 
@@ -342,7 +342,7 @@ one year, then that previous result will be reused.
 <h3>Example</h3>
 
 <pre><code>
-<a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post' target="_blank">POST /assessments/byID/{id}/tenantDeltaPings</a>
 
 Request:
 <div class='clientInclude' data-href='../examples/deltaPing-simple.json'></div>
@@ -374,7 +374,7 @@ database, then this is a new assessment, otherwise it is an update to an existin
 
 <h3>Updates or deletes to existing assessments (future)</h3>
 
-<p>In the future, your app may be informed via <a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post'>POST /assessments/byID/{id}/tenantDeltaPings</a>
+<p>In the future, your app may be informed via <a href='../generated/recruitment.raml.html#assessments_byID__id__tenantDeltaPings_post' target="_blank">POST /assessments/byID/{id}/tenantDeltaPings</a>
  that an assessment has been deleted (e.g. in response to a privacy response, or to conform to data retention laws). In response, your app should clean up data held its own database relating to the assessment. 
 </p>
 
@@ -388,7 +388,7 @@ app should stop whatever it is doing with the candidate.
 <h3>Example</h3>
 
 <pre><code>
-<a href='../generated/recruitment.raml.html#assessments_byID__id__get'>GET /assessments/byID/{id}</a>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__get' target="_blank">GET /assessments/byID/{id}</a>
 
 Response:
 <div class='clientInclude' data-href='../examples/assessmentRead-created.json'></div>
@@ -410,7 +410,7 @@ view key. You use the view key in the next step to fetch data about the candidat
 <h3>Example</h3>
 
 <p><pre><code>
-<a href='../generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a>
+<a href='../generated/recruitment.raml.html#applications_views_byKey__key__get' target="_blank">GET /applications/views/byKey/{key}</a>
 
 Response:
 <div class='clientInclude' data-href='../examples/applicationRead-simple.json'></div>
@@ -463,7 +463,7 @@ This is easier for the customer, and makes your app much more "on demand". Howev
 <h3>Example</h3>
 
 <p><pre><code>
-<a href='../generated/recruitment.raml.html#assessments_byID__id__appDetails_patch'>PATCH /assessments/byID/{id}/appDetails</a>
+<a href='../generated/recruitment.raml.html#assessments_byID__id__appDetails_patch' target="_blank">PATCH /assessments/byID/{id}/appDetails</a>
 
 Request:
 <div class='clientInclude' data-href='../examples/assessmentWriteByApp-underway.json'></div>
@@ -625,7 +625,7 @@ in (unless they choose to). This is useful in the tightly packed screens in a ty
 </p> 
 
 <p>You can simply serve up a static image, or generate your images dynamically, e.,g. passing in the candidate's score as a URL parameter. For an
-example of this, see this <a href='https://github.com/talentappstore/imageGen'>demo dynamic image generator for assessment apps</a>, written in node.js.
+example of this, see this <a href='https://github.com/talentappstore/imageGen' target="_blank">demo dynamic image generator for assessment apps</a>, written in node.js.
 </p>
 
 <p>Users will appreciate an image which is a great visual representation of your assessment:
@@ -729,7 +729,7 @@ measure designed to stop your page from being framed - but in this case, that's 
 
 <p>
 <pre><code>
-<a href='../generated/recruitment.raml.html#candidates_me_homePage_get'>GET /candidates/me/homePage</a>
+<a href='../generated/recruitment.raml.html#candidates_me_homePage_get' target="_blank">GET /candidates/me/homePage</a>
 
 Response:
 <div class='clientInclude' data-href='../examples/homePage-simple.json'></div>
@@ -746,7 +746,7 @@ otherwise keep them updated.
 
 <p>
 <pre><code>
-<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post'>POST /assessmentTypes/forApp/deltaPings/1</a>
+<a href='../generated/recruitment.raml.html#assessmentTypes_forApp_deltaPings_1_post' target="_blank">POST /assessmentTypes/forApp/deltaPings/1</a>
 </code></pre>
 </p>
 
@@ -788,7 +788,7 @@ applicants by your results. An API call is made to the POST /assessments/sorts e
 
 
 <pre><code>
-<a href='../generated/recruitment.raml.html#assessments_sorts_post'>POST /assessments/sorts</a>
+<a href='../generated/recruitment.raml.html#assessments_sorts_post' target="_blank">POST /assessments/sorts</a>
 
 Request:
 <div class='clientInclude' data-href='../examples/ids-assessments.json'></div>

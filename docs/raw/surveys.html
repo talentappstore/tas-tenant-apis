@@ -84,7 +84,7 @@ any IP rights to it. Also the APIs you will use are all open source, so you're f
 can write and host your app using whatever tools and technologies you already use.
 </p> 
 
-<p>For more about TAS, see <a href='http://www.talentappstore.com'>http://www.talentappstore.com</a>.
+<p>For more about TAS, see <a href='http://www.talentappstore.com' target="_blank">http://www.talentappstore.com</a>.
 
 
 <h1>Steps</h1>
@@ -124,7 +124,7 @@ you would have to use GET /applications/byPhase/decline/complete when your app c
 
 <p>2) Define your app, giving it a name, logo etc. Make a note of your app's secret key - you'll need this later. Don't share this with anyone.
 Finally, define the APIs that your app consumes - in this case,
-<a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#applications_byPhase_decline_complete_get'>GET /applications/byPhase/decline/complete</a> (make sure you specify source of truth == true):
+<a href='../generated/recruitment.raml.html#applications_byPhase_decline_complete_get' target="_blank">GET /applications/byPhase/decline/complete</a> (make sure you specify source of truth == true):
 </p>
 
 <p>Later on, you'll write some code and then attach your actual servers. But for now, lets install your app and start making some API calls from the command line.
@@ -143,7 +143,7 @@ Since installing an ATS and getting test data into it can be something of a big 
 going to use and is pre-loaded with test data.
 </p>
 
-<p>5) Click <a href='blah'>
+<p>5) Click <a href='sandboxapps.html'>
 here</a> to install the mock applications app into your tenant.
 
 <p>Now you're ready to make an API call to fetch declined applications. We'll use the familiar curl command.
@@ -202,8 +202,8 @@ To obtain the mapping from those ids into actual values (e.g. 2013 == Auckland),
 
 <p>7) At the developer site, update your app so that it consumes these APIs (again, as source of truth).
 <ul>
-<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_get'>GET /categories</a>
-<li><a href='http://talentappstore.github.io/tas-tenant-apis/generated/recruitment.raml.html#categories_byID__category__values_get'>GET /categories/byID/{}/values</a>
+<li><a href='../generated/recruitment.raml.html#categories_get' target="_blank">GET /categories</a>
+<li><a href='../generated/recruitment.raml.html#categories_byID__category__values_get' target="_blank">GET /categories/byID/{}/values</a>
 </ul>
 </p>
 

@@ -70,10 +70,10 @@ color: #666666;
 
 <p>Many of Aotal's tenant APIs present information about job applications in the form of an <b>application view</b>. For example:
 <ul>
-<li>Assessment apps consume <a href='../generated/recruitment.raml.html#applications_views_byKey__key__get'>GET /applications/views/byKey/{key}</a> to get details of the job application and its candidate, job, etc.
-<li>Onboarding apps can either consume <a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_get'>GET /applications/views/at/onboard/now</a>
+<li>Assessment apps consume <a href='../generated/recruitment.raml.html#applications_views_byKey__key__get' target="_blank">GET /applications/views/byKey/{key}</a> to get details of the job application and its candidate, job, etc.
+<li>Onboarding apps can either consume <a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_get' target="_blank">GET /applications/views/at/onboard/now</a>
 to get details of recent applications that have reached the onboarding stage, or can produce
-<a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post'>POST /applications/views/at/onboard/now/byID/{application}/pushes</a>
+<a href='../generated/recruitment.raml.html#applications_views_at_onboard_now_byID__application__pushes_post' target="_blank">POST /applications/views/at/onboard/now/byID/{application}/pushes</a>
 to get a view pushed to them in real time as soon as a candidate reaches the onboarding stage.
 <li>Similar APIs exist for lerning about hired, declined, screened etc. candidates.
 </ul>
@@ -399,7 +399,7 @@ ferret->repstate: POST /repstates/ferret/tas/%2Fcandidates\n{"loading"":false,la
 <ul>
 <li>Alert secondaries of a change to a master record, e.g. <b>POST /jobs/{jobID}/deltaPings</b>.<br />
 (The primary must queue pings in the event of any secondary being unavailable, until it becomes available again - it
-might use something like a <a href='./broadcast.html'>broadcast service</a> to achieve this). 
+might use something like a broadcast service to achieve this).
 </ul>
 </ul>
 

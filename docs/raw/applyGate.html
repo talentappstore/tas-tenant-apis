@@ -105,7 +105,7 @@ of quiz within your app.
 </p>
 
 <p>The first step then is to complete the steps described in
-<a href="buttons.html">buttons</a> for your app.
+<a href="buttons.html"> "Career site buttons"</a> for your app.
 </p>
 
 <p>Once you've got your own button appearing to the candidate, return here.
@@ -114,7 +114,7 @@ of quiz within your app.
 
 <h1>Install required apps</h1>
 
-<p>You should already have several apps installed from the steps in <a href="buttons.html">buttons.html</a>.
+<p>You should already have several apps installed from the steps in <a href="buttons.html">"Career site buttons"</a>.
 </p>  
 
 <p>Since your app requires SSO, you'll need to install at least one identity app with principal type == candidate (e.g. allow candidates to sign in with Google).
@@ -181,9 +181,7 @@ https://&lt;your app&gt;.communityapps.aotal.com/t/{tenant}/quiz/{quiz}
 
 <ul>
 <li>if there is a result, redirect them back to the relay page, but add 
-<a href='http://talentappstore.github.io/tas-tenant-apis/doc/conventions.html#Add_the_isSignedIn_parameter_to_outgoing_links'>
-?isSignedIn=candidate
-</a> to the url, so that the ATS knows they are now signed in. This will eventually cause the ATS to re-fetch all
+<b>?isSignedIn=candidate</b> to the url, so that the ATS knows they are now signed in. This will eventually cause the ATS to re-fetch all
 buttons, this time for a signed in candidate. You might choose to inject a results page reminding the candidate what their previous result was before the above redirect.  
 <li>if there is no result, redirect the candidate to your quiz.
 </ul>
@@ -196,10 +194,8 @@ buttons, this time for a signed in candidate. You might choose to inject a resul
 
 <ol>
 <li>store the result in your database (pass/fail), keyed by email address
-<li>redirect the candidate back to the relay page, but add 
-<a href='http://talentappstore.github.io/tas-tenant-apis/doc/conventions.html#Add_the_isSignedIn_parameter_to_outgoing_links'>
-?isSignedIn=candidate
-</a> to the url, so that the ATS knows they are now signed in
+<li>redirect the candidate back to the relay page, but add
+<b>?isSignedIn=candidate</b> to the url, so that the ATS knows they are now signed in
 </ol>
   
 <h2>Verify the candidate can now apply</h2>

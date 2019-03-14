@@ -92,24 +92,15 @@ color: #666666;
 
                     <h2>Install apps and prepare test data</h2>
 
-                    <p>First, follow these instructions to install Developer ATS and create a job application. Then:</p>
+                    <p>First, follow <a href="./sandboxapps.html">these instructions</a> to install Developer ATS and create a job. Then:</p>
 
                     <ol>
                         <li>Install the publicly listed Job Board Hub app in Talent App Store.</li>
-                        <li>Return to Developer ATS and you should see a panel showing on the right hand side of the
-                            job.
-                        </li>
-                        <li>There are no Job Boards currently setup so you will not be able to post a new advertisement,
-                            you can installed the "Demo Job Board" app.
-                        </li>
-                        <li>Click refresh on the job within Developer ATS. Now, in the panel within the Job, you should
-                            now see the Demo Job Board app as a selectable option to submit a new advertisement to.
-                        </li>
-                        <li>Submit a new advertisement and the panel will now display some information about the
-                            advertisement that was just submitted.
-                        </li>
+                        <li>Return to Developer ATS and you should see a panel showing on the right hand side of the job.</li>
+                        <li>There are no Job Boards currently setup so you will not be able to post a new advertisement, create your app in Talent App Store and produce the APIs outlined in the documentation below.</li>
+                        <li>Click refresh on the job within Developer ATS. Now, in the panel within the Job, you should now see the Job Board app that you have created as a selectable option to submit a new advertisement to.</li>
+                        <li>Once you are able to, submit a new advertisement and the panel will now display some information about the advertisement that was just submitted.</li>
                     </ol>
-
 
                     <h1>API Flow to / from your app</h1>
                     <image style="max-width: 800px; width: 100%; min-width: 500px;" src="../images/jobboardhub.png">
@@ -150,7 +141,7 @@ color: #666666;
 
                     <h2>Produce GET /jobBoards/forApp</h2>
 
-                        <a href="../generated/recruitment.raml.html#assessmentTypes_forApp_get" target="_blank">Click here to view schema</a>
+                        <a href="../generated/recruitment.raml.html#jobBoards_forApp_get" target="_blank">Click here to view schema</a>
 
                     <h3>Detail</h3>
                     <h4>Returning information about your Job Board</h4>
@@ -215,6 +206,8 @@ color: #666666;
 
                     <h2>Produce POST /advertisements/byApp</h2>
 
+                        <a href="../generated/recruitment.raml.html#advertisements_byApp_post" target="_blank">Click here to view schema</a>
+
                     <h3>Detail</h3>
                     <p>Once the recruiter has completed the new advertisement through the Job Board Hub and hits submit,
                         the Job Board Hub will POST to your app an AdvertisementWrite that will contain all the
@@ -238,11 +231,17 @@ color: #666666;
                     </p>
 
                     <h2>Produce GET /advertisements/byID/{advertisementId}/byApp</h2>
+
+                        <a href="../generated/recruitment.raml.html#advertisements_byID__advertisementId__byApp_get" target="_blank">Click here to view schema</a>
+
                     <h3>Detail</h3>
                     <p>When editing an advertisement in the Job Board Hub, the Job Board Hub will ask the Job Board Apps for the advertisement information each of the specific Job Boards. Your app will need to produce an AdvertisementRead that contains all the information from the last time the Advertisement was updated. From this AdvertisementRead the fields will be prepopulated with the information from the existing Advertisement and allows the recruiter to easily make minor tweaks if required or change information as required.</p>
                     <p>It is up to your app whether it is stored in the Job Board App or fetched on demand from your Job Board.</p>
 
                     <h2>Produce PATCH /advertisements/byID/{advertisementId}/byApp</h2>
+
+                          <a href="../generated/recruitment.raml.html#advertisements_byID__advertisementId__byApp_patch" target="_blank">Click here to view schema</a>
+
                     <p>The Job Board Hub updates and expires advertisements on the Job Boards consuming this API.</p>
 
                     <h3>Detail</h3>
@@ -251,6 +250,7 @@ color: #666666;
                     <p>If the <strong>action</strong> field has the value: <strong>expire</strong>, you can ignore all other fields on the AdvertisementWrite and expire / archive the advertisement from your Job Board.</p>
 
                     <h2>Produce POST/advertisements/status/byApp</h2>
+                        <a href="../generated/recruitment.raml.html#advertisements_status_byApp_post" target="_blank">Click here to view schema</a>
                     <h3>Detail</h3>
                     <p>Different Job Boards have different time lengths an Advertisement can be advertised. The ATS may have the Job Listing open longer on their end. The other scenario is that the recruiter will go into the Job Board directly and expire the advertisement. This API allows the Job Board Hub to ask your Job Board App if the advertisement is still open.</p>
                     <p>The Job Board Hub will poll your app periodically and send through an array of advertisement Ids and expects a response that contains an array of objects with the following data:</p>
@@ -351,6 +351,9 @@ color: #666666;
                     <p>Job Board apps need to produce the following APIs as non source of truth (SoT)</p>
 
                     <h3>POST /advertisements/byApp</h3>
+
+                        <a href="../generated/recruitment.raml.html#advertisements_byApp_post" target="_blank">Click here to view schema</a>
+
                     <p>When a recruiter has submitted their new advertisement through the Job Board hub, the Job Board Hub will call the selected Job Boards calling the <strong>/advertisements/byApp</strong> API. The request will look similar to the example below.</p>
 
                     <h4>Job Board Hub Request example</h4>

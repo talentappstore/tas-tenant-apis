@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-	<title>Building a job board app</title>
+        <title>Building a job board app</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="../css/simple-sidebar.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="../css/simple-sidebar.css" rel="stylesheet">
 
-<!-- for sequence diagrams -->
-<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
-<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
-<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
-<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
+        <!-- for sequence diagrams -->
+        <script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/raphael-min.js'></script>
+        <script type="text/javascript"
+                src='http://talentappstore.github.io/tas-des-static/js/underscore-min.js'></script>
+        <script type="text/javascript"
+                src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-min.js'></script>
+        <script type="text/javascript"
+                src='http://talentappstore.github.io/tas-des-static/js/sequence-diagram-wrapper.js'></script>
 
-<!-- for includes -->
-<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
+        <!-- for includes -->
+        <script type="text/javascript"
+                src='http://talentappstore.github.io/tas-des-static/js/clientInclude.js'></script>
 
-<!-- for table of contents -->
-<script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
+        <!-- for table of contents -->
+        <script type="text/javascript" src='http://talentappstore.github.io/tas-des-static/js/tocify.js'></script>
 
-<!--  manage the versions dropdown, always using the very latest -->
-<script type="text/javascript" src='http://devdocs.talentappstore.com/versions.js'></script>
+        <!--  manage the versions dropdown, always using the very latest -->
+        <script type="text/javascript" src='http://devdocs.talentappstore.com/versions.js'></script>
 
-<style>
+        <style>
 span.highlight {
 background-color: #ffff99;
 padding: 6px;
@@ -42,269 +46,562 @@ background-color: #cccccc;
 small.hint {
 color: #666666;
 }
-</style>
 
+        </style>
 
-</head>
-<body>
-    <div id="wrapper" class="toggled">
 
-<p><b>SIDEBARGOESHERE</b></p>
+    </head>
+    <body>
+        <div id="wrapper" class="toggled">
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
-                <br /><br />
+            <p>
+                <b>SIDEBARGOESHERE</b>
+            </p>
 
-<div id="toc">
-</div>
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle document index</a>
+                    <br/>
+                    <br/>
 
+                    <div id="toc">
+                    </div>
 
-<h1>Overview</h1>
 
-<p>See also <a href="postings.html">the job board hub</a>.
-</p>
+                    <h1>Overview</h1>
 
-<p>Building a job board app in Talent App Store is simple, and a basic integration requires
-only 3 APIs, as the job board hub does most of the heavy lifting.
-</p>
+                    <p>This describes how to build a Job Board app that will integrate with the Job Board Hub in Talent
+                        App Store.
+                    </p>
 
-<p>Once your job board app is installed at a tenant, it will appear as a posting
-destination inside the job board hub.
-</p>
+                    <p>Job Board Hub is a central Job Advertisement creating app that allows customers to choose Job
+                        Boards that they have installed in Talent App Store and post, update or expire advertisements
+                        without having to navigate to all the different apps individually.
+                    </p>
 
-<p>The hub provides all the UI through which users post jobs to job boards and manage their postings.
-</p>
+                    <h1>Set up</h1>
 
-<p>The job board hub provides a posting form UI that the user uses to post a specific job in the ATS to a job board (i.e. create
-a posting). The same job in the ATS can be posted to multiple job boards, or posted multiple times to a single job board
-(e.g. with slightly different locations each time).
-</p>
+                    <p>To have data flowing to and from your app, there are a couple of prerequisite apps that need to
+                        be installed first.
+                    </p>
 
-<p>The hub dynamically modifies the posting form so that it contains the fields that your job board app requires for a posting,
-so your app doesn't need job posting UI of its own - the hub provides it.
-</p>
+                    <p>Note: when installing apps, the apps that have links are sandbox apps that you install via their
+                        install token - the other apps can be found publicly listed (find them with "Browse apps").
+                    </p>
 
-<p>Once the user completes the posting form, your app is alerted of the new posting via an API call, so that it can finally
-upload the posting into your own back end.
-</p>  
+                    <h2>Install apps and prepare test data</h2>
 
-<p>This guide steps you through each of the APIs your job board app will use. 
+                    <p>First, follow these instructions to install Developer ATS and create a job application. Then:</p>
 
-
-<h1>APIs</h1>
-
-<h2>Publish your board's details</h2>
-
-<p>The job board hub looks after all of a tenant's installed job boards, and stores details for each board such as
-its name, the fields it requires on the posting form, how long postings remain on the board for, etc.
-</p>
-
-<p>So that the hub can learn about these details about your board, your app must
-publish its details by producing <a href='../generated/recruitment.raml.html#jobBoards_forApp_get'>GET /jobBoards/forApp</a>.
-</p>
-
-<p>The hub calls this API on your app when it is installed at a tenant, and every time a tenant with your app installed is rebooted.
-</p>
-
-<p>Via this API, you pass back all the details about your job board:
-<ul>
-<li>your job board's name
-<li>its domain (e.g. www.jobboard.com - used for source tracking by the job board hub to create trackers when it creates links to your board)
-<li>default ad duration (how long do ads remain up on your site, e.g. 30d)
-<li>fields list (what fields appear on your board's posting form - e.g. job title, recruiter email, minimum salary)
-<li>default legacy source code (e.g. source=BIGJOBS)
-<li>a default value for the installed board's setup error message. If not null, setup required will light up on the app for all new installs.  
-</ul>
-
-<p>In the example below, the job board has 4 fields on its posting form, arranged into a single group:
-<ul>
-<li>A field for "title" which defaults to the job's title in the ATS.
-<li>A similar field for "description".
-<li>A field for "advertiser profile". The board has its own admin screens and database for this field,
-and no default is available from the ATS.
-<li>The categories field. This causes your board's categories (e.g. Location, Job type) to be displayed in the posting form, with defaults
-provided by the category mapping app.
-</ul>
-
-<p>The hub tries to present sensible defaults for fields:
-<ol>
-<li>from the job or its recruiter or manager in the ATS (when the defaultFrom field is present on the field)
-<li>from any existing postings on the same job that have items with a matching name.
-</ol>
-</p>  
-
-<p>When the recruiter submits the posting form, the job board hub will store values for all of the board's fields on the posting object.
-</p>
- 
-
-<pre><code>
-<div class='clientInclude' data-href='../examples/jobBoard-simple.json'></div>
-</code></pre>
-
-
-
-<h2>Publish the board's categories and their values</h2>
-
-<p>This step is optional. A board may have no categories at all.</p>
-
-<p>If your job board categorises its jobs by e.g. location, classification/expertise etc. then it
-should publish these categories by producing <a href='../generated/recruitment.raml.html#jobBoards_forApp_categories_get'>GET /jobBoards/forApp/categories</a>
-and
-<a href='../generated/recruitment.raml.html#jobBoards_forApp_categories_byID__category__values_get'>GET /jobBoards/forApp/categories/byID/{category}/values</a>.
-</p>
-
-<p>These APIs are called by the hub and the category mapper apps.
-</p>
-
-
-<h2>Keeping the board's back end updated</h2>
-
-<p>The job board hub maintains its own state of all of the tenant's job board postings, i.e. whether they are open or closed,
-what values were used, the date posted, etc.
-</p>
-
-<p>Whenever the state of a posting in the hub changes (e.g. a posting reaches its expiry date and is automatically closed), the hub
-will alert the relevant job board app. The job board app is then responsible for uploading the new state into its own back end.
-</p>
-
-<p>To play its part, your job board app must produce
-<a href='http://localhost:8080/tasgit/tas-tenant-apis/docs/generated/recruitment.raml.html#postings_byID__id__tenantDeltaPings_post'>POST /postings/byID/{id}/tenantDeltaPings</a>
-to be alerted when its own postings are changed.
-</p> 
-
-<p>How the board does this synchronizing is up to the board. Some boards use bulk upload APIs where the client always sends up all open postings. Others have web
-services to modify individual postings. Some might use ftp, csv, etc. The board might do it instantly, or every  hour.
-</p>
-
-<p>There are 4 scenarios that will cause a job board app to receive a delta ping alerting of a change to posting state:  
-<ul>
-
-<li>a posting is created by the user via the the user clicking the hub's UI
-<li>or edited (e.g. description is changed)   
-
-<li>A posting has been closed (because of job closed or posting closed or posting expired):
-<ol>
-<li>close date has been set (is non null)
-<li>status == closed
-<li>status message == e.g. Expired  
-</ol>
-
-<li>A posting has been re-opened:
-<ol>
-<li>close date has been set to null
-<li>status now == open 
-</ol>
-</ul>
-
-
-<h2>Producing GET /appStatus (optional)</h2>
-
-<p>This step is optional. Your board might never need any setup (i.e. completely on demand).
-</p>
-
-<p>The job board hub stores a "setup error message" against each of a tenant's installed job boards.
-</p>
-
-<p>When that field is non-null, this indicates that the board is broken - i.e. requires some setup.
-</p>
-
-<p>The job board hub needs this information so that it can display the board's broken-ness in its UI - for example,
-a user can't create new postings for a board that is broken.
-</p>
-
-<p>When GET /appStatus is called on your job board app, it should pull its own value for "setup error message"
-(by calling <a href='../generated/recruitment.raml.html#jobBoards_forApp_status_get'>GET /jobBoards/forApp/status</a>)
-and use that to light up (or not) the setup required icon on the app itself.
-
-<p>A typical scenario for setting the "setup error message" field would be when your job board app detected bad credentials
-while calling its own upload APIs. Then your app would set the setup error message via
-<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_patch'>PATCH /jobBoards/forApp/status</a>.
-</p>
-
-<p>Another way that "setup error message" can be set is by default on new installs of your app.
-</p>
-
-<p>In other words, if your app is always broken when first installed (because you need the user
-to click to the setup page and enter credentials, advertiser details, etc.) then you should reflect that
-by passing back a default setup error message in your response to GET /jobBoards/forApp:
-
-<pre><code>
-"defaultSetupErrorMessage": "At least one template must be created"
-</code></pre>
-
-<p>When you do this, your board is effectively marked as broken by default for all new
-installs. The user sees this in your app's panel, and is guided to your setup page to fix the situation.
-</p>
-
-
-<h2>Producing a setup page (optional)</h2>
-
-<p>This step is optional. Your board might be able to start working with no additional information.
-</p>
-
-<p>You may need a setup page to capture required information for new installs, e.g. API tokens, advertiser codes, etc.
-</p>
- 
-<p>Your job board app passes back a link to its setup page in its response to
-<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_get'>GET /jobBoards/forApp/status</a>.
-This allows the user to click on the link in the store, and reach the setup page.
-</p>
-
-<p>When the user views the setup page, they should normally see any existing setup problems highlighted.
-</p>
-
-<p>To do this your job board app should call
-<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_get'>GET /jobBoards/forApp/status</a> to fetch its own setup error message
-(e.g "credentials have been denied"). The setup error message can then be displayed at the top of the setup page
-so that the user knows what needs to be fixed before the board can start working.
-</p>
-
-<p>Once the user has entered all required data into the setup page, the settings page should update the
-board's status to say things are good to go by calling
-<a href='../generated/recruitment.raml.html#jobBoards_forApp_status_patch'>PATCH /jobBoards/forApp/status</a>
-and nulling out the setup error message.
-</p>
-
-
-<h2>Synchronising after sleep (optional)</h2>
-
-<p>This step is optional. A highly available board may rely on always capturing delta pings.</p>
-
-<p>When the job board app starts up after maintenance, it should pull all of its own open postings from the hub,
-and use that to call its own upload APIs to synchronise its back end.
-</p>
-
-<p>This will handle for any activity (new postings, expired postings) that may have happened on the hub while the app was asleep.
-</p>
-
-
-<h2>Synchronising of preview link (optional)</h2>
-
-<p>This step is optional. Some boards won't provide a preview link.</p>
-
-<p>Some boards will be able to provide a preview link where the recruiter can see the job on the board itself.
-</p>
-
-<p>When a preview link is available, e.g. when the board's upload APIs are called, the board
-can update the posting within the hub by calling
-<a href='../generated/recruitment.raml.html#postings_byID__id__appDetails_patch'>PATCH /postings/byID/{id}/appDetails</a>.
-</p>
-
-
-
+                    <ol>
+                        <li>Install the publicly listed Job Board Hub app in Talent App Store.</li>
+                        <li>Return to Developer ATS and you should see a panel showing on the right hand side of the
+                            job.
+                        </li>
+                        <li>There are no Job Boards currently setup so you will not be able to post a new advertisement,
+                            you can installed the "Demo Job Board" app.
+                        </li>
+                        <li>Click refresh on the job within Developer ATS. Now, in the panel within the Job, you should
+                            now see the Demo Job Board app as a selectable option to submit a new advertisement to.
+                        </li>
+                        <li>Submit a new advertisement and the panel will now display some information about the
+                            advertisement that was just submitted.
+                        </li>
+                    </ol>
+
+
+                    <h1>API Flow to / from your app</h1>
+                    <image style="max-width: 800px; width: 100%; min-width: 500px;" src="../images/jobboardhub.png">
+
+                    <h1>Building the app / Implementing the APIs</h1>
+
+                    <p>Before building a Job Board App, take a look over the App Install and Setup recipe and
+                        familiarise yourself with that. Once you are confident in building a basic TAS app that can be
+                        installed and show an necessary settings screens, it is time to move on.
+                    </p>
+
+                    <p>A Job Board App does not need to consume any TAS Tenant APIs only produce them. To see more
+                        details about the APIs that need to be produced, see below in the "Produce APIs" section.
+                    </p>
+
+                    <p>Once you have the basic App setup on Talent App Store, you will need to start implementing the
+                        APIs for the Job Board Hub to consume. The first thing the Job Board Hub does when your Job
+                        Board App is installed is call the ```/jobBoards/forApp``` API and create a record for your Job
+                        Board App where recruiters will be able to select your Job Board as one of the platforms to post
+                        their new Advertisement.
+                    </p>
+
+                    <p>Note: The Job Board Hub will produce the application url. The final URL will include the legacy
+                        source code and a tracker.
+                    </p>
+
+
+                    <h2>Produce POST /tenant</h2>
+
+                    <p>The first API call incoming to your app is to tell you that a tenant has installed it.</p>
+
+                    <p>Typically you might handle this API call by inserting into your customer table, sending an email
+                        to customer support team, etc. You might show the "setup required" icon and a settings page to
+                        facilitate this.
+                    </p>
+
+                    <p>See installing and controlling setup and launch pages for more.</p>
+
+                    <h2>Produce GET /jobBoards/forApp</h2>
+
+                        <a href="../generated/recruitment.raml.html#assessmentTypes_forApp_get" target="_blank">Click here to view schema</a>
+
+                    <h3>Detail</h3>
+                    <h4>Returning information about your Job Board</h4>
+
+                    <p>See the Job Boards schema for a detailed description of the properties you need to populate when
+                        producing this API.
+                    </p>
+
+                    <p>Immediately after your app is installed, the Job Board Hub, a separate app, consumes
+                        <strong>GET /jobBoards/forApp</strong>
+                        on your app to fetch information about your app and stores in the Job Board Hub database.
+                    </p>
+
+                    <p>When you refresh the page on the Developer ATS Jobs page, you will now see your app available to
+                        be selected as a Job Board to post a new advertisement to. The following information is used
+                        during this process within the Job Board Hub:
+                    </p>
+
+                    <pre>
+                        <code>
+"label": "Super Job Board",
+"logo": "https://talentappstore.com/logo.png",
+"domain": "https://superjobboard.example",
+"defaultAdvertisementDuration": 30,
+"defaultLegacySourceCode": "SJB",
+"defaultSetupErrorMessage": "Missing required information"
+                        </code>
+                    </pre>
+
+                    <h4>If your app needs to be setup</h4>
+                    <p>If you have some required settings before the recruiter can use your app, populate the
+                        "defaultSetupErrorMessage" field with some useful message for the recruiter to understand.
+                    </p>
+
+                    <p>For example: "You need to finishing adding your credentials into the Super Job Board app in
+                        Talent App Store".
+                    </p>
+
+                    <h4>New advertisement posting</h4>
+                    <p>When a recruiter has selected your Job Board App in the Job Board Hub, the Job Board Hub will
+                        consume the API
+                        <strong>GET /jobBoards/forApp</strong>
+                        from your app and fetch the information that your app requires when creating a new Advertisement
+                        on your platform.
+                    </p>
+
+                    <p>When building your Item Metas note that the Job Board Hub only supports the following:</p>
+                    <ul>
+                        <li>StringMeta</li>
+                        <li>NumberMeta</li>
+                        <li>BooleanMeta</li>
+                        <li>DateMeta</li>
+                        <li>PicklistMeta</li>
+                        <li>CascadeMeta</li>
+                    </ul>
+
+                    <p>There are also some general fields that all Job Boards have access to. You may choose to ignore
+                        these fields if they are not relevant to your Job Board. If you have specific requirements on
+                        these, for example the title cannot be longer than 50 characters you can specify this. Take a
+                        look at StringValidationMeta schema.
+                    </p>
+
+                    <h2>Produce POST /advertisements/byApp</h2>
+
+                    <h3>Detail</h3>
+                    <p>Once the recruiter has completed the new advertisement through the Job Board Hub and hits submit,
+                        the Job Board Hub will POST to your app an AdvertisementWrite that will contain all the
+                        information from the General fields and the information from the fields that your app required
+                        to create a new Advertisement.
+                    </p>
+                    <p>Your app will need to process this information real time, whether the data is stored in your app
+                        and processed shortly after or processed instantly as the Job Board Hub expects a response from
+                        your app to indicate if the AdvertisementWrite is valid or there are some errors that the
+                        recruiter needs to go back and fix.
+                    </p>
+                    <p>If the AdvertisementWrite has some issue with it when the new Advertisement request comes in, it
+                        is important to make your error messages as friendly and readable as possible to non tech savvy
+                        users. For instance, if the user has put an invalid URL into a field, you will need to return a
+                        message that clearly indicates that the issue was and how they can resolve it, the returned
+                        result for error messages is an array of errors and you can also indicate what field it is for.
+                    </p>
+                    <p>Example of a bad Error Message: "URL Field for Terms and Conditions is invalid"</p>
+                    <p>Example of a good Error Message: "The URL you have entered into the Terms and Conditions needs to
+                        follow the following format: www.talentappstore.com"
+                    </p>
+
+                    <h2>Produce GET /advertisements/byID/{advertisementId}/byApp</h2>
+                    <h3>Detail</h3>
+                    <p>When editing an advertisement in the Job Board Hub, the Job Board Hub will ask the Job Board Apps for the advertisement information each of the specific Job Boards. Your app will need to produce an AdvertisementRead that contains all the information from the last time the Advertisement was updated. From this AdvertisementRead the fields will be prepopulated with the information from the existing Advertisement and allows the recruiter to easily make minor tweaks if required or change information as required.</p>
+                    <p>It is up to your app whether it is stored in the Job Board App or fetched on demand from your Job Board.</p>
+
+                    <h2>Produce PATCH /advertisements/byID/{advertisementId}/byApp</h2>
+                    <p>The Job Board Hub updates and expires advertisements on the Job Boards consuming this API.</p>
+
+                    <h3>Detail</h3>
+                    <p>At times, the recruiter may miss some information or the job listing has been updated and needs to be updated within the Job Boards. This will prompt the recruiter to go an update the listing through the Job Board Hub. The information, in most cases, will be the same with a few minor adjustments.</p>
+                    <p>The patch that is sent through to your Job Board App will include an <strong>action</strong> field with the value <strong>update</strong>. This field indicates that the Advertisement needs to be updated and your app will need to apply any changes on demand similar to that of the new Advertisement request and return any errors to the recruiter in an easy to read and understand format.</p>
+                    <p>If the <strong>action</strong> field has the value: <strong>expire</strong>, you can ignore all other fields on the AdvertisementWrite and expire / archive the advertisement from your Job Board.</p>
+
+                    <h2>Produce POST/advertisements/status/byApp</h2>
+                    <h3>Detail</h3>
+                    <p>Different Job Boards have different time lengths an Advertisement can be advertised. The ATS may have the Job Listing open longer on their end. The other scenario is that the recruiter will go into the Job Board directly and expire the advertisement. This API allows the Job Board Hub to ask your Job Board App if the advertisement is still open.</p>
+                    <p>The Job Board Hub will poll your app periodically and send through an array of advertisement Ids and expects a response that contains an array of objects with the following data:</p>
+                    <pre>
+                        <code>
+"advertisementId": "123-4324-23423"
+"status": "expired"
+"title": "Advert title"
+"referenceCode": "1234"
+                        </code>
+                    </pre>
+                    <p>Status can be either 'open' or 'expired'.</p>
+                    <p>Polling will happen every 30 minutes At *:00 and *:30.</p>
+                    <p>Once the advertisement has expired, ideally the advertisement listing information will still be available for a period of time to allow the recruiter to repost the advertisement if required through the Job Board Hub. In this instance, the Job Board Hub will calling the <strong>GET /advertisements/byID/{advertisementId}/byApp</strong> API to fetching the information for the advertisement</p>
+
+
+                    <h2>Produce APIs</h2>
+                    <p>Below is the APIs that need to be produced by the Job Board app along with example JSON for both the request and the response.</p>
+                    <h3>GET /appStatus</h3>
+                    <p>When apps are installed by a Tenant there are times where additional information is needed to get the app up and running properly for that tenant. If this is required by the Job Board App, the Job Board App will need to produce the following API <strong>/appStatus</strong>. Below is an example response when TAS calls this API.</p>
+                    <pre>
+                        <code>
+{
+    "landingPage": "https://example.url",
+    "settingsPage": "https://settingsExample.url",
+    "setupRequired": true,
+    "domainsUsed": [
+        "https://domain1.example",
+        "https://domain2.example"
+    ]
+}
+                        </code>
+                    </pre>
+
+                    <h3>GET /jobBoards/forApp</h3>
+                    <p>The Job Board Hub will ask the Job Board App for the rules that need to be applied when building and presenting the new Advertisement screen. The API called is <strong>/jobBoards/forApp</strong>. Below is an example response.</p>
+                    <p>Response example:</p>
+                    <pre>
+                        <code>
+{
+    "label": "Super Job Board",
+    "logo": "https://talentappstore.com/logo.png",
+    "domain": "https://superjobboard.example",
+    "defaultAdvertisementDuration": 30,
+    "defaultLegacySourceCode": "SJB",
+    "defaultSetupErrorMessage": "Missing required information",
+    "applicationURLRules": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 200,
+        "mandatory": true,
+        "pattern": "regex"
+    },
+    "titleRules": {
+        ...
+    },
+    "referenceCodeRules": {
+        ...
+    },
+    "shortSummaryRules": {
+        ...
+    },
+    "descriptionRules": {
+        ...
+    },
+    "recruiterNameRules": {
+        ...
+    },
+    "recruiterEmailRules": {
+        ...
+    },
+    "advertisementRules": [
+        {
+            "title": "Section header 1",
+            "instructions": "Some meaningful instructions",
+            "advertisementFields": [
+                {
+                    "name": "question1",
+                    "title": "Question 1",
+                    "instructions": "Some text",
+                    "format": "singleLine",
+                    "minLength": 10,
+                    "maxLength": 200,
+                    "defaultValue": "Testing",
+                    "mandatory": true,
+                    "pattern": "some regex"
+                },
+                {
+                    ...
+                }
+            ]
+        }
+    ]
+}
+                        </code>
+                    </pre>
+
+                    <p>Job Board apps need to produce the following APIs as non source of truth (SoT)</p>
+
+                    <h3>POST /advertisements/byApp</h3>
+                    <p>When a recruiter has submitted their new advertisement through the Job Board hub, the Job Board Hub will call the selected Job Boards calling the <strong>/advertisements/byApp</strong> API. The request will look similar to the example below.</p>
+
+                    <h4>Job Board Hub Request example</h4>
+                    <pre>
+                        <code>
+{
+    "applicationURL": "https://aotal.com",
+    "title": "test title",
+    "referenceCode": "C1234",
+    "shortSummary": "My short Summary",
+    "description": "My description",
+    "recruiterName": "Joe Smith",
+    "recruiterEmail": "joe.smith@example.com",
+    "advertisementFields": [
+        {
+            "name": "birthdate",
+            "type": "date",
+            "value": "2015-11-05T13:15:30Z"
+        },
+        {
+            "name": "keenworkerflag",
+            "type": "boolean",
+            "value": true
+        }
+    ]
+}
+                        </code>
+                    </pre>
+
+                    <p>When the Job Board App has completed processing the information, the app will return the following example if it was successful.</p>
+                    <h4>Job Board App Response example</h4>
+                    <pre>
+                        <code>
+{
+    "advertisementId": "1234567",
+    "status": [
+        "Open"
+    ],
+    "applicationURL": "https://aotal.com",
+    "title": "test job",
+    "referenceCode": "C1234",
+    "shortSummary": "This is the short summary",
+    "description": "Description is here!",
+    "recruiterName": "Joe Smith",
+    "recruiterEmail": "joe.smith@example.com",
+    "advertisementFields": [
+        {
+            "meta": {
+                ...
+            },
+            "item": {
+                ...
+            }
+        },
+        {
+            "meta": {
+                ...
+            },
+            "item": {
+                ...
+            }
+        }
+    ]
+}
+                        </code>
+                    </pre>
+
+                    <p>If, for some reason, the information coming into the Job Board App has some information missing or it failed for some reason, the Job Board App will need to return the following:</p>
+
+                    <pre>
+                        <code>
+{
+    "messages": [
+        {
+            "message": "Human readable message here",
+            "name": "field the message it regarding"
+        },
+        {
+            ...
+        }
+    ],
+    "type": "Bad Request",
+    "code": 400,
+    "traceId": "123-432-123-145"
+}
+                        </code>
+                    </pre>
+
+                    <p>When the following is returned, the Job Board Hub will show the message to the recruiter to let them know they may need to change something or to try sending it again.</p>
+
+                    <h3>PATCH /advertisements/byID/{advertisementId}/byApp</h3>
+                    <p>From time to time, the recuriter may need to update the advertisment posting on Job Boards to reflect any changes made from the Applicant Tracking System (ATS). To do this, the Job Board Hub will send through an API call to <strong>/advertisement/byID/{advertisementId}/byApp</strong> where the Job Board App will need to process the request and update the relevant advertisement with the new details.</p>
+                    <h4>Job Board Hub Request example</h4>
+                    <pre>
+                        <code>
+{
+    "action": "update",
+    "applicationURL": "https://aotal.com",
+    "title": "test title",
+    "referenceCode": "C1234",
+    "shortSummary": "My short Summary",
+    "description": "My description",
+    "recruiterName": "Joe Smith",
+    "recruiterEmail": "joe.smith@example.com",
+    "advertisementFields": [
+        {
+            "name": "birthdate",
+            "type": "date",
+            "value": "2015-11-05T13:15:30Z"
+        },
+        {
+            "name": "keenworkerflag",
+            "type": "boolean",
+            "value": true
+        }
+    ]
+}
+                        </code>
+                    </pre>
+                    <h4>Job Board App Response example</h4>
+                    <pre>
+                        <code>
+{
+    "advertisementId": "1234567",
+    "status": [
+        "Open"
+    ],
+    "applicationURL": "https://aotal.com",
+    "title": "test job",
+    "referenceCode": "C1234",
+    "shortSummary": "This is the short summary",
+    "description": "Description is here!",
+    "recruiterName": "Joe Smith",
+    "recruiterEmail": "joe.smith@example.com",
+    "advertisementFields": [
+        {
+            "meta": {
+                ...
+            },
+            "item": {
+                ...
+            }
+        },
+        {
+            "meta": {
+                ...
+            },
+            "item": {
+                ...
+            }
+        }
+    ]
+}
+                        </code>
+                    </pre>
+                    <p>Similar to the new advertisement API, if there is an error, the Job Board App will need return an error response similar to the one below:</p>
+                    <pre>
+                        <code>
+{
+    "messages": [
+        {
+            "message": "Human readable message here",
+            "name": "field the message it regarding"
+        },
+        {
+            ...
+        }
+    ],
+    "type": "Bad Request",
+    "code": 400,
+    "traceId": "123-432-123-145"
+}
+                        </code>
+                    </pre>
+                    <h3>GET /advertisements/byID/{advertisementId}/byApp</h3>
+                    <p>The Job Board Hub does not store the advertisement data for each of the Job Board Apps, it instead calls the Job Board Apps for the advertisement information real time to display to the recruiter when they are editing an advertisement.</p>
+                    <p>The Job Board App needs to produce the <strong>/advertisements/byId/{advertisementId}/byApp</strong> API and return the advertisement data. Below is an example of the response the Job Board App should return.</p>
+                    <h4>Job Board App Response example</h4>
+                    <pre>
+                        <code>
+{
+    "advertisementId": "1234567",
+    "status": [
+        "Open"
+    ],
+    "applicationURL": "https://aotal.com",
+    "title": "test job",
+    "referenceCode": "C1234",
+    "shortSummary": "This is the short summary",
+    "description": "Description is here!",
+    "recruiterName": "Joe Smith",
+    "recruiterEmail": "joe.smith@example.com",
+    "advertisementFields": [
+        {
+            "meta": {
+                ...
+            },
+            "item": {
+                ...
+            }
+        },
+        {
+            "meta": {
+                ...
+            },
+            "item": {
+                ...
+            }
+        }
+    ]
+}
+                        </code>
+                    </pre>
+
+                    <h3>POST /advertisements/status/byApp</h3>
+                    <p>Frequently the Job Board Hub will poll all Job Board Apps to check that advertisements in the Job Board Hub that are still marked as "active" have not been expired from the Job Board.</p>
+                    <p>When the Job Board Hub is requesting the status of advertisements, the Job Board Hub will send through a request which contains an array of the advertisement ids it is looking for.</p>
+                    <h4>Job Board Hub Request example</h4>
+                    <pre>
+                        <code>
+[
+    {
+        "id": "123-4324-23423"
+    }
+]
+                        </code>
+                    </pre>
+                    <h4>Job Board App Response example</h4>
+                    <pre>
+                        <code>
+[
+    {
+        "advertisementId": "123-4324-23423",
+        "status": "expired",
+        "title": "Advert title",
+        "referenceCode": "1234"
+    }
+]
+                        </code>
+                    </pre>
+                </div>
             </div>
+            <!-- /#page-content-wrapper -->
         </div>
-        <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+        <!-- /#wrapper -->
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<script>
+        <script>
 $(document).ready(function() {
 
 	renderSequenceDiagrams();
@@ -318,6 +615,7 @@ $(document).ready(function() {
         $("#wrapper").toggleClass("toggled");
     });
 });
-</script>
-</body>
+
+        </script>
+    </body>
 </html>

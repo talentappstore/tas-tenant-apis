@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "Advertisement status for the supplied advertisement",
+  "properties": {
+    "advertisementId": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "open",
+        "expired"
+      ]
+    },
+    "title":{
+      "type":"string"
+    },
+    "referenceCode":{
+      "type":"string"
+    }
+  },
+  "additionalProperties": false
+}

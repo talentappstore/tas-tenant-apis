@@ -1,0 +1,70 @@
+{
+  "definitions": {
+    "stringValidationMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "maxLength": {
+          "type": "integer"
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "pattern": {
+          "type": "string"
+        }
+      }
+    },
+    "booleanValidationMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "numberValidationMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/stringValidationMeta"
+    },
+    {
+      "$ref": "#/definitions/booleanValidationMeta"
+    },
+    {
+      "$ref": "#/definitions/numberValidationMeta"
+    }
+  ]
+}

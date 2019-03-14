@@ -148,6 +148,9 @@
         },
         "mandatory": {
           "type": "boolean"
+        },
+        "pattern": {
+          "type": "string"
         }
       }
     },

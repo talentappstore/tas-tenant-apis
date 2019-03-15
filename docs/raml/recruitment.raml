@@ -173,7 +173,6 @@ resourceTypes: !include resources.yml
 
 /advertisements:
   /byApp:
-
     post:
       securedBy: [oauth_2_0]
       description: |
@@ -192,7 +191,6 @@ resourceTypes: !include resources.yml
   /byID:
     /{advertisementId}:
       /byApp:
-
         get:
           securedBy: [oauth_2_0]
           description: |
@@ -222,7 +220,6 @@ resourceTypes: !include resources.yml
                         schema: !include ../schemas/advertisementRead.json
   /status:
     /byApp:
-
       post:
         securedBy: [oauth_2_0]
         description: |

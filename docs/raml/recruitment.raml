@@ -175,7 +175,7 @@ resourceTypes: !include resources.yml
   /byApp:
     post:
       securedBy: [oauth_2_0]
-      description: |
+      description:
         Produced by a Job Board App to post a new advertisement to that Job Board. Non-SoT.
       body:
         application/json:
@@ -193,19 +193,18 @@ resourceTypes: !include resources.yml
       /byApp:
         get:
           securedBy: [oauth_2_0]
-          description: |
+          description:
             Produced by a Job Board App to allow the Job Board Hub to fetch the advertisement details. Non-SoT.
             responses:
               200:
-                description:
-                  Advertisement read that contains all the advertisement information
+                description: Advertisement read that contains all the advertisement information
                   body:
                     application/json:
                       description: details about the advertisement with the specified ID
                       schema: !include ../schemas/advertisementRead.json
         patch:
           securedBy: [oauth_2_0]
-          description: |
+          description:
             Produced by a Job Board App to allow the Job Board Hub to update or expire an advertisement. Non-SoT.
             body:
               application/json:
@@ -222,7 +221,7 @@ resourceTypes: !include resources.yml
     /byApp:
       post:
         securedBy: [oauth_2_0]
-        description: |
+        description:
           Produced by a Job Board App to allow the Job Board Hub to post through IDs of advertisements to find out the status of the specified advertisements. Non-SoT.
           body:
             application/json:

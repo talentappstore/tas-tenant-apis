@@ -217,16 +217,16 @@ resourceTypes: !include resources.yml
       post:
         securedBy: [oauth_2_0]
         description: Produced by a Job Board App to allow the Job Board Hub to post through IDs of advertisements to find out the status of the specified advertisements. Non-SoT.
-          body:
-            application/json:
-              schema: !include ../schemas/advertisements.json
-          responses:
-            200:
-              description: Advertisement status objects that contains the current status of the advertisement
-              body:
-                application/json:
-                  description: details about the advertisements from the advertisements IDs passed through
-                  schema: !include ../schemas/advertisementStatusMetas.json
+        body:
+          application/json:
+            schema: !include ../schemas/advertisements.json
+        responses:
+          200:
+            description: Advertisement status objects that contains the current status of the advertisement
+            body:
+              application/json:
+                description: details about the advertisements from the advertisements IDs passed through
+                schema: !include ../schemas/advertisementStatusMetas.json
 
 
 /applications:

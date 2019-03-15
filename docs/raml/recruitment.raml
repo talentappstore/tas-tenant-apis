@@ -184,7 +184,6 @@ resourceTypes: !include resources.yml
           description: the post was successful, and the created advertisementRead is returned
           body:
             application/json:
-              description: details about the advertisement that has been submitted
               schema: !include ../schemas/advertisementRead.json
   /byID:
     /{advertisementId}:
@@ -197,7 +196,6 @@ resourceTypes: !include resources.yml
               description: Advertisement read that contains all the advertisement information
               body:
                 application/json:
-                  description: details about the advertisement with the specified ID
                   schema: !include ../schemas/advertisementRead.json
         patch:
           securedBy: [oauth_2_0]
@@ -210,7 +208,6 @@ resourceTypes: !include resources.yml
               description: Advertisement read that contains all the advertisement information
               body:
                 application/json:
-                  description: details about the advertisement with the specified ID and the updated information
                   schema: !include ../schemas/advertisementRead.json
   /status:
     /byApp:
@@ -225,7 +222,6 @@ resourceTypes: !include resources.yml
             description: Advertisement status objects that contains the current status of the advertisement
             body:
               application/json:
-                description: details about the advertisements from the advertisements IDs passed through
                 schema: !include ../schemas/advertisementStatusMetas.json
 
 
@@ -1790,7 +1786,6 @@ resourceTypes: !include resources.yml
         body:
           application/json:
             schema: !include ../schemas/jobBoardsForApps.json
-            example: !include ../examples/jobBoardsForApps-simple.json
   /forApp:
     get:
       securedBy: [oauth_2_0]
@@ -1801,7 +1796,6 @@ resourceTypes: !include resources.yml
           body:
             application/json:
               schema: !include ../schemas/jobBoard.json
-              example: !include ../examples/jobBoard-simple.json
                       
     /status:
       get:
@@ -1813,7 +1807,6 @@ resourceTypes: !include resources.yml
             body:
               application/json:
                 schema: !include ../schemas/jobBoardStatus.json
-                example: !include ../examples/jobBoardStatus-simple.json
       patch:
         description: |
           Update an installed job board's own status as held in the hub, e.g. its setup error message. SoT.
@@ -1822,7 +1815,6 @@ resourceTypes: !include resources.yml
         body:
           application/merge-patch+json:
             schema: !include ../schemas/jobBoardStatus.json
-            example: !include ../examples/jobBoardStatus-simple.json
         responses:
           200:
             description: the patch was successful

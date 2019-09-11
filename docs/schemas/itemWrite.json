@@ -106,6 +106,10 @@
             "picklist"
           ]
         },
+        "id": {
+          "type": "integer",
+          "description": "id of the item"
+        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
@@ -115,6 +119,7 @@
       },
       "additionalProperties": false,
       "required": [
+        "id",
         "type",
         "name",
         "value"

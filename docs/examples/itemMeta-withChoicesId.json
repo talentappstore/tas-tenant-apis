@@ -1,0 +1,26 @@
+{
+  "type": "picklist",
+  "name": "cats",
+  "title": "Cats picklist",
+  "instructions": "The cats for this job (showOne)",
+  "nullLabel": "No selection (nullLabel)",
+  "presentation": "showOne",
+  "mandatory": true,
+  "choices": [
+    {
+      "id":0,
+      "name": "Tabby",
+      "isDefault": false
+    },
+    {
+      "id":2,
+      "name": "Black",
+      "isDefault": false
+    },
+    {
+      "id":3,
+      "name": "Ginger",
+      "isDefault": false
+    }
+  ]
+}

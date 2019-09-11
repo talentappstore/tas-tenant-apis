@@ -325,6 +325,10 @@
           "type": "string",
           "description": "this choice - ideally immutable"
         },
+        "id": {
+          "type": "integer",
+          "description": "this id - will hold the value of an option"
+        },
         "isDefault": {
           "type": "boolean",
           "description": "will always be compatible with minChoices, maxChoices"

@@ -36,6 +36,10 @@
             "picklist"
           ]
         },
+        "id": {
+          "type": "integer",
+          "description": "id of the item"
+        },
         "name": {
           "$ref": "#/definitions/name"
         },

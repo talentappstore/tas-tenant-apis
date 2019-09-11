@@ -49,7 +49,6 @@
       },
       "additionalProperties": false,
       "required": [
-        "id",
         "type",
         "name",
         "value"

@@ -45,6 +45,9 @@
         },
         "value": {
           "$ref": "#/definitions/pickChoices"
+        },
+        "selectedIds": {
+          "$ref": "#/definitions/selectedIds"
         }
       },
       "additionalProperties": false,
@@ -54,11 +57,21 @@
         "value"
       ]
     },
+    "selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/selectedId"
+      }
+    },
     "pickChoices": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/pickChoice"
       }
+    },
+    "selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
     },
     "pickChoice": {
       "type": "string",

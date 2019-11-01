@@ -29,4 +29,4 @@ node {
     }
 }
 
-build job: 'tas/tas-tenant-api-schema/v2_1', parameters: [string(name: 'apiBranch', value: env.BRANCH_NAME)]
+build job: 'tas-tenant-api-schema/v2_1', parameters: [string(name: 'apiBranch', value: env.BRANCH_NAME)]

@@ -1,6 +1,5 @@
 node {
     stage('Checkout') {
-        startBuildNotification()
         checkout scm
 
         dir('tas-des-static') {

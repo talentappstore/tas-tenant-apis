@@ -1,6 +1,7 @@
+def BRANCH_NAME = 'master'
+
 node {
     stage('Checkout') {
-        startBuildNotification()
         checkout scm
 
         dir('tas-des-static') {
@@ -17,16 +18,16 @@ node {
 
     stage('Deploy') {
         withAWS(region: 'ap-southeast-2', credentials: 'terraform-aws-credentials') {
-            if (env.BRANCH_NAME == 'master') {
+            if (BRANCH_NAME == 'master') {
                 s3Upload acl: 'PublicRead', bucket: 'devdocs.talentappstore.com', file: 'docs'
-            } else if (env.BRANCH_NAME ==~ /\d+\.\d+/) {
-                s3Upload acl: 'PublicRead', bucket: 'devdocs.talentappstore.com', file: 'docs', path: "v/${env.BRANCH_NAME}"
+            } else if (BRANCH_NAME ==~ /\d+\.\d+/) {
+                s3Upload acl: 'PublicRead', bucket: 'devdocs.talentappstore.com', file: 'docs', path: "v/${BRANCH_NAME}"
             } else {
-                s3Upload acl: 'PublicRead', bucket: 'devdocsdev', file: 'docs', path: "${env.BRANCH_NAME}/${env.BUILD_NUMBER}"
-                echo "https://s3-ap-southeast-2.amazonaws.com/devdocsdev/${env.BRANCH_NAME}/${env.BUILD_NUMBER}/generated/index.html"
+                s3Upload acl: 'PublicRead', bucket: 'devdocsdev', file: 'docs', path: "${BRANCH_NAME}/${env.BUILD_NUMBER}"
+                echo "https://s3-ap-southeast-2.amazonaws.com/devdocsdev/${BRANCH_NAME}/${env.BUILD_NUMBER}/generated/index.html"
             }
         }
     }
 }
 
-build job: 'talentappstore/tas-tenant-api-schema/v2_1', parameters: [string(name: 'apiBranch', value: env.BRANCH_NAME)]
+build job: 'tas-tenant-api-schema', parameters: [string(name: 'apiBranch', value: BRANCH_NAME)]

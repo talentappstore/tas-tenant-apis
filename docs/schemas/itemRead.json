@@ -36,11 +36,18 @@
             "picklist"
           ]
         },
+        "id": {
+          "type": "integer",
+          "description": "id of the item"
+        },
         "name": {
           "$ref": "#/definitions/name"
         },
         "value": {
           "$ref": "#/definitions/pickChoices"
+        },
+        "selectedIds": {
+          "$ref": "#/definitions/selectedIds"
         }
       },
       "additionalProperties": false,
@@ -50,11 +57,21 @@
         "value"
       ]
     },
+    "selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/selectedId"
+      }
+    },
     "pickChoices": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/pickChoice"
       }
+    },
+    "selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
     },
     "pickChoice": {
       "type": "string",

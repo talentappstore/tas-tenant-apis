@@ -12,6 +12,18 @@
         "expired"
       ]
     },
+    "postedBy":{
+      "type":"string"
+    },
+    "datePosted":{
+      "type":"number"
+    },
+    "expiredBy":{
+      "type":"string"
+    },
+    "dateExpired":{
+      "type":"number"
+    },
     "title":{
       "type":"string"
     },

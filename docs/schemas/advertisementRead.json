@@ -30,13 +30,13 @@
       "type":"string"
     },
     "datePosted":{
-      "type":"number"
+      "type":"integer"
     },
     "expiredBy":{
       "type":"string"
     },
     "dateExpired":{
-      "type":"number"
+      "type":"integer"
     },
     "shortSummary":{
       "type":"string"

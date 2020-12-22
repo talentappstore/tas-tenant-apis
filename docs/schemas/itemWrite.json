@@ -106,6 +106,12 @@
             "picklist"
           ]
         },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
+        },
         "id": {
           "type": "integer",
           "description": "id of the item"

@@ -28,7 +28,7 @@
     }
   ],
   "definitions": {
-   "picklistItem": {
+    "picklistItem": {
       "type": "object",
       "properties": {
         "type": {
@@ -36,9 +36,15 @@
             "picklist"
           ]
         },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
+        },
         "id": {
           "type": "integer",
-          "description": "id of the item"
+          "description": "a unique id for picklist choice"
         },
         "name": {
           "$ref": "#/definitions/name"
@@ -193,6 +199,12 @@
           "enum": [
             "string"
           ]
+        },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"

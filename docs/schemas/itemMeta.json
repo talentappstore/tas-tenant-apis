@@ -8,6 +8,45 @@
       "type": "string",
       "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
     },
+    "elementId": {
+      "type": "string",
+      "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+    },
+    "callback": {
+      "type": "object",
+      "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+      "properties": {
+        "apiUri" : {
+          "type": "string",
+          "format": "uri",
+          "description": "the API endpoint to be called"
+        },
+        "method" : {
+          "enum": ["GET","POST"]
+        },
+        "formEvent" : {
+          "enum": ["onChange"]
+        },
+        "reRenderWholePage" : {
+          "type": "boolean",
+          "description": "If this is set to true, reRenderElements should be ignored and all the elements on the page should be re-rendered"
+        },
+        "payloadElements" : {
+          "type": "array",
+          "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+          "items": {
+            "$ref": "#/definitions/elementId"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apiUri",
+        "method",
+        "formEvent",
+        "reRenderWholePage"
+      ]
+    },
     "sectionMeta": {
       "type": "object",
       "properties": {
@@ -119,6 +158,12 @@
           "enum": [
             "string"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
@@ -279,6 +324,12 @@
           "enum": [
             "picklist"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"

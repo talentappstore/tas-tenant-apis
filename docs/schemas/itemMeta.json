@@ -77,6 +77,12 @@
             "boolean"
           ]
         },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
+        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
@@ -121,6 +127,12 @@
           "enum": [
             "number"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
@@ -206,6 +218,12 @@
           "enum": [
             "date"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"

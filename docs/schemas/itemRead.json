@@ -178,10 +178,10 @@
           ]
         },
         "elementId": {
-          "$ref": "#/definitions/elementId"
+          "$ref": "itemMeta.json#/definitions/elementId"
         },
         "callback": {
-          "$ref": "#/definitions/callback"
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"
@@ -236,10 +236,10 @@
           ]
         },
         "elementId": {
-          "$ref": "#/definitions/elementId"
+          "$ref": "itemMeta.json#/definitions/elementId"
         },
         "callback": {
-          "$ref": "#/definitions/callback"
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"
@@ -265,10 +265,10 @@
           ]
         },
         "elementId": {
-          "$ref": "#/definitions/elementId"
+          "$ref": "itemMeta.json#/definitions/elementId"
         },
         "callback": {
-          "$ref": "#/definitions/callback"
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"

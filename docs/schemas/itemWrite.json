@@ -58,6 +58,12 @@
             "cascade"
           ]
         },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
+        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
@@ -114,7 +120,7 @@
         },
         "id": {
           "type": "integer",
-          "description": "id of the item"
+          "description": "a unique id for picklist choice"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
@@ -133,25 +139,25 @@
         "value"
       ]
     },
-    "selectedIds": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/selectedId"
-      }
-    },
     "pickChoices": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/pickChoice"
       }
     },
-    "selectedId": {
-      "type": "integer",
-      "description": "the id of a choice that the user selected"
-    },
     "pickChoice": {
       "type": "string",
       "description": "the name of a choice that the user selected"
+    },
+    "selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/selectedId"
+      }
+    },
+    "selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
     },
     "tableItem": {
       "type": "object",

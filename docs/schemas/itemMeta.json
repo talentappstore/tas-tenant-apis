@@ -29,7 +29,7 @@
         },
         "reRenderWholePage" : {
           "type": "boolean",
-          "description": "If this is set to true, reRenderElements should be ignored and all the elements on the page should be re-rendered"
+          "description": "If this is set to true, all the elements on the page should be re-rendered"
         },
         "payloadElements" : {
           "type": "array",
@@ -37,14 +37,16 @@
           "items": {
             "$ref": "#/definitions/elementId"
           }
+        },
+        "autoComplete": {
+          "type": "boolean",
+          "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
         }
       },
       "additionalProperties": false,
       "required": [
         "apiUri",
-        "method",
-        "formEvent",
-        "reRenderWholePage"
+        "method"
       ]
     },
     "sectionMeta": {
@@ -208,6 +210,10 @@
         },
         "pattern": {
           "type": "string"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "If this is set to true, user wouldn't see this item from UI."
         }
       }
     },
@@ -414,6 +420,12 @@
           "enum": [
             "cascade"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"

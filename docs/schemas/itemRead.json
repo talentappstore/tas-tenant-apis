@@ -63,25 +63,25 @@
         "value"
       ]
     },
-    "selectedIds": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/selectedId"
-      }
-    },
     "pickChoices": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/pickChoice"
       }
     },
-    "selectedId": {
-      "type": "integer",
-      "description": "the id of a choice that the user selected"
-    },
     "pickChoice": {
       "type": "string",
       "description": "the name of a choice that the user selected"
+    },
+    "selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/selectedId"
+      }
+    },
+    "selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
     },
     "tableItem": {
       "type": "object",
@@ -124,6 +124,12 @@
           "enum": [
             "cascade"
           ]
+        },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"

@@ -1,0 +1,11 @@
+{
+  "type": "picklist",
+  "name": "cats",
+  "id":0,
+  "value": [
+    "Tabby"
+  ],
+  "selectedIds": [
+    0
+  ]
+}

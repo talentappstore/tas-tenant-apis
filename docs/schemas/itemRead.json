@@ -28,7 +28,7 @@
     }
   ],
   "definitions": {
-   "picklistItem": {
+    "picklistItem": {
       "type": "object",
       "properties": {
         "type": {
@@ -36,11 +36,24 @@
             "picklist"
           ]
         },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
+        },
+        "id": {
+          "type": "integer",
+          "description": "a unique id for picklist choice"
+        },
         "name": {
           "$ref": "#/definitions/name"
         },
         "value": {
           "$ref": "#/definitions/pickChoices"
+        },
+        "selectedIds": {
+          "$ref": "#/definitions/selectedIds"
         }
       },
       "additionalProperties": false,
@@ -59,6 +72,16 @@
     "pickChoice": {
       "type": "string",
       "description": "the name of a choice that the user selected"
+    },
+    "selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/selectedId"
+      }
+    },
+    "selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
     },
     "tableItem": {
       "type": "object",
@@ -101,6 +124,12 @@
           "enum": [
             "cascade"
           ]
+        },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"
@@ -154,6 +183,12 @@
             "boolean"
           ]
         },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
+        },
         "name": {
           "$ref": "#/definitions/name"
         },
@@ -176,6 +211,12 @@
           "enum": [
             "string"
           ]
+        },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"
@@ -200,6 +241,12 @@
             "number"
           ]
         },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
+        },
         "name": {
           "$ref": "#/definitions/name"
         },
@@ -222,6 +269,12 @@
           "enum": [
             "date"
           ]
+        },
+        "elementId": {
+          "$ref": "itemMeta.json#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "itemMeta.json#/definitions/callback"
         },
         "name": {
           "$ref": "#/definitions/name"

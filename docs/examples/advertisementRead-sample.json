@@ -1,0 +1,15 @@
+{
+  "advertisementId": "909fb303-4f3b-49af-8020-eb35c52f484b",
+  "title": "testtesttestasdfasdfsadf4356",
+  "applicationURL": "http://google.com",
+  "referenceCode": "2563456345789",
+  "datePosted": "1571777640000",
+  "postedBy": "tom",
+  "dateExpired": "1571777640000",
+  "expiredBy": "jerry",
+  "shortSummary": "shortSummary",
+  "description": "description",
+  "recruiterName": "recruiterName",
+  "recruiterEmail": "abc@abc.abc",
+  "status": "expired"
+}

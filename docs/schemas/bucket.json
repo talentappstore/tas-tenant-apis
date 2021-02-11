@@ -27,6 +27,9 @@
         "decline",
         "other"
       ]
+    },
+    "key": {
+      "type": "string"
     }
   },
   "required": [

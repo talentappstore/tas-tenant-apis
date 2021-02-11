@@ -8,6 +8,47 @@
       "type": "string",
       "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
     },
+    "elementId": {
+      "type": "string",
+      "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+    },
+    "callback": {
+      "type": "object",
+      "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+      "properties": {
+        "apiUri" : {
+          "type": "string",
+          "format": "uri",
+          "description": "the API endpoint to be called"
+        },
+        "method" : {
+          "enum": ["GET","POST"]
+        },
+        "formEvent" : {
+          "enum": ["onChange"]
+        },
+        "reRenderWholePage" : {
+          "type": "boolean",
+          "description": "If this is set to true, all the elements on the page should be re-rendered"
+        },
+        "payloadElements" : {
+          "type": "array",
+          "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+          "items": {
+            "$ref": "#/definitions/elementId"
+          }
+        },
+        "autoComplete": {
+          "type": "boolean",
+          "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apiUri",
+        "method"
+      ]
+    },
     "sectionMeta": {
       "type": "object",
       "properties": {
@@ -37,6 +78,12 @@
           "enum": [
             "boolean"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
@@ -83,6 +130,12 @@
             "number"
           ]
         },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
+        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
@@ -120,6 +173,12 @@
             "string"
           ]
         },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
+        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
@@ -148,6 +207,13 @@
         },
         "mandatory": {
           "type": "boolean"
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "If this is set to true, user wouldn't see this item from UI."
         }
       }
     },
@@ -158,6 +224,12 @@
           "enum": [
             "date"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
@@ -277,6 +349,12 @@
             "picklist"
           ]
         },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
+        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },
@@ -322,6 +400,10 @@
           "type": "string",
           "description": "this choice - ideally immutable"
         },
+        "id": {
+          "type": "integer",
+          "description": "this id - will hold the value of an option"
+        },
         "isDefault": {
           "type": "boolean",
           "description": "will always be compatible with minChoices, maxChoices"
@@ -338,6 +420,12 @@
           "enum": [
             "cascade"
           ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/callback"
         },
         "name": {
           "$ref": "itemRead.json#/definitions/name"

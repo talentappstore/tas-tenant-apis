@@ -118,10 +118,6 @@
         "callback": {
           "$ref": "itemMeta.json#/definitions/callback"
         },
-        "id": {
-          "type": "integer",
-          "description": "a unique id for picklist choice"
-        },
         "name": {
           "$ref": "itemRead.json#/definitions/name"
         },

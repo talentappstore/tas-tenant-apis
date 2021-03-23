@@ -44,7 +44,8 @@
         },
         "id": {
           "type": "integer",
-          "description": "a unique id for picklist choice"
+          "description": "a unique id for picklist choice",
+          "deprecated": true
         },
         "name": {
           "$ref": "#/definitions/name"

@@ -396,13 +396,16 @@
     "picklistChoice": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "description": "this choice - ideally immutable"
-        },
         "id": {
           "type": "integer",
           "description": "this id - will hold the value of an option"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "name": {
+          "type": "string",
+          "description": "this choice - ideally immutable"
         },
         "isDefault": {
           "type": "boolean",

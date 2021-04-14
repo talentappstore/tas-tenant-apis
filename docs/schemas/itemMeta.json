@@ -9,7 +9,7 @@
     },
     "description": {
       "type": "string",
-      "description": "markdown-formatted description to a person as to what this option used for if it's not clear from the title"
+      "description": "markdown-formatted description to a person as to what this option is used for if it's not clear from the title"
     },
     "instructions": {
       "type": "string",
@@ -408,7 +408,7 @@
       "properties": {
         "id": {
           "type": "integer",
-          "description": "a unique id for picklist choice"
+          "description": "an unique id for picklist choice"
         },
         "title": {
           "$ref": "#/definitions/title"
@@ -501,13 +501,13 @@
           "$ref": "#/definitions/footer",
           "description": "It's only usable when presentation of cascade item is showCards"
         },
-        "scale": {
+        "level": {
           "type": "number",
-          "description": "Start from 0. Determine the scale of cascade choice. Scale is for determining the colour of card component. It's only usable when presentation of cascade item is showCards"
+          "description": "defines the colour of the card components when the presentation of cascade item is showCards. Starts at zero."
         },
         "isDisabled": {
           "type": "boolean",
-          "description": "will disable choice"
+          "description": "will disable this cascade choice on the UI"
         },
         "isDefault": {
           "type": "boolean",

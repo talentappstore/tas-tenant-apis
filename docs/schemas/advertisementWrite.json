@@ -3,6 +3,9 @@
   "type": "object",
   "description": "Advertisement details to be sent through to the Job Board",
   "properties": {
+    "advertisementId":{
+      "type":"string"
+    },
     "applicationURL":{
       "type":"string",
       "format": "uri"

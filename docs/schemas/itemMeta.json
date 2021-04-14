@@ -4,9 +4,19 @@
       "type": "string",
       "description": "a short, markdown-formatted label for this item, e.g. 'Date of birth'"
     },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "description": "markdown-formatted description to a person as to what this option is used for if it's not clear from the title"
+    },
     "instructions": {
       "type": "string",
-      "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if its not obvious from the title"
+      "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if it's not obvious from the title"
+    },
+    "footer": {
+      "type": "string"
     },
     "elementId": {
       "type": "string",
@@ -398,7 +408,7 @@
       "properties": {
         "id": {
           "type": "integer",
-          "description": "this id - will hold the value of an option"
+          "description": "an unique id for picklist choice"
         },
         "title": {
           "$ref": "#/definitions/title"
@@ -452,9 +462,10 @@
         "presentation": {
           "enum": [
             "showOne",
-            "showAll"
+            "showAll",
+            "showCards"
           ],
-          "description": "showOne is only usable when maxChoices == 1"
+          "description": "showOne is only usable when maxChoices == 1. If it's showCards, maxChoices must be 1 and it will display all options as card components."
         },
         "choices": {
           "$ref": "#/definitions/cascadeChoices"
@@ -477,6 +488,26 @@
         },
         "title": {
           "$ref": "#/definitions/title"
+        },
+        "subtitle": {
+          "$ref": "#/definitions/subtitle",
+          "description": "It's only usable when presentation of cascade item is showCards"
+        },
+        "description": {
+          "$ref": "#/definitions/description",
+          "description": "It's only usable when presentation of cascade item is showCards"
+        },
+        "footer": {
+          "$ref": "#/definitions/footer",
+          "description": "It's only usable when presentation of cascade item is showCards"
+        },
+        "level": {
+          "type": "number",
+          "description": "defines the colour of the card components when the presentation of cascade item is showCards. Starts at zero."
+        },
+        "isDisabled": {
+          "type": "boolean",
+          "description": "will disable this cascade choice on the UI"
         },
         "isDefault": {
           "type": "boolean",

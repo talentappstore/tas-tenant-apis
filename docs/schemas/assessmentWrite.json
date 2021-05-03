@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "id": {
+      "type": "integer"
+    },
+    "view": {
+      "type": "string",
+      "description": "unique view key"
+    }
+  },
+  "properties": {
+    "assessmentType": {
+      "$ref": "#/definitions/id"
+    },
+    "application": {
+      "$ref": "#/definitions/id"
+    },
+    "candidate": {
+      "$ref": "#/definitions/id"
+    },
+    "job": {
+      "$ref": "#/definitions/id"
+    },
+    "view": {
+      "$ref": "#/definitions/view"
+    },
+    "raiser": {
+      "description": "User who is raising this assessment",
+      "$ref": "person.json"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "assessmentType",
+    "application",
+    "candidate",
+    "job",
+    "view",
+    "raiser"
+  ]
+}

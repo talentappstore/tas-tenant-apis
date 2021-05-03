@@ -1,8 +1,8 @@
 {
   "assessmentType": 10022,
-  "applicationId": 1442,
-  "candidateId": 19967712,
-  "jobId": 102112,
+  "application": 1442,
+  "candidate": 19967712,
+  "job": 102112,
   "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
   "raiser": {
     "givenName": "Wilber",

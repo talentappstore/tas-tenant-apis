@@ -1,0 +1,46 @@
+[
+  {
+    "meta": {
+      "id": 100,
+      "created": "2015-11-05T13:15:30Z"
+    },
+    "assessmentType": 10022,
+    "assessmentTypeKey": "maths test",
+    "status": "Started",
+    "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
+    "interactionUris": {
+      "candidateInteractionUri": null,
+      "userInteractionUri": null,
+      "userAttentionRequired": false
+    },
+    "raisers": [
+      {
+        "givenName": "Fred",
+        "familyName": "Bloggs",
+        "email": "fred@gmail.com"
+      }
+    ]
+  },
+  {
+    "meta": {
+      "id": 101,
+      "created": "2025-11-05T13:15:30Z"
+    },
+    "assessmentType": 10022,
+    "assessmentTypeKey": "maths test",
+    "status": "Started",
+    "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
+    "interactionUris": {
+      "candidateInteractionUri": null,
+      "userInteractionUri": null,
+      "userAttentionRequired": false
+    },
+    "raisers": [
+      {
+        "givenName": "Wilber",
+        "familyName": "Snodgrass",
+        "email": "w.snodgrass@buckhouse.com"
+      }
+    ]
+  }
+]

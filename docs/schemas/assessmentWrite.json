@@ -8,7 +8,7 @@
     "view": {
       "type": "string",
       "description": "unique view key"
-    }
+    },
   },
   "properties": {
     "assessmentType": {
@@ -19,6 +19,9 @@
     },
     "candidate": {
       "$ref": "#/definitions/id"
+    },
+    "candidateInternal": {
+      "type": "boolean"
     },
     "job": {
       "$ref": "#/definitions/id"
@@ -36,6 +39,7 @@
     "assessmentType",
     "application",
     "candidate",
+    "candidateInternal",
     "job",
     "view",
     "raiser"

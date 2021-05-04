@@ -9,8 +9,8 @@
     "status": "Started",
     "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
     "interactionUris": {
-      "candidateInteractionUri": null,
-      "userInteractionUri": null,
+      "candidateInteractionUri": "https://www.example.com",
+      "userInteractionUri": "https://www.example.com",
       "userAttentionRequired": false
     },
     "raisers": [
@@ -31,8 +31,8 @@
     "status": "Started",
     "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
     "interactionUris": {
-      "candidateInteractionUri": null,
-      "userInteractionUri": null,
+      "candidateInteractionUri": "https://www.example.com",
+      "userInteractionUri": "https://www.example.com",
       "userAttentionRequired": false
     },
     "raisers": [

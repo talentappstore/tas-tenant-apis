@@ -1,12 +1,15 @@
 {
   "meta": {
     "id": 100,
-    "created": "2015-11-05T13:15:30Z"
+    "created": "2025-11-05T13:15:30Z"
   },
   "assessmentType": 10022,
   "assessmentTypeKey": "maths test",
+  "application": 234453,
+  "candidate": 34565743,
+  "job": 10192837,
   "status": "Started",
-  "view": "kjhh9879hoyutf74futyyb0978g56vfuygvu5",
+  "view": "46dac901-9afa-414f-9a80-f45c030edb33",
   "interactionUris": {
     "candidateInteractionUri": null,
     "userInteractionUri": null,

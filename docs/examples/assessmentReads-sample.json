@@ -2,13 +2,13 @@
   {
     "meta": {
       "id": 100,
+      "application": 234453,
+      "candidate": 34565743,
+      "job": 10192837,
       "created": "2015-11-05T13:15:30Z"
     },
     "assessmentType": 10022,
     "assessmentTypeKey": "maths test",
-    "application": 234453,
-    "candidate": 34565743,
-    "job": 10192837,
     "status": "Started",
     "view": "46dac901-9afa-414f-9a80-f45c030edb33",
     "interactionUris": {
@@ -27,13 +27,13 @@
   {
     "meta": {
       "id": 101,
+      "application": 234453,
+      "candidate": 34565743,
+      "job": 10192837,
       "created": "2025-11-05T13:15:30Z"
     },
     "assessmentType": 10022,
     "assessmentTypeKey": "maths test",
-    "application": 234453,
-    "candidate": 34565743,
-    "job": 10192837,
     "status": "Started",
     "view": "46dac901-9afa-414f-9a80-f45c030edb33",
     "interactionUris": {

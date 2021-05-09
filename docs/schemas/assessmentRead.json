@@ -87,15 +87,6 @@
     "assessmentTypeKey": {
       "$ref": "assessmentType.json#/definitions/key"
     },
-    "application": {
-      "$ref": "#/definitions/id"
-    },
-    "candidate": {
-      "$ref": "#/definitions/id"
-    },
-    "job": {
-      "$ref": "#/definitions/id"
-    },
     "status": {
       "$ref": "#/definitions/status"
     },

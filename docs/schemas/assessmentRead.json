@@ -5,6 +5,9 @@
       "title": "Pass?",
       "type": "boolean"
     },
+    "id": {
+      "type": "integer"
+    },
     "status": {
       "description": "The current disposition of an assessment",
       "enum": [
@@ -79,7 +82,7 @@
       "$ref": "assessmentMeta.json"
     },
     "assessmentType": {
-      "type": "integer"
+      "$ref": "#/definitions/id"
     },
     "assessmentTypeKey": {
       "$ref": "assessmentType.json#/definitions/key"

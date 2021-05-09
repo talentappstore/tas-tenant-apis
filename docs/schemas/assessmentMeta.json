@@ -15,6 +15,15 @@
     "id": {
       "$ref": "#/definitions/id"
     },
+    "application": {
+      "$ref": "#/definitions/id"
+    },
+    "candidate": {
+      "$ref": "#/definitions/id"
+    },
+    "job": {
+      "$ref": "#/definitions/id"
+    },
     "created": {
       "$ref": "#/definitions/created"
     }
